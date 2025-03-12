@@ -7,10 +7,13 @@ export const theme = createTheme({
       main: "#5393ff",
     },
     secondary: {
-      main: "#5393ff",
+      main: "#611232",  //9F2241
     },
     third: {
-      main: "#2DAFEB",
+      main: "#a57f2c",  //BC955C
+    },
+    forty: {
+      main: "#98989A",
     },
     lighter: {
       main: "#C5DBEB",
@@ -27,6 +30,6 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "Space Mono, monospace",
+    fontFamily: "Noto Sans, sans-serif",
   },
 });
