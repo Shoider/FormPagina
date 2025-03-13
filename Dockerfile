@@ -1,17 +1,17 @@
-FROM node:22.8.0-alpine3.20 
+FROM node:20.19.0-alpine3.21
 
-RUN addgroup -g 1001 atemporal && adduser -D -u 1001 -G atemporal atemporal
+RUN addgroup -g 1001 test && adduser -D -u 1001 -G test test
 
 WORKDIR /app
 
-COPY --chown=atemporal .next/standalone ./
-COPY --chown=atemporal .next/static ./.next/static
-COPY --chown=atemporal public ./public
+COPY --chown=test .next/standalone ./
+COPY --chown=test .next/static ./.next/static
+COPY --chown=test public ./public
 
 ENV NODE_ENV=production
 ENV PORT=3000
 
-USER atemporal
+USER test
 
 EXPOSE 3000
 

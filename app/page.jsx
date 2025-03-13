@@ -211,7 +211,8 @@ export default function Home() {
   return (
     <Container disableGutters maxWidth="xxl" sx={{background: "#FFFFFF"}}>
 
-      <Box sx={{ justifyContent: "center", display: "flex", mt: 0, background: "#F4F4F5"}}>
+      <Box sx={{ justifyContent: "center", mt: 0, background: "#F4F4F5"}}>
+        <Box sx={{ justifyContent: "center", display: "flex", mr: 2}}>
         <Image
           src="/Conagua.png"
           alt="Logo CONAGUA"
@@ -219,6 +220,7 @@ export default function Home() {
           height={200}
           priority
         />
+        </Box>
       </Box>
 
       <Box
