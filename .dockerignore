@@ -1,3 +1,8 @@
 node_modules
 .git
 .env
+.DS_Store
+Dockerfile
+venv
+*.npm
+root/.npm 

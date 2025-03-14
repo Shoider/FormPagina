@@ -1,17 +1,21 @@
-FROM node:20.19.0-alpine3.21
+FROM node:23.10.0-alpine3.21
 
-RUN addgroup -g 1001 test && adduser -D -u 1001 -G test test
+RUN apk add --no-cache curl
+
+RUN addgroup -g 1001 front && adduser -D -u 1001 -G front front
 
 WORKDIR /app
 
-COPY --chown=test .next/standalone ./
-COPY --chown=test .next/static ./.next/static
-COPY --chown=test public ./public
+COPY --chown=front .next/standalone ./
+COPY --chown=front .next/static ./.next/static
+COPY --chown=front public ./public
 
 ENV NODE_ENV=production
 ENV PORT=3000
 
-USER test
+RUN npm install sharp
+
+USER front
 
 EXPOSE 3000
 

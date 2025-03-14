@@ -8,15 +8,9 @@ import {
   useTheme,
   TextField,
   Button,
-  FormControl,
-  FormLabel,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
   MenuItem,
 } from "@mui/material";
 import Image from "next/image"; 
-
 
 import axios from 'axios';
 
@@ -39,6 +33,7 @@ export default function Home() {
     justificacion: ""
   });
 
+  // Constants
   const mov = [
     {
       value: 'ALTA',
@@ -115,9 +110,8 @@ export default function Home() {
     event.preventDefault();
   
     try {
-  
-      // PDF
-      const pdfResponse = await axios.post("http://127.0.0.1:3001/api/v1/generar-pdf", formData, {
+      // PDF api
+      const pdfResponse = await axios.post("http://localhost/api/v1/generar-pdf", formData, {
         responseType: "blob",
     });
   
@@ -132,7 +126,6 @@ export default function Home() {
   };
 
   //  VALIDADORES
-
   const formatMacAddress = (value) => {
     let formattedValue = value.replace(/[^0-9a-fA-F]/g, "").toUpperCase();
     let result = "";
@@ -206,47 +199,59 @@ export default function Home() {
       />
     );
   }
-  
 
   return (
     <Container disableGutters maxWidth="xxl" sx={{background: "#FFFFFF"}}>
-
-      <Box sx={{ justifyContent: "center", mt: 0, background: "#F4F4F5"}}>
-        <Box sx={{ justifyContent: "center", display: "flex", mr: 2}}>
+      
+      {/* Banner Responsive */}
+      <Box sx={{ justifyContent: "center", mt: 0, background: "#F4F4F5", width: "100%"}}>
+        <Box sx={{ justifyContent: "center", display: "flex", ml: 3}}>
         <Image
           src="/Conagua.png"
           alt="Logo CONAGUA"
           width={750}
           height={200}
+          style={{ maxWidth: "100%", height: "auto" }}
           priority
         />
         </Box>
       </Box>
 
+      {/* Form Box Responsive */}
       <Box
         component="section"
         sx={{
           mx: "auto",
-          width: 700,
+          width: "calc(100% - 32px)",
           border: "2px solid grey",
-          mt: 4,
-          mb: 8,
-          p: 3,
+          mt: 2,
+          mb: 3,
+          p: 2,
           borderRadius: 2,
-          background: "#F4F4F5"
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2"
+          },
         }}
       >
-        <Typography variant="h5" align="center" gutterBottom>
+        
+        {/* Title */}
+        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
           Formulario Para Solicitud Del Servicio De VPN
         </Typography>
+
+        {/* Form */}
         <Box
           component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "100%" } }}
+          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-
           <TextField
             id="outlined-select-currency"
             select
@@ -307,7 +312,6 @@ export default function Home() {
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
-
           <TextField
             required
             id="extension"
@@ -318,7 +322,6 @@ export default function Home() {
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 4 }}
           />
-
           <TextField
             required
             id="correo"
@@ -360,7 +363,6 @@ export default function Home() {
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
-
           <TextField
             required
             id="macadress"
@@ -371,7 +373,6 @@ export default function Home() {
             inputProps={{ maxLength: 17 }} // Limita la longitud
             sx={{background: "#FFFFFF"}}
           />
-
           <TextField
             id="outlined-select-currency"
             select
@@ -477,18 +478,51 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
 
+          {/* Buttons */}
           <Button
             type="submit"
             variant="contained"
-            sx={{ mt: 3, width: "100%", background: "#98989A" }}
+            sx={{ 
+              mt: 3, 
+              mb: 3, 
+              width: "calc(100% - 32px)",
+              ml: 2, 
+              mr:4, 
+              background: "#98989A",
+              border: "1px solid gray",
+            }}
           >
             Enviar
           </Button>
           {pdfUrl && (
-            <Button variant="solid bold" sx={{ mt: 2, width: "100%" }} href={pdfUrl} download="registro.pdf">Descargar PDF</Button>
+            <Button
+              variant="contained" // Cambia a "contained" para que tenga fondo
+              sx={{
+                mb: 3,
+                ml: 2,
+                mr:4,
+                width: "calc(100% - 32px)",
+                backgroundColor: theme.palette.secondary.main, // Establece el color de fondo
+                color: "#FFFFFF", // Establece el color del texto a blanco
+                border: "1px solid gray",
+              }}
+              href={pdfUrl}
+              download="registro.pdf"
+            >
+              Descargar PDF
+            </Button>
           )}
         </Box>
       </Box>
+
+      {/* Footer */}
+      <Box
+        sx={{
+          backgroundColor: theme.palette.secondary.main,
+          padding: '8px 16px',
+          textAlign: 'center',
+        }}
+      ></Box>
     </Container>
   );
 }
