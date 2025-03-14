@@ -37,6 +37,7 @@ Este frontend proporciona una interfaz de usuario para interactuar con la API de
     Desde el directorio del proyecto (donde se encuentra el `Dockerfile`), ejecuta el siguiente comando para construir la imagen Docker:
 
     ```bash
+    export DOCKER_CONTENT_TRUST=1
     docker build -t frontend:v1.0.0 .
     ```
 
