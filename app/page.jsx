@@ -119,7 +119,7 @@ export default function Home() {
       // PDF
       const pdfResponse = await axios.post("http://127.0.0.1:3001/api/v1/generar-pdf", formData, {
         responseType: "blob",
-      });
+    });
   
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
