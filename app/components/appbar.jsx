@@ -41,7 +41,7 @@ export default function AppbarGlobal() {
         sx={{
           backgroundColor: theme.palette.third.main,
           padding: '8px 16px',
-          textAlign: 'center',
+          textAlign: 'left',
         }}
       >
       </Box>
