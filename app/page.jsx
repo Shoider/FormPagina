@@ -430,7 +430,7 @@ export default function Home() {
         }}
       >
         {/* SubTitle */}
-        <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
           CARACTERISTICAS DEL EQUIPO
         </Typography>
         <Box
