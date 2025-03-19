@@ -17,6 +17,133 @@ import {
 } from "@mui/material";
 import Image from "next/image"; 
 
+import axios from 'axios';
+
+export default function Home() {
+  const theme = useTheme();
+  const [formData, setFormData] = useState({
+    nombre: "",
+    puesto: "",
+    ua: "",
+    id: "",
+    extension: "",
+    correo: "",
+    marca: "",
+    modelo: "",
+    serie: "",
+    macadress: "",
+    jefe: "",
+    puestojefe: "",
+    servicios: "",
+    justificacion: ""
+  });
+  
+  // Generar PDF
+  const [pdfUrl, setPdfUrl] = useState(null);
+
+  // API
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
+    try {
+      // PDF api
+      const pdfResponse = await axios.post("http://localhost/api/v1/generar-pdf", formData, {
+        responseType: "blob",
+    });
+  
+      if (pdfResponse.status === 200) {
+        setPdfUrl(URL.createObjectURL(pdfResponse.data));
+      } else {
+        console.error("Error generating PDF");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  //  VALIDADORES
+  const formatMacAddress = (value) => {
+    let formattedValue = value.replace(/[^0-9a-fA-F]/g, "").toUpperCase();
+    let result = "";
+    for (let i = 0; i < formattedValue.length; i++) {
+      if (i > 0 && i % 2 === 0) {
+        result += ":";
+      }
+      result += formattedValue[i];
+    }
+    return result;
+  };
+
+  const handleMacAddressChange = (event) => {
+    const formattedValue = formatMacAddress(event.target.value);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      macadress: formattedValue,
+    }));
+  };
+
+  // Validador de numeros generico
+  function NumberTextField({ name, label, maxLength, value, onChange }) {
+    const handleNumberChange = (event) => {
+      let inputValue = event.target.value.replace(/[^0-9]/g, "");
+      inputValue = inputValue.slice(0, maxLength);
+      onChange({ target: { name, value: inputValue } });
+    };
+  
+    return (
+      <TextField
+        required
+        id={name}
+        name={name}
+        label={label}
+        value={value}
+        onChange={handleNumberChange}
+        inputProps={{ maxLength }}
+      />
+    );
+  }
+
+  const handleExtensionChange = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 4); // Limita la longitud a 4 caracteres
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      extension: value,
+    }));
+  };
+
+  function ExtensionTextField({ formData, setFormData, handleChange }) {
+    const handleExtensionChange = (event) => {
+      let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+      value = value.slice(0, 4); // Limita la longitud a 4 caracteres
+  
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        extension: value,
+      }));
+    };
+  
+    return (
+      <TextField
+        required
+        id="extension"
+        name="extension"
+        label="Extension"
+        value={formData.extension}
+        onChange={handleExtensionChange} // Usa handleExtensionChange
+      />
+    );
+  }
+
   return (
     <Container disableGutters maxWidth="xxl" sx={{background: "#FFFFFF"}}>
       
@@ -39,7 +166,7 @@ import Image from "next/image";
         <Box sx={{ justifyContent: "center", display: "flex", ml: 3}}>
         {/* Title */}
         <Typography variant="h3" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          Catalogo de Formatos
+          Formulario Para Solicitud Del Servicio De VPN
         </Typography>
         </Box>
       </Box>
