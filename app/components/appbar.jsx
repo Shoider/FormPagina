@@ -44,6 +44,11 @@ export default function AppbarGlobal() {
           textAlign: 'left',
         }}
       >
+        {/* 
+        <Typography variant="h6" align="left" gutterBottom sx={{mt: 0, ml: 1, mr:0, mb: 0, width: "calc(100% - 32px)"}}>
+          Formulario Para Solicitud Del Servicio De VPN
+        </Typography>
+        */}
       </Box>
 
     </AppBar>

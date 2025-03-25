@@ -6,10 +6,13 @@ import {
   Container,
   Typography,
   Button,
+  useTheme,
 } from "@mui/material";
 import Image from "next/image"; 
 
 export default function Home() {
+
+  const theme = useTheme();
 
   return (
     <Container disableGutters maxWidth="xxl" sx={{background: "#FFFFFF"}}>
@@ -39,17 +42,25 @@ export default function Home() {
       </Box>
 
       {/* VPN */}
-      <Box
-        component="section"
+      <Button
+        variant="outlined"
+        href="/vpn"
         sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
+          width: 'auto%',
+          height: 'calc(100% - 32px)',
+          border: "2px solid grey", 
           mt: 2,
           mb: 3,
+          ml: 2,
+          mr: 2,
           p: 2,
+          color: theme.palette.text.dark,
           borderRadius: 2,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           background: "#F4F4F5",
+          boxSizing: 'border-box',
           padding: "0 8px",
           "@media (min-width: 960px)": {
             maxWidth: "50.00%",
@@ -57,124 +68,53 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2"
           },
+          fontSize: theme.typography.h4.fontSize,
+          '&:hover': {
+            transform: 'scale(1.02)',
+            transition: 'transform 0.3s ease-in-out',
+            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+          },
         }}
       >
-
-        {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, ml: 2, mr:4, mb: 3, width: "calc(100% - 32px)"}}>
-          Formulario Para Solicitud Del Servicio De VPN
-        </Typography>
-
-      </Box>
+        Solicitud Del Servicio De VPN
+      </Button>
 
       {/* RFC */}
-      <Box
-        component="section"
+      <Button
+        variant="outlined"
+        href="/rfc"
         sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
+          width: 'auto%',
+          height: 'calc(100% - 32px)',
+          border: "2px solid grey", //
           mt: 2,
           mb: 3,
+          ml: 2,
+          mr: 2,
           p: 2,
+          color: theme.palette.text.dark,
           borderRadius: 2,
+          display: 'flex',
           background: "#F4F4F5",
+          boxSizing: 'border-box',
           padding: "0 8px",
           "@media (min-width: 960px)": {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2"
+          },
+          fontSize: theme.typography.h4.fontSize,
+          '&:hover': {
+            transform: 'scale(1.02)',
+            transition: 'transform 0.3s ease-in-out',
+            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
           },
         }}
       >
+        RFC
+      </Button>
 
-        {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, ml: 2, mr:4, mb: 3, width: "calc(100% - 32px)"}}>
-          RFC
-        </Typography>
-
-      </Box>
-
-      {/* Enviar Informacion */}
-      {/* Box Responsive */}
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2"
-          },
-        }}
-      > 
-        {/* SubTitle */}
-        <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          GENERAR SOLICITUD
-        </Typography>
-        <Box
-          component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-
-          {/* Buttons */}
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ 
-              mt: 3, 
-              mb: 3, 
-              width: "calc(100% - 32px)",
-              ml: 2, 
-              mr:4, 
-              background: "#98989A",
-              border: "1px solid gray",
-            }}
-          >
-            Enviar
-          </Button>
-          {pdfUrl && (
-            <Button
-              variant="contained" // Cambia a "contained" para que tenga fondo
-              sx={{
-                mb: 3,
-                ml: 2,
-                mr:4,
-                width: "calc(100% - 32px)",
-                backgroundColor: theme.palette.secondary.main, // Establece el color de fondo
-                color: "#FFFFFF", // Establece el color del texto a blanco
-                border: "1px solid gray",
-              }}
-              href={pdfUrl}
-              download="registro.pdf"
-            >
-              Descargar PDF
-            </Button>
-          )}
-        </Box>
-      </Box>
-
-      {/* Footer */}
-      <Box
-        sx={{
-          backgroundColor: theme.palette.secondary.main,
-          padding: '8px 16px',
-          textAlign: 'center',
-        }}
-      ></Box>
     </Container>
   );
 }
