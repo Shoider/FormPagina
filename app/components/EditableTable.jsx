@@ -27,7 +27,7 @@ function EditToolbar(props) {
     ]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'SO' },
     }));
   };
 
@@ -87,11 +87,11 @@ function EditableTable({ initialData, onDataChange }) {
   const columns = [
     { field: 'id', 
       headerName: 'N°',
-      type: 'number', 
+      //type: 'number', 
       width: 40, 
       align: 'center',
       headerAlign: 'center',
-      editable: true
+      editable: false
     },
     {  field: 'SO', 
       headerName: 'Sistema\nOrigen',

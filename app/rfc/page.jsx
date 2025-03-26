@@ -28,6 +28,10 @@ export default function Home() {
   const [cambioIsTrue, setCambioIsTrue] = useState(false)
   const [bajaIsTrue, setBajaIsTrue] = useState(false)
 
+  // Tablas
+
+  const [tableData, setTableData] = useState([]);
+
   const [formData, setFormData] = useState({
     movimiento: "", 
     desotro: "",
@@ -40,7 +44,7 @@ export default function Home() {
     exts: "",
     puestos: "",
     area: "",
-    desc: "",
+    desdet: "",
     puestoei: "",
     nombreJefe: "",
     puestoJefe: "",
@@ -65,11 +69,17 @@ export default function Home() {
     }));
   };
 
+  // Tablas
+
+  const handleTableDataChange = (data) => {
+    setTableData(data);
+  };
+
   // Checkbox Funcionalidad
 
   const saveAltaComboBox = async (event) => {
-    console.log(event)
-    console.log(!altaIsTrue)
+    //console.log(event)
+    //console.log(!altaIsTrue)
     const { name, value, type, checked } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -79,8 +89,6 @@ export default function Home() {
   }
 
   const saveCambioComboBox = async (event) => {
-    console.log(event)
-    console.log(!cambioIsTrue)
     const { name, value, type, checked } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -90,8 +98,6 @@ export default function Home() {
   }
 
   const saveBajaComboBox = async (event) => {
-    console.log(event)
-    console.log(!bajaIsTrue)
     const { name, value, type, checked } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -121,28 +127,7 @@ export default function Home() {
 
   //  VALIDADORES
 
-  // Validador de numeros generico
-  function NumberTextField({ name, label, maxLength, value, onChange }) {
-    const handleNumberChange = (event) => {
-      let inputValue = event.target.value.replace(/[^0-9]/g, "");
-      inputValue = inputValue.slice(0, maxLength);
-      onChange({ target: { name, value: inputValue } });
-    };
-  
-    return (
-      <TextField
-        required
-        id={name}
-        name={name}
-        label={label}
-        value={value}
-        onChange={handleNumberChange}
-        inputProps={{ maxLength }}
-      />
-    );
-  }
-
-  const handleExtensionChange = (event) => {
+  const handleExtensionChangeE = (event) => {
     let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
     value = value.slice(0, 4); // Limita la longitud a 4 caracteres
 
@@ -151,13 +136,14 @@ export default function Home() {
       extei: value,
     }));
   };
+  const handleExtensionChangeS = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 4); // Limita la longitud a 4 caracteres
 
-  // Tablas
-
-  const [tableData, setTableData] = useState([]);
-
-  const handleTableDataChange = (data) => {
-    setTableData(data);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      exts: value,
+    }));
   };
 
   // Seleccion Tipo de Cambio
@@ -366,14 +352,14 @@ export default function Home() {
             name="extei"
             label="Teléfono / Extensión"
             value={formData.extei}
-            onChange={handleExtensionChange}
+            onChange={handleExtensionChangeE}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 4 }}
           />
           <TextField
             required
-            id="puestojefe"
-            name="puestojefe"
+            id="puestoei"
+            name="puestoei"
             label="Puesto ó Cargo"
             value={formData.puestoei}
             onChange={handleChange}
@@ -436,14 +422,14 @@ export default function Home() {
             name="extei"
             label="Teléfono / Extensión"
             value={formData.exts}
-            onChange={handleExtensionChange}
+            onChange={handleExtensionChangeS}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 4 }}
           />
           <TextField
             required
-            id="puesto"
-            name="puesto"
+            id="puestos"
+            name="puestos"
             label="Puesto"
             value={formData.puestos}
             onChange={handleChange}
@@ -497,8 +483,8 @@ export default function Home() {
         >
           <TextField
             required
-            id="jefe"
-            name="jefe"
+            id="nombreJefe"
+            name="nombreJefe"
             label="Nombre de Gerente ó Director Local"
             value={formData.nombreJefe}
             onChange={handleChange}
@@ -507,8 +493,8 @@ export default function Home() {
           />
           <TextField
             required
-            id="puestojefe"
-            name="puestojefe"
+            id="puestoJefe"
+            name="puestoJefe"
             label="Puesto ó Cargo del que Autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
@@ -518,8 +504,6 @@ export default function Home() {
         
         </Box>
       </Box>
-
-      
 
       {/* DESCRIPCION */}
       {/* Form Box Responsive */}
@@ -600,13 +584,19 @@ export default function Home() {
                 label="BAJA"
               />
             </FormGroup>
+            <FormLabel
+              component="legend"
+              sx={{ mt: 1, display: 'flex', justifyContent: 'center', fontSize: '0.8rem' }}
+            >
+              En caso de traslado llenar ambas tablas mostradas
+            </FormLabel>
           </Box>
           
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
           <TextField
             required
-            id="desc"
-            name="desc"
+            id="desdet"
+            name="desdet"
             label="Descripcion Detallada"
             placeholder="Descripción a detalle de las configuraciones solicitadas"
             value={formData.desc}
@@ -654,10 +644,13 @@ export default function Home() {
           
           <EditableTable onDataChange={handleTableDataChange}/>
 
-        </Box>        
-          <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, mb:3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-            * En caso de proporcionar dirección NAT verificar que sea la correcta
-          </Typography>
+        </Box>
+        <FormLabel
+          component="legend"
+          sx={{ mx: "auto", mb: 3, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+        >
+          En caso de proporcionar dirección NAT verificar que sea la correcta
+        </FormLabel>      
       </Box>
 
       {/* CAMBIOS*/}
@@ -698,9 +691,12 @@ export default function Home() {
           <EditableTable onDataChange={handleTableDataChange}/>
 
         </Box>
-        <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, mb:3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-            * En caso de proporcionar dirección NAT verificar que sea la correcta
-          </Typography>
+        <FormLabel
+          component="legend"
+          sx={{ mx: "auto", mb: 3, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+        >
+          En caso de proporcionar dirección NAT verificar que sea la correcta
+        </FormLabel>
       </Box>
 
       {/* BAJAS */}
@@ -741,9 +737,12 @@ export default function Home() {
           <EditableTable onDataChange={handleTableDataChange}/>
 
         </Box>
-        <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, mb:3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-            * En caso de proporcionar dirección NAT verificar que sea la correcta
-          </Typography>
+        <FormLabel
+          component="legend"
+          sx={{ mx: "auto", mb: 3, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+        >
+          En caso de proporcionar dirección NAT verificar que sea la correcta
+        </FormLabel>
       </Box>
 
       {/* JUSTIFICACION */}

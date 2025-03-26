@@ -65,7 +65,7 @@ export default function AppbarGlobal() {
               }}
             />
           </Box>
-          <CurrentLocation /> {/* Agrega el componente aquí */}
+          <CurrentLocation />
         </Toolbar>
       </Box>
 
