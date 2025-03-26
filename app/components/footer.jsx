@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Container, IconButton, Typography } from "@mui/material";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import XIcon from '@mui/icons-material/X';
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import Link from "next/link";
@@ -261,12 +261,12 @@ export default function FooterGlobal() {
                 noWrap
                 sx={{
                   fontWeight: 600,
-                  letterSpacing: ".4rem",
+                  letterSpacing: ".1rem",
                   color: "white",
                   textDecoration: "none"
                 }}
               >
-                Follow Us
+                Síguenos en
               </Typography>
               <Box 
                 sx={{ 
@@ -280,17 +280,19 @@ export default function FooterGlobal() {
                   sx={{
                     p: 0,
                     mr: 2,
+                    color: "white",
                     "&:hover": {
                       color: "#1DA1F2" // Twitter blue
                     }
                   }}
                 >
-                  <TwitterIcon />
+                  <XIcon />
                 </IconButton>
                 <IconButton
                   sx={{
                     p: 0,
                     mr: 2,
+                    color: "white",
                     "&:hover": {
                       color: "#E1306C" // Instagram pink
                     }
@@ -301,6 +303,7 @@ export default function FooterGlobal() {
                 <IconButton
                   sx={{
                     p: 0,
+                    color: "white",
                     "&:hover": {
                       color: "#4267B2" // Facebook blue
                     }

@@ -22,6 +22,12 @@ import axios from 'axios';
 
 export default function Home() {
   const theme = useTheme();
+
+  // Checkbox
+  const [altaIsTrue, setAltaIsTrue] = useState(false)
+  const [cambioIsTrue, setCambioIsTrue] = useState(false)
+  const [bajaIsTrue, setBajaIsTrue] = useState(false)
+
   const [formData, setFormData] = useState({
     movimiento: "", 
     desotro: "",
@@ -42,9 +48,9 @@ export default function Home() {
     justifica2: "",
     justifica3: "",
     // Estados para checkbox
-    ALTA: false,
-    BAJA: false,
-    CAMBIO: false
+    ALTA: altaIsTrue,
+    BAJA: bajaIsTrue,
+    CAMBIO: cambioIsTrue
   });
   
   // Generar PDF
@@ -59,12 +65,47 @@ export default function Home() {
     }));
   };
 
+  // Checkbox Funcionalidad
+
+  const saveAltaComboBox = async (event) => {
+    console.log(event)
+    console.log(!altaIsTrue)
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setAltaIsTrue(!altaIsTrue)
+  }
+
+  const saveCambioComboBox = async (event) => {
+    console.log(event)
+    console.log(!cambioIsTrue)
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setCambioIsTrue(!cambioIsTrue)
+  }
+
+  const saveBajaComboBox = async (event) => {
+    console.log(event)
+    console.log(!bajaIsTrue)
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setBajaIsTrue(!bajaIsTrue)
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
   
     try {
       // PDF api
-      const pdfResponse = await axios.post("http://localhost/api/v1/generar-pdf", formData, {
+      const pdfResponse = await axios.post("http://localhost/api/v1/rfc", formData, {
         responseType: "blob",
     });
   
@@ -513,6 +554,55 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
+
+          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 3, mb:1 }} />
+
+          {/* Checkbox */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2, mb: 1 }}>
+            <FormLabel
+              component="legend"
+              sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+            >
+              Tipo de Movimiento *
+            </FormLabel>
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.ALTA}
+                    onChange={saveAltaComboBox}
+                    name="ALTA"
+                    color="primary"
+                  />
+                }
+                label="ALTA"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.CAMBIO}
+                    onChange={saveCambioComboBox}
+                    name="CAMBIO"
+                    color="primary"
+                  />
+                }
+                label="CAMBIO"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.BAJA}
+                    onChange={saveBajaComboBox}
+                    name="BAJA"
+                    color="primary"
+                  />
+                }
+                label="BAJA"
+              />
+            </FormGroup>
+          </Box>
+          
+          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
           <TextField
             required
             id="desc"
@@ -524,48 +614,6 @@ export default function Home() {
             sx={{background: "#FFFFFF", mb:3}}
             inputProps={{ maxLength: 256 }}
           />
-
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2}} />
-
-          {/* Checkbox */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2, mb: 3 }}>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.ALTA}
-                    onChange={handleChange}
-                    name="Altas"
-                    color="primary"
-                  />
-                }
-                label="ALTA"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.BAJA}
-                    onChange={handleChange}
-                    name="Bajas"
-                    color="primary"
-                  />
-                }
-                label="BAJA"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.CAMBIO}
-                    onChange={handleChange}
-                    name="Cambios"
-                    color="primary"
-                  />
-                }
-                label="CAMBIO"
-              />
-            </FormGroup>
-          </Box>
-
         </Box>
       </Box>
 
@@ -589,6 +637,7 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2"
           },
+          display: formData.ALTA ? 'block' : 'none'
         }}
       >
         {/* SubTitle */}
@@ -605,7 +654,10 @@ export default function Home() {
           
           <EditableTable onDataChange={handleTableDataChange}/>
 
-        </Box>
+        </Box>        
+          <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, mb:3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            * En caso de proporcionar dirección NAT verificar que sea la correcta
+          </Typography>
       </Box>
 
       {/* CAMBIOS*/}
@@ -628,6 +680,7 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2"
           },
+          display: formData.CAMBIO ? 'block' : 'none'
         }}
       >
         {/* SubTitle */}
@@ -645,6 +698,9 @@ export default function Home() {
           <EditableTable onDataChange={handleTableDataChange}/>
 
         </Box>
+        <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, mb:3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            * En caso de proporcionar dirección NAT verificar que sea la correcta
+          </Typography>
       </Box>
 
       {/* BAJAS */}
@@ -667,6 +723,7 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2"
           },
+          display: formData.BAJA ? 'block' : 'none'
         }}
       >
         {/* SubTitle */}
@@ -684,6 +741,9 @@ export default function Home() {
           <EditableTable onDataChange={handleTableDataChange}/>
 
         </Box>
+        <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, mb:3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            * En caso de proporcionar dirección NAT verificar que sea la correcta
+          </Typography>
       </Box>
 
       {/* JUSTIFICACION */}
