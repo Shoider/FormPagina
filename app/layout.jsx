@@ -1,6 +1,7 @@
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "./styles/global-theme";
 import AppbarGlobal from "./components/appbar";
+import FooterGlobal from "./components/footer";
 import "@fontsource/noto-sans";
 
 export const metadata = {
@@ -24,7 +25,7 @@ export default function RootLayout({ children }) {
           >
             <AppbarGlobal />
             {children}
-            {/*<FooterGlobal />*/}
+            <FooterGlobal />
           </Box>
         </ThemeProvider>
       </body>
