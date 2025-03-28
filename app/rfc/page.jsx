@@ -19,6 +19,7 @@ import {
 import Image from "next/image"; 
 import EditableTable from "../components/EditableTable.jsx";
 import axios from 'axios';
+import { useEffect } from "react";
 
 export default function Home() {
   const theme = useTheme();
@@ -32,6 +33,10 @@ export default function Home() {
 
   const [tableData, setTableData] = useState([]);
 
+  const [altaTableData, setAltaTableData] = useState([]);
+  const [cambioTableData, setCambioTableData] = useState([]);
+  const [bajaTableData, setBajaTableData] = useState([]);
+
   const [formData, setFormData] = useState({
     movimiento: "", 
     desotro: "",
@@ -43,18 +48,22 @@ export default function Home() {
     noms: "",
     exts: "",
     puestos: "",
-    area: "",
+    areas: "",
     desdet: "",
     puestoei: "",
     nombreJefe: "",
     puestoJefe: "",
-    justifica1: "",
+    justifica: "",
     justifica2: "",
     justifica3: "",
     // Estados para checkbox
     ALTA: altaIsTrue,
     BAJA: bajaIsTrue,
-    CAMBIO: cambioIsTrue
+    CAMBIO: cambioIsTrue,
+    //
+    registrosAltas: [],
+    registrosCambios: [],
+    registrosBajas: [],
   });
   
   // Generar PDF
@@ -71,8 +80,33 @@ export default function Home() {
 
   // Tablas
 
+  useEffect(() => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      registrosAltas: altaTableData,
+      registrosCambios: cambioTableData,
+      registrosBajas: bajaTableData,
+    }));
+  }, [altaTableData, cambioTableData, bajaTableData]);
+
   const handleTableDataChange = (data) => {
+    console.log("Datos de la tabla:", data);
     setTableData(data);
+  };
+
+  const handleAltaTableDataChange = (data) => {
+    console.log("Datos de la tabla ALTA:", data);
+    setAltaTableData(data);
+  };
+  
+  const handleCambioTableDataChange = (data) => {
+    console.log("Datos de la tabla CAMBIO:", data);
+    setCambioTableData(data);
+  };
+  
+  const handleBajaTableDataChange = (data) => {
+    console.log("Datos de la tabla BAJA:", data);
+    setBajaTableData(data);
   };
 
   // Checkbox Funcionalidad
@@ -110,8 +144,17 @@ export default function Home() {
     event.preventDefault();
   
     try {
+      const formDataToSend = {
+        ...formData,
+        //registros: tableData, // Agregamos los datos de la tabla
+      };
+      console.log("Datos de formData:", formData);
+      console.log("Datos de Registros:", tableData);
+      console.log("Datos de formDataToSend:", formDataToSend);
+      
+
       // PDF api
-      const pdfResponse = await axios.post("http://localhost/api/v1/rfc", formData, {
+      const pdfResponse = await axios.post("http://localhost/api/v1/rfc", formDataToSend, {
         responseType: "blob",
     });
   
@@ -418,8 +461,8 @@ export default function Home() {
           />
           <TextField
             required
-            id="extie"
-            name="extei"
+            id="exts"
+            name="exts"
             label="Teléfono / Extensión"
             value={formData.exts}
             onChange={handleExtensionChangeS}
@@ -438,10 +481,10 @@ export default function Home() {
           />
           <TextField
             required
-            id="area"
-            name="area"
+            id="areas"
+            name="areas"
             label="Área"
-            value={formData.area}
+            value={formData.areas}
             onChange={handleChange}
             sx={{background: "#FFFFFF", mb: 3}}
             inputProps={{ maxLength: 256 }}
@@ -642,7 +685,7 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           
-          <EditableTable onDataChange={handleTableDataChange}/>
+          <EditableTable onDataChange={handleAltaTableDataChange} />
 
         </Box>
         <FormLabel
@@ -688,7 +731,7 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           
-          <EditableTable onDataChange={handleTableDataChange}/>
+          <EditableTable onDataChange={handleCambioTableDataChange} />
 
         </Box>
         <FormLabel
@@ -734,7 +777,7 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           
-          <EditableTable onDataChange={handleTableDataChange}/>
+          <EditableTable onDataChange={handleBajaTableDataChange} />
 
         </Box>
         <FormLabel
@@ -780,11 +823,11 @@ export default function Home() {
         >
           <TextField
             required
-            id="justifica1"
-            name="justifica1"
+            id="justifica"
+            name="justifica"
             label="Referencias"
             placeholder="Documentacion de los sistemas y/o plataformas que soportan y/o justifican los cambios solicitados"
-            value={formData.justifica1}
+            value={formData.justifica}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
