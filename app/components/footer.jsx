@@ -45,9 +45,7 @@ export default function FooterGlobal() {
                   soporte@formulario.com
                 </Typography>
                 <Typography
-                component={Link}
                 color="inherit"
-                href="/about"
                 variant="body2"
                 sx={{ 
                   mb: {
@@ -61,9 +59,7 @@ export default function FooterGlobal() {
                   
                 </Typography>
                 <Typography
-                component={Link}
                 color="inherit"
-                href="/contact"
                 variant="body2"
                 sx={{ 
                   mb: {
@@ -77,9 +73,7 @@ export default function FooterGlobal() {
                   
                 </Typography>
                 <Typography
-                component={Link}
                 color="inherit"
-                href="/work"
                 variant="body2"
                 sx={{ 
                   mb: {
@@ -113,9 +107,7 @@ export default function FooterGlobal() {
                   
                 </Typography>
                 <Typography
-                component={Link}
                 color="inherit"
-                href="/services"
                 variant="body2"
                 sx={{ 
                   mb: {
@@ -130,8 +122,6 @@ export default function FooterGlobal() {
                 </Typography>
                 <Typography
                 component={Link}
-                color="inherit"
-                href="/pricing"
                 variant="body2"
                 sx={{ 
                   mb: {
@@ -181,9 +171,7 @@ export default function FooterGlobal() {
                   
                 </Typography>
                 <Typography
-                component={Link}
                 color="inherit"
-                href="/terms"
                 variant="body2"
                 sx={{ 
                   mb: {
@@ -197,9 +185,7 @@ export default function FooterGlobal() {
                   
                 </Typography>
                 <Typography
-                component={Link}
                 color="inherit"
-                href="/cookie"
                 variant="body2"
                 sx={{ 
                   mb: {
@@ -213,9 +199,7 @@ export default function FooterGlobal() {
                   
                 </Typography>
                 <Typography
-                component={Link}
                 color="inherit"
-                href="/privacy"
                 variant="body2"
                 sx={{ mb: 3, textDecoration: "none", display: "block", '&:hover': { color: '#FF1B6B' }}}>
                   
