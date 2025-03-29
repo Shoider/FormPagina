@@ -54,7 +54,7 @@ export default function Home() {
   
     try {
       // PDF api
-      const pdfResponse = await axios.post("http://formulario_api/api/v1/vpn", formData, {
+      const pdfResponse = await axios.post("http://formulario_api:8000/api/v1/vpn", formData, {
         responseType: "blob",
     });
   

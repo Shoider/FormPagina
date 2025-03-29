@@ -154,7 +154,7 @@ export default function Home() {
       
 
       // PDF api
-      const pdfResponse = await axios.post("http://formulario_api/api/v1/rfc", formDataToSend, {
+      const pdfResponse = await axios.post("http://formulario_api:8000/api/v1/rfc", formDataToSend, {
         responseType: "blob",
     });
   
