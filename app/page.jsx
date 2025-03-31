@@ -18,16 +18,46 @@ export default function Home() {
     <Container disableGutters maxWidth="xxl" sx={{background: "#FFFFFF"}}>
       
       {/* Banner Responsive */}
-      <Box sx={{ justifyContent: "center", mt: 0, background: "#F4F4F5", width: "100%"}}>
-        <Box sx={{ justifyContent: "center", display: "flex", ml: 3}}>
+      <Box
+        sx={{
+          width: '100vw', // Ocupa todo el ancho de la ventana gráfica
+          overflow: 'hidden',
+          height: '430px', // Ajusta la altura según sea necesario
+          [theme.breakpoints.down('sm')]: {
+            height: 'auto', // Ajusta la altura automáticamente en pantallas pequeñas
+          },
+        }}
+      >
         <Image
-          src="/Conagua.png"
-          alt="Logo CONAGUA"
-          width={750}
-          height={200}
-          style={{ maxWidth: "100%", height: "auto" }}
-          priority
+          src="/background_Conagua_header_150.jpg" // Ruta de la imagen recortable
+          alt="Imagen recortable"
+          width={6000} // Ajusta el ancho según sea necesario
+          height={1200} // Ajusta la altura según sea necesario
+          style={{
+            maxWidth: '100vw', // Usa max-width en lugar de width
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center', // Centra la imagen
+          }}
+          sizes="(max-width: 600px) 100vw, 1920px" // Ajusta los sizes según sea necesario
         />
+        {/* Imagen fija para pantallas pequeñas */}
+        <Box
+          sx={{
+            display: { xs: 'block', sm: 'none' }, // Mostrar solo en pantallas pequeñas
+          }}
+        >
+          <Image
+            src="/mobile_background_Icono_150.jpg" // Ruta de la imagen fija
+            alt="Imagen fija"
+            width={1690} // Ajusta el ancho según sea necesario
+            height={1312} // Ajusta la altura según sea necesario
+            style={{
+              width: '100%',
+              height: 'auto',
+            }}
+            sizes="100vw"
+          />
         </Box>
       </Box>
 

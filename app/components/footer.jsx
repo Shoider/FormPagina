@@ -1,10 +1,9 @@
 "use client";
 
-import { Box, Container, IconButton, Typography } from "@mui/material";
+import { Box, Container, IconButton, Typography, Grid } from "@mui/material";
 import XIcon from '@mui/icons-material/X';
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import Grid from "@mui/material/Grid2";
 import { theme } from "../styles/global-theme";
 
 export default function FooterGlobal() {
@@ -18,124 +17,30 @@ export default function FooterGlobal() {
       }}
     >
       <Container maxWidth="lg">
-
-        <Grid container>
-
-          <Grid size={{xs: 12, sm: 6}}>
-
-            <Grid container spacing={{xs: 1, sm: 4}}>
-              <Grid size={{xs: 12, sm: 4}}
-                sx={{
-                  textAlign: {
-                    xs: 'center',
-                    sm: 'left'
-                  },
-                }}
-              >
-                <Typography variant="h6" fontWeight={700}
-                  sx={{ 
-                    mb: {
-                      xs: 1,
-                      sm: 2
-                    },
-                    color: "white"
-                  }}>
-                  Contacto:
-                  soporte@formulario.com
-                </Typography>
-                
-              </Grid>
-            </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h6" fontWeight={700} color="white" textAlign={{ xs: 'center', sm: 'left' }}>
+              Contacto: soporte@formulario.com
+            </Typography>
           </Grid>
+          <Grid item xs={12} sm={6} textAlign={{ xs: 'center', sm: 'right' }}>
+            <Typography variant="h5" fontWeight={600} color="white">
+              Síguenos en
+            </Typography>
+            <Box mt={2} display="flex" justifyContent="right" alignItems="center" gap={1}>
 
+              <IconButton  sx={{ color: "white", '&:hover': { color: '#000000' } }}>
+                <XIcon />
+              </IconButton>
 
-          <Grid
-            size={{xs: 12, sm: 6}}
-            sx={{
-              display: {
-                xs: "flex",
-                sm: "block"
-              },
-              flexDirection: "column",
-              alignItems: {
-                xs: "center",
-                sm: "end"
-              },
-              justifyContent: "center"
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: {
-                  xs: "center",
-                  sm: "end"
-                },
-                textAlign: "center",
-                mr: {
-                  xs: 0,
-                  sm: 4
-                },
-                mt: 2
-              }}
-            >
-              <Typography
-                variant="h5"
-                noWrap
-                sx={{
-                  fontWeight: 600,
-                  letterSpacing: ".1rem",
-                  color: "white",
-                  textDecoration: "none"
-                }}
-              >
-                Síguenos en
-              </Typography>
-              <Box 
-                sx={{ 
-                  mt: 2,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center"
-                }}
-              >
-                <IconButton
-                  sx={{
-                    p: 0,
-                    mr: 2,
-                    color: "white",
-                    "&:hover": {
-                      color: "#1DA1F2" // Twitter blue
-                    }
-                  }}
-                >
-                  <XIcon />
-                </IconButton>
-                <IconButton
-                  sx={{
-                    p: 0,
-                    mr: 2,
-                    color: "white",
-                    "&:hover": {
-                      color: "#E1306C" // Instagram pink
-                    }
-                  }}
-                >
-                  <InstagramIcon />
-                </IconButton>
-                <IconButton
-                  sx={{
-                    p: 0,
-                    color: "white",
-                    "&:hover": {
-                      color: "#4267B2" // Facebook blue
-                    }
-                  }}
-                >
-                  <FacebookIcon />
-                </IconButton>
-              </Box>
+              <IconButton  sx={{ color: "white", '&:hover': { color: '#E1306C' } }}>
+                <InstagramIcon />
+              </IconButton>
+
+              <IconButton  sx={{ color: "white", '&:hover': { color: '#4267B2' } }}>
+                <FacebookIcon />
+              </IconButton>
+
             </Box>
           </Grid>
         </Grid>
