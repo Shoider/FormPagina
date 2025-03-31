@@ -164,7 +164,7 @@ export default function Home() {
       console.log("Datos de formDataToSend:", formDataToSend);
 
       // PDF api
-      const pdfResponse = await axios.post("http://formulario_api:8000/api/v1/rfc", formDataToSend, {
+      const pdfResponse = await axios.post("/api/v1/rfc", formDataToSend, {
         responseType: "blob",
     });
   
