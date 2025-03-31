@@ -89,23 +89,18 @@ export default function Home() {
     }));
   }, [altaTableData, cambioTableData, bajaTableData]);
 
-  const handleTableDataChange = (data) => {
-    console.log("Datos de la tabla:", data);
-    setTableData(data);
-  };
-
   const handleAltaTableDataChange = (data) => {
-    console.log("Datos de la tabla ALTA:", data);
+    //console.log("Datos de la tabla ALTA:", data);
     setAltaTableData(data);
   };
   
   const handleCambioTableDataChange = (data) => {
-    console.log("Datos de la tabla CAMBIO:", data);
+    //console.log("Datos de la tabla CAMBIO:", data);
     setCambioTableData(data);
   };
   
   const handleBajaTableDataChange = (data) => {
-    console.log("Datos de la tabla BAJA:", data);
+    //console.log("Datos de la tabla BAJA:", data);
     setBajaTableData(data);
   };
 
@@ -124,12 +119,28 @@ export default function Home() {
 
   const saveCambioComboBox = async (event) => {
     const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setCambioIsTrue(!cambioIsTrue)
-  }
+    setFormData((prevFormData) => {
+      let updatedFormData = {
+        ...prevFormData,
+        [name]: type === 'checkbox' ? checked : value,
+      };
+  
+      if (checked) {      // Si "CAMBIO" está seleccionado
+        updatedFormData = {
+          ...updatedFormData,
+          BAJA: true,     // Selecciona automáticamente BAJA
+        };
+      }
+  
+      return updatedFormData;
+    });
+    setCambioIsTrue(!cambioIsTrue);
+
+    console.log(event)
+    console.log(!cambioIsTrue)
+    console.log(!bajaIsTrue)
+
+  };
 
   const saveBajaComboBox = async (event) => {
     const { name, value, type, checked } = event.target;
@@ -148,10 +159,9 @@ export default function Home() {
         ...formData,
         //registros: tableData, // Agregamos los datos de la tabla
       };
-      console.log("Datos de formData:", formData);
-      console.log("Datos de Registros:", tableData);
+      //console.log("Datos de formData:", formData);
+      //console.log("Datos de Registros:", tableData);
       console.log("Datos de formDataToSend:", formDataToSend);
-      
 
       // PDF api
       const pdfResponse = await axios.post("http://formulario_api:8000/api/v1/rfc", formDataToSend, {
