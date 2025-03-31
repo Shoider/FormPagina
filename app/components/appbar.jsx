@@ -51,10 +51,14 @@ export default function AppbarGlobal() {
           [theme.breakpoints.up('md')]: { // Media query para pantallas medianas y grandes
             padding: '1px 8px', // Estilos para pantallas medianas y grandes
           },
+          [theme.breakpoints.down('md')]: { // Media query para pantallas medianas y grandes
+            padding: '1px 8px', // Estilos para pantallas medianas y grandes
+          },
         }}
       >
         {/* Se oculta en pantallas pequeñas */}
-        <Toolbar sx={{display: { xs: "none", md: "flex" },}}>
+        {/* <Toolbar sx={{display: { xs: "none", md: "flex" },}}> */}
+        <Toolbar sx={{display: "flex"}}>
           <Box noWrap component={Link} href="/" >
             <HomeIcon 
               sx={{ 

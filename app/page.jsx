@@ -23,43 +23,46 @@ export default function Home() {
           width: '100vw', // Ocupa todo el ancho de la ventana gráfica
           overflow: 'hidden',
           height: '430px', // Ajusta la altura según sea necesario
-          [theme.breakpoints.down('sm')]: {
+          [theme.breakpoints.down('md')]: {
             height: 'auto', // Ajusta la altura automáticamente en pantallas pequeñas
           },
+          display: { xs: 'none', md: 'block' },
         }}
       >
         <Image
-          src="/background_Conagua_header_150.jpg" // Ruta de la imagen recortable
-          alt="Imagen recortable"
-          width={6000}
-          height={1200}
-          style={{
-            maxWidth: '100vw',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center',
-          }}
-          sizes="(max-width: 600px) 100vw, 1920px" 
+        src="/background_Conagua_header_150.jpg" // Ruta de la imagen recortable
+        alt="Imagen recortable"
+        width={6000}
+        height={1200}
+        style={{
+          maxWidth: '100vw',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: 'center',
+        }}
+        sizes="(max-width: 900px) 100vw, 1920px" 
         />
-        {/* Imagen fija para pantallas pequeñas */}
-        <Box
-          sx={{
-            display: { xs: 'block', sm: 'none' }, // Mostrar solo en pantallas pequeñas
-          }}
-        >
-          <Image
-            src="/mobile_background_Icono_150.jpg" // Ruta de la imagen fija
-            alt="Imagen fija"
-            width={1690}
-            height={1312} 
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
-            sizes="100vw"
-          />
-        </Box>
       </Box>
+      
+      {/* Imagen fija para pantallas pequeñas */}
+      <Box
+        sx={{
+          display: { xs: 'block', md: 'none' }, // Mostrar solo en pantallas pequeñas
+        }}
+      >
+        <Image
+          src="/mobile_background_Icono_150.jpg" // Ruta de la imagen fija
+          alt="Imagen fija"
+          width={1690}
+          height={1312} 
+          style={{
+            width: '100%',
+            height: 'auto',
+          }}
+          sizes="100vw"
+        />
+      </Box>
+      
 
       {/* Banner Responsive Title*/}
       <Box sx={{ justifyContent: "center", mt: 0, background: "#FFFFFF", width: "100%"}}>
