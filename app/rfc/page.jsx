@@ -125,10 +125,10 @@ export default function Home() {
         [name]: type === 'checkbox' ? checked : value,
       };
   
-      if (checked) { // Si "CAMBIO" está seleccionado
+      if (checked) {      // Si "CAMBIO" está seleccionado
         updatedFormData = {
           ...updatedFormData,
-          BAJA: true, // Selecciona automáticamente BAJA
+          BAJA: true,     // Selecciona automáticamente BAJA
         };
       }
   
@@ -161,8 +161,7 @@ export default function Home() {
       };
       //console.log("Datos de formData:", formData);
       //console.log("Datos de Registros:", tableData);
-      //console.log("Datos de formDataToSend:", formDataToSend);
-      
+      console.log("Datos de formDataToSend:", formDataToSend);
 
       // PDF api
       const pdfResponse = await axios.post("http://formulario_api:8000/api/v1/rfc", formDataToSend, {
