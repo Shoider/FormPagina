@@ -31,15 +31,15 @@ export default function Home() {
         <Image
           src="/background_Conagua_header_150.jpg" // Ruta de la imagen recortable
           alt="Imagen recortable"
-          width={6000} // Ajusta el ancho según sea necesario
-          height={1200} // Ajusta la altura según sea necesario
+          width={6000}
+          height={1200}
           style={{
-            maxWidth: '100vw', // Usa max-width en lugar de width
+            maxWidth: '100vw',
             height: '100%',
             objectFit: 'cover',
-            objectPosition: 'center', // Centra la imagen
+            objectPosition: 'center',
           }}
-          sizes="(max-width: 600px) 100vw, 1920px" // Ajusta los sizes según sea necesario
+          sizes="(max-width: 600px) 100vw, 1920px" 
         />
         {/* Imagen fija para pantallas pequeñas */}
         <Box
@@ -50,8 +50,8 @@ export default function Home() {
           <Image
             src="/mobile_background_Icono_150.jpg" // Ruta de la imagen fija
             alt="Imagen fija"
-            width={1690} // Ajusta el ancho según sea necesario
-            height={1312} // Ajusta la altura según sea necesario
+            width={1690}
+            height={1312} 
             style={{
               width: '100%',
               height: 'auto',
