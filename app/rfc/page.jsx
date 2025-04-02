@@ -18,11 +18,20 @@ import {
 } from "@mui/material";
 import Image from "next/image"; 
 import EditableTable from "../components/EditableTable.jsx";
+import Alerts from "../components/alerts.jsx";
 import axios from 'axios';
 import { useEffect } from "react";
 
 export default function Home() {
   const theme = useTheme();
+
+  // Alertas
+  const [openAlert, setOpenAlert] = useState(false);
+
+  const [alert, setAlert] = useState({
+    message: "",
+    severity: "",
+  });
 
   // Checkbox
   const [altaIsTrue, setAltaIsTrue] = useState(false)
@@ -136,9 +145,9 @@ export default function Home() {
     });
     setCambioIsTrue(!cambioIsTrue);
 
-    console.log(event)
-    console.log(!cambioIsTrue)
-    console.log(!bajaIsTrue)
+    //console.log(event)
+    //console.log(!cambioIsTrue)
+    //console.log(!bajaIsTrue)
 
   };
 
@@ -151,6 +160,15 @@ export default function Home() {
     setBajaIsTrue(!bajaIsTrue)
   }
 
+  const validarCamposRequeridos = (Data) => {
+    for (const key in Data) {
+      if (Data.hasOwnProperty(key) && !Data[key]) {
+        return false; // Al menos un campo está vacío
+      }
+    }
+    return true; // Todos los campos están llenos
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
   
@@ -161,7 +179,22 @@ export default function Home() {
       };
       //console.log("Datos de formData:", formData);
       //console.log("Datos de Registros:", tableData);
-      console.log("Datos de formDataToSend:", formDataToSend);
+      //console.log("Datos de formDataToSend:", formDataToSend);
+
+      if (!validarCamposRequeridos(formData)) {
+        setAlert({
+          message: 'Por favor, complete todos los campos requeridos.',
+          severity: "error",
+        });
+        setOpenAlert(true);
+        return;
+      }
+      else
+        setAlert({
+          message: 'Informacion Registrada',
+          severity: "success",
+        });
+        setOpenAlert(true);
 
       // PDF api
       const pdfResponse = await axios.post("/api/v1/rfc", formDataToSend, {
@@ -938,6 +971,9 @@ export default function Home() {
           )}
         </Box>
       </Box>
+
+      {/* ALERT */}
+      <Alerts open={alert.open} setOpen={(open)=>setAlert({...alert, open})} alert={{message: alert.message, severity: alert.severity}}/>
     </Container>
   );
 }
