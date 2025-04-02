@@ -18,6 +18,8 @@ import Image from "next/image";
 
 import axios from 'axios';
 
+import Alerts from "../components/alerts.jsx";
+
 export default function Home() {
   const theme = useTheme();
   const [formData, setFormData] = useState({
@@ -49,8 +51,45 @@ export default function Home() {
     }));
   };
 
+  // Alertas
+  const [openAlert, setOpenAlert] = useState(false);
+
+  const [alert, setAlert] = useState({
+    message: "",
+    severity: "",
+  });
+
+  // Boton
+  const [botonEstado, setBotonEstado] = useState('Enviar');
+
+  const validarCamposRequeridos = (Data) => {
+    for (const key in Data) {
+      if (Data.hasOwnProperty(key) && !Data[key]) {
+        return false; // Al menos un campo está vacío
+      }
+    }
+    return true; // Todos los campos están llenos
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!validarCamposRequeridos(formData)) {
+      setAlert({
+        message: 'Por favor, complete todos los campos requeridos.',
+        severity: "error",
+      });
+      setOpenAlert(true);
+      return;
+    }
+    else
+      setAlert({
+        message: 'Informacion Registrada',
+        severity: "success",
+      });
+      setOpenAlert(true);
+
+    setBotonEstado('Cargando...');
   
     try {
       // PDF api
@@ -60,11 +99,13 @@ export default function Home() {
   
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
+        setBotonEstado('Descargar PDF');
       } else {
         console.error("Error generating PDF");
       }
     } catch (error) {
       console.error("Error:", error);
+      setBotonEstado('Enviar'); // Vuelve a "Enviar" en caso de error
     }
   };
 
@@ -604,39 +645,38 @@ export default function Home() {
         </Typography>
         <Box
           component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          sx={{ '& .MuiTextField-root': { mt: 2, width: 'calc(100% - 32px)', ml: 2, mr: 4 } }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-
-          {/* Buttons */}
           <Button
             type="submit"
             variant="contained"
-            sx={{ 
-              mt: 3, 
-              mb: 3, 
-              width: "calc(100% - 32px)",
-              ml: 2, 
-              mr:4, 
-              background: "#98989A",
-              border: "1px solid gray",
+            sx={{
+              mt: 3,
+              mb: 3,
+              width: 'calc(100% - 32px)',
+              ml: 2,
+              mr: 4,
+              background: '#98989A',
+              border: '1px solid gray',
             }}
+            disabled={botonEstado === 'Cargando...'}
           >
-            Enviar
+            {botonEstado}
           </Button>
-          {pdfUrl && (
+          {botonEstado === 'Descargar PDF' && (
             <Button
-              variant="contained" // Cambia a "contained" para que tenga fondo
+              variant="contained"
               sx={{
                 mb: 3,
                 ml: 2,
-                mr:4,
-                width: "calc(100% - 32px)",
-                backgroundColor: theme.palette.secondary.main, // Establece el color de fondo
-                color: "#FFFFFF", // Establece el color del texto a blanco
-                border: "1px solid gray",
+                mr: 4,
+                width: 'calc(100% - 32px)',
+                backgroundColor: theme.palette.secondary.main,
+                color: '#FFFFFF',
+                border: '1px solid gray',
               }}
               href={pdfUrl}
               download="registro.pdf"
@@ -647,14 +687,8 @@ export default function Home() {
         </Box>
       </Box>
 
-      {/* Footer */}
-      <Box
-        sx={{
-          backgroundColor: theme.palette.secondary.main,
-          padding: '8px 16px',
-          textAlign: 'center',
-        }}
-      ></Box>
+      {/* ALERT */}
+      <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />
     </Container>
   );
 }
