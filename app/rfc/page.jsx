@@ -25,14 +25,6 @@ import { useEffect } from "react";
 export default function Home() {
   const theme = useTheme();
 
-  // Alertas
-  const [openAlert, setOpenAlert] = useState(false);
-
-  const [alert, setAlert] = useState({
-    message: "",
-    severity: "",
-  });
-
   // Checkbox
   const [altaIsTrue, setAltaIsTrue] = useState(false)
   const [cambioIsTrue, setCambioIsTrue] = useState(false)
@@ -104,12 +96,10 @@ export default function Home() {
   };
   
   const handleCambioTableDataChange = (data) => {
-    //console.log("Datos de la tabla CAMBIO:", data);
     setCambioTableData(data);
   };
   
   const handleBajaTableDataChange = (data) => {
-    //console.log("Datos de la tabla BAJA:", data);
     setBajaTableData(data);
   };
 
@@ -160,54 +150,70 @@ export default function Home() {
     setBajaIsTrue(!bajaIsTrue)
   }
 
+  // Boton
+  const [botonEstado, setBotonEstado] = useState('Enviar');
+
+  // Alertas
+  const [openAlert, setOpenAlert] = useState(false);
+
+  const [alert, setAlert] = useState({
+    message: "",
+    severity: "",
+  });
+
   const validarCamposRequeridos = (Data) => {
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
-        return false; // Al menos un campo está vacío
+        // console.log("Dato faltante en:", key);
+        if (key !== "desotro" && key !== "registrosAltas" && key !== "registrosCambios" && key !== "registrosBajas" && key != "ALTA" && key != "BAJA" && key != "CAMBIO") {
+          console.log("Falta llenar: ", key);
+          return false; // Retorna false solo si el campo vacío no es opcional
+        } else {
+          console.log("Campo opcional no llenado: ", key);
+        }
       }
     }
-    return true; // Todos los campos están llenos
+    console.log("Datos completos");
+    return true; // Todos los campos están llenos o los vacíos son opcionales
   };
-
+  
+  // Llamada API
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("Datos de formData:", formData);      // DEBUG para ver que llego antes de enviar
+
+    if (!validarCamposRequeridos(formData)) {
+      setAlert({
+        message: 'Por favor, complete todos los campos requeridos.',
+        severity: "error",
+      });
+      setOpenAlert(true);
+      return;
+    }
+    else
+      setAlert({
+        message: 'Informacion Registrada',
+        severity: "success",
+      });
+      setOpenAlert(true);
+
+    setBotonEstado('Cargando...');
   
     try {
-      const formDataToSend = {
-        ...formData,
-        //registros: tableData, // Agregamos los datos de la tabla
-      };
-      //console.log("Datos de formData:", formData);
-      //console.log("Datos de Registros:", tableData);
-      //console.log("Datos de formDataToSend:", formDataToSend);
-
-      if (!validarCamposRequeridos(formData)) {
-        setAlert({
-          message: 'Por favor, complete todos los campos requeridos.',
-          severity: "error",
-        });
-        setOpenAlert(true);
-        return;
-      }
-      else
-        setAlert({
-          message: 'Informacion Registrada',
-          severity: "success",
-        });
-        setOpenAlert(true);
-
       // PDF api
-      const pdfResponse = await axios.post("/api/v1/rfc", formDataToSend, {
+      const pdfResponse = await axios.post("/api/v1/rfc", formData, {
         responseType: "blob",
     });
   
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
+        setBotonEstado('Descargar PDF');
       } else {
         console.error("Error generating PDF");
       }
     } catch (error) {
       console.error("Error:", error);
+      setBotonEstado('Enviar'); // Vuelve a "Enviar" en caso de error
     }
   };
 
@@ -260,17 +266,49 @@ export default function Home() {
     <Container disableGutters maxWidth="xxl" sx={{background: "#FFFFFF"}}>
       
       {/* Banner Responsive */}
-      <Box sx={{ justifyContent: "center", mt: 0, background: "#F4F4F5", width: "100%"}}>
-        <Box sx={{ justifyContent: "center", display: "flex", ml: 3}}>
+      <Box
+        sx={{
+          width: '100vw', // Ocupa todo el ancho de la ventana gráfica
+          overflow: 'hidden',
+          height: '430px', // Ajusta la altura según sea necesario
+          [theme.breakpoints.down('md')]: {
+            height: 'auto', // Ajusta la altura automáticamente en pantallas pequeñas
+          },
+          display: { xs: 'none', md: 'block' },
+        }}
+      >
         <Image
-          src="/Conagua.png"
-          alt="Logo CONAGUA"
-          width={750}
-          height={200}
-          style={{ maxWidth: "100%", height: "auto" }}
-          priority
+        src="/background_Conagua_header_150.jpg" // Ruta de la imagen recortable
+        alt="Imagen recortable"
+        width={6000}
+        height={1200}
+        style={{
+          maxWidth: '100vw',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: 'center',
+        }}
+        sizes="(max-width: 900px) 100vw, 1920px" 
         />
-        </Box>
+      </Box>
+      
+      {/* Imagen fija para pantallas pequeñas */}
+      <Box
+        sx={{
+          display: { xs: 'block', md: 'none' }, // Mostrar solo en pantallas pequeñas
+        }}
+      >
+        <Image
+          src="/mobile_background_Icono_150.jpg" // Ruta de la imagen fija
+          alt="Imagen fija"
+          width={1690}
+          height={1312} 
+          style={{
+            width: '100%',
+            height: 'auto',
+          }}
+          sizes="100vw"
+        />
       </Box>
 
       {/* Banner Responsive Title*/}
@@ -929,39 +967,38 @@ export default function Home() {
         </Typography>
         <Box
           component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          sx={{ '& .MuiTextField-root': { mt: 2, width: 'calc(100% - 32px)', ml: 2, mr: 4 } }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-
-          {/* Buttons */}
           <Button
             type="submit"
             variant="contained"
-            sx={{ 
-              mt: 3, 
-              mb: 3, 
-              width: "calc(100% - 32px)",
-              ml: 2, 
-              mr:4, 
-              background: "#98989A",
-              border: "1px solid gray",
+            sx={{
+              mt: 3,
+              mb: 3,
+              width: 'calc(100% - 32px)',
+              ml: 2,
+              mr: 4,
+              background: '#98989A',
+              border: '1px solid gray',
             }}
+            disabled={botonEstado === 'Cargando...'}
           >
-            Enviar
+            {botonEstado}
           </Button>
-          {pdfUrl && (
+          {botonEstado === 'Descargar PDF' && (
             <Button
-              variant="contained" // Cambia a "contained" para que tenga fondo
+              variant="contained"
               sx={{
                 mb: 3,
                 ml: 2,
-                mr:4,
-                width: "calc(100% - 32px)",
-                backgroundColor: theme.palette.secondary.main, // Establece el color de fondo
-                color: "#FFFFFF", // Establece el color del texto a blanco
-                border: "1px solid gray",
+                mr: 4,
+                width: 'calc(100% - 32px)',
+                backgroundColor: theme.palette.secondary.main,
+                color: '#FFFFFF',
+                border: '1px solid gray',
               }}
               href={pdfUrl}
               download="registro.pdf"
@@ -973,7 +1010,7 @@ export default function Home() {
       </Box>
 
       {/* ALERT */}
-      <Alerts open={alert.open} setOpen={(open)=>setAlert({...alert, open})} alert={{message: alert.message, severity: alert.severity}}/>
+      <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />
     </Container>
   );
 }
