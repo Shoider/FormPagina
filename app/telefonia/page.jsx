@@ -24,26 +24,36 @@ import Alerts from "../components/alerts.jsx";
 export default function Home() {
   const theme = useTheme();
   const [formData, setFormData] = useState({
-    nombre: "",
-    puesto: "",
-    ua: "",
-    id: "",
-    extension: "",
+    activacion: "",
+    expiracion: "",
+    nombreUsuario: "",
+    curpUsuario: "",
+    direccion: "",
+    uaUsuario: "",
+    nombreEmpleado: "",
+    idEmpleado: "",
+    curpEmpleado: "",
+    extEmpleado: "",
     correo: "",
-    marca: "",
-    modelo: "",
-    serie: "",
-    macadress: "",
-    jefe: "",
-    puestojefe: "",
-    servicios: "",
+    puestoEmpleado: "",
     justificacion: "",
+    puestoUsuario: "",
+    nombreJefe: "",
+    puestoJefe: "",
+    tipoEquipo: "",
+    
     // Radios
-    movimiento: "",
-    malware: "",
-    vigencia: "",
-    so: "",
-    licencia: ""
+    movimiento: "", //ALTA, BAJA, CAMBIO
+    tipoUsuario: "", //???
+
+    interno: "", // Opciones??
+    mundo: "",
+    local: "",
+    cLocal: "",
+    nacional: "",
+    cNacional: "",
+    eua: "",
+
   });
   
   // Generar PDF
@@ -70,68 +80,6 @@ export default function Home() {
     message: "",
     severity: "",
   });
-
-  {/*
-  // Traducir al usuario
-  const traducirCampos = (key) => {
-    if (key == "nombre") {
-      return "Nombre"
-    }
-    if (key == "puesto") {
-      return "Puesto"
-    }
-    if (key == "ua") {
-      return "Unidad Administrativa"
-    }
-    if (key == "id") {
-      return "ID de Empleado"
-    }
-    if (key == "extension") {
-      return "Extensión"
-    }
-    if (key == "correo") {
-      return "Correo Institucional"
-    }
-    if (key == "marca") {
-      return "Marca"
-    }
-    if (key == "serie") {
-      return "Serie"
-    }
-    if (key == "macadress") {
-      return "MAC Address"
-    }
-    if (key == "jefe") {
-      return "Funcionario con Cargo de Subgerente, Homologo ó Superior"
-    }
-    if (key == "puestojefe") {
-      return "Puesto ó Cargo del que Autoriza"
-    }
-    if (key == "servicios") {
-      return "Servicios que Necesita Acceder"
-    }
-    if (key == "justificacion") {
-      return "Justificacion"
-    }
-    // Radios
-    if (key == "movimiento") {
-      return "Tipo de Movimiento"
-    }
-    if (key == "malware") {
-      return "Cuenta con Anti-Malware"
-    }
-    if (key == "vigencia") {
-      return "Se Encuentra Vigente y Actualizado (Anti-Malware)"
-    }
-    if (key == "so") {
-      return "Cuenta con S.O."
-    }
-    if (key == "licencia") {
-      return "Se Encuentra Licenciado y Actualizado (S.O.)"
-    }
-    else
-      return "Desconocido"
-  } */}
 
   const validarCamposRequeridos = (Data) => {
     
@@ -180,7 +128,7 @@ export default function Home() {
   
     try {
       // PDF api
-      const pdfResponse = await axios.post("/api/v1/vpn", formData, {
+      const pdfResponse = await axios.post("/api/v1/tel", formData, {
         responseType: "blob",
     });
   
@@ -281,115 +229,8 @@ export default function Home() {
         <Box sx={{ justifyContent: "center", display: "flex", ml: 3}}>
         {/* Title */}
         <Typography variant="h3" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          Formulario Para Solicitud Del Servicio De VPN
+          Solicitud De Servicios de Telefonía
         </Typography>
-        </Box>
-      </Box>
-
-      {/* Datos del Solicitante */}
-      {/* Form Box Responsive */}
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2"
-          },
-        }}
-      >
-
-        {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          DATOS DEL USUARIO (A)
-        </Typography>
-
-        <Box
-          component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-
-          <TextField
-            required
-            error={!!errors?.nombre}
-            //helperText={"Escriba su nombre"}
-            id="nombre"
-            name="nombre"
-            label="Escriba su nombre"
-            value={formData.nombre}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 256 }}
-          /> 
-          <TextField
-            required
-            error={!!errors?.puesto}
-            id="puesto"
-            name="puesto"
-            label="Puesto ó Cargo"
-            value={formData.puesto}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.ua}
-            id="ua"
-            name="ua"
-            label="Unidad Administrativa"
-            value={formData.ua}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.id}
-            id="id"
-            name="id"
-            label="ID de Empleado"
-            value={formData.id}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.extension}
-            id="extension"
-            name="extension"
-            label="Extensión"
-            value={formData.extension}
-            onChange={handleExtensionChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 4 }}
-          />
-          <TextField
-            required
-            error={!!errors?.correo}
-            id="correo"
-            name="correo"
-            label="Correo Institucional"
-            type="email"
-            value={formData.correo}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
-            inputProps={{ maxLength: 256 }}
-          />
         </Box>
       </Box>
 
@@ -450,33 +291,117 @@ export default function Home() {
             </RadioGroup>
             <FormHelperText>{errors?.movimiento}</FormHelperText>
           </Box>
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:0 }} />
-
+          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:3 }} />
           <TextField
             required
-            error={!!errors?.servicios}
-            id="servicios"
-            name="servicios"
-            label="Servicios que Necesita Acceder"
-            value={formData.servicios}
+            error={!!errors?.justificacion}
+            id="justificacion"
+            name="justificacion"
+            label="Justificacion"
+            value={formData.justificacion}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF"}}
+            inputProps={{ maxLength: 256 }}
+          />
+        </Box>
+      </Box>
+
+      {/* Datos del Solicitante */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2"
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+          DATOS DEL USUARIO (A) QUE UTLIZARA EL SERVICIO
+        </Typography>
+
+        <Box
+          component="form"
+          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            required
+            error={!!errors?.tipoUsuario}
+            //helperText={errors.nombre}
+            id="tipoUsuario"
+            name="tipoUsuario"
+            label="Tipo de Usuario"
+            value={formData.tipoUsuario}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF"}}
+            inputProps={{ maxLength: 256 }}
+          /> 
+          <TextField
+            required
+            error={!!errors?.nombre}
+            //helperText={errors.nombre}
+            id="nombre"
+            name="nombre"
+            label="Nombre"
+            value={formData.nombre}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF"}}
+            inputProps={{ maxLength: 256 }}
+          /> 
+          <TextField
+            required
+            error={!!errors?.curp}
+            id="curp"
+            name="curp"
+            label="CURP"
+            value={formData.curp}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
-            error={!!errors?.justificacion}
-            id="justificacion"
-            name="justificacion"
-            label="Justificación"
-            value={formData.justificacion}
+            error={!!errors?.direccion}
+            id="direccion"
+            name="direccion"
+            label="Dirección"
+            value={formData.direccion}
             onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
+            sx={{background: "#FFFFFF"}}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.uaUsuario}
+            id="uaUsuario"
+            name="uaUsuario"
+            label="Unidad Administrativa"
+            value={formData.uaUsuario}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
         </Box>
       </Box>
 
+      {/* Datos del Externo */}
+      {/* Form Box Responsive */}
       <Box
         component="section"
         sx={{
@@ -499,7 +424,7 @@ export default function Home() {
       > 
         {/* SubTitle */}
         <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          AUTORIZA
+          DATOS DEL EMPLEADO DE CONAGUA RESPONSABLE
         </Typography>
         <Box
           component="form"
@@ -510,27 +435,70 @@ export default function Home() {
         >
           <TextField
             required
-            error={!!errors?.jefe}
-            id="jefe"
-            name="jefe"
-            label="Funcionario con Cargo de Subgerente, Homologo ó Superior"
-            value={formData.jefe}
+            error={!!errors?.nombreEmpleado}
+            id="nombreEmpleado"
+            name="nombreEmpleado"
+            label="Nombre"
+            value={formData.nombreEmpleado}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
-            error={!!errors?.puestojefe}
-            id="puestojefe"
-            name="puestojefe"
-            label="Puesto ó Cargo del que Autoriza"
-            value={formData.puestojefe}
+            error={!!errors?.idEmpleado}
+            id="idEmpleado"
+            name="idEmpleado"
+            label="Número De Empleado"
+            value={formData.idEmpleado}
             onChange={handleChange}
             sx={{background: "#FFFFFF", mb: 3}}
             inputProps={{ maxLength: 256 }}
           />
-        
+          <TextField
+            required
+            error={!!errors?.curpEmpleado}
+            id="curpEmpleado"
+            name="curpEmpleado"
+            label="CURP"
+            value={formData.curpEmpleado}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF", mb: 3}}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.extEmpleado}
+            id="extEmpleado"
+            name="extEmpleado"
+            label="Telefono / Extension"
+            value={formData.extEmpleado}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF", mb: 3}}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.correo}
+            id="correo"
+            name="correo"
+            label="Email" //PENDIENTE
+            value={formData.correo}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF", mb: 3}}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.puestoEmpleado}
+            id="puestoEmpleado"
+            name="puestoEmpleado"
+            label="Puesto"
+            value={formData.puestoEmpleado}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF", mb: 3}}
+            inputProps={{ maxLength: 256 }}
+          />
         </Box>
       </Box>
 

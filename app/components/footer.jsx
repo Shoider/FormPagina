@@ -22,6 +22,9 @@ export default function FooterGlobal() {
             <Typography variant="h6" fontWeight={700} color="white" textAlign={{ xs: 'center', sm: 'left' }}>
               Contacto: soporte@formulario.com
             </Typography>
+            <Typography variant="h6" fontWeight={700} color="white" textAlign={{ xs: 'center', sm: 'left', mt: 10 }}>
+              Contacto: soporte@formulario.com
+            </Typography>
           </Grid>
           <Grid item xs={12} sm={6} textAlign={{ xs: 'center', sm: 'right' }}>
             <Typography variant="h5" fontWeight={600} color="white">
