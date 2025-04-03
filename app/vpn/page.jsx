@@ -12,7 +12,8 @@ import {
   RadioGroup,
   Radio,
   FormLabel,
-  Divider
+  Divider,
+  FormHelperText
 } from "@mui/material";
 import Image from "next/image"; 
 
@@ -133,18 +134,17 @@ export default function Home() {
 
   const validarCamposRequeridos = (Data) => {
     
-    const errors = {};
+    const errores = {};
     let isValid = true;
 
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
         var campo = traducirCampos(key);          // Traduce el error a la alerta
-        errors[key] = 'Este campo es requerido';  // Texto a mostrar en cada campo faltante
+        errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
         isValid = false;                          // Al menos un campo está vacío
       }
     }
-    console.log("Lista errors en validador: ", errors)
-    return [isValid, errors];                     // Todos los campos están llenos
+    return [isValid, errores];                     // Todos los campos están llenos
   };
 
   // Llamada API
@@ -152,10 +152,10 @@ export default function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const { isValid, errors } = validarCamposRequeridos(formData);
-    setErrors(errors);
+    const [isValid, getErrors] = validarCamposRequeridos(formData);
+    setErrors(getErrors);
 
-    console.log("Lista errors en submit: ", errors)
+    //console.log("Lista getErrors en submit: ", getErrors)
 
     //var alertaValidacion = validarCamposRequeridos(formData);
 
@@ -335,6 +335,7 @@ export default function Home() {
           /> 
           <TextField
             required
+            error={!!errors?.puesto}
             id="puesto"
             name="puesto"
             label="Puesto ó Cargo"
@@ -345,6 +346,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.ua}
             id="ua"
             name="ua"
             label="Unidad Administrativa"
@@ -355,6 +357,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.id}
             id="id"
             name="id"
             label="ID de Empleado"
@@ -365,6 +368,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.extension}
             id="extension"
             name="extension"
             label="Extensión"
@@ -375,6 +379,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.correo}
             id="correo"
             name="correo"
             label="Correo Institucional"
@@ -442,11 +447,13 @@ export default function Home() {
               <FormControlLabel value="BAJA" control={<Radio />} label="BAJA" />
               <FormControlLabel value="CAMBIO" control={<Radio />} label="CAMBIO" />
             </RadioGroup>
+            <FormHelperText>{errors?.movimiento}</FormHelperText>
           </Box>
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:0 }} />
 
           <TextField
             required
+            error={!!errors?.servicios}
             id="servicios"
             name="servicios"
             label="Servicios que Necesita Acceder"
@@ -457,6 +464,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.justificacion}
             id="justificacion"
             name="justificacion"
             label="Justificación"
@@ -501,6 +509,7 @@ export default function Home() {
         >
           <TextField
             required
+            error={!!errors?.jefe}
             id="jefe"
             name="jefe"
             label="Funcionario con Cargo de Subgerente, Homologo ó Superior"
@@ -511,6 +520,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.puestojefe}
             id="puestojefe"
             name="puestojefe"
             label="Puesto ó Cargo del que Autoriza"
@@ -558,6 +568,7 @@ export default function Home() {
         >
           <TextField
             required
+            error={!!errors?.marca}
             id="marca"
             name="marca"
             label="Marca"
@@ -568,6 +579,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.modelo}
             id="modelo"
             name="modelo"
             label="Modelo"
@@ -578,6 +590,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.serie}
             id="serie"
             name="serie"
             label="Serie"
@@ -588,6 +601,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.macadress}
             id="macadress"
             name="macadress"
             label="MAC Address"
@@ -617,6 +631,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
+            <FormHelperText>{errors?.malware}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -640,6 +655,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
+            <FormHelperText>{errors?.vigencia}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -663,6 +679,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
+            <FormHelperText>{errors?.so}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -686,6 +703,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
+            <FormHelperText>{errors?.licencia}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:3 }} />
