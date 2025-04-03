@@ -771,10 +771,16 @@ export default function Home() {
         </Box>
         <FormLabel
           component="legend"
-          sx={{ mx: "auto", mb: 3, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-        >
-          En caso de proporcionar dirección NAT verificar que sea la correcta
-        </FormLabel>      
+          sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+        > 
+          En caso de proporcionar dirección NAT verificar que sea la correcta.
+        </FormLabel>  
+        <FormLabel
+          component="legend"
+          sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+        > 
+          Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+        </FormLabel>     
       </Box>
 
       {/* CAMBIOS*/}
@@ -817,10 +823,16 @@ export default function Home() {
         </Box>
         <FormLabel
           component="legend"
-          sx={{ mx: "auto", mb: 3, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-        >
-          En caso de proporcionar dirección NAT verificar que sea la correcta
-        </FormLabel>
+          sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+        > 
+          En caso de proporcionar dirección NAT verificar que sea la correcta.
+        </FormLabel>  
+        <FormLabel
+          component="legend"
+          sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+        > 
+          Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+        </FormLabel> 
       </Box>
 
       {/* BAJAS */}
@@ -863,10 +875,16 @@ export default function Home() {
         </Box>
         <FormLabel
           component="legend"
-          sx={{ mx: "auto", mb: 3, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-        >
-          En caso de proporcionar dirección NAT verificar que sea la correcta
-        </FormLabel>
+          sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+        > 
+          En caso de proporcionar dirección NAT verificar que sea la correcta.
+        </FormLabel>  
+        <FormLabel
+          component="legend"
+          sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+        > 
+          Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+        </FormLabel> 
       </Box>
 
       {/* JUSTIFICACION */}
