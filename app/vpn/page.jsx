@@ -12,7 +12,8 @@ import {
   RadioGroup,
   Radio,
   FormLabel,
-  Divider
+  Divider,
+  FormHelperText
 } from "@mui/material";
 import Image from "next/image"; 
 
@@ -36,7 +37,13 @@ export default function Home() {
     jefe: "",
     puestojefe: "",
     servicios: "",
-    justificacion: ""
+    justificacion: "",
+    // Radios
+    movimiento: "",
+    malware: "",
+    vigencia: "",
+    so: "",
+    licencia: ""
   });
   
   // Generar PDF
@@ -51,43 +58,122 @@ export default function Home() {
     }));
   };
 
+  // Boton
+  const [botonEstado, setBotonEstado] = useState('Enviar');
+
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
+
+  const [errors, setErrors] = useState({});
 
   const [alert, setAlert] = useState({
     message: "",
     severity: "",
   });
 
-  // Boton
-  const [botonEstado, setBotonEstado] = useState('Enviar');
+  // Traducir al usuario
+  const traducirCampos = (key) => {
+    if (key == "nombre") {
+      return "Nombre"
+    }
+    if (key == "puesto") {
+      return "Puesto"
+    }
+    if (key == "ua") {
+      return "Unidad Administrativa"
+    }
+    if (key == "id") {
+      return "ID de Empleado"
+    }
+    if (key == "extension") {
+      return "Extensión"
+    }
+    if (key == "correo") {
+      return "Correo Institucional"
+    }
+    if (key == "marca") {
+      return "Marca"
+    }
+    if (key == "serie") {
+      return "Serie"
+    }
+    if (key == "macadress") {
+      return "MAC Address"
+    }
+    if (key == "jefe") {
+      return "Funcionario con Cargo de Subgerente, Homologo ó Superior"
+    }
+    if (key == "puestojefe") {
+      return "Puesto ó Cargo del que Autoriza"
+    }
+    if (key == "servicios") {
+      return "Servicios que Necesita Acceder"
+    }
+    if (key == "justificacion") {
+      return "Justificacion"
+    }
+    // Radios
+    if (key == "movimiento") {
+      return "Tipo de Movimiento"
+    }
+    if (key == "malware") {
+      return "Cuenta con Anti-Malware"
+    }
+    if (key == "vigencia") {
+      return "Se Encuentra Vigente y Actualizado (Anti-Malware)"
+    }
+    if (key == "so") {
+      return "Cuenta con S.O."
+    }
+    if (key == "licencia") {
+      return "Se Encuentra Licenciado y Actualizado (S.O.)"
+    }
+    else
+      return "Desconocido"
+  }
 
   const validarCamposRequeridos = (Data) => {
+    
+    const errores = {};
+    let isValid = true;
+
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
-        return false; // Al menos un campo está vacío
+        var campo = traducirCampos(key);          // Traduce el error a la alerta
+        errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
+        isValid = false;                          // Al menos un campo está vacío
       }
     }
-    return true; // Todos los campos están llenos
+    return [isValid, errores];                     // Todos los campos están llenos
   };
+
+  // Llamada API
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!validarCamposRequeridos(formData)) {
+    const [isValid, getErrors] = validarCamposRequeridos(formData);
+    setErrors(getErrors);
+
+    //console.log("Lista getErrors en submit: ", getErrors)
+
+    //var alertaValidacion = validarCamposRequeridos(formData);
+
+    if (!isValid) {
       setAlert({
+        //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
         message: 'Por favor, complete todos los campos requeridos.',
         severity: "error",
       });
       setOpenAlert(true);
       return;
-    }
-    else
+    } else {
       setAlert({
         message: 'Informacion Registrada',
-        severity: "success",
+        severity: 'success',
       });
       setOpenAlert(true);
+    }
 
     setBotonEstado('Cargando...');
   
@@ -130,27 +216,6 @@ export default function Home() {
     }));
   };
 
-  // Validador de numeros generico
-  function NumberTextField({ name, label, maxLength, value, onChange }) {
-    const handleNumberChange = (event) => {
-      let inputValue = event.target.value.replace(/[^0-9]/g, "");
-      inputValue = inputValue.slice(0, maxLength);
-      onChange({ target: { name, value: inputValue } });
-    };
-  
-    return (
-      <TextField
-        required
-        id={name}
-        name={name}
-        label={label}
-        value={value}
-        onChange={handleNumberChange}
-        inputProps={{ maxLength }}
-      />
-    );
-  }
-
   const handleExtensionChange = (event) => {
     let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
     value = value.slice(0, 4); // Limita la longitud a 4 caracteres
@@ -161,44 +226,53 @@ export default function Home() {
     }));
   };
 
-  function ExtensionTextField({ formData, setFormData, handleChange }) {
-    const handleExtensionChange = (event) => {
-      let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
-      value = value.slice(0, 4); // Limita la longitud a 4 caracteres
-  
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        extension: value,
-      }));
-    };
-  
-    return (
-      <TextField
-        required
-        id="extension"
-        name="extension"
-        label="Extension"
-        value={formData.extension}
-        onChange={handleExtensionChange} // Usa handleExtensionChange
-      />
-    );
-  }
-
   return (
     <Container disableGutters maxWidth="xxl" sx={{background: "#FFFFFF"}}>
       
       {/* Banner Responsive */}
-      <Box sx={{ justifyContent: "center", mt: 0, background: "#F4F4F5", width: "100%"}}>
-        <Box sx={{ justifyContent: "center", display: "flex", ml: 3}}>
+      <Box
+        sx={{
+          width: '100vw', // Ocupa todo el ancho de la ventana gráfica
+          overflow: 'hidden',
+          height: '430px', // Ajusta la altura según sea necesario
+          [theme.breakpoints.down('md')]: {
+            height: 'auto', // Ajusta la altura automáticamente en pantallas pequeñas
+          },
+          display: { xs: 'none', md: 'block' },
+        }}
+      >
         <Image
-          src="/Conagua.png"
-          alt="Logo CONAGUA"
-          width={750}
-          height={200}
-          style={{ maxWidth: "100%", height: "auto" }}
-          priority
+        src="/background_Conagua_header_150.jpg" // Ruta de la imagen recortable
+        alt="Imagen recortable"
+        width={6000}
+        height={1200}
+        style={{
+          maxWidth: '100vw',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: 'center',
+        }}
+        sizes="(max-width: 900px) 100vw, 1920px" 
         />
-        </Box>
+      </Box>
+      
+      {/* Imagen fija para pantallas pequeñas */}
+      <Box
+        sx={{
+          display: { xs: 'block', md: 'none' }, // Mostrar solo en pantallas pequeñas
+        }}
+      >
+        <Image
+          src="/mobile_background_Icono_150.jpg" // Ruta de la imagen fija
+          alt="Imagen fija"
+          width={1690}
+          height={1312} 
+          style={{
+            width: '100%',
+            height: 'auto',
+          }}
+          sizes="100vw"
+        />
       </Box>
 
       {/* Banner Responsive Title*/}
@@ -249,6 +323,8 @@ export default function Home() {
 
           <TextField
             required
+            error={!!errors?.nombre}
+            //helperText={errors.nombre}
             id="nombre"
             name="nombre"
             label="Nombre"
@@ -256,9 +332,10 @@ export default function Home() {
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
-          />
+          /> 
           <TextField
             required
+            error={!!errors?.puesto}
             id="puesto"
             name="puesto"
             label="Puesto ó Cargo"
@@ -269,6 +346,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.ua}
             id="ua"
             name="ua"
             label="Unidad Administrativa"
@@ -279,6 +357,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.id}
             id="id"
             name="id"
             label="ID de Empleado"
@@ -289,6 +368,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.extension}
             id="extension"
             name="extension"
             label="Extensión"
@@ -299,6 +379,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.correo}
             id="correo"
             name="correo"
             label="Correo Institucional"
@@ -366,11 +447,13 @@ export default function Home() {
               <FormControlLabel value="BAJA" control={<Radio />} label="BAJA" />
               <FormControlLabel value="CAMBIO" control={<Radio />} label="CAMBIO" />
             </RadioGroup>
+            <FormHelperText>{errors?.movimiento}</FormHelperText>
           </Box>
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:0 }} />
 
           <TextField
             required
+            error={!!errors?.servicios}
             id="servicios"
             name="servicios"
             label="Servicios que Necesita Acceder"
@@ -381,6 +464,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.justificacion}
             id="justificacion"
             name="justificacion"
             label="Justificación"
@@ -425,6 +509,7 @@ export default function Home() {
         >
           <TextField
             required
+            error={!!errors?.jefe}
             id="jefe"
             name="jefe"
             label="Funcionario con Cargo de Subgerente, Homologo ó Superior"
@@ -435,6 +520,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.puestojefe}
             id="puestojefe"
             name="puestojefe"
             label="Puesto ó Cargo del que Autoriza"
@@ -482,6 +568,7 @@ export default function Home() {
         >
           <TextField
             required
+            error={!!errors?.marca}
             id="marca"
             name="marca"
             label="Marca"
@@ -492,6 +579,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.modelo}
             id="modelo"
             name="modelo"
             label="Modelo"
@@ -502,6 +590,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.serie}
             id="serie"
             name="serie"
             label="Serie"
@@ -512,6 +601,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.macadress}
             id="macadress"
             name="macadress"
             label="MAC Address"
@@ -541,6 +631,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
+            <FormHelperText>{errors?.malware}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -564,6 +655,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
+            <FormHelperText>{errors?.vigencia}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -587,6 +679,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
+            <FormHelperText>{errors?.so}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -610,6 +703,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
+            <FormHelperText>{errors?.licencia}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:3 }} />
