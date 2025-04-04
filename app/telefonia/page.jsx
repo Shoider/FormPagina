@@ -13,7 +13,8 @@ import {
   Radio,
   FormLabel,
   Divider,
-  FormHelperText
+  MenuItem,
+  FormHelperText  
 } from "@mui/material";
 import Image from "next/image"; 
 
@@ -41,12 +42,16 @@ export default function Home() {
     nombreJefe: "",
     puestoJefe: "",
     tipoEquipo: "",
+    marca:"",
+    modelo:"",
+    serie:"",
+    version:"",
     
     // Radios
     movimiento: "", //ALTA, BAJA, CAMBIO
-    tipoUsuario: "", //???
+    //tipoUsuario: "", 
 
-    interno: "", // Opciones??
+    interno: "", // 
     mundo: "",
     local: "",
     cLocal: "",
@@ -54,8 +59,22 @@ export default function Home() {
     cNacional: "",
     eua: "",
 
+    usuaExterno: false // Estado inicial como false
+
   });
-  
+
+   
+  const currencies = [
+    {      
+      value: 'Interno',
+      label: 'Interno',
+    },
+    {
+      value: 'Externo',
+      label: 'Externo',
+    }, 
+  ];
+    
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
 
@@ -82,17 +101,30 @@ export default function Home() {
   });
 
   const validarCamposRequeridos = (Data) => {
-    
+
     const errores = {};
     let isValid = true;
 
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
-        //var campo = traducirCampos(key);          // Traduce el error a la alerta
-        errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
-        isValid = false;                          // Al menos un campo está vacío
+        // console.log("Dato faltante en:", key);
+        console.log(Data.usuaExterno)
+        if (Data.usuaExterno !== false) {
+          if (key !== "nombreEmpleado" && key !== "curpEmpleado" && key !== "idEmpleado" && key !== "extEmpleado" && key != "correo" && key != "puestoEmpleado" ) {
+            console.log("Falta llenar: ", key);
+            errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
+            isValid = false;                          // Al menos un campo está vacío
+          } else {
+            console.log("Campo opcional no llenado: ", key);
+          }
+        } else {
+          console.log("Falta llenar: ", key);
+          errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
+          isValid = false;  
+        }
       }
     }
+    //console.log("Datos completos");
     return [isValid, errores];                     // Todos los campos están llenos
   };
 
@@ -100,6 +132,8 @@ export default function Home() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    console.log("Datos del formulario:", formData);
 
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
@@ -145,35 +179,59 @@ export default function Home() {
   };
 
   //  VALIDADORES
-  const formatMacAddress = (value) => {
-    let formattedValue = value.replace(/[^0-9a-fA-F]/g, "").toUpperCase();
-    let result = "";
-    for (let i = 0; i < formattedValue.length; i++) {
-      if (i > 0 && i % 2 === 0) {
-        result += ":";
-      }
-      result += formattedValue[i];
-    }
-    return result;
-  };
-
-  const handleMacAddressChange = (event) => {
-    const formattedValue = formatMacAddress(event.target.value);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      macadress: formattedValue,
-    }));
-  };
-
+  
   const handleExtensionChange = (event) => {
-    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 4); // Limita la longitud a 4 caracteres
+      let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+      value = value.slice(0, 4); // Limita la longitud a 4 caracteres
+  
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        extEmpleado: value,
+      }));
+    };
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      extension: value,
-    }));
-  };
+    const handleDateChangeActiva = (event) => {
+      const rawDate = event.target.value;
+      console.log("Fecha de activacion: ", rawDate)
+      // Opcional: Formatear la fecha en un formato más legible (Ej. DD/MM/YYYY)
+      //tipoUsuario: selectedValue,
+      const formattedDate = new Date(rawDate).toLocaleDateString('es-MX');
+    
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        activacion: formattedDate,
+        //const fechaObjeto = new Date(formData.activacion); //cambiar de objeto a fecha
+        fecha: formattedDate, // Guarda la fecha formateada en el estado
+      }));
+    };
+    const fechaActivacion = new Date(formData.activacion); //cambiar de objeto a fecha
+    const handleDateChangeExpira = (event) => {
+      const rawDate = event.target.value;
+      // Opcional: Formatear la fecha en un formato más legible (Ej. DD/MM/YYYY)
+      //tipoUsuario: selectedValue,
+      const formattedDate = new Date(rawDate).toLocaleDateString('es-MX');
+
+      console.log("Fecha de expiracion: ", rawDate)
+    
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        expiracion: rawDate,
+        fecha: formattedDate, // Guarda la fecha formateada en el estado
+      }));
+    };
+    const fechaExpiracion = new Date(formData.expiracion); //cambiar de objeto a fecha
+    
+    const handleChangeExterno = (event) => {
+      const selectedValue = event.target.value;
+      console.log(selectedValue)
+      setFormData((prevData) => ({
+        ...prevData,
+        tipoUsuario: selectedValue, // Guarda el tipo de usuario seleccionado
+        usuaExterno: event.target.value === 'Externo' ? true : false, // Guarda true si es 'Externo', false si no.
+      }));
+    };
+
+    
 
   return (
     <Container disableGutters maxWidth="xxl" sx={{background: "#FFFFFF"}}>
@@ -291,20 +349,48 @@ export default function Home() {
             </RadioGroup>
             <FormHelperText>{errors?.movimiento}</FormHelperText>
           </Box>
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:3 }} />
+          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:0 }} />
           <TextField
             required
             error={!!errors?.justificacion}
             id="justificacion"
             name="justificacion"
-            label="Justificacion"
+            label="Justificación"
             value={formData.justificacion}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
+          <TextField
+            required
+            //error={!!errors?.activacion}
+            id="activacion"
+            name="activacion"
+            label="Fecha de activación"
+            type = "date"
+            //value={formData.activacion}
+            onChange={handleDateChangeActiva}
+            sx={{background: "#FFFFFF"}}
+            InputLabelProps={{ shrink: true }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            //error={!!errors?.expiracion}
+            id="expiracion"
+            name="expiracion"
+            label="Fecha de expiración"
+            type="date"
+            //value={formData.expiracion}
+            onChange={handleDateChangeExpira}
+            sx={{background: "#FFFFFF"}}
+            InputLabelProps={{ shrink: true }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:3 }} />  
         </Box>
       </Box>
+      
 
       {/* Datos del Solicitante */}
       {/* Form Box Responsive */}
@@ -341,36 +427,42 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           <TextField
-            required
-            error={!!errors?.tipoUsuario}
-            //helperText={errors.nombre}
-            id="tipoUsuario"
-            name="tipoUsuario"
-            label="Tipo de Usuario"
-            value={formData.tipoUsuario}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 256 }}
-          /> 
+          required
+          //error={!!errors?.tipoUsuario}
+          select
+          id="tipoUsuario"
+          name="tipoUsuario"
+          label="Tipo de Usuario" 
+          defaultValue="Interno"
+          sx={{background: "#FFFFFF"}}
+          onChange={handleChangeExterno}
+          //helperText="Porfavor selecciona el tipo de usuario"
+        >
+          {currencies.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+
           <TextField
             required
-            error={!!errors?.nombre}
-            //helperText={errors.nombre}
-            id="nombre"
-            name="nombre"
+            error={!!errors?.nombreUsuario}
+            id="nombreUsuario"
+            name="nombreUsuario"
             label="Nombre"
-            value={formData.nombre}
+            value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           /> 
           <TextField
             required
-            error={!!errors?.curp}
-            id="curp"
-            name="curp"
+            error={!!errors?.curpUsuario}
+            id="curpUsuario"
+            name="curpUsuario"
             label="CURP"
-            value={formData.curp}
+            value={formData.curpUsuario}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
@@ -398,9 +490,114 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
         </Box>
+        <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:3 }} />
       </Box>
 
       {/* Datos del Externo */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2"
+          },
+          display: formData.usuaExterno ? 'block' : 'none'
+        }}
+      > 
+        {/* SubTitle */}
+        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+          DATOS DEL EMPLEADO DE CONAGUA RESPONSABLE
+        </Typography>
+        <Box
+          component="form"
+          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            required
+            error={!!errors?.nombreEmpleado}
+            id="nombreEmpleado"
+            name="nombreEmpleado"
+            label="Nombre"
+            value={formData.nombreEmpleado}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF"}}
+            inputProps={{ maxLength: 32 }}
+          />
+          <TextField
+            required
+            error={!!errors?.idEmpleado}
+            id="idEmpleado"
+            name="idEmpleado"
+            label="Número De Empleado"
+            value={formData.idEmpleado}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF"}}
+            inputProps={{ maxLength: 8 }}
+          />
+          <TextField
+            required
+            error={!!errors?.curpEmpleado}
+            id="curpEmpleado"
+            name="curpEmpleado"
+            label="CURP"
+            value={formData.curpEmpleado}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF"}}
+            inputProps={{ maxLength: 32 }}
+          />
+          <TextField
+            required
+            error={!!errors?.extEmpleado}
+            id="extEmpleado"
+            name="extEmpleado"
+            label="Teléfono / Extensión"
+            value={formData.extEmpleado}
+            onChange={handleExtensionChange}
+            sx={{background: "#FFFFFF"}}
+            inputProps={{ maxLength: 4 }}
+          />
+          <TextField
+            required
+            error={!!errors?.correo}
+            id="correo"
+            name="correo"
+            label="Email" //PENDIENTE
+            value={formData.correo}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF"}}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.puestoEmpleado}
+            id="puestoEmpleado"
+            name="puestoEmpleado"
+            label="Puesto"
+            value={formData.puestoEmpleado}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF"}}
+            inputProps={{ maxLength: 256 }}
+          />
+          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:3 }} />  
+        </Box>
+      </Box>
+
+      {/* Datos de Autoriza */}
       {/* Form Box Responsive */}
       <Box
         component="section"
@@ -424,7 +621,7 @@ export default function Home() {
       > 
         {/* SubTitle */}
         <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          DATOS DEL EMPLEADO DE CONAGUA RESPONSABLE
+          AUTORIZA
         </Typography>
         <Box
           component="form"
@@ -435,70 +632,27 @@ export default function Home() {
         >
           <TextField
             required
-            error={!!errors?.nombreEmpleado}
-            id="nombreEmpleado"
-            name="nombreEmpleado"
-            label="Nombre"
-            value={formData.nombreEmpleado}
+            error={!!errors?.jefe}
+            id="jefe"
+            name="jefe"
+            label="Funcionario con Cargo de Subgerente, Homologo ó Superior"
+            value={formData.jefe}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
-            error={!!errors?.idEmpleado}
-            id="idEmpleado"
-            name="idEmpleado"
-            label="Número De Empleado"
-            value={formData.idEmpleado}
+            error={!!errors?.puestojefe}
+            id="puestojefe"
+            name="puestojefe"
+            label="Puesto ó Cargo del que Autoriza"
+            value={formData.puestojefe}
             onChange={handleChange}
             sx={{background: "#FFFFFF", mb: 3}}
             inputProps={{ maxLength: 256 }}
           />
-          <TextField
-            required
-            error={!!errors?.curpEmpleado}
-            id="curpEmpleado"
-            name="curpEmpleado"
-            label="CURP"
-            value={formData.curpEmpleado}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.extEmpleado}
-            id="extEmpleado"
-            name="extEmpleado"
-            label="Telefono / Extension"
-            value={formData.extEmpleado}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.correo}
-            id="correo"
-            name="correo"
-            label="Email" //PENDIENTE
-            value={formData.correo}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.puestoEmpleado}
-            id="puestoEmpleado"
-            name="puestoEmpleado"
-            label="Puesto"
-            value={formData.puestoEmpleado}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
-            inputProps={{ maxLength: 256 }}
-          />
+        
         </Box>
       </Box>
 
@@ -537,6 +691,17 @@ export default function Home() {
         >
           <TextField
             required
+            error={!!errors?.tipoEquipo}
+            id="tipoEquipo"
+            name="tipoEquipo"
+            label="Tipo de Equipo"
+            value={formData.tipoEquipo}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF"}}
+            inputProps={{ maxLength: 16 }}
+          />
+          <TextField
+            required
             error={!!errors?.marca}
             id="marca"
             name="marca"
@@ -544,7 +709,7 @@ export default function Home() {
             value={formData.marca}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 256 }}
+            inputProps={{ maxLength: 16 }}
           />
           <TextField
             required
@@ -555,7 +720,7 @@ export default function Home() {
             value={formData.modelo}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 256 }}
+            inputProps={{ maxLength: 16 }}
           />
           <TextField
             required
@@ -564,35 +729,71 @@ export default function Home() {
             name="serie"
             label="Serie"
             value={formData.serie}
-            onChange={handleChange}
+            onChange={handleChange} 
+            inputProps={{ maxLength: 16 }} 
             sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 256 }}
-          />
+          />    
           <TextField
             required
-            error={!!errors?.macadress}
-            id="macadress"
-            name="macadress"
-            label="MAC Address"
-            value={formData.macadress}
-            onChange={handleMacAddressChange} // Usa handleMacAddressChange
-            inputProps={{ maxLength: 17 }} // Limita la longitud
+            error={!!errors?.version}
+            id="version"
+            name="version"
+            label="Versión de Sistema Operativo"
+            value={formData.version}
+            onChange={handleChange} 
+            inputProps={{ maxLength: 16 }} 
             sx={{background: "#FFFFFF"}}
-          />
+          />    
+          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:3 }} />                     
+          </Box>
 
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 2, mb:1 }} />
+      </Box>
+      {/* Datos del Servicio */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2"
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+          CARACTERISTICAS DEL SERVICIO SOLICITADO
+        </Typography>
+        <Box
+          component="form"
+          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        ></Box>
+        <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 3, mb:1 }} />
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <FormLabel
               component="legend"
               sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
             >
-              Cuenta con Anti-Malware *
+              Servicio Interno *
             </FormLabel>
             <RadioGroup
               row
-              aria-label="Cuenta con Anti-Malware"
-              name="malware"
-              value={formData.malware}
+              aria-label="Servicio Interno"
+              name="interno"
+              value={formData.interno}
               onChange={handleChange}
               required
               sx={{ ml: 2, mr: 2, justifyContent: "center" }}
@@ -610,13 +811,13 @@ export default function Home() {
               component="legend"
               sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
             >
-              Se Encuentra Vigente y Actualizado (Anti-Malware) *
+              Servicio de Larga Distancia Resto del Mundo*
             </FormLabel>
             <RadioGroup
               row
-              aria-label="Se Encuentra Vigente y Actualizado (Anti-Malware)"
-              name="vigencia"
-              value={formData.vigencia}
+              aria-label="Servicio de Larga Distancia Resto del Mundo"
+              name="mundo"
+              value={formData.mundo}
               onChange={handleChange}
               required
               sx={{ ml: 2, mr: 2, justifyContent: "center" }}
@@ -634,13 +835,13 @@ export default function Home() {
               component="legend"
               sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
             >
-              Cuenta con S.O. *
+              Servicio Local *
             </FormLabel>
             <RadioGroup
               row
-              aria-label="Cuenta con S.O."
-              name="so"
-              value={formData.so}
+              aria-label="Servicio Local"
+              name="local"
+              value={formData.local}
               onChange={handleChange}
               required
               sx={{ ml: 2, mr: 2, justifyContent: "center" }}
@@ -658,13 +859,85 @@ export default function Home() {
               component="legend"
               sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
             >
-              Se Encuentra Licenciado y Actualizado (S.O.) *
+              Servicio Celular Local *
             </FormLabel>
             <RadioGroup
               row
-              aria-label="Se Encuentra Licenciado y Actualizado (S.O.)"
-              name="licencia"
-              value={formData.licencia}
+              aria-label="Servicio Celular Local"
+              name="cLocal"
+              value={formData.cLocal}
+              onChange={handleChange}
+              required
+              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+            >
+              <FormControlLabel value="SI" control={<Radio />} label="SI" />
+              <FormControlLabel value="NO" control={<Radio />} label="NO" />
+            </RadioGroup>
+            <FormHelperText>{errors?.so}</FormHelperText>
+          </Box>
+
+          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <FormLabel
+              component="legend"
+              sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
+            >
+              Servicio Larga Distancia Nacional *
+            </FormLabel>
+            <RadioGroup
+              row
+              aria-label="Servicio Larga Distancia Nacional"
+              name="nacional"
+              value={formData.nacional}
+              onChange={handleChange}
+              required
+              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+            >
+              <FormControlLabel value="SI" control={<Radio />} label="SI" />
+              <FormControlLabel value="NO" control={<Radio />} label="NO" />
+            </RadioGroup>
+            <FormHelperText>{errors?.so}</FormHelperText>
+          </Box>
+
+          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <FormLabel
+              component="legend"
+              sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
+            >
+              Servicio Celular Larga Distancia *
+            </FormLabel>
+            <RadioGroup
+              row
+              aria-label="Servicio Celular Larga Distancia"
+              name="cNacional"
+              value={formData.cNacional}
+              onChange={handleChange}
+              required
+              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+            >
+              <FormControlLabel value="SI" control={<Radio />} label="SI" />
+              <FormControlLabel value="NO" control={<Radio />} label="NO" />
+            </RadioGroup>
+            <FormHelperText>{errors?.so}</FormHelperText>
+          </Box>
+
+          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <FormLabel
+              component="legend"
+              sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
+            >
+              Servicio Larga Distancia Estados Unidos y Canadá: *
+            </FormLabel>
+            <RadioGroup
+              row
+              aria-label="Servicio Larga Distancia Estados Unidos y Canadá:"
+              name="eua"
+              value={formData.eua}
               onChange={handleChange}
               required
               sx={{ ml: 2, mr: 2, justifyContent: "center" }}
@@ -678,7 +951,7 @@ export default function Home() {
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:3 }} />
 
         </Box>
-      </Box>
+        
 
       {/* Enviar Informacion */}
       {/* Box Responsive */}

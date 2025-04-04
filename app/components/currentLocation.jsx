@@ -11,6 +11,7 @@ function CurrentLocation() {
     '/': 'MENÚ',
     '/vpn': 'VPN',
     '/rfc': 'RFC',
+    '/telefonia': 'TELEFONIA',
   };
 
   const currentText = routeTexts[pathname] || 'Página Desconocida';

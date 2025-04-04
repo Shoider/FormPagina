@@ -477,6 +477,8 @@ export default function Home() {
         </Box>
       </Box>
 
+      {/* Datos de Autoriza */}
+      {/* Form Box Responsive */}
       <Box
         component="section"
         sx={{
