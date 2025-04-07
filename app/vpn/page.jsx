@@ -15,7 +15,7 @@ import {
   Divider,
   FormHelperText
 } from "@mui/material";
-import Image from "next/image"; 
+import Image from "next/image";
 
 import axios from 'axios';
 
@@ -444,11 +444,11 @@ export default function Home() {
               required
               sx={{ ml: 2, mr: 2, justifyContent: "center" }}
             >
-              <FormControlLabel value="ALTA" control={<Radio />} label="ALTA" />
+              <FormControlLabel value="ALTA" control={<Radio sx={{ '&.Mui-checked': { color: errors?.movimiento ? 'red' : undefined } }} />} label="ALTA" />
               <FormControlLabel value="BAJA" control={<Radio />} label="BAJA" />
               <FormControlLabel value="CAMBIO" control={<Radio />} label="CAMBIO" />
             </RadioGroup>
-            <FormHelperText>{errors?.movimiento}</FormHelperText>
+            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.movimiento}</FormHelperText>
           </Box>
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:0 }} />
 
@@ -634,7 +634,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText>{errors?.malware}</FormHelperText>
+            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.malware}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -658,7 +658,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText>{errors?.vigencia}</FormHelperText>
+            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.vigencia}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -682,7 +682,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText>{errors?.so}</FormHelperText>
+            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.so}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -706,7 +706,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText>{errors?.licencia}</FormHelperText>
+            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.licencia}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:3 }} />

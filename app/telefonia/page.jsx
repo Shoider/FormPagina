@@ -58,6 +58,7 @@ export default function Home() {
     nacional: "",
     cNacional: "",
     eua: "",
+    tipoUsuario: "Interno",
 
     usuaExterno: false // Estado inicial como false
 
@@ -109,8 +110,8 @@ export default function Home() {
       if (Data.hasOwnProperty(key) && !Data[key]) {
         // console.log("Dato faltante en:", key);
         console.log(Data.usuaExterno)
-        if (Data.usuaExterno !== false) {
-          if (key !== "nombreEmpleado" && key !== "curpEmpleado" && key !== "idEmpleado" && key !== "extEmpleado" && key != "correo" && key != "puestoEmpleado" ) {
+        if (Data.usuaExterno !== true) {
+          if (key !== "nombreEmpleado" && key !== "curpEmpleado" && key !== "idEmpleado" && key !== "extEmpleado" && key != "correo" && key != "puestoEmpleado" && key != "usuaExterno") {
             console.log("Falta llenar: ", key);
             errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
             isValid = false;                          // Al menos un campo está vacío
@@ -199,7 +200,7 @@ export default function Home() {
     
       setFormData((prevFormData) => ({
         ...prevFormData,
-        activacion: formattedDate,
+        activacion: rawDate,
         //const fechaObjeto = new Date(formData.activacion); //cambiar de objeto a fecha
         fecha: formattedDate, // Guarda la fecha formateada en el estado
       }));
@@ -230,8 +231,6 @@ export default function Home() {
         usuaExterno: event.target.value === 'Externo' ? true : false, // Guarda true si es 'Externo', false si no.
       }));
     };
-
-    
 
   return (
     <Container disableGutters maxWidth="xxl" sx={{background: "#FFFFFF"}}>
@@ -347,7 +346,7 @@ export default function Home() {
               <FormControlLabel value="BAJA" control={<Radio />} label="BAJA" />
               <FormControlLabel value="CAMBIO" control={<Radio />} label="CAMBIO" />
             </RadioGroup>
-            <FormHelperText>{errors?.movimiento}</FormHelperText>
+            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.movimiento}</FormHelperText>
           </Box>
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:0 }} />
           <TextField
@@ -416,7 +415,7 @@ export default function Home() {
       >
         {/* SubTitle */}
         <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          DATOS DEL USUARIO (A) QUE UTLIZARA EL SERVICIO
+          DATOS DEL USUARIO (A) QUE UTILIZARA EL SERVICIO
         </Typography>
 
         <Box
@@ -433,7 +432,7 @@ export default function Home() {
           id="tipoUsuario"
           name="tipoUsuario"
           label="Tipo de Usuario" 
-          defaultValue="Interno"
+          defaultValue='Interno'
           sx={{background: "#FFFFFF"}}
           onChange={handleChangeExterno}
           //helperText="Porfavor selecciona el tipo de usuario"
@@ -812,7 +811,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText>{errors?.malware}</FormHelperText>
+            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.malware}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -836,7 +835,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText>{errors?.vigencia}</FormHelperText>
+            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.vigencia}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -860,7 +859,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText>{errors?.so}</FormHelperText>
+            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.so}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -884,7 +883,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText>{errors?.so}</FormHelperText>
+            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.so}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -908,7 +907,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText>{errors?.so}</FormHelperText>
+            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.so}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -932,7 +931,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText>{errors?.so}</FormHelperText>
+            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.so}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
@@ -956,7 +955,7 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText>{errors?.licencia}</FormHelperText>
+            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.licencia}</FormHelperText>
           </Box>
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:3 }} />
