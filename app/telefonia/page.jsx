@@ -489,6 +489,17 @@ export default function Home() {
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
+          <TextField
+            required
+            error={!!errors?.puestoUsuario}
+            id="puestoUsuario"
+            name="puestoUsuario"
+            label="Puesto"
+            value={formData.puestoUsuario}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF"}}
+            inputProps={{ maxLength: 256 }}
+          />
         </Box>
         <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:3 }} />
       </Box>
@@ -632,22 +643,22 @@ export default function Home() {
         >
           <TextField
             required
-            error={!!errors?.jefe}
-            id="jefe"
-            name="jefe"
+            error={!!errors?.nombreJefe}
+            id="nombreJefe"
+            name="nombreJefe"
             label="Funcionario con Cargo de Subgerente, Homologo ó Superior"
-            value={formData.jefe}
+            value={formData.nombreJefe}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
-            error={!!errors?.puestojefe}
-            id="puestojefe"
-            name="puestojefe"
+            error={!!errors?.puestoJefe}
+            id="puestoJefe"
+            name="puestoJefe"
             label="Puesto ó Cargo del que Autoriza"
-            value={formData.puestojefe}
+            value={formData.puestoJefe}
             onChange={handleChange}
             sx={{background: "#FFFFFF", mb: 3}}
             inputProps={{ maxLength: 256 }}
