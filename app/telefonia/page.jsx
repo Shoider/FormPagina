@@ -192,31 +192,37 @@ export default function Home() {
     };
 
     const handleDateChangeActiva = (event) => {
-      const rawDate = event.target.value;
-      console.log("Fecha de activacion: ", rawDate)
-      // Opcional: Formatear la fecha en un formato más legible (Ej. DD/MM/YYYY)
-      //tipoUsuario: selectedValue,
-      const formattedDate = new Date(rawDate).toLocaleDateString('es-MX');
+      const rawDate = new Date(event.target.value+ "T00:00:00");
+      console.log("Fecha de activacion: ", rawDate)  
+
+      const formattedDate = [
+        rawDate.getDate().toString().padStart(2, '0'),
+        (rawDate.getMonth() + 1).toString().padStart(2, '0'),
+        rawDate.getFullYear()
+      ].join('-');
     
       setFormData((prevFormData) => ({
         ...prevFormData,
-        activacion: rawDate,
-        //const fechaObjeto = new Date(formData.activacion); //cambiar de objeto a fecha
+        activacion: formattedDate, ///ya da bien formato DD-MM-YYYY
         fecha: formattedDate, // Guarda la fecha formateada en el estado
       }));
     };
     const fechaActivacion = new Date(formData.activacion); //cambiar de objeto a fecha
     const handleDateChangeExpira = (event) => {
-      const rawDate = event.target.value;
-      // Opcional: Formatear la fecha en un formato más legible (Ej. DD/MM/YYYY)
-      //tipoUsuario: selectedValue,
-      const formattedDate = new Date(rawDate).toLocaleDateString('es-MX');
+      //const rawDate = event.target.value;
+      const rawDate = new Date(event.target.value+ "T00:00:00");
+      console.log("Fecha de activacion: ", rawDate)  
 
+      const formattedDate = [
+        rawDate.getDate().toString().padStart(2, '0'),
+        (rawDate.getMonth() + 1).toString().padStart(2, '0'),
+        rawDate.getFullYear()
+      ].join('-');
       console.log("Fecha de expiracion: ", rawDate)
     
       setFormData((prevFormData) => ({
         ...prevFormData,
-        expiracion: rawDate,
+        expiracion: formattedDate,//FECHA FORMATEADA DD-MM-YYYY PRUEBA 1
         fecha: formattedDate, // Guarda la fecha formateada en el estado
       }));
     };
