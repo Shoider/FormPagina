@@ -28,21 +28,21 @@ export default function Home() {
     activacion: "",
     expiracion: "",
     nombreUsuario: "",
-    curpUsuario: "",
+    correoUsuario: "",
     direccion: "",
     uaUsuario: "",
     nombreEmpleado: "",
     idEmpleado: "",
-    curpEmpleado: "",
+    
     extEmpleado: "",
-    correo: "",
+    correoEmpleado: "",
     puestoEmpleado: "",
     justificacion: "",
     puestoUsuario: "",
     nombreJefe: "",
     puestoJefe: "",
-    tipoEquipo: "",
-    marca:"",
+    
+    marca:"HUAWEI",
     modelo:"",
     serie:"",
     version:"",
@@ -73,6 +73,16 @@ export default function Home() {
     {
       value: 'Externo',
       label: 'Externo',
+    }, 
+  ];
+  const currencies2 = [
+    {      
+      value: 'AVAYA',
+      label: 'AVAYA',
+    },
+    {
+      value: 'HUAWEI',
+      label: 'HUAWEI',
     }, 
   ];
     
@@ -111,7 +121,7 @@ export default function Home() {
         // console.log("Dato faltante en:", key);
         console.log(Data.usuaExterno)
         if (Data.usuaExterno !== true) {
-          if (key !== "nombreEmpleado" && key !== "curpEmpleado" && key !== "idEmpleado" && key !== "extEmpleado" && key != "correo" && key != "puestoEmpleado" && key != "usuaExterno") {
+          if (key !== "nombreEmpleado" && key !== "correoEmpleado" && key !== "idEmpleado" && key !== "extEmpleado" && key != "correo" && key != "puestoEmpleado" && key != "usuaExterno") {
             console.log("Falta llenar: ", key);
             errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
             isValid = false;                          // Al menos un campo está vacío
@@ -235,6 +245,16 @@ export default function Home() {
         ...prevData,
         tipoUsuario: selectedValue, // Guarda el tipo de usuario seleccionado
         usuaExterno: event.target.value === 'Externo' ? true : false, // Guarda true si es 'Externo', false si no.
+      }));
+    };
+
+    const handleChangeMarca = (event) => {
+      const selectedValue = event.target.value;
+      console.log(selectedValue)
+      setFormData((prevData) => ({
+        ...prevData,
+        marca: selectedValue, // Guarda la marca seleccionado
+        //usuaExterno: event.target.value === 'Externo' ? true : false, // Guarda true si es 'Externo', false si no.
       }));
     };
 
@@ -463,22 +483,36 @@ export default function Home() {
           /> 
           <TextField
             required
-            error={!!errors?.curpUsuario}
-            id="curpUsuario"
-            name="curpUsuario"
-            label="CURP"
-            value={formData.curpUsuario}
+            error={!!errors?.correoUsuario}
+            id="correoUsuario"
+            name="correoUsuario"
+            label="Correo"
+            value={formData.correoUsuario}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
+          
           <TextField
             required
             error={!!errors?.direccion}
             id="direccion"
             name="direccion"
-            label="Dirección"
+            label="Piso y Ala"
+            //helperText="Piso y Ala a la que pertenece"
             value={formData.direccion}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF"}}
+            inputProps={{ maxLength: 256 }}
+          />
+                             
+          <TextField
+            required
+            error={!!errors?.puestoUsuario}
+            id="puestoUsuario"
+            name="puestoUsuario"
+            label="Puesto"
+            value={formData.puestoUsuario}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
@@ -490,17 +524,6 @@ export default function Home() {
             name="uaUsuario"
             label="Unidad Administrativa"
             value={formData.uaUsuario}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.puestoUsuario}
-            id="puestoUsuario"
-            name="puestoUsuario"
-            label="Puesto"
-            value={formData.puestoUsuario}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
@@ -565,17 +588,7 @@ export default function Home() {
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 8 }}
           />
-          <TextField
-            required
-            error={!!errors?.curpEmpleado}
-            id="curpEmpleado"
-            name="curpEmpleado"
-            label="CURP"
-            value={formData.curpEmpleado}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 32 }}
-          />
+          
           <TextField
             required
             error={!!errors?.extEmpleado}
@@ -589,11 +602,11 @@ export default function Home() {
           />
           <TextField
             required
-            error={!!errors?.correo}
-            id="correo"
-            name="correo"
+            error={!!errors?.correoEmpleado}
+            id="correoEmpleado"
+            name="correoEmpleado"
             label="Email" //PENDIENTE
-            value={formData.correo}
+            value={formData.correoEmpleado}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
@@ -637,7 +650,7 @@ export default function Home() {
       > 
         {/* SubTitle */}
         <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          AUTORIZA
+          ÁREA QUE AUTORIZA
         </Typography>
         <Box
           component="form"
@@ -662,7 +675,7 @@ export default function Home() {
             error={!!errors?.puestoJefe}
             id="puestoJefe"
             name="puestoJefe"
-            label="Puesto ó Cargo del que Autoriza"
+            label="Puesto ó Cargo"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{background: "#FFFFFF", mb: 3}}
@@ -706,27 +719,24 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           <TextField
-            required
-            error={!!errors?.tipoEquipo}
-            id="tipoEquipo"
-            name="tipoEquipo"
-            label="Tipo de Equipo"
-            value={formData.tipoEquipo}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 16 }}
-          />
-          <TextField
-            required
-            error={!!errors?.marca}
-            id="marca"
-            name="marca"
-            label="Marca"
-            value={formData.marca}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 16 }}
-          />
+          required
+          //error={!!errors?.tipoUsuario}
+          select
+          id="marca"
+          name="marca"
+          label="Marca" 
+          defaultValue='HUAWEI'
+          sx={{background: "#FFFFFF"}}
+          onChange={handleChangeMarca}
+          //helperText="Porfavor selecciona el tipo de usuario"
+        >
+          {currencies2.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+
           <TextField
             required
             error={!!errors?.modelo}
