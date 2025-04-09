@@ -184,6 +184,42 @@ export default function Home() {
         TELEFONIA
       </Button>
 
+      {/* TELEFONIA */}
+      <Button
+        variant="outlined"
+        href="/internet"
+        sx={{
+          width: 'auto%',
+          height: 'calc(100% - 32px)',
+          border: "2px solid grey", //
+          mt: 2,
+          mb: 3,
+          ml: 2,
+          mr: 2,
+          p: 2,
+          color: theme.palette.text.dark,
+          borderRadius: 2,
+          display: 'flex',
+          background: "#F4F4F5",
+          boxSizing: 'border-box',
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2"
+          },
+          fontSize: theme.typography.h4.fontSize,
+          '&:hover': {
+            transform: 'scale(1.02)',
+            transition: 'transform 0.3s ease-in-out',
+            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+          },
+        }}
+      >
+        INTERNET
+      </Button>
+
     </Container>
   );
 }
