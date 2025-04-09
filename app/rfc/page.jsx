@@ -9,15 +9,17 @@ import {
   TextField,
   Button,
   FormControlLabel,
-  RadioGroup,
-  Radio,
   FormLabel,
   Divider,
   FormGroup,
   Checkbox
 } from "@mui/material";
 import Image from "next/image"; 
-import EditableTable from "../components/EditableTable.jsx";
+import EditableTableInter from "../components/EditableTableInter.jsx";
+import EditableTableAdmin from "../components/EditableTableAdmin.jsx";
+import EditableTableDes from "../components/EditableTableDes.jsx";
+import EditableTableUsua from "../components/EditableTableUsua.jsx";
+import EditableTableOtro from "../components/EditableTableOtro.jsx";
 import Alerts from "../components/alerts.jsx";
 import axios from 'axios';
 import { useEffect } from "react";
@@ -26,18 +28,72 @@ export default function Home() {
   const theme = useTheme();
 
   // Checkbox
-  const [altaIsTrue, setAltaIsTrue] = useState(false)
-  const [cambioIsTrue, setCambioIsTrue] = useState(false)
-  const [bajaIsTrue, setBajaIsTrue] = useState(false)
+  // Tipo de Movimiento
+  const [adminIsTrue, setAdminIsTrue] = useState(false)
+  const [desIsTrue, setDesIsTrue] = useState(false)
+  const [interIsTrue, setInterIsTrue] = useState(false)
+  const [usuaIsTrue, setUsuaIsTrue] = useState(false)
+  const [otroIsTrue, setOtroIsTrue] = useState(false)     //Para opcion OTRO
+
+  // Intersistemas
+  const [altaInterIsTrue, setAltaInterIsTrue] = useState(false)
+  const [cambioInterIsTrue, setCambioInterIsTrue] = useState(false)
+  const [bajaInterIsTrue, setBajaInterIsTrue] = useState(false)
+
+  // Administrador
+  const [altaAdminIsTrue, setAltaAdminIsTrue] = useState(false)
+  const [cambioAdminIsTrue, setCambioAdminIsTrue] = useState(false)
+  const [bajaAdminIsTrue, setBajaAdminIsTrue] = useState(false)
+
+  // Desarrollador
+  const [altaDesIsTrue, setAltaDesIsTrue] = useState(false)
+  const [cambioDesIsTrue, setCambioDesIsTrue] = useState(false)
+  const [bajaDesIsTrue, setBajaDesIsTrue] = useState(false)
+
+  // Usuario
+  const [altaUsuaIsTrue, setAltaUsuaIsTrue] = useState(false)
+  const [cambioUsuaIsTrue, setCambioUsuaIsTrue] = useState(false)
+  const [bajaUsuaIsTrue, setBajaUsuaIsTrue] = useState(false)
+
+  // Otro
+  const [altaOtroIsTrue, setAltaOtroIsTrue] = useState(false)
+  const [cambioOtroIsTrue, setCambioOtroIsTrue] = useState(false)
+  const [bajaOtroIsTrue, setBajaOtroIsTrue] = useState(false)
 
   // Tablas
+  //const [tableData, setTableData] = useState([]);
 
-  const [tableData, setTableData] = useState([]);
+  // Intersistemas
+  const [altaInterTableData, setAltaInterTableData] = useState([]);
+  const [bajaInterTableData, setBajaInterTableData] = useState([]);
+  const [cambioAltaInterTableData, setCambioAltaInterTableData] = useState([]);
+  const [cambioBajaInterTableData, setCambiBajaInterTableData] = useState([]);
 
-  const [altaTableData, setAltaTableData] = useState([]);
-  const [cambioTableData, setCambioTableData] = useState([]);
-  const [bajaTableData, setBajaTableData] = useState([]);
+  // Administrador
+  const [altaAdminTableData, setAltaAdminTableData] = useState([]);
+  const [bajaAdminTableData, setBajaAdminTableData] = useState([]);
+  const [cambioAltaAdminTableData, setCambioAltaAdminTableData] = useState([]);
+  const [cambioBajaAdminTableData, setCambioBajaAdminTableData] = useState([]);
 
+  // Desarrollador
+  const [altaDesTableData, setAltaDesTableData] = useState([]);
+  const [bajaDesTableData, setBajaDesTableData] = useState([]);
+  const [cambioAltaDesTableData, setCambioAltaDesTableData] = useState([]);
+  const [cambioBajaDesTableData, setCambioBajaDesTableData] = useState([]);
+
+  // Usuario
+  const [altaUsuaTableData, setAltaUsuaTableData] = useState([]);
+  const [bajaUsuaTableData, setBajaUsuaTableData] = useState([]);
+  const [cambioAltaUsuaTableData, setCambioAltaUsuaTableData] = useState([]);
+  const [cambioBajaUsuaTableData, setCambioBajaUsuaTableData] = useState([]);
+
+  // Otro
+  const [altaOtroTableData, setAltaOtroTableData] = useState([]);
+  const [bajaOtroTableData, setBajaOtroTableData] = useState([]);
+  const [cambioAltaOtroTableData, setCambioAltaOtroTableData] = useState([]);
+  const [cambioBajaOtroTableData, setCambioBajaOtroTableData] = useState([]);
+
+  // Estados para el formulario
   const [formData, setFormData] = useState({
     movimiento: "", 
     desotro: "",
@@ -57,14 +113,35 @@ export default function Home() {
     justifica: "",
     justifica2: "",
     justifica3: "",
-    // Estados para checkbox
-    ALTA: altaIsTrue,
-    BAJA: bajaIsTrue,
-    CAMBIO: cambioIsTrue,
-    //
-    registrosAltas: [],
-    registrosCambios: [],
-    registrosBajas: [],
+
+    // Estados para tipo de movimientos
+    intersistemas: interIsTrue,
+    administrador: adminIsTrue,
+    desarrollador: desIsTrue,
+    usuario: usuaIsTrue,
+    otro: otroIsTrue,       //ESTE TAL VEZ PARA OTRO, Seria Otra Tabla
+
+    // Estados para checkbox 
+    // Intersistemas
+    AltaInter: altaInterIsTrue,
+    BajaInter: bajaInterIsTrue,
+    CambioInter: cambioInterIsTrue,
+    // Administrador
+    AltaAdmin: altaAdminIsTrue,
+    BajaAdmin: bajaAdminIsTrue,
+    CambioAdmin: cambioAdminIsTrue,
+    // Desarrollador
+    AltaDes: altaDesIsTrue,
+    BajaDes: bajaDesIsTrue,
+    CambioDes: cambioDesIsTrue,
+    // Usuario
+    AltaUsua: altaUsuaIsTrue,
+    BajaUsua: bajaUsuaIsTrue,
+    CambioUsua: cambioUsuaIsTrue,
+    // Otro
+    AltaOtro: altaOtroIsTrue,
+    BajaOtro: bajaOtroIsTrue,
+    CambioOtro: cambioOtroIsTrue,
   });
   
   // Generar PDF
@@ -80,75 +157,278 @@ export default function Home() {
   };
 
   // Tablas
-
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      registrosAltas: altaTableData,
-      registrosCambios: cambioTableData,
-      registrosBajas: bajaTableData,
+      // Intersistemas
+      registrosInterAltas: altaInterTableData,
+      registrosInterBajas: bajaInterTableData,
+      registrosInterCambiosAltas: cambioAltaInterTableData,
+      registrosInterCambiosBajas: cambioBajaInterTableData,
+      // Administrador
+      registrosAdminAltas: altaAdminTableData,
+      registrosAdminBajas: bajaAdminTableData,
+      registrosAdminCambiosAltas: cambioAltaAdminTableData,
+      registrosAdminCambiosBajas: cambioBajaAdminTableData,
+      // Desarrollador
+      registrosDesAltas: altaDesTableData,
+      registrosDesBajas: bajaDesTableData,
+      registrosDesCambiosAltas: cambioAltaDesTableData,
+      registrosDesCambiosBajas: cambioBajaDesTableData,
+      // Usuario
+      registrosUsuaAltas: altaUsuaTableData,
+      registrosUsuaBajas: bajaUsuaTableData,
+      registrosUsuaCambiosAltas: cambioAltaUsuaTableData,
+      registrosUsuaCambiosBajas: cambioBajaUsuaTableData,
+      // Otro
+      registrosOtroAltas: altaOtroTableData,
+      registrosOtroBajas: bajaOtroTableData,
+      registrosOtroCambiosAltas: cambioAltaOtroTableData,
+      registrosOtroCambiosBajas: cambioBajaOtroTableData,
     }));
-  }, [altaTableData, cambioTableData, bajaTableData]);
+  }, [
+      altaInterTableData, bajaInterTableData, cambioAltaInterTableData, cambioBajaInterTableData,
+      altaAdminTableData, bajaAdminTableData, cambioAltaAdminTableData, cambioBajaAdminTableData,
+      altaDesTableData, bajaDesTableData, cambioAltaDesTableData, cambioBajaDesTableData,
+      altaUsuaTableData, bajaUsuaTableData, cambioAltaUsuaTableData, cambioBajaUsuaTableData,
+      altaOtroTableData, bajaOtroTableData, cambioAltaOtroTableData, cambioBajaOtroTableData
+    ]);
 
-  const handleAltaTableDataChange = (data) => {
-    //console.log("Datos de la tabla ALTA:", data);
-    setAltaTableData(data);
+  // Intersistemas
+  const handleInterAltaTableDataChange = (data) => {
+    setAltaInterTableData(data);
   };
-  
-  const handleCambioTableDataChange = (data) => {
-    setCambioTableData(data);
+  const handleInterBajaTableDataChange = (data) => {
+    setBajaInterTableData(data);
   };
-  
-  const handleBajaTableDataChange = (data) => {
-    setBajaTableData(data);
+  const handleInterCambioAltaTableDataChange = (data) => {
+    setCambioAltaInterTableData(data);
+  };
+  const handleInterCambioBajaTableDataChange = (data) => {
+    setCambiBajaInterTableData(data);
+  };
+  // Administrador
+  const handleAdminAltaTableDataChange = (data) => {
+    setAltaAdminTableData(data);
+  };
+  const handleAdminBajaTableDataChange = (data) => {
+    setBajaAdminTableData(data);
+  };
+  const handleAdminCambioAltaTableDataChange = (data) => {
+    setCambioAltaAdminTableData(data);
+  };
+  const handleAdminCambioBajaTableDataChange = (data) => {
+    setCambioBajaAdminTableData(data);
+  };
+  // Desarrollador
+  const handleDesAltaTableDataChange = (data) => {
+    setAltaDesTableData(data);
+  };
+  const handleDesBajaTableDataChange = (data) => {
+    setBajaDesTableData(data);
+  };
+  const handleDesCambioAltaTableDataChange = (data) => {
+    setCambioAltaDesTableData(data);
+  };
+  const handleDesCambioBajaTableDataChange = (data) => {
+    setCambioBajaDesTableData(data);
+  };
+  // Usuario
+  const handleUsuaAltaTableDataChange = (data) => {
+    setAltaUsuaTableData(data);
+  };
+  const handleUsuaBajaTableDataChange = (data) => {
+    setBajaUsuaTableData(data);
+  };
+  const handleUsuaCambioAltaTableDataChange = (data) => {
+    setCambioAltaUsuaTableData(data);
+  };
+  const handleUsuaCambioBajaTableDataChange = (data) => {
+    setCambioBajaUsuaTableData(data);
+  };
+  // Otro
+  const handleOtroAltaTableDataChange = (data) => {
+    setAltaOtroTableData(data);
+  };
+  const handleOtroBajaTableDataChange = (data) => {
+    setBajaOtroTableData(data);
+  };
+  const handleOtroCambioAltaTableDataChange = (data) => {
+    setCambioAltaOtroTableData(data);
+  };
+  const handleOtroCambioBajaTableDataChange = (data) => {
+    setCambioBajaOtroTableData(data);
   };
 
   // Checkbox Funcionalidad
-
-  const saveAltaComboBox = async (event) => {
-    //console.log(event)
-    //console.log(!altaIsTrue)
+  // Tipo de cambio
+  const saveInterComboBox = async (event) => {
     const { name, value, type, checked } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
     }));
-    setAltaIsTrue(!altaIsTrue)
+    setInterIsTrue(!interIsTrue)
+  }
+  const saveAdminComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setAdminIsTrue(!adminIsTrue)
+  }
+  const saveDesComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setDesIsTrue(!desIsTrue)
+  }
+  const saveUsuaComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setUsuaIsTrue(!usuaIsTrue)
+  }
+  const saveOtroComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setOtroIsTrue(!otroIsTrue)
   }
 
-  const saveCambioComboBox = async (event) => {
+  // Tipos de movimientos para cada tipo de cambio
+  // Intersistemas
+  const saveAltaInterComboBox = async (event) => {
     const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => {
-      let updatedFormData = {
-        ...prevFormData,
-        [name]: type === 'checkbox' ? checked : value,
-      };
-  
-      if (checked) {      // Si "CAMBIO" está seleccionado
-        updatedFormData = {
-          ...updatedFormData,
-          BAJA: true,     // Selecciona automáticamente BAJA
-        };
-      }
-  
-      return updatedFormData;
-    });
-    setCambioIsTrue(!cambioIsTrue);
-
-    //console.log(event)
-    //console.log(!cambioIsTrue)
-    //console.log(!bajaIsTrue)
-
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setAltaInterIsTrue(!altaInterIsTrue)
+  }
+  const saveCambioInterComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setCambioInterIsTrue(!cambioInterIsTrue);
   };
-
-  const saveBajaComboBox = async (event) => {
+  const saveBajaInterComboBox = async (event) => {
     const { name, value, type, checked } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
     }));
-    setBajaIsTrue(!bajaIsTrue)
-  }
+    setBajaInterIsTrue(!bajaInterIsTrue)
+  };
+  // Administrador
+  const saveAltaAdminComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setAltaAdminIsTrue(!altaAdminIsTrue)
+  };
+  const saveCambioAdminComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setCambioAdminIsTrue(!cambioAdminIsTrue);
+  };
+  const saveBajaAdminComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setBajaAdminIsTrue(!bajaAdminIsTrue)
+  };
+  // Desarrollador
+  const saveAltaDesComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setAltaDesIsTrue(!altaDesIsTrue)
+  };
+  const saveCambioDesComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setCambioDesIsTrue(!cambioDesIsTrue);
+  };
+  const saveBajaDesComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setBajaDesIsTrue(!bajaDesIsTrue)
+  };
+  // Usuario
+  const saveAltaUsuaComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setAltaUsuaIsTrue(!altaUsuaIsTrue)
+  };
+  const saveCambioUsuaComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setCambioUsuaIsTrue(!cambioUsuaIsTrue);
+  };
+  const saveBajaUsuaComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setBajaUsuaIsTrue(!bajaUsuaIsTrue)
+  };
+  // Otro
+  const saveAltaOtroComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setAltaOtroIsTrue(!altaOtroIsTrue)
+  };
+  const saveCambioOtroComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setCambioOtroIsTrue(!cambioOtroIsTrue);
+  };
+  const saveBajaOtroComboBox = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    setBajaOtroIsTrue(!bajaOtroIsTrue)
+  };
 
   // Boton
   const [botonEstado, setBotonEstado] = useState('Enviar');
@@ -268,9 +548,9 @@ export default function Home() {
       {/* Banner Responsive */}
       <Box
         sx={{
-          width: '100vw', // Ocupa todo el ancho de la ventana gráfica
+          width: '100', // Ocupa todo el ancho de la ventana gráfica
           overflow: 'hidden',
-          height: '430px', // Ajusta la altura según sea necesario
+          height: '350px', // Ajusta la altura según sea necesario
           [theme.breakpoints.down('md')]: {
             height: 'auto', // Ajusta la altura automáticamente en pantallas pequeñas
           },
@@ -355,8 +635,88 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
 
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 3, mb:1 }} />
-          
+          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 3, mb:1 }} /> 
+
+          {/* Checkbox */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2, mb: 0 }}>
+            <FormLabel
+              component="legend"
+              sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+            >
+              Tipo de Cambio *
+            </FormLabel>
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.intersistemas}
+                    onChange={saveInterComboBox}
+                    name="intersistemas"
+                    color="primary"
+                  />
+                }
+                label="Intersistemas"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.administrador}
+                    onChange={saveAdminComboBox}
+                    name="administrador"
+                    color="primary"
+                  />
+                }
+                label="Administrador"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.desarrollador}
+                    onChange={saveDesComboBox}
+                    name="desarrollador"
+                    color="primary"
+                  />
+                }
+                label="Desarrollador"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.usuario}
+                    onChange={saveUsuaComboBox}
+                    name="usuario"
+                    color="primary"
+                  />
+                }
+                label="Usuario"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.otro}
+                    onChange={saveOtroComboBox}
+                    name="otro"
+                    color="primary"
+                  />
+                }
+                label="Otro"
+              />
+            </FormGroup>
+            <TextField
+              disabled={!formData.otro}
+              required={formData.otro}
+              id="desotro"
+              name="desotro"
+              label="Otro"
+              placeholder="Describa Brevemente"
+              value={formData.desotro}
+              onChange={handleChange}
+              sx={{ background: '#FFFFFF', mb: 3}}
+              inputProps={{ maxLength: 32 }}
+            />
+            
+          </Box>
+          {/* ANTERIOR
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2 }}>
             <FormLabel
               component="legend"
@@ -364,6 +724,7 @@ export default function Home() {
             >
               Tipo de Cambio *
             </FormLabel>
+            
             <RadioGroup
               row
               aria-label="Tipo de Movimiento"
@@ -379,9 +740,10 @@ export default function Home() {
               <FormControlLabel value="USUA" control={<Radio />} label="USUARIO" />
               <FormControlLabel value="OTRO" control={<Radio />} label="OTRO" />
             </RadioGroup>
+            
             <TextField
-              disabled={!otroHabilitado}
-              required={otroHabilitado}
+              disabled={!formData.otro}
+              required={formData.otro}
               id="desotro"
               name="desotro"
               label="Otro"
@@ -392,8 +754,9 @@ export default function Home() {
               inputProps={{ maxLength: 32 }}
             />
           </Box>
+          */}
 
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:0 }} />
+          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:1 }} />
 
           <TextField
             required
@@ -653,7 +1016,7 @@ export default function Home() {
       >
         {/* SubTitle */}
         <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          DESCRIPCION
+          Descripción
         </Typography>
         <Box
           component="form"
@@ -662,61 +1025,235 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 3, mb:1 }} />
 
-          {/* Checkbox */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2, mb: 1 }}>
+          {/* Checkbox Intersistemas */}
+          <Box sx={{ display: formData.intersistemas ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', ml: 0, mb: 1 }}>
             <FormLabel
               component="legend"
               sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
             >
-              Tipo de Movimiento *
+              Tipo de Movimiento Intersistemas *
             </FormLabel>
             <FormGroup row>
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={formData.ALTA}
-                    onChange={saveAltaComboBox}
-                    name="ALTA"
+                    checked={formData.AltaInter}
+                    onChange={saveAltaInterComboBox}
+                    name="AltaInter"
                     color="primary"
                   />
                 }
-                label="ALTA"
+                label="Alta"
               />
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={formData.CAMBIO}
-                    onChange={saveCambioComboBox}
-                    name="CAMBIO"
+                    checked={formData.CambioInter}
+                    onChange={saveCambioInterComboBox}
+                    name="CambioInter"
                     color="primary"
                   />
                 }
-                label="CAMBIO"
+                label="Cambio"
               />
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={formData.BAJA}
-                    onChange={saveBajaComboBox}
-                    name="BAJA"
+                    checked={formData.BajaInter}
+                    onChange={saveBajaInterComboBox}
+                    name="BajaInter"
                     color="primary"
                   />
                 }
-                label="BAJA"
+                label="Baja"
               />
             </FormGroup>
+          </Box>
+          <Divider sx={{ display: formData.intersistemas ? 'flex' : 'none', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          {/* Checkbox Administrador */}
+          <Box sx={{ display: formData.administrador ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', ml: 0, mb: 1 }}>
             <FormLabel
               component="legend"
-              sx={{ mt: 1, display: 'flex', justifyContent: 'center', fontSize: '0.8rem' }}
+              sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
             >
-              En caso de traslado llenar ambas tablas mostradas
+              Tipo de Movimiento Administrador *
             </FormLabel>
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.AltaAdmin}
+                    onChange={saveAltaAdminComboBox}
+                    name="AltaAdmin"
+                    color="primary"
+                  />
+                }
+                label="Alta"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.CambioAdmin}
+                    onChange={saveCambioAdminComboBox}
+                    name="CambioAdmin"
+                    color="primary"
+                  />
+                }
+                label="Cambio"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.BajaAdmin}
+                    onChange={saveCambioAdminComboBox}
+                    name="BajaAdmin"
+                    color="primary"
+                  />
+                }
+                label="Baja"
+              />
+            </FormGroup>
           </Box>
-          
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Divider sx={{ display: formData.administrador ? 'flex' : 'none', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          {/* Checkbox Desarrollador */}
+          <Box sx={{ display: formData.desarrollador ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', ml: 0, mb: 1 }}>
+            <FormLabel
+              component="legend"
+              sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+            >
+              Tipo de Movimiento Desarrollador *
+            </FormLabel>
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.AltaDes}
+                    onChange={saveAltaDesComboBox}
+                    name="AltaDes"
+                    color="primary"
+                  />
+                }
+                label="Alta"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.CambioDes}
+                    onChange={saveCambioDesComboBox}
+                    name="CambioDes"
+                    color="primary"
+                  />
+                }
+                label="Cambio"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.BajaDes}
+                    onChange={saveBajaDesComboBox}
+                    name="BajaDes"
+                    color="primary"
+                  />
+                }
+                label="Baja"
+              />
+            </FormGroup>
+          </Box>
+          <Divider sx={{ display: formData.desarrollador ? 'flex' : 'none', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          {/* Checkbox Usuario */}
+          <Box sx={{ display: formData.usuario ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', ml: 0, mb: 1 }}>
+            <FormLabel
+              component="legend"
+              sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+            >
+              Tipo de Movimiento Usuario *
+            </FormLabel>
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.AltaUsua}
+                    onChange={saveAltaUsuaComboBox}
+                    name="AltaUsua"
+                    color="primary"
+                  />
+                }
+                label="Alta"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.CambioUsua}
+                    onChange={saveCambioUsuaComboBox}
+                    name="CambioUsua"
+                    color="primary"
+                  />
+                }
+                label="Cambio"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.BajaUsua}
+                    onChange={saveBajaUsuaComboBox}
+                    name="BajaUsua"
+                    color="primary"
+                  />
+                }
+                label="Baja"
+              />
+            </FormGroup>
+          </Box>
+          <Divider sx={{ display: formData.usuario ? 'flex' : 'none', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          {/* Checkbox Otro */}
+          <Box sx={{ display: formData.otro ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', ml: 0, mb: 1 }}>
+            <FormLabel
+              component="legend"
+              sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+            >
+              Tipo de Movimiento Otro *
+            </FormLabel>
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.AltaOtro}
+                    onChange={saveAltaOtroComboBox}
+                    name="AltaOtro"
+                    color="primary"
+                  />
+                }
+                label="Alta"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.CambioOtro}
+                    onChange={saveCambioOtroComboBox}
+                    name="CambioOtro"
+                    color="primary"
+                  />
+                }
+                label="Cambio"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.BajaOtro}
+                    onChange={saveBajaOtroComboBox}
+                    name="BajaOtro"
+                    color="primary"
+                  />
+                }
+                label="Baja"
+              />
+            </FormGroup>
+          </Box>
+          <Divider sx={{ display: formData.otro ? 'flex' : 'none', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+
+          {/* Descripcion Detallada */}
           <TextField
             required
             id="desdet"
@@ -731,7 +1268,9 @@ export default function Home() {
         </Box>
       </Box>
 
-      {/* ALTAS */}
+
+
+      {/* INTERSISTEMAS*/}
       {/* Form Box Responsive */}
       <Box
         component="section"
@@ -751,39 +1290,129 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2"
           },
-          display: formData.ALTA ? 'block' : 'none'
+          display: formData.intersistemas ? 'block' : 'none'
         }}
       >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          ALTAS
+        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4, mb: 3}}>
+          Registros Intersistemas
         </Typography>
-        <Box
-          component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          
-          <EditableTable onDataChange={handleAltaTableDataChange} />
 
+        {/* Altas Tabla */}
+        <Box sx={{ display: formData.AltaInter ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Altas Intersistemas
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <EditableTableInter onDataChange={handleInterAltaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
         </Box>
-        <FormLabel
-          component="legend"
-          sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-        > 
-          En caso de proporcionar dirección NAT verificar que sea la correcta.
-        </FormLabel>  
-        <FormLabel
-          component="legend"
-          sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-        > 
-          Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
-        </FormLabel>     
+        {/* Bajas Tabla */}
+        <Box sx={{ display: formData.BajaInter ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Bajas Intersistemas
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <EditableTableInter onDataChange={handleInterBajaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
+        </Box>
+        {/* Cambios Tabla */}
+        <Box sx={{ display: formData.CambioInter ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Cambios Intersistemas
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
+            <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+              Altas
+            </Typography>
+            <EditableTableInter onDataChange={handleInterCambioAltaTableDataChange} />
+            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
+            <Typography variant="h6" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+              Bajas
+            </Typography>
+            <EditableTableInter onDataChange={handleInterCambioBajaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
+        </Box>
       </Box>
 
-      {/* CAMBIOS*/}
+      {/* ADMINISTRADOR */}
       {/* Form Box Responsive */}
       <Box
         component="section"
@@ -803,39 +1432,129 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2"
           },
-          display: formData.CAMBIO ? 'block' : 'none'
+          display: formData.administrador ? 'block' : 'none'
         }}
       >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          CAMBIOS
+        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4, mb: 3}}>
+          Registros Administrador
         </Typography>
-        <Box
-          component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          
-          <EditableTable onDataChange={handleCambioTableDataChange} />
 
+        {/* Altas Tabla */}
+        <Box sx={{ display: formData.AltaAdmin ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Altas Administrador
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <EditableTableAdmin onDataChange={handleAdminAltaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
         </Box>
-        <FormLabel
-          component="legend"
-          sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-        > 
-          En caso de proporcionar dirección NAT verificar que sea la correcta.
-        </FormLabel>  
-        <FormLabel
-          component="legend"
-          sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-        > 
-          Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
-        </FormLabel> 
+        {/* Bajas Tabla */}
+        <Box sx={{ display: formData.BajaAdmin ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Bajas Administrador
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <EditableTableAdmin onDataChange={handleAdminBajaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
+        </Box>
+        {/* Cambios Tabla */}
+        <Box sx={{ display: formData.CambioAdmin ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Cambios Administrador
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
+            <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+              Altas
+            </Typography>
+            <EditableTableAdmin onDataChange={handleAdminCambioAltaTableDataChange} />
+            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
+            <Typography variant="h6" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+              Bajas
+            </Typography>
+            <EditableTableAdmin onDataChange={handleAdminCambioBajaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
+        </Box>
       </Box>
 
-      {/* BAJAS */}
+      {/* DESARROLLADOR */}
       {/* Form Box Responsive */}
       <Box
         component="section"
@@ -855,36 +1574,410 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2"
           },
-          display: formData.BAJA ? 'block' : 'none'
+          display: formData.desarrollador ? 'block' : 'none'
         }}
       >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          BAJAS
+        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4, mb: 3}}>
+          Registros Desarrollador
         </Typography>
-        <Box
-          component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          
-          <EditableTable onDataChange={handleBajaTableDataChange} />
 
+        {/* Altas Tabla */}
+        <Box sx={{ display: formData.AltaDes ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Altas Desarrollador
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <EditableTableDes onDataChange={handleDesAltaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
         </Box>
-        <FormLabel
-          component="legend"
-          sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-        > 
-          En caso de proporcionar dirección NAT verificar que sea la correcta.
-        </FormLabel>  
-        <FormLabel
-          component="legend"
-          sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-        > 
-          Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
-        </FormLabel> 
+        {/* Bajas Tabla */}
+        <Box sx={{ display: formData.BajaDes ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Bajas Desarrollador
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <EditableTableDes onDataChange={handleDesBajaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
+        </Box>
+        {/* Cambios Tabla */}
+        <Box sx={{ display: formData.CambioDes ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Cambios Desarrollador
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
+            <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+              Altas
+            </Typography>
+            <EditableTableDes onDataChange={handleDesCambioAltaTableDataChange} />
+            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
+            <Typography variant="h6" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+              Bajas
+            </Typography>
+            <EditableTableDes onDataChange={handleDesCambioBajaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
+        </Box>
+      </Box>
+
+      {/* USUARIO */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2"
+          },
+          display: formData.usuario ? 'block' : 'none'
+        }}
+      >
+        {/* SubTitle */}
+        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4, mb: 3}}>
+          Registros Usuario
+        </Typography>
+
+        {/* Altas Tabla */}
+        <Box sx={{ display: formData.AltaUsua ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Altas Usuario
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <EditableTableUsua onDataChange={handleUsuaAltaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
+        </Box>
+        {/* Bajas Tabla */}
+        <Box sx={{ display: formData.BajaDes ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Bajas Usuario
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <EditableTableUsua onDataChange={handleUsuaBajaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
+        </Box>
+        {/* Cambios Tabla */}
+        <Box sx={{ display: formData.CambioDes ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Cambios Usuario
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
+            <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+              Altas
+            </Typography>
+            <EditableTableUsua onDataChange={handleUsuaCambioAltaTableDataChange} />
+            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
+            <Typography variant="h6" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+              Bajas
+            </Typography>
+            <EditableTableUsua onDataChange={handleUsuaCambioBajaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
+        </Box>
+      </Box>
+
+      {/* OTRO */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2"
+          },
+          display: formData.otro ? 'block' : 'none'
+        }}
+      >
+        {/* SubTitle */}
+        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4, mb: 3}}>
+          Registros Otros
+        </Typography>
+
+        {/* Altas Tabla */}
+        <Box sx={{ display: formData.AltaOtro ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Altas Otros
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <EditableTableOtro onDataChange={handleOtroAltaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
+        </Box>
+        {/* Bajas Tabla */}
+        <Box sx={{ display: formData.BajaOtro ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Bajas Otros
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <EditableTableOtro onDataChange={handleOtroBajaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
+        </Box>
+        {/* Cambios Tabla */}
+        <Box sx={{ display: formData.CambioOtro ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
+          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            Cambios Otros
+          </Typography>
+          <Box
+            component="form"
+            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
+            <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+              Altas
+            </Typography>
+            <EditableTableOtro onDataChange={handleOtroCambioAltaTableDataChange} />
+            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
+            <Typography variant="h6" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+              Bajas
+            </Typography>
+            <EditableTableOtro onDataChange={handleOtroCambioBajaTableDataChange} />
+          </Box>
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Guardar registros antes de enviar.
+          </FormLabel> 
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            En caso de proporcionar dirección NAT verificar que sea la correcta.
+          </FormLabel>  
+          <FormLabel
+            component="legend"
+            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+          > 
+            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+          </FormLabel>
+        </Box>
       </Box>
 
       {/* JUSTIFICACION */}
@@ -911,7 +2004,7 @@ export default function Home() {
       >
         {/* SubTitle */}
         <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          JUSTIFICACIÓN
+          Justificación
         </Typography>
         <Box
           component="form"
@@ -921,7 +2014,7 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           <TextField
-            required
+            //required
             id="justifica"
             name="justifica"
             label="Referencias"
@@ -932,7 +2025,7 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required
+            //required
             id="justifica2"
             name="justifica2"
             label="Objetivo"
@@ -943,7 +2036,7 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required
+            //required
             id="justifica3"
             name="justifica3"
             label="Razon / Motivo"
@@ -953,6 +2046,12 @@ export default function Home() {
             sx={{background: "#FFFFFF", mb:3}}
             inputProps={{ maxLength: 256 }}
           />
+          <FormLabel
+          component="legend"
+          sx={{ mx: "auto", mb: 3, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+        > 
+          Llenar al menos un campo
+        </FormLabel> 
 
         </Box>
       </Box>

@@ -233,9 +233,9 @@ export default function Home() {
       {/* Banner Responsive */}
       <Box
         sx={{
-          width: '100vw', // Ocupa todo el ancho de la ventana gráfica
+          width: '100', // Ocupa todo el ancho de la ventana gráfica
           overflow: 'hidden',
-          height: '430px', // Ajusta la altura según sea necesario
+          height: '350px', // Ajusta la altura según sea necesario
           [theme.breakpoints.down('md')]: {
             height: 'auto', // Ajusta la altura automáticamente en pantallas pequeñas
           },

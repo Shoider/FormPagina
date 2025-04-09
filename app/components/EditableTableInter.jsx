@@ -98,7 +98,7 @@ function EditToolbar(props) {
   );
 }
 
-function EditableTable({ initialData, onDataChange }) {
+function EditableTableInter({ initialData, onDataChange }) {
   const [rows, setRows] = useState(initialData || []);
   const [rowModesModel, setRowModesModel] = useState({});
   const [nextId, setNextId] = useState(initialData && initialData.length > 0 ? Math.max(...initialData.map(item => item.id)) + 1 : 1); // Inicializamos nextId
@@ -151,10 +151,10 @@ function EditableTable({ initialData, onDataChange }) {
     { field: 'SD', headerName: 'Sistema Destino', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: true },
     { field: 'FRD', headerName: 'Funcion ó Rol de Anfitrión(es) Destino', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: true },
     { field: 'IPD', headerName: 'IP/NAT Anfitrión(es) Destino/NAT', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: true },
-    { field: 'PRO', headerName: 'Protocolo TCP y/o UDP', width: 200, align: 'center', headerAlign: 'center', editable: true, type: 'singleSelect', valueOptions: ['TCP', 'UDP'] },
+    { field: 'PRO', headerName: 'Protocolo TCP ó UDP', width: 200, align: 'center', headerAlign: 'center', editable: true, type: 'singleSelect', valueOptions: ['TCP', 'UDP'] },
     { field: 'PUER', headerName: 'Puertos', type: 'string', width: 100, align: 'center', headerAlign: 'center', editable: true },
     {
-      field: 'actions', type: 'actions', headerName: 'Actions', width: 200, align: 'center', headerAlign: 'center', cellClassName: 'actions',
+      field: 'actions', type: 'actions', headerName: 'Actions', width: 150, align: 'center', headerAlign: 'center', cellClassName: 'actions',
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
@@ -178,7 +178,7 @@ function EditableTable({ initialData, onDataChange }) {
   }, [rows, onDataChange]);
 
   return (
-    <Box sx={{ height: 400, width: "calc(100% - 32px)", ml: 2, mr: 4, mt: 3, mb: 3, '& .actions': { color: 'text.secondary' }, '& .textPrimary': { color: 'text.primary' }, background: "white" }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', width: "calc(100% - 32px)", ml: 2, mr: 4, mt: 3, mb: 3, '& .actions': { color: 'text.secondary' }, '& .textPrimary': { color: 'text.primary' }, background: "white" }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -191,10 +191,15 @@ function EditableTable({ initialData, onDataChange }) {
         slotProps={{
           toolbar: { setRows, setRowModesModel, nextId, setNextId }, // Pasamos nextId y setNextId
         }}
-        sx={{ '--DataGrid-overlayHeight': '300px' }}
+        sx={{
+          '--DataGrid-overlayHeight': '200px',
+          '& .MuiDataGrid-virtualScroller': {
+            marginBottom: '16px', // Espaciado adicional para evitar superposición
+          },
+        }}
       />
     </Box>
   );
 }
 
-export default EditableTable;
+export default EditableTableInter;
