@@ -134,7 +134,7 @@ export default function Home() {
   
     try {
       // PDF api
-      const pdfResponse = await axios.post("/api/v1/vpn", formData, {
+      const pdfResponse = await axios.post("/api/v1/inter", formData, {
         responseType: "blob",
     });
   
