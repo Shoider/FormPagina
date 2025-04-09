@@ -13,7 +13,9 @@ import {
   Radio,
   FormLabel,
   Divider,
-  FormHelperText
+  FormGroup,
+  FormHelperText,
+  Checkbox
 } from "@mui/material";
 import Image from "next/image";
 
@@ -24,26 +26,20 @@ import Alerts from "../components/alerts.jsx";
 export default function Home() {
   const theme = useTheme();
   const [formData, setFormData] = useState({
-    nombre: "",
-    puesto: "",
-    ua: "",
-    id: "",
-    extension: "",
-    correo: "",
-    marca: "",
-    modelo: "",
-    serie: "",
-    macadress: "",
-    jefe: "",
-    puestojefe: "",
+    fechasoli: "",
+    uaUsuario: "",
+    areaUsuario: "",
+    nombreUsuario: "",
+    puestoUsuario: "",
+    ipUsuario: "",
+    correoUsuario: "",
+    direccion: "",
+    teleUsuario: "",
+    extUsuario: "",
+    nombreJefe: "",
+    puestoJefe: "",
     servicios: "",
-    justificacion: "",
-    // Radios
-    movimiento: "",
-    malware: "",
-    vigencia: "",
-    so: "",
-    licencia: ""
+    justificacion: ""
   });
   
   // Generar PDF
@@ -94,10 +90,6 @@ export default function Home() {
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
 
-    //console.log("Lista getErrors en submit: ", getErrors)
-
-    //var alertaValidacion = validarCamposRequeridos(formData);
-
     if (!isValid) {
       setAlert({
         //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
@@ -135,26 +127,6 @@ export default function Home() {
   };
 
   //  VALIDADORES
-  const formatMacAddress = (value) => {
-    let formattedValue = value.replace(/[^0-9a-fA-F]/g, "").toUpperCase();
-    let result = "";
-    for (let i = 0; i < formattedValue.length; i++) {
-      if (i > 0 && i % 2 === 0) {
-        result += ":";
-      }
-      result += formattedValue[i];
-    }
-    return result;
-  };
-
-  const handleMacAddressChange = (event) => {
-    const formattedValue = formatMacAddress(event.target.value);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      macadress: formattedValue,
-    }));
-  };
-
   const handleExtensionChange = (event) => {
     let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
     value = value.slice(0, 4); // Limita la longitud a 4 caracteres
@@ -219,8 +191,59 @@ export default function Home() {
         <Box sx={{ justifyContent: "center", display: "flex", ml: 3}}>
         {/* Title */}
         <Typography variant="h3" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          Formulario Para Solicitud Del Servicio De VPN
+          Formulario Para Solicitud De Ampliación del Servicio de Internet
         </Typography>
+        </Box>
+      </Box>
+
+      {/* Datos del la Solicitud */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2"
+          },
+        }}
+      > 
+        {/* SubTitle */}
+        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+          SOLICITUD
+        </Typography>
+        <Box
+          component="form"
+          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+
+          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 3, mb:1 }} />
+          
+          <TextField
+            required
+            error={!!errors?.fechasoli}
+            id="fechasoli"
+            name="fechasoli"
+            label="Fecha de Solicitud"
+            value={formData.fechasoli}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF",mb:3}}
+            inputProps={{ maxLength: 256 }}
+          />
+          
         </Box>
       </Box>
 
@@ -262,156 +285,106 @@ export default function Home() {
 
           <TextField
             required
-            error={!!errors?.nombre}
+            error={!!errors?.nombreUsuario}
             //helperText={"Escriba su nombre"}
-            id="nombre"
-            name="nombre"
+            id="nombreUsuario"
+            name="nombreUsuario"
             label="Escriba su nombre"
-            value={formData.nombre}
+            value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           /> 
           <TextField
             required
-            error={!!errors?.puesto}
-            id="puesto"
-            name="puesto"
+            error={!!errors?.puestoUsuario}
+            id="puestoUsuario"
+            name="puestoUsuario"
             label="Puesto ó Cargo"
-            value={formData.puesto}
+            value={formData.puestoUsuario}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
-            error={!!errors?.ua}
-            id="ua"
-            name="ua"
+            error={!!errors?.areaUsuario}
+            id="areaUsuario"
+            name="areaUsuario"
+            label="Área"
+            value={formData.areaUsuario}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF"}}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.uaUsuario}
+            id="uaUsuario"
+            name="uaUsuario"
             label="Unidad Administrativa"
-            value={formData.ua}
+            value={formData.uaUsuario}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
-            error={!!errors?.id}
-            id="id"
-            name="id"
-            label="ID de Empleado"
-            value={formData.id}
+            error={!!errors?.ipUsuario}
+            id="ipUsuario"
+            name="ipUsuario"
+            label="IP del Equipo Asignado"
+            value={formData.ipUsuario}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
-            error={!!errors?.extension}
-            id="extension"
-            name="extension"
-            label="Extensión"
-            value={formData.extension}
-            onChange={handleExtensionChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 4 }}
-          />
-          <TextField
-            required
-            error={!!errors?.correo}
-            id="correo"
-            name="correo"
-            label="Correo Institucional"
+            error={!!errors?.correoUsuario}
+            id="correoUsuario"
+            name="correoUsuario"
+            label="Correo"
             type="email"
-            value={formData.correo}
+            value={formData.correoUsuario}
             onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
+            sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
-        </Box>
-      </Box>
-
-      {/* Datos del la Solicitud */}
-      {/* Form Box Responsive */}
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2"
-          },
-        }}
-      > 
-        {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          SOLICITUD
-        </Typography>
-        <Box
-          component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 3, mb:1 }} />
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <FormLabel
-              component="legend"
-              sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
-            >
-              Tipo de Movimiento *
-            </FormLabel>
-            <RadioGroup
-              row
-              aria-label="Tipo de Movimiento"
-              name="movimiento"
-              value={formData.movimiento}
-              onChange={handleChange}
-              required
-              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
-            >
-              <FormControlLabel value="ALTA" control={<Radio sx={{ '&.Mui-checked': { color: errors?.movimiento ? 'red' : undefined } }} />} label="ALTA" />
-              <FormControlLabel value="BAJA" control={<Radio />} label="BAJA" />
-              <FormControlLabel value="CAMBIO" control={<Radio />} label="CAMBIO" />
-            </RadioGroup>
-            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.movimiento}</FormHelperText>
-          </Box>
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:0 }} />
-
+          
           <TextField
             required
-            error={!!errors?.servicios}
-            id="servicios"
-            name="servicios"
-            label="Servicios que Necesita Acceder"
-            value={formData.servicios}
+            error={!!errors?.direccion}
+            id="direccion"
+            name="direccion"
+            label="Piso y Ala"
+            value={formData.direccion}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
-            error={!!errors?.justificacion}
-            id="justificacion"
-            name="justificacion"
-            label="Justificación"
-            value={formData.justificacion}
+            error={!!errors?.teleUsuario}
+            id="teleUsuario"
+            name="teleUsuario"
+            label="Teléfono"
+            value={formData.teleUsuario}
             onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
+            sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
+          <TextField
+            required
+            error={!!errors?.extUsuario}
+            id="extUsuario"
+            name="extUsuario"
+            label="Extensión"
+            value={formData.extUsuario}
+            onChange={handleChange}
+            sx={{background: "#FFFFFF",mb:3}}
+            inputProps={{ maxLength: 4 }}
+          />          
         </Box>
       </Box>
 
@@ -450,22 +423,22 @@ export default function Home() {
         >
           <TextField
             required
-            error={!!errors?.jefe}
-            id="jefe"
-            name="jefe"
+            error={!!errors?.nombreJefe}
+            id="nombreJefe"
+            name="nombreJefe"
             label="Funcionario con Cargo de Subgerente, Homologo ó Superior"
-            value={formData.jefe}
+            value={formData.nombreJefe}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
-            error={!!errors?.puestojefe}
-            id="puestojefe"
-            name="puestojefe"
+            error={!!errors?.puestoJefe}
+            id="puestoJefe"
+            name="puestoJefe"
             label="Puesto ó Cargo del que Autoriza"
-            value={formData.puestojefe}
+            value={formData.puestoJefe}
             onChange={handleChange}
             sx={{background: "#FFFFFF", mb: 3}}
             inputProps={{ maxLength: 256 }}
@@ -474,7 +447,7 @@ export default function Home() {
         </Box>
       </Box>
 
-      {/* Datos del Equipo */}
+      {/* Categorias de Navegacion */}
       {/* Form Box Responsive */}
       <Box
         component="section"
@@ -498,7 +471,7 @@ export default function Home() {
       >
         {/* SubTitle */}
         <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          CARACTERISTICAS DEL EQUIPO
+          CATEGORIAS DE NAVEGACIÓN
         </Typography>
         <Box
           component="form"
@@ -507,149 +480,64 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <TextField
-            required
-            error={!!errors?.marca}
-            id="marca"
-            name="marca"
-            label="Marca"
-            value={formData.marca}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.modelo}
-            id="modelo"
-            name="modelo"
-            label="Modelo"
-            value={formData.modelo}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.serie}
-            id="serie"
-            name="serie"
-            label="Serie"
-            value={formData.serie}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.macadress}
-            id="macadress"
-            name="macadress"
-            label="MAC Address"
-            value={formData.macadress}
-            onChange={handleMacAddressChange} // Usa handleMacAddressChange
-            inputProps={{ maxLength: 17 }} // Limita la longitud
-            sx={{background: "#FFFFFF"}}
-          />
-
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 2, mb:1 }} />
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <FormLabel
-              component="legend"
-              sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
-            >
-              Cuenta con Anti-Malware *
-            </FormLabel>
-            <RadioGroup
-              row
-              aria-label="Cuenta con Anti-Malware"
-              name="malware"
-              value={formData.malware}
-              onChange={handleChange}
-              required
-              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
-            >
-              <FormControlLabel value="SI" control={<Radio />} label="SI" />
-              <FormControlLabel value="NO" control={<Radio />} label="NO" />
-            </RadioGroup>
-            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.malware}</FormHelperText>
+          
+          {/* Checkbox */}
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2, mb: 0 }}>
+                      <FormLabel
+                        component="legend"
+                        sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+                      >
+                        Perfiles avanzados de navegación.                        
+                      </FormLabel>
+                      <FormLabel
+                        component="legend"
+                        sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '0.8rem' }}
+                      >
+                        Seleccione las opciones de navegación requeridas:                        
+                      </FormLabel>
+                      </Box>
+                      <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+                               
           </Box>
-
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <FormLabel
-              component="legend"
-              sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
-            >
-              Se Encuentra Vigente y Actualizado (Anti-Malware) *
-            </FormLabel>
-            <RadioGroup
-              row
-              aria-label="Se Encuentra Vigente y Actualizado (Anti-Malware)"
-              name="vigencia"
-              value={formData.vigencia}
-              onChange={handleChange}
-              required
-              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
-            >
-              <FormControlLabel value="SI" control={<Radio />} label="SI" />
-              <FormControlLabel value="NO" control={<Radio />} label="NO" />
-            </RadioGroup>
-            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.vigencia}</FormHelperText>
-          </Box>
-
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <FormLabel
-              component="legend"
-              sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
-            >
-              Cuenta con S.O. *
-            </FormLabel>
-            <RadioGroup
-              row
-              aria-label="Cuenta con S.O."
-              name="so"
-              value={formData.so}
-              onChange={handleChange}
-              required
-              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
-            >
-              <FormControlLabel value="SI" control={<Radio />} label="SI" />
-              <FormControlLabel value="NO" control={<Radio />} label="NO" />
-            </RadioGroup>
-            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.so}</FormHelperText>
-          </Box>
-
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <FormLabel
-              component="legend"
-              sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
-            >
-              Se Encuentra Licenciado y Actualizado (S.O.) *
-            </FormLabel>
-            <RadioGroup
-              row
-              aria-label="Se Encuentra Licenciado y Actualizado (S.O.)"
-              name="licencia"
-              value={formData.licencia}
-              onChange={handleChange}
-              required
-              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
-            >
-              <FormControlLabel value="SI" control={<Radio />} label="SI" />
-              <FormControlLabel value="NO" control={<Radio />} label="NO" />
-            </RadioGroup>
-            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.licencia}</FormHelperText>
-          </Box>
-
+          <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', ml: 2, mb: 0 }}>
+            {[
+                  { name: "intersistemas", label: "Descarga de software" },
+                  { name: "administrador", label: "Foros y Blogs" },
+                  { name: "desarrollador", label: "Comercio Electrónico" },
+                  { name: "usuario", label: "Redes Sociales" },
+                  { name: "otro", label: "Videos-YouTube (Streaming)" },
+                  { name: "otro", label: "WhatsApp Web" },
+                  { name: "intersistemas", label: "DropBox" },
+                  { name: "administrador", label: "OneDrive" },
+                  { name: "desarrollador", label: "Skype" },
+                  { name: "usuario", label: "Wetransfer" },
+                  { name: "otro", label: "TeamViewer" },
+                  { name: "otro", label: "Otra" }
+                ].map((item, index) => (
+            <Box key={index} sx={{ width: '30%', minWidth: '100px' }}>
+            <FormControlLabel
+                control={
+                  <Checkbox
+                  checked={formData[item.name]}
+                  name={item.name}
+                  color="primary"
+                />        }
+                        label={item.label}
+                />
+            </Box>  ))}
+            </Box>
+          
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:3 }} />
 
-        </Box>
+          <FormLabel
+                      component="legend"
+                      sx={{ mx: "auto", mt: 2,mb:3, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
+                    > 
+                    Considera estrictamente las necesarias para el desempeño de sus funciones;
+                    misma que deberán ser justificadas plenamente y autorizadas por el Director o Gerente del área de adscripción.
+           </FormLabel> 
+        
       </Box>
 
       {/* Enviar Informacion */}
