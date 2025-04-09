@@ -38,8 +38,6 @@ export default function Home() {
     extUsuario: "",
     nombreJefe: "",
     puestoJefe: "",
-    servicios: "",
-    justificacion: ""
   });
   
   // Generar PDF
@@ -86,6 +84,7 @@ export default function Home() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("datos de formdata:",formData)
 
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
