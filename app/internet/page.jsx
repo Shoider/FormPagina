@@ -24,7 +24,10 @@ import axios from 'axios';
 import Alerts from "../components/alerts.jsx";
 
 export default function Home() {
+ 
   const theme = useTheme();
+    // Tipo de CATEGORIA
+  
   const [formData, setFormData] = useState({
     fechasoli: "",
     uaUsuario: "",
@@ -38,8 +41,30 @@ export default function Home() {
     extUsuario: "",
     nombreJefe: "",
     puestoJefe: "",
+    descarga: false,
+    comercio: false,
+    redes: false,
+    foros: false,
+    whats: false,
+    videos:false,
+    dropbox:false,
+    skype:false,
+    wetransfer:false,
+    team:false,
+    otra:false,
+    onedrive:false
+
   });
-  
+  // CATEGORIAS
+  const saveCategorias = async (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    
+  }
+ 
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
 
@@ -501,24 +526,25 @@ export default function Home() {
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', ml: 2, mb: 0 }}>
             {[
-                  { name: "intersistemas", label: "Descarga de software" },
-                  { name: "administrador", label: "Foros y Blogs" },
-                  { name: "desarrollador", label: "Comercio Electrónico" },
-                  { name: "usuario", label: "Redes Sociales" },
-                  { name: "otro", label: "Videos-YouTube (Streaming)" },
-                  { name: "otro", label: "WhatsApp Web" },
-                  { name: "intersistemas", label: "DropBox" },
-                  { name: "administrador", label: "OneDrive" },
-                  { name: "desarrollador", label: "Skype" },
-                  { name: "usuario", label: "Wetransfer" },
-                  { name: "otro", label: "TeamViewer" },
-                  { name: "otro", label: "Otra" }
+                  { name: "descarga", label: "Descarga de software" },
+                  { name: "foros", label: "Foros y Blogs"},
+                  { name: "comercio", label: "Comercio Electrónico" },
+                  { name: "redes", label: "Redes Sociales" },
+                  { name: "videos", label: "Videos-YouTube (Streaming)" },
+                  { name: "whats", label: "WhatsApp Web" },
+                  { name: "dropbox", label: "DropBox" },
+                  { name: "onedrive", label: "OneDrive" },
+                  { name: "skype", label: "Skype" },
+                  { name: "wetransfer", label: "Wetransfer" },
+                  { name: "team", label: "TeamViewer" },
+                  { name: "otra", label: "Otra" }
                 ].map((item, index) => (
             <Box key={index} sx={{ width: '30%', minWidth: '100px' }}>
             <FormControlLabel
                 control={
                   <Checkbox
                   checked={formData[item.name]}
+                  onChange={saveCategorias}
                   name={item.name}
                   color="primary"
                 />        }
