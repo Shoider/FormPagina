@@ -51,7 +51,7 @@ export default function Home() {
     movimiento: "", //ALTA, BAJA, CAMBIO
     //tipoUsuario: "", 
 
-    interno: "", // 
+    
     mundo: "",
     local: "",
     cLocal: "",
@@ -807,29 +807,6 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         ></Box>
-        <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 3, mb:1 }} />
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <FormLabel
-              component="legend"
-              sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
-            >
-              Servicio Interno *
-            </FormLabel>
-            <RadioGroup
-              row
-              aria-label="Servicio Interno"
-              name="interno"
-              value={formData.interno}
-              onChange={handleChange}
-              required
-              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
-            >
-              <FormControlLabel value="SI" control={<Radio />} label="SI" />
-              <FormControlLabel value="NO" control={<Radio />} label="NO" />
-            </RadioGroup>
-            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.malware}</FormHelperText>
-          </Box>
-
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
 
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
