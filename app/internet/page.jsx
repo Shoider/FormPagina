@@ -613,7 +613,7 @@ export default function Home() {
                 //display: formData.usuaExterno ? 'block' : 'none'
               }}
             > 
-              {/* Justificacion de Descarga*/}
+              {/* Justificacion*/}
               <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
                 Justificación de Servicios Requeridos
               </Typography>
@@ -625,11 +625,15 @@ export default function Home() {
                 onSubmit={handleSubmit}
               >
               </Box>
-              <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 }} />
+              <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 ,
+                          display: formData.descarga ? 'block' : 'none'
+              }} />
 
               {/*BOX DE DESCARGA*/}
               <Box component="form"
-                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 }, 
+                        display: formData.descarga ? 'block' : 'none'
+                      }}
                                   noValidate
                                   autoComplete="off"
                                   onSubmit={handleSubmit}>
@@ -666,13 +670,19 @@ export default function Home() {
                 />
               </Box> 
                 {/*BOX DE DESCARGA*/}
-                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 }} />
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 ,          
+                display: formData.descarga ? 'block' : 'none'}} />
 
-                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3 }} />
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3, 
+                            display: formData.foros ? 'block' : 'none'
+
+                }} />
 
                 {/*BOX DE FOROS*/}
               <Box component="form"
-                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },       
+                           display: formData.foros? 'block' : 'none'
+                      }}
                                   noValidate
                                   autoComplete="off"
                                   onSubmit={handleSubmit}>
@@ -709,13 +719,19 @@ export default function Home() {
                 </Box> 
                 {/*BOX DE FOROS*/}
 
-                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 }} />
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 ,          
+                display: formData.foros ? 'block' : 'none'}} />
 
-                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3 }} />
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3, 
+                            display: formData.comercio ? 'block' : 'none'
+
+                }} />
 
                 {/*BOX DE COMERCIO*/}
               <Box component="form"
-                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },        
+                          display: formData.comercio ? 'block' : 'none'
+                      }}
                                   noValidate
                                   autoComplete="off"
                                   onSubmit={handleSubmit}>
@@ -752,13 +768,19 @@ export default function Home() {
                 </Box> 
                 {/*BOX DE COMERCIO*/}
 
-                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 }} />
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 ,          
+                display: formData.comercio ? 'block' : 'none'}} />
 
-                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3 }} />
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3, 
+                            display: formData.redes ? 'block' : 'none'
+
+                }} />
 
                 {/*BOX DE REDES*/}
               <Box component="form"
-                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },
+                        display: formData.redes ? 'block' : 'none'
+                      }}
                                   noValidate
                                   autoComplete="off"
                                   onSubmit={handleSubmit}>
@@ -794,14 +816,19 @@ export default function Home() {
                 />
                 </Box> 
                 {/*BOX DE REDES*/}
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 ,          
+                display: formData.redes ? 'block' : 'none'}} />
 
-                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 }} />
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3, 
+                            display: formData.videos ? 'block' : 'none'
 
-                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3 }} />
+                }} />
 
-                {/*BOX DE REDES*/}
+                {/*BOX DE Videos*/}
               <Box component="form"
-                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },
+                        display: formData.videos? 'block' : 'none'
+                      }}
                                   noValidate
                                   autoComplete="off"
                                   onSubmit={handleSubmit}>
@@ -816,30 +843,380 @@ export default function Home() {
                 <TextField
                   required
                   error={!!errors?.urlVideos}
-                  id="urlRedes"
-                  name="urlRedes"
+                  id="urlVideos"
+                  name="urlVideos"
                   label="Referencia del servicio requerido (URL)"
-                  value={formData.urlRedes}
+                  value={formData.urlVideos}
                   onChange={handleChange}
                   sx={{background: "#FFFFFF"}}
                   inputProps={{ maxLength:256 }}
                 />
                 <TextField
                   required
-                  error={!!errors?.justificaRedes}
-                  id="justificaRedes"
-                  name="justificaRedes"
+                  error={!!errors?.justificaVideos}
+                  id="justificaVideos"
+                  name="justificaVideos"
                   label="Justificación"
-                  value={formData.justificaRedes}
+                  value={formData.justificaVideos}
                   onChange={handleChange}
                   sx={{background: "#FFFFFF"}}
                   inputProps={{ maxLength: 256 }}
                 />
                 </Box> 
-                {/*BOX DE REDES*/}
+                {/*BOX DE Videos*/}
 
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 ,          
+                display: formData.videos ? 'block' : 'none'}} />
+
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3, 
+                            display: formData.whats ? 'block' : 'none'
+
+                }} />
+
+                {/*BOX DE WhatsApp*/}
+              <Box component="form"
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },
+                        display: formData.whats ? 'block' : 'none'
+                      }}
+                                  noValidate
+                                  autoComplete="off"
+                                  onSubmit={handleSubmit}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2, mb: 0 }}>
+                      <FormLabel
+                        component="legend"
+                        sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+                      >
+                        WhatsApp Web.                        
+                      </FormLabel>
+                </Box>                          
+                <TextField
+                  required
+                  error={!!errors?.urlWhats}
+                  id="urlWhats"
+                  name="urlWhats"
+                  label="Referencia del servicio requerido (URL)"
+                  value={formData.urlWhats}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength:256 }}
+                />
+                <TextField
+                  required
+                  error={!!errors?.justificaWhats}
+                  id="justificaWhats"
+                  name="justificaWhats"
+                  label="Justificación"
+                  value={formData.justificaWhats}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength: 256 }}
+                />
+                </Box> 
+                {/*BOX DE WhatsApp*/}
+
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 ,          
+                display: formData.whats ? 'block' : 'none'}} />
+
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3, 
+                            display: formData.dropbox ? 'block' : 'none'
+
+                }} />
+
+                {/*BOX DE DropBox*/}
+              <Box component="form"
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },
+                        display: formData.dropbox ? 'block' : 'none'
+                      }}
+                                  noValidate
+                                  autoComplete="off"
+                                  onSubmit={handleSubmit}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2, mb: 0 }}>
+                      <FormLabel
+                        component="legend"
+                        sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+                      >
+                        DropBox.                        
+                      </FormLabel>
+                </Box>                          
+                <TextField
+                  required
+                  error={!!errors?.urlDropbox}
+                  id="urlDropbpx"
+                  name="urlDropbox"
+                  label="Referencia del servicio requerido (URL)"
+                  value={formData.urlDropbox}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength:256 }}
+                />
+                <TextField
+                  required
+                  error={!!errors?.justificaDropbox}
+                  id="justificaDropbox"
+                  name="justificaDropbox"
+                  label="Justificación"
+                  value={formData.justificaDropbox}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength: 256 }}
+                />
+                </Box> 
+                {/*BOX DE DropBox*/}
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 ,          
+                display: formData.dropbox ? 'block' : 'none'}} />
+
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3, 
+                            display: formData.onedrive ? 'block' : 'none'
+
+                }} />
+                {/*BOX DE Onedrive*/}
+              <Box component="form"
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },
+                        display: formData.onedrive ? 'block' : 'none'
+                      }}
+                                  noValidate
+                                  autoComplete="off"
+                                  onSubmit={handleSubmit}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2, mb: 0 }}>
+                      <FormLabel
+                        component="legend"
+                        sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+                      >
+                        OneDrive.                        
+                      </FormLabel>
+                </Box>                          
+                <TextField
+                  required
+                  error={!!errors?.urlOnedrive}
+                  id="urlOnedrive"
+                  name="urlOnedrive"
+                  label="Referencia del servicio requerido (URL)"
+                  value={formData.urlOnedrive}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength:256 }}
+                />
+                <TextField
+                  required
+                  error={!!errors?.justificaOnedrive}
+                  id="justificaOnedrive"
+                  name="justificaOnedrive"
+                  label="Justificación"
+                  value={formData.justificaOnedrive}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength: 256 }}
+                />
+                </Box> 
+                {/*BOX DE Onedrive*/}
+
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 ,          
+                display: formData.onedrive ? 'block' : 'none'}} />
+
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3, 
+                            display: formData.skype ? 'block' : 'none'
+
+                }} />
+
+                {/*BOX DE Skype*/}
+              <Box component="form"
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },
+                        display: formData.skype ? 'block' : 'none'
+                      }}
+                                  noValidate
+                                  autoComplete="off"
+                                  onSubmit={handleSubmit}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2, mb: 0 }}>
+                      <FormLabel
+                        component="legend"
+                        sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+                      >
+                        Skype.                        
+                      </FormLabel>
+                </Box>                          
+                <TextField
+                  required
+                  error={!!errors?.urlSkype}
+                  id="urlSkype"
+                  name="urlSkype"
+                  label="Referencia del servicio requerido (URL)"
+                  value={formData.urlSkype}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength:256 }}
+                />
+                <TextField
+                  required
+                  error={!!errors?.justificaSkype}
+                  id="justificaSkype"
+                  name="justificaSkype"
+                  label="Justificación"
+                  value={formData.justificaSkype}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength: 256 }}
+                />
+                </Box> 
+                {/*BOX DE Skype*/}
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 ,          
+                display: formData.skype ? 'block' : 'none'}} />
+
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3, 
+                            display: formData.wetransfer ? 'block' : 'none'
+
+                }} />
+
+                {/*BOX DE wetransfer*/}
+              <Box component="form"
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },
+                        display: formData.wetransfer ? 'block' : 'none'
+                      }}
+                                  noValidate
+                                  autoComplete="off"
+                                  onSubmit={handleSubmit}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2, mb: 0 }}>
+                      <FormLabel
+                        component="legend"
+                        sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+                      >
+                        Wetransfer.                        
+                      </FormLabel>
+                </Box>                          
+                <TextField
+                  required
+                  error={!!errors?.urlWetransfer}
+                  id="urlWetransfer"
+                  name="urlWetransfer"
+                  label="Referencia del servicio requerido (URL)"
+                  value={formData.urlWetransfer}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength:256 }}
+                />
+                <TextField
+                  required
+                  error={!!errors?.justificaWetransfer}
+                  id="justificaWetransfer"
+                  name="justificaWetransfer"
+                  label="Justificación"
+                  value={formData.justificaWetransfer}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength: 256 }}
+                />
+                </Box> 
+                {/*BOX DE Wetransfer*/}
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 ,          
+                display: formData.wetransfer ? 'block' : 'none'}} />
+
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3, 
+                            display: formData.team ? 'block' : 'none'
+
+                }} />
+                {/*BOX DE Teamviewer*/}
+              <Box component="form"
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },
+                        display: formData.team ? 'block' : 'none'
+                      }}
+                                  noValidate
+                                  autoComplete="off"
+                                  onSubmit={handleSubmit}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2, mb: 0 }}>
+                      <FormLabel
+                        component="legend"
+                        sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+                      >
+                        Teamviewer.                        
+                      </FormLabel>
+                </Box>                          
+                <TextField
+                  required
+                  error={!!errors?.urlTeam}
+                  id="urlTeam"
+                  name="urlTeam"
+                  label="Referencia del servicio requerido (URL)"
+                  value={formData.urlTeam}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength:256 }}
+                />
+                <TextField
+                  required
+                  error={!!errors?.justificaTeam}
+                  id="justificaTeam"
+                  name="justificaTeam"
+                  label="Justificación"
+                  value={formData.justificaTeam}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength: 256 }}
+                />
+                </Box> 
+                {/*BOX DE Team*/}
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 ,          
+                display: formData.team ? 'block' : 'none'}} />
+
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3, 
+                            display: formData.otra ? 'block' : 'none'
+
+                }} />
+
+                {/*BOX DE otra*/}
+              <Box component="form"
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },
+                        display: formData.otra ? 'block' : 'none'
+                      }}
+                                  noValidate
+                                  autoComplete="off"
+                                  onSubmit={handleSubmit}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2, mb: 0 }}>
+                      <FormLabel
+                        component="legend"
+                        sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+                      >
+                        Otra.                        
+                      </FormLabel>
+                </Box>   
+                <TextField
+                  required
+                  error={!!errors?.otraC}
+                  id="otraC"
+                  name="otraC"
+                  label="Describe cual"
+                  value={formData.otraC}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength: 256 }}
+                />                       
+                <TextField
+                  required
+                  error={!!errors?.urlOtra}
+                  id="urlOtra"
+                  name="urlOtra"
+                  label="Referencia del servicio requerido (URL)"
+                  value={formData.urlOtra}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength:256 }}
+                />
+                <TextField
+                  required
+                  error={!!errors?.justificaOtra}
+                  id="justificaOtra"
+                  name="justificaOtra"
+                  label="Justificación"
+                  value={formData.justificaOtra}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength: 256 }}
+                />
                 
-                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3 }} />
+                </Box> 
+                {/*BOX DE otra*/}
+                
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 ,          
+                display: formData.otra ? 'block' : 'none'}} />
+
                 <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3 }} />
                 <FormLabel
                       component="legend"
