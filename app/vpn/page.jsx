@@ -13,13 +13,19 @@ import {
   Radio,
   FormLabel,
   Divider,
-  FormHelperText
+  FormHelperText,
+  Select,
+  OutlinedInput,
+  MenuItem,
+  InputLabel,
+  NativeSelect,
+  FormControl,
+  Autocomplete
 } from "@mui/material";
 import Image from "next/image";
-
 import axios from 'axios';
-
 import Alerts from "../components/alerts.jsx";
+import top100Films from "../constants/unidadesAdministrativas.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -45,13 +51,14 @@ export default function Home() {
     so: "",
     licencia: ""
   });
-  
+
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
 
   // API
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
+    
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
@@ -71,68 +78,6 @@ export default function Home() {
     severity: "",
   });
 
-  {/*
-  // Traducir al usuario
-  const traducirCampos = (key) => {
-    if (key == "nombre") {
-      return "Nombre"
-    }
-    if (key == "puesto") {
-      return "Puesto"
-    }
-    if (key == "ua") {
-      return "Unidad Administrativa"
-    }
-    if (key == "id") {
-      return "ID de Empleado"
-    }
-    if (key == "extension") {
-      return "Extensión"
-    }
-    if (key == "correo") {
-      return "Correo Institucional"
-    }
-    if (key == "marca") {
-      return "Marca"
-    }
-    if (key == "serie") {
-      return "Serie"
-    }
-    if (key == "macadress") {
-      return "MAC Address"
-    }
-    if (key == "jefe") {
-      return "Funcionario con Cargo de Subgerente, Homologo ó Superior"
-    }
-    if (key == "puestojefe") {
-      return "Puesto ó Cargo del que Autoriza"
-    }
-    if (key == "servicios") {
-      return "Servicios que Necesita Acceder"
-    }
-    if (key == "justificacion") {
-      return "Justificacion"
-    }
-    // Radios
-    if (key == "movimiento") {
-      return "Tipo de Movimiento"
-    }
-    if (key == "malware") {
-      return "Cuenta con Anti-Malware"
-    }
-    if (key == "vigencia") {
-      return "Se Encuentra Vigente y Actualizado (Anti-Malware)"
-    }
-    if (key == "so") {
-      return "Cuenta con S.O."
-    }
-    if (key == "licencia") {
-      return "Se Encuentra Licenciado y Actualizado (S.O.)"
-    }
-    else
-      return "Desconocido"
-  } */}
-
   const validarCamposRequeridos = (Data) => {
     
     const errores = {};
@@ -140,7 +85,6 @@ export default function Home() {
 
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
-        //var campo = traducirCampos(key);          // Traduce el error a la alerta
         errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
         isValid = false;                          // Al menos un campo está vacío
       }
@@ -149,16 +93,14 @@ export default function Home() {
   };
 
   // Llamada API
-
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("Lista formData en submit: ", formData)
 
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
 
     //console.log("Lista getErrors en submit: ", getErrors)
-
-    //var alertaValidacion = validarCamposRequeridos(formData);
 
     if (!isValid) {
       setAlert({
@@ -345,6 +287,38 @@ export default function Home() {
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
+
+          <Autocomplete
+            disablePortal
+            options={top100Films}
+            renderInput={(params) => <TextField sx={{ background: '#FFFFFF' }} {...params} label="Unidad Administrativa" />}
+            id="ua"
+            name="ua"
+            onChange={(event, newValue) => handleChange({ target: { name: 'ua' } }, newValue)} // Cambiado aquí
+            value={formData.ua} // Cambiado aquí
+          />;
+          
+          {/** 
+          <FormControl fullWidth sx={{  mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 }}>
+            <InputLabel id="ua">Age</InputLabel>
+            <Select
+              required
+              error={!!errors?.ua}
+              labelId="ua"
+              id="ua"
+              name="ua"
+              value={formData.ua} // Usa el valor de formData.ua
+              onChange={handleChange} // Usa handleChange para actualizar formData
+              sx={{ background: "#FFFFFF" }}
+            >
+              <MenuItem value="100">100 - Primera</MenuItem>
+              <MenuItem value="200">200 - Segunda</MenuItem>
+              <MenuItem value="300">300 - Tercera</MenuItem>
+            </Select>
+          </FormControl>
+          */}
+
+          {/* TEST
           <TextField
             required
             error={!!errors?.ua}
@@ -356,6 +330,7 @@ export default function Home() {
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
+          */}
           <TextField
             required
             error={!!errors?.id}
@@ -605,6 +580,7 @@ export default function Home() {
           <TextField
             required
             error={!!errors?.macadress}
+            placeholder="AA:AA:AA:AA:AA:AA"
             id="macadress"
             name="macadress"
             label="MAC Address"
