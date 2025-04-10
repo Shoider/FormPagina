@@ -183,10 +183,26 @@ export default function Home() {
 
     setFormData((prevFormData) => ({
       ...prevFormData,
-      extension: value,
+      extUsuario: value,
     }));
   };
 
+  const handleDateChange = (event) => {
+    const rawDate = new Date(event.target.value+ "T00:00:00");
+    console.log("Fecha de Solicitud: ", rawDate)  
+
+    const formattedDate = [
+      rawDate.getDate().toString().padStart(2, '0'),
+      (rawDate.getMonth() + 1).toString().padStart(2, '0'),
+      rawDate.getFullYear()
+    ].join('-');
+  
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      fechasoli: formattedDate, ///ya da bien formato DD-MM-YYYY
+    }));
+  };
+  
   return (
     <Container disableGutters maxWidth="xxl" sx={{background: "#FFFFFF"}}>
       
@@ -281,19 +297,19 @@ export default function Home() {
         >
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 3, mb:1 }} />
-          
           <TextField
             required
-            error={!!errors?.fechasoli}
+            //error={!!errors?.activacion}
             id="fechasoli"
             name="fechasoli"
             label="Fecha de Solicitud"
-            value={formData.fechasoli}
-            onChange={handleChange}
+            type = "date"
+            onChange={handleDateChange}
             sx={{background: "#FFFFFF",mb:3}}
+            InputLabelProps={{ shrink: true }}
             inputProps={{ maxLength: 256 }}
           />
-          
+                  
         </Box>
       </Box>
 
@@ -424,6 +440,7 @@ export default function Home() {
             sx={{background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
+          
           <TextField
             required
             error={!!errors?.extUsuario}
@@ -431,7 +448,7 @@ export default function Home() {
             name="extUsuario"
             label="Extensión"
             value={formData.extUsuario}
-            onChange={handleChange}
+            onChange={handleExtensionChange}
             sx={{background: "#FFFFFF",mb:3}}
             inputProps={{ maxLength: 4 }}
           />          
