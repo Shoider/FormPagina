@@ -20,10 +20,10 @@ export default function FooterGlobal() {
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <Typography variant="h6" fontWeight={700} color="white" textAlign={{ xs: 'center', sm: 'left' }}>
-              Contacto: soporte@formulario.com
+              En Desarrollo... Reportar errores o sugerencias
             </Typography>
             <Typography variant="h6" fontWeight={700} color="white" textAlign={{ xs: 'center', sm: 'left', mt: 10 }}>
-              Contacto: soporte@formulario.com
+              Contacto: req.seguridad17@conagua.com
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6} textAlign={{ xs: 'center', sm: 'right' }}>

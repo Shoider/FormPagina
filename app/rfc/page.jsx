@@ -95,7 +95,6 @@ export default function Home() {
 
   // Estados para el formulario
   const [formData, setFormData] = useState({
-    movimiento: "", 
     desotro: "",
     tempo: "",
     memo: "",
@@ -262,173 +261,13 @@ export default function Home() {
 
   // Checkbox Funcionalidad
   // Tipo de cambio
-  const saveInterComboBox = async (event) => {
+  const saveComboBox = async (event) => {
     const { name, value, type, checked } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
     }));
-    setInterIsTrue(!interIsTrue)
   }
-  const saveAdminComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setAdminIsTrue(!adminIsTrue)
-  }
-  const saveDesComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setDesIsTrue(!desIsTrue)
-  }
-  const saveUsuaComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setUsuaIsTrue(!usuaIsTrue)
-  }
-  const saveOtroComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setOtroIsTrue(!otroIsTrue)
-  }
-
-  // Tipos de movimientos para cada tipo de cambio
-  // Intersistemas
-  const saveAltaInterComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setAltaInterIsTrue(!altaInterIsTrue)
-  }
-  const saveCambioInterComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setCambioInterIsTrue(!cambioInterIsTrue);
-  };
-  const saveBajaInterComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setBajaInterIsTrue(!bajaInterIsTrue)
-  };
-  // Administrador
-  const saveAltaAdminComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setAltaAdminIsTrue(!altaAdminIsTrue)
-  };
-  const saveCambioAdminComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setCambioAdminIsTrue(!cambioAdminIsTrue);
-  };
-  const saveBajaAdminComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setBajaAdminIsTrue(!bajaAdminIsTrue)
-  };
-  // Desarrollador
-  const saveAltaDesComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setAltaDesIsTrue(!altaDesIsTrue)
-  };
-  const saveCambioDesComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setCambioDesIsTrue(!cambioDesIsTrue);
-  };
-  const saveBajaDesComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setBajaDesIsTrue(!bajaDesIsTrue)
-  };
-  // Usuario
-  const saveAltaUsuaComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setAltaUsuaIsTrue(!altaUsuaIsTrue)
-  };
-  const saveCambioUsuaComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setCambioUsuaIsTrue(!cambioUsuaIsTrue);
-  };
-  const saveBajaUsuaComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setBajaUsuaIsTrue(!bajaUsuaIsTrue)
-  };
-  // Otro
-  const saveAltaOtroComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setAltaOtroIsTrue(!altaOtroIsTrue)
-  };
-  const saveCambioOtroComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setCambioOtroIsTrue(!cambioOtroIsTrue);
-  };
-  const saveBajaOtroComboBox = async (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-    setBajaOtroIsTrue(!bajaOtroIsTrue)
-  };
 
   // Boton
   const [botonEstado, setBotonEstado] = useState('Enviar');
@@ -445,15 +284,15 @@ export default function Home() {
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
         // console.log("Dato faltante en:", key);
-        if (key !== "desotro" && key !== "registrosAltas" && key !== "registrosCambios" && key !== "registrosBajas" && key != "ALTA" && key != "BAJA" && key != "CAMBIO") {
-          console.log("Falta llenar: ", key);
+        if (key !== "desotro" && key !== "registrosAltas" && key !== "registrosCambios" && key !== "registrosBajas"  && key !== "justifica" && key !== "justifica2" && key !== "justifica3" ) {
+          console.log("Campo OBLIGATORIO no llenado:  ", key);
           return false; // Retorna false solo si el campo vacío no es opcional
         } else {
-          console.log("Campo opcional no llenado: ", key);
+          console.log("Campo OPCIONAL no llenado: ", key);
         }
       }
     }
-    console.log("Datos completos");
+    console.log("Datos obligatorios completos");
     return true; // Todos los campos están llenos o los vacíos son opcionales
   };
   
@@ -462,6 +301,7 @@ export default function Home() {
     event.preventDefault();
     console.log("Datos de formData:", formData);      // DEBUG para ver que llego antes de enviar
 
+    {/* DEBUG
     if (!validarCamposRequeridos(formData)) {
       setAlert({
         message: 'Por favor, complete todos los campos requeridos.',
@@ -476,6 +316,15 @@ export default function Home() {
         severity: "success",
       });
       setOpenAlert(true);
+
+    */}
+    // Debug
+    setAlert({
+      message: 'Informacion Registrada',
+      severity: "success",
+    });
+    setOpenAlert(true);
+    // End Debug
 
     setBotonEstado('Cargando...');
   
@@ -516,28 +365,6 @@ export default function Home() {
       ...prevFormData,
       exts: value,
     }));
-  };
-
-  // Seleccion Tipo de Cambio
-
-  const [otroHabilitado, setOtroHabilitado] = useState(false);
-
-  const handleChangeTipo = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-
-    if (value === 'OTRO') {
-      setOtroHabilitado(true);
-    } else {
-      setOtroHabilitado(false);
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        desotro: '', // Limpiar el campo si no es "OTRO"
-      }));
-    }
   };
 
   // Inicio de la pagina
@@ -650,7 +477,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.intersistemas}
-                    onChange={saveInterComboBox}
+                    onChange={saveComboBox}
                     name="intersistemas"
                     color="primary"
                   />
@@ -661,7 +488,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.administrador}
-                    onChange={saveAdminComboBox}
+                    onChange={saveComboBox}
                     name="administrador"
                     color="primary"
                   />
@@ -672,7 +499,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.desarrollador}
-                    onChange={saveDesComboBox}
+                    onChange={saveComboBox}
                     name="desarrollador"
                     color="primary"
                   />
@@ -683,7 +510,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.usuario}
-                    onChange={saveUsuaComboBox}
+                    onChange={saveComboBox}
                     name="usuario"
                     color="primary"
                   />
@@ -693,8 +520,9 @@ export default function Home() {
               <FormControlLabel
                 control={
                   <Checkbox
+                    disabled
                     checked={formData.otro}
-                    onChange={saveOtroComboBox}
+                    onChange={saveComboBox}
                     name="otro"
                     color="primary"
                   />
@@ -716,45 +544,6 @@ export default function Home() {
             />
             
           </Box>
-          {/* ANTERIOR
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2 }}>
-            <FormLabel
-              component="legend"
-              sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
-            >
-              Tipo de Cambio *
-            </FormLabel>
-            
-            <RadioGroup
-              row
-              aria-label="Tipo de Movimiento"
-              name="movimiento"
-              value={formData.movimiento}
-              onChange={handleChangeTipo}
-              required
-              sx={{ ml: 2, mr: 2, justifyContent: 'center' }}
-            >
-              <FormControlLabel value="INTER" control={<Radio />} label="INTERSISTEMAS" />
-              <FormControlLabel value="ADMIN" control={<Radio />} label="ADMINISTRATIVO" />
-              <FormControlLabel value="DES" control={<Radio />} label="DESARROLLADOR" />
-              <FormControlLabel value="USUA" control={<Radio />} label="USUARIO" />
-              <FormControlLabel value="OTRO" control={<Radio />} label="OTRO" />
-            </RadioGroup>
-            
-            <TextField
-              disabled={!formData.otro}
-              required={formData.otro}
-              id="desotro"
-              name="desotro"
-              label="Otro"
-              placeholder="Describa Brevemente"
-              value={formData.desotro}
-              onChange={handleChange}
-              sx={{ background: '#FFFFFF', mb: 3}}
-              inputProps={{ maxLength: 32 }}
-            />
-          </Box>
-          */}
 
           <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:1 }} />
 
@@ -1040,7 +829,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.AltaInter}
-                    onChange={saveAltaInterComboBox}
+                    onChange={saveComboBox}
                     name="AltaInter"
                     color="primary"
                   />
@@ -1051,7 +840,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.CambioInter}
-                    onChange={saveCambioInterComboBox}
+                    onChange={saveComboBox}
                     name="CambioInter"
                     color="primary"
                   />
@@ -1062,7 +851,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.BajaInter}
-                    onChange={saveBajaInterComboBox}
+                    onChange={saveComboBox}
                     name="BajaInter"
                     color="primary"
                   />
@@ -1085,7 +874,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.AltaAdmin}
-                    onChange={saveAltaAdminComboBox}
+                    onChange={saveComboBox}
                     name="AltaAdmin"
                     color="primary"
                   />
@@ -1096,7 +885,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.CambioAdmin}
-                    onChange={saveCambioAdminComboBox}
+                    onChange={saveComboBox}
                     name="CambioAdmin"
                     color="primary"
                   />
@@ -1107,7 +896,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.BajaAdmin}
-                    onChange={saveCambioAdminComboBox}
+                    onChange={saveComboBox}
                     name="BajaAdmin"
                     color="primary"
                   />
@@ -1130,7 +919,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.AltaDes}
-                    onChange={saveAltaDesComboBox}
+                    onChange={saveComboBox}
                     name="AltaDes"
                     color="primary"
                   />
@@ -1141,7 +930,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.CambioDes}
-                    onChange={saveCambioDesComboBox}
+                    onChange={saveComboBox}
                     name="CambioDes"
                     color="primary"
                   />
@@ -1152,7 +941,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.BajaDes}
-                    onChange={saveBajaDesComboBox}
+                    onChange={saveComboBox}
                     name="BajaDes"
                     color="primary"
                   />
@@ -1175,7 +964,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.AltaUsua}
-                    onChange={saveAltaUsuaComboBox}
+                    onChange={saveComboBox}
                     name="AltaUsua"
                     color="primary"
                   />
@@ -1186,7 +975,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.CambioUsua}
-                    onChange={saveCambioUsuaComboBox}
+                    onChange={saveComboBox}
                     name="CambioUsua"
                     color="primary"
                   />
@@ -1197,7 +986,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.BajaUsua}
-                    onChange={saveBajaUsuaComboBox}
+                    onChange={saveComboBox}
                     name="BajaUsua"
                     color="primary"
                   />
@@ -1220,7 +1009,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.AltaOtro}
-                    onChange={saveAltaOtroComboBox}
+                    onChange={saveComboBox}
                     name="AltaOtro"
                     color="primary"
                   />
@@ -1231,7 +1020,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.CambioOtro}
-                    onChange={saveCambioOtroComboBox}
+                    onChange={saveComboBox}
                     name="CambioOtro"
                     color="primary"
                   />
@@ -1242,7 +1031,7 @@ export default function Home() {
                 control={
                   <Checkbox
                     checked={formData.BajaOtro}
-                    onChange={saveBajaOtroComboBox}
+                    onChange={saveComboBox}
                     name="BajaOtro"
                     color="primary"
                   />
@@ -1268,8 +1057,6 @@ export default function Home() {
         </Box>
       </Box>
 
-
-
       {/* INTERSISTEMAS*/}
       {/* Form Box Responsive */}
       <Box
@@ -1290,7 +1077,8 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2"
           },
-          display: formData.intersistemas ? 'block' : 'none'
+          display: formData.intersistemas ? 'block' : 'none',
+          minHeight: '100px',
         }}
       >
         {/* SubTitle */}
@@ -1432,7 +1220,8 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2"
           },
-          display: formData.administrador ? 'block' : 'none'
+          display: formData.administrador ? 'block' : 'none',
+          minHeight: '100px',
         }}
       >
         {/* SubTitle */}
@@ -1574,7 +1363,8 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2"
           },
-          display: formData.desarrollador ? 'block' : 'none'
+          display: formData.desarrollador ? 'block' : 'none',
+          minHeight: '100px',
         }}
       >
         {/* SubTitle */}
@@ -1716,7 +1506,8 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2"
           },
-          display: formData.usuario ? 'block' : 'none'
+          display: formData.usuario ? 'block' : 'none',
+          minHeight: '100px',
         }}
       >
         {/* SubTitle */}
@@ -1858,7 +1649,8 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2"
           },
-          display: formData.otro ? 'block' : 'none'
+          display: formData.otro ? 'block' : 'none',
+          minHeight: '100px',
         }}
       >
         {/* SubTitle */}
