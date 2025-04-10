@@ -140,21 +140,21 @@ export default function Home() {
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
 
-    if (!isValid) {
-      setAlert({
+    //if (!isValid) {
+      //setAlert({
         //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
-        message: 'Por favor, complete todos los campos requeridos.',
-        severity: "error",
-      });
-      setOpenAlert(true);
-      return;
-    } else {
-      setAlert({
-        message: 'Informacion Registrada',
-        severity: 'success',
-      });
-      setOpenAlert(true);
-    }
+        //message: 'Por favor, complete todos los campos requeridos.',
+        //severity: "error",
+      //});
+      //setOpenAlert(true);
+      //return;
+    //} else {
+    //  setAlert({
+      //  message: 'Informacion Registrada',
+       // severity: 'success',
+      //});
+      //setOpenAlert(true);
+   // }
 
     setBotonEstado('Cargando...');
   
