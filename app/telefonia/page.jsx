@@ -15,12 +15,15 @@ import {
   Divider,
   MenuItem,
   FormHelperText,
+  Autocomplete
 } from "@mui/material";
 import Image from "next/image";
 
 import axios from "axios";
 
 import Alerts from "../components/alerts.jsx";
+
+import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -601,16 +604,22 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-          <TextField
-            required
-            error={!!errors?.uaUsuario}
+            <Autocomplete
+            disablePortal
+            options={unidadesAdmin}
+            renderInput={(params) => (
+              <TextField
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Unidad Administrativa"
+              />
+            )}
             id="uaUsuario"
             name="uaUsuario"
-            label="Unidad Administrativa"
-            value={formData.uaUsuario}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
+            onChange={(event, newValue) =>
+              handleChange({ target: { name: "uaUsuario", value: newValue } })
+            }
+            value={formData.uaUsuario} // Asigna a FormData el valor seleecionado
           />
         </Box>
         <Divider
