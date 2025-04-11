@@ -41,9 +41,9 @@ export default function Home() {
     // Radios
     movimiento: "",
     malware: "",
-    vigencia: "",
+    vigencia: "NO",
     so: "",
-    licencia: "",
+    licencia: "NO",
   });
 
   // Generar PDF
@@ -738,6 +738,7 @@ export default function Home() {
 
           <Divider
             sx={{
+              display: formData.malware === "SI" ? "block" : "none",
               borderBottomWidth: "1px",
               borderColor: "grey",
               ml: 2,
@@ -746,14 +747,17 @@ export default function Home() {
               mb: 1,
             }}
           />
+          
 
+          {formData.malware === "SI" && (
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
+              alignItems: "center",              
             }}
           >
+            
             <FormLabel
               component="legend"
               sx={{
@@ -789,6 +793,7 @@ export default function Home() {
               {errors?.vigencia}
             </FormHelperText>
           </Box>
+              )}
 
           <Divider
             sx={{
@@ -846,6 +851,7 @@ export default function Home() {
 
           <Divider
             sx={{
+              display: formData.so === "SI" ? "block" : "none",
               borderBottomWidth: "1px",
               borderColor: "grey",
               ml: 2,
@@ -854,7 +860,7 @@ export default function Home() {
               mb: 1,
             }}
           />
-
+        {formData.so === "SI" && (
           <Box
             sx={{
               display: "flex",
@@ -897,6 +903,7 @@ export default function Home() {
               {errors?.licencia}
             </FormHelperText>
           </Box>
+          )}
 
           <Divider
             sx={{
