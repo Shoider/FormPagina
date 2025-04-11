@@ -3066,41 +3066,71 @@ export default function Home() {
         >
           GENERAR SOLICITUD
         </Typography>
-        <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:0 }} />
-              
-                <FormLabel
-                  component="legend"
-                  sx={{ mx: "auto", mt: 2,mb:0, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-                  > 
-                 Asegurate de que la información registrada es correcta, ya que no se puede corregir una vez enviada.
-                </FormLabel>
-        
-                <Box
-                  component="form"
-                  sx={{ '& .MuiTextField-root': { mt: 2, width: 'calc(100% - 32px)', ml: 2, mr: 4 } }}
-                  noValidate
-                  autoComplete="off"
-                  onSubmit={handleSubmit}
-                >
-                  <Button
-                       type="submit"
-                       variant="contained"
-                      sx={{
-                      mt: 3,
-                      mb: 3,
-                      width: 'calc(100% - 32px)',
-                      ml: 2,
-                      mr: 4,
-                      background: botonEstado === 'Descargar PDF' ? theme.palette.secondary.main : '#98989A',
-                      color: '#FFFFFF',
-                      border: '1px solid gray',
-                    }}
-                    disabled={botonEstado === 'Cargando...'}
-                    {...(botonEstado === 'Descargar PDF' && { href: pdfUrl, download: "RegistroRFC.pdf" })}
-                  >
-                 {botonEstado}
-                </Button>
-              </Box>
+        <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mb: 0,
+          }}
+        />
+
+        <FormLabel
+          component="legend"
+          sx={{
+            mx: "auto",
+            mt: 2,
+            mb: 0,
+            display: "flex",
+            justifyContent: "center",
+            fontSize: "0.8rem",
+            width: "calc(100% - 32px)",
+          }}
+        >
+          Asegurate de que la información registrada es correcta, ya que no se
+          puede corregir una vez enviada.
+        </FormLabel>
+
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              mt: 3,
+              mb: 3,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              background:
+                botonEstado === "Descargar PDF"
+                  ? theme.palette.secondary.main
+                  : "#98989A",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+            disabled={botonEstado === "Cargando..."}
+            {...(botonEstado === "Descargar PDF" && {
+              href: pdfUrl,
+              download: "RegistroRFC.pdf",
+            })}
+          >
+            {botonEstado}
+          </Button>
+        </Box>
         <Divider
           sx={{
             borderBottomWidth: "1px",

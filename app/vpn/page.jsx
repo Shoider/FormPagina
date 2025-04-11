@@ -20,10 +20,10 @@ import {
   InputLabel,
   NativeSelect,
   FormControl,
-  Autocomplete
+  Autocomplete,
 } from "@mui/material";
 import Image from "next/image";
-import axios from 'axios';
+import axios from "axios";
 import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 
@@ -49,7 +49,7 @@ export default function Home() {
     malware: "",
     vigencia: "",
     so: "",
-    licencia: ""
+    licencia: "",
   });
 
   // Generar PDF
@@ -58,7 +58,7 @@ export default function Home() {
   // API
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-    
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
@@ -66,7 +66,7 @@ export default function Home() {
   };
 
   // Boton
-  const [botonEstado, setBotonEstado] = useState('Enviar');
+  const [botonEstado, setBotonEstado] = useState("Enviar");
 
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
@@ -79,23 +79,22 @@ export default function Home() {
   });
 
   const validarCamposRequeridos = (Data) => {
-    
     const errores = {};
     let isValid = true;
 
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
-        errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
-        isValid = false;                          // Al menos un campo está vacío
+        errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
+        isValid = false; // Al menos un campo está vacío
       }
     }
-    return [isValid, errores];                     // Todos los campos están llenos
+    return [isValid, errores]; // Todos los campos están llenos
   };
 
   // Llamada API
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Lista formData en submit: ", formData)
+    console.log("Lista formData en submit: ", formData);
 
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
@@ -105,36 +104,36 @@ export default function Home() {
     if (!isValid) {
       setAlert({
         //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
-        message: 'Por favor, complete todos los campos requeridos.',
+        message: "Por favor, complete todos los campos requeridos.",
         severity: "error",
       });
       setOpenAlert(true);
       return;
     } else {
       setAlert({
-        message: 'Informacion Registrada',
-        severity: 'success',
+        message: "Informacion Registrada",
+        severity: "success",
       });
       setOpenAlert(true);
     }
 
-    setBotonEstado('Cargando...');
-  
+    setBotonEstado("Cargando...");
+
     try {
       // PDF api
       const pdfResponse = await axios.post("/api/v1/vpn", formData, {
         responseType: "blob",
-    });
-  
+      });
+
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
-        setBotonEstado('Descargar PDF');
+        setBotonEstado("Descargar PDF");
       } else {
         console.error("Error generating PDF");
       }
     } catch (error) {
       console.error("Error:", error);
-      setBotonEstado('Enviar'); // Vuelve a "Enviar" en caso de error
+      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
     }
   };
 
@@ -170,61 +169,72 @@ export default function Home() {
   };
 
   return (
-    <Container disableGutters maxWidth="xxl" sx={{background: "#FFFFFF"}}>
-      
+    <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
       {/* Banner Responsive */}
       <Box
         sx={{
-          width: '100', // Ocupa todo el ancho de la ventana gráfica
-          overflow: 'hidden',
-          height: '350px', // Ajusta la altura según sea necesario
-          [theme.breakpoints.down('md')]: {
-            height: 'auto', // Ajusta la altura automáticamente en pantallas pequeñas
+          width: "100", // Ocupa todo el ancho de la ventana gráfica
+          overflow: "hidden",
+          height: "350px", // Ajusta la altura según sea necesario
+          [theme.breakpoints.down("md")]: {
+            height: "auto", // Ajusta la altura automáticamente en pantallas pequeñas
           },
-          display: { xs: 'none', md: 'block' },
+          display: { xs: "none", md: "block" },
         }}
       >
         <Image
-        src="/background_Conagua_header_150.jpg" // Ruta de la imagen recortable
-        alt="Imagen recortable"
-        width={6000}
-        height={1200}
-        style={{
-          maxWidth: '100vw',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center',
-        }}
-        sizes="(max-width: 900px) 100vw, 1920px" 
+          src="/background_Conagua_header_150.jpg" // Ruta de la imagen recortable
+          alt="Imagen recortable"
+          width={6000}
+          height={1200}
+          style={{
+            maxWidth: "100vw",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
+          sizes="(max-width: 900px) 100vw, 1920px"
         />
       </Box>
-      
+
       {/* Imagen fija para pantallas pequeñas */}
       <Box
         sx={{
-          display: { xs: 'block', md: 'none' }, // Mostrar solo en pantallas pequeñas
+          display: { xs: "block", md: "none" }, // Mostrar solo en pantallas pequeñas
         }}
       >
         <Image
           src="/mobile_background_Icono_150.jpg" // Ruta de la imagen fija
           alt="Imagen fija"
           width={1690}
-          height={1312} 
+          height={1312}
           style={{
-            width: '100%',
-            height: 'auto',
+            width: "100%",
+            height: "auto",
           }}
           sizes="100vw"
         />
       </Box>
 
       {/* Banner Responsive Title*/}
-      <Box sx={{ justifyContent: "center", mt: 0, background: "#FFFFFF", width: "100%"}}>
-        <Box sx={{ justifyContent: "center", display: "flex", ml: 3}}>
-        {/* Title */}
-        <Typography variant="h3" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          Formulario Para Solicitud Del Servicio De VPN
-        </Typography>
+      <Box
+        sx={{
+          justifyContent: "center",
+          mt: 0,
+          background: "#FFFFFF",
+          width: "100%",
+        }}
+      >
+        <Box sx={{ justifyContent: "center", display: "flex", ml: 3 }}>
+          {/* Title */}
+          <Typography
+            variant="h3"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
+            Formulario Para Solicitud Del Servicio De VPN
+          </Typography>
         </Box>
       </Box>
 
@@ -246,24 +256,34 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
         }}
       >
-
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
           DATOS DEL USUARIO (A)
         </Typography>
 
         <Box
           component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-
           <TextField
             required
             error={!!errors?.nombre}
@@ -273,9 +293,9 @@ export default function Home() {
             label="Escriba su nombre"
             value={formData.nombre}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          /> 
+          />
           <TextField
             required
             error={!!errors?.puesto}
@@ -284,22 +304,28 @@ export default function Home() {
             label="Puesto ó Cargo"
             value={formData.puesto}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
 
           <Autocomplete
             disablePortal
             options={unidadesAdmin}
-            renderInput={(params) => <TextField sx={{ background: '#FFFFFF' }} {...params} label="Unidad Administrativa" />}
+            renderInput={(params) => (
+              <TextField
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Unidad Administrativa"
+              />
+            )}
             id="ua"
             name="ua"
-            onChange={(event, newValue) => handleChange({ target: { name: 'ua', value: newValue } })} 
+            onChange={(event, newValue) =>
+              handleChange({ target: { name: "ua", value: newValue } })
+            }
             value={formData.ua} // Asigna a FormData el valor seleecionado
           />
-          
 
-          
           {/** 
           <FormControl fullWidth sx={{  mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 }}>
             <InputLabel id="ua">Age</InputLabel>
@@ -341,7 +367,7 @@ export default function Home() {
             label="ID de Empleado"
             value={formData.id}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -352,7 +378,7 @@ export default function Home() {
             label="Extensión"
             value={formData.extension}
             onChange={handleExtensionChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 4 }}
           />
           <TextField
@@ -364,7 +390,7 @@ export default function Home() {
             type="email"
             value={formData.correo}
             onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
+            sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
         </Box>
@@ -388,27 +414,58 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
         }}
-      > 
+      >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
           SOLICITUD
         </Typography>
         <Box
           component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 3, mb:1 }} />
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 3,
+              mb: 1,
+            }}
+          />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <FormLabel
               component="legend"
-              sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
             >
               Tipo de Movimiento *
             </FormLabel>
@@ -421,13 +478,47 @@ export default function Home() {
               required
               sx={{ ml: 2, mr: 2, justifyContent: "center" }}
             >
-              <FormControlLabel value="ALTA" control={<Radio sx={{ '&.Mui-checked': { color: errors?.movimiento ? 'red' : undefined } }} />} label="ALTA" />
+              <FormControlLabel
+                value="ALTA"
+                control={
+                  <Radio
+                    sx={{
+                      "&.Mui-checked": {
+                        color: errors?.movimiento ? "red" : undefined,
+                      },
+                    }}
+                  />
+                }
+                label="ALTA"
+              />
               <FormControlLabel value="BAJA" control={<Radio />} label="BAJA" />
-              <FormControlLabel value="CAMBIO" control={<Radio />} label="CAMBIO" />
+              <FormControlLabel
+                value="CAMBIO"
+                control={<Radio />}
+                label="CAMBIO"
+              />
             </RadioGroup>
-            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.movimiento}</FormHelperText>
+            <FormHelperText
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 1,
+                justifyContent: "center",
+                color: "red",
+              }}
+            >
+              {errors?.movimiento}
+            </FormHelperText>
           </Box>
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:0 }} />
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 0,
+            }}
+          />
 
           <TextField
             required
@@ -437,7 +528,7 @@ export default function Home() {
             label="Servicios que Necesita Acceder"
             value={formData.servicios}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -448,7 +539,7 @@ export default function Home() {
             label="Justificación"
             value={formData.justificacion}
             onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
+            sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
         </Box>
@@ -472,17 +563,29 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
         }}
-      > 
+      >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
           AUTORIZA
         </Typography>
         <Box
           component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
@@ -495,7 +598,7 @@ export default function Home() {
             label="Funcionario con Cargo de Subgerente, Homologo ó Superior"
             value={formData.jefe}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -506,10 +609,9 @@ export default function Home() {
             label="Puesto ó Cargo del que Autoriza"
             value={formData.puestojefe}
             onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
+            sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
-        
         </Box>
       </Box>
 
@@ -531,17 +633,29 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
         }}
       >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
           CARACTERISTICAS DEL EQUIPO
         </Typography>
         <Box
           component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
@@ -554,7 +668,7 @@ export default function Home() {
             label="Marca"
             value={formData.marca}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -565,7 +679,7 @@ export default function Home() {
             label="Modelo"
             value={formData.modelo}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -576,7 +690,7 @@ export default function Home() {
             label="Serie"
             value={formData.serie}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -589,14 +703,34 @@ export default function Home() {
             value={formData.macadress}
             onChange={handleMacAddressChange} // Usa handleMacAddressChange
             inputProps={{ maxLength: 17 }} // Limita la longitud
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
           />
 
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 2, mb:1 }} />
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 2,
+              mb: 1,
+            }}
+          />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <FormLabel
               component="legend"
-              sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
             >
               Cuenta con Anti-Malware *
             </FormLabel>
@@ -612,15 +746,45 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.malware}</FormHelperText>
+            <FormHelperText
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 1,
+                justifyContent: "center",
+                color: "red",
+              }}
+            >
+              {errors?.malware}
+            </FormHelperText>
           </Box>
 
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
 
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <FormLabel
               component="legend"
-              sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
             >
               Se Encuentra Vigente y Actualizado (Anti-Malware) *
             </FormLabel>
@@ -636,15 +800,45 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.vigencia}</FormHelperText>
+            <FormHelperText
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 1,
+                justifyContent: "center",
+                color: "red",
+              }}
+            >
+              {errors?.vigencia}
+            </FormHelperText>
           </Box>
 
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
 
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <FormLabel
               component="legend"
-              sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
             >
               Cuenta con S.O. *
             </FormLabel>
@@ -660,15 +854,45 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.so}</FormHelperText>
+            <FormHelperText
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 1,
+                justifyContent: "center",
+                color: "red",
+              }}
+            >
+              {errors?.so}
+            </FormHelperText>
           </Box>
 
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
 
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <FormLabel
               component="legend"
-              sx={{ mt: 0, display: "flex", justifyContent: "center", fontSize: "1.2rem" }}
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
             >
               Se Encuentra Licenciado y Actualizado (S.O.) *
             </FormLabel>
@@ -684,11 +908,28 @@ export default function Home() {
               <FormControlLabel value="SI" control={<Radio />} label="SI" />
               <FormControlLabel value="NO" control={<Radio />} label="NO" />
             </RadioGroup>
-            <FormHelperText sx={{ ml: 2, mr: 2, mb:1 , justifyContent: "center", color: "red"}}>{errors?.licencia}</FormHelperText>
+            <FormHelperText
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 1,
+                justifyContent: "center",
+                color: "red",
+              }}
+            >
+              {errors?.licencia}
+            </FormHelperText>
           </Box>
 
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:3 }} />
-
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 3,
+            }}
+          />
         </Box>
       </Box>
 
@@ -710,49 +951,84 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
         }}
-      > 
+      >
         {/* SubTitle */}
-        <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
           GENERAR SOLICITUD
         </Typography>
-        <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:0 }} />
-              
-                <FormLabel
-                  component="legend"
-                  sx={{ mx: "auto", mt: 2,mb:0, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-                  > 
-                 Asegurate de que la información registrada es correcta, ya que no se puede corregir una vez enviada.
-                </FormLabel>
-        
-                <Box
-                  component="form"
-                  sx={{ '& .MuiTextField-root': { mt: 2, width: 'calc(100% - 32px)', ml: 2, mr: 4 } }}
-                  noValidate
-                  autoComplete="off"
-                  onSubmit={handleSubmit}
-                >
-                  <Button
-                       type="submit"
-                       variant="contained"
-                      sx={{
-                      mt: 3,
-                      mb: 3,
-                      width: 'calc(100% - 32px)',
-                      ml: 2,
-                      mr: 4,
-                      background: botonEstado === 'Descargar PDF' ? theme.palette.secondary.main : '#98989A',
-                      color: '#FFFFFF',
-                      border: '1px solid gray',
-                    }}
-                    disabled={botonEstado === 'Cargando...'}
-                    {...(botonEstado === 'Descargar PDF' && { href: pdfUrl, download: "RegistroVPN.pdf" })}
-                  >
-                 {botonEstado}
-                </Button>
-              </Box>
+        <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mb: 0,
+          }}
+        />
+
+        <FormLabel
+          component="legend"
+          sx={{
+            mx: "auto",
+            mt: 2,
+            mb: 0,
+            display: "flex",
+            justifyContent: "center",
+            fontSize: "0.8rem",
+            width: "calc(100% - 32px)",
+          }}
+        >
+          Asegurate de que la información registrada es correcta, ya que no se
+          puede corregir una vez enviada.
+        </FormLabel>
+
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              mt: 3,
+              mb: 3,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              background:
+                botonEstado === "Descargar PDF"
+                  ? theme.palette.secondary.main
+                  : "#98989A",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+            disabled={botonEstado === "Cargando..."}
+            {...(botonEstado === "Descargar PDF" && {
+              href: pdfUrl,
+              download: "RegistroVPN.pdf",
+            })}
+          >
+            {botonEstado}
+          </Button>
+        </Box>
       </Box>
 
       {/* ALERT */}
