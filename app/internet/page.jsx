@@ -121,12 +121,10 @@ export default function Home() {
           console.log("Checkbox 'descarga' marcado");
           updatedData.urlDescarga = "";
           updatedData.justificaDescarga = "";
-          console.log("URL Descarga:", updatedData.urlDescarga);
         } else {
           console.log("Checkbox 'descarga' desmarcado");
           updatedData.urlDescarga = "null";
           updatedData.justificaDescarga = "null";
-          console.log("URL Descarga:", updatedData.urlDescarga);
         }
       } else if (name === "comercio") {
         if (isChecked) {
@@ -248,8 +246,6 @@ export default function Home() {
           updatedData.justificaOtra4 = "null";
           updatedData.otraC4 = "null";
         }
-      } else {
-        console.log("No se encontró el nombre del checkbox:", name);
       }
       return updatedData;
     });
@@ -258,7 +254,7 @@ export default function Home() {
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
 
-  // API
+  // handleChange
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
     setFormData((prevFormData) => ({
@@ -286,7 +282,7 @@ export default function Home() {
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
         if (key !== "descarga" && key !== "comercio" && key !== "redes" && key !== "foros" && key !== "whats" && key !== "videos" && key !== "dropbox" && key !== "onedrive" && key !== "skype" && key !== "wetransfer" && key !== "team" && key !== "otra" && key !== "otra2" && key !== "otra3" && key !== "otra4") {
-        console.log("Campo requerido: ", key);
+        //console.log("Campo requerido: ", key);
         errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
         isValid = false; // Al menos un campo está vacío
         }
@@ -296,7 +292,6 @@ export default function Home() {
   };
 
   // Llamada API
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("datos de formdata internet:", formData);
@@ -306,7 +301,6 @@ export default function Home() {
 
     if (!isValid) {
       setAlert({
-        //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
         message: "Por favor, complete todos los campos requeridos.",
         severity: "error",
       });
@@ -491,16 +485,6 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mt: 3,
-              mb: 1,
-            }}
-          />
           <TextField
             required
             error={!!errors?.fechasoli}
@@ -816,7 +800,7 @@ export default function Home() {
             <FormLabel
               component="legend"
               sx={{
-                mt: 0,
+                mt: 1,
                 display: "flex",
                 justifyContent: "center",
                 fontSize: "1.2rem",
@@ -836,24 +820,15 @@ export default function Home() {
               Seleccione las opciones de navegación requeridas:
             </FormLabel>
           </Box>
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mt: 0,
-              mb: 1,
-            }}
-          />
         </Box>
         <Box
           sx={{
             display: "flex",
             flexDirection: "row",
             flexWrap: "wrap",
+            mt: 2,
             ml: 8,
-            mb: 0,
+            mb: 1,
           }}
         >
           {[
@@ -2223,6 +2198,7 @@ export default function Home() {
           sx={{
             borderBottomWidth: "1px",
             borderColor: "grey",
+            mt: 3,
             ml: 3,
             mr: 2,
             mb: 3,
