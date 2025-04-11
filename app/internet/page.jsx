@@ -135,9 +135,23 @@ export default function Home() {
         //var campo = traducirCampos(key);          // Traduce el error a la alerta
         //errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
         //isValid = false;                          // Al menos un campo está vacío
-      console.log(Data.otra)
-        if (Data.usuaExterno !== true) {
-          if (key !== "otra2" && key !== "otra3" && key !== "otra4" ) {
+        console.log(Data.descarga)
+        if (Data.descarga !== true) {
+          if (key !== "justificaDescarga" && key !== "urlDescarga" ) {
+            console.log("Falta llenar: ", key);
+            errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
+            isValid = false;                          // Al menos un campo está vacío
+          } else {
+            console.log("Campo opcional no llenado: ", key);
+          }
+        } else {
+          console.log("Falta llenar: ", key);
+          errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
+          isValid = false;  
+        }
+        console.log(Data.otra)
+        if (Data.otra !== true) {
+          if (key !== "justificaOtra" && key !== "urlOtra") {
             console.log("Falta llenar: ", key);
             errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
             isValid = false;                          // Al menos un campo está vacío
@@ -232,9 +246,9 @@ export default function Home() {
       {/* Banner Responsive */}
       <Box
         sx={{
-          width: '100', // Ocupa todo el ancho de la ventana gráfica
+          width: '100vw', // Ocupa todo el ancho de la ventana gráfica
           overflow: 'hidden',
-          height: '350px', // Ajusta la altura según sea necesario
+          height: '430px', // Ajusta la altura según sea necesario
           [theme.breakpoints.down('md')]: {
             height: 'auto', // Ajusta la altura automáticamente en pantallas pequeñas
           },
