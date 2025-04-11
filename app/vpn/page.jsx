@@ -14,12 +14,6 @@ import {
   FormLabel,
   Divider,
   FormHelperText,
-  Select,
-  OutlinedInput,
-  MenuItem,
-  InputLabel,
-  NativeSelect,
-  FormControl,
   Autocomplete,
 } from "@mui/material";
 import Image from "next/image";
@@ -307,12 +301,13 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-
           <Autocomplete
             disablePortal
             options={unidadesAdmin}
             renderInput={(params) => (
               <TextField
+                required
+                error={!!errors?.ua}
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Unidad Administrativa"
@@ -325,40 +320,6 @@ export default function Home() {
             }
             value={formData.ua} // Asigna a FormData el valor seleecionado
           />
-
-          {/** 
-          <FormControl fullWidth sx={{  mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 }}>
-            <InputLabel id="ua">Age</InputLabel>
-            <Select
-              required
-              error={!!errors?.ua}
-              labelId="ua"
-              id="ua"
-              name="ua"
-              value={formData.ua} // Usa el valor de formData.ua
-              onChange={handleChange} // Usa handleChange para actualizar formData
-              sx={{ background: "#FFFFFF" }}
-            >
-              <MenuItem value="100">100 - Primera</MenuItem>
-              <MenuItem value="200">200 - Segunda</MenuItem>
-              <MenuItem value="300">300 - Tercera</MenuItem>
-            </Select>
-          </FormControl>
-          */}
-
-          {/* TEST
-          <TextField
-            required
-            error={!!errors?.ua}
-            id="ua"
-            name="ua"
-            label="Unidad Administrativa"
-            value={formData.ua}
-            onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
-            inputProps={{ maxLength: 256 }}
-          />
-          */}
           <TextField
             required
             error={!!errors?.id}
