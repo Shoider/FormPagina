@@ -148,7 +148,7 @@ export default function Home() {
           },
         }}
       >
-        RFC
+        SOLICITUD DE RFC
       </Button>
 
       {/* TELEFONIA */}
@@ -184,7 +184,7 @@ export default function Home() {
           },
         }}
       >
-        TELEFONIA
+        SOLICITUD DE SERVICIOS DE TELEFONIA
       </Button>
 
       {/* TELEFONIA */}
@@ -220,7 +220,7 @@ export default function Home() {
           },
         }}
       >
-        INTERNET
+        SOLICITUD DE AMPLIACIÓN DE INTERNET
       </Button>
     </Container>
   );
