@@ -374,7 +374,7 @@ export default function Home() {
   const handleUA = (newValue) => {
     setFormData(prevFormData => ({
       ...prevFormData,
-      ua: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+      uaUsuario: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
 
