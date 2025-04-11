@@ -27,18 +27,21 @@ export default function Home() {
   const [formData, setFormData] = useState({
     activacion: "",
     expiracion: "",
+    justificacion: "",
     nombreUsuario: "",
     correoUsuario: "",
     direccion: "",
     uaUsuario: "",
-    nombreEmpleado: "",
-    idEmpleado: "",
-    
-    extEmpleado: "",
-    correoEmpleado: "",
-    puestoEmpleado: "",
-    justificacion: "",
     puestoUsuario: "",
+    
+    // USUARIO EXTERNO
+    extEmpleado: "0000",
+    correoEmpleado: "null@null.null",
+    puestoEmpleado: "null",
+    nombreEmpleado: "null",
+    idEmpleado: "null",
+    
+    // AREA QUE AUTORIZA
     nombreJefe: "",
     puestoJefe: "",
     
@@ -49,7 +52,6 @@ export default function Home() {
     
     // Radios
     movimiento: "", //ALTA, BAJA, CAMBIO
-    
     mundo: "",
     local: "",
     cLocal: "",
@@ -109,28 +111,17 @@ export default function Home() {
   });
 
   const validarCamposRequeridos = (Data) => {
-
     const errores = {};
     let isValid = true;
-
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
-        if (Data.usuaExterno !== true) {
-          if (key !== "nombreEmpleado" && key !== "correoEmpleado" && key !== "idEmpleado" && key !== "extEmpleado" && key != "correo" && key != "puestoEmpleado" && key != "usuaExterno") {
-            //console.log("Falta llenar: ", key);
-            errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
-            isValid = false;                          // Al menos un campo está vacío
-          } else {
-            console.log("Campo opcional no llenado: ", key);
-          }
-        } else {
-          console.log("Falta llenar: ", key);
+        if (key !== "usuaExterno") {
+          console.log("Campo requerido: ", key)
           errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
-          isValid = false;  
+          isValid = false;                          // Al menos un campo está vacío
         }
       }
     }
-    //console.log("Datos completos");
     return [isValid, errores];                     // Todos los campos están llenos
   };
 
@@ -231,12 +222,32 @@ export default function Home() {
     
     const handleChangeExterno = (event) => {
       const selectedValue = event.target.value;
-      console.log(selectedValue)
-      setFormData((prevData) => ({
-        ...prevData,
-        tipoUsuario: selectedValue, // Guarda el tipo de usuario seleccionado
-        usuaExterno: event.target.value === 'Externo' ? true : false, // Guarda true si es 'Externo', false si no.
-      }));
+      const isExterno = selectedValue === 'Externo';
+    
+      setFormData((prevData) => {
+        const updatedData = {
+          ...prevData,
+          tipoUsuario: selectedValue,
+          usuaExterno: isExterno,
+        };
+    
+        if (isExterno) {
+          //console.log("Campo Externo desactivado");
+          updatedData.extEmpleado = "";
+          updatedData.correoEmpleado = "";
+          updatedData.puestoEmpleado = "";
+          updatedData.nombreEmpleado = "";
+          updatedData.idEmpleado = "";
+        } else {
+          //console.log("Campo Externo activado");
+          updatedData.extEmpleado = "0000";
+          updatedData.correoEmpleado = "null@null.null";
+          updatedData.puestoEmpleado = "null";
+          updatedData.nombreEmpleado = "null";
+          updatedData.idEmpleado = "null";
+        }
+        return updatedData;
+      });
     };
 
     const handleChangeMarca = (event) => {
