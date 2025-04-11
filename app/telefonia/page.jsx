@@ -599,37 +599,6 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-
-          <TextField
-            required
-            error={!!errors?.puestoUsuario}
-            id="puestoUsuario"
-            name="puestoUsuario"
-            label="Puesto"
-            value={formData.puestoUsuario}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-            <Autocomplete
-            disablePortal
-            options={unidadesAdmin}
-            renderInput={(params) => (
-              <TextField
-                required
-                error={!!errors?.uaUsuario}
-                sx={{ background: "#FFFFFF" }}
-                {...params}
-                label="Unidad Administrativa"
-              />
-            )}
-            id="uaUsuario"
-            name="uaUsuario"
-            onChange={(event, newValue) =>
-              handleChange({ target: { name: "uaUsuario", value: newValue } })
-            }
-            value={formData.uaUsuario} // Asigna a FormData el valor seleecionado
-          />
           <Autocomplete
             disablePortal
             options={unidadesAdmin}
