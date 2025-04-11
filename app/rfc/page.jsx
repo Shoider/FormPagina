@@ -374,8 +374,12 @@ export default function Home() {
   //  VALIDADORES
 
   const handleExtensionChangeE = (event) => {
-    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 4); // Limita la longitud a 4 caracteres
+    //let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    //let value = event.target.value.replace(/[^0-9-/]/g, ""); // Permite números y guiones
+    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Permite números, guiones y espacios
+
+
+    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -383,8 +387,9 @@ export default function Home() {
     }));
   };
   const handleExtensionChangeS = (event) => {
-    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 4); // Limita la longitud a 4 caracteres
+    //let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Permite números, guiones y espacios
+    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -719,7 +724,7 @@ export default function Home() {
             value={formData.extei}
             onChange={handleExtensionChangeE}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 4 }}
+            inputProps={{ maxLength: 20 }}
           />
           <TextField
             required
@@ -798,7 +803,7 @@ export default function Home() {
             value={formData.exts}
             onChange={handleExtensionChangeS}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 4 }}
+            inputProps={{ maxLength: 20 }}
           />
           <TextField
             required
