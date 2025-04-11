@@ -78,7 +78,16 @@ export default function Home() {
     justificaTeam:"",
     urlOtra:"",
     justificaOtra:"",
-    otraC:""
+    otraC:"",
+    urlOtra2:"",
+    justificaOtra2:"",
+    otraC2:"",
+    urlOtra3:"",
+    justificaOtra3:"",
+    otraC3:"",
+    urlOtra4:"",
+    justificaOtra4:"",
+    otraC4:""
 
   });
   // CATEGORIAS
@@ -124,8 +133,22 @@ export default function Home() {
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
         //var campo = traducirCampos(key);          // Traduce el error a la alerta
-        errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
-        isValid = false;                          // Al menos un campo está vacío
+        //errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
+        //isValid = false;                          // Al menos un campo está vacío
+      console.log(Data.otra)
+        if (Data.usuaExterno !== true) {
+          if (key !== "otra2" && key !== "otra3" && key !== "otra4" ) {
+            console.log("Falta llenar: ", key);
+            errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
+            isValid = false;                          // Al menos un campo está vacío
+          } else {
+            console.log("Campo opcional no llenado: ", key);
+          }
+        } else {
+          console.log("Falta llenar: ", key);
+          errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
+          isValid = false;  
+        }
       }
     }
     return [isValid, errores];                     // Todos los campos están llenos
@@ -135,26 +158,26 @@ export default function Home() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("datos de formdata:",formData)
+    console.log("datos de formdata internet:",formData)
 
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
 
-    //if (!isValid) {
-      //setAlert({
+    if (!isValid) {
+      setAlert({
         //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
-        //message: 'Por favor, complete todos los campos requeridos.',
-        //severity: "error",
-      //});
-      //setOpenAlert(true);
-      //return;
-    //} else {
-    //  setAlert({
-      //  message: 'Informacion Registrada',
-       // severity: 'success',
-      //});
-      //setOpenAlert(true);
-   // }
+        message: 'Por favor, complete todos los campos requeridos.',
+        severity: "error",
+      });
+      setOpenAlert(true);
+      return;
+    } else {
+      setAlert({
+        message: 'Informacion Registrada',
+        severity: 'success',
+      });
+      setOpenAlert(true);
+    }
 
     setBotonEstado('Cargando...');
   
@@ -355,7 +378,7 @@ export default function Home() {
             //helperText={"Escriba su nombre"}
             id="nombreUsuario"
             name="nombreUsuario"
-            label="Escriba su nombre"
+            label="Nombre Completo"
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
@@ -423,7 +446,7 @@ export default function Home() {
             error={!!errors?.direccion}
             id="direccion"
             name="direccion"
-            label="Piso y Ala"
+            label="Dirección"
             value={formData.direccion}
             onChange={handleChange}
             sx={{background: "#FFFFFF"}}
@@ -567,7 +590,7 @@ export default function Home() {
                       <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
                                
           </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', ml: 2, mb: 0 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', ml: 8, mb: 0 }}>
             {[
                   { name: "descarga", label: "Descarga de software" },
                   { name: "foros", label: "Foros y Blogs"},
@@ -582,7 +605,7 @@ export default function Home() {
                   { name: "team", label: "TeamViewer" },
                   { name: "otra", label: "Otra" }
                 ].map((item, index) => (
-            <Box key={index} sx={{ width: '30%', minWidth: '100px' }}>
+            <Box key={index} sx={{ width: '33.33%', minWidth: '100px', textAlign: 'left' }}>
             <FormControlLabel
                 control={
                   <Checkbox
@@ -664,8 +687,8 @@ export default function Home() {
                 </Box>
                           
                 <TextField
-                  required
-                  error={!!errors?.urlDescarga}
+                  //required
+                  //error={!!errors?.urlDescarga}
                   id="urlDescarga"
                   name="urlDescarga"
                   label="Referencia del servicio requerido (URL)"
@@ -712,8 +735,8 @@ export default function Home() {
                       </FormLabel>
                 </Box>                          
                 <TextField
-                  required
-                  error={!!errors?.urlForos}
+                  //required
+                  //error={!!errors?.urlForos}
                   id="urlForos"
                   name="urlForos"
                   label="Referencia del servicio requerido (URL)"
@@ -761,8 +784,8 @@ export default function Home() {
                       </FormLabel>
                 </Box>                          
                 <TextField
-                  required
-                  error={!!errors?.urlComercio}
+                  //required
+                  //error={!!errors?.urlComercio}
                   id="urlComercio"
                   name="urlComercio"
                   label="Referencia del servicio requerido (URL)"
@@ -810,8 +833,8 @@ export default function Home() {
                       </FormLabel>
                 </Box>                          
                 <TextField
-                  required
-                  error={!!errors?.urlRedes}
+                  //required
+                  //error={!!errors?.urlRedes}
                   id="urlRedes"
                   name="urlRedes"
                   label="Referencia del servicio requerido (URL)"
@@ -858,8 +881,8 @@ export default function Home() {
                       </FormLabel>
                 </Box>                          
                 <TextField
-                  required
-                  error={!!errors?.urlVideos}
+                  //required
+                  //error={!!errors?.urlVideos}
                   id="urlVideos"
                   name="urlVideos"
                   label="Referencia del servicio requerido (URL)"
@@ -907,8 +930,8 @@ export default function Home() {
                       </FormLabel>
                 </Box>                          
                 <TextField
-                  required
-                  error={!!errors?.urlWhats}
+                 // required
+                  //error={!!errors?.urlWhats}
                   id="urlWhats"
                   name="urlWhats"
                   label="Referencia del servicio requerido (URL)"
@@ -956,8 +979,8 @@ export default function Home() {
                       </FormLabel>
                 </Box>                          
                 <TextField
-                  required
-                  error={!!errors?.urlDropbox}
+                 // required
+                 // error={!!errors?.urlDropbox}
                   id="urlDropbpx"
                   name="urlDropbox"
                   label="Referencia del servicio requerido (URL)"
@@ -1003,8 +1026,8 @@ export default function Home() {
                       </FormLabel>
                 </Box>                          
                 <TextField
-                  required
-                  error={!!errors?.urlOnedrive}
+                 // required
+                 // error={!!errors?.urlOnedrive}
                   id="urlOnedrive"
                   name="urlOnedrive"
                   label="Referencia del servicio requerido (URL)"
@@ -1052,8 +1075,8 @@ export default function Home() {
                       </FormLabel>
                 </Box>                          
                 <TextField
-                  required
-                  error={!!errors?.urlSkype}
+                  //required
+                  //error={!!errors?.urlSkype}
                   id="urlSkype"
                   name="urlSkype"
                   label="Referencia del servicio requerido (URL)"
@@ -1100,8 +1123,8 @@ export default function Home() {
                       </FormLabel>
                 </Box>                          
                 <TextField
-                  required
-                  error={!!errors?.urlWetransfer}
+                //  required
+                //  error={!!errors?.urlWetransfer}
                   id="urlWetransfer"
                   name="urlWetransfer"
                   label="Referencia del servicio requerido (URL)"
@@ -1147,8 +1170,8 @@ export default function Home() {
                       </FormLabel>
                 </Box>                          
                 <TextField
-                  required
-                  error={!!errors?.urlTeam}
+                //  required
+                //  error={!!errors?.urlTeam}
                   id="urlTeam"
                   name="urlTeam"
                   label="Referencia del servicio requerido (URL)"
@@ -1178,7 +1201,7 @@ export default function Home() {
 
                 }} />
 
-                {/*BOX DE otra*/}
+              {/*BOX DE otraprin*/}
               <Box component="form"
                         sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },
                         display: formData.otra ? 'block' : 'none'
@@ -1191,7 +1214,7 @@ export default function Home() {
                         component="legend"
                         sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
                       >
-                        Otra.                        
+                        Otra(s).                        
                       </FormLabel>
                 </Box>   
                 <TextField
@@ -1227,13 +1250,192 @@ export default function Home() {
                   sx={{background: "#FFFFFF"}}
                   inputProps={{ maxLength: 256 }}
                 />
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3}} />
+                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:0}} />
                 
-                </Box> 
-                {/*BOX DE otra*/}
+                {/*selectBOX DE otrap2*/}
+                <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', ml: 2, mb: 0 }}>
+                 {[
+                  { name: "otra2", label: "Agregar otra" }
+                ].map((item, index) => (
+                <Box key={index} sx={{ width: '100%', minWidth: '100px', textAlign: 'center' }}>
+                <FormControlLabel
+                control={
+                  <Checkbox
+                  checked={formData[item.name]}
+                  onChange={saveCategorias}
+                  name={item.name}
+                  color="primary"
+                />        }
+                        label={item.label}
+                />
+                </Box>  ))}
+                </Box>  
+                {/*BOX DE otra2*/}
+                <Box component="form"
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },
+                        display: formData.otra2 ? 'block' : 'none'
+                      }} >
+                <TextField
+                  required
+                  error={!!errors?.otraC2}
+                  id="otraC2"
+                  name="otraC2"
+                  label="Describe cual"
+                  value={formData.otraC2}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength: 256 }}
+                />                       
+                <TextField
+                  required
+                  error={!!errors?.urlOtra2}
+                  id="urlOtra2"
+                  name="urlOtra2"
+                  label="Referencia del servicio requerido (URL)"
+                  value={formData.urlOtra2}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength:256 }}
+                />
+                <TextField
+                  required
+                  error={!!errors?.justificaOtra2}
+                  id="justificaOtra2"
+                  name="justificaOtra2"
+                  label="Justificación"
+                  value={formData.justificaOtra2}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength: 256 }}
+                /> 
+                {/*selectBOX DE otrap3*/}
+                <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', ml: 2, mb: 0,
+                  display: formData.otra2 ? 'block' : 'none' }}>
+                 {[
+                  { name: "otra3", label: "Agregar otra" }
+                ].map((item, index) => (
+                <Box key={index} sx={{ width: '100%', minWidth: '100px', textAlign: 'center' }}>
                 
-                <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:2 ,          
-                display: formData.otra ? 'block' : 'none'}} />
-
+                <FormControlLabel
+                control={
+                  <Checkbox
+                  checked={formData[item.name]}
+                  onChange={saveCategorias}
+                  name={item.name}
+                  color="primary"
+                />        }
+                        label={item.label}
+                />
+                </Box>  ))}
+                </Box>  
+                {/*BOX DE otra3*/}
+                <Box component="form"
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },
+                        display: formData.otra3 ? 'block' : 'none'
+                      }} >
+                <TextField
+                  required
+                  error={!!errors?.otraC3}
+                  id="otraC3"
+                  name="otraC3"
+                  label="Describe cual"
+                  value={formData.otraC3}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength: 256 }}
+                />                       
+                <TextField
+                  required
+                  error={!!errors?.urlOtra3}
+                  id="urlOtra3"
+                  name="urlOtra3"
+                  label="Referencia del servicio requerido (URL)"
+                  value={formData.urlOtra3}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength:256 }}
+                />
+                <TextField
+                  required
+                  error={!!errors?.justificaOtra3}
+                  id="justificaOtra3"
+                  name="justificaOtra3"
+                  label="Justificación"
+                  value={formData.justificaOtra3}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength: 256 }}
+                />  
+                {/*selectBOX DE otrap4*/}
+                <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', ml: 2, mb: 0,
+                  display: formData.otra3 ? 'block' : 'none' }}>
+                 {[
+                  { name: "otra4", label: "Agregar otra" }
+                ].map((item, index) => (
+                <Box key={index} sx={{ width: '100%', minWidth: '100px', textAlign: 'center' }}>
+                <FormControlLabel
+                control={
+                  <Checkbox
+                  checked={formData[item.name]}
+                  onChange={saveCategorias}
+                  name={item.name}
+                  color="primary"
+                />        }
+                        label={item.label}
+                />
+                </Box>  ))}
+                </Box>  
+                {/*BOX DE otra4*/}
+                <Box component="form"
+                        sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 },
+                        display: formData.otra4 ? 'block' : 'none'
+                      }} >
+                <TextField
+                  required
+                  error={!!errors?.otraC4}
+                  id="otraC4"
+                  name="otraC4"
+                  label="Describe cual"
+                  value={formData.otraC4}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength: 256 }}
+                />                       
+                <TextField
+                  required
+                  error={!!errors?.urlOtra4}
+                  id="urlOtra4"
+                  name="urlOtra4"
+                  label="Referencia del servicio requerido (URL)"
+                  value={formData.urlOtra4}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength:256 }}
+                />
+                <TextField
+                  required
+                  error={!!errors?.justificaOtra4}
+                  id="justificaOtra4"
+                  name="justificaOtra4"
+                  label="Justificación"
+                  value={formData.justificaOtra4}
+                  onChange={handleChange}
+                  sx={{background: "#FFFFFF"}}
+                  inputProps={{ maxLength: 256 }}
+                />   
+                <FormLabel
+                        component="legend"
+                        sx={{ mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.6rem',ml:4 }}
+                      >
+                        Si se desea agregar más categorias favor de sugerir cambio en contacto: req.seguridad17@conagua.gob.mx.                        
+                </FormLabel>
+                </Box>{/*BOX DE otra4*/} 
+                </Box>{/*BOX DE otra3*/}  
+                </Box>{/*BOX DE otra2*/}
+            </Box> 
+           {/*BOX DE otraprin*/}
+           
                 <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 3, mr: 2, mb:3 }} />
                 <FormLabel
                       component="legend"
