@@ -23,7 +23,6 @@ import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 
 export default function Home() {
   const theme = useTheme();
-  const [inputValue, setInputValue] = useState('');
   const [formData, setFormData] = useState({
     nombre: "",
     puesto: "",
@@ -90,7 +89,6 @@ export default function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
-    console.log("Constante Freesolo: ", inputValue);
 
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);

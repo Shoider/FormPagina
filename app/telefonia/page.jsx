@@ -258,7 +258,14 @@ export default function Home() {
     setFormData((prevData) => ({
       ...prevData,
       marca: selectedValue, // Guarda la marca seleccionado
-      //usuaExterno: event.target.value === 'Externo' ? true : false, // Guarda true si es 'Externo', false si no.
+    }));
+  };
+
+  // Manejo de Autocomplete
+  const handleUA = (newValue) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      uaUsuario: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
 
@@ -622,6 +629,33 @@ export default function Home() {
               handleChange({ target: { name: "uaUsuario", value: newValue } })
             }
             value={formData.uaUsuario} // Asigna a FormData el valor seleecionado
+          />
+          <Autocomplete
+            disablePortal
+            options={unidadesAdmin}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.uaUsuario}
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Unidad Administrativa"
+              />
+            )}
+            id="uaUsuario"
+            name="uaUsuario"
+            onChange={(event, newValue) => {
+              handleUA(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === 'change') {
+                handleUA(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.uaUsuario || ''} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ''}
+            isOptionEqualToValue={(option, value) => option === value}
           />
         </Box>
         <Divider

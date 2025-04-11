@@ -370,6 +370,14 @@ export default function Home() {
     }));
   };
 
+  // Manejo de Autocomplete
+  const handleUA = (newValue) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      ua: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
       {/* Banner Responsive */}
@@ -583,6 +591,7 @@ export default function Home() {
           <Autocomplete
             disablePortal
             options={unidadesAdmin}
+            freeSolo
             renderInput={(params) => (
               <TextField
                 required
@@ -594,10 +603,17 @@ export default function Home() {
             )}
             id="uaUsuario"
             name="uaUsuario"
-            onChange={(event, newValue) =>
-              handleChange({ target: { name: "uaUsuario", value: newValue } })
-            }
-            value={formData.uaUsuario} // Asigna a FormData el valor seleecionado
+            onChange={(event, newValue) => {
+              handleUA(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === 'change') {
+                handleUA(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.uaUsuario || ''} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ''}
+            isOptionEqualToValue={(option, value) => option === value}
           />
           <TextField
             required
