@@ -135,34 +135,7 @@ export default function Home() {
         //var campo = traducirCampos(key);          // Traduce el error a la alerta
         //errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
         //isValid = false;                          // Al menos un campo está vacío
-        console.log(Data.descarga)
-        if (Data.descarga !== true) {
-          if (key !== "justificaDescarga" && key !== "urlDescarga" ) {
-            console.log("Falta llenar: ", key);
-            errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
-            isValid = false;                          // Al menos un campo está vacío
-          } else {
-            console.log("Campo opcional no llenado: ", key);
-          }
-        } else {
-          console.log("Falta llenar: ", key);
-          errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
-          isValid = false;  
-        }
-        console.log(Data.otra)
-        if (Data.otra !== true) {
-          if (key !== "justificaOtra" && key !== "urlOtra") {
-            console.log("Falta llenar: ", key);
-            errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
-            isValid = false;                          // Al menos un campo está vacío
-          } else {
-            console.log("Campo opcional no llenado: ", key);
-          }
-        } else {
-          console.log("Falta llenar: ", key);
-          errores[key] = 'Este campo es requerido'; // Texto a mostrar en cada campo faltante
-          isValid = false;  
-        }
+        
       }
     }
     return [isValid, errores];                     // Todos los campos están llenos
