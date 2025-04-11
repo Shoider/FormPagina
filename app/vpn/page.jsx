@@ -746,7 +746,7 @@ export default function Home() {
                       border: '1px solid gray',
                     }}
                     disabled={botonEstado === 'Cargando...'}
-                    {...(botonEstado === 'Descargar PDF' && { href: pdfUrl, download: "RegistroTelefonia.pdf" })}
+                    {...(botonEstado === 'Descargar PDF' && { href: pdfUrl, download: "RegistroVPN.pdf" })}
                   >
                  {botonEstado}
                 </Button>
