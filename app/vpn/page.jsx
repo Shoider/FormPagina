@@ -25,7 +25,7 @@ import {
 import Image from "next/image";
 import axios from 'axios';
 import Alerts from "../components/alerts.jsx";
-import top100Films from "../constants/unidadesAdministrativas.jsx";
+import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -290,13 +290,15 @@ export default function Home() {
 
           <Autocomplete
             disablePortal
-            options={top100Films}
+            options={unidadesAdmin}
             renderInput={(params) => <TextField sx={{ background: '#FFFFFF' }} {...params} label="Unidad Administrativa" />}
             id="ua"
             name="ua"
-            onChange={(event, newValue) => handleChange({ target: { name: 'ua' } }, newValue)} // Cambiado aquí
-            value={formData.ua} // Cambiado aquí
-          />;
+            onChange={(event, newValue) => handleChange({ target: { name: 'ua', value: newValue } })} 
+            value={formData.ua} // Asigna a FormData el valor seleecionado
+          />
+          
+
           
           {/** 
           <FormControl fullWidth sx={{  mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 }}>
