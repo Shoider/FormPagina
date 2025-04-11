@@ -1,39 +1,35 @@
-import React, { useState } from 'react';
-import { 
-  Box, 
-  Button,
-  styled
-} from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import CancelIcon from '@mui/icons-material/Close';
+import React, { useState } from "react";
+import { Box, Button, styled } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Close";
 import {
   GridRowModes,
   DataGrid,
   GridToolbarContainer,
   GridActionsCellItem,
   GridRowEditStopReasons,
-} from '@mui/x-data-grid';
+} from "@mui/x-data-grid";
 
 // Estilo Overlay
-const StyledGridOverlay = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '100%',
-  '& .no-rows-primary': {
-    fill: '#3D4751',
-    ...theme.applyStyles('light', {
-      fill: '#AEB8C2',
+const StyledGridOverlay = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100%",
+  "& .no-rows-primary": {
+    fill: "#3D4751",
+    ...theme.applyStyles("light", {
+      fill: "#AEB8C2",
     }),
   },
-  '& .no-rows-secondary': {
-    fill: '#1D2126',
-    ...theme.applyStyles('light', {
-      fill: '#E8EAED',
+  "& .no-rows-secondary": {
+    fill: "#1D2126",
+    ...theme.applyStyles("light", {
+      fill: "#E8EAED",
     }),
   },
 }));
@@ -80,11 +76,22 @@ function EditToolbar(props) {
     const id = nextId; // Usamos el nextId como id
     setRows((oldRows) => [
       ...oldRows,
-      { id, SO: '', FRO: '', IPO: '', SD: '', FRD: '', IPD: '', PRO: '', PUER: '', isNew: true },
+      {
+        id,
+        SO: "",
+        FRO: "",
+        IPO: "",
+        SD: "",
+        FRD: "",
+        IPD: "",
+        PRO: "",
+        PUER: "",
+        isNew: true,
+      },
     ]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'SO' },
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: "SO" },
     }));
     setNextId(nextId + 1); // Incrementamos el nextId
   };
@@ -101,7 +108,11 @@ function EditToolbar(props) {
 function EditableTableInter({ initialData, onDataChange }) {
   const [rows, setRows] = useState(initialData || []);
   const [rowModesModel, setRowModesModel] = useState({});
-  const [nextId, setNextId] = useState(initialData && initialData.length > 0 ? Math.max(...initialData.map(item => item.id)) + 1 : 1); // Inicializamos nextId
+  const [nextId, setNextId] = useState(
+    initialData && initialData.length > 0
+      ? Math.max(...initialData.map((item) => item.id)) + 1
+      : 1,
+  ); // Inicializamos nextId
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -144,30 +155,135 @@ function EditableTableInter({ initialData, onDataChange }) {
   };
 
   const columns = [
-    { field: 'id', headerName: 'N°', type: 'number', width: 40, align: 'center', headerAlign: 'center', editable: false },
-    { field: 'SO', headerName: 'Sistema\nOrigen', type: 'string', width: 150, align: 'center', headerAlign: 'center', editable: true },
-    { field: 'FRO', headerName: 'Funcion ó Rol de Anfitrión(es) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: true },
-    { field: 'IPO', headerName: 'IP/NAT Anfitrión(es) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: true },
-    { field: 'SD', headerName: 'Sistema Destino', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: true },
-    { field: 'FRD', headerName: 'Funcion ó Rol de Anfitrión(es) Destino', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: true },
-    { field: 'IPD', headerName: 'IP/NAT Anfitrión(es) Destino/NAT', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: true },
-    { field: 'PRO', headerName: 'Protocolo TCP ó UDP', width: 200, align: 'center', headerAlign: 'center', editable: true, type: 'singleSelect', valueOptions: ['TCP', 'UDP'] },
-    { field: 'PUER', headerName: 'Puertos', type: 'string', width: 100, align: 'center', headerAlign: 'center', editable: true },
     {
-      field: 'actions', type: 'actions', headerName: 'Actions', width: 150, align: 'center', headerAlign: 'center', cellClassName: 'actions',
+      field: "id",
+      headerName: "N°",
+      type: "number",
+      width: 40,
+      align: "center",
+      headerAlign: "center",
+      editable: false,
+    },
+    {
+      field: "SO",
+      headerName: "Sistema\nOrigen",
+      type: "string",
+      width: 150,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+    },
+    {
+      field: "FRO",
+      headerName: "Funcion ó Rol de Anfitrión(es) Origen",
+      type: "string",
+      width: 200,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+    },
+    {
+      field: "IPO",
+      headerName: "IP/NAT Anfitrión(es) Origen",
+      type: "string",
+      width: 200,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+    },
+    {
+      field: "SD",
+      headerName: "Sistema Destino",
+      type: "string",
+      width: 200,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+    },
+    {
+      field: "FRD",
+      headerName: "Funcion ó Rol de Anfitrión(es) Destino",
+      type: "string",
+      width: 200,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+    },
+    {
+      field: "IPD",
+      headerName: "IP/NAT Anfitrión(es) Destino/NAT",
+      type: "string",
+      width: 200,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+    },
+    {
+      field: "PRO",
+      headerName: "Protocolo TCP ó UDP",
+      width: 200,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+      type: "singleSelect",
+      valueOptions: ["TCP", "UDP"],
+    },
+    {
+      field: "PUER",
+      headerName: "Puertos",
+      type: "string",
+      width: 100,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+    },
+    {
+      field: "actions",
+      type: "actions",
+      headerName: "Actions",
+      width: 150,
+      align: "center",
+      headerAlign: "center",
+      cellClassName: "actions",
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
         if (isInEditMode) {
           return [
-            <GridActionsCellItem key={`save-${id}`} icon={<SaveIcon />} label="Save" sx={{ color: 'primary.main' }} onClick={handleSaveClick(id)} />,
-            <GridActionsCellItem key={`cancel-${id}`} icon={<CancelIcon />} label="Cancel" className="textPrimary" onClick={handleCancelClick(id)} color="inherit" />,
+            <GridActionsCellItem
+              key={`save-${id}`}
+              icon={<SaveIcon />}
+              label="Save"
+              sx={{ color: "primary.main" }}
+              onClick={handleSaveClick(id)}
+            />,
+            <GridActionsCellItem
+              key={`cancel-${id}`}
+              icon={<CancelIcon />}
+              label="Cancel"
+              className="textPrimary"
+              onClick={handleCancelClick(id)}
+              color="inherit"
+            />,
           ];
         }
 
         return [
-          <GridActionsCellItem key={`edit-${id}`} icon={<EditIcon />} label="Edit" className="textPrimary" onClick={handleEditClick(id)} color="inherit" />,
-          <GridActionsCellItem key={`delete-${id}`} icon={<DeleteIcon />} label="Delete" onClick={handleDeleteClick(id)} color="inherit" />,
+          <GridActionsCellItem
+            key={`edit-${id}`}
+            icon={<EditIcon />}
+            label="Edit"
+            className="textPrimary"
+            onClick={handleEditClick(id)}
+            color="inherit"
+          />,
+          <GridActionsCellItem
+            key={`delete-${id}`}
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={handleDeleteClick(id)}
+            color="inherit"
+          />,
         ];
       },
     },
@@ -178,7 +294,20 @@ function EditableTableInter({ initialData, onDataChange }) {
   }, [rows, onDataChange]);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', width: "calc(100% - 32px)", ml: 2, mr: 4, mt: 3, mb: 3, '& .actions': { color: 'text.secondary' }, '& .textPrimary': { color: 'text.primary' }, background: "white" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        width: "calc(100% - 32px)",
+        ml: 2,
+        mr: 4,
+        mt: 3,
+        mb: 3,
+        "& .actions": { color: "text.secondary" },
+        "& .textPrimary": { color: "text.primary" },
+        background: "white",
+      }}
+    >
       <DataGrid
         rows={rows}
         columns={columns}
@@ -192,9 +321,9 @@ function EditableTableInter({ initialData, onDataChange }) {
           toolbar: { setRows, setRowModesModel, nextId, setNextId }, // Pasamos nextId y setNextId
         }}
         sx={{
-          '--DataGrid-overlayHeight': '200px',
-          '& .MuiDataGrid-virtualScroller': {
-            marginBottom: '16px', // Espaciado adicional para evitar superposición
+          "--DataGrid-overlayHeight": "200px",
+          "& .MuiDataGrid-virtualScroller": {
+            marginBottom: "16px", // Espaciado adicional para evitar superposición
           },
         }}
       />

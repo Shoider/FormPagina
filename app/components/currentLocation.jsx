@@ -1,21 +1,21 @@
-'use client'; // Indica que este es un componente de cliente
+"use client"; // Indica que este es un componente de cliente
 
-import React from 'react';
-import { usePathname } from 'next/navigation'; // Importa usePathname
-import { Typography } from '@mui/material';
+import React from "react";
+import { usePathname } from "next/navigation"; // Importa usePathname
+import { Typography } from "@mui/material";
 
 function CurrentLocation() {
   const pathname = usePathname(); // Usa usePathname
 
   const routeTexts = {
-    '/': 'MENÚ',
-    '/vpn': 'VPN',
-    '/rfc': 'RFC',
-    '/telefonia': 'TELEFONIA',
-    '/internet':'INTERNET',
+    "/": "MENÚ",
+    "/vpn": "VPN",
+    "/rfc": "RFC",
+    "/telefonia": "TELEFONIA",
+    "/internet": "INTERNET",
   };
 
-  const currentText = routeTexts[pathname] || 'Página Desconocida';
+  const currentText = routeTexts[pathname] || "Página Desconocida";
 
   return (
     <Typography
@@ -23,9 +23,9 @@ function CurrentLocation() {
       sx={{
         mr: 1,
         fontWeight: 500,
-        letterSpacing: '.1rem',
-        color: 'white',
-        textDecoration: 'none',
+        letterSpacing: ".1rem",
+        color: "white",
+        textDecoration: "none",
       }}
     >
       {currentText}

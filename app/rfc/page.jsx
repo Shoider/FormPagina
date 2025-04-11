@@ -12,16 +12,16 @@ import {
   FormLabel,
   Divider,
   FormGroup,
-  Checkbox
+  Checkbox,
 } from "@mui/material";
-import Image from "next/image"; 
+import Image from "next/image";
 import EditableTableInter from "../components/EditableTableInter.jsx";
 import EditableTableAdmin from "../components/EditableTableAdmin.jsx";
 import EditableTableDes from "../components/EditableTableDes.jsx";
 import EditableTableUsua from "../components/EditableTableUsua.jsx";
 import EditableTableOtro from "../components/EditableTableOtro.jsx";
 import Alerts from "../components/alerts.jsx";
-import axios from 'axios';
+import axios from "axios";
 import { useEffect } from "react";
 
 export default function Home() {
@@ -29,36 +29,36 @@ export default function Home() {
 
   // Checkbox
   // Tipo de Movimiento
-  const [adminIsTrue, setAdminIsTrue] = useState(false)
-  const [desIsTrue, setDesIsTrue] = useState(false)
-  const [interIsTrue, setInterIsTrue] = useState(false)
-  const [usuaIsTrue, setUsuaIsTrue] = useState(false)
-  const [otroIsTrue, setOtroIsTrue] = useState(false)     //Para opcion OTRO
+  const [adminIsTrue, setAdminIsTrue] = useState(false);
+  const [desIsTrue, setDesIsTrue] = useState(false);
+  const [interIsTrue, setInterIsTrue] = useState(false);
+  const [usuaIsTrue, setUsuaIsTrue] = useState(false);
+  const [otroIsTrue, setOtroIsTrue] = useState(false); //Para opcion OTRO
 
   // Intersistemas
-  const [altaInterIsTrue, setAltaInterIsTrue] = useState(false)
-  const [cambioInterIsTrue, setCambioInterIsTrue] = useState(false)
-  const [bajaInterIsTrue, setBajaInterIsTrue] = useState(false)
+  const [altaInterIsTrue, setAltaInterIsTrue] = useState(false);
+  const [cambioInterIsTrue, setCambioInterIsTrue] = useState(false);
+  const [bajaInterIsTrue, setBajaInterIsTrue] = useState(false);
 
   // Administrador
-  const [altaAdminIsTrue, setAltaAdminIsTrue] = useState(false)
-  const [cambioAdminIsTrue, setCambioAdminIsTrue] = useState(false)
-  const [bajaAdminIsTrue, setBajaAdminIsTrue] = useState(false)
+  const [altaAdminIsTrue, setAltaAdminIsTrue] = useState(false);
+  const [cambioAdminIsTrue, setCambioAdminIsTrue] = useState(false);
+  const [bajaAdminIsTrue, setBajaAdminIsTrue] = useState(false);
 
   // Desarrollador
-  const [altaDesIsTrue, setAltaDesIsTrue] = useState(false)
-  const [cambioDesIsTrue, setCambioDesIsTrue] = useState(false)
-  const [bajaDesIsTrue, setBajaDesIsTrue] = useState(false)
+  const [altaDesIsTrue, setAltaDesIsTrue] = useState(false);
+  const [cambioDesIsTrue, setCambioDesIsTrue] = useState(false);
+  const [bajaDesIsTrue, setBajaDesIsTrue] = useState(false);
 
   // Usuario
-  const [altaUsuaIsTrue, setAltaUsuaIsTrue] = useState(false)
-  const [cambioUsuaIsTrue, setCambioUsuaIsTrue] = useState(false)
-  const [bajaUsuaIsTrue, setBajaUsuaIsTrue] = useState(false)
+  const [altaUsuaIsTrue, setAltaUsuaIsTrue] = useState(false);
+  const [cambioUsuaIsTrue, setCambioUsuaIsTrue] = useState(false);
+  const [bajaUsuaIsTrue, setBajaUsuaIsTrue] = useState(false);
 
   // Otro
-  const [altaOtroIsTrue, setAltaOtroIsTrue] = useState(false)
-  const [cambioOtroIsTrue, setCambioOtroIsTrue] = useState(false)
-  const [bajaOtroIsTrue, setBajaOtroIsTrue] = useState(false)
+  const [altaOtroIsTrue, setAltaOtroIsTrue] = useState(false);
+  const [cambioOtroIsTrue, setCambioOtroIsTrue] = useState(false);
+  const [bajaOtroIsTrue, setBajaOtroIsTrue] = useState(false);
 
   // Tablas
   //const [tableData, setTableData] = useState([]);
@@ -118,9 +118,9 @@ export default function Home() {
     administrador: adminIsTrue,
     desarrollador: desIsTrue,
     usuario: usuaIsTrue,
-    otro: otroIsTrue,       //ESTE TAL VEZ PARA OTRO, Seria Otra Tabla
+    otro: otroIsTrue, //ESTE TAL VEZ PARA OTRO, Seria Otra Tabla
 
-    // Estados para checkbox 
+    // Estados para checkbox
     // Intersistemas
     AltaInter: altaInterIsTrue,
     BajaInter: bajaInterIsTrue,
@@ -142,7 +142,7 @@ export default function Home() {
     BajaOtro: bajaOtroIsTrue,
     CambioOtro: cambioOtroIsTrue,
   });
-  
+
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
 
@@ -186,12 +186,27 @@ export default function Home() {
       registrosOtroCambiosBajas: cambioBajaOtroTableData,
     }));
   }, [
-      altaInterTableData, bajaInterTableData, cambioAltaInterTableData, cambioBajaInterTableData,
-      altaAdminTableData, bajaAdminTableData, cambioAltaAdminTableData, cambioBajaAdminTableData,
-      altaDesTableData, bajaDesTableData, cambioAltaDesTableData, cambioBajaDesTableData,
-      altaUsuaTableData, bajaUsuaTableData, cambioAltaUsuaTableData, cambioBajaUsuaTableData,
-      altaOtroTableData, bajaOtroTableData, cambioAltaOtroTableData, cambioBajaOtroTableData
-    ]);
+    altaInterTableData,
+    bajaInterTableData,
+    cambioAltaInterTableData,
+    cambioBajaInterTableData,
+    altaAdminTableData,
+    bajaAdminTableData,
+    cambioAltaAdminTableData,
+    cambioBajaAdminTableData,
+    altaDesTableData,
+    bajaDesTableData,
+    cambioAltaDesTableData,
+    cambioBajaDesTableData,
+    altaUsuaTableData,
+    bajaUsuaTableData,
+    cambioAltaUsuaTableData,
+    cambioBajaUsuaTableData,
+    altaOtroTableData,
+    bajaOtroTableData,
+    cambioAltaOtroTableData,
+    cambioBajaOtroTableData,
+  ]);
 
   // Intersistemas
   const handleInterAltaTableDataChange = (data) => {
@@ -267,10 +282,10 @@ export default function Home() {
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
     }));
-  }
+  };
 
   // Boton
-  const [botonEstado, setBotonEstado] = useState('Enviar');
+  const [botonEstado, setBotonEstado] = useState("Enviar");
 
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
@@ -284,7 +299,15 @@ export default function Home() {
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
         // console.log("Dato faltante en:", key);
-        if (key !== "desotro" && key !== "registrosAltas" && key !== "registrosCambios" && key !== "registrosBajas"  && key !== "justifica" && key !== "justifica2" && key !== "justifica3" ) {
+        if (
+          key !== "desotro" &&
+          key !== "registrosAltas" &&
+          key !== "registrosCambios" &&
+          key !== "registrosBajas" &&
+          key !== "justifica" &&
+          key !== "justifica2" &&
+          key !== "justifica3"
+        ) {
           console.log("Campo OBLIGATORIO no llenado:  ", key);
           return false; // Retorna false solo si el campo vacío no es opcional
         } else {
@@ -295,13 +318,14 @@ export default function Home() {
     console.log("Datos obligatorios completos");
     return true; // Todos los campos están llenos o los vacíos son opcionales
   };
-  
+
   // Llamada API
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Datos de formData:", formData);      // DEBUG para ver que llego antes de enviar
+    console.log("Datos de formData:", formData); // DEBUG para ver que llego antes de enviar
 
-    {/* DEBUG
+    {
+      /* DEBUG
     if (!validarCamposRequeridos(formData)) {
       setAlert({
         message: 'Por favor, complete todos los campos requeridos.',
@@ -317,32 +341,33 @@ export default function Home() {
       });
       setOpenAlert(true);
 
-    */}
+    */
+    }
     // Debug
     setAlert({
-      message: 'Informacion Registrada',
+      message: "Informacion Registrada",
       severity: "success",
     });
     setOpenAlert(true);
     // End Debug
 
-    setBotonEstado('Cargando...');
-  
+    setBotonEstado("Cargando...");
+
     try {
       // PDF api
       const pdfResponse = await axios.post("/api/v1/rfc", formData, {
         responseType: "blob",
-    });
-  
+      });
+
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
-        setBotonEstado('Descargar PDF');
+        setBotonEstado("Descargar PDF");
       } else {
         console.error("Error generating PDF");
       }
     } catch (error) {
       console.error("Error:", error);
-      setBotonEstado('Enviar'); // Vuelve a "Enviar" en caso de error
+      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
     }
   };
 
@@ -370,61 +395,73 @@ export default function Home() {
   // Inicio de la pagina
 
   return (
-    <Container disableGutters maxWidth="xxl" sx={{background: "#FFFFFF"}}>
-      
+    <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
       {/* Banner Responsive */}
       <Box
         sx={{
-          width: '100', // Ocupa todo el ancho de la ventana gráfica
-          overflow: 'hidden',
-          height: '350px', // Ajusta la altura según sea necesario
-          [theme.breakpoints.down('md')]: {
-            height: 'auto', // Ajusta la altura automáticamente en pantallas pequeñas
+          width: "100", // Ocupa todo el ancho de la ventana gráfica
+          overflow: "hidden",
+          height: "350px", // Ajusta la altura según sea necesario
+          [theme.breakpoints.down("md")]: {
+            height: "auto", // Ajusta la altura automáticamente en pantallas pequeñas
           },
-          display: { xs: 'none', md: 'block' },
+          display: { xs: "none", md: "block" },
         }}
       >
         <Image
-        src="/background_Conagua_header_150.jpg" // Ruta de la imagen recortable
-        alt="Imagen recortable"
-        width={6000}
-        height={1200}
-        style={{
-          maxWidth: '100vw',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center',
-        }}
-        sizes="(max-width: 900px) 100vw, 1920px" 
+          src="/background_Conagua_header_150.jpg" // Ruta de la imagen recortable
+          alt="Imagen recortable"
+          width={6000}
+          height={1200}
+          style={{
+            maxWidth: "100vw",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
+          sizes="(max-width: 900px) 100vw, 1920px"
         />
       </Box>
-      
+
       {/* Imagen fija para pantallas pequeñas */}
       <Box
         sx={{
-          display: { xs: 'block', md: 'none' }, // Mostrar solo en pantallas pequeñas
+          display: { xs: "block", md: "none" }, // Mostrar solo en pantallas pequeñas
         }}
       >
         <Image
           src="/mobile_background_Icono_150.jpg" // Ruta de la imagen fija
           alt="Imagen fija"
           width={1690}
-          height={1312} 
+          height={1312}
           style={{
-            width: '100%',
-            height: 'auto',
+            width: "100%",
+            height: "auto",
           }}
           sizes="100vw"
         />
       </Box>
 
       {/* Banner Responsive Title*/}
-      <Box sx={{ justifyContent: "center", mt: 0, background: "#FFFFFF", width: "100%"}}>
-        <Box sx={{ justifyContent: "center", display: "flex", ml: 3}}>
-        {/* Title */}
-        <Typography variant="h3" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
-          Formulario Para Solicitud De Alta, Baja ó Cambio En La Infraestructura De Seguridad De La CONAGUA
-        </Typography>
+      <Box
+        sx={{
+          justifyContent: "center",
+          mt: 0,
+          background: "#FFFFFF",
+          width: "100%",
+        }}
+      >
+        <Box sx={{ justifyContent: "center", display: "flex", ml: 3 }}>
+          {/* Title */}
+          <Typography
+            variant="h3"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
+            Formulario Para Solicitud De Alta, Baja ó Cambio En La
+            Infraestructura De Seguridad De La CONAGUA
+          </Typography>
         </Box>
       </Box>
 
@@ -446,29 +483,62 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
         }}
-      > 
+      >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
           Información Para Registro
         </Typography>
         <Box
           component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 3, mb:1 }} /> 
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 3,
+              mb: 1,
+            }}
+          />
 
           {/* Checkbox */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ml: 2, mb: 0 }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              ml: 2,
+              mb: 0,
+            }}
+          >
             <FormLabel
               component="legend"
-              sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
             >
               Tipo de Cambio *
             </FormLabel>
@@ -539,13 +609,20 @@ export default function Home() {
               placeholder="Describa Brevemente"
               value={formData.desotro}
               onChange={handleChange}
-              sx={{ background: '#FFFFFF', mb: 3}}
+              sx={{ background: "#FFFFFF", mb: 3 }}
               inputProps={{ maxLength: 32 }}
             />
-            
           </Box>
 
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:1 }} />
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 1,
+            }}
+          />
 
           <TextField
             required
@@ -554,7 +631,7 @@ export default function Home() {
             label="Temporalidad"
             value={formData.tempo}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -564,7 +641,7 @@ export default function Home() {
             label="Memorando / Atenta Nota"
             value={formData.memo}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -575,7 +652,7 @@ export default function Home() {
             placeholder="Descripción Breve de la Solicitud"
             value={formData.descbreve}
             onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
+            sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
         </Box>
@@ -597,17 +674,29 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
         }}
-      > 
+      >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
           Información del Enlace Informatico
         </Typography>
         <Box
           component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
@@ -619,7 +708,7 @@ export default function Home() {
             label="Nombre completo"
             value={formData.nomei}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -629,7 +718,7 @@ export default function Home() {
             label="Teléfono / Extensión"
             value={formData.extei}
             onChange={handleExtensionChangeE}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 4 }}
           />
           <TextField
@@ -639,10 +728,9 @@ export default function Home() {
             label="Puesto ó Cargo"
             value={formData.puestoei}
             onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
+            sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
-        
         </Box>
       </Box>
 
@@ -664,24 +752,34 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
         }}
       >
-
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
           Información del Solicitante
         </Typography>
 
         <Box
           component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-
           <TextField
             required
             id="noms"
@@ -689,7 +787,7 @@ export default function Home() {
             label="Nombre"
             value={formData.noms}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -699,7 +797,7 @@ export default function Home() {
             label="Teléfono / Extensión"
             value={formData.exts}
             onChange={handleExtensionChangeS}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 4 }}
           />
           <TextField
@@ -709,7 +807,7 @@ export default function Home() {
             label="Puesto"
             value={formData.puestos}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -719,10 +817,9 @@ export default function Home() {
             label="Área"
             value={formData.areas}
             onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
+            sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
-          
         </Box>
       </Box>
 
@@ -742,17 +839,29 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
         }}
-      > 
+      >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
           Autoriza
         </Typography>
         <Box
           component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
@@ -764,7 +873,7 @@ export default function Home() {
             label="Nombre de Gerente ó Director Local"
             value={formData.nombreJefe}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -774,10 +883,9 @@ export default function Home() {
             label="Puesto ó Cargo del que Autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
-            sx={{background: "#FFFFFF", mb: 3}}
+            sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
-        
         </Box>
       </Box>
 
@@ -799,28 +907,62 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
         }}
       >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
           Descripción
         </Typography>
         <Box
           component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 3, mb:1 }} />
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 3,
+              mb: 1,
+            }}
+          />
 
           {/* Checkbox Intersistemas */}
-          <Box sx={{ display: formData.intersistemas ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', ml: 0, mb: 1 }}>
+          <Box
+            sx={{
+              display: formData.intersistemas ? "flex" : "none",
+              flexDirection: "column",
+              alignItems: "center",
+              ml: 0,
+              mb: 1,
+            }}
+          >
             <FormLabel
               component="legend"
-              sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
             >
               Tipo de Movimiento Intersistemas *
             </FormLabel>
@@ -860,12 +1002,35 @@ export default function Home() {
               />
             </FormGroup>
           </Box>
-          <Divider sx={{ display: formData.intersistemas ? 'flex' : 'none', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Divider
+            sx={{
+              display: formData.intersistemas ? "flex" : "none",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
           {/* Checkbox Administrador */}
-          <Box sx={{ display: formData.administrador ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', ml: 0, mb: 1 }}>
+          <Box
+            sx={{
+              display: formData.administrador ? "flex" : "none",
+              flexDirection: "column",
+              alignItems: "center",
+              ml: 0,
+              mb: 1,
+            }}
+          >
             <FormLabel
               component="legend"
-              sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
             >
               Tipo de Movimiento Administrador *
             </FormLabel>
@@ -905,12 +1070,35 @@ export default function Home() {
               />
             </FormGroup>
           </Box>
-          <Divider sx={{ display: formData.administrador ? 'flex' : 'none', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Divider
+            sx={{
+              display: formData.administrador ? "flex" : "none",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
           {/* Checkbox Desarrollador */}
-          <Box sx={{ display: formData.desarrollador ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', ml: 0, mb: 1 }}>
+          <Box
+            sx={{
+              display: formData.desarrollador ? "flex" : "none",
+              flexDirection: "column",
+              alignItems: "center",
+              ml: 0,
+              mb: 1,
+            }}
+          >
             <FormLabel
               component="legend"
-              sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
             >
               Tipo de Movimiento Desarrollador *
             </FormLabel>
@@ -950,12 +1138,35 @@ export default function Home() {
               />
             </FormGroup>
           </Box>
-          <Divider sx={{ display: formData.desarrollador ? 'flex' : 'none', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Divider
+            sx={{
+              display: formData.desarrollador ? "flex" : "none",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
           {/* Checkbox Usuario */}
-          <Box sx={{ display: formData.usuario ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', ml: 0, mb: 1 }}>
+          <Box
+            sx={{
+              display: formData.usuario ? "flex" : "none",
+              flexDirection: "column",
+              alignItems: "center",
+              ml: 0,
+              mb: 1,
+            }}
+          >
             <FormLabel
               component="legend"
-              sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
             >
               Tipo de Movimiento Usuario *
             </FormLabel>
@@ -995,12 +1206,35 @@ export default function Home() {
               />
             </FormGroup>
           </Box>
-          <Divider sx={{ display: formData.usuario ? 'flex' : 'none', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Divider
+            sx={{
+              display: formData.usuario ? "flex" : "none",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
           {/* Checkbox Otro */}
-          <Box sx={{ display: formData.otro ? 'flex' : 'none', flexDirection: 'column', alignItems: 'center', ml: 0, mb: 1 }}>
+          <Box
+            sx={{
+              display: formData.otro ? "flex" : "none",
+              flexDirection: "column",
+              alignItems: "center",
+              ml: 0,
+              mb: 1,
+            }}
+          >
             <FormLabel
               component="legend"
-              sx={{ mt: 0, display: 'flex', justifyContent: 'center', fontSize: '1.2rem' }}
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
             >
               Tipo de Movimiento Otro *
             </FormLabel>
@@ -1040,7 +1274,17 @@ export default function Home() {
               />
             </FormGroup>
           </Box>
-          <Divider sx={{ display: formData.otro ? 'flex' : 'none', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
+          <Divider
+            sx={{
+              display: formData.otro ? "flex" : "none",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
 
           {/* Descripcion Detallada */}
           <TextField
@@ -1051,7 +1295,7 @@ export default function Home() {
             placeholder="Descripción a detalle de las configuraciones solicitadas"
             value={formData.desc}
             onChange={handleChange}
-            sx={{background: "#FFFFFF", mb:3}}
+            sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
         </Box>
@@ -1075,27 +1319,59 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
-          display: formData.intersistemas ? 'block' : 'none',
-          minHeight: '100px',
+          display: formData.intersistemas ? "block" : "none",
+          minHeight: "100px",
         }}
       >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4, mb: 3}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
+        >
           Registros Intersistemas
         </Typography>
 
         {/* Altas Tabla */}
-        <Box sx={{ display: formData.AltaInter ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.AltaInter ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Altas Intersistemas
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
@@ -1104,32 +1380,81 @@ export default function Home() {
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
-        <Box sx={{ display: formData.BajaInter ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.BajaInter ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Bajas Intersistemas
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
@@ -1138,63 +1463,167 @@ export default function Home() {
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
-        <Box sx={{ display: formData.CambioInter ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.CambioInter ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Cambios Intersistemas
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
           >
-            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
-            <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            <Divider
+              sx={{
+                display: "flex",
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 50,
+                mr: 50,
+                mt: 3,
+                mb: 1,
+              }}
+            />
+            <Typography
+              variant="h6"
+              align="center"
+              gutterBottom
+              sx={{ mt: 0, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+            >
               Altas
             </Typography>
-            <EditableTableInter onDataChange={handleInterCambioAltaTableDataChange} />
-            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
-            <Typography variant="h6" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            <EditableTableInter
+              onDataChange={handleInterCambioAltaTableDataChange}
+            />
+            <Divider
+              sx={{
+                display: "flex",
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 50,
+                mr: 50,
+                mt: 3,
+                mb: 1,
+              }}
+            />
+            <Typography
+              variant="h6"
+              align="center"
+              gutterBottom
+              sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+            >
               Bajas
             </Typography>
-            <EditableTableInter onDataChange={handleInterCambioBajaTableDataChange} />
+            <EditableTableInter
+              onDataChange={handleInterCambioBajaTableDataChange}
+            />
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
@@ -1218,27 +1647,59 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
-          display: formData.administrador ? 'block' : 'none',
-          minHeight: '100px',
+          display: formData.administrador ? "block" : "none",
+          minHeight: "100px",
         }}
       >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4, mb: 3}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
+        >
           Registros Administrador
         </Typography>
 
         {/* Altas Tabla */}
-        <Box sx={{ display: formData.AltaAdmin ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.AltaAdmin ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Altas Administrador
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
@@ -1247,32 +1708,81 @@ export default function Home() {
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
-        <Box sx={{ display: formData.BajaAdmin ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.BajaAdmin ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Bajas Administrador
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
@@ -1281,63 +1791,167 @@ export default function Home() {
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
-        <Box sx={{ display: formData.CambioAdmin ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.CambioAdmin ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Cambios Administrador
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
           >
-            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
-            <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            <Divider
+              sx={{
+                display: "flex",
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 50,
+                mr: 50,
+                mt: 3,
+                mb: 1,
+              }}
+            />
+            <Typography
+              variant="h6"
+              align="center"
+              gutterBottom
+              sx={{ mt: 0, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+            >
               Altas
             </Typography>
-            <EditableTableAdmin onDataChange={handleAdminCambioAltaTableDataChange} />
-            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
-            <Typography variant="h6" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            <EditableTableAdmin
+              onDataChange={handleAdminCambioAltaTableDataChange}
+            />
+            <Divider
+              sx={{
+                display: "flex",
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 50,
+                mr: 50,
+                mt: 3,
+                mb: 1,
+              }}
+            />
+            <Typography
+              variant="h6"
+              align="center"
+              gutterBottom
+              sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+            >
               Bajas
             </Typography>
-            <EditableTableAdmin onDataChange={handleAdminCambioBajaTableDataChange} />
+            <EditableTableAdmin
+              onDataChange={handleAdminCambioBajaTableDataChange}
+            />
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
@@ -1361,27 +1975,59 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
-          display: formData.desarrollador ? 'block' : 'none',
-          minHeight: '100px',
+          display: formData.desarrollador ? "block" : "none",
+          minHeight: "100px",
         }}
       >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4, mb: 3}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
+        >
           Registros Desarrollador
         </Typography>
 
         {/* Altas Tabla */}
-        <Box sx={{ display: formData.AltaDes ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.AltaDes ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Altas Desarrollador
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
@@ -1390,32 +2036,81 @@ export default function Home() {
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
-        <Box sx={{ display: formData.BajaDes ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.BajaDes ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Bajas Desarrollador
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
@@ -1424,63 +2119,167 @@ export default function Home() {
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
-        <Box sx={{ display: formData.CambioDes ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.CambioDes ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Cambios Desarrollador
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
           >
-            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
-            <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            <Divider
+              sx={{
+                display: "flex",
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 50,
+                mr: 50,
+                mt: 3,
+                mb: 1,
+              }}
+            />
+            <Typography
+              variant="h6"
+              align="center"
+              gutterBottom
+              sx={{ mt: 0, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+            >
               Altas
             </Typography>
-            <EditableTableDes onDataChange={handleDesCambioAltaTableDataChange} />
-            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
-            <Typography variant="h6" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            <EditableTableDes
+              onDataChange={handleDesCambioAltaTableDataChange}
+            />
+            <Divider
+              sx={{
+                display: "flex",
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 50,
+                mr: 50,
+                mt: 3,
+                mb: 1,
+              }}
+            />
+            <Typography
+              variant="h6"
+              align="center"
+              gutterBottom
+              sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+            >
               Bajas
             </Typography>
-            <EditableTableDes onDataChange={handleDesCambioBajaTableDataChange} />
+            <EditableTableDes
+              onDataChange={handleDesCambioBajaTableDataChange}
+            />
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
@@ -1504,27 +2303,59 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
-          display: formData.usuario ? 'block' : 'none',
-          minHeight: '100px',
+          display: formData.usuario ? "block" : "none",
+          minHeight: "100px",
         }}
       >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4, mb: 3}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
+        >
           Registros Usuario
         </Typography>
 
         {/* Altas Tabla */}
-        <Box sx={{ display: formData.AltaUsua ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.AltaUsua ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Altas Usuario
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
@@ -1533,32 +2364,81 @@ export default function Home() {
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
-        <Box sx={{ display: formData.BajaDes ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.BajaDes ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Bajas Usuario
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
@@ -1567,63 +2447,167 @@ export default function Home() {
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
-        <Box sx={{ display: formData.CambioDes ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.CambioDes ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Cambios Usuario
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
           >
-            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
-            <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            <Divider
+              sx={{
+                display: "flex",
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 50,
+                mr: 50,
+                mt: 3,
+                mb: 1,
+              }}
+            />
+            <Typography
+              variant="h6"
+              align="center"
+              gutterBottom
+              sx={{ mt: 0, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+            >
               Altas
             </Typography>
-            <EditableTableUsua onDataChange={handleUsuaCambioAltaTableDataChange} />
-            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
-            <Typography variant="h6" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            <EditableTableUsua
+              onDataChange={handleUsuaCambioAltaTableDataChange}
+            />
+            <Divider
+              sx={{
+                display: "flex",
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 50,
+                mr: 50,
+                mt: 3,
+                mb: 1,
+              }}
+            />
+            <Typography
+              variant="h6"
+              align="center"
+              gutterBottom
+              sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+            >
               Bajas
             </Typography>
-            <EditableTableUsua onDataChange={handleUsuaCambioBajaTableDataChange} />
+            <EditableTableUsua
+              onDataChange={handleUsuaCambioBajaTableDataChange}
+            />
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
@@ -1647,27 +2631,59 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
-          display: formData.otro ? 'block' : 'none',
-          minHeight: '100px',
+          display: formData.otro ? "block" : "none",
+          minHeight: "100px",
         }}
       >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4, mb: 3}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
+        >
           Registros Otros
         </Typography>
 
         {/* Altas Tabla */}
-        <Box sx={{ display: formData.AltaOtro ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.AltaOtro ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Altas Otros
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
@@ -1676,32 +2692,81 @@ export default function Home() {
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
-        <Box sx={{ display: formData.BajaOtro ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.BajaOtro ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Bajas Otros
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
@@ -1710,63 +2775,167 @@ export default function Home() {
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
-        <Box sx={{ display: formData.CambioOtro ? 'block' : 'none', flexDirection: 'column', alignItems: 'center'}}>
-          <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mt: 0, mb:1 }} />
-          <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Box
+          sx={{
+            display: formData.CambioOtro ? "block" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Divider
+            sx={{
+              display: "flex",
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
             Cambios Otros
           </Typography>
           <Box
             component="form"
-            sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+            sx={{
+              "& .MuiTextField-root": {
+                mt: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+              },
+            }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
           >
-            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
-            <Typography variant="h6" align="center" gutterBottom sx={{mt: 0, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            <Divider
+              sx={{
+                display: "flex",
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 50,
+                mr: 50,
+                mt: 3,
+                mb: 1,
+              }}
+            />
+            <Typography
+              variant="h6"
+              align="center"
+              gutterBottom
+              sx={{ mt: 0, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+            >
               Altas
             </Typography>
-            <EditableTableOtro onDataChange={handleOtroCambioAltaTableDataChange} />
-            <Divider sx={{ display:'flex', borderBottomWidth: "1px", borderColor: "grey", ml: 50, mr: 50, mt: 3, mb: 1}} />
-            <Typography variant="h6" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+            <EditableTableOtro
+              onDataChange={handleOtroCambioAltaTableDataChange}
+            />
+            <Divider
+              sx={{
+                display: "flex",
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 50,
+                mr: 50,
+                mt: 3,
+                mb: 1,
+              }}
+            />
+            <Typography
+              variant="h6"
+              align="center"
+              gutterBottom
+              sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+            >
               Bajas
             </Typography>
-            <EditableTableOtro onDataChange={handleOtroCambioBajaTableDataChange} />
+            <EditableTableOtro
+              onDataChange={handleOtroCambioBajaTableDataChange}
+            />
           </Box>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Guardar registros antes de enviar.
-          </FormLabel> 
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             En caso de proporcionar dirección NAT verificar que sea la correcta.
-          </FormLabel>  
+          </FormLabel>
           <FormLabel
             component="legend"
-            sx={{ mx: "auto", mb: 3, mt: 2, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-          > 
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
             Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
           </FormLabel>
         </Box>
@@ -1790,17 +2959,29 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
         }}
       >
         {/* SubTitle */}
-        <Typography variant="h4" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
           Justificación
         </Typography>
         <Box
           component="form"
-          sx={{ "& .MuiTextField-root": { mt: 2, width: "calc(100% - 32px)", ml: 2, mr:4 } }}
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
@@ -1813,7 +2994,7 @@ export default function Home() {
             placeholder="Documentacion de los sistemas y/o plataformas que soportan y/o justifican los cambios solicitados"
             value={formData.justifica}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -1824,7 +3005,7 @@ export default function Home() {
             placeholder="Del proyecto y/o servicio que requieren las modificaciones solicitadas"
             value={formData.justifica2}
             onChange={handleChange}
-            sx={{background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -1835,16 +3016,22 @@ export default function Home() {
             placeholder="Razon ó Motivo de los accesos"
             value={formData.justifica3}
             onChange={handleChange}
-            sx={{background: "#FFFFFF", mb:3}}
+            sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
           <FormLabel
-          component="legend"
-          sx={{ mx: "auto", mb: 3, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-        > 
-          Llenar al menos un campo
-        </FormLabel> 
-
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Llenar al menos un campo
+          </FormLabel>
         </Box>
       </Box>
 
@@ -1866,49 +3053,84 @@ export default function Home() {
             maxWidth: "50.00%",
             width: "auto",
             margin: "2rem auto",
-            padding: "2"
+            padding: "2",
           },
         }}
-      > 
+      >
         {/* SubTitle */}
-        <Typography variant="h5" align="center" gutterBottom sx={{mt: 3, width: "calc(100% - 32px)", ml: 2, mr:4}}>
+        <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
           GENERAR SOLICITUD
         </Typography>
-        <Divider sx={{ borderBottomWidth: "1px", borderColor: "grey", ml: 2, mr: 2, mb:0 }} />
-              
-                <FormLabel
-                  component="legend"
-                  sx={{ mx: "auto", mt: 2,mb:0, display: 'flex', justifyContent: 'center', fontSize: '0.8rem', width: "calc(100% - 32px)" }}
-                  > 
-                 Asegurate de que la información registrada es correcta, ya que no se puede corregir una vez enviada.
-                </FormLabel>
-        
-                <Box
-                  component="form"
-                  sx={{ '& .MuiTextField-root': { mt: 2, width: 'calc(100% - 32px)', ml: 2, mr: 4 } }}
-                  noValidate
-                  autoComplete="off"
-                  onSubmit={handleSubmit}
-                >
-                  <Button
-                       type="submit"
-                       variant="contained"
-                      sx={{
-                      mt: 3,
-                      mb: 3,
-                      width: 'calc(100% - 32px)',
-                      ml: 2,
-                      mr: 4,
-                      background: botonEstado === 'Descargar PDF' ? theme.palette.secondary.main : '#98989A',
-                      color: '#FFFFFF',
-                      border: '1px solid gray',
-                    }}
-                    disabled={botonEstado === 'Cargando...'}
-                    {...(botonEstado === 'Descargar PDF' && { href: pdfUrl, download: "RegistroTelefonia.pdf" })}
-                  >
-                 {botonEstado}
-                </Button>
-              </Box>
+        <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mb: 0,
+          }}
+        />
+
+        <FormLabel
+          component="legend"
+          sx={{
+            mx: "auto",
+            mt: 2,
+            mb: 0,
+            display: "flex",
+            justifyContent: "center",
+            fontSize: "0.8rem",
+            width: "calc(100% - 32px)",
+          }}
+        >
+          Asegurate de que la información registrada es correcta, ya que no se
+          puede corregir una vez enviada.
+        </FormLabel>
+
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              mt: 3,
+              mb: 3,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              background:
+                botonEstado === "Descargar PDF"
+                  ? theme.palette.secondary.main
+                  : "#98989A",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+            disabled={botonEstado === "Cargando..."}
+            {...(botonEstado === "Descargar PDF" && {
+              href: pdfUrl,
+              download: "RegistroTelefonia.pdf",
+            })}
+          >
+            {botonEstado}
+          </Button>
+        </Box>
       </Box>
 
       {/* ALERT */}

@@ -18,8 +18,8 @@ Este frontend proporciona una interfaz de usuario para interactuar con la API de
 
 ## Requisitos
 
-* Docker instalado y en ejecución.
-* Git (opcional, para clonar el repositorio).
+- Docker instalado y en ejecución.
+- Git (opcional, para clonar el repositorio).
 
 ## Instalación
 
