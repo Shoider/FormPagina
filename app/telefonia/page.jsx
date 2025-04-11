@@ -609,6 +609,8 @@ export default function Home() {
             options={unidadesAdmin}
             renderInput={(params) => (
               <TextField
+                required
+                error={!!errors?.uaUsuario}
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Unidad Administrativa"
