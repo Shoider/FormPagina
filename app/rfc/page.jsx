@@ -406,7 +406,7 @@ export default function Home() {
         sx={{
           width: "100", // Ocupa todo el ancho de la ventana gráfica
           overflow: "hidden",
-          height: "350px", // Ajusta la altura según sea necesario
+          height: "300px", // Ajusta la altura según sea necesario
           [theme.breakpoints.down("md")]: {
             height: "auto", // Ajusta la altura automáticamente en pantallas pequeñas
           },
