@@ -12,12 +12,12 @@ import {
   FormLabel,
   Divider,
   Checkbox,
+  Autocomplete
 } from "@mui/material";
 import Image from "next/image";
-
 import axios from "axios";
-
 import Alerts from "../components/alerts.jsx";
+import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -285,11 +285,11 @@ export default function Home() {
     let isValid = true;
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
-        //if (key !== "usuaExterno") {
+        if (key !== "descarga" && key !== "comercio" && key !== "redes" && key !== "foros" && key !== "whats" && key !== "videos" && key !== "dropbox" && key !== "onedrive" && key !== "skype" && key !== "wetransfer" && key !== "team" && key !== "otra" && key !== "otra2" && key !== "otra3" && key !== "otra4") {
         console.log("Campo requerido: ", key);
         errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
         isValid = false; // Al menos un campo está vacío
-        //}
+        }
       }
     }
     return [isValid, errores]; // Todos los campos están llenos
@@ -348,6 +348,15 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       extUsuario: value,
+    }));
+  };
+  const handleTelefonoChange = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      teleUsuario: value,
     }));
   };
 
@@ -494,7 +503,7 @@ export default function Home() {
           />
           <TextField
             required
-            //error={!!errors?.activacion}
+            error={!!errors?.fechasoli}
             id="fechasoli"
             name="fechasoli"
             label="Fecha de Solicitud"
@@ -587,16 +596,24 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-          <TextField
-            required
-            error={!!errors?.uaUsuario}
+          <Autocomplete
+            disablePortal
+            options={unidadesAdmin}
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.uaUsuario}
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Unidad Administrativa"
+              />
+            )}
             id="uaUsuario"
             name="uaUsuario"
-            label="Unidad Administrativa"
-            value={formData.uaUsuario}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
+            onChange={(event, newValue) =>
+              handleChange({ target: { name: "uaUsuario", value: newValue } })
+            }
+            value={formData.uaUsuario} // Asigna a FormData el valor seleecionado
           />
           <TextField
             required
@@ -640,11 +657,11 @@ export default function Home() {
             name="teleUsuario"
             label="Teléfono"
             value={formData.teleUsuario}
-            onChange={handleChange}
+            onChange={handleTelefonoChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
+            placeholder="10 dígitos"
           />
-
           <TextField
             required
             error={!!errors?.extUsuario}
@@ -655,6 +672,7 @@ export default function Home() {
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 4 }}
+            placeholder="4 dígitos"
           />
         </Box>
       </Box>
