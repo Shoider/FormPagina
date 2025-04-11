@@ -23,6 +23,7 @@ import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 
 export default function Home() {
   const theme = useTheme();
+  const [inputValue, setInputValue] = useState('');
   const [formData, setFormData] = useState({
     nombre: "",
     puesto: "",
@@ -89,6 +90,7 @@ export default function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
+    console.log("Constante Freesolo: ", inputValue);
 
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
@@ -159,6 +161,14 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       extension: value,
+    }));
+  };
+
+  // Manejo de Autocomplete
+  const handleUA = (newValue) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      ua: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
 
@@ -304,6 +314,7 @@ export default function Home() {
           <Autocomplete
             disablePortal
             options={unidadesAdmin}
+            freeSolo
             renderInput={(params) => (
               <TextField
                 required
@@ -315,10 +326,17 @@ export default function Home() {
             )}
             id="ua"
             name="ua"
-            onChange={(event, newValue) =>
-              handleChange({ target: { name: "ua", value: newValue } })
-            }
-            value={formData.ua} // Asigna a FormData el valor seleecionado
+            onChange={(event, newValue) => {
+              handleUA(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === 'change') {
+                handleUA(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.ua || ''} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ''}
+            isOptionEqualToValue={(option, value) => option === value}
           />
           <TextField
             required
