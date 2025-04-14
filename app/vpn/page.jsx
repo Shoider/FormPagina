@@ -240,139 +240,6 @@ export default function Home() {
         </Box>
       </Box>
 
-      {/* Datos del Solicitante */}
-      {/* Form Box Responsive */}
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-        {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-          DATOS DEL USUARIO (A)
-        </Typography>
-
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            required
-            error={!!errors?.nombre}
-            //helperText={"Escriba su nombre"}
-            id="nombre"
-            name="nombre"
-            label="Escriba su nombre"
-            value={formData.nombre}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.puesto}
-            id="puesto"
-            name="puesto"
-            label="Puesto ó Cargo"
-            value={formData.puesto}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <Autocomplete
-            disablePortal
-            options={unidadesAdmin}
-            freeSolo
-            renderInput={(params) => (
-              <TextField
-                required
-                error={!!errors?.ua}
-                sx={{ background: "#FFFFFF" }}
-                {...params}
-                label="Unidad Administrativa"
-              />
-            )}
-            id="ua"
-            name="ua"
-            onChange={(event, newValue) => {
-              handleUA(newValue); // Maneja selección de opciones
-            }}
-            onInputChange={(event, newInputValue) => {
-              if (event?.type === 'change') {
-                handleUA(newInputValue); // Maneja texto escrito directamente
-              }
-            }}
-            inputValue={formData.ua || ''} // Controla el valor mostrado
-            getOptionLabel={(option) => option || ''}
-            isOptionEqualToValue={(option, value) => option === value}
-          />
-          <TextField
-            required
-            error={!!errors?.id}
-            id="id"
-            name="id"
-            label="ID de Empleado"
-            value={formData.id}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.extension}
-            id="extension"
-            name="extension"
-            label="Extensión"
-            value={formData.extension}
-            onChange={handleExtensionChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 4 }}
-          />
-          <TextField
-            required
-            error={!!errors?.correo}
-            id="correo"
-            name="correo"
-            label="Correo Institucional"
-            type="email"
-            value={formData.correo}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-      </Box>
-
       {/* Datos del la Solicitud */}
       {/* Form Box Responsive */}
       <Box
@@ -502,7 +369,8 @@ export default function Home() {
             error={!!errors?.servicios}
             id="servicios"
             name="servicios"
-            label="Servicios que Necesita Acceder"
+            label="Servicios"
+            placeholder="Escriba los servicios a los que solicita acceso"
             value={formData.servicios}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -514,7 +382,146 @@ export default function Home() {
             id="justificacion"
             name="justificacion"
             label="Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificacion}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
+          />
+        </Box>
+      </Box>
+
+      {/* Datos del Solicitante */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          DATOS DEL USUARIO (A) QUE UTILIZARA EL SERVICIO
+        </Typography>
+
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            required
+            error={!!errors?.nombre}
+            id="nombre"
+            name="nombre"
+            label="Nombre Completo"
+            placeholder="Escriba el nombre completo"
+            value={formData.nombre}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.puesto}
+            id="puesto"
+            name="puesto"
+            label="Puesto ó Cargo"
+            placeholder="Escriba el puesto ó cargo"
+            value={formData.puesto}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <Autocomplete
+            disablePortal
+            options={unidadesAdmin}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.ua}
+                placeholder="Escriba o seleccione la unidad administrativa"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Unidad Administrativa"
+              />
+            )}
+            id="ua"
+            name="ua"
+            onChange={(event, newValue) => {
+              handleUA(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === 'change') {
+                handleUA(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.ua || ''} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ''}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+          <TextField
+            required
+            error={!!errors?.id}
+            id="id"
+            name="id"
+            label="ID de Empleado"
+            placeholder="Escriba su ID de empleado"
+            value={formData.id}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.extension}
+            id="extension"
+            name="extension"
+            label="Extensión"
+            placeholder="Escriba la extensión"
+            value={formData.extension}
+            onChange={handleExtensionChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 4 }}
+          />
+          <TextField
+            required
+            error={!!errors?.correo}
+            id="correo"
+            name="correo"
+            label="Correo Institucional"
+            placeholder="correo@conagua.gob.mx"
+            type="email"
+            value={formData.correo}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
@@ -573,6 +580,7 @@ export default function Home() {
             id="jefe"
             name="jefe"
             label="Funcionario con Cargo de Subgerente, Homologo ó Superior"
+            placeholder="Escriba el nombre completo del funcionario"
             value={formData.jefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -584,6 +592,7 @@ export default function Home() {
             id="puestojefe"
             name="puestojefe"
             label="Puesto ó Cargo del que Autoriza"
+            placeholder="Escriba el puesto ó cargo del que autoriza"
             value={formData.puestojefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -643,6 +652,7 @@ export default function Home() {
             id="marca"
             name="marca"
             label="Marca"
+            placeholder="Escriba la marca del equipo"
             value={formData.marca}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -654,6 +664,7 @@ export default function Home() {
             id="modelo"
             name="modelo"
             label="Modelo"
+            placeholder="Escriba el modelo del equipo"
             value={formData.modelo}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -665,6 +676,7 @@ export default function Home() {
             id="serie"
             name="serie"
             label="Serie"
+            placeholder="Escriba el No. de serie del equipo"
             value={formData.serie}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}

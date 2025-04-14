@@ -456,6 +456,7 @@ export default function Home() {
             id="justificacion"
             name="justificacion"
             label="Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificacion}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -569,7 +570,8 @@ export default function Home() {
             error={!!errors?.nombreUsuario}
             id="nombreUsuario"
             name="nombreUsuario"
-            label="Nombre"
+            label="Nombre Completo"
+            placeholder="Escriba el nombre completo"
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -581,6 +583,7 @@ export default function Home() {
             id="correoUsuario"
             name="correoUsuario"
             label="Correo"
+            placeholder="correo@correo.com"
             value={formData.correoUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -593,6 +596,7 @@ export default function Home() {
             id="direccion"
             name="direccion"
             label="Piso y Ala"
+            placeholder="Piso y Ala a la que pertenece"
             //helperText="Piso y Ala a la que pertenece"
             value={formData.direccion}
             onChange={handleChange}
@@ -610,6 +614,7 @@ export default function Home() {
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Unidad Administrativa"
+                placeholder="Escriba o seleccione la unidad administrativa"
               />
             )}
             id="uaUsuario"
@@ -668,7 +673,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          DATOS DEL EMPLEADO DE CONAGUA RESPONSABLE
+          DATOS DEL EMPLEADO (A) DE CONAGUA RESPONSABLE
         </Typography>
         <Box
           component="form"
@@ -689,7 +694,8 @@ export default function Home() {
             error={!!errors?.nombreEmpleado}
             id="nombreEmpleado"
             name="nombreEmpleado"
-            label="Nombre"
+            label="Nombre Completo"
+            placeholder="Escriba el nombre completo"
             value={formData.nombreEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -701,6 +707,7 @@ export default function Home() {
             id="idEmpleado"
             name="idEmpleado"
             label="Número De Empleado"
+            placeholder="Escriba el número de empleado"
             value={formData.idEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -713,6 +720,7 @@ export default function Home() {
             id="extEmpleado"
             name="extEmpleado"
             label="Teléfono / Extensión"
+            placeholder="Escriba el número de teléfono ó extensión"
             value={formData.extEmpleado}
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF" }}
@@ -724,6 +732,7 @@ export default function Home() {
             id="correoEmpleado"
             name="correoEmpleado"
             label="Email" //PENDIENTE
+            placeholder="correo@correo.com"
             value={formData.correoEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -735,6 +744,7 @@ export default function Home() {
             id="puestoEmpleado"
             name="puestoEmpleado"
             label="Puesto"
+            placeholder="Escriba el puesto del empleado"
             value={formData.puestoEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -803,6 +813,7 @@ export default function Home() {
             id="nombreJefe"
             name="nombreJefe"
             label="Funcionario con Cargo de Subgerente, Homologo ó Superior"
+            placeholder="Escriba el nombre completo del funcionario"
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -814,6 +825,7 @@ export default function Home() {
             id="puestoJefe"
             name="puestoJefe"
             label="Puesto ó Cargo"
+            placeholder="Escriba el puesto ó cargo del que autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -874,6 +886,7 @@ export default function Home() {
             id="marca"
             name="marca"
             label="Marca"
+            placeholder="Escriba la marca del equipo"
             defaultValue="HUAWEI"
             sx={{ background: "#FFFFFF" }}
             onChange={handleChangeMarca}
@@ -892,6 +905,7 @@ export default function Home() {
             id="modelo"
             name="modelo"
             label="Modelo"
+            placeholder="Escriba el modelo del equipo"
             value={formData.modelo}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -903,6 +917,7 @@ export default function Home() {
             id="serie"
             name="serie"
             label="Serie"
+            placeholder="Escriba el No. de serie del equipo"
             value={formData.serie}
             onChange={handleChange}
             inputProps={{ maxLength: 16 }}
@@ -914,6 +929,7 @@ export default function Home() {
             id="version"
             name="version"
             label="Versión de Sistema Operativo"
+            placeholder="Escriba la versión del sistema operativo"
             value={formData.version}
             onChange={handleChange}
             inputProps={{ maxLength: 16 }}
