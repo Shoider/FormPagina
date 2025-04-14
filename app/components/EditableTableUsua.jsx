@@ -144,6 +144,8 @@ function EditableTableUsua({ initialData, onDataChange }) {
       field: "SO",
       headerName: "Nombre(s) de Usuario(s) Zona(s) Origen",
       width: 300,
+      align: "center",
+      headerAlign: "center",
       editable: true,
       renderEditCell: (params) => {
         const handleBlur = () => {
@@ -165,12 +167,12 @@ function EditableTableUsua({ initialData, onDataChange }) {
           <Autocomplete
             disablePortal
             options={pisos}
-            sx={{ width: '100%', py: 1 }}
+            sx={{ width: '100%'}}
             freeSolo
             renderInput={(inputParams) => (
               <TextField 
                 {...inputParams} 
-                label="Seleccionar"
+                //label="Seleccionar"
                 variant="standard"
                 fullWidth
               />
@@ -200,7 +202,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       field: "IPO",
       headerName: "Segmento(s)/IP(s) Origen",
       type: "string",
-      width: 200,
+      width: 300,
       align: "center",
       headerAlign: "center",
       editable: true,
@@ -224,12 +226,12 @@ function EditableTableUsua({ initialData, onDataChange }) {
           <Autocomplete
             disablePortal
             options={segmentos}
-            sx={{ width: '100%', py: 1 }}
+            sx={{ width: '100%'}}
             freeSolo
             renderInput={(inputParams) => (
               <TextField 
                 {...inputParams} 
-                label="Seleccionar"
+                //label="Seleccionar"
                 variant="standard"
                 fullWidth
               />
