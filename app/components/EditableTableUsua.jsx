@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button, styled } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
-import pisos from "../constants/pisos.jsx";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import pisos from "../constants/pisos";
 import segmentos from "../constants/segmentos.jsx";
 import {
   GridRowModes,
@@ -15,10 +17,6 @@ import {
   GridRowEditStopReasons,
 } from "@mui/x-data-grid";
 
-import {
-  TextField,
-  Autocomplete,
-} from "@mui/material";
 // Estilo Overlay
 const StyledGridOverlay = styled("div")(({ theme }) => ({
   display: "flex",
@@ -39,7 +37,6 @@ const StyledGridOverlay = styled("div")(({ theme }) => ({
     }),
   },
 }));
-
 function CustomNoRowsOverlay() {
   return (
     <StyledGridOverlay>
@@ -73,17 +70,16 @@ function CustomNoRowsOverlay() {
   );
 }
 
-// Funcionamiento General
-
 function EditToolbar(props) {
-  const { setRows, setRowModesModel, nextId, setNextId } = props; // Recibimos nextId y setNextId
+  const { setRows, setRowModesModel, nextId, setNextId } = props;
 
   const handleClick = () => {
-    const id = nextId; // Usamos el nextId como id
+    const id = nextId;
     setRows((oldRows) => [
       ...oldRows,
-      {
+      { 
         id,
+        No: nextId, // Asegúrate de que No e id coincidan
         SO: "",
         IPO: "",
         SD: "",
@@ -91,14 +87,14 @@ function EditToolbar(props) {
         IPD: "",
         PRO: "",
         PUER: "",
-        isNew: true,
+        isNew: true 
       },
     ]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: "SO" },
     }));
-    setNextId(nextId + 1); // Incrementamos el nextId
+    setNextId(nextId + 1);
   };
 
   return (
@@ -111,54 +107,29 @@ function EditToolbar(props) {
 }
 
 function EditableTableUsua({ initialData, onDataChange }) {
-  const [rows, setRows] = useState(initialData || []);
+  const [rows, setRows] = useState(() => {
+    // Asegura que los datos iniciales tengan IDs consistentes
+    if (initialData && initialData.length > 0) {
+      return initialData.map((item, index) => ({
+        ...item,
+        No: index + 1,
+        id: item.id || index + 1
+      }));
+    }
+    return [];
+  });
+
   const [rowModesModel, setRowModesModel] = useState({});
-  const [nextId, setNextId] = useState(
-    initialData && initialData.length > 0
-      ? Math.max(...initialData.map((item) => item.id)) + 1
-      : 1,
-  ); // Inicializamos nextId
-
-  const handleRowEditStop = (params, event) => {
-    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-      event.defaultMuiPrevented = true;
-    }
-  };
-
-  const handleEditClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-  };
-
-  const handleSaveClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-  };
-
-  const handleDeleteClick = (id) => () => {
-    setRows(rows.filter((row) => row.id !== id));
-  };
-
-  const handleCancelClick = (id) => () => {
-    setRowModesModel({
-      ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true },
-    });
-
-    const editedRow = rows.find((row) => row.id === id);
-    if (editedRow.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
-  };
-
-  const processRowUpdate = (newRow) => {
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
-  };
+  const [nextId, setNextId] = useState(() => {
+    const maxId = initialData?.reduce((max, item) => Math.max(max, item.id || 0), 0);
+    return maxId ? maxId + 1 : 1;
+  });
 
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
   };
 
+  // Columnas optimizadas
   const columns = [
     {
       field: "No",
@@ -174,87 +145,114 @@ function EditableTableUsua({ initialData, onDataChange }) {
       headerName: "Nombre(s) de Usuario(s) Zona(s) Origen",
       width: 300,
       editable: true,
-      renderEditCell: (params) => (
-        <Autocomplete
-          disablePortal
-          options={pisos}
-          sx={{ width: '100%', py: 0 }}
-          freeSolo // Permite valores no incluidos en las opciones
-          renderInput={(inputParams) => (
-            <TextField 
-              {...inputParams} 
-              label="Seleccionar" 
-              variant="standard"
-              InputProps={{
-                ...inputParams.InputProps,
-                // Asegura que el TextField ocupe todo el espacio
-                style: { width: '100%' }
-              }}
-            />
-          )}
-          value={params.value || null}
-          onChange={(event, newValue) => {
-            params.api.setEditCellValue({
-              id: params.id,
-              field: params.field,
-              value: newValue || '', // Guarda string vacío si es null/undefined
-            });
-          }}
-          onBlur={() => {
+      renderEditCell: (params) => {
+        const handleBlur = () => {
+          // Método universal para finalizar la edición
+          if (params.api.stopCellEditMode) {
+            // Para DataGrid v6+
+            params.api.stopCellEditMode({ id: params.id, field: params.field });
+          } else if (params.api.commitCellChange) {
+            // Para algunas versiones anteriores
             params.api.commitCellChange({ id: params.id, field: params.field });
             params.api.setCellMode(params.id, params.field, 'view');
-          }}
-          getOptionLabel={(option) => option || ''}
-          isOptionEqualToValue={(option, value) => option === value}
-        />
-      ),
-      renderCell: (params) => (
-        <span>{params.value || ''}</span> // Maneja valores nulos/undefined
-      ),
+          } else {
+            // Fallback seguro
+            params.api.setCellMode(params.id, params.field, 'view');
+          }
+        };
+    
+        return (
+          <Autocomplete
+            disablePortal
+            options={pisos}
+            sx={{ width: '100%', py: 1 }}
+            freeSolo
+            renderInput={(inputParams) => (
+              <TextField 
+                {...inputParams} 
+                label="Seleccionar"
+                variant="standard"
+                fullWidth
+              />
+            )}
+            value={params.value || null}
+            onChange={(event, newValue) => {
+              if (params.api.setEditCellValue) {
+                params.api.setEditCellValue({
+                  id: params.id,
+                  field: params.field,
+                  value: newValue || '',
+                });
+              } else {
+                params.api.setCellValue(params.id, params.field, newValue || '');
+              }
+            }}
+            onBlur={handleBlur}
+            getOptionLabel={(option) => option || ''}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+        );
+      },
+      renderCell: (params) => <span>{params.value || ''}</span>,
     },
     //{ field: 'FRO', headerName: 'Funcion ó Rol de Dispositivo(s) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: false },
     {
       field: "IPO",
       headerName: "Segmento(s)/IP(s) Origen",
-      width: 300,
+      type: "string",
+      width: 200,
+      align: "center",
+      headerAlign: "center",
       editable: true,
-      renderEditCell: (params) => (
-        <Autocomplete
-          disablePortal
-          options={segmentos}
-          sx={{ width: '100%', py: 1 }}
-          freeSolo // Permite valores no incluidos en las opciones
-          renderInput={(inputParams) => (
-            <TextField 
-              {...inputParams} 
-              label="Seleccionar" 
-              variant="standard"
-              InputProps={{
-                ...inputParams.InputProps,
-                // Asegura que el TextField ocupe todo el espacio
-                style: { width: '100%' }
-              }}
-            />
-          )}
-          value={params.value || null}
-          onChange={(event, newValue) => {
-            params.api.setEditCellValue({
-              id: params.id,
-              field: params.field,
-              value: newValue || '', // Guarda string vacío si es null/undefined
-            });
-          }}
-          onBlur={() => {
+      renderEditCell: (params) => {
+        const handleBlur = () => {
+          // Método universal para finalizar la edición
+          if (params.api.stopCellEditMode) {
+            // Para DataGrid v6+
+            params.api.stopCellEditMode({ id: params.id, field: params.field });
+          } else if (params.api.commitCellChange) {
+            // Para algunas versiones anteriores
             params.api.commitCellChange({ id: params.id, field: params.field });
             params.api.setCellMode(params.id, params.field, 'view');
-          }}
-          getOptionLabel={(option) => option || ''}
-          isOptionEqualToValue={(option, value) => option === value}
-        />
-      ),
-      renderCell: (params) => (
-        <span>{params.value || ''}</span> // Maneja valores nulos/undefined
-      ),
+          } else {
+            // Fallback seguro
+            params.api.setCellMode(params.id, params.field, 'view');
+          }
+        };
+    
+        return (
+          <Autocomplete
+            disablePortal
+            options={segmentos}
+            sx={{ width: '100%', py: 1 }}
+            freeSolo
+            renderInput={(inputParams) => (
+              <TextField 
+                {...inputParams} 
+                label="Seleccionar"
+                variant="standard"
+                fullWidth
+              />
+            )}
+            value={params.value || null}
+            onChange={(event, newValue) => {
+              if (params.api.setEditCellValue) {
+                params.api.setEditCellValue({
+                  id: params.id,
+                  field: params.field,
+                  value: newValue || '',
+                });
+              } else {
+                params.api.setCellValue(params.id, params.field, newValue || '');
+              }
+            }}
+            onBlur={handleBlur}
+            getOptionLabel={(option) => option || ''}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+        );
+      },
+      renderCell: (params) => <span>{params.value || ''}</span>,
     },
     {
       field: "SD",
@@ -358,22 +356,74 @@ function EditableTableUsua({ initialData, onDataChange }) {
     onDataChange(rows);
   }, [rows, onDataChange]);
 
+  // Manejo de eventos optimizado
+  const handleRowEditStop = (params, event) => {
+    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+      event.defaultMuiPrevented = true;
+    }
+  };
+
+  const handleEditClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleSaveClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleDeleteClick = (id) => () => {
+    setRows(rows.filter((row) => row.id !== id));
+    // Recalcula los números de fila después de eliminar
+    setRows(prevRows => prevRows.map((row, index) => ({
+      ...row,
+      No: index + 1
+    })));
+  };
+
+  const handleCancelClick = (id) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow?.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+  };
+
+  const processRowUpdate = (newRow) => {
+    const updatedRow = { ...newRow, isNew: false };
+    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    return updatedRow;
+  };
+
+  // Actualización de números de fila cuando cambian los datos
+  useEffect(() => {
+    setRows(prevRows => prevRows.map((row, index) => ({
+      ...row,
+      No: index + 1
+    })));
+  }, [rows.length]);
+
+  useEffect(() => {
+    onDataChange(rows);
+  }, [rows, onDataChange]);
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        width: "calc(100% - 32px)",
-        height:"500px",
-        ml: 2,
-        mr: 4,
-        mt: 3,
-        mb: 3,
-        "& .actions": { color: "text.secondary" },
-        "& .textPrimary": { color: "text.primary" },
-        background: "white",
-      }}
-    >
+    <Box sx={{
+      display: "flex",
+      flexDirection: "column",
+      width: "calc(100% - 32px)",
+      height: "500px",
+      ml: 2,
+      mr: 4,
+      mt: 3,
+      mb: 3,
+      "& .actions": { color: "text.secondary" },
+      "& .textPrimary": { color: "text.primary" },
+      background: "white",
+    }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -384,8 +434,9 @@ function EditableTableUsua({ initialData, onDataChange }) {
         processRowUpdate={processRowUpdate}
         slots={{ toolbar: EditToolbar, noRowsOverlay: CustomNoRowsOverlay }}
         slotProps={{
-          toolbar: { setRows, setRowModesModel, nextId, setNextId }, // Pasamos nextId y setNextId
+          toolbar: { setRows, setRowModesModel, nextId, setNextId },
         }}
+        getRowId={(row) => row.id} // Asegura que siempre use el id correcto
         sx={{
           "--DataGrid-overlayHeight": "200px",
           "& .MuiDataGrid-virtualScroller": {
