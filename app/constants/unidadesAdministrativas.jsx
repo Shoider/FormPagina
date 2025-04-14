@@ -1,4 +1,4 @@
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
+// UNIDADES ADMINISTRATIVAS
 const unidadesAdmin = [
   "DIRECCION GENERAL",
   "COORDINACION GENERAL DE COMUNICACION Y CULTURA DEL AGUA",

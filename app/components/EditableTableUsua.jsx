@@ -5,6 +5,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
+import pisos from "../constants/pisos.jsx";
+import segmentos from "../constants/segmentos.jsx";
 import {
   GridRowModes,
   DataGrid,
@@ -13,6 +15,10 @@ import {
   GridRowEditStopReasons,
 } from "@mui/x-data-grid";
 
+import {
+  TextField,
+  Autocomplete,
+} from "@mui/material";
 // Estilo Overlay
 const StyledGridOverlay = styled("div")(({ theme }) => ({
   display: "flex",
@@ -166,21 +172,89 @@ function EditableTableUsua({ initialData, onDataChange }) {
     {
       field: "SO",
       headerName: "Nombre(s) de Usuario(s) Zona(s) Origen",
-      type: "string",
-      width: 150,
-      align: "center",
-      headerAlign: "center",
+      width: 300,
       editable: true,
+      renderEditCell: (params) => (
+        <Autocomplete
+          disablePortal
+          options={pisos}
+          sx={{ width: '100%', py: 0 }}
+          freeSolo // Permite valores no incluidos en las opciones
+          renderInput={(inputParams) => (
+            <TextField 
+              {...inputParams} 
+              label="Seleccionar" 
+              variant="standard"
+              InputProps={{
+                ...inputParams.InputProps,
+                // Asegura que el TextField ocupe todo el espacio
+                style: { width: '100%' }
+              }}
+            />
+          )}
+          value={params.value || null}
+          onChange={(event, newValue) => {
+            params.api.setEditCellValue({
+              id: params.id,
+              field: params.field,
+              value: newValue || '', // Guarda string vacío si es null/undefined
+            });
+          }}
+          onBlur={() => {
+            params.api.commitCellChange({ id: params.id, field: params.field });
+            params.api.setCellMode(params.id, params.field, 'view');
+          }}
+          getOptionLabel={(option) => option || ''}
+          isOptionEqualToValue={(option, value) => option === value}
+        />
+      ),
+      renderCell: (params) => (
+        <span>{params.value || ''}</span> // Maneja valores nulos/undefined
+      ),
     },
     //{ field: 'FRO', headerName: 'Funcion ó Rol de Dispositivo(s) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: false },
     {
       field: "IPO",
       headerName: "Segmento(s)/IP(s) Origen",
-      type: "string",
-      width: 200,
-      align: "center",
-      headerAlign: "center",
+      width: 300,
       editable: true,
+      renderEditCell: (params) => (
+        <Autocomplete
+          disablePortal
+          options={segmentos}
+          sx={{ width: '100%', py: 1 }}
+          freeSolo // Permite valores no incluidos en las opciones
+          renderInput={(inputParams) => (
+            <TextField 
+              {...inputParams} 
+              label="Seleccionar" 
+              variant="standard"
+              InputProps={{
+                ...inputParams.InputProps,
+                // Asegura que el TextField ocupe todo el espacio
+                style: { width: '100%' }
+              }}
+            />
+          )}
+          value={params.value || null}
+          onChange={(event, newValue) => {
+            params.api.setEditCellValue({
+              id: params.id,
+              field: params.field,
+              value: newValue || '', // Guarda string vacío si es null/undefined
+            });
+          }}
+          onBlur={() => {
+            params.api.commitCellChange({ id: params.id, field: params.field });
+            params.api.setCellMode(params.id, params.field, 'view');
+          }}
+          getOptionLabel={(option) => option || ''}
+          isOptionEqualToValue={(option, value) => option === value}
+        />
+      ),
+      renderCell: (params) => (
+        <span>{params.value || ''}</span> // Maneja valores nulos/undefined
+      ),
     },
     {
       field: "SD",
@@ -290,6 +364,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
         display: "flex",
         flexDirection: "column",
         width: "calc(100% - 32px)",
+        height:"500px",
         ml: 2,
         mr: 4,
         mt: 3,
