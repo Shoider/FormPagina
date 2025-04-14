@@ -21,6 +21,7 @@ import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 import direccionAutocomplete from "../constants/direccion.jsx";
 import ala from "../constants/ala.jsx";
 import pisos from "../constants/pisos.jsx";
+import telefonoAutocomplete from "../constants/telefono.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -400,6 +401,13 @@ export default function Home() {
       ala: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
+  const handleTele = (newValue) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      teleUsuario: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+
 
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
@@ -764,18 +772,35 @@ export default function Home() {
           isOptionEqualToValue={(option, value) => option === value}
         />
           </Box>
-          <TextField
-            required
-            error={!!errors?.teleUsuario}
-            id="teleUsuario"
-            name="teleUsuario"
-            label="Teléfono"
-            placeholder="Escriba el número de teléfono"
-            value={formData.teleUsuario}
-            onChange={handleTelefonoChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
+          <Autocomplete
+          disablePortal
+          options={telefonoAutocomplete}
+          freeSolo
+          sx={{width: "100%"}}
+          renderInput={(params) => (
+            <TextField
+              required
+              error={!!errors?.teleUsuario}
+              placeholder="Escriba o seleccione el teléfono"
+              sx={{ background: "#FFFFFF" }}
+              {...params}
+              label="Teléfono"
+            />
+          )}
+          id="teleUsuario"
+          name="teleUsuario"
+          onChange={(event, newValue) => {
+            handleTele(newValue); // Maneja selección de opciones
+          }}
+          onInputChange={(event, newInputValue) => {
+            if (event?.type === 'change') {
+              handleTele(newInputValue); // Maneja texto escrito directamente
+            }
+          }}
+          inputValue={formData.teleUsuario || ''} // Controla el valor mostrado
+          getOptionLabel={(option) => option || ''}
+          isOptionEqualToValue={(option, value) => option === value}
+        />
           <TextField
             required
             error={!!errors?.extUsuario}
