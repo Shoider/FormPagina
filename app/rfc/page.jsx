@@ -1552,10 +1552,10 @@ export default function Home() {
                 display: "flex",
                 borderBottomWidth: "1px",
                 borderColor: "grey",
-                ml: 50,
-                mr: 50,
+                ml: 40,
+                mr: 40,
                 mt: 3,
-                mb: 1,
+                mb: 2,
               }}
             />
             <Typography
@@ -1574,9 +1574,9 @@ export default function Home() {
                 display: "flex",
                 borderBottomWidth: "1px",
                 borderColor: "grey",
-                ml: 50,
-                mr: 50,
-                mt: 3,
+                ml: 40,
+                mr: 40,
+                mt: 4,
                 mb: 1,
               }}
             />
@@ -1584,7 +1584,7 @@ export default function Home() {
               variant="h6"
               align="center"
               gutterBottom
-              sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+              sx={{ mt: 2, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
             >
               Bajas
             </Typography>
@@ -1880,10 +1880,10 @@ export default function Home() {
                 display: "flex",
                 borderBottomWidth: "1px",
                 borderColor: "grey",
-                ml: 50,
-                mr: 50,
+                ml: 40,
+                mr: 40,
                 mt: 3,
-                mb: 1,
+                mb: 2,
               }}
             />
             <Typography
@@ -1902,9 +1902,9 @@ export default function Home() {
                 display: "flex",
                 borderBottomWidth: "1px",
                 borderColor: "grey",
-                ml: 50,
-                mr: 50,
-                mt: 3,
+                ml: 40,
+                mr: 40,
+                mt: 1,
                 mb: 1,
               }}
             />
@@ -1912,7 +1912,7 @@ export default function Home() {
               variant="h6"
               align="center"
               gutterBottom
-              sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+              sx={{ mt: 2, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
             >
               Bajas
             </Typography>
@@ -2208,10 +2208,10 @@ export default function Home() {
                 display: "flex",
                 borderBottomWidth: "1px",
                 borderColor: "grey",
-                ml: 50,
-                mr: 50,
+                ml: 40,
+                mr: 40,
                 mt: 3,
-                mb: 1,
+                mb: 2,
               }}
             />
             <Typography
@@ -2230,9 +2230,9 @@ export default function Home() {
                 display: "flex",
                 borderBottomWidth: "1px",
                 borderColor: "grey",
-                ml: 50,
-                mr: 50,
-                mt: 3,
+                ml: 40,
+                mr: 40,
+                mt: 1,
                 mb: 1,
               }}
             />
@@ -2240,7 +2240,7 @@ export default function Home() {
               variant="h6"
               align="center"
               gutterBottom
-              sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+              sx={{ mt: 2, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
             >
               Bajas
             </Typography>
@@ -2410,7 +2410,7 @@ export default function Home() {
         {/* Bajas Tabla */}
         <Box
           sx={{
-            display: formData.BajaDes ? "block" : "none",
+            display: formData.BajaUsua ? "block" : "none",
             flexDirection: "column",
             alignItems: "center",
           }}
@@ -2493,7 +2493,7 @@ export default function Home() {
         {/* Cambios Tabla */}
         <Box
           sx={{
-            display: formData.CambioDes ? "block" : "none",
+            display: formData.CambioUsua ? "block" : "none",
             flexDirection: "column",
             alignItems: "center",
           }}
@@ -2536,10 +2536,10 @@ export default function Home() {
                 display: "flex",
                 borderBottomWidth: "1px",
                 borderColor: "grey",
-                ml: 50,
-                mr: 50,
+                ml: 40,
+                mr: 40,
                 mt: 3,
-                mb: 1,
+                mb: 2,
               }}
             />
             <Typography
@@ -2558,9 +2558,9 @@ export default function Home() {
                 display: "flex",
                 borderBottomWidth: "1px",
                 borderColor: "grey",
-                ml: 50,
-                mr: 50,
-                mt: 3,
+                ml: 40,
+                mr: 40,
+                mt: 1,
                 mb: 1,
               }}
             />
@@ -2568,7 +2568,7 @@ export default function Home() {
               variant="h6"
               align="center"
               gutterBottom
-              sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+              sx={{ mt: 2, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
             >
               Bajas
             </Typography>
@@ -2864,10 +2864,10 @@ export default function Home() {
                 display: "flex",
                 borderBottomWidth: "1px",
                 borderColor: "grey",
-                ml: 50,
-                mr: 50,
+                ml: 40,
+                mr: 40,
                 mt: 3,
-                mb: 1,
+                mb: 2,
               }}
             />
             <Typography
@@ -2886,9 +2886,9 @@ export default function Home() {
                 display: "flex",
                 borderBottomWidth: "1px",
                 borderColor: "grey",
-                ml: 50,
-                mr: 50,
-                mt: 3,
+                ml: 40,
+                mr: 40,
+                mt: 1,
                 mb: 1,
               }}
             />
@@ -2896,7 +2896,7 @@ export default function Home() {
               variant="h6"
               align="center"
               gutterBottom
-              sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+              sx={{ mt: 2, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
             >
               Bajas
             </Typography>
