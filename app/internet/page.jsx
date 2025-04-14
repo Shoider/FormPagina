@@ -18,6 +18,9 @@ import Image from "next/image";
 import axios from "axios";
 import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
+import direccionAutocomplete from "../constants/direccion.jsx";
+import ala from "../constants/ala.jsx";
+import pisos from "../constants/pisos.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -36,6 +39,8 @@ export default function Home() {
     extUsuario: "",
     nombreJefe: "",
     puestoJefe: "",
+    piso:"",
+    ala:"",
 
     descarga: false,
     comercio: false,
@@ -377,6 +382,24 @@ export default function Home() {
       uaUsuario: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
+  const handleDireccion = (newValue) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      direccion: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+  const handlePisos = (newValue) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      piso: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+  const handleAla = (newValue) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      ala: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
 
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
@@ -643,18 +666,104 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-          <TextField
-            required
-            error={!!errors?.direccion}
-            id="direccion"
-            name="direccion"
-            label="Dirección"
-            placeholder="Escriba la dirección"
-            value={formData.direccion}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
+          <Autocomplete
+          disablePortal
+          options={direccionAutocomplete}
+          freeSolo
+          renderInput={(params) => (
+            <TextField
+              required
+              error={!!errors?.direccion}
+              placeholder="Escriba o seleccione la dirección"
+              sx={{ background: "#FFFFFF" }}
+              {...params}
+              label="Dirección"
+            />
+          )}
+          id="direccion"
+          name="direccion"
+          onChange={(event, newValue) => {
+            handleDireccion(newValue); // Maneja selección de opciones
+          }}
+          onInputChange={(event, newInputValue) => {
+            if (event?.type === 'change') {
+              handleDireccion(newInputValue); // Maneja texto escrito directamente
+            }
+          }}
+          inputValue={formData.direccion || ''} // Controla el valor mostrado
+          getOptionLabel={(option) => option || ''}
+          isOptionEqualToValue={(option, value) => option === value}
+        />
+          {/**BOX PARA PISO Y ALA */}
+          <Box       
+          sx={{
+          display: formData.direccion === "Av. Insurgentes Sur 2416 Col.Copilco el Bajo. CP.04340, Coyoacán, CDMX" ? "flex" : "none",
+          align: "center",
+          headerAlign: "center",          
+          textAlign:"center" ,
+          
+          //display:"flex"    
+        }}        
+          >
+          <Autocomplete
+          disablePortal
+          options={pisos}
+          freeSolo
+          sx={{width: "50%"}}
+          renderInput={(params) => (
+            <TextField
+              required
+              error={!!errors?.piso}
+              placeholder="Escriba o seleccione el piso"
+              sx={{ background: "#FFFFFF" }}
+              {...params}
+              label="Piso"
+            />
+          )}
+          id="piso"
+          name="piso"
+          onChange={(event, newValue) => {
+            handlePisos(newValue); // Maneja selección de opciones
+          }}
+          onInputChange={(event, newInputValue) => {
+            if (event?.type === 'change') {
+              handlePisos(newInputValue); // Maneja texto escrito directamente
+            }
+          }}
+          inputValue={formData.piso || ''} // Controla el valor mostrado
+          getOptionLabel={(option) => option || ''}
+          isOptionEqualToValue={(option, value) => option === value}
+        />
+        <Autocomplete
+          disablePortal
+          options={ala}
+          freeSolo
+          sx={{width: "50%"}}
+          renderInput={(params) => (
+            <TextField
+              required
+              error={!!errors?.ala}
+              placeholder="Escriba o seleccione la ala"
+              sx={{ background: "#FFFFFF" }}
+              {...params}
+              label="Ala"
+            />
+          )}
+          id="ala"
+          name="ala"
+          onChange={(event, newValue) => {
+            handleAla(newValue); // Maneja selección de opciones
+          }}
+          onInputChange={(event, newInputValue) => {
+            if (event?.type === 'change') {
+              handleAla(newInputValue); // Maneja texto escrito directamente
+            }
+          }}
+          inputValue={formData.ala || ''} // Controla el valor mostrado
+          getOptionLabel={(option) => option || ''}
+          isOptionEqualToValue={(option, value) => option === value}
+        />
+          </Box>
           <TextField
             required
             error={!!errors?.teleUsuario}
