@@ -49,18 +49,21 @@ export default function FooterGlobal() {
             >
               <IconButton
                 sx={{ color: "white", "&:hover": { color: "#000000" } }}
+                href="https://twitter.com/GobiernoMX"
               >
                 <XIcon />
               </IconButton>
 
               <IconButton
                 sx={{ color: "white", "&:hover": { color: "#E1306C" } }}
+                href="https://www.instagram.com/gobmexico/"
               >
                 <InstagramIcon />
               </IconButton>
 
               <IconButton
                 sx={{ color: "white", "&:hover": { color: "#4267B2" } }}
+                href="https://www.facebook.com/gobmexico"
               >
                 <FacebookIcon />
               </IconButton>
