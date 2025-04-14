@@ -286,7 +286,7 @@ export default function Home() {
     let isValid = true;
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
-        if (key !== "descarga" && key !== "comercio" && key !== "redes" && key !== "foros" && key !== "whats" && key !== "videos" && key !== "dropbox" && key !== "onedrive" && key !== "skype" && key !== "wetransfer" && key !== "team" && key !== "otra" && key !== "otra2" && key !== "otra3" && key !== "otra4") {
+        if (key !== "descarga" && key !== "comercio" && key !== "redes" && key !== "foros" && key !== "whats" && key !== "videos" && key !== "dropbox" && key !== "onedrive" && key !== "skype" && key !== "wetransfer" && key !== "team" && key !== "otra" && key !== "otra2" && key !== "otra3" && key !== "otra4" && key !== "piso" && key !== "ala") {
         //console.log("Campo requerido: ", key);
         errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
         isValid = false; // Al menos un campo está vacío
