@@ -72,7 +72,7 @@ export default function Home() {
             gutterBottom
             sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Catalogo de Formatos
+            CATÁLOGO DE SOLICITUDES DE SERVICIO
           </Typography>
         </Box>
       </Box>
@@ -112,7 +112,9 @@ export default function Home() {
           },
         }}
       >
+        <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
         Solicitud Del Servicio De VPN
+        </Typography>
       </Button>
 
       {/* RFC */}
@@ -148,7 +150,9 @@ export default function Home() {
           },
         }}
       >
+        <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
         SOLICITUD DE RFC
+        </Typography>
       </Button>
 
       {/* TELEFONIA */}
@@ -184,7 +188,9 @@ export default function Home() {
           },
         }}
       >
-        SOLICITUD DE SERVICIOS DE TELEFONIA
+        <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
+          SOLICITUD DE SERVICIOS DE TELEFONIA
+        </Typography>
       </Button>
 
       {/* TELEFONIA */}
@@ -220,7 +226,9 @@ export default function Home() {
           },
         }}
       >
-        SOLICITUD DE AMPLIACIÓN DE INTERNET
+        <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
+          SOLICITUD DE AMPLIACIÓN DE INTERNET
+        </Typography>
       </Button>
     </Container>
   );
