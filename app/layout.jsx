@@ -8,10 +8,7 @@ export const metadata = {
   title: "Solicitudes",
   description: "Formularios de solicitudes de acceso",
   version: "4.0.0",
-  keywords: "VPN, RFC, INTERNET, TELEFONIA",
   author: "CONAGUA (Brandon y Nidia)",
-  viewport: "width=device-width, initial-scale=1.0",
-  charset: "UTF-8",
 };
 
 export default function RootLayout({ children }) {
