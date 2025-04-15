@@ -14,7 +14,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <head></head>
+      <head>
+        <meta name="version" content={metadata.version} />
+        <meta name="author" content={metadata.author} />
+      </head>
       <body className="antialiased">
         <ThemeProvider theme={theme}>
           <CssBaseline />
