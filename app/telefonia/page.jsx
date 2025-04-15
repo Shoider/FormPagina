@@ -392,7 +392,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          SOLICITUD
+          INFORMACIÓN DE LA SOLICITUD
         </Typography>
         <Box
           component="form"
@@ -553,7 +553,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          DATOS DEL USUARIO (A) QUE UTILIZARA EL SERVICIO
+          DATOS DEL USUARIO (A) QUE UTILIZARÁ EL SERVICIO
         </Typography>
 
         <Box
@@ -921,7 +921,7 @@ export default function Home() {
             error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
-            label="Funcionario con Cargo de Subgerente, Homologo ó Superior"
+            label="Funcionario con Cargo de Subgerente, Homólogo ó Superior"
             placeholder="Escriba el nombre completo del funcionario"
             value={formData.nombreJefe}
             onChange={handleChange}
@@ -972,7 +972,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          CARACTERISTICAS DEL EQUIPO
+          CARACTERÍSTICAS DEL EQUIPO
         </Typography>
         <Box
           component="form"
@@ -1084,7 +1084,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          CARACTERISTICAS DEL SERVICIO SOLICITADO
+          CARACTERÍSTICAS DEL SERVICIO SOLICITADO
         </Typography>
         <Box
           component="form"

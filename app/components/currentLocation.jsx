@@ -11,7 +11,7 @@ function CurrentLocation() {
     "/": "MENÚ",
     "/vpn": "VPN",
     "/rfc": "RFC",
-    "/telefonia": "TELEFONIA",
+    "/telefonia": "TELEFONÍA",
     "/internet": "INTERNET",
   };
 

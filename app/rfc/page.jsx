@@ -499,7 +499,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Información Para Registro
+          INFORMACIÓN PARA REGISTRO
         </Typography>
         <Box
           component="form"
@@ -690,7 +690,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Información del Enlace Informatico
+          INFORMACIÓN DEL ENLACE INFORMÁTICO
         </Typography>
         <Box
           component="form"
@@ -768,7 +768,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Información del Solicitante
+          INFORMACIÓN DEL SOLICITANTE
         </Typography>
 
         <Box
@@ -855,7 +855,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Autoriza
+        AUTORIZA
         </Typography>
         <Box
           component="form"
@@ -923,7 +923,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Descripción
+          DESCRIPCIÓN
         </Typography>
         <Box
           component="form"
@@ -1296,7 +1296,7 @@ export default function Home() {
             required
             id="desdet"
             name="desdet"
-            label="Descripcion Detallada"
+            label="Descripción Detallada"
             placeholder="Descripción a detalle de las configuraciones solicitadas"
             value={formData.desc}
             onChange={handleChange}
@@ -2975,7 +2975,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Justificación
+          JUSTIFICACIÓN
         </Typography>
         <Box
           component="form"
@@ -3017,8 +3017,8 @@ export default function Home() {
             //required
             id="justifica3"
             name="justifica3"
-            label="Razon / Motivo"
-            placeholder="Razon ó Motivo de los accesos"
+            label="Razón / Motivo"
+            placeholder="Razón ó Motivo de los accesos"
             value={formData.justifica3}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}

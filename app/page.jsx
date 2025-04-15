@@ -189,7 +189,7 @@ export default function Home() {
         }}
       >
         <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
-          SOLICITUD DE SERVICIOS DE TELEFONIA
+          SOLICITUD DE SERVICIOS DE TELEFONÍA
         </Typography>
       </Button>
 
