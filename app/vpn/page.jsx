@@ -518,8 +518,8 @@ export default function Home() {
             error={!!errors?.correo}
             id="correo"
             name="correo"
-            label="Correo Institucional"
-            placeholder="correo@conagua.gob.mx"
+            label="Correo"
+            placeholder="correo@correo.com"
             type="email"
             value={formData.correo}
             onChange={handleChange}
