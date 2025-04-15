@@ -5,14 +5,19 @@ import FooterGlobal from "./components/footer";
 import "@fontsource/noto-sans";
 
 export const metadata = {
-  title: "Formulario",
-  description: "Llenar",
+  title: "Solicitudes",
+  description: "Formularios de solicitudes de acceso",
+  version: "4.0.0",
+  author: "CONAGUA (Brandon y Nidia)",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head></head>
+    <html lang="es">
+      <head>
+        <meta name="version" content={metadata.version} />
+        <meta name="author" content={metadata.author} />
+      </head>
       <body className="antialiased">
         <ThemeProvider theme={theme}>
           <CssBaseline />

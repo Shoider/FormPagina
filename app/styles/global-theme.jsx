@@ -4,16 +4,16 @@ import { createTheme } from "@mui/material";
 export const theme = createTheme({
   palette: {
     primary: {
-      main: "#5393ff",  //Azul
+      main: "#5393ff", //Azul
     },
     secondary: {
-      main: "#611232",  //Magenta
+      main: "#611232", //Magenta
     },
     third: {
-      main: "#a57f2c",  //Dorado
+      main: "#a57f2c", //Dorado
     },
     forty: {
-      main: "#98989A",  //Gris Claro
+      main: "#98989A", //Gris Claro
     },
     lighter: {
       main: "#C5DBEB",
