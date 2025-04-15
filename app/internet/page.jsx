@@ -111,7 +111,7 @@ export default function Home() {
     otraC4: "null",
   });
 
-  // CATEGORIAS
+  // CATEGORÍAS
   const saveCategorias = async (event) => {
     const { name, type, checked } = event.target;
     const isChecked = type === "checkbox" ? checked : false;
@@ -917,7 +917,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          CATEGORIAS DE NAVEGACIÓN
+          CATEGORÍAS DE NAVEGACIÓN
         </Typography>
         <Box
           component="form"
@@ -2349,10 +2349,10 @@ export default function Home() {
                     justifyContent: "center",
                     alignContent: "center",
                     fontSize: "0.6rem",
-                    ml: 4,
+                    //ml: 4,
                   }}
                 >
-                  Si se desea agregar más categorias favor de sugerir cambio en
+                  Si se desea agregar más categorías favor de sugerir cambio en
                   contacto: req.seguridad17@conagua.gob.mx.
                 </FormLabel>
               </Box>
