@@ -2349,7 +2349,7 @@ export default function Home() {
                     justifyContent: "center",
                     alignContent: "center",
                     fontSize: "0.6rem",
-                    ml: 4,
+                    //ml: 4,
                   }}
                 >
                   Si se desea agregar más categorías favor de sugerir cambio en
