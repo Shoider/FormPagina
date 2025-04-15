@@ -613,8 +613,21 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
+        {/**PUESTO DE USUARIO, FALTABA */}
+          <TextField
+            required
+            error={!!errors?.puestoUsuario}
+            id="puestoUsuario"
+            name="puestoUsuario"
+            label="Puesto"
+            placeholder="Escriba el nombre puesto del usuario"
+            value={formData.puestoUsuario}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
 
-<Autocomplete
+        <Autocomplete
           disablePortal
           options={direccionAutocomplete}
           freeSolo
@@ -740,6 +753,7 @@ export default function Home() {
             getOptionLabel={(option) => option || ''}
             isOptionEqualToValue={(option, value) => option === value}
           />
+          
         </Box>
         <Divider
           sx={{
