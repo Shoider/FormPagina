@@ -60,9 +60,6 @@ export default function Home() {
   const [cambioOtroIsTrue, setCambioOtroIsTrue] = useState(false);
   const [bajaOtroIsTrue, setBajaOtroIsTrue] = useState(false);
 
-  // Tablas
-  //const [tableData, setTableData] = useState([]);
-
   // Intersistemas
   const [altaInterTableData, setAltaInterTableData] = useState([]);
   const [bajaInterTableData, setBajaInterTableData] = useState([]);
@@ -185,7 +182,8 @@ export default function Home() {
       registrosOtroCambiosAltas: cambioAltaOtroTableData,
       registrosOtroCambiosBajas: cambioBajaOtroTableData,
     }));
-  }, [
+  }, 
+  [
     altaInterTableData,
     bajaInterTableData,
     cambioAltaInterTableData,
@@ -289,6 +287,7 @@ export default function Home() {
 
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const [alert, setAlert] = useState({
     message: "",
@@ -296,60 +295,69 @@ export default function Home() {
   });
 
   const validarCamposRequeridos = (Data) => {
+    const errores = {};
+    let isValid = true;
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
-        // console.log("Dato faltante en:", key);
         if (
-          key !== "desotro" &&
-          key !== "registrosAltas" &&
-          key !== "registrosCambios" &&
-          key !== "registrosBajas" &&
-          key !== "justifica" &&
+          key !== "desotro" && 
+          key !== "justifica" && 
           key !== "justifica2" &&
-          key !== "justifica3"
+          key !== "justifica3" &&
+          key !== "intersistemas" &&
+          key !== "administrador" &&
+          key !== "desarrollador" &&
+          key !== "usuario" &&
+          key !== "otro" &&
+          key !== "AltaInter" &&
+          key !== "BajaInter" &&
+          key !== "CambioInter" &&
+          key !== "AltaAdmin" &&
+          key !== "BajaAdmin" &&
+          key !== "CambioAdmin" &&
+          key !== "AltaDes" &&
+          key !== "BajaDes" &&
+          key !== "CambioDes" &&
+          key !== "AltaUsua" &&
+          key !== "BajaUsua" &&
+          key !== "CambioUsua" &&
+          key !== "AltaOtro" &&
+          key !== "BajaOtro" &&
+          key !== "CambioOtro" 
         ) {
-          console.log("Campo OBLIGATORIO no llenado:  ", key);
-          return false; // Retorna false solo si el campo vacío no es opcional
-        } else {
-          console.log("Campo OPCIONAL no llenado: ", key);
+          console.log("Campo requerido: ", key);
+          errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
+          isValid = false; // Al menos un campo está vacío
         }
       }
     }
-    console.log("Datos obligatorios completos");
-    return true; // Todos los campos están llenos o los vacíos son opcionales
+    return [isValid, errores]; // Todos los campos están llenos
   };
 
   // Llamada API
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Datos de formData:", formData); // DEBUG para ver que llego antes de enviar
 
-    {
-      /* DEBUG
-    if (!validarCamposRequeridos(formData)) {
+    console.log("Datos del formulario:", formData);
+
+    const [isValid, getErrors] = validarCamposRequeridos(formData);
+    setErrors(getErrors);
+
+    if (!isValid) {
       setAlert({
-        message: 'Por favor, complete todos los campos requeridos.',
+        //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
+        message: "Por favor, complete todos los campos requeridos.",
         severity: "error",
       });
       setOpenAlert(true);
       return;
-    }
-    else
+    } else {
       setAlert({
-        message: 'Informacion Registrada',
+        message: "Informacion Registrada",
         severity: "success",
       });
       setOpenAlert(true);
-
-    */
     }
-    // Debug
-    setAlert({
-      message: "Informacion Registrada",
-      severity: "success",
-    });
-    setOpenAlert(true);
-    // End Debug
 
     setBotonEstado("Cargando...");
 
@@ -375,7 +383,6 @@ export default function Home() {
 
   const handleExtensionChangeE = (event) => {
     //let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
-    //let value = event.target.value.replace(/[^0-9-/]/g, ""); // Permite números y guiones
     let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Permite números, guiones y espacios
 
 
@@ -389,7 +396,7 @@ export default function Home() {
   const handleExtensionChangeS = (event) => {
     //let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
     let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Permite números, guiones y espacios
-    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
+    value = value.slice(0, 20); // Limita la longitud a 10 caracteres
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -631,6 +638,7 @@ export default function Home() {
 
           <TextField
             required
+            error={!!errors?.tempo}
             id="tempo"
             name="tempo"
             label="Temporalidad"
@@ -642,6 +650,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.memo}
             id="memo"
             name="memo"
             label="Memorando / Atenta Nota"
@@ -653,6 +662,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.descbreve}
             id="descbreve"
             name="descbreve"
             label="Solicitud"
@@ -710,6 +720,7 @@ export default function Home() {
         >
           <TextField
             required
+            error={!!errors?.nomei}
             id="nomei"
             name="nomei"
             label="Nombre completo"
@@ -721,6 +732,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.extei}
             id="extei"
             name="extei"
             label="Teléfono / Extensión"
@@ -732,6 +744,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.puestoei}
             id="puestoei"
             name="puestoei"
             label="Puesto ó Cargo"
@@ -792,6 +805,7 @@ export default function Home() {
         >
           <TextField
             required
+            error={!!errors?.noms}
             id="noms"
             name="noms"
             label="Nombre Completo"
@@ -803,6 +817,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.exts}
             id="exts"
             name="exts"
             label="Teléfono / Extensión"
@@ -814,6 +829,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.puestos}
             id="puestos"
             name="puestos"
             label="Puesto"
@@ -825,6 +841,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.areas}
             id="areas"
             name="areas"
             label="Área"
@@ -882,6 +899,7 @@ export default function Home() {
         >
           <TextField
             required
+            error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
             label="Nombre de Gerente ó Director Local"
@@ -893,6 +911,7 @@ export default function Home() {
           />
           <TextField
             required
+            error={!!errors?.puestoJefe}
             id="puestoJefe"
             name="puestoJefe"
             label="Puesto ó Cargo del que Autoriza"
@@ -1305,11 +1324,12 @@ export default function Home() {
           {/* Descripcion Detallada */}
           <TextField
             required
+            error={!!errors?.desdet}
             id="desdet"
             name="desdet"
             label="Descripción Detallada"
             placeholder="Descripción a detalle de las configuraciones solicitadas"
-            value={formData.desc}
+            value={formData.desdet}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
