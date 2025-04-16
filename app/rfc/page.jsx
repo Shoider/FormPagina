@@ -634,6 +634,7 @@ export default function Home() {
             id="tempo"
             name="tempo"
             label="Temporalidad"
+            placeholder="Del MM-DD-YYYY al MM-DD-YYYY"
             value={formData.tempo}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -644,6 +645,7 @@ export default function Home() {
             id="memo"
             name="memo"
             label="Memorando / Atenta Nota"
+            placeholder="Ingrese su memorando / atenta nota"
             value={formData.memo}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -654,7 +656,7 @@ export default function Home() {
             id="descbreve"
             name="descbreve"
             label="Solicitud"
-            placeholder="Descripción Breve de la Solicitud"
+            placeholder="Descripción breve de la solicitud"
             value={formData.descbreve}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -711,6 +713,7 @@ export default function Home() {
             id="nomei"
             name="nomei"
             label="Nombre completo"
+            placeholder="Nombre completo del enlace informático"
             value={formData.nomei}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -721,6 +724,7 @@ export default function Home() {
             id="extei"
             name="extei"
             label="Teléfono / Extensión"
+            placeholder="Teléfono o extensión del enlace informático"
             value={formData.extei}
             onChange={handleExtensionChangeE}
             sx={{ background: "#FFFFFF" }}
@@ -731,6 +735,7 @@ export default function Home() {
             id="puestoei"
             name="puestoei"
             label="Puesto ó Cargo"
+            placeholder="Puesto o cargo del enlace informático"
             value={formData.puestoei}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -789,7 +794,8 @@ export default function Home() {
             required
             id="noms"
             name="noms"
-            label="Nombre"
+            label="Nombre Completo"
+            placeholder="Nombre completo del solicitante"
             value={formData.noms}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -800,6 +806,7 @@ export default function Home() {
             id="exts"
             name="exts"
             label="Teléfono / Extensión"
+            placeholder="Teléfono o extensión del solicitante"
             value={formData.exts}
             onChange={handleExtensionChangeS}
             sx={{ background: "#FFFFFF" }}
@@ -810,6 +817,7 @@ export default function Home() {
             id="puestos"
             name="puestos"
             label="Puesto"
+            placeholder="Puesto del solicitante"
             value={formData.puestos}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -820,6 +828,7 @@ export default function Home() {
             id="areas"
             name="areas"
             label="Área"
+            placeholder="Área del solicitante"
             value={formData.areas}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -876,6 +885,7 @@ export default function Home() {
             id="nombreJefe"
             name="nombreJefe"
             label="Nombre de Gerente ó Director Local"
+            placeholder="Escribe el nombre completo del gerente o director local"
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -886,6 +896,7 @@ export default function Home() {
             id="puestoJefe"
             name="puestoJefe"
             label="Puesto ó Cargo del que Autoriza"
+            placeholder="Escribe el puesto o cargo del que autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
