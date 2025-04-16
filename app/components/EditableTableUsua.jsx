@@ -78,8 +78,7 @@ function EditToolbar(props) {
     setRows((oldRows) => [
       ...oldRows,
       { 
-        id,
-        No: nextId, // Asegúrate de que No e id coincidan
+        id: nextId,
         SO: "",
         IPO: "",
         SD: "",
@@ -132,7 +131,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
   // Columnas optimizadas
   const columns = [
     {
-      field: "No",
+      field: "id",
       headerName: "N°",
       type: "number",
       width: 40,
