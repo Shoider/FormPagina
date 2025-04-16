@@ -111,7 +111,6 @@ function EditableTableUsua({ initialData, onDataChange }) {
     if (initialData && initialData.length > 0) {
       return initialData.map((item, index) => ({
         ...item,
-        No: index + 1,
         id: item.id || index + 1
       }));
     }
