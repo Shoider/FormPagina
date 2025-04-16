@@ -200,8 +200,9 @@ export default function Home() {
       }));
     };
   const handleExtensionChange = (event) => {
-    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 4); // Limita la longitud a 4 caracteres
+    // let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    let value = event.target.value.replace(/[^0-9-\s /]/g, "");
+    value = value.slice(0, 20); // Limita la longitud a 20
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -847,7 +848,7 @@ export default function Home() {
             value={formData.extEmpleado}
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 4 }}
+            inputProps={{ maxLength: 20 }}
           />
           <TextField
             required
