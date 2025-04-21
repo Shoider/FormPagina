@@ -1567,6 +1567,20 @@ export default function Home() {
           >
             Cambios Intersistemas
           </Typography>
+          
+        <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Favor de llenar ambas tablas en caso de traslado(cambios)*
+          </FormLabel>
           <Box
             component="form"
             sx={{
@@ -1588,7 +1602,7 @@ export default function Home() {
                 borderColor: "grey",
                 ml: 40,
                 mr: 40,
-                mt: 3,
+                mt: 1,
                 mb: 2,
               }}
             />
@@ -1895,6 +1909,19 @@ export default function Home() {
           >
             Cambios Administrador
           </Typography>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Favor de llenar ambas tablas en caso de traslado(cambios)*
+          </FormLabel>
           <Box
             component="form"
             sx={{
@@ -1916,7 +1943,7 @@ export default function Home() {
                 borderColor: "grey",
                 ml: 40,
                 mr: 40,
-                mt: 3,
+                mt: 1,
                 mb: 2,
               }}
             />
@@ -2223,6 +2250,19 @@ export default function Home() {
           >
             Cambios Desarrollador
           </Typography>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Favor de llenar ambas tablas en caso de traslado(cambios)*
+          </FormLabel>
           <Box
             component="form"
             sx={{
@@ -2244,7 +2284,7 @@ export default function Home() {
                 borderColor: "grey",
                 ml: 40,
                 mr: 40,
-                mt: 3,
+                mt: 1,
                 mb: 2,
               }}
             />
@@ -2551,6 +2591,19 @@ export default function Home() {
           >
             Cambios Usuario
           </Typography>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Favor de llenar ambas tablas en caso de traslado(cambios)*
+          </FormLabel>
           <Box
             component="form"
             sx={{
@@ -2572,7 +2625,7 @@ export default function Home() {
                 borderColor: "grey",
                 ml: 40,
                 mr: 40,
-                mt: 3,
+                mt: 1,
                 mb: 2,
               }}
             />
@@ -2879,6 +2932,19 @@ export default function Home() {
           >
             Cambios Otros
           </Typography>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Favor de llenar ambas tablas en caso de traslado(cambios)*
+          </FormLabel>
           <Box
             component="form"
             sx={{
@@ -2900,7 +2966,7 @@ export default function Home() {
                 borderColor: "grey",
                 ml: 40,
                 mr: 40,
-                mt: 3,
+                mt: 1,
                 mb: 2,
               }}
             />
@@ -3011,6 +3077,28 @@ export default function Home() {
         >
           JUSTIFICACIÓN
         </Typography>
+        <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mb: 1,
+          }}
+        />
+        <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.9rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Llenar al menos un campo*
+          </FormLabel>
         <Box
           component="form"
           sx={{
@@ -3029,8 +3117,8 @@ export default function Home() {
             //required
             id="justifica"
             name="justifica"
-            label="Referencias"
-            placeholder="Documentacion de los sistemas y/o plataformas que soportan y/o justifican los cambios solicitados"
+            label="Referencias a la documentación"
+            placeholder="De los sistemas y/o plataformas que soportan y/o justifican los cambios solicitados."
             value={formData.justifica}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -3041,7 +3129,7 @@ export default function Home() {
             id="justifica2"
             name="justifica2"
             label="Objetivo"
-            placeholder="Del proyecto y/o servicio que requieren las modificaciones solicitadas"
+            placeholder="Del proyecto y/o servicio que requieren las modificaciones solicitadas."
             value={formData.justifica2}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -3051,26 +3139,14 @@ export default function Home() {
             //required
             id="justifica3"
             name="justifica3"
-            label="Razón / Motivo"
-            placeholder="Razón ó Motivo de los accesos"
+            label="Razón ó Motivo"
+            placeholder="Por ejemplo: Cambio de lugar del Administrador/Desarrollador/Usuario."
             value={formData.justifica3}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              mb: 3,
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            Llenar al menos un campo
-          </FormLabel>
+          
         </Box>
       </Box>
 
