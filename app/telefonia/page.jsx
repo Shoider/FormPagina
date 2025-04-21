@@ -448,11 +448,7 @@ export default function Home() {
             >
               <FormControlLabel value="ALTA" control={<Radio />} label="ALTA" />
               <FormControlLabel value="BAJA" control={<Radio />} label="BAJA" />
-              <FormControlLabel
-                value="CAMBIO"
-                control={<Radio />}
-                label="CAMBIO"
-              />
+              <FormControlLabel value="CAMBIO" control={<Radio />}  label="CAMBIO" />
             </RadioGroup>
             <FormHelperText
               sx={{
@@ -498,7 +494,6 @@ export default function Home() {
             onChange={handleDateChangeActiva}
             sx={{ background: "#FFFFFF" }}
             InputLabelProps={{ shrink: true }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -511,7 +506,6 @@ export default function Home() {
             onChange={handleDateChangeExpira}
             sx={{ background: "#FFFFFF" }}
             InputLabelProps={{ shrink: true }}
-            inputProps={{ maxLength: 256 }}
           />
           <Divider
             sx={{
@@ -835,7 +829,7 @@ export default function Home() {
             value={formData.idEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 8 }}
+            inputProps={{ maxLength: 32 }}
           />
 
           <TextField
