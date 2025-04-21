@@ -849,12 +849,12 @@ export default function Home() {
             error={!!errors?.correoEmpleado}
             id="correoEmpleado"
             name="correoEmpleado"
-            label="Email" //PENDIENTE
+            label="Correo" 
             placeholder="correo@correo.com"
             value={formData.correoEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
+            inputProps={{ maxLength: 32 }}
           />
           <TextField
             required
