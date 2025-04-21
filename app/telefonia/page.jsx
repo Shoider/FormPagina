@@ -212,7 +212,7 @@ export default function Home() {
 
   const handleDateChangeActiva = (event) => {
     const rawDate = new Date(event.target.value + "T00:00:00");
-    console.log("Fecha de activacion: ", rawDate);
+    console.log("Fecha de activación: ", rawDate);
 
     const formattedDate = [
       rawDate.getDate().toString().padStart(2, "0"),
@@ -230,14 +230,14 @@ export default function Home() {
   const handleDateChangeExpira = (event) => {
     //const rawDate = event.target.value;
     const rawDate = new Date(event.target.value + "T00:00:00");
-    console.log("Fecha de activacion: ", rawDate);
+    console.log("Fecha de expiración: ", rawDate);
 
     const formattedDate = [
       rawDate.getDate().toString().padStart(2, "0"),
       (rawDate.getMonth() + 1).toString().padStart(2, "0"),
       rawDate.getFullYear(),
     ].join("-");
-    console.log("Fecha de expiracion: ", rawDate);
+   // console.log("Fecha de expiracion: ", rawDate);
 
     setFormData((prevFormData) => ({
       ...prevFormData,
