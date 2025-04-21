@@ -534,19 +534,10 @@ export default function Home() {
           />
 
           {/* Checkbox */}
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              ml: 2,
-              mb: 0,
-            }}
-          >
+          <Box>
             <FormLabel
               component="legend"
               sx={{
-                mt: 0,
                 display: "flex",
                 justifyContent: "center",
                 fontSize: "1.2rem",
@@ -554,6 +545,17 @@ export default function Home() {
             >
               Tipo de Cambio *
             </FormLabel>
+            <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              mt: 2,
+              ml: 10,
+              mb: 1,
+              mr:8,
+            }}>
             <FormGroup row>
               <FormControlLabel
                 control={
@@ -576,7 +578,7 @@ export default function Home() {
                   />
                 }
                 label="Administrador"
-              />
+              />              
               <FormControlLabel
                 control={
                   <Checkbox
@@ -612,6 +614,7 @@ export default function Home() {
                 label="Otro"
               />
             </FormGroup>
+            </Box>
             <TextField
               disabled={!formData.otro}
               required={formData.otro}
