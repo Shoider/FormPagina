@@ -19,7 +19,7 @@ function CurrentLocation() {
 
   // Actualiza el título de la pestaña
   useEffect(() => {
-    document.title = `${currentText} - Solicitudes`;
+    document.title = `${currentText} `;
   }, [currentText]);
 
   return (
