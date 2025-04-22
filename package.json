@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.26.10",
+    "@datapunt/matomo-tracker-react": "^0.5.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fontsource/noto-sans": "^5.2.5",
