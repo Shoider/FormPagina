@@ -212,7 +212,7 @@ export default function Home() {
 
   const handleDateChangeActiva = (event) => {
     const rawDate = new Date(event.target.value + "T00:00:00");
-    console.log("Fecha de activacion: ", rawDate);
+    console.log("Fecha de activación: ", rawDate);
 
     const formattedDate = [
       rawDate.getDate().toString().padStart(2, "0"),
@@ -230,14 +230,14 @@ export default function Home() {
   const handleDateChangeExpira = (event) => {
     //const rawDate = event.target.value;
     const rawDate = new Date(event.target.value + "T00:00:00");
-    console.log("Fecha de activacion: ", rawDate);
+    console.log("Fecha de expiración: ", rawDate);
 
     const formattedDate = [
       rawDate.getDate().toString().padStart(2, "0"),
       (rawDate.getMonth() + 1).toString().padStart(2, "0"),
       rawDate.getFullYear(),
     ].join("-");
-    console.log("Fecha de expiracion: ", rawDate);
+   // console.log("Fecha de expiracion: ", rawDate);
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -448,11 +448,7 @@ export default function Home() {
             >
               <FormControlLabel value="ALTA" control={<Radio />} label="ALTA" />
               <FormControlLabel value="BAJA" control={<Radio />} label="BAJA" />
-              <FormControlLabel
-                value="CAMBIO"
-                control={<Radio />}
-                label="CAMBIO"
-              />
+              <FormControlLabel value="CAMBIO" control={<Radio />}  label="CAMBIO" />
             </RadioGroup>
             <FormHelperText
               sx={{
@@ -498,7 +494,6 @@ export default function Home() {
             onChange={handleDateChangeActiva}
             sx={{ background: "#FFFFFF" }}
             InputLabelProps={{ shrink: true }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -511,7 +506,6 @@ export default function Home() {
             onChange={handleDateChangeExpira}
             sx={{ background: "#FFFFFF" }}
             InputLabelProps={{ shrink: true }}
-            inputProps={{ maxLength: 256 }}
           />
           <Divider
             sx={{
@@ -835,7 +829,7 @@ export default function Home() {
             value={formData.idEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 8 }}
+            inputProps={{ maxLength: 32 }}
           />
 
           <TextField
@@ -855,12 +849,12 @@ export default function Home() {
             error={!!errors?.correoEmpleado}
             id="correoEmpleado"
             name="correoEmpleado"
-            label="Email" //PENDIENTE
+            label="Correo" 
             placeholder="correo@correo.com"
             value={formData.correoEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
+            inputProps={{ maxLength: 32 }}
           />
           <TextField
             required

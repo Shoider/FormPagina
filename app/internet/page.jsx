@@ -984,8 +984,9 @@ export default function Home() {
             flexDirection: "row",
             flexWrap: "wrap",
             mt: 2,
-            ml: 8,
+            ml: 10,
             mb: 1,
+            mr:8,
           }}
         >
           {[
@@ -1004,7 +1005,7 @@ export default function Home() {
           ].map((item, index) => (
             <Box
               key={index}
-              sx={{ width: "33.33%", minWidth: "100px", textAlign: "left" }}
+              sx={{ width: "33.33%", minWidth: "80px", textAlign: "left" }}
             >
               <FormControlLabel
                 control={
