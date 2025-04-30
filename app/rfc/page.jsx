@@ -109,6 +109,7 @@ export default function Home() {
     justifica: "",
     justifica2: "",
     justifica3: "",
+    noticket:"",
 
     // Estados para tipo de movimientos
     intersistemas: interIsTrue,
@@ -476,290 +477,6 @@ export default function Home() {
           </Typography>
         </Box>
       </Box>
-
-      {/* Datos del Registro */}
-      {/* Form Box Responsive */}
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-        {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-          INFORMACIÓN PARA REGISTRO
-        </Typography>
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mt: 3,
-              mb: 1,
-            }}
-          />
-
-          {/* Checkbox */}
-          <Box>
-            <FormLabel
-              component="legend"
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "1.2rem",
-              }}
-            >
-              Tipo de Cambio *
-            </FormLabel>
-            <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              mt: 2,
-              ml: 10,
-              mb: 1,
-              mr:8,
-            }}>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.intersistemas}
-                    onChange={saveComboBox}
-                    name="intersistemas"
-                    color="primary"
-                  />
-                }
-                label="Intersistemas"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.administrador}
-                    onChange={saveComboBox}
-                    name="administrador"
-                    color="primary"
-                  />
-                }
-                label="Administrador"
-              />              
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.desarrollador}
-                    onChange={saveComboBox}
-                    name="desarrollador"
-                    color="primary"
-                  />
-                }
-                label="Desarrollador"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.usuario}
-                    onChange={saveComboBox}
-                    name="usuario"
-                    color="primary"
-                  />
-                }
-                label="Usuario"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    disabled
-                    checked={formData.otro}
-                    onChange={saveComboBox}
-                    name="otro"
-                    color="primary"
-                  />
-                }
-                label="Otro"
-              />
-            </FormGroup>
-            </Box>
-            <TextField
-              disabled={!formData.otro}
-              required={formData.otro}
-              id="desotro"
-              name="desotro"
-              label="Otro"
-              placeholder="Describa Brevemente"
-              value={formData.desotro}
-              onChange={handleChange}
-              sx={{ background: "#FFFFFF", mb: 3 }}
-              inputProps={{ maxLength: 32 }}
-            />
-          </Box>
-
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mb: 1,
-            }}
-          />
-
-          <TextField
-            required
-            error={!!errors?.tempo}
-            id="tempo"
-            name="tempo"
-            label="Temporalidad"
-            placeholder="Del MM-DD-YYYY al MM-DD-YYYY"
-            value={formData.tempo}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.memo}
-            id="memo"
-            name="memo"
-            label="Memorando / Atenta Nota"
-            placeholder="Ingrese su memorando / atenta nota"
-            value={formData.memo}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.descbreve}
-            id="descbreve"
-            name="descbreve"
-            label="Solicitud"
-            placeholder="Descripción breve de la solicitud"
-            value={formData.descbreve}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-      </Box>
-
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-        {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-          INFORMACIÓN DEL ENLACE INFORMÁTICO
-        </Typography>
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            required
-            error={!!errors?.nomei}
-            id="nomei"
-            name="nomei"
-            label="Nombre completo"
-            placeholder="Nombre completo del enlace informático"
-            value={formData.nomei}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.extei}
-            id="extei"
-            name="extei"
-            label="Teléfono / Extensión"
-            placeholder="Teléfono o extensión del enlace informático"
-            value={formData.extei}
-            onChange={handleExtensionChangeE}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 20 }}
-          />
-          <TextField
-            required
-            error={!!errors?.puestoei}
-            id="puestoei"
-            name="puestoei"
-            label="Puesto ó Cargo"
-            placeholder="Puesto o cargo del enlace informático"
-            value={formData.puestoei}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-      </Box>
-
       {/* Datos del Solicitante */}
       {/* Form Box Responsive */}
       <Box
@@ -856,6 +573,314 @@ export default function Home() {
           />
         </Box>
       </Box>
+
+      {/* Datos del Registro */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          INFORMACIÓN PARA REGISTRO
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 3,
+              mb: 1,
+            }}
+          />
+           
+          <TextField
+            required
+            error={!!errors?.memo}
+            id="memo"
+            name="memo"
+            label="Memorando / Atenta Nota"
+            placeholder="Ingrese su memorando / atenta nota"
+            value={formData.memo}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.descbreve}
+            id="descbreve"
+            name="descbreve"
+            label="Solicitud"
+            placeholder="Descripción breve de la solicitud"
+            value={formData.descbreve}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb: 0 }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.descbreve}
+            id="noticket"
+            name="noticket"
+            label="No. Ticket"
+            placeholder="Ingrese el número de ticket"
+            value={formData.noticket}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb: 0 }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.tempo}
+            id="tempo"
+            name="tempo"
+            label="Temporalidad"
+            placeholder="Del MM-DD-YYYY al MM-DD-YYYY"
+            value={formData.tempo}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" , mb: 3 }}
+            inputProps={{ maxLength: 256 }}
+          />
+        </Box>
+        <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 1,
+            }}
+          />
+
+          {/* Checkbox */}
+          <Box>
+            <FormLabel
+              component="legend"
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
+            >
+              Tipo de Cambio *
+            </FormLabel>
+            <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              mt: 2,
+              ml: 10,
+              mb: 1,
+              mr:8,
+            }}>
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.intersistemas}
+                    onChange={saveComboBox}
+                    name="intersistemas"
+                    color="primary"
+                  />
+                }
+                label="Intersistemas"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.administrador}
+                    onChange={saveComboBox}
+                    name="administrador"
+                    color="primary"
+                  />
+                }
+                label="Administrador"
+              />              
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.desarrollador}
+                    onChange={saveComboBox}
+                    name="desarrollador"
+                    color="primary"
+                  />
+                }
+                label="Desarrollador"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.usuario}
+                    onChange={saveComboBox}
+                    name="usuario"
+                    color="primary"
+                  />
+                }
+                label="Usuario"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    disabled
+                    checked={formData.otro}
+                    onChange={saveComboBox}
+                    name="otro"
+                    color="primary"
+                  />
+                }
+                label="Otro"
+              />
+            </FormGroup>
+            
+            </Box>
+            <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}>
+            <TextField
+              disabled={!formData.otro}
+              required={formData.otro}
+              id="desotro"
+              name="desotro"
+              label="Otro"
+              placeholder="Describa Brevemente"
+              value={formData.desotro}
+              onChange={handleChange}
+              sx={{ background: "#FFFFFF", mb: 3 }}
+              inputProps={{ maxLength: 32 }}
+            />
+            </Box>
+          </Box>
+      </Box>
+
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          INFORMACIÓN DEL ENLACE INFORMÁTICO
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            required
+            error={!!errors?.nomei}
+            id="nomei"
+            name="nomei"
+            label="Nombre completo"
+            placeholder="Nombre completo del enlace informático"
+            value={formData.nomei}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.extei}
+            id="extei"
+            name="extei"
+            label="Teléfono / Extensión"
+            placeholder="Teléfono o extensión del enlace informático"
+            value={formData.extei}
+            onChange={handleExtensionChangeE}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 20 }}
+          />
+          <TextField
+            required
+            error={!!errors?.puestoei}
+            id="puestoei"
+            name="puestoei"
+            label="Puesto ó Cargo"
+            placeholder="Puesto o cargo del enlace informático"
+            value={formData.puestoei}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
+          />
+        </Box>
+      </Box>
+
+      {/**BOX DE AUTORIZA */}
 
       <Box
         component="section"
