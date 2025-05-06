@@ -96,12 +96,12 @@ export default function Home() {
     tempo: "",
     memo: "",
     descbreve: "",
-    nomei: "",
-    extei: "",
-    noms: "",
-    exts: "",
-    puestos: "",
-    areas: "",
+    nomei: "null",
+    extei: "null",
+    noms: "null",
+    exts: "null",
+    puestos: "null",
+    areas: "null",
     desdet: "",
     nombreJefe: "",
     puestoJefe: "",
@@ -109,6 +109,8 @@ export default function Home() {
     justifica2: "",
     justifica3: "",
     noticket:"",
+    enlace: false,
+    soli: false,
 
     // Estados para tipo de movimientos
     intersistemas: interIsTrue,
@@ -150,6 +152,44 @@ export default function Home() {
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
     }));
+  };
+
+  // Guardar datos de los checkbox
+  const saveCategorias = async (event) => {
+    const { name, type, checked } = event.target;
+    const isChecked = type === "checkbox" ? checked : false;
+
+    setFormData((prevFormData) => {
+      const updatedData = {
+        ...prevFormData,
+        [name]: isChecked, // Actualiza el valor del checkbox
+      };
+
+      if (name === "soli") {
+        if (isChecked) {
+          console.log("Checkbox 'soli' marcado");
+          updatedData.noms = "";
+          updatedData.exts = "";
+          updatedData.puestos = "";
+          updatedData.areas = "";
+        } else {
+          console.log("Checkbox 'soli' desmarcado");
+          updatedData.noms = "null";
+          updatedData.exts = "null";
+          updatedData.puestos = "null";
+          updatedData.areas = "null";
+        }
+      } else if (name === "enlace") {
+        if (isChecked) {
+          updatedData.nomei = "";
+          updatedData.extei = "";
+        } else {
+          updatedData.nomei = "null";
+          updatedData.extei = "null";
+        }
+      } 
+      return updatedData;
+    });
   };
 
   // Tablas
@@ -505,6 +545,87 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
+          ¿QUIÉN SOLICITA?
+        </Typography>
+        <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 0,
+              mt: 1,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.9rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            * Puedes elegir ambos.
+          </FormLabel>
+           <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                      mt: 2,
+                      ml: 10,
+                      mb: 1,
+                      mr:8,
+                    }}
+                  >
+                    {[
+                      { name: "enlace", label: "Enlace  Informático" },
+                      { name: "soli", label: "Otro" },
+                      
+                    ].map((item, index) => (
+                      <Box
+                        key={index}
+                        sx={{ width: "50%", minWidth: "100px", textAlign: "center" }}
+                      >
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={formData[item.name]}
+                              onChange={saveCategorias}
+                              name={item.name}
+                              color="primary"
+                            />
+                          }
+                          label={item.label}
+                        />
+                      </Box>
+                    ))}
+                  </Box>
+        
+      </Box>
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          display: formData.soli ? "block" : "none",
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
           INFORMACIÓN DEL SOLICITANTE
         </Typography>
 
@@ -523,8 +644,8 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           <TextField
-            required
-            error={!!errors?.noms}
+            //required
+            //error={!!errors?.noms}
             id="noms"
             name="noms"
             label="Nombre Completo"
@@ -535,8 +656,8 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required
-            error={!!errors?.exts}
+            //required
+            //error={!!errors?.exts}
             id="exts"
             name="exts"
             label="Teléfono / Extensión"
@@ -547,8 +668,8 @@ export default function Home() {
             inputProps={{ maxLength: 20 }}
           />
           <TextField
-            required
-            error={!!errors?.puestos}
+            //required
+            //error={!!errors?.puestos}
             id="puestos"
             name="puestos"
             label="Puesto"
@@ -559,8 +680,8 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required
-            error={!!errors?.areas}
+            //required
+            //error={!!errors?.areas}
             id="areas"
             name="areas"
             label="Área"
@@ -574,8 +695,10 @@ export default function Home() {
       </Box>
       {/**DATOS DEL ENLACE INFORMÁTICO */}
       <Box
+      
         component="section"
         sx={{
+          display: formData.enlace ? "block" : "none",
           mx: "auto",
           width: "calc(100% - 32px)",
           border: "2px solid grey",
@@ -617,8 +740,8 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           <TextField
-            required
-            error={!!errors?.nomei}
+            //required
+            //error={!!errors?.nomei}
             id="nomei"
             name="nomei"
             label="Nombre completo"
@@ -629,8 +752,8 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required
-            error={!!errors?.extei}
+            //required
+            //error={!!errors?.extei}
             id="extei"
             name="extei"
             label="Teléfono / Extensión"
