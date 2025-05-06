@@ -363,7 +363,9 @@ export default function Home() {
           key !== "CambioUsua" &&
           key !== "AltaOtro" &&
           key !== "BajaOtro" &&
-          key !== "CambioOtro" 
+          key !== "CambioOtro" &&
+          key !== "soli" &&
+          key !== "enlace"
         ) {
           console.log("Campo requerido: ", key);
           errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
