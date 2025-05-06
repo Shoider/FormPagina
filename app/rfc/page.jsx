@@ -572,6 +572,76 @@ export default function Home() {
           />
         </Box>
       </Box>
+      {/**DATOS DEL ENLACE INFORMÁTICO */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          INFORMACIÓN DEL ENLACE INFORMÁTICO
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            required
+            error={!!errors?.nomei}
+            id="nomei"
+            name="nomei"
+            label="Nombre completo"
+            placeholder="Nombre completo del enlace informático"
+            value={formData.nomei}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.extei}
+            id="extei"
+            name="extei"
+            label="Teléfono / Extensión"
+            placeholder="Teléfono o extensión del enlace informático"
+            value={formData.extei}
+            onChange={handleExtensionChangeE}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 20 }}
+          />
+        </Box>
+      </Box>
 
       {/* Datos del Registro */}
       {/* Form Box Responsive */}
@@ -822,150 +892,8 @@ export default function Home() {
 
           </Box>
 
-      </Box>
-
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-        {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-          INFORMACIÓN DEL ENLACE INFORMÁTICO
-        </Typography>
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            required
-            error={!!errors?.nomei}
-            id="nomei"
-            name="nomei"
-            label="Nombre completo"
-            placeholder="Nombre completo del enlace informático"
-            value={formData.nomei}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.extei}
-            id="extei"
-            name="extei"
-            label="Teléfono / Extensión"
-            placeholder="Teléfono o extensión del enlace informático"
-            value={formData.extei}
-            onChange={handleExtensionChangeE}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 20 }}
-          />
-        </Box>
-      </Box>
-
-      {/**BOX DE AUTORIZA */}
-
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-        {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-        AUTORIZA
-        </Typography>
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            required
-            error={!!errors?.nombreJefe}
-            id="nombreJefe"
-            name="nombreJefe"
-            label="Nombre de Gerente ó Director Local"
-            placeholder="Escribe el nombre completo del gerente o director local"
-            value={formData.nombreJefe}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.puestoJefe}
-            id="puestoJefe"
-            name="puestoJefe"
-            label="Puesto ó Cargo del que Autoriza"
-            placeholder="Escribe el puesto o cargo del que autoriza"
-            value={formData.puestoJefe}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-      </Box>
-
+      </Box>   
+     
       {/* INTERSISTEMAS*/}
       {/* Form Box Responsive */}
       <Box
@@ -3108,7 +3036,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            * Llenar al menos un campo
+            * Proporcionar al menos una opción de justificación.
           </FormLabel>
         <Box
           component="form"
@@ -3158,6 +3086,78 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           
+        </Box>
+      </Box>
+
+       {/**BOX DE AUTORIZA */}
+
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+        AUTORIZA
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            required
+            error={!!errors?.nombreJefe}
+            id="nombreJefe"
+            name="nombreJefe"
+            label="Nombre de Gerente ó Director Local"
+            placeholder="Escribe el nombre completo del gerente o director local"
+            value={formData.nombreJefe}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.puestoJefe}
+            id="puestoJefe"
+            name="puestoJefe"
+            label="Puesto ó Cargo del que Autoriza"
+            placeholder="Escribe el puesto o cargo del que autoriza"
+            value={formData.puestoJefe}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
+          />
         </Box>
       </Box>
 
