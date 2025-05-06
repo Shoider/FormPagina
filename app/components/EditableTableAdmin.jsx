@@ -85,6 +85,8 @@ function EditToolbar(props) {
         IPD: "",
         PRO: "",
         PUER: "",
+        TEMPO: "",
+        FECHA: "",
         isNew: true,
       },
     ]);
@@ -172,9 +174,6 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true,
     },
-
-    //{ field: 'FRO', headerName: 'Funcion ó Rol de Dispositivo(s) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: false },
-
     {
       field: "IPO",
       headerName: "IP Anfitrión(es) Origen",
@@ -229,6 +228,25 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+    },
+    {
+      field: "TEMPO",
+      headerName: "Temporalidad",
+      width: 200,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+      type: "singleSelect",
+      valueOptions: ["TEMPORAL", "PERMANENTE"],
+    },
+    {
+      field: "FECHA",
+      headerName: "Fechas del Plazo",
+      type: "string",
+      width: 200,
+      align: "center",
+      headerAlign: "center",
+      editable: true
     },
     {
       field: "actions",

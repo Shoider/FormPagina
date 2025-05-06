@@ -93,7 +93,6 @@ export default function Home() {
   // Estados para el formulario
   const [formData, setFormData] = useState({
     desotro: "",
-    tempo: "",
     memo: "",
     descbreve: "",
     nomei: "null",
@@ -846,18 +845,6 @@ export default function Home() {
             value={formData.noticket}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 0 }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.tempo}
-            id="tempo"
-            name="tempo"
-            label="Temporalidad"
-            placeholder="Del MM-DD-YYYY al MM-DD-YYYY"
-            value={formData.tempo}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF"}}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -3190,27 +3177,26 @@ export default function Home() {
           />
           <TextField
             //required
-            id="justifica2"
-            name="justifica2"
-            label="Objetivo"
-            placeholder="Del proyecto y/o servicio que requieren las modificaciones solicitadas."
-            value={formData.justifica2}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            //required
             id="justifica3"
             name="justifica3"
             label="Razón ó Motivo"
             placeholder="Por ejemplo: Cambio de lugar del Administrador/Desarrollador/Usuario."
             value={formData.justifica3}
             onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            //required
+            id="justifica2"
+            name="justifica2"
+            label="Objetivo"
+            placeholder="Del proyecto y/o servicio que requieren las modificaciones solicitadas."
+            value={formData.justifica2}
+            onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
-          
         </Box>
       </Box>
 

@@ -85,6 +85,8 @@ function EditToolbar(props) {
         IPD: "",
         PRO: "",
         PUER: "",
+        TEMPO: "",
+        FECHA: "",
         isNew: true,
       },
     ]);
@@ -227,6 +229,25 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+    },
+    {
+      field: "TEMPO",
+      headerName: "Temporalidad",
+      width: 200,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+      type: "singleSelect",
+      valueOptions: ["TEMPORAL", "PERMANENTE"],
+    },
+    {
+      field: "FECHA",
+      headerName: "Fechas del Plazo",
+      type: "string",
+      width: 200,
+      align: "center",
+      headerAlign: "center",
+      editable: true
     },
     {
       field: "actions",
