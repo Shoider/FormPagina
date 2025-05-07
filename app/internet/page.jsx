@@ -337,6 +337,11 @@ export default function Home() {
     } catch (error) {
       console.error("Error:", error);
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      setAlert({
+        message: "Ocurrio un error",
+        severity: "error",
+      });
+      setOpenAlert(true);
     }
   };
 
