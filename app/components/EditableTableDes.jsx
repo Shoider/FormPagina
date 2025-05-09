@@ -204,7 +204,7 @@ function EditableTableDes({ initialData, onDataChange }) {
     },
     {
       field: "IPD",
-      headerName: "IP/NAT Anfitrión(es) Destino/NAT",
+      headerName: "IP/NAT Anfitrión(es) Destino",
       type: "string",
       width: 200,
       align: "center",
