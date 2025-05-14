@@ -57,6 +57,8 @@ export default function Home() {
 
     nombreAutoriza: "",
     puestoAutoriza: "",
+
+    cuentaUsuario: "",
   });
 
   // Generar PDF
@@ -1029,6 +1031,81 @@ export default function Home() {
               mb: 1,
             }}
           />
+
+          {/* SubTitle */}
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
+            Solicitud
+          </Typography>
+
+          {/* Checkbox AQUI */}
+
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 1,
+            }}
+          />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <FormLabel
+              component="legend"
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
+            >
+              a) Cuenta de usuario
+            </FormLabel>
+            <RadioGroup
+              row
+              aria-label="Cuenta Usuario"
+              name="cuentaUsuario"
+              value={formData.cuentaUsuario}
+              onChange={handleChange}
+              required
+              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+            >
+              <FormControlLabel value="ALTA" control={ <Radio /> } label="Alta Usuario" />
+              <FormControlLabel value="BAJA" control={ <Radio />} label="Baja Usuario" />
+            </RadioGroup>
+            <FormHelperText
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 0,
+                justifyContent: "center",
+                color: "red",
+              }}
+            >
+              {errors?.tipoEquipo}
+            </FormHelperText>
+          </Box>
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 0,
+            }}
+          />
+
+
         </Box>
       </Box>
 
