@@ -51,21 +51,12 @@ export default function Home() {
 
     tipoEquipo: "",
     sistemaOperativo: "",
-
     marca: "",
     modelo: "",
     serie: "",
-    macadress: "",
-    jefe: "",
-    puestojefe: "",
-    servicios: "",
-    justificacion: "",
-    // Radios
-    movimiento: "",
-    malware: "",
-    vigencia: "NO",
-    so: "",
-    licencia: "NO",
+
+    nombreAutoriza: "",
+    puestoAutoriza: "",
   });
 
   // Generar PDF
@@ -1038,17 +1029,79 @@ export default function Home() {
               mb: 1,
             }}
           />
-          
+        </Box>
+      </Box>
 
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
+      {/* Datos del Equipo */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          AUTORIZA SERVICIO
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
               ml: 2,
-              mr: 2,
-              mb: 3,
-            }}
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            required
+            error={!!errors?.nombreAutoriza}
+            id="nombreAutoriza"
+            name="nombreAutoriza"
+            label="Nombre Completo"
+            placeholder="Gerente(a), Subgerente(a) o equivalente / Director(a) de Organismo / Director(a) Local"
+            value={formData.nombreAutoriza}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
           />
+          <TextField
+            required
+            error={!!errors?.puestoAutoriza}
+            id="puestoAutoriza"
+            name="puestoAutoriza"
+            label="Puesto ó Cargo"
+            placeholder="Escriba el peusto o cargo de quien autoriza los servicios"
+            value={formData.puestoAutoriza}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
+          />
+
         </Box>
       </Box>
 
