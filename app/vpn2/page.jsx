@@ -78,24 +78,70 @@ export default function Home() {
   const [remotoTableData, setRemotoTableData] = useState([]);
 
   useEffect(() => {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        registrosWeb: webTableData,
-        registrosRemoto: remotoTableData
-      }));
-    }, 
-    [
-      webTableData,
-      remotoTableData
-    ]);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      registrosWeb: webTableData,
+      registrosRemoto: remotoTableData
+    }));
+  }, 
+  [
+    webTableData,
+    remotoTableData
+  ]);
 
-    // Manejadores de cambios
-    const handleWebTableDataChange = (data) => {
-      setWebTableData(data);
-    };
-    const handleRemotoTableDataChange = (data) => {
-      setRemotoTableData(data);
-    };
+  useEffect(() => {
+    if (formData.solicitante === "CONAGUA") {
+      setFormData((prev) => ({
+        ...prev,
+        nombreInterno: "",
+        puestoInterno: "",
+        correoInterno: "",
+        telefonoInterno: "",
+
+        nombreExterno: "null",
+        correoExterno: "null",
+        empresaExterno: "null",
+        equipoExterno: "null",
+
+        numeroEmpleadoResponsable: "null",
+        nombreResponsable: "null",
+        puestoResponsable: "null",
+        unidadAdministrativaResponsable: "null",
+        telefonoResponsable: "null",
+      }));
+    } if (formData.solicitante === "EXTERNO") {
+      setFormData((prev) => ({
+        ...prev,
+        nombreInterno: "null",
+        puestoInterno: "null",
+        correoInterno: "null",
+        telefonoInterno: "null",
+
+        nombreExterno: "",
+        correoExterno: "",
+        empresaExterno: "",
+        equipoExterno: "",
+
+        numeroEmpleadoResponsable: "",
+        nombreResponsable: "",
+        puestoResponsable: "",
+        unidadAdministrativaResponsable: "",
+        telefonoResponsable: "",
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+      }));
+    }
+  }, [formData.solicitante]);
+
+  // Manejadores de cambios
+  const handleWebTableDataChange = (data) => {
+    setWebTableData(data);
+  };
+  const handleRemotoTableDataChange = (data) => {
+    setRemotoTableData(data);
+  };
 
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
@@ -108,6 +154,7 @@ export default function Home() {
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
     }));
+    
   };
 
   // Boton
@@ -129,11 +176,23 @@ export default function Home() {
 
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
-        errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
-        isValid = false; // Al menos un campo está vacío
+        // Excluir movimiento si cuentaUsuario es false
+        if (key === "movimiento" && !formData.cuentaUsuario) {
+          continue;
+        }
+        if (key !== "cuentaUsuario" && key !== "accesoWeb" && key !== "accesoRemoto") {
+          errores[key] = "Este campo es requerido";
+          isValid = false;
+        } else if (key === "cuentaUsuario") {
+          if (formData.cuentaUsuario === true && formData.movimiento === "") {
+            errores[key] = "Este campo es requerido";
+            isValid = false;
+          }
+        }
       }
     }
-    return [isValid, errores]; // Todos los campos están llenos
+    console.log(errores)
+    return [isValid, errores];
   };
 
   // Llamada API
@@ -166,7 +225,7 @@ export default function Home() {
 
     try {
       // PDF api
-      const pdfResponse = await axios.post("/api/v1/vpn", formData, {
+      const pdfResponse = await axios.post("/api/v2/vpn", formData, {
         responseType: "blob",
       });
 
@@ -197,67 +256,8 @@ export default function Home() {
         ...prevFormData,
         [name]: isChecked, // Actualiza el valor del checkbox
       };
-
-/*       if (name === "cuentaUsuario") {
-        if (isChecked) {
-          console.log("Checkbox 'descarga' marcado");
-          updatedData.urlDescarga = "";
-          updatedData.justificaDescarga = "";
-        } else {
-          console.log("Checkbox 'descarga' desmarcado");
-          updatedData.urlDescarga = "null";
-          updatedData.justificaDescarga = "null";
-        }
-      } else if (name === "accesoWeb") {
-        if (isChecked) {
-          updatedData.urlComercio = "";
-          updatedData.justificaComercio = "";
-        } else {
-          updatedData.urlComercio = "null";
-          updatedData.justificaComercio = "null";
-        }
-      } else if (name === "accesoRemoto") {
-        if (isChecked) {
-          updatedData.urlRedes = "";
-          updatedData.justificaRedes = "";
-        } else {
-          updatedData.urlRedes = "null";
-          updatedData.justificaRedes = "null";
-        }
-      }  */
       return updatedData;
     });
-  };
-
-  //  VALIDADORES
-  const formatMacAddress = (value) => {
-    let formattedValue = value.replace(/[^0-9a-fA-F]/g, "").toUpperCase();
-    let result = "";
-    for (let i = 0; i < formattedValue.length; i++) {
-      if (i > 0 && i % 2 === 0) {
-        result += ":";
-      }
-      result += formattedValue[i];
-    }
-    return result;
-  };
-
-  const handleMacAddressChange = (event) => {
-    const formattedValue = formatMacAddress(event.target.value);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      macadress: formattedValue,
-    }));
-  };
-
-  const handleExtensionChange = (event) => {
-    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 4); // Limita la longitud a 4 caracteres
-
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      extension: value,
-    }));
   };
 
   // Manejo de Autocomplete
@@ -1089,7 +1089,7 @@ export default function Home() {
                 color: "red",
               }}
             >
-              {errors?.tipoEquipo}
+              {errors?.sistemaOperativo}
             </FormHelperText>
           </Box>
         <Box/>
@@ -1254,7 +1254,7 @@ export default function Home() {
                 color: "red",
               }}
             >
-              {errors?.tipoEquipo}
+              {errors?.movimiento}
             </FormHelperText>
           </Box>
         </Box>
