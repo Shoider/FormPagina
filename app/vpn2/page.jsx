@@ -1157,7 +1157,7 @@ export default function Home() {
           ].map((item, index) => (
             <Box
               key={index}
-              sx={{ width: "33.33%", minWidth: "80px", textAlign: "center" }}
+              sx={{ width: "33.33%", minWidth: "80px", textAlign: "left" }}
             >
               <FormControlLabel
                 control={
@@ -1176,7 +1176,7 @@ export default function Home() {
           <FormLabel
             component="legend"
             sx={{
-              mt: 1,
+              mt: 2,
               mx: "auto",
               display: "flex",
               justifyContent: "center",
