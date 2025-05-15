@@ -1153,7 +1153,7 @@ export default function Home() {
           {[
             { name: "cuentaUsuario", label: "Cuenta de usuario" },
             { name: "accesoWeb", label: "Acceso a sitios Web o Equipo" },
-            { name: "accesoRemoto", label: "Acceso a escrito" },
+            { name: "accesoRemoto", label: "Acceso a escritorio remoto" },
           ].map((item, index) => (
             <Box
               key={index}
