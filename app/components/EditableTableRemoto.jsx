@@ -76,9 +76,8 @@ function EditToolbar(props) {
       { 
         id,
         movimiento: "",
-        nombreSistema: "",
         nomeclatura: "",
-        nombre: "",
+        nombreSistema: "",
         direccion: "",
         sistemaOperativo: "",
         isNew: true 

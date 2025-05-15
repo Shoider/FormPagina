@@ -71,6 +71,7 @@ export default function Home() {
 
     // Servicios solicitados
     movimiento: "",
+    justificacion: "",
   });
 
   // TABLAS INFORMACION
@@ -1384,6 +1385,53 @@ export default function Home() {
           >
             * Guardar registros antes de enviar.
           </FormLabel>
+        </Box>
+
+        <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mb: 2,
+          }}
+        />
+
+        <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Justificación de la necesidad del servicio
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            required
+            error={!!errors?.justificacion}
+            id="justificacion"
+            name="justificacion"
+            label="Justificación"
+            placeholder="Escriba la justificacion de la necesidad del servicio"
+            value={formData.justificacion}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" , mb: 3}}
+            inputProps={{ maxLength: 256 }}
+          />
+
         </Box>
       </Box>
 
