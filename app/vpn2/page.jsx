@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useEffect } from "react";
 import {
   Box,
   Container,
@@ -15,11 +16,16 @@ import {
   Divider,
   FormHelperText,
   Autocomplete,
+  Checkbox,
 } from "@mui/material";
 import Image from "next/image";
 import axios from "axios";
 import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
+
+// TABLAS
+import EditableTableWeb from "../components/EditableTableWeb.jsx";
+import EditableTableRemoto from "../components/EditableTableRemoto.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -57,9 +63,39 @@ export default function Home() {
 
     nombreAutoriza: "",
     puestoAutoriza: "",
+    
+    // Checkbox
+    cuentaUsuario: false,
+    accesoWeb: false,
+    accesoRemoto: false,
 
-    cuentaUsuario: "",
+    // Servicios solicitados
+    movimiento: "",
   });
+
+  // TABLAS INFORMACION
+  const [webTableData, setWebTableData] = useState([]);
+  const [remotoTableData, setRemotoTableData] = useState([]);
+
+  useEffect(() => {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        registrosWeb: webTableData,
+        registrosRemoto: remotoTableData
+      }));
+    }, 
+    [
+      webTableData,
+      remotoTableData
+    ]);
+
+    // Manejadores de cambios
+    const handleWebTableDataChange = (data) => {
+      setWebTableData(data);
+    };
+    const handleRemotoTableDataChange = (data) => {
+      setRemotoTableData(data);
+    };
 
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
@@ -149,6 +185,48 @@ export default function Home() {
       });
       setOpenAlert(true);
     }
+  };
+
+  // CATEGORÍAS
+  const saveCategorias = async (event) => {
+    const { name, type, checked } = event.target;
+    const isChecked = type === "checkbox" ? checked : false;
+
+    setFormData((prevFormData) => {
+      const updatedData = {
+        ...prevFormData,
+        [name]: isChecked, // Actualiza el valor del checkbox
+      };
+
+/*       if (name === "cuentaUsuario") {
+        if (isChecked) {
+          console.log("Checkbox 'descarga' marcado");
+          updatedData.urlDescarga = "";
+          updatedData.justificaDescarga = "";
+        } else {
+          console.log("Checkbox 'descarga' desmarcado");
+          updatedData.urlDescarga = "null";
+          updatedData.justificaDescarga = "null";
+        }
+      } else if (name === "accesoWeb") {
+        if (isChecked) {
+          updatedData.urlComercio = "";
+          updatedData.justificaComercio = "";
+        } else {
+          updatedData.urlComercio = "null";
+          updatedData.justificaComercio = "null";
+        }
+      } else if (name === "accesoRemoto") {
+        if (isChecked) {
+          updatedData.urlRedes = "";
+          updatedData.justificaRedes = "";
+        } else {
+          updatedData.urlRedes = "null";
+          updatedData.justificaRedes = "null";
+        }
+      }  */
+      return updatedData;
+    });
   };
 
   //  VALIDADORES
@@ -865,10 +943,49 @@ export default function Home() {
             variant="h5"
             align="center"
             gutterBottom
-            sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+            sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4}}
           >
             Datos del Equipo de Origen
           </Typography>
+
+          
+
+          <TextField
+            required
+            error={!!errors?.marca}
+            id="marca"
+            name="marca"
+            label="Marca"
+            placeholder="Escriba la marca del equipo"
+            value={formData.marca}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.modelo}
+            id="modelo"
+            name="modelo"
+            label="Modelo"
+            placeholder="Escriba el modelo del equipo"
+            value={formData.modelo}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.serie}
+            id="serie"
+            name="serie"
+            label="Serie"
+            placeholder="Escriba el No. de serie del equipo"
+            value={formData.serie}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
 
           <Divider
             sx={{
@@ -880,6 +997,7 @@ export default function Home() {
               mb: 1,
             }}
           />
+
           <Box
             sx={{
               display: "flex",
@@ -974,75 +1092,116 @@ export default function Home() {
               {errors?.tipoEquipo}
             </FormHelperText>
           </Box>
+        <Box/>
+
           <Divider
             sx={{
               borderBottomWidth: "1px",
               borderColor: "grey",
               ml: 2,
               mr: 2,
+              mt: 0,
+              mb: 1,
+            }}
+          />
+
+          {/* Checkbox */}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              ml: 2,
               mb: 0,
             }}
-          />
-
-          <TextField
-            required
-            error={!!errors?.marca}
-            id="marca"
-            name="marca"
-            label="Marca"
-            placeholder="Escriba la marca del equipo"
-            value={formData.marca}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.modelo}
-            id="modelo"
-            name="modelo"
-            label="Modelo"
-            placeholder="Escriba el modelo del equipo"
-            value={formData.modelo}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.serie}
-            id="serie"
-            name="serie"
-            label="Serie"
-            placeholder="Escriba el No. de serie del equipo"
-            value={formData.serie}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mt: 2,
-              mb: 1,
-            }}
-          />
-
-          {/* SubTitle */}
-          <Typography
-            variant="h5"
-            align="center"
-            gutterBottom
-            sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Solicitud
-          </Typography>
+            {/* SubTitle */}
+            <Typography
+              variant="h5"
+              align="center"
+              gutterBottom
+              sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 2, mt: 2}}
+            >
+              PENDIENTE SUBTITULO
+            </Typography>
+            <FormLabel
+              component="legend"
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "0.8rem",
+              }}
+            >
+              Seleccione la opción(es) requeridas:
+            </FormLabel>
+          </Box>
+        </Box>
 
-          {/* Checkbox AQUI */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            mt: 2,
+            ml: 10,
+            mb: 1,
+            mr:8,
+          }}
+        >
+          {[
+            { name: "cuentaUsuario", label: "Cuenta de usuario" },
+            { name: "accesoWeb", label: "Acceso a sitios Web o Equipo" },
+            { name: "accesoRemoto", label: "Acceso a escrito" },
+          ].map((item, index) => (
+            <Box
+              key={index}
+              sx={{ width: "33.33%", minWidth: "80px", textAlign: "center" }}
+            >
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData[item.name]}
+                    onChange={saveCategorias}
+                    name={item.name}
+                    color="primary"
+                  />
+                }
+                label={item.label}
+              />
+              
+            </Box>
+          ))}
+          <FormLabel
+            component="legend"
+            sx={{
+              mt: 1,
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+            }}
+          >
+            Si marca CUENTA DE USUARIO, no debe marcar las otras opciones
+          </FormLabel>
+        </Box>
+
+        {/* TABLA A) */}
+        <Box
+          component="form"
+          sx={{
+            display: formData.cuentaUsuario ? "block" : "none",
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
 
           <Divider
             sx={{
@@ -1050,9 +1209,10 @@ export default function Home() {
               borderColor: "grey",
               ml: 2,
               mr: 2,
-              mb: 1,
+              mb: 2,
             }}
           />
+
           <Box
             sx={{
               display: "flex",
@@ -1064,6 +1224,8 @@ export default function Home() {
               component="legend"
               sx={{
                 mt: 0,
+                mb: 1,
+                mx: "auto",
                 display: "flex",
                 justifyContent: "center",
                 fontSize: "1.2rem",
@@ -1073,9 +1235,9 @@ export default function Home() {
             </FormLabel>
             <RadioGroup
               row
-              aria-label="Cuenta Usuario"
-              name="cuentaUsuario"
-              value={formData.cuentaUsuario}
+              aria-label="Movimiento"
+              name="movimiento"
+              value={formData.movimiento}
               onChange={handleChange}
               required
               sx={{ ml: 2, mr: 2, justifyContent: "center" }}
@@ -1095,17 +1257,133 @@ export default function Home() {
               {errors?.tipoEquipo}
             </FormHelperText>
           </Box>
+        </Box>
+        
+        {/* TABLA B) */}
+        <Box
+          component="form"
+          sx={{
+            display: formData.accesoWeb ? "block" : "none",
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
           <Divider
             sx={{
               borderBottomWidth: "1px",
               borderColor: "grey",
               ml: 2,
               mr: 2,
-              mb: 0,
+              mb: 2,
             }}
           />
 
+          <FormLabel
+            component="legend"
+            sx={{
+              mt: 0,
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "1.2rem",
+            }}
+          >
+            b) Acceso a sitios Web o Equipo
+          </FormLabel>
+          
+          <EditableTableWeb onDataChange={handleWebTableDataChange} />
 
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            * Guardar registros antes de enviar.
+          </FormLabel>
+        </Box>
+
+
+
+        {/* TABLA C) */}
+        <Box
+          component="form"
+          sx={{
+            display: formData.accesoRemoto ? "block" : "none",
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 2,
+            }}
+          />
+
+          <FormLabel
+            component="legend"
+            sx={{
+              mt: 0,
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "1.2rem",
+            }}
+          >
+            c) Acceso a escritorio remoto
+          </FormLabel>
+
+          <EditableTableRemoto onDataChange={handleRemotoTableDataChange} />
+
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 1,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Nota: Ejemplo de nomeclatura: SGA-001. Ejemplo de nombre: CE0010DC01. Para el sistema operativo especificar nombre y versión.
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            * Guardar registros antes de enviar.
+          </FormLabel>
         </Box>
       </Box>
 

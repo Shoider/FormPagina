@@ -13,6 +13,7 @@ function CurrentLocation() {
     "/rfc": "RFC",
     "/telefonia": "TELEFONÍA",
     "/internet": "INTERNET",
+    "/vpn2": "VPN"
   };
 
   const currentText = routeTexts[pathname] || "Página Desconocida";
