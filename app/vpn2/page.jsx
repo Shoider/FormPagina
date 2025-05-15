@@ -392,7 +392,18 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-
+          <TextField
+            required
+            error={!!errors?.memorando}
+            id="memorando"
+            name="memorando"
+            label="Número de Memorando"
+            placeholder="Escriba el número de memorando"
+            value={formData.memorando}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
           <Autocomplete
             disablePortal
             options={unidadesAdmin}
@@ -441,18 +452,6 @@ export default function Home() {
             label="Subgerencia o Subdirección"
             placeholder="Escriba el nombre de la subgerencia o Subdirección"
             value={formData.subgerencia}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.memorando}
-            id="memorando"
-            name="memorando"
-            label="Número de Memorando"
-            placeholder="Escriba el número de memorando"
-            value={formData.memorando}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
