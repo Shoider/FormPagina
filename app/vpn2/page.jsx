@@ -33,6 +33,7 @@ export default function Home() {
     unidadAdministrativa: "",
     areaAdscripcion: "",
     subgerencia: "",
+    memorando: "",
 
     nombreEnlace: "",
     telefonoEnlace: "",
@@ -441,7 +442,19 @@ export default function Home() {
             placeholder="Escriba el nombre de la subgerencia o Subdirección"
             value={formData.subgerencia}
             onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb:3 }}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.memorando}
+            id="memorando"
+            name="memorando"
+            label="Número de Memorando"
+            placeholder="Escriba el número de memorando"
+            value={formData.memorando}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
         </Box>
@@ -459,7 +472,7 @@ export default function Home() {
 
         {/* PARTE 2 */}
         <Typography
-          variant="h4"
+          variant="h5"
           align="center"
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
@@ -994,7 +1007,7 @@ export default function Home() {
               borderColor: "grey",
               ml: 2,
               mr: 2,
-              mt: 3,
+              mt: 2,
               mb: 1,
             }}
           />
