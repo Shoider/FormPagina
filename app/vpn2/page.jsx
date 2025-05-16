@@ -1610,7 +1610,7 @@ export default function Home() {
             disabled={botonEstado === "Cargando..."}
             {...(botonEstado === "Descargar PDF" && {
               href: pdfUrl,
-              download: "RegistroVPN.pdf",
+              download: "RegistroVPNMayo.pdf",
             })}
           >
             {botonEstado}
