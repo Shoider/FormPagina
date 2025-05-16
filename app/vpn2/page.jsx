@@ -182,7 +182,7 @@ export default function Home() {
         if (key === "movimiento" && !formData.cuentaUsuario) {
           continue;
         }
-        if (key !== "cuentaUsuario" && key !== "accesoWeb" && key !== "accesoRemoto") {
+        if (key !== "cuentaUsuario" && key !== "accesoWeb" && key !== "accesoRemoto" && key === "equipoExterno") {
           errores[key] = "Este campo es requerido";
           isValid = false;
         } else if (key === "cuentaUsuario") {
@@ -766,7 +766,6 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required
             error={!!errors?.equipoExterno}
             id="equipoExterno"
             name="equipoExterno"
