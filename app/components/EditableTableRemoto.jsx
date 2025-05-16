@@ -76,7 +76,7 @@ function EditToolbar(props) {
       { 
         id,
         movimiento: "",
-        nomeclatura: "",
+        nomenclatura: "",
         nombreSistema: "",
         direccion: "",
         sistemaOperativo: "",
@@ -168,8 +168,8 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       editable: true,
     },
     {
-      field: "nomeclatura",
-      headerName: "Nomeclatura",
+      field: "nomenclatura",
+      headerName: "Nomenclatura",
       type: "string",
       width: 120,
       align: "center",
