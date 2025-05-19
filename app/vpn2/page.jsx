@@ -17,11 +17,22 @@ import {
   FormHelperText,
   Autocomplete,
   Checkbox,
+  Fab,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+
 } from "@mui/material";
+
 import Image from "next/image";
 import axios from "axios";
 import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
+
+// ICONOS
+import SyncIcon from '@mui/icons-material/Sync';
 
 // TABLAS
 import EditableTableWeb from "../components/EditableTableWeb.jsx";
@@ -29,6 +40,11 @@ import EditableTableRemoto from "../components/EditableTableRemoto.jsx";
 
 export default function Home() {
   const theme = useTheme();
+  const [formData2, setFormData2] = useState({
+    numeroFormato: "",
+    numeroMemorando: ""
+  });
+
   const [formData, setFormData] = useState({
     unidadAdministrativa: "",
     areaAdscripcion: "",
@@ -148,19 +164,35 @@ export default function Home() {
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
 
-  // API
+  // HandleChange FormData
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
     }));
-    
+  };
+
+  // HandleChange FormData2
+  const handleChange2 = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData2((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   // Boton
   const [botonEstado, setBotonEstado] = useState("Enviar");
+
+  // Dialog
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
@@ -1652,6 +1684,119 @@ export default function Home() {
 
       {/* ALERT */}
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />
+
+      {/* BOTON FLOTANTE */}
+      <Box 
+        sx={{ 
+          position: "fixed",
+          bottom: 24,
+          right: 24,
+          '& > :not(style)': { m: 1 } 
+          }}>
+        <Fab variant="extended" color = "success" onClick={handleClickOpen}>
+          <SyncIcon sx={{ mr: 1 }} />
+          Añadir Memorando
+        </Fab>
+      </Box>
+
+      {/* DIALOG */}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        sx={{
+           '& .MuiDialog-container': {
+             backgroundColor: 'f5f5f5', // Or any other color
+           },
+           '& .MuiDialog-paper': {
+             backgroundColor: '#f4f4f5', // Customize dialog content background
+           },
+         }}
+        slotProps={{
+          paper: {
+            component: 'form',
+            onSubmit: (event) => {
+              event.preventDefault();
+              handleSubmit(); //CAMBIAR A handleSubmit2
+              handleClose();
+            },
+          },
+        }}
+      >
+        <DialogTitle>Actualizar Memorando</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Aqui puede actualizar el numero de memorando que se le proporciono para completar el llenado de su formato
+          </DialogContentText>
+          <TextField
+            required
+            //error={!!errors?.nombreAutoriza}
+            id="numeroFormato"
+            name="numeroFormato"
+            label="Numero de Formato"
+            placeholder="Ingrese el numero de formato"
+            value={formData2.numeroFormato}
+            onChange={handleChange2}
+            sx={{ background: "#FFFFFF", mt: 3 }}
+            inputProps={{ maxLength: 64 }}
+            fullWidth
+          />
+          <TextField
+            required
+            //error={!!errors?.nombreAutoriza}
+            id="numeroMemorando"
+            name="numeroMemorando"
+            label="Numero de Formato"
+            placeholder="Ingrese el numero de formato"
+            value={formData2.numeroMemorando}
+            onChange={handleChange2}
+            sx={{ background: "#FFFFFF", mt: 3 }}
+            inputProps={{ maxLength: 64 }}
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              mt: 3,
+              mb: 3,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              background:
+                botonEstado === "Descargar PDF"
+                  ? theme.palette.secondary.main
+                  : "#98989A",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+            disabled={botonEstado === "Cargando..."}
+            {...(botonEstado === "Descargar PDF" && {
+              href: pdfUrl,
+              download: "RegistroVPNMayo.pdf",
+            })}
+          >
+            {botonEstado}
+          </Button>
+          <Button 
+            variant="contained" 
+            onClick={handleClose}
+             sx={{
+              mt: 3,
+              mb: 3,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              background: "#611232",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+          >
+            Cancelar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }
