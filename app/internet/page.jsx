@@ -347,7 +347,7 @@ export default function Home() {
 
   //  VALIDADORES
   const handleExtensionChange = (event) => {
-    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
     value = value.slice(0, 4); // Limita la longitud a 4 caracteres
 
     setFormData((prevFormData) => ({
@@ -356,7 +356,7 @@ export default function Home() {
     }));
   };
   const handleTelefonoChange = (event) => {
-    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
     value = value.slice(0, 10); // Limita la longitud a 4 caracteres
 
     setFormData((prevFormData) => ({
