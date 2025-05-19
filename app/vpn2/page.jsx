@@ -276,6 +276,37 @@ export default function Home() {
     }));
   };
 
+  //Numeros de telefono
+  const handleTelefonoEnlaceChange = (event) => {
+    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      telefonoEnlace: value,
+    }));
+  };
+
+  const handleTelefonoInternoChange = (event) => {
+    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      telefonoInterno: value,
+    }));
+  };
+
+  const handleTelefonoResponsableChange = (event) => {
+    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      telefonoResponsable: value,
+    }));
+  };
+
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
       {/* Banner Responsive */}
@@ -525,7 +556,7 @@ export default function Home() {
             label="Número de teléfono y/o extensión"
             placeholder="Escriba el numero de telefono y/o extensión del enlace informatico ó responsable"
             value={formData.telefonoEnlace}
-            onChange={handleChange}
+            onChange={handleTelefonoEnlaceChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
@@ -710,7 +741,7 @@ export default function Home() {
             label="Número de teléfono y/o extensión"
             placeholder="Escriba el numero de telefono y/o extensión del usuario"
             value={formData.telefonoInterno}
-            onChange={handleChange}
+            onChange={handleTelefonoInternoChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
@@ -900,7 +931,7 @@ export default function Home() {
             label="Número de Telefono y/o Extension"
             placeholder="Escriba el numero de telefono y/o extension del responsable"
             value={formData.telefonoResponsable}
-            onChange={handleChange}
+            onChange={handleTelefonoResponsableChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
