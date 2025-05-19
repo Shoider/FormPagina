@@ -184,6 +184,7 @@ export default function Home() {
 
   // Boton
   const [botonEstado, setBotonEstado] = useState("Enviar");
+  const [botonEstado2, setBotonEstado2] = useState("Enviar");
 
   // Dialog
   const [open, setOpen] = useState(false);
@@ -267,11 +268,52 @@ export default function Home() {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado("Descargar PDF");
       } else {
-        console.error("Error generating PDF");
+        console.error("Error generando PDF");
       }
     } catch (error) {
       console.error("Error:", error);
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      setAlert({
+        message: "Ocurrio un error",
+        severity: "error",
+      });
+      setOpenAlert(true);
+    }
+  };
+
+    // Llamada API Actualizar Memorando
+  const handleSubmit2 = async (event) => {
+    event.preventDefault();
+    console.log("Lista formData2 en submit: ", formData2);
+
+    //const [isValid, getErrors] = validarCamposRequeridos(formData2);
+    //setErrors(getErrors);
+
+    //console.log("Lista getErrors en submit: ", getErrors)
+
+    setAlert({
+      message: "Informacion Enviada",
+      severity: "success",
+    });
+    setOpenAlert(true);
+
+    setBotonEstado2("Cargando...");
+
+    try {
+      // PDF api
+      const pdfResponse = await axios.post("/api/v2/vpnActualizar", formData2, {
+        responseType: "blob",
+      });
+
+      if (pdfResponse.status === 200) {
+        setPdfUrl(URL.createObjectURL(pdfResponse.data));
+        setBotonEstado2("Descargar PDF");
+      } else {
+        console.error("Error generando PDF");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setBotonEstado2("Enviar"); // Vuelve a "Enviar" en caso de error
       setAlert({
         message: "Ocurrio un error",
         severity: "error",
@@ -1703,6 +1745,7 @@ export default function Home() {
       <Dialog
         open={open}
         onClose={handleClose}
+        onSubmit={handleSubmit2}
         sx={{
            '& .MuiDialog-container': {
              backgroundColor: 'f5f5f5', // Or any other color
@@ -1715,9 +1758,7 @@ export default function Home() {
           paper: {
             component: 'form',
             onSubmit: (event) => {
-              event.preventDefault();
-              handleSubmit(); //CAMBIAR A handleSubmit2
-              handleClose();
+              console.log("Informacion Enviada")
             },
           },
         }}
@@ -1726,6 +1767,9 @@ export default function Home() {
         <DialogContent>
           <DialogContentText>
             Aqui puede actualizar el numero de memorando que se le proporciono para completar el llenado de su formato
+          </DialogContentText>
+          <DialogContentText sx={{mt: 2}}>
+            * Es su responsabilidad llenarlo adecuadamente
           </DialogContentText>
           <TextField
             required
@@ -1765,19 +1809,19 @@ export default function Home() {
               ml: 2,
               mr: 4,
               background:
-                botonEstado === "Descargar PDF"
+                botonEstado2 === "Descargar PDF"
                   ? theme.palette.secondary.main
                   : "#98989A",
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={botonEstado === "Cargando..."}
-            {...(botonEstado === "Descargar PDF" && {
+            disabled={botonEstado2 === "Cargando..."}
+            {...(botonEstado2 === "Descargar PDF" && {
               href: pdfUrl,
               download: "RegistroVPNMayo.pdf",
             })}
           >
-            {botonEstado}
+            {botonEstado2}
           </Button>
           <Button 
             variant="contained" 
@@ -1796,6 +1840,7 @@ export default function Home() {
             Cancelar
           </Button>
         </DialogActions>
+        
       </Dialog>
     </Container>
   );
