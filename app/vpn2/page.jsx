@@ -33,7 +33,7 @@ export default function Home() {
     unidadAdministrativa: "",
     areaAdscripcion: "",
     subgerencia: "",
-    memorando: "",
+    //memorando: "",
 
     nombreEnlace: "",
     telefonoEnlace: "",
@@ -392,7 +392,7 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <TextField
+          {/*<TextField
             required
             error={!!errors?.memorando}
             id="memorando"
@@ -403,7 +403,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+          />*/}
           <Autocomplete
             disablePortal
             options={unidadesAdmin}
@@ -458,6 +458,19 @@ export default function Home() {
           />
         </Box>
 
+        <FormLabel
+            component="legend"
+            sx={{
+              mt: 2,
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+            }}
+          >
+            Si en Subgerencia es SS, indicar como: Subgerencia de Sistemas
+          </FormLabel>
+
         <Divider
           sx={{
             borderBottomWidth: "1px",
@@ -476,7 +489,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          ENLACE INFORMATICO O CONTACTO RESPONSABLE DEL ÁREA DE ADSCRIPCIÓN
+          ENLACE INFORMÁTICO O CONTACTO RESPONSABLE DEL ÁREA DE ADSCRIPCIÓN
         </Typography>
         <Box
           component="form"
@@ -519,7 +532,7 @@ export default function Home() {
         </Box>
       </Box>
 
-      {/* Datos de Enlace */}
+      {/* Datos de SOLICITANTE */}
       {/* Form Box Responsive */}
       <Box
         component="section"
@@ -1184,18 +1197,7 @@ export default function Home() {
               
             </Box>
           ))}
-          <FormLabel
-            component="legend"
-            sx={{
-              mt: 2,
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-            }}
-          >
-            Si marca CUENTA DE USUARIO, no debe marcar las otras opciones
-          </FormLabel>
+          
         </Box>
 
         {/* TABLA A) */}
