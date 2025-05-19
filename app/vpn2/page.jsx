@@ -1178,7 +1178,7 @@ export default function Home() {
               gutterBottom
               sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 2, mt: 2}}
             >
-              PENDIENTE SUBTITULO
+              Tipo de Servicio
             </Typography>
             <FormLabel
               component="legend"
