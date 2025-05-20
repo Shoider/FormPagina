@@ -337,12 +337,17 @@ export default function Home() {
     } catch (error) {
       console.error("Error:", error);
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      setAlert({
+        message: "Ocurrio un error",
+        severity: "error",
+      });
+      setOpenAlert(true);
     }
   };
 
   //  VALIDADORES
   const handleExtensionChange = (event) => {
-    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
     value = value.slice(0, 4); // Limita la longitud a 4 caracteres
 
     setFormData((prevFormData) => ({
@@ -351,7 +356,7 @@ export default function Home() {
     }));
   };
   const handleTelefonoChange = (event) => {
-    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
     value = value.slice(0, 10); // Limita la longitud a 4 caracteres
 
     setFormData((prevFormData) => ({
@@ -984,8 +989,9 @@ export default function Home() {
             flexDirection: "row",
             flexWrap: "wrap",
             mt: 2,
-            ml: 8,
+            ml: 10,
             mb: 1,
+            mr:8,
           }}
         >
           {[
@@ -1004,7 +1010,7 @@ export default function Home() {
           ].map((item, index) => (
             <Box
               key={index}
-              sx={{ width: "33.33%", minWidth: "100px", textAlign: "left" }}
+              sx={{ width: "33.33%", minWidth: "80px", textAlign: "left" }}
             >
               <FormControlLabel
                 control={

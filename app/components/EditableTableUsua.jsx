@@ -79,7 +79,6 @@ function EditToolbar(props) {
       ...oldRows,
       { 
         id,
-        No: nextId, // Asegúrate de que No e id coincidan
         SO: "",
         IPO: "",
         SD: "",
@@ -87,6 +86,8 @@ function EditToolbar(props) {
         IPD: "",
         PRO: "",
         PUER: "",
+        TEMPO: "",
+        FECHA: "",
         isNew: true 
       },
     ]);
@@ -107,32 +108,57 @@ function EditToolbar(props) {
 }
 
 function EditableTableUsua({ initialData, onDataChange }) {
-  const [rows, setRows] = useState(() => {
-    // Asegura que los datos iniciales tengan IDs consistentes
-    if (initialData && initialData.length > 0) {
-      return initialData.map((item, index) => ({
-        ...item,
-        No: index + 1,
-        id: item.id || index + 1
-      }));
-    }
-    return [];
-  });
-
+  const [rows, setRows] = useState(initialData || []);
   const [rowModesModel, setRowModesModel] = useState({});
-  const [nextId, setNextId] = useState(() => {
-    const maxId = initialData?.reduce((max, item) => Math.max(max, item.id || 0), 0);
-    return maxId ? maxId + 1 : 1;
-  });
+  const [nextId, setNextId] = useState(
+    initialData && initialData.length > 0
+      ? Math.max(...initialData.map((item) => item.id)) + 1
+      : 1,
+  ); // Inicializamos nextId
 
-  const handleRowModesModelChange = (newRowModesModel) => {
-    setRowModesModel(newRowModesModel);
-  };
-
+   const handleRowEditStop = (params, event) => {
+     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+       event.defaultMuiPrevented = true;
+     }
+   };
+ 
+   const handleEditClick = (id) => () => {
+     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+   };
+ 
+   const handleSaveClick = (id) => () => {
+     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+   };
+ 
+   const handleDeleteClick = (id) => () => {
+     setRows(rows.filter((row) => row.id !== id));
+   };
+ 
+   const handleCancelClick = (id) => () => {
+     setRowModesModel({
+       ...rowModesModel,
+       [id]: { mode: GridRowModes.View, ignoreModifications: true },
+     });
+ 
+     const editedRow = rows.find((row) => row.id === id);
+     if (editedRow.isNew) {
+       setRows(rows.filter((row) => row.id !== id));
+     }
+   };
+ 
+   const processRowUpdate = (newRow) => {
+     const updatedRow = { ...newRow, isNew: false };
+     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+     return updatedRow;
+   };
+ 
+   const handleRowModesModelChange = (newRowModesModel) => {
+     setRowModesModel(newRowModesModel);
+   };
   // Columnas optimizadas
   const columns = [
     {
-      field: "No",
+      field: "id",
       headerName: "N°",
       type: "number",
       width: 40,
@@ -276,7 +302,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
     },
     {
       field: "IPD",
-      headerName: "IP/NAT Anfitrión(es) Destino/NAT",
+      headerName: "IP/NAT Anfitrión(es) Destino",
       type: "string",
       width: 200,
       align: "center",
@@ -301,6 +327,25 @@ function EditableTableUsua({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+    },
+    {
+      field: "TEMPO",
+      headerName: "Temporalidad",
+      width: 200,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+      type: "singleSelect",
+      valueOptions: ["TEMPORAL", "PERMANENTE"],
+    },
+    {
+      field: "FECHA",
+      headerName: "Fechas del Plazo",
+      type: "string",
+      width: 200,
+      align: "center",
+      headerAlign: "center",
+      editable: true
     },
     {
       field: "actions",
@@ -358,59 +403,19 @@ function EditableTableUsua({ initialData, onDataChange }) {
     onDataChange(rows);
   }, [rows, onDataChange]);
 
-  // Manejo de eventos optimizado
-  const handleRowEditStop = (params, event) => {
-    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-      event.defaultMuiPrevented = true;
-    }
-  };
-
-  const handleEditClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-  };
-
-  const handleSaveClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-  };
-
-  const handleDeleteClick = (id) => () => {
-    setRows(rows.filter((row) => row.id !== id));
-    // Recalcula los números de fila después de eliminar
-    setRows(prevRows => prevRows.map((row, index) => ({
-      ...row,
-      No: index + 1
-    })));
-  };
-
-  const handleCancelClick = (id) => () => {
-    setRowModesModel({
-      ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true },
-    });
-
-    const editedRow = rows.find((row) => row.id === id);
-    if (editedRow?.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
-  };
-
-  const processRowUpdate = (newRow) => {
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
-  };
+  
 
   // Actualización de números de fila cuando cambian los datos
-  useEffect(() => {
-    setRows(prevRows => prevRows.map((row, index) => ({
-      ...row,
-      No: index + 1
-    })));
-  }, [rows.length]);
+  //useEffect(() => {
+    //setRows(prevRows => prevRows.map((row, index) => ({
+      //...row,
+      //No: index + 1
+    //})));
+  //}, [rows.length]);
 
-  useEffect(() => {
-    onDataChange(rows);
-  }, [rows, onDataChange]);
+  //useEffect(() => {
+   // onDataChange(rows);
+  //}, [rows, onDataChange]);
 
   return (
     <Box sx={{
@@ -438,7 +443,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
         slotProps={{
           toolbar: { setRows, setRowModesModel, nextId, setNextId },
         }}
-        getRowId={(row) => row.id} // Asegura que siempre use el id correcto
+        //getRowId={(row) => row.id} // Asegura que siempre use el id correcto
         sx={{
           "--DataGrid-overlayHeight": "200px",
           "& .MuiDataGrid-virtualScroller": {

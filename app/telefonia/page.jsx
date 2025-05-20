@@ -176,6 +176,11 @@ export default function Home() {
     } catch (error) {
       console.error("Error:", error);
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      setAlert({
+        message: "Ocurrio un error",
+        severity: "error",
+      });
+      setOpenAlert(true);
     }
   };
 
@@ -200,8 +205,9 @@ export default function Home() {
       }));
     };
   const handleExtensionChange = (event) => {
-    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 4); // Limita la longitud a 4 caracteres
+    // let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    let value = event.target.value.replace(/[^0-9-\s /]/g, "");
+    value = value.slice(0, 20); // Limita la longitud a 20
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -211,7 +217,7 @@ export default function Home() {
 
   const handleDateChangeActiva = (event) => {
     const rawDate = new Date(event.target.value + "T00:00:00");
-    console.log("Fecha de activacion: ", rawDate);
+    console.log("Fecha de activación: ", rawDate);
 
     const formattedDate = [
       rawDate.getDate().toString().padStart(2, "0"),
@@ -229,14 +235,14 @@ export default function Home() {
   const handleDateChangeExpira = (event) => {
     //const rawDate = event.target.value;
     const rawDate = new Date(event.target.value + "T00:00:00");
-    console.log("Fecha de activacion: ", rawDate);
+    console.log("Fecha de expiración: ", rawDate);
 
     const formattedDate = [
       rawDate.getDate().toString().padStart(2, "0"),
       (rawDate.getMonth() + 1).toString().padStart(2, "0"),
       rawDate.getFullYear(),
     ].join("-");
-    console.log("Fecha de expiracion: ", rawDate);
+   // console.log("Fecha de expiracion: ", rawDate);
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -447,11 +453,7 @@ export default function Home() {
             >
               <FormControlLabel value="ALTA" control={<Radio />} label="ALTA" />
               <FormControlLabel value="BAJA" control={<Radio />} label="BAJA" />
-              <FormControlLabel
-                value="CAMBIO"
-                control={<Radio />}
-                label="CAMBIO"
-              />
+              <FormControlLabel value="CAMBIO" control={<Radio />}  label="CAMBIO" />
             </RadioGroup>
             <FormHelperText
               sx={{
@@ -497,7 +499,6 @@ export default function Home() {
             onChange={handleDateChangeActiva}
             sx={{ background: "#FFFFFF" }}
             InputLabelProps={{ shrink: true }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -510,7 +511,6 @@ export default function Home() {
             onChange={handleDateChangeExpira}
             sx={{ background: "#FFFFFF" }}
             InputLabelProps={{ shrink: true }}
-            inputProps={{ maxLength: 256 }}
           />
           <Divider
             sx={{
@@ -613,8 +613,21 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
+        {/**PUESTO DE USUARIO, FALTABA */}
+          <TextField
+            required
+            error={!!errors?.puestoUsuario}
+            id="puestoUsuario"
+            name="puestoUsuario"
+            label="Puesto"
+            placeholder="Escriba el nombre puesto del usuario"
+            value={formData.puestoUsuario}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
 
-<Autocomplete
+        <Autocomplete
           disablePortal
           options={direccionAutocomplete}
           freeSolo
@@ -740,6 +753,7 @@ export default function Home() {
             getOptionLabel={(option) => option || ''}
             isOptionEqualToValue={(option, value) => option === value}
           />
+          
         </Box>
         <Divider
           sx={{
@@ -820,7 +834,7 @@ export default function Home() {
             value={formData.idEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 8 }}
+            inputProps={{ maxLength: 32 }}
           />
 
           <TextField
@@ -833,19 +847,19 @@ export default function Home() {
             value={formData.extEmpleado}
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 4 }}
+            inputProps={{ maxLength: 20 }}
           />
           <TextField
             required
             error={!!errors?.correoEmpleado}
             id="correoEmpleado"
             name="correoEmpleado"
-            label="Email" //PENDIENTE
+            label="Correo" 
             placeholder="correo@correo.com"
             value={formData.correoEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
+            inputProps={{ maxLength: 32 }}
           />
           <TextField
             required

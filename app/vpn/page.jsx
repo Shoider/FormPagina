@@ -128,6 +128,11 @@ export default function Home() {
     } catch (error) {
       console.error("Error:", error);
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      setAlert({
+        message: "Ocurrio un error",
+        severity: "error",
+      });
+      setOpenAlert(true);
     }
   };
 
@@ -153,7 +158,7 @@ export default function Home() {
   };
 
   const handleExtensionChange = (event) => {
-    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
     value = value.slice(0, 4); // Limita la longitud a 4 caracteres
 
     setFormData((prevFormData) => ({

@@ -1,6 +1,5 @@
-// PISOS DE CONAGUA
-const pisos = [
-  "LAN CONAGUA",
+// PISOS DE CONAGUA ///QUEDA AL ÚLTIMO LAN
+const pisos = [  
   "PLANTA BAJA",
   "PISO 1",
   "PISO 2",
@@ -14,7 +13,8 @@ const pisos = [
   "PISO 10",
   "PISO 11",
   "PISO 12",
-  "PISO PH"
+  "PISO PH",
+  "LAN CONAGUA",
 ];
 
 export default pisos;

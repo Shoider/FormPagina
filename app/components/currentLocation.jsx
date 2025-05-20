@@ -1,6 +1,6 @@
 "use client"; // Indica que este es un componente de cliente
 
-import React from "react";
+import React, { useEffect } from "react";
 import { usePathname } from "next/navigation"; // Importa usePathname
 import { Typography } from "@mui/material";
 
@@ -13,9 +13,15 @@ function CurrentLocation() {
     "/rfc": "RFC",
     "/telefonia": "TELEFONÍA",
     "/internet": "INTERNET",
+    "/vpn2": "VPN"
   };
 
   const currentText = routeTexts[pathname] || "Página Desconocida";
+
+  // Actualiza el título de la pestaña
+  useEffect(() => {
+    document.title = `${currentText} `;
+  }, [currentText]);
 
   return (
     <Typography

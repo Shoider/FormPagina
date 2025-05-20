@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button, styled } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -33,7 +33,6 @@ const StyledGridOverlay = styled("div")(({ theme }) => ({
     }),
   },
 }));
-
 function CustomNoRowsOverlay() {
   return (
     <StyledGridOverlay>
@@ -67,34 +66,28 @@ function CustomNoRowsOverlay() {
   );
 }
 
-// Funcionamiento General
-
 function EditToolbar(props) {
-  const { setRows, setRowModesModel, nextId, setNextId } = props; // Recibimos nextId y setNextId
+  const { setRows, setRowModesModel, nextId, setNextId } = props;
 
   const handleClick = () => {
-    const id = nextId; // Usamos el nextId como id
+    const id = nextId;
     setRows((oldRows) => [
       ...oldRows,
-      {
+      { 
         id,
-        SO: "",
-        IPO: "",
-        SD: "",
-        FRD: "",
-        IPD: "",
-        PRO: "",
-        PUER: "",
-        TEMPO: "",
-        FECHA: "",
-        isNew: true,
+        movimiento: "",
+        nomenclatura: "",
+        nombreSistema: "",
+        direccion: "",
+        sistemaOperativo: "",
+        isNew: true 
       },
     ]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: "SO" },
     }));
-    setNextId(nextId + 1); // Incrementamos el nextId
+    setNextId(nextId + 1);
   };
 
   return (
@@ -106,7 +99,7 @@ function EditToolbar(props) {
   );
 }
 
-function EditableTableDes({ initialData, onDataChange }) {
+function EditableTableRemoto({ initialData, onDataChange }) {
   const [rows, setRows] = useState(initialData || []);
   const [rowModesModel, setRowModesModel] = useState({});
   const [nextId, setNextId] = useState(
@@ -115,46 +108,46 @@ function EditableTableDes({ initialData, onDataChange }) {
       : 1,
   ); // Inicializamos nextId
 
-  const handleRowEditStop = (params, event) => {
-    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-      event.defaultMuiPrevented = true;
-    }
-  };
-
-  const handleEditClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-  };
-
-  const handleSaveClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-  };
-
-  const handleDeleteClick = (id) => () => {
-    setRows(rows.filter((row) => row.id !== id));
-  };
-
-  const handleCancelClick = (id) => () => {
-    setRowModesModel({
-      ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true },
-    });
-
-    const editedRow = rows.find((row) => row.id === id);
-    if (editedRow.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
-  };
-
-  const processRowUpdate = (newRow) => {
-    const updatedRow = { ...newRow, isNew: false };
-    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-    return updatedRow;
-  };
-
-  const handleRowModesModelChange = (newRowModesModel) => {
-    setRowModesModel(newRowModesModel);
-  };
-
+   const handleRowEditStop = (params, event) => {
+     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+       event.defaultMuiPrevented = true;
+     }
+   };
+ 
+   const handleEditClick = (id) => () => {
+     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+   };
+ 
+   const handleSaveClick = (id) => () => {
+     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+   };
+ 
+   const handleDeleteClick = (id) => () => {
+     setRows(rows.filter((row) => row.id !== id));
+   };
+ 
+   const handleCancelClick = (id) => () => {
+     setRowModesModel({
+       ...rowModesModel,
+       [id]: { mode: GridRowModes.View, ignoreModifications: true },
+     });
+ 
+     const editedRow = rows.find((row) => row.id === id);
+     if (editedRow.isNew) {
+       setRows(rows.filter((row) => row.id !== id));
+     }
+   };
+ 
+   const processRowUpdate = (newRow) => {
+     const updatedRow = { ...newRow, isNew: false };
+     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+     return updatedRow;
+   };
+ 
+   const handleRowModesModelChange = (newRowModesModel) => {
+     setRowModesModel(newRowModesModel);
+   };
+  // Columnas optimizadas
   const columns = [
     {
       field: "id",
@@ -166,94 +159,54 @@ function EditableTableDes({ initialData, onDataChange }) {
       editable: false,
     },
     {
-      field: "SO",
-      headerName: "Nombre(s) de Administrador(es)",
+      field: "movimiento",
+      headerName: "A | B | C",
+      type: "string",
+      width: 80,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+    },
+    {
+      field: "nomenclatura",
+      headerName: "Nomenclatura",
+      type: "string",
+      width: 120,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+    },
+    {
+      field: "nombreSistema",
+      headerName: "Nombre",
       type: "string",
       width: 150,
       align: "center",
       headerAlign: "center",
       editable: true,
     },
-    //{ field: 'FRO', headerName: 'Funcion ó Rol de Dispositivo(s) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: false },
     {
-      field: "IPO",
-      headerName: "IP Anfitrión(es) Origen",
+      field: "direccion",
+      headerName: "DireccionIP",
+      width: 150,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+    },
+    {
+      field: "sistemaOperativo",
+      headerName: "Sistema Operativo",
       type: "string",
-      width: 200,
+      width: 180,
       align: "center",
       headerAlign: "center",
       editable: true,
-    },
-    {
-      field: "SD",
-      headerName: "Sistema Asociado a Anfitrion(es) Destino",
-      type: "string",
-      width: 200,
-      align: "center",
-      headerAlign: "center",
-      editable: true,
-    },
-    {
-      field: "FRD",
-      headerName: "Funcion ó Rol de Anfitrión(es) Destino",
-      type: "string",
-      width: 200,
-      align: "center",
-      headerAlign: "center",
-      editable: true,
-    },
-    {
-      field: "IPD",
-      headerName: "IP/NAT Anfitrión(es) Destino",
-      type: "string",
-      width: 200,
-      align: "center",
-      headerAlign: "center",
-      editable: true,
-    },
-    {
-      field: "PRO",
-      headerName: "Protocolo TCP ó UDP",
-      width: 200,
-      align: "center",
-      headerAlign: "center",
-      editable: true,
-      type: "singleSelect",
-      valueOptions: ["TCP", "UDP"],
-    },
-    {
-      field: "PUER",
-      headerName: "Puertos",
-      type: "string",
-      width: 100,
-      align: "center",
-      headerAlign: "center",
-      editable: true,
-    },
-    {
-      field: "TEMPO",
-      headerName: "Temporalidad",
-      width: 200,
-      align: "center",
-      headerAlign: "center",
-      editable: true,
-      type: "singleSelect",
-      valueOptions: ["TEMPORAL", "PERMANENTE"],
-    },
-    {
-      field: "FECHA",
-      headerName: "Fechas del Plazo",
-      type: "string",
-      width: 200,
-      align: "center",
-      headerAlign: "center",
-      editable: true
     },
     {
       field: "actions",
       type: "actions",
-      headerName: "Actions",
-      width: 150,
+      headerName: "Acciones",
+      width: 120,
       align: "center",
       headerAlign: "center",
       cellClassName: "actions",
@@ -306,20 +259,19 @@ function EditableTableDes({ initialData, onDataChange }) {
   }, [rows, onDataChange]);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        width: "calc(100% - 32px)",
-        ml: 2,
-        mr: 4,
-        mt: 3,
-        mb: 3,
-        "& .actions": { color: "text.secondary" },
-        "& .textPrimary": { color: "text.primary" },
-        background: "white",
-      }}
-    >
+    <Box sx={{
+      display: "flex",
+      flexDirection: "column",
+      width: "calc(100% - 32px)",
+      height: "500px",
+      ml: 2,
+      mr: 4,
+      mt: 3,
+      mb: 3,
+      "& .actions": { color: "text.secondary" },
+      "& .textPrimary": { color: "text.primary" },
+      background: "white",
+    }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -330,7 +282,7 @@ function EditableTableDes({ initialData, onDataChange }) {
         processRowUpdate={processRowUpdate}
         slots={{ toolbar: EditToolbar, noRowsOverlay: CustomNoRowsOverlay }}
         slotProps={{
-          toolbar: { setRows, setRowModesModel, nextId, setNextId }, // Pasamos nextId y setNextId
+          toolbar: { setRows, setRowModesModel, nextId, setNextId },
         }}
         sx={{
           "--DataGrid-overlayHeight": "200px",
@@ -343,4 +295,4 @@ function EditableTableDes({ initialData, onDataChange }) {
   );
 }
 
-export default EditableTableDes;
+export default EditableTableRemoto;

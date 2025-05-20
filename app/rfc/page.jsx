@@ -60,9 +60,6 @@ export default function Home() {
   const [cambioOtroIsTrue, setCambioOtroIsTrue] = useState(false);
   const [bajaOtroIsTrue, setBajaOtroIsTrue] = useState(false);
 
-  // Tablas
-  //const [tableData, setTableData] = useState([]);
-
   // Intersistemas
   const [altaInterTableData, setAltaInterTableData] = useState([]);
   const [bajaInterTableData, setBajaInterTableData] = useState([]);
@@ -96,22 +93,23 @@ export default function Home() {
   // Estados para el formulario
   const [formData, setFormData] = useState({
     desotro: "",
-    tempo: "",
     memo: "",
     descbreve: "",
-    nomei: "",
-    extei: "",
-    noms: "",
-    exts: "",
-    puestos: "",
-    areas: "",
+    nomei: "null",
+    extei: "null",
+    noms: "null",
+    exts: "null",
+    puestos: "null",
+    areas: "null",
     desdet: "",
-    puestoei: "",
     nombreJefe: "",
     puestoJefe: "",
     justifica: "",
     justifica2: "",
     justifica3: "",
+    noticket:"",
+    enlace: false,
+    soli: false,
 
     // Estados para tipo de movimientos
     intersistemas: interIsTrue,
@@ -155,6 +153,44 @@ export default function Home() {
     }));
   };
 
+  // Guardar datos de los checkbox
+  const saveCategorias = async (event) => {
+    const { name, type, checked } = event.target;
+    const isChecked = type === "checkbox" ? checked : false;
+
+    setFormData((prevFormData) => {
+      const updatedData = {
+        ...prevFormData,
+        [name]: isChecked, // Actualiza el valor del checkbox
+      };
+
+      if (name === "soli") {
+        if (isChecked) {
+          console.log("Checkbox 'soli' marcado");
+          updatedData.noms = "";
+          updatedData.exts = "";
+          updatedData.puestos = "";
+          updatedData.areas = "";
+        } else {
+          console.log("Checkbox 'soli' desmarcado");
+          updatedData.noms = "null";
+          updatedData.exts = "null";
+          updatedData.puestos = "null";
+          updatedData.areas = "null";
+        }
+      } else if (name === "enlace") {
+        if (isChecked) {
+          updatedData.nomei = "";
+          updatedData.extei = "";
+        } else {
+          updatedData.nomei = "null";
+          updatedData.extei = "null";
+        }
+      } 
+      return updatedData;
+    });
+  };
+
   // Tablas
   useEffect(() => {
     setFormData((prevFormData) => ({
@@ -185,7 +221,8 @@ export default function Home() {
       registrosOtroCambiosAltas: cambioAltaOtroTableData,
       registrosOtroCambiosBajas: cambioBajaOtroTableData,
     }));
-  }, [
+  }, 
+  [
     altaInterTableData,
     bajaInterTableData,
     cambioAltaInterTableData,
@@ -289,6 +326,7 @@ export default function Home() {
 
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const [alert, setAlert] = useState({
     message: "",
@@ -296,60 +334,71 @@ export default function Home() {
   });
 
   const validarCamposRequeridos = (Data) => {
+    const errores = {};
+    let isValid = true;
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
-        // console.log("Dato faltante en:", key);
         if (
-          key !== "desotro" &&
-          key !== "registrosAltas" &&
-          key !== "registrosCambios" &&
-          key !== "registrosBajas" &&
-          key !== "justifica" &&
+          key !== "desotro" && 
+          key !== "justifica" && 
           key !== "justifica2" &&
-          key !== "justifica3"
+          key !== "justifica3" &&
+          key !== "intersistemas" &&
+          key !== "administrador" &&
+          key !== "desarrollador" &&
+          key !== "usuario" &&
+          key !== "otro" &&
+          key !== "AltaInter" &&
+          key !== "BajaInter" &&
+          key !== "CambioInter" &&
+          key !== "AltaAdmin" &&
+          key !== "BajaAdmin" &&
+          key !== "CambioAdmin" &&
+          key !== "AltaDes" &&
+          key !== "BajaDes" &&
+          key !== "CambioDes" &&
+          key !== "AltaUsua" &&
+          key !== "BajaUsua" &&
+          key !== "CambioUsua" &&
+          key !== "AltaOtro" &&
+          key !== "BajaOtro" &&
+          key !== "CambioOtro" &&
+          key !== "soli" &&
+          key !== "enlace"
         ) {
-          console.log("Campo OBLIGATORIO no llenado:  ", key);
-          return false; // Retorna false solo si el campo vacío no es opcional
-        } else {
-          console.log("Campo OPCIONAL no llenado: ", key);
+          console.log("Campo requerido: ", key);
+          errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
+          isValid = false; // Al menos un campo está vacío
         }
       }
     }
-    console.log("Datos obligatorios completos");
-    return true; // Todos los campos están llenos o los vacíos son opcionales
+    return [isValid, errores]; // Todos los campos están llenos
   };
 
   // Llamada API
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Datos de formData:", formData); // DEBUG para ver que llego antes de enviar
 
-    {
-      /* DEBUG
-    if (!validarCamposRequeridos(formData)) {
+    console.log("Datos del formulario:", formData);
+
+    const [isValid, getErrors] = validarCamposRequeridos(formData);
+    setErrors(getErrors);
+
+    if (!isValid) {
       setAlert({
-        message: 'Por favor, complete todos los campos requeridos.',
+        //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
+        message: "Por favor, complete todos los campos requeridos.",
         severity: "error",
       });
       setOpenAlert(true);
       return;
-    }
-    else
+    } else {
       setAlert({
-        message: 'Informacion Registrada',
+        message: "Informacion Registrada",
         severity: "success",
       });
       setOpenAlert(true);
-
-    */
     }
-    // Debug
-    setAlert({
-      message: "Informacion Registrada",
-      severity: "success",
-    });
-    setOpenAlert(true);
-    // End Debug
 
     setBotonEstado("Cargando...");
 
@@ -368,6 +417,11 @@ export default function Home() {
     } catch (error) {
       console.error("Error:", error);
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      setAlert({
+        message: "Ocurrio un error",
+        severity: "error",
+      });
+      setOpenAlert(true);
     }
   };
 
@@ -375,7 +429,6 @@ export default function Home() {
 
   const handleExtensionChangeE = (event) => {
     //let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
-    //let value = event.target.value.replace(/[^0-9-/]/g, ""); // Permite números y guiones
     let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Permite números, guiones y espacios
 
 
@@ -389,7 +442,7 @@ export default function Home() {
   const handleExtensionChangeS = (event) => {
     //let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
     let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Permite números, guiones y espacios
-    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
+    value = value.slice(0, 20); // Limita la longitud a 10 caracteres
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -469,6 +522,255 @@ export default function Home() {
           </Typography>
         </Box>
       </Box>
+      {/* Datos del Solicitante */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          ¿QUIÉN SOLICITA?
+        </Typography>
+        <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 0,
+              mt: 1,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.9rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            * Puedes elegir ambos.
+          </FormLabel>
+           <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                      mt: 2,
+                      ml: 10,
+                      mb: 1,
+                      mr:8,
+                    }}
+                  >
+                    {[
+                      { name: "enlace", label: "Enlace  Informático" },
+                      { name: "soli", label: "Otro" },
+                      
+                    ].map((item, index) => (
+                      <Box
+                        key={index}
+                        sx={{ width: "50%", minWidth: "100px", textAlign: "center" }}
+                      >
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={formData[item.name]}
+                              onChange={saveCategorias}
+                              name={item.name}
+                              color="primary"
+                            />
+                          }
+                          label={item.label}
+                        />
+                      </Box>
+                    ))}
+                  </Box>
+        
+      </Box>
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          display: formData.soli ? "block" : "none",
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          INFORMACIÓN DEL SOLICITANTE
+        </Typography>
+
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            //required
+            //error={!!errors?.noms}
+            id="noms"
+            name="noms"
+            label="Nombre Completo"
+            placeholder="Nombre completo del solicitante"
+            value={formData.noms}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            //required
+            //error={!!errors?.exts}
+            id="exts"
+            name="exts"
+            label="Teléfono / Extensión"
+            placeholder="Teléfono o extensión del solicitante"
+            value={formData.exts}
+            onChange={handleExtensionChangeS}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 20 }}
+          />
+          <TextField
+            //required
+            //error={!!errors?.puestos}
+            id="puestos"
+            name="puestos"
+            label="Puesto"
+            placeholder="Puesto del solicitante"
+            value={formData.puestos}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            //required
+            //error={!!errors?.areas}
+            id="areas"
+            name="areas"
+            label="Área"
+            placeholder="Área del solicitante"
+            value={formData.areas}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
+          />
+        </Box>
+      </Box>
+      {/**DATOS DEL ENLACE INFORMÁTICO */}
+      <Box
+      
+        component="section"
+        sx={{
+          display: formData.enlace ? "block" : "none",
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          INFORMACIÓN DEL ENLACE INFORMÁTICO
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            //required
+            //error={!!errors?.nomei}
+            id="nomei"
+            name="nomei"
+            label="Nombre completo"
+            placeholder="Nombre completo del enlace informático"
+            value={formData.nomei}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            //required
+            //error={!!errors?.extei}
+            id="extei"
+            name="extei"
+            label="Teléfono / Extensión"
+            placeholder="Teléfono o extensión del enlace informático"
+            value={formData.extei}
+            onChange={handleExtensionChangeE}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 20 }}
+          />
+        </Box>
+      </Box>
 
       {/* Datos del Registro */}
       {/* Form Box Responsive */}
@@ -525,28 +827,81 @@ export default function Home() {
               mb: 1,
             }}
           />
+           
+          <TextField
+            required
+            error={!!errors?.memo}
+            id="memo"
+            name="memo"
+            label="Memorando / Atenta Nota"
+            placeholder="Ingrese su memorando / atenta nota"
+            value={formData.memo}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.descbreve}
+            id="noticket"
+            name="noticket"
+            label="No. Ticket"
+            placeholder="Ingrese el número de ticket"
+            value={formData.noticket}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb: 0 }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.descbreve}
+            id="descbreve"
+            name="descbreve"
+            label="Solicitud"
+            placeholder="Descripción breve de la solicitud"
+            value={formData.descbreve}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
+          />
+          {/* Descripcion Detallada */}
+
+        </Box>
+        <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 1,
+            }}
+          />
 
           {/* Checkbox */}
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              ml: 2,
-              mb: 0,
-            }}
-          >
+          <Box>
             <FormLabel
               component="legend"
               sx={{
-                mt: 0,
                 display: "flex",
                 justifyContent: "center",
                 fontSize: "1.2rem",
+                mt: 2,
+                mx: "auto",
               }}
             >
               Tipo de Cambio *
             </FormLabel>
+            <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              mt: 2,
+              ml: 10,
+              mb: 1,
+              mr:8,
+            }}>
             <FormGroup row>
               <FormControlLabel
                 control={
@@ -569,7 +924,7 @@ export default function Home() {
                   />
                 }
                 label="Administrador"
-              />
+              />              
               <FormControlLabel
                 control={
                   <Checkbox
@@ -605,141 +960,58 @@ export default function Home() {
                 label="Otro"
               />
             </FormGroup>
-            <TextField
-              disabled={!formData.otro}
-              required={formData.otro}
-              id="desotro"
-              name="desotro"
-              label="Otro"
-              placeholder="Describa Brevemente"
-              value={formData.desotro}
+            </Box>
+            
+            <Box
+              component="form"
+              sx={{
+                "& .MuiTextField-root": {
+                  mt: 2,
+                  width: "calc(100% - 32px)",
+                  ml: 2,
+                  mr: 4,
+                },
+            }}>
+              <TextField
+                disabled={!formData.otro}
+                required={formData.otro}
+                id="desotro"
+                name="desotro"
+                label="Otro"
+                placeholder="Describa Brevemente"
+                value={formData.desotro}
+                onChange={handleChange}
+                sx={{ background: "#FFFFFF", mb: 3 }}
+                inputProps={{ maxLength: 32 }}
+              />
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 2,
+                  mr: 2,
+                  mb: 1,
+                }}
+              />
+              <TextField
+              required
+              error={!!errors?.desdet}
+              id="desdet"
+              name="desdet"
+              label="Descripción Detallada"
+              placeholder="Descripción a detalle de las configuraciones solicitadas"
+              value={formData.desdet}
               onChange={handleChange}
               sx={{ background: "#FFFFFF", mb: 3 }}
-              inputProps={{ maxLength: 32 }}
+              inputProps={{ maxLength: 256 }}
             />
+            </Box>
+
           </Box>
 
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mb: 1,
-            }}
-          />
-
-          <TextField
-            required
-            id="tempo"
-            name="tempo"
-            label="Temporalidad"
-            value={formData.tempo}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            id="memo"
-            name="memo"
-            label="Memorando / Atenta Nota"
-            value={formData.memo}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            id="descbreve"
-            name="descbreve"
-            label="Solicitud"
-            placeholder="Descripción Breve de la Solicitud"
-            value={formData.descbreve}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-      </Box>
-
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-        {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-          INFORMACIÓN DEL ENLACE INFORMÁTICO
-        </Typography>
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            required
-            id="nomei"
-            name="nomei"
-            label="Nombre completo"
-            value={formData.nomei}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            id="extei"
-            name="extei"
-            label="Teléfono / Extensión"
-            value={formData.extei}
-            onChange={handleExtensionChangeE}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 20 }}
-          />
-          <TextField
-            required
-            id="puestoei"
-            name="puestoei"
-            label="Puesto ó Cargo"
-            value={formData.puestoei}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-      </Box>
-
-      {/* Datos del Solicitante */}
+      </Box>   
+     
+      {/* INTERSISTEMAS*/}
       {/* Form Box Responsive */}
       <Box
         component="section"
@@ -759,6 +1031,8 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2",
           },
+          display: formData.intersistemas ? "block" : "none",
+          minHeight: "100px",
         }}
       >
         {/* SubTitle */}
@@ -766,192 +1040,32 @@ export default function Home() {
           variant="h4"
           align="center"
           gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-          INFORMACIÓN DEL SOLICITANTE
+          REGLAS / COMUNICACIONES
         </Typography>
-
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            required
-            id="noms"
-            name="noms"
-            label="Nombre"
-            value={formData.noms}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            id="exts"
-            name="exts"
-            label="Teléfono / Extensión"
-            value={formData.exts}
-            onChange={handleExtensionChangeS}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 20 }}
-          />
-          <TextField
-            required
-            id="puestos"
-            name="puestos"
-            label="Puesto"
-            value={formData.puestos}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            id="areas"
-            name="areas"
-            label="Área"
-            value={formData.areas}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-      </Box>
-
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-        {/* SubTitle */}
         <Typography
-          variant="h4"
+          variant="h5"
           align="center"
           gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          sx={{ mt: 0, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-        AUTORIZA
+          INTERSISTEMAS
         </Typography>
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            required
-            id="nombreJefe"
-            name="nombreJefe"
-            label="Nombre de Gerente ó Director Local"
-            value={formData.nombreJefe}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            id="puestoJefe"
-            name="puestoJefe"
-            label="Puesto ó Cargo del que Autoriza"
-            value={formData.puestoJefe}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-      </Box>
 
-      {/* DESCRIPCION */}
-      {/* Form Box Responsive */}
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-        {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-          DESCRIPCIÓN
-        </Typography>
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <Divider
+        <Divider
             sx={{
               borderBottomWidth: "1px",
               borderColor: "grey",
               ml: 2,
               mr: 2,
               mt: 3,
-              mb: 1,
+              mb: 2,
             }}
           />
 
-          {/* Checkbox Intersistemas */}
-          <Box
+        {/* Checkbox Intersistemas */}
+        <Box
             sx={{
               display: formData.intersistemas ? "flex" : "none",
               flexDirection: "column",
@@ -969,7 +1083,7 @@ export default function Home() {
                 fontSize: "1.2rem",
               }}
             >
-              Tipo de Movimiento Intersistemas *
+              Tipo de Movimiento Intersistemas
             </FormLabel>
             <FormGroup row>
               <FormControlLabel
@@ -1007,338 +1121,6 @@ export default function Home() {
               />
             </FormGroup>
           </Box>
-          <Divider
-            sx={{
-              display: formData.intersistemas ? "flex" : "none",
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mt: 0,
-              mb: 1,
-            }}
-          />
-          {/* Checkbox Administrador */}
-          <Box
-            sx={{
-              display: formData.administrador ? "flex" : "none",
-              flexDirection: "column",
-              alignItems: "center",
-              ml: 0,
-              mb: 1,
-            }}
-          >
-            <FormLabel
-              component="legend"
-              sx={{
-                mt: 0,
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "1.2rem",
-              }}
-            >
-              Tipo de Movimiento Administrador *
-            </FormLabel>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.AltaAdmin}
-                    onChange={saveComboBox}
-                    name="AltaAdmin"
-                    color="primary"
-                  />
-                }
-                label="Alta"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.CambioAdmin}
-                    onChange={saveComboBox}
-                    name="CambioAdmin"
-                    color="primary"
-                  />
-                }
-                label="Cambio"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.BajaAdmin}
-                    onChange={saveComboBox}
-                    name="BajaAdmin"
-                    color="primary"
-                  />
-                }
-                label="Baja"
-              />
-            </FormGroup>
-          </Box>
-          <Divider
-            sx={{
-              display: formData.administrador ? "flex" : "none",
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mt: 0,
-              mb: 1,
-            }}
-          />
-          {/* Checkbox Desarrollador */}
-          <Box
-            sx={{
-              display: formData.desarrollador ? "flex" : "none",
-              flexDirection: "column",
-              alignItems: "center",
-              ml: 0,
-              mb: 1,
-            }}
-          >
-            <FormLabel
-              component="legend"
-              sx={{
-                mt: 0,
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "1.2rem",
-              }}
-            >
-              Tipo de Movimiento Desarrollador *
-            </FormLabel>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.AltaDes}
-                    onChange={saveComboBox}
-                    name="AltaDes"
-                    color="primary"
-                  />
-                }
-                label="Alta"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.CambioDes}
-                    onChange={saveComboBox}
-                    name="CambioDes"
-                    color="primary"
-                  />
-                }
-                label="Cambio"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.BajaDes}
-                    onChange={saveComboBox}
-                    name="BajaDes"
-                    color="primary"
-                  />
-                }
-                label="Baja"
-              />
-            </FormGroup>
-          </Box>
-          <Divider
-            sx={{
-              display: formData.desarrollador ? "flex" : "none",
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mt: 0,
-              mb: 1,
-            }}
-          />
-          {/* Checkbox Usuario */}
-          <Box
-            sx={{
-              display: formData.usuario ? "flex" : "none",
-              flexDirection: "column",
-              alignItems: "center",
-              ml: 0,
-              mb: 1,
-            }}
-          >
-            <FormLabel
-              component="legend"
-              sx={{
-                mt: 0,
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "1.2rem",
-              }}
-            >
-              Tipo de Movimiento Usuario *
-            </FormLabel>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.AltaUsua}
-                    onChange={saveComboBox}
-                    name="AltaUsua"
-                    color="primary"
-                  />
-                }
-                label="Alta"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.CambioUsua}
-                    onChange={saveComboBox}
-                    name="CambioUsua"
-                    color="primary"
-                  />
-                }
-                label="Cambio"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.BajaUsua}
-                    onChange={saveComboBox}
-                    name="BajaUsua"
-                    color="primary"
-                  />
-                }
-                label="Baja"
-              />
-            </FormGroup>
-          </Box>
-          <Divider
-            sx={{
-              display: formData.usuario ? "flex" : "none",
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mt: 0,
-              mb: 1,
-            }}
-          />
-          {/* Checkbox Otro */}
-          <Box
-            sx={{
-              display: formData.otro ? "flex" : "none",
-              flexDirection: "column",
-              alignItems: "center",
-              ml: 0,
-              mb: 1,
-            }}
-          >
-            <FormLabel
-              component="legend"
-              sx={{
-                mt: 0,
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "1.2rem",
-              }}
-            >
-              Tipo de Movimiento Otro *
-            </FormLabel>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.AltaOtro}
-                    onChange={saveComboBox}
-                    name="AltaOtro"
-                    color="primary"
-                  />
-                }
-                label="Alta"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.CambioOtro}
-                    onChange={saveComboBox}
-                    name="CambioOtro"
-                    color="primary"
-                  />
-                }
-                label="Cambio"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.BajaOtro}
-                    onChange={saveComboBox}
-                    name="BajaOtro"
-                    color="primary"
-                  />
-                }
-                label="Baja"
-              />
-            </FormGroup>
-          </Box>
-          <Divider
-            sx={{
-              display: formData.otro ? "flex" : "none",
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mt: 0,
-              mb: 1,
-            }}
-          />
-
-          {/* Descripcion Detallada */}
-          <TextField
-            required
-            id="desdet"
-            name="desdet"
-            label="Descripción Detallada"
-            placeholder="Descripción a detalle de las configuraciones solicitadas"
-            value={formData.desc}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-      </Box>
-
-      {/* INTERSISTEMAS*/}
-      {/* Form Box Responsive */}
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-          display: formData.intersistemas ? "block" : "none",
-          minHeight: "100px",
-        }}
-      >
-        {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
-        >
-          Registros Intersistemas
-        </Typography>
 
         {/* Altas Tabla */}
         <Box
@@ -1533,6 +1315,20 @@ export default function Home() {
           >
             Cambios Intersistemas
           </Typography>
+          
+        <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Favor de llenar ambas tablas en caso de traslado(cambios)*
+          </FormLabel>
           <Box
             component="form"
             sx={{
@@ -1554,7 +1350,7 @@ export default function Home() {
                 borderColor: "grey",
                 ml: 40,
                 mr: 40,
-                mt: 3,
+                mt: 1,
                 mb: 2,
               }}
             />
@@ -1665,8 +1461,85 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-          Registros Administrador
+          REGLAS / COMUNICACIONES
         </Typography>
+        <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{ mt: 0, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
+        >
+          ADMINISTRADOR
+        </Typography>
+
+        <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 3,
+              mb: 2,
+            }}
+          />
+
+        {/* Checkbox Administrador */}
+        <Box
+          sx={{
+            display: formData.administrador ? "flex" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+            ml: 0,
+            mb: 1,
+          }}
+        >
+          <FormLabel
+            component="legend"
+            sx={{
+              mt: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "1.2rem",
+            }}
+          >
+            Tipo de Movimiento Administrador
+          </FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.AltaAdmin}
+                  onChange={saveComboBox}
+                  name="AltaAdmin"
+                  color="primary"
+                />
+              }
+              label="Alta"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.CambioAdmin}
+                  onChange={saveComboBox}
+                  name="CambioAdmin"
+                  color="primary"
+                />
+              }
+              label="Cambio"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.BajaAdmin}
+                  onChange={saveComboBox}
+                  name="BajaAdmin"
+                  color="primary"
+                />
+              }
+              label="Baja"
+            />
+          </FormGroup>
+        </Box>
 
         {/* Altas Tabla */}
         <Box
@@ -1861,6 +1734,19 @@ export default function Home() {
           >
             Cambios Administrador
           </Typography>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Favor de llenar ambas tablas en caso de traslado(cambios)*
+          </FormLabel>
           <Box
             component="form"
             sx={{
@@ -1882,7 +1768,7 @@ export default function Home() {
                 borderColor: "grey",
                 ml: 40,
                 mr: 40,
-                mt: 3,
+                mt: 1,
                 mb: 2,
               }}
             />
@@ -1993,8 +1879,85 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-          Registros Desarrollador
+          REGLAS / COMUNICACIONES
         </Typography>
+        <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{ mt: 0, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
+        >
+          DESARROLLADOR
+        </Typography>
+
+        <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 3,
+              mb: 2,
+            }}
+          />
+
+        {/* Checkbox Desarrollador */}
+        <Box
+          sx={{
+            display: formData.desarrollador ? "flex" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+            ml: 0,
+            mb: 1,
+          }}
+        >
+          <FormLabel
+            component="legend"
+            sx={{
+              mt: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "1.2rem",
+            }}
+          >
+            Tipo de Movimiento Desarrollador
+          </FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.AltaDes}
+                  onChange={saveComboBox}
+                  name="AltaDes"
+                  color="primary"
+                />
+              }
+              label="Alta"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.CambioDes}
+                  onChange={saveComboBox}
+                  name="CambioDes"
+                  color="primary"
+                />
+              }
+              label="Cambio"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.BajaDes}
+                  onChange={saveComboBox}
+                  name="BajaDes"
+                  color="primary"
+                />
+              }
+              label="Baja"
+            />
+          </FormGroup>
+        </Box>
 
         {/* Altas Tabla */}
         <Box
@@ -2189,6 +2152,19 @@ export default function Home() {
           >
             Cambios Desarrollador
           </Typography>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Favor de llenar ambas tablas en caso de traslado(cambios)*
+          </FormLabel>
           <Box
             component="form"
             sx={{
@@ -2210,7 +2186,7 @@ export default function Home() {
                 borderColor: "grey",
                 ml: 40,
                 mr: 40,
-                mt: 3,
+                mt: 1,
                 mb: 2,
               }}
             />
@@ -2321,8 +2297,84 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-          Registros Usuario
+          REGLAS / COMUNICACIONES
         </Typography>
+        <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{ mt: 0, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
+        >
+          USUARIO
+        </Typography>
+
+        <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mt: 3,
+            mb: 2,
+          }}
+        />
+        {/* Checkbox Usuario */}
+        <Box
+          sx={{
+            display: formData.usuario ? "flex" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+            ml: 0,
+            mb: 1,
+          }}
+        >
+          <FormLabel
+            component="legend"
+            sx={{
+              mt: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "1.2rem",
+            }}
+          >
+            Tipo de Movimiento Usuario
+          </FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.AltaUsua}
+                  onChange={saveComboBox}
+                  name="AltaUsua"
+                  color="primary"
+                />
+              }
+              label="Alta"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.CambioUsua}
+                  onChange={saveComboBox}
+                  name="CambioUsua"
+                  color="primary"
+                />
+              }
+              label="Cambio"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.BajaUsua}
+                  onChange={saveComboBox}
+                  name="BajaUsua"
+                  color="primary"
+                />
+              }
+              label="Baja"
+            />
+          </FormGroup>
+        </Box>
 
         {/* Altas Tabla */}
         <Box
@@ -2517,6 +2569,19 @@ export default function Home() {
           >
             Cambios Usuario
           </Typography>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Favor de llenar ambas tablas en caso de traslado(cambios)*
+          </FormLabel>
           <Box
             component="form"
             sx={{
@@ -2538,7 +2603,7 @@ export default function Home() {
                 borderColor: "grey",
                 ml: 40,
                 mr: 40,
-                mt: 3,
+                mt: 1,
                 mb: 2,
               }}
             />
@@ -2649,8 +2714,85 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-          Registros Otros
+          REGLAS / COMUNICACIONES
         </Typography>
+        <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{ mt: 0, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
+        >
+          OTROS
+        </Typography>
+
+        <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mt: 3,
+            mb: 2,
+          }}
+        />
+
+        {/* Checkbox Otro */}
+        <Box
+          sx={{
+            display: formData.otro ? "flex" : "none",
+            flexDirection: "column",
+            alignItems: "center",
+            ml: 0,
+            mb: 1,
+          }}
+        >
+          <FormLabel
+            component="legend"
+            sx={{
+              mt: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "1.2rem",
+            }}
+          >
+            Tipo de Movimiento Otro
+          </FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.AltaOtro}
+                  onChange={saveComboBox}
+                  name="AltaOtro"
+                  color="primary"
+                />
+              }
+              label="Alta"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.CambioOtro}
+                  onChange={saveComboBox}
+                  name="CambioOtro"
+                  color="primary"
+                />
+              }
+              label="Cambio"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.BajaOtro}
+                  onChange={saveComboBox}
+                  name="BajaOtro"
+                  color="primary"
+                />
+              }
+              label="Baja"
+            />
+          </FormGroup>
+        </Box>
 
         {/* Altas Tabla */}
         <Box
@@ -2845,6 +2987,19 @@ export default function Home() {
           >
             Cambios Otros
           </Typography>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Favor de llenar ambas tablas en caso de traslado(cambios)*
+          </FormLabel>
           <Box
             component="form"
             sx={{
@@ -2866,7 +3021,7 @@ export default function Home() {
                 borderColor: "grey",
                 ml: 40,
                 mr: 40,
-                mt: 3,
+                mt: 1,
                 mb: 2,
               }}
             />
@@ -2977,6 +3132,29 @@ export default function Home() {
         >
           JUSTIFICACIÓN
         </Typography>
+        <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mb: 1,
+          }}
+        />
+        <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 0,
+              mt: 1,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.9rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            * Proporcionar al menos una opción de justificación.
+          </FormLabel>
         <Box
           component="form"
           sx={{
@@ -2995,20 +3173,9 @@ export default function Home() {
             //required
             id="justifica"
             name="justifica"
-            label="Referencias"
-            placeholder="Documentacion de los sistemas y/o plataformas que soportan y/o justifican los cambios solicitados"
+            label="Referencias a la documentación"
+            placeholder="De los sistemas y/o plataformas que soportan y/o justifican los cambios solicitados."
             value={formData.justifica}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            //required
-            id="justifica2"
-            name="justifica2"
-            label="Objetivo"
-            placeholder="Del proyecto y/o servicio que requieren las modificaciones solicitadas"
-            value={formData.justifica2}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
@@ -3017,26 +3184,96 @@ export default function Home() {
             //required
             id="justifica3"
             name="justifica3"
-            label="Razón / Motivo"
-            placeholder="Razón ó Motivo de los accesos"
+            label="Razón ó Motivo"
+            placeholder="Por ejemplo: Cambio de lugar del Administrador/Desarrollador/Usuario."
             value={formData.justifica3}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            //required
+            id="justifica2"
+            name="justifica2"
+            label="Objetivo"
+            placeholder="Del proyecto y/o servicio que requieren las modificaciones solicitadas."
+            value={formData.justifica2}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              mb: 3,
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
+        </Box>
+      </Box>
+
+       {/**BOX DE AUTORIZA */}
+
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+        AUTORIZA
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
               width: "calc(100% - 32px)",
-            }}
-          >
-            Llenar al menos un campo
-          </FormLabel>
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            required
+            error={!!errors?.nombreJefe}
+            id="nombreJefe"
+            name="nombreJefe"
+            label="Nombre de Gerente ó Director Local"
+            placeholder="Escribe el nombre completo del gerente o director local"
+            value={formData.nombreJefe}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.puestoJefe}
+            id="puestoJefe"
+            name="puestoJefe"
+            label="Puesto ó Cargo del que Autoriza"
+            placeholder="Escribe el puesto o cargo del que autoriza"
+            value={formData.puestoJefe}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
+          />
         </Box>
       </Box>
 
