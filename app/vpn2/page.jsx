@@ -1774,7 +1774,7 @@ export default function Home() {
         <DialogTitle>Actualizar Memorando</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Aqui puede actualizar el numero de memorando que se le proporciono para completar el llenado de su formato
+            Aqui puede actualizar el número de memorando que se le proporciono para completar el llenado de su formato
           </DialogContentText>
           <DialogContentText sx={{mt: 2}}>
             * Es su responsabilidad llenarlo adecuadamente
@@ -1784,8 +1784,8 @@ export default function Home() {
             //error={!!errors?.nombreAutoriza}
             id="numeroFormato"
             name="numeroFormato"
-            label="Numero de Formato"
-            placeholder="Ingrese el numero de formato"
+            label="Número de Formato"
+            placeholder="Ingrese el número de formato"
             value={formData2.numeroFormato}
             onChange={handleChange2}
             sx={{ background: "#FFFFFF", mt: 3 }}
@@ -1797,8 +1797,8 @@ export default function Home() {
             //error={!!errors?.nombreAutoriza}
             id="memorando"
             name="memorando"
-            label="Numero de Memorando"
-            placeholder="Ingrese el numero de memorando"
+            label="Número de Memorando"
+            placeholder="Ingrese el número de memorando"
             value={formData2.memorando}
             onChange={handleChange2}
             sx={{ background: "#FFFFFF", mt: 3 }}
