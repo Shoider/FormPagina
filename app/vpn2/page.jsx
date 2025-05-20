@@ -42,7 +42,7 @@ export default function Home() {
   const theme = useTheme();
   const [formData2, setFormData2] = useState({
     numeroFormato: "",
-    numeroMemorando: ""
+    memorando: ""
   });
 
   const [formData, setFormData] = useState({
@@ -1787,11 +1787,11 @@ export default function Home() {
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
-            id="numeroMemorando"
-            name="numeroMemorando"
-            label="Numero de Formato"
-            placeholder="Ingrese el numero de formato"
-            value={formData2.numeroMemorando}
+            id="memorando"
+            name="memorando"
+            label="Numero de Memorando"
+            placeholder="Ingrese el numero de memorando"
+            value={formData2.memorando}
             onChange={handleChange2}
             sx={{ background: "#FFFFFF", mt: 3 }}
             inputProps={{ maxLength: 64 }}
