@@ -469,7 +469,7 @@ export default function Home() {
     
         try {
           // PDF api
-          const pdfResponse = await axios.post("/api/v2/vpnActualizar", formData2, {
+          const pdfResponse = await axios.post("/api/v2/rfcActualizar", formData2, {
             responseType: "blob",
           });
     
