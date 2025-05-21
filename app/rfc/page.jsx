@@ -3525,6 +3525,19 @@ export default function Home() {
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
+            id="REGISTRO"
+            name="movimiento"
+            label="N° de Registro"
+            placeholder="1 P, 1 T1"
+            value={formData2.numeroFormato}
+            onChange={handleChange2}
+            sx={{ background: "#FFFFFF", mt: 3 }}
+            inputProps={{ maxLength: 64 }}
+            fullWidth
+          />
+          <TextField
+            required
+            //error={!!errors?.nombreAutoriza}
             id="FRO"
             name="FRO"
             label="Función o Rol"
