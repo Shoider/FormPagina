@@ -18,7 +18,8 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  MenuItem
 } from "@mui/material";
 import Image from "next/image";
 import EditableTableInter from "../components/EditableTableInter.jsx";
@@ -38,7 +39,7 @@ export default function Home() {
   const [formData2, setFormData2] = useState({
       numeroFormato: "",
       funcionrol: "",
-      movimiento:"",
+      movimientoID:"ALTAS",
       numeroRegistro:""
     });
 
@@ -156,6 +157,17 @@ export default function Home() {
     CambioOtro: cambioOtroIsTrue,
   });
 
+  const Movimientoid = [
+    {
+      value: "ALTAS",
+      label: "ALTAS",
+    },
+    {
+      value: "BAJAS",
+      label: "BAJAS",
+    },
+  ];
+
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
 
@@ -173,6 +185,16 @@ export default function Home() {
     setFormData2((prevFormData) => ({
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  //TIPO MOVIMIENTO
+  const handleChangeMovimiento = (event) => {
+    const selectedValue = event.target.value;
+    console.log(selectedValue);
+    setFormData2((prevData) => ({
+      ...prevData,
+      movimientoID: selectedValue, // Guarda EL MOVIMIENTO seleccionado
     }));
   };
 
@@ -3514,16 +3536,22 @@ export default function Home() {
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
-            id="movimiento"
-            name="movimiento"
-            label="Tipo de Movimiento"
-            placeholder="Alta, Baja"
-            value={formData2.movimiento}
-            onChange={handleChange2}
+            select
+            id="movimientoID"
+            name="movimientoID"
+            label="Nombre de la Tabla"
+            placeholder="Ingrese el"
+            defaultValue="ALTAS"
+            onChange={handleChangeMovimiento}
             sx={{ background: "#FFFFFF", mt: 3 }}
             inputProps={{ maxLength: 64 }}
-            fullWidth
-          />
+            fullWidth>
+            {Movimientoid.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+            ))}
+          </TextField>
          
           <TextField
             required
@@ -3531,7 +3559,7 @@ export default function Home() {
             id="numeroRegistro"
             name="numeroRegistro"
             label="N° de Registro"
-            placeholder="1 P, 1 T1"
+            placeholder="Ingrese número de fila (no tome en cuenta encabezado)"
             value={formData2.numeroRegistro}
             onChange={handleChange2}
             sx={{ background: "#FFFFFF", mt: 3 }}
