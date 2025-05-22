@@ -37,7 +37,9 @@ export default function Home() {
   const theme = useTheme();
   const [formData2, setFormData2] = useState({
       numeroFormato: "",
-      funcionrol: ""
+      funcionrol: "",
+      movimiento:"",
+      numeroRegistro:""
     });
 
   // Checkbox
@@ -3509,32 +3511,33 @@ export default function Home() {
             inputProps={{ maxLength: 64 }}
             fullWidth
           />
-          {/*<TextField
+          <TextField
             required
             //error={!!errors?.nombreAutoriza}
             id="movimiento"
             name="movimiento"
             label="Tipo de Movimiento"
-            placeholder="Alta, Baja, Cambio(Alta), Cambio(Baja)"
+            placeholder="Alta, Baja"
             value={formData2.movimiento}
             onChange={handleChange2}
             sx={{ background: "#FFFFFF", mt: 3 }}
             inputProps={{ maxLength: 64 }}
             fullWidth
           />
+         
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
-            id="REGISTRO"
-            name="movimiento"
+            id="numeroRegistro"
+            name="numeroRegistro"
             label="N° de Registro"
             placeholder="1 P, 1 T1"
-            value={formData2.numeroFormato}
+            value={formData2.numeroRegistro}
             onChange={handleChange2}
             sx={{ background: "#FFFFFF", mt: 3 }}
             inputProps={{ maxLength: 64 }}
             fullWidth
-          />*/}
+          />
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
