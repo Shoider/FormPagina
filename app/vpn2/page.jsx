@@ -563,7 +563,7 @@ export default function Home() {
             id="subgerencia"
             name="subgerencia"
             label="Subgerencia o Subdirección"
-            placeholder="Escriba el nombre de la subgerencia o Subdirección"
+            placeholder="Escriba el nombre de la Subgerencia o Subdirección"
             value={formData.subgerencia}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -624,7 +624,7 @@ export default function Home() {
             id="nombreEnlace"
             name="nombreEnlace"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo del enlace informatico ó contacto responsable"
+            placeholder="Escriba el nombre completo del enlace informático ó contacto responsable"
             value={formData.nombreEnlace}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -635,8 +635,8 @@ export default function Home() {
             error={!!errors?.telefonoEnlace}
             id="telefonoEnlace"
             name="telefonoEnlace"
-            label="Número de teléfono y/o extensión"
-            placeholder="Escriba el numero de telefono y/o extensión del enlace informatico ó responsable"
+            label="Número de Teléfono y/o Extensión"
+            placeholder="Escriba el número de teléfono y/o extensión del enlace informático o responsable"
             value={formData.telefonoEnlace}
             onChange={handleTelefonoEnlaceChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -808,8 +808,8 @@ export default function Home() {
             error={!!errors?.correoInterno}
             id="correoInterno"
             name="correoInterno"
-            label="Correo Electronico"
-            placeholder="Escriba el correo electronico del usuario"
+            label="Correo Electrónico"
+            placeholder="Escriba el correo electrónico del usuario"
             value={formData.correoInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -820,8 +820,8 @@ export default function Home() {
             error={!!errors?.telefonoInterno}
             id="telefonoInterno"
             name="telefonoInterno"
-            label="Número de teléfono y/o extensión"
-            placeholder="Escriba el numero de telefono y/o extensión del usuario"
+            label="Número de Teléfono y/o Extensión"
+            placeholder="Escriba el número de teléfono y/o extensión del usuario"
             value={formData.telefonoInterno}
             onChange={handleTelefonoInternoChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -872,8 +872,8 @@ export default function Home() {
             error={!!errors?.correoExterno}
             id="correoExterno"
             name="correoExterno"
-            label="Correo Electronico"
-            placeholder="Escriba el correo electronico del usuario"
+            label="Correo Electrónico"
+            placeholder="Escriba el correo electrónico del usuario"
             value={formData.correoExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -946,7 +946,7 @@ export default function Home() {
             error={!!errors?.numeroEmpleadoResponsable}
             id="numeroEmpleadoResponsable"
             name="numeroEmpleadoResponsable"
-            label="Numero de Empleado"
+            label="Número de Empleado"
             placeholder="Escriba el número de empleado del responsable"
             value={formData.numeroEmpleadoResponsable}
             onChange={handleChange}
@@ -970,8 +970,8 @@ export default function Home() {
             error={!!errors?.puestoResponsable}
             id="puestoResponsable"
             name="puestoResponsable"
-            label="Puesto ó Cargo"
-            placeholder="Escriba el puesto ó cargo del responsable"
+            label="Puesto o Cargo"
+            placeholder="Escriba el puesto o cargo del responsable"
             value={formData.puestoResponsable}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -985,7 +985,7 @@ export default function Home() {
               <TextField
                 required
                 error={!!errors?.unidadAdministrativaResponsable}
-                placeholder="Escriba ó seleccione la unidad administrativa del responsable"
+                placeholder="Escriba o seleccione la unidad administrativa del responsable"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Unidad Administrativa"
@@ -1010,8 +1010,8 @@ export default function Home() {
             error={!!errors?.telefonoResponsable}
             id="telefonoResponsable"
             name="telefonoResponsable"
-            label="Número de Telefono y/o Extension"
-            placeholder="Escriba el numero de telefono y/o extension del responsable"
+            label="Número de Teléfono y/o Extension"
+            placeholder="Escriba el número de teléfono y/o extensión del responsable"
             value={formData.telefonoResponsable}
             onChange={handleTelefonoResponsableChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1623,7 +1623,7 @@ export default function Home() {
             error={!!errors?.puestoAutoriza}
             id="puestoAutoriza"
             name="puestoAutoriza"
-            label="Puesto ó Cargo"
+            label="Puesto o Cargo"
             placeholder="Escriba el peusto o cargo de quien autoriza los servicios"
             value={formData.puestoAutoriza}
             onChange={handleChange}
@@ -1771,34 +1771,70 @@ export default function Home() {
           },
         }}
       >
-        <DialogTitle>Actualizar Memorando</DialogTitle>
+        <DialogTitle>Añadir Memorando</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Aqui puede actualizar el numero de memorando que se le proporciono para completar el llenado de su formato
+            Aquí puede añadir el número de memorando que se le proporciono para completar el llenado de su formato.
           </DialogContentText>
           <DialogContentText sx={{mt: 2}}>
-            * Es su responsabilidad llenarlo adecuadamente
+            * Es su responsabilidad llenarlo adecuadamente.
           </DialogContentText>
+          <Divider
+                    sx={{
+                      borderBottomWidth: "1px",
+                      borderColor: "grey",
+                      ml: 2,
+                      mr: 2,
+                      mb: 1,
+                      mt:2
+                    }}
+                  />
+                    <FormLabel
+                      component="legend"
+                      sx={{
+                        mx: "auto",
+                        mt:2,
+                        display: "flex",
+                        justifyContent: "center",
+                        fontSize: "0.8rem",
+                        width: "calc(100% - 32px)",
+                      }}
+                    >
+                      Dato de búsqueda (lo podrá encontrar en su formato).
+          </FormLabel>
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
             id="numeroFormato"
             name="numeroFormato"
-            label="Numero de Formato"
-            placeholder="Ingrese el numero de formato"
+            label="Número de Formato"
+            placeholder="Se encuentra en el encabezado, en la parte superior derecha. "
             value={formData2.numeroFormato}
             onChange={handleChange2}
             sx={{ background: "#FFFFFF", mt: 3 }}
             inputProps={{ maxLength: 64 }}
             fullWidth
           />
+          <FormLabel
+                      component="legend"
+                      sx={{
+                        mx: "auto",
+                        mt:2,
+                        display: "flex",
+                        justifyContent: "center",
+                        fontSize: "0.8rem",
+                        width: "calc(100% - 32px)",
+                      }}
+                    >
+                      Dato a actualizar.
+            </FormLabel>
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
             id="memorando"
             name="memorando"
-            label="Numero de Memorando"
-            placeholder="Ingrese el numero de memorando"
+            label="Número de Memorando"
+            placeholder="Ingrese el número de memorando"
             value={formData2.memorando}
             onChange={handleChange2}
             sx={{ background: "#FFFFFF", mt: 3 }}

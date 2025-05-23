@@ -187,7 +187,7 @@ function EditableTableRemoto({ initialData, onDataChange }) {
     },
     {
       field: "direccion",
-      headerName: "DireccionIP",
+      headerName: "Dirección IP",
       width: 150,
       align: "center",
       headerAlign: "center",

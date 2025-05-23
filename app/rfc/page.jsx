@@ -13,6 +13,13 @@ import {
   Divider,
   FormGroup,
   Checkbox,
+  Fab,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  MenuItem
 } from "@mui/material";
 import Image from "next/image";
 import EditableTableInter from "../components/EditableTableInter.jsx";
@@ -24,8 +31,17 @@ import Alerts from "../components/alerts.jsx";
 import axios from "axios";
 import { useEffect } from "react";
 
+// ICONOS
+import SyncIcon from '@mui/icons-material/Sync';
+
 export default function Home() {
   const theme = useTheme();
+  const [formData2, setFormData2] = useState({
+      numeroFormato: "",
+      funcionrol: "",
+      movimientoID:"ALTAS",
+      numeroRegistro:""
+    });
 
   // Checkbox
   // Tipo de Movimiento
@@ -141,6 +157,17 @@ export default function Home() {
     CambioOtro: cambioOtroIsTrue,
   });
 
+  const Movimientoid = [
+    {
+      value: "ALTAS",
+      label: "ALTAS",
+    },
+    {
+      value: "BAJAS",
+      label: "BAJAS",
+    },
+  ];
+
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
 
@@ -150,6 +177,24 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+  // HandleChange FormData2
+  const handleChange2 = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData2((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  //TIPO MOVIMIENTO
+  const handleChangeMovimiento = (event) => {
+    const selectedValue = event.target.value;
+    console.log(selectedValue);
+    setFormData2((prevData) => ({
+      ...prevData,
+      movimientoID: selectedValue, // Guarda EL MOVIMIENTO seleccionado
     }));
   };
 
@@ -323,6 +368,16 @@ export default function Home() {
 
   // Boton
   const [botonEstado, setBotonEstado] = useState("Enviar");
+  const [botonEstado2, setBotonEstado2] = useState("Enviar");
+  
+   // Dialog
+    const [open, setOpen] = useState(false);
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
 
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
@@ -424,6 +479,49 @@ export default function Home() {
       setOpenAlert(true);
     }
   };
+  // Llamada API Actualizar Memorando
+  const handleSubmit2 = async (event) => {
+    event.preventDefault();
+    console.log("Lista formData2 en submit: ", formData2);
+    setAlert({
+          message: "Informacion Enviada",
+          severity: "success",
+        });
+        setOpenAlert(true);
+    
+        setBotonEstado2("Cargando...");
+    
+        try {
+          // PDF api
+          const pdfResponse = await axios.post("/api/v2/rfcActualizar", formData2, {
+            responseType: "blob",
+          });
+    
+          if (pdfResponse.status === 200) {
+            setPdfUrl(URL.createObjectURL(pdfResponse.data));
+            setBotonEstado2("Descargar PDF");
+          } else if (pdfResponse.status === 203) {
+            setAlert({
+              message: "No se encontro el número de formato",
+              severity: "warning",
+            });
+            setOpenAlert(true);
+            setBotonEstado2("Enviar");
+          } else {
+            console.error("Error generando PDF");
+            console.error(pdfResponse.status)
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          setBotonEstado2("Enviar"); // Vuelve a "Enviar" en caso de error
+          setAlert({
+            message: "Ocurrio un error",
+            severity: "error",
+          });
+          setOpenAlert(true);
+        }
+      };
+
 
   //  VALIDADORES
 
@@ -1052,7 +1150,7 @@ export default function Home() {
         >
           INTERSISTEMAS
         </Typography>
-
+        
         <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -1063,6 +1161,7 @@ export default function Home() {
               mb: 2,
             }}
           />
+
 
         {/* Checkbox Intersistemas */}
         <Box
@@ -1175,7 +1274,20 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Guardar registros antes de enviar. 
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mt:2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de desconocer Función o Rol de Anfitrión(es) origen, escribir PENDIENTE. 
           </FormLabel>
           <FormLabel
             component="legend"
@@ -1258,7 +1370,20 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Guardar registros antes de enviar. 
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mt:2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de desconocer Función o Rol de Anfitrión(es) origen, escribir PENDIENTE. 
           </FormLabel>
           <FormLabel
             component="legend"
@@ -1399,6 +1524,19 @@ export default function Home() {
             }}
           >
             Guardar registros antes de enviar.
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mt:2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de desconocer Función o Rol de Anfitrión(es) origen, escribir PENDIENTE. 
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3376,7 +3514,195 @@ export default function Home() {
       </Box>
 
       {/* ALERT */}
-      <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />
+      <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />      {/* BOTON FLOTANTE */}
+      <Box 
+        sx={{ 
+          position: "fixed",
+          bottom: 24,
+          right: 24,
+          '& > :not(style)': { m: 1 } 
+          }}>
+        <Fab variant="extended" color = "success" onClick={handleClickOpen}>
+          <SyncIcon sx={{ mr: 1 }} />
+          Actualizar Función o Rol
+        </Fab>
+      </Box>
+    {/* DIALOG */}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        onSubmit={handleSubmit2}
+        sx={{
+           '& .MuiDialog-container': {
+             backgroundColor: 'f5f5f5', // Or any other color
+           },
+           '& .MuiDialog-paper': {
+             backgroundColor: '#f4f4f5', // Customize dialog content background
+           },
+         }}
+        slotProps={{
+          paper: {
+            component: 'form',
+            onSubmit: (event) => {
+              console.log("Informacion Enviada")
+            },
+          },
+        }}
+      >
+        <DialogTitle>Actualizar Función o Rol de Origen</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Aquí puede actualizar la función o rol de origen de su Regla/Comunicación para completar el llenado de su formato.
+          </DialogContentText>
+          <DialogContentText sx={{mt: 2}}>
+            * Únicamente es para tipo de Movimiento Intersistemas.
+          </DialogContentText>
+          <DialogContentText sx={{mt: 2}}>
+            * Es su responsabilidad llenarlo adecuadamente.
+          </DialogContentText>
+          <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mb: 1,
+            mt:2
+          }}
+        />
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mt:2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Datos de búsqueda (estos los podrá encontrar en su formato).
+          </FormLabel>
+          
+          <TextField
+            required
+            //error={!!errors?.nombreAutoriza}
+            id="numeroFormato"
+            name="numeroFormato"
+            label="Número de Formato"
+            placeholder="Se encuentra en el encabezado, en la parte superior derecha. "
+            value={formData2.numeroFormato}
+            onChange={handleChange2}
+            sx={{ background: "#FFFFFF", mt: 3 }}
+            inputProps={{ maxLength: 64 }}
+            fullWidth
+          />
+          <TextField
+            required
+            //error={!!errors?.nombreAutoriza}
+            select
+            id="movimientoID"
+            name="movimientoID"
+            label="Nombre de la Tabla"
+            placeholder="Ingrese el"
+            defaultValue="ALTAS"
+            onChange={handleChangeMovimiento}
+            sx={{ background: "#FFFFFF", mt: 3 }}
+            inputProps={{ maxLength: 64 }}
+            fullWidth>
+            {Movimientoid.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+            ))}
+          </TextField>
+         
+          <TextField
+            required
+            //error={!!errors?.nombreAutoriza}
+            id="numeroRegistro"
+            name="numeroRegistro"
+            label="N° de Registro"
+            placeholder="Ingrese número de fila (no tome en cuenta encabezado)"
+            value={formData2.numeroRegistro}
+            onChange={handleChange2}
+            sx={{ background: "#FFFFFF", mt: 3 }}
+            inputProps={{ maxLength: 64 }}
+            fullWidth
+          />
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mt:2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Dato a actualizar.
+          </FormLabel>
+          <TextField
+            required
+            //error={!!errors?.nombreAutoriza}
+            id="funcionrol"
+            name="funcionrol"
+            label="Función o Rol"
+            placeholder="Ingrese la función o rol de origen"
+            value={formData2.funcionrol}
+            onChange={handleChange2}
+            sx={{ background: "#FFFFFF", mt: 3 }}
+            inputProps={{ maxLength: 64 }}
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              mt: 3,
+              mb: 3,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              background:
+                botonEstado2 === "Descargar PDF"
+                  ? theme.palette.secondary.main
+                  : "#98989A",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+            disabled={botonEstado2 === "Cargando..."}
+            {...(botonEstado2 === "Descargar PDF" && {
+              href: pdfUrl,
+              download: "RegistroRFC.pdf",
+            })}
+          >
+            {botonEstado2}
+          </Button>
+          <Button 
+            variant="contained" 
+            onClick={handleClose}
+             sx={{
+              mt: 3,
+              mb: 3,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              background: "#611232",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+          >
+            Cancelar
+          </Button>
+        </DialogActions>
+        
+      </Dialog>
+    
+    
     </Container>
   );
 }
