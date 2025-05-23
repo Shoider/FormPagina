@@ -500,6 +500,13 @@ export default function Home() {
           if (pdfResponse.status === 200) {
             setPdfUrl(URL.createObjectURL(pdfResponse.data));
             setBotonEstado2("Descargar PDF");
+          } else if (pdfResponse.status === 202) {
+            setAlert({
+              message: "No se encontro el ID de la tabla",
+              severity: "warning",
+            });
+            setOpenAlert(true);
+            setBotonEstado2("Enviar");
           } else if (pdfResponse.status === 203) {
             setAlert({
               message: "No se encontro el número de formato",
