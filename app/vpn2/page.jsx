@@ -1561,7 +1561,7 @@ export default function Home() {
         </Box>
       </Box>
 
-      {/* Datos del Equipo */}
+      {/* Datos de Autoriza */}
       {/* Form Box Responsive */}
       <Box
         component="section"
@@ -1630,6 +1630,99 @@ export default function Home() {
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
+
+        </Box>
+      </Box>
+      
+      {/* Datos de Politicas */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Politicas
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <Typography
+            variant="overline"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
+            Aqui se van a escribir las politicas
+          </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              mt: 2,
+              ml: 10,
+              //mx: "auto"
+            }}
+          >
+            {[
+              { name: "politicas aceptadas", label: "ACEPTO LAS POLITICAS" },
+            ].map((item, index) => (
+              <Box
+                key={index}
+                sx={{ width: "33.33%", minWidth: "80px", textAlign: "center" }}
+              >
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={formData[item.name]}
+                      onChange={saveCategorias}
+                      name={item.name}
+                      color="primary"
+                    />
+                  }
+                  label={item.label}
+                />
+                
+              </Box>
+            ))}
+            
+          </Box>
+          
 
         </Box>
       </Box>
