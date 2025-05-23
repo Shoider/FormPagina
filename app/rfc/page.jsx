@@ -1157,7 +1157,7 @@ export default function Home() {
         >
           INTERSISTEMAS
         </Typography>
-
+        
         <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -1168,6 +1168,7 @@ export default function Home() {
               mb: 2,
             }}
           />
+
 
         {/* Checkbox Intersistemas */}
         <Box
@@ -1280,7 +1281,20 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Guardar registros antes de enviar. 
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mt:2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de desconocer Función o Rol de Anfitrión(es) origen, escribir PENDIENTE. 
           </FormLabel>
           <FormLabel
             component="legend"
@@ -1363,7 +1377,20 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Guardar registros antes de enviar. 
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mt:2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de desconocer Función o Rol de Anfitrión(es) origen, escribir PENDIENTE. 
           </FormLabel>
           <FormLabel
             component="legend"
@@ -1504,6 +1531,19 @@ export default function Home() {
             }}
           >
             Guardar registros antes de enviar.
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mt:2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de desconocer Función o Rol de Anfitrión(es) origen, escribir PENDIENTE. 
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3519,21 +3559,45 @@ export default function Home() {
         <DialogTitle>Actualizar Función o Rol de Origen</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Aqui puede actualizar la función o rol de origen de su Regla/Comunicación para completar el llenado de su formato
+            Aquí puede actualizar la función o rol de origen de su Regla/Comunicación para completar el llenado de su formato.
           </DialogContentText>
           <DialogContentText sx={{mt: 2}}>
-            * Únicamente es para tipo de Movimiento Intersistemas
+            * Únicamente es para tipo de Movimiento Intersistemas.
           </DialogContentText>
           <DialogContentText sx={{mt: 2}}>
-            * Es su responsabilidad llenarlo adecuadamente
+            * Es su responsabilidad llenarlo adecuadamente.
           </DialogContentText>
+          <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mb: 1,
+            mt:2
+          }}
+        />
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mt:2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Datos de búsqueda (estos los podrá encontrar en su formato).
+          </FormLabel>
+          
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
             id="numeroFormato"
             name="numeroFormato"
             label="Número de Formato"
-            placeholder="Ingrese el número de formato"
+            placeholder="Se encuentra en el encabezado, en la parte superior derecha. "
             value={formData2.numeroFormato}
             onChange={handleChange2}
             sx={{ background: "#FFFFFF", mt: 3 }}
@@ -3573,6 +3637,19 @@ export default function Home() {
             inputProps={{ maxLength: 64 }}
             fullWidth
           />
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mt:2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Dato a actualizar.
+          </FormLabel>
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
