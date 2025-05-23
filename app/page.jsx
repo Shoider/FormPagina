@@ -77,14 +77,14 @@ export default function Home() {
         </Box>
       </Box>
 
-      {/* VPN */}
+      {/* RFC */}
       <Button
         variant="outlined"
-        href="/vpn"
+        href="/rfc"
         sx={{
           width: "auto%",
           height: "calc(100% - 32px)",
-          border: "2px solid grey",
+          border: "2px solid grey", //
           mt: 2,
           mb: 3,
           ml: 2,
@@ -93,8 +93,6 @@ export default function Home() {
           color: theme.palette.text.dark,
           borderRadius: 2,
           display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
           background: "#F4F4F5",
           boxSizing: "border-box",
           padding: "0 8px",
@@ -113,7 +111,7 @@ export default function Home() {
         }}
       >
         <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
-        Solicitud Del Servicio De VPN
+          Solicitud de cambios en cortafuegos (RFC)
         </Typography>
       </Button>
 
@@ -153,45 +151,7 @@ export default function Home() {
         }}
       >
         <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
-        Solicitud Del Servicio De VPN v2.0
-        </Typography>
-      </Button>
-
-      {/* RFC */}
-      <Button
-        variant="outlined"
-        href="/rfc"
-        sx={{
-          width: "auto%",
-          height: "calc(100% - 32px)",
-          border: "2px solid grey", //
-          mt: 2,
-          mb: 3,
-          ml: 2,
-          mr: 2,
-          p: 2,
-          color: theme.palette.text.dark,
-          borderRadius: 2,
-          display: "flex",
-          background: "#F4F4F5",
-          boxSizing: "border-box",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-          fontSize: theme.typography.h4.fontSize,
-          "&:hover": {
-            transform: "scale(1.02)",
-            transition: "transform 0.3s ease-in-out",
-            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-          },
-        }}
-      >
-        <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
-        SOLICITUD DE RFC
+        Solicitud Del Servicio De VPN
         </Typography>
       </Button>
 
@@ -270,6 +230,49 @@ export default function Home() {
           SOLICITUD DE AMPLIACIÓN DE INTERNET
         </Typography>
       </Button>
+
+      {/* VPN */}
+      {/* 
+      <Button
+        variant="outlined"
+        href="/vpn"
+        sx={{
+          width: "auto%",
+          height: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          ml: 2,
+          mr: 2,
+          p: 2,
+          color: theme.palette.text.dark,
+          borderRadius: 2,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "#F4F4F5",
+          boxSizing: "border-box",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+          fontSize: theme.typography.h4.fontSize,
+          "&:hover": {
+            transform: "scale(1.02)",
+            transition: "transform 0.3s ease-in-out",
+            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+          },
+        }}
+      >
+        <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
+        Solicitud Del Servicio De VPN
+        </Typography>
+      </Button>
+      */}
+
     </Container>
   );
 }
