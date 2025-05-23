@@ -615,8 +615,8 @@ export default function Home() {
             gutterBottom
             sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Formulario Para Solicitud De Alta, Baja ó Cambio En La
-            Infraestructura De Seguridad De La CONAGUA
+            Formulario para solicitud de alta, baja o cambio en la
+            infraestructura de seguridad de la CONAGUA
           </Typography>
         </Box>
       </Box>
@@ -678,7 +678,7 @@ export default function Home() {
                   >
                     {[
                       { name: "enlace", label: "Enlace  Informático" },
-                      { name: "soli", label: "Otro" },
+                      { name: "soli", label: "Usuario" },
                       
                     ].map((item, index) => (
                       <Box
