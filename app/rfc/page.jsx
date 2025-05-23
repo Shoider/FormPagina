@@ -33,6 +33,7 @@ import { useEffect } from "react";
 
 // ICONOS
 import SyncIcon from '@mui/icons-material/Sync';
+import { NodeNextRequest } from "next/dist/server/base-http/node.js";
 
 export default function Home() {
   const theme = useTheme();
@@ -1203,17 +1204,7 @@ export default function Home() {
                 }
                 label="Alta"
               />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.CambioInter}
-                    onChange={saveComboBox}
-                    name="CambioInter"
-                    color="primary"
-                  />
-                }
-                label="Cambio"
-              />
+              
               <FormControlLabel
                 control={
                   <Checkbox
@@ -1224,6 +1215,17 @@ export default function Home() {
                   />
                 }
                 label="Baja"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.CambioInter}
+                    onChange={saveComboBox}
+                    name="CambioInter"
+                    color="primary"
+                  />
+                }
+                label="Cambio"
               />
             </FormGroup>
           </Box>
@@ -1283,19 +1285,7 @@ export default function Home() {
           >
             Guardar registros antes de enviar. 
           </FormLabel>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              mt:2,
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            En caso de desconocer Función o Rol de Anfitrión(es) origen, escribir PENDIENTE. 
-          </FormLabel>
+          
           <FormLabel
             component="legend"
             sx={{
@@ -1379,19 +1369,7 @@ export default function Home() {
           >
             Guardar registros antes de enviar. 
           </FormLabel>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              mt:2,
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            En caso de desconocer Función o Rol de Anfitrión(es) origen, escribir PENDIENTE. 
-          </FormLabel>
+          
           <FormLabel
             component="legend"
             sx={{
@@ -1532,19 +1510,7 @@ export default function Home() {
           >
             Guardar registros antes de enviar.
           </FormLabel>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              mt:2,
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            En caso de desconocer Función o Rol de Anfitrión(es) origen, escribir PENDIENTE. 
-          </FormLabel>
+          
           <FormLabel
             component="legend"
             sx={{
@@ -1661,17 +1627,7 @@ export default function Home() {
               }
               label="Alta"
             />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.CambioAdmin}
-                  onChange={saveComboBox}
-                  name="CambioAdmin"
-                  color="primary"
-                />
-              }
-              label="Cambio"
-            />
+            
             <FormControlLabel
               control={
                 <Checkbox
@@ -1682,6 +1638,18 @@ export default function Home() {
                 />
               }
               label="Baja"
+            />
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.CambioAdmin}
+                  onChange={saveComboBox}
+                  name="CambioAdmin"
+                  color="primary"
+                />
+              }
+              label="Cambio"
             />
           </FormGroup>
         </Box>
@@ -2079,17 +2047,7 @@ export default function Home() {
               }
               label="Alta"
             />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.CambioDes}
-                  onChange={saveComboBox}
-                  name="CambioDes"
-                  color="primary"
-                />
-              }
-              label="Cambio"
-            />
+            
             <FormControlLabel
               control={
                 <Checkbox
@@ -2100,6 +2058,17 @@ export default function Home() {
                 />
               }
               label="Baja"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.CambioDes}
+                  onChange={saveComboBox}
+                  name="CambioDes"
+                  color="primary"
+                />
+              }
+              label="Cambio"
             />
           </FormGroup>
         </Box>
@@ -2496,17 +2465,7 @@ export default function Home() {
               }
               label="Alta"
             />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.CambioUsua}
-                  onChange={saveComboBox}
-                  name="CambioUsua"
-                  color="primary"
-                />
-              }
-              label="Cambio"
-            />
+            
             <FormControlLabel
               control={
                 <Checkbox
@@ -2517,6 +2476,17 @@ export default function Home() {
                 />
               }
               label="Baja"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.CambioUsua}
+                  onChange={saveComboBox}
+                  name="CambioUsua"
+                  color="primary"
+                />
+              }
+              label="Cambio"
             />
           </FormGroup>
         </Box>
@@ -3420,7 +3390,42 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
         </Box>
+        
       </Box>
+
+      {/* POLITICAS */}
+        <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+          {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+        AUTORIZA
+        </Typography>
+
+        </Box>
+          
 
       {/* Enviar Informacion */}
       {/* Box Responsive */}
@@ -3524,6 +3529,7 @@ export default function Home() {
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />      {/* BOTON FLOTANTE */}
       <Box 
         sx={{ 
+          display:"none",
           position: "fixed",
           bottom: 24,
           right: 24,
@@ -3540,7 +3546,7 @@ export default function Home() {
         onClose={handleClose}
         onSubmit={handleSubmit2}
         sx={{
-           '& .MuiDialog-container': {
+                     '& .MuiDialog-container': {
              backgroundColor: 'f5f5f5', // Or any other color
            },
            '& .MuiDialog-paper': {
