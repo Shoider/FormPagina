@@ -995,7 +995,7 @@ export default function Home() {
                 mx: "auto",
               }}
             >
-              Tipo de Cambio *
+              Tipo de Usuario *
             </FormLabel>
             <Box
             sx={{
@@ -1190,7 +1190,7 @@ export default function Home() {
                 fontSize: "1.2rem",
               }}
             >
-              Tipo de Movimiento Intersistemas
+              Tipo de Movimiento
             </FormLabel>
             <FormGroup row>
               <FormControlLabel
@@ -1613,7 +1613,7 @@ export default function Home() {
               fontSize: "1.2rem",
             }}
           >
-            Tipo de Movimiento Administrador
+            Tipo de Movimiento
           </FormLabel>
           <FormGroup row>
             <FormControlLabel
@@ -2033,7 +2033,7 @@ export default function Home() {
               fontSize: "1.2rem",
             }}
           >
-            Tipo de Movimiento Desarrollador
+            Tipo de Movimiento
           </FormLabel>
           <FormGroup row>
             <FormControlLabel
@@ -2451,7 +2451,7 @@ export default function Home() {
               fontSize: "1.2rem",
             }}
           >
-            Tipo de Movimiento Usuario
+            Tipo de Movimiento
           </FormLabel>
           <FormGroup row>
             <FormControlLabel
@@ -2870,7 +2870,7 @@ export default function Home() {
               fontSize: "1.2rem",
             }}
           >
-            Tipo de Movimiento Otro
+            Tipo de Movimiento
           </FormLabel>
           <FormGroup row>
             <FormControlLabel
