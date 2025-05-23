@@ -454,7 +454,7 @@ export default function Home() {
             gutterBottom
             sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Solicitud de Acceso Remoto a Través de una Red Privada Virtual (VPN)
+            Solicitud de acceso remoto a través de una red privada virtual (VPN)
           </Typography>
         </Box>
       </Box>
