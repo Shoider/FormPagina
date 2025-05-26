@@ -156,7 +156,7 @@ export default function Home() {
       </Button>
 
       {/* TELEFONIA */}
-      <Button
+      {/* <Button
         variant="outlined"
         href="/telefonia"
         sx={{
@@ -191,10 +191,10 @@ export default function Home() {
         <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
           SOLICITUD DE SERVICIOS DE TELEFONÍA
         </Typography>
-      </Button>
+      </Button> */}
 
       {/* TELEFONIA */}
-      <Button
+      {/* <Button
         variant="outlined"
         href="/internet"
         sx={{
@@ -229,7 +229,7 @@ export default function Home() {
         <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
           SOLICITUD DE AMPLIACIÓN DE INTERNET
         </Typography>
-      </Button>
+      </Button> */}
 
       {/* VPN */}
       {/* 
