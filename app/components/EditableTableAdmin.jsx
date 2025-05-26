@@ -300,7 +300,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true
     },
-    {
+    /* {
       field: "actions",
       type: "actions",
       headerName: "Actions",
@@ -349,7 +349,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
           />,
         ];
       },
-    },
+    }, */
   ];
 
   React.useEffect(() => {

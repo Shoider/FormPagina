@@ -258,7 +258,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true
     },
-    {
+    /* {
       field: "actions",
       type: "actions",
       headerName: "Actions",
@@ -307,7 +307,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
           />,
         ];
       },
-    },
+    }, */
   ];
 
   React.useEffect(() => {
