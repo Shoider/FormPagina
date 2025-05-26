@@ -85,6 +85,7 @@ export default function Home() {
     cuentaUsuario: false,
     accesoWeb: false,
     accesoRemoto: false,
+    politicasaceptadas: false,
 
     // Servicios solicitados
     movimiento: "",
@@ -332,6 +333,18 @@ export default function Home() {
 
   // CATEGORÍAS
   const saveCategorias = async (event) => {
+    const { name, type, checked } = event.target;
+    const isChecked = type === "checkbox" ? checked : false;
+
+    setFormData((prevFormData) => {
+      const updatedData = {
+        ...prevFormData,
+        [name]: isChecked, // Actualiza el valor del checkbox
+      };
+      return updatedData;
+    });
+  };
+  const savePoliticas = async (event) => {
     const { name, type, checked } = event.target;
     const isChecked = type === "checkbox" ? checked : false;
 
@@ -1663,7 +1676,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Politicas
+          Términos y condiciones del uso del servicio
         </Typography>
         <Box
           component="form"
@@ -1680,14 +1693,23 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           <Typography
-            variant="overline"
+            variant="caption"
             align="center"
             gutterBottom
             sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Aqui se van a escribir las politicas
+          1)	El usuario solicitante puede tramitar este formato las veces que sea necesario, según sus necesidades. Los servicios solicitados son acumulados a los existentes. Es responsabilidad del solicitante, indicar correctamente el movimiento (A, B, C) de los servicios especificados tomando en cuenta su historial de solicitudes.
+          2)	El Enlace Informático de la unidad administrativa solicitante, será quien gestione y de seguimiento a la solicitud de servicios de Red Privada Virtual (VPN) del personal de su unidad. 
+          3)	La Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad única y exclusivamente proveerá el servicio de acceso remoto por VPN al usuario solicitante autorizado por el titular de su unidad administrativa previa presentación del formato debidamente llenado.
+          4)	La Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad, le proveerá al usuario autorizado la credencial de acceso, manual de instalación y configuración del software de cliente de VPN de usuario mediante correo electrónico personalizado.
+          5)	El acceso a los servicios de red interna mediante el servicio de VPN, será con el uso de una contraseña que cumpla con la política correspondiente y el envío por correo electrónico al usuario de una clave de 6 dígitos como doble factor de autenticación. Es responsabilidad única y exclusiva del usuario autorizado a conservar en secreto, no proporcionar a terceros su contraseña y no permitir el acceso a su cuenta de correo electrónico para la obtención de la clave de 6 dígitos a terceros.
+          6)	Posterior al proceso de autorización de acceso al usuario y ya establecido el túnel de VPN, solo el tráfico que se iden-tifique que tiene como destino la red interna de la CONAGUA cursará por el túnel de VPN, el resto del tráfico del equi-po origen del usuario seguirá las rutas que tenga definidas en su configuración para acceder a otros recursos de red.
+          7)	El servicio de VPN, solo permitirá por cada usuario, una conexión desde un dispositivo remoto, por lo que no será posible tener 2 o más conexiones simultáneas para una misma cuenta.
+          8)	La sesión establecida será automáticamente cerrada transcurridos 10 minutos de inactividad. El usuario deberá repetir el proceso de inicio de sesión para conectarse a la red de la CONAGUA. Está prohibido usar cualquier proceso o software para mantener la sesión activa.
+          9)	El usuario autorizado de VPN acepta que al hacer uso del servicio de VPN mediante cualquier tipo de conexión, es de su exclusiva responsabilidad el costo que ello genere.
+          10)	El equipo proporcionado por la CONAGUA ya cuenta con los elementos de seguridad necesarios para operar dentro de la red interna (actualizaciones del sistema operativo, actualizaciones de aplicaciones, software antimalware), pero es obligación del usuario autorizado verificar que estos elementos se encuentren actualizados. En el caso de equipo per-sonal, es responsabilidad del usuario autorizado ejecutar y mantener actualizado el sistema operativo, las aplicaciones instaladas y tener activos los elementos de seguridad como: Antivirus/Antimalware, corta fuego o firewall, protección de cuentas, seguridad del dispositivo, control de aplicaciones y exploradores entre otros que ofrezca el sistema ope-rativo o sean instalados de manera independiente.
+          11)	Si el usuario autorizado hace uso de su equipo personal para acceder a los servicios de la red interna de la CONAGUA mediante el uso de los servicios de VPN, acepta conocer y cumplir con las políticas, normas y disposiciones en mate-ria de seguridad de la información que aplican para los equipos que proporciona la CONAGUA.
           </Typography>
-
           <Box
             sx={{
               display: "flex",
@@ -1700,17 +1722,17 @@ export default function Home() {
             }}
           >
             {[
-              { name: "politicas aceptadas", label: "ACEPTO LAS POLITICAS" },
+              { name: "politicasaceptadas", label: "ACEPTO TÉRMINOS Y CONDICIONES" },
             ].map((item, index) => (
               <Box
                 key={index}
-                sx={{ width: "33.33%", minWidth: "80px", textAlign: "center" }}
+                sx={{ width: "100%", minWidth: "80px", textAlign: "center" }}
               >
                 <FormControlLabel
                   control={
                     <Checkbox
                       checked={formData[item.name]}
-                      onChange={saveCategorias}
+                      onChange={savePoliticas}
                       name={item.name}
                       color="primary"
                     />
