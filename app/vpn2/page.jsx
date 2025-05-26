@@ -747,9 +747,10 @@ export default function Home() {
               sx={{
                 ml: 2,
                 mr: 2,
-                mb: 0,
+                mb: 2,
                 justifyContent: "center",
                 color: "red",
+                display: errors?.solicitante ? "block" : "none",
               }}
             >
               {errors?.solicitante}
@@ -1183,9 +1184,10 @@ export default function Home() {
               sx={{
                 ml: 2,
                 mr: 2,
-                mb: 0,
+                mb: 2,
                 justifyContent: "center",
                 color: "red",
+                display: errors?.tipoEquipo ? "block" : "none",
               }}
             >
               {errors?.tipoEquipo}
@@ -1235,9 +1237,10 @@ export default function Home() {
               sx={{
                 ml: 2,
                 mr: 2,
-                mb: 0,
+                mb: 2,
                 justifyContent: "center",
                 color: "red",
+                display: errors?.sistemaOperativo ? "block" : "none",
               }}
             >
               {errors?.sistemaOperativo}
@@ -1323,6 +1326,18 @@ export default function Home() {
               
             </Box>
           ))}
+            {/*   <FormHelperText PENDIENTE
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 1,
+                justifyContent: "center",
+                color: "red",
+                display: errors?.cuentaUsuario ? "block" : "none",
+              }}
+            >
+              {errors?.cuentaUsuario}
+            </FormHelperText> */}
           
         </Box>
 
@@ -1721,6 +1736,7 @@ export default function Home() {
               justifyContent: "center",
               mt: 2,
               ml: 10,
+              mb: 3
               //mx: "auto"
             }}
           >
@@ -1745,6 +1761,18 @@ export default function Home() {
                 
               </Box>
             ))}
+            <FormHelperText
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 1,
+                justifyContent: "center",
+                color: "red",
+                display: errors?.politicasaceptadas ? "block" : "none",
+              }}
+            >
+              {errors?.politicasaceptadas}
+            </FormHelperText>
             
           </Box>
           
