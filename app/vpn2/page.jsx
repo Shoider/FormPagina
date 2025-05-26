@@ -1741,7 +1741,7 @@ export default function Home() {
             }}
           >
             {[
-              { name: "politicasaceptadas", label: "ACEPTO TÉRMINOS Y CONDICIONES" },
+              { name: "politicasaceptadas", label: "Acepto términos y condiciones" },
             ].map((item, index) => (
               <Box
                 key={index}
