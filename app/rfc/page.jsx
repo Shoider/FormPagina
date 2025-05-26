@@ -1300,7 +1300,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar. 
+            Presione ENTER para guardar.
           </FormLabel>
           
           <FormLabel
@@ -1384,7 +1384,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar. 
+            Presione ENTER para guardar.
           </FormLabel>
           
           <FormLabel
@@ -1525,7 +1525,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Presione ENTER para guardar.
           </FormLabel>
           
           <FormLabel
@@ -1724,7 +1724,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+           Presione ENTER para guardar.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -1807,7 +1807,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Presione ENTER para guardar.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -1946,7 +1946,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Presione ENTER para guardar.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2143,7 +2143,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Presione ENTER para guardar.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2226,7 +2226,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Presione ENTER para guardar.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2365,7 +2365,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+           Presione ENTER para guardar.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2561,7 +2561,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Presione ENTER para guardar.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2644,7 +2644,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Presione ENTER para guardar.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2783,7 +2783,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Presione ENTER para guardar.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2979,7 +2979,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Presione ENTER para guardar.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3062,7 +3062,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Presione ENTER para guardar.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3201,7 +3201,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Guardar registros antes de enviar.
+            Presione ENTER para guardar.
           </FormLabel>
           <FormLabel
             component="legend"
