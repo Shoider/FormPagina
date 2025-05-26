@@ -88,7 +88,7 @@ export default function Home() {
   // Llamada API
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Lista formData en submit: ", formData);
+    //console.log("Lista formData en submit: ", formData);
 
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);

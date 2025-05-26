@@ -197,7 +197,6 @@ export default function Home() {
   //TIPO MOVIMIENTO
   const handleChangeMovimiento = (event) => {
     const selectedValue = event.target.value;
-    console.log(selectedValue);
     setFormData2((prevData) => ({
       ...prevData,
       movimientoID: selectedValue, // Guarda EL MOVIMIENTO seleccionado
@@ -217,13 +216,13 @@ export default function Home() {
 
       if (name === "soli") {
         if (isChecked) {
-          console.log("Checkbox 'soli' marcado");
+          //console.log("Checkbox 'soli' marcado");
           updatedData.noms = "";
           updatedData.exts = "";
           updatedData.puestos = "";
           updatedData.areas = "";
         } else {
-          console.log("Checkbox 'soli' desmarcado");
+          //console.log("Checkbox 'soli' desmarcado");
           updatedData.noms = "null";
           updatedData.exts = "null";
           updatedData.puestos = "null";
@@ -427,7 +426,7 @@ export default function Home() {
           key !== "soli" &&
           key !== "enlace"
         ) {
-          console.log("Campo requerido: ", key);
+          //console.log("Campo requerido: ", key);
           errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
           isValid = false; // Al menos un campo está vacío
         }
@@ -488,7 +487,7 @@ export default function Home() {
   // Llamada API Actualizar Memorando
   const handleSubmit2 = async (event) => {
     event.preventDefault();
-    console.log("Lista formData2 en submit: ", formData2);
+    //console.log("Lista formData2 en submit: ", formData2);
     setAlert({
           message: "Informacion Enviada",
           severity: "success",
@@ -522,7 +521,7 @@ export default function Home() {
             setBotonEstado2("Enviar");
           } else {
             console.error("Error generando PDF");
-            console.error(pdfResponse.status)
+            //console.error(pdfResponse.status)
           }
         } catch (error) {
           console.error("Error:", error);
@@ -3660,7 +3659,7 @@ export default function Home() {
           paper: {
             component: 'form',
             onSubmit: (event) => {
-              console.log("Informacion Enviada")
+              //console.log("Informacion Enviada")
             },
           },
         }}
