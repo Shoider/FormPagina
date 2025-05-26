@@ -85,6 +85,7 @@ export default function Home() {
     cuentaUsuario: false,
     accesoWeb: false,
     accesoRemoto: false,
+    politicasaceptadas: false,
 
     // Servicios solicitados
     movimiento: "",
@@ -238,7 +239,7 @@ export default function Home() {
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
 
-    //console.log("Lista getErrors en submit: ", getErrors)
+    console.log("Lista getErrors en submit: ", getErrors)
 
     if (!isValid) {
       setAlert({
@@ -332,6 +333,18 @@ export default function Home() {
 
   // CATEGORÍAS
   const saveCategorias = async (event) => {
+    const { name, type, checked } = event.target;
+    const isChecked = type === "checkbox" ? checked : false;
+
+    setFormData((prevFormData) => {
+      const updatedData = {
+        ...prevFormData,
+        [name]: isChecked, // Actualiza el valor del checkbox
+      };
+      return updatedData;
+    });
+  };
+  const savePoliticas = async (event) => {
     const { name, type, checked } = event.target;
     const isChecked = type === "checkbox" ? checked : false;
 
@@ -454,7 +467,7 @@ export default function Home() {
             gutterBottom
             sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Solicitud de Acceso Remoto a Través de una Red Privada Virtual (VPN)
+            Solicitud de acceso remoto a través de una red privada virtual (VPN)
           </Typography>
         </Box>
       </Box>
@@ -734,9 +747,10 @@ export default function Home() {
               sx={{
                 ml: 2,
                 mr: 2,
-                mb: 0,
+                mb: 2,
                 justifyContent: "center",
                 color: "red",
+                display: errors?.solicitante ? "block" : "none",
               }}
             >
               {errors?.solicitante}
@@ -1170,9 +1184,10 @@ export default function Home() {
               sx={{
                 ml: 2,
                 mr: 2,
-                mb: 0,
+                mb: 2,
                 justifyContent: "center",
                 color: "red",
+                display: errors?.tipoEquipo ? "block" : "none",
               }}
             >
               {errors?.tipoEquipo}
@@ -1222,9 +1237,10 @@ export default function Home() {
               sx={{
                 ml: 2,
                 mr: 2,
-                mb: 0,
+                mb: 2,
                 justifyContent: "center",
                 color: "red",
+                display: errors?.sistemaOperativo ? "block" : "none",
               }}
             >
               {errors?.sistemaOperativo}
@@ -1310,6 +1326,18 @@ export default function Home() {
               
             </Box>
           ))}
+            {/*   <FormHelperText PENDIENTE
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 1,
+                justifyContent: "center",
+                color: "red",
+                display: errors?.cuentaUsuario ? "block" : "none",
+              }}
+            >
+              {errors?.cuentaUsuario}
+            </FormHelperText> */}
           
         </Box>
 
@@ -1561,7 +1589,7 @@ export default function Home() {
         </Box>
       </Box>
 
-      {/* Datos del Equipo */}
+      {/* Datos de Autoriza */}
       {/* Form Box Responsive */}
       <Box
         component="section"
@@ -1630,6 +1658,124 @@ export default function Home() {
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
+
+        </Box>
+      </Box>
+      
+      {/* Datos de Politicas */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Términos y condiciones del uso del servicio
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <Box sx={{ml: 3, mr: 3}}>
+            <Typography
+              variant="caption"
+              align= "justify"
+              gutterBottom
+              sx={{ mt: 3, width: "calc(100% - 32px)", ml: 0, mr: 4 }}
+            >
+            1)	El usuario solicitante puede tramitar este formato las veces que sea necesario, según sus necesidades. Los servicios solicitados son acumulados a los existentes. Es responsabilidad del solicitante, indicar correctamente el movimiento (A, B, C) de los servicios especificados tomando en cuenta su historial de solicitudes.<br />
+            2)	El Enlace Informático de la unidad administrativa solicitante, será quien gestione y de seguimiento a la solicitud de servicios de Red Privada Virtual (VPN) del personal de su unidad. <br />
+            3)	La Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad única y exclusivamente proveerá el servicio de acceso remoto por VPN al usuario solicitante autorizado por el titular de su unidad administrativa previa presentación del formato debidamente llenado.<br />
+            4)	La Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad, le proveerá al usuario autorizado la credencial de acceso, manual de instalación y configuración del software de cliente de VPN de usuario mediante correo electrónico personalizado.<br />
+            5)	El acceso a los servicios de red interna mediante el servicio de VPN, será con el uso de una contraseña que cumpla con la política correspondiente y el envío por correo electrónico al usuario de una clave de 6 dígitos como doble factor de autenticación. Es responsabilidad única y exclusiva del usuario autorizado a conservar en secreto, no proporcionar a terceros su contraseña y no permitir el acceso a su cuenta de correo electrónico para la obtención de la clave de 6 dígitos a terceros.<br />
+            6)	Posterior al proceso de autorización de acceso al usuario y ya establecido el túnel de VPN, solo el tráfico que se iden-tifique que tiene como destino la red interna de la CONAGUA cursará por el túnel de VPN, el resto del tráfico del equi-po origen del usuario seguirá las rutas que tenga definidas en su configuración para acceder a otros recursos de red.<br />
+            7)	El servicio de VPN, solo permitirá por cada usuario, una conexión desde un dispositivo remoto, por lo que no será posible tener 2 o más conexiones simultáneas para una misma cuenta.<br />
+            8)	La sesión establecida será automáticamente cerrada transcurridos 10 minutos de inactividad. El usuario deberá repetir el proceso de inicio de sesión para conectarse a la red de la CONAGUA. Está prohibido usar cualquier proceso o software para mantener la sesión activa.<br />
+            9)	El usuario autorizado de VPN acepta que al hacer uso del servicio de VPN mediante cualquier tipo de conexión, es de su exclusiva responsabilidad el costo que ello genere.<br />
+            10)	El equipo proporcionado por la CONAGUA ya cuenta con los elementos de seguridad necesarios para operar dentro de la red interna (actualizaciones del sistema operativo, actualizaciones de aplicaciones, software antimalware), pero es obligación del usuario autorizado verificar que estos elementos se encuentren actualizados. En el caso de equipo per-sonal, es responsabilidad del usuario autorizado ejecutar y mantener actualizado el sistema operativo, las aplicaciones instaladas y tener activos los elementos de seguridad como: Antivirus/Antimalware, corta fuego o firewall, protección de cuentas, seguridad del dispositivo, control de aplicaciones y exploradores entre otros que ofrezca el sistema ope-rativo o sean instalados de manera independiente.
+            11)	Si el usuario autorizado hace uso de su equipo personal para acceder a los servicios de la red interna de la CONAGUA mediante el uso de los servicios de VPN, acepta conocer y cumplir con las políticas, normas y disposiciones en mate-ria de seguridad de la información que aplican para los equipos que proporciona la CONAGUA.
+            </Typography>
+          </Box>
+          
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              mt: 2,
+              ml: 10,
+              mb: 3
+              //mx: "auto"
+            }}
+          >
+            {[
+              { name: "politicasaceptadas", label: "ACEPTO TÉRMINOS Y CONDICIONES" },
+            ].map((item, index) => (
+              <Box
+                key={index}
+                sx={{ width: "100%", minWidth: "80px", textAlign: "center" }}
+              >
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={formData[item.name]}
+                      onChange={savePoliticas}
+                      name={item.name}
+                      color="primary"
+                    />
+                  }
+                  label={item.label}
+                />
+                
+              </Box>
+            ))}
+            <FormHelperText
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 1,
+                justifyContent: "center",
+                color: "red",
+                display: errors?.politicasaceptadas ? "block" : "none",
+              }}
+            >
+              {errors?.politicasaceptadas}
+            </FormHelperText>
+            
+          </Box>
+          
 
         </Box>
       </Box>

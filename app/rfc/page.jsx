@@ -9,6 +9,7 @@ import {
   TextField,
   Button,
   FormControlLabel,
+  FormHelperText,
   FormLabel,
   Divider,
   FormGroup,
@@ -33,6 +34,7 @@ import { useEffect } from "react";
 
 // ICONOS
 import SyncIcon from '@mui/icons-material/Sync';
+import { NodeNextRequest } from "next/dist/server/base-http/node.js";
 
 export default function Home() {
   const theme = useTheme();
@@ -155,6 +157,10 @@ export default function Home() {
     AltaOtro: altaOtroIsTrue,
     BajaOtro: bajaOtroIsTrue,
     CambioOtro: cambioOtroIsTrue,
+    
+
+    //POLITICAS
+    politicasaceptadas: false,
   });
 
   const Movimientoid = [
@@ -191,7 +197,6 @@ export default function Home() {
   //TIPO MOVIMIENTO
   const handleChangeMovimiento = (event) => {
     const selectedValue = event.target.value;
-    console.log(selectedValue);
     setFormData2((prevData) => ({
       ...prevData,
       movimientoID: selectedValue, // Guarda EL MOVIMIENTO seleccionado
@@ -211,13 +216,13 @@ export default function Home() {
 
       if (name === "soli") {
         if (isChecked) {
-          console.log("Checkbox 'soli' marcado");
+          //console.log("Checkbox 'soli' marcado");
           updatedData.noms = "";
           updatedData.exts = "";
           updatedData.puestos = "";
           updatedData.areas = "";
         } else {
-          console.log("Checkbox 'soli' desmarcado");
+          //console.log("Checkbox 'soli' desmarcado");
           updatedData.noms = "null";
           updatedData.exts = "null";
           updatedData.puestos = "null";
@@ -421,7 +426,7 @@ export default function Home() {
           key !== "soli" &&
           key !== "enlace"
         ) {
-          console.log("Campo requerido: ", key);
+          //console.log("Campo requerido: ", key);
           errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
           isValid = false; // Al menos un campo está vacío
         }
@@ -434,7 +439,7 @@ export default function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("Datos del formulario:", formData);
+    //console.log("Datos del formulario:", formData);
 
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
@@ -467,10 +472,10 @@ export default function Home() {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado("Descargar PDF");
       } else {
-        console.error("Error generating PDF");
+        //console.error("Error generating PDF");
       }
     } catch (error) {
-      console.error("Error:", error);
+      //console.error("Error:", error);
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
       setAlert({
         message: "Ocurrio un error",
@@ -482,7 +487,7 @@ export default function Home() {
   // Llamada API Actualizar Memorando
   const handleSubmit2 = async (event) => {
     event.preventDefault();
-    console.log("Lista formData2 en submit: ", formData2);
+    //console.log("Lista formData2 en submit: ", formData2);
     setAlert({
           message: "Informacion Enviada",
           severity: "success",
@@ -500,6 +505,13 @@ export default function Home() {
           if (pdfResponse.status === 200) {
             setPdfUrl(URL.createObjectURL(pdfResponse.data));
             setBotonEstado2("Descargar PDF");
+          } else if (pdfResponse.status === 202) {
+            setAlert({
+              message: "No se encontro el ID de la tabla",
+              severity: "warning",
+            });
+            setOpenAlert(true);
+            setBotonEstado2("Enviar");
           } else if (pdfResponse.status === 203) {
             setAlert({
               message: "No se encontro el número de formato",
@@ -508,11 +520,11 @@ export default function Home() {
             setOpenAlert(true);
             setBotonEstado2("Enviar");
           } else {
-            console.error("Error generando PDF");
-            console.error(pdfResponse.status)
+            //console.error("Error generando PDF");
+            //console.error(pdfResponse.status)
           }
         } catch (error) {
-          console.error("Error:", error);
+          //console.error("Error:", error);
           setBotonEstado2("Enviar"); // Vuelve a "Enviar" en caso de error
           setAlert({
             message: "Ocurrio un error",
@@ -522,6 +534,19 @@ export default function Home() {
         }
       };
 
+///POLITICAS Y SERVICIOS
+  const savePoliticas = async (event) => {
+    const { name, type, checked } = event.target;
+    const isChecked = type === "checkbox" ? checked : false;
+
+    setFormData((prevFormData) => {
+      const updatedData = {
+        ...prevFormData,
+        [name]: isChecked, // Actualiza el valor del checkbox
+      };
+      return updatedData;
+    });
+  };
 
   //  VALIDADORES
 
@@ -615,8 +640,8 @@ export default function Home() {
             gutterBottom
             sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Formulario Para Solicitud De Alta, Baja ó Cambio En La
-            Infraestructura De Seguridad De La CONAGUA
+            Formulario para solicitud de alta, baja o cambio en la
+            infraestructura de seguridad de la CONAGUA
           </Typography>
         </Box>
       </Box>
@@ -678,7 +703,7 @@ export default function Home() {
                   >
                     {[
                       { name: "enlace", label: "Enlace  Informático" },
-                      { name: "soli", label: "Otro" },
+                      { name: "soli", label: "Usuario" },
                       
                     ].map((item, index) => (
                       <Box
@@ -987,7 +1012,7 @@ export default function Home() {
                 mx: "auto",
               }}
             >
-              Tipo de Cambio *
+              Tipo de Usuario *
             </FormLabel>
             <Box
             sx={{
@@ -1182,7 +1207,7 @@ export default function Home() {
                 fontSize: "1.2rem",
               }}
             >
-              Tipo de Movimiento Intersistemas
+              Tipo de Movimiento
             </FormLabel>
             <FormGroup row>
               <FormControlLabel
@@ -1196,17 +1221,7 @@ export default function Home() {
                 }
                 label="Alta"
               />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData.CambioInter}
-                    onChange={saveComboBox}
-                    name="CambioInter"
-                    color="primary"
-                  />
-                }
-                label="Cambio"
-              />
+              
               <FormControlLabel
                 control={
                   <Checkbox
@@ -1217,6 +1232,17 @@ export default function Home() {
                   />
                 }
                 label="Baja"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formData.CambioInter}
+                    onChange={saveComboBox}
+                    name="CambioInter"
+                    color="primary"
+                  />
+                }
+                label="Cambio"
               />
             </FormGroup>
           </Box>
@@ -1276,19 +1302,7 @@ export default function Home() {
           >
             Guardar registros antes de enviar. 
           </FormLabel>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              mt:2,
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            En caso de desconocer Función o Rol de Anfitrión(es) origen, escribir PENDIENTE. 
-          </FormLabel>
+          
           <FormLabel
             component="legend"
             sx={{
@@ -1372,19 +1386,7 @@ export default function Home() {
           >
             Guardar registros antes de enviar. 
           </FormLabel>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              mt:2,
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            En caso de desconocer Función o Rol de Anfitrión(es) origen, escribir PENDIENTE. 
-          </FormLabel>
+          
           <FormLabel
             component="legend"
             sx={{
@@ -1525,19 +1527,7 @@ export default function Home() {
           >
             Guardar registros antes de enviar.
           </FormLabel>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              mt:2,
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            En caso de desconocer Función o Rol de Anfitrión(es) origen, escribir PENDIENTE. 
-          </FormLabel>
+          
           <FormLabel
             component="legend"
             sx={{
@@ -1640,7 +1630,7 @@ export default function Home() {
               fontSize: "1.2rem",
             }}
           >
-            Tipo de Movimiento Administrador
+            Tipo de Movimiento
           </FormLabel>
           <FormGroup row>
             <FormControlLabel
@@ -1654,17 +1644,7 @@ export default function Home() {
               }
               label="Alta"
             />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.CambioAdmin}
-                  onChange={saveComboBox}
-                  name="CambioAdmin"
-                  color="primary"
-                />
-              }
-              label="Cambio"
-            />
+            
             <FormControlLabel
               control={
                 <Checkbox
@@ -1675,6 +1655,18 @@ export default function Home() {
                 />
               }
               label="Baja"
+            />
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.CambioAdmin}
+                  onChange={saveComboBox}
+                  name="CambioAdmin"
+                  color="primary"
+                />
+              }
+              label="Cambio"
             />
           </FormGroup>
         </Box>
@@ -2058,7 +2050,7 @@ export default function Home() {
               fontSize: "1.2rem",
             }}
           >
-            Tipo de Movimiento Desarrollador
+            Tipo de Movimiento
           </FormLabel>
           <FormGroup row>
             <FormControlLabel
@@ -2072,17 +2064,7 @@ export default function Home() {
               }
               label="Alta"
             />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.CambioDes}
-                  onChange={saveComboBox}
-                  name="CambioDes"
-                  color="primary"
-                />
-              }
-              label="Cambio"
-            />
+            
             <FormControlLabel
               control={
                 <Checkbox
@@ -2093,6 +2075,17 @@ export default function Home() {
                 />
               }
               label="Baja"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.CambioDes}
+                  onChange={saveComboBox}
+                  name="CambioDes"
+                  color="primary"
+                />
+              }
+              label="Cambio"
             />
           </FormGroup>
         </Box>
@@ -2475,7 +2468,7 @@ export default function Home() {
               fontSize: "1.2rem",
             }}
           >
-            Tipo de Movimiento Usuario
+            Tipo de Movimiento
           </FormLabel>
           <FormGroup row>
             <FormControlLabel
@@ -2489,17 +2482,7 @@ export default function Home() {
               }
               label="Alta"
             />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.CambioUsua}
-                  onChange={saveComboBox}
-                  name="CambioUsua"
-                  color="primary"
-                />
-              }
-              label="Cambio"
-            />
+            
             <FormControlLabel
               control={
                 <Checkbox
@@ -2510,6 +2493,17 @@ export default function Home() {
                 />
               }
               label="Baja"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.CambioUsua}
+                  onChange={saveComboBox}
+                  name="CambioUsua"
+                  color="primary"
+                />
+              }
+              label="Cambio"
             />
           </FormGroup>
         </Box>
@@ -2893,7 +2887,7 @@ export default function Home() {
               fontSize: "1.2rem",
             }}
           >
-            Tipo de Movimiento Otro
+            Tipo de Movimiento
           </FormLabel>
           <FormGroup row>
             <FormControlLabel
@@ -3413,7 +3407,127 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
         </Box>
+        
       </Box>
+
+     {/* Datos de Politicas */}
+      {/* Form Box Responsive */}
+      <Box
+              component="section"
+              sx={{
+                mx: "auto",
+                width: "calc(100% - 32px)",
+                border: "2px solid grey",
+                mt: 2,
+                mb: 3,
+                p: 2,
+                borderRadius: 2,
+                background: "#F4F4F5",
+                padding: "0 8px",
+                "@media (min-width: 960px)": {
+                  maxWidth: "50.00%",
+                  width: "auto",
+                  margin: "2rem auto",
+                  padding: "2",
+                },
+              }}
+            >
+              {/* SubTitle */}
+              <Typography
+                variant="h4"
+                align="center"
+                gutterBottom
+                sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+              >
+                Políticas del servicio
+              </Typography>
+              <Box
+                component="form"
+                sx={{
+                  "& .MuiTextField-root": {
+                    mt: 2,
+                    width: "calc(100% - 32px)",
+                    ml: 20,
+                    mr: 90,
+                  },
+                }}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+              >
+
+                <Box sx={{ml: 3, mr: 3}}>
+                <Typography
+                  variant="caption"
+                  align="center"
+                  gutterBottom
+                  sx={{ mt: 10, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
+                >
+                 {" •	El solicitante deberá presentar este formato adjuntando el Memorando o Atenta nota y número de ticket de Mesa de ayuda asociado, sin los cuales no se podrá atender su solicitud. "}<br />
+                 {" •	El formato deberá estar debidamente llenado y contener toda la información requerida facilitando la aplicación expedita de las configuraciones solicitadas. Es responsabilidad del solicitante recabar la información con los Administradores de los sistemas o Áreas involucrados (Subgerencia de Sistemas y/o Subgerencia de Internet e Intranet)."}<br />
+                 {" •	El solicitante deberá proporcionar la dirección IP física y si utiliza dirección NAT agregarlo por cada servidor involucrado, no siendo responsabilidad de la SSTTS si al establecer la comunicación no conecta por falta de este dato. De no proporcionarse la dirección IP NAT correcta, las reglas de cortafuegos se configurarán por defecto con la dirección IP del adaptador de red de los servidores y corresponderá al Administrador del sistema aplicar los cambios en el sistema o servidores para establecer la comunicación."}<br />
+                 {" •	El solicitante tiene la obligación de indicar si se trata de un traslado de permisos de una dirección IP a otra."}<br />
+                 {" •	Para el traslado de permisos de una dirección IP a otra, se deberá llenar la sección de BAJAS con los permisos de la dirección IP anterior que se darán de baja, además de llenar la sección de ALTAS / CAMBIOS con los permisos que se requieren trasladar."}<br />
+                 {" •	Si el solicitante NO indica que se trata de un traslado de permisos, éste será responsable de cualquier acceso no autorizado que se derive de los permisos de la dirección IP anterior debido a no haber solicitado la baja correspondiente de dichos accesos."}<br />
+                 {" •	Es responsabilidad de los administradores de cada sistema llevar un control de las direcciones IP’s con acceso al sistema que administra."}<br />
+                 {" •	Es responsabilidad de los administradores de cada sistema documentar el control de accesos en la Memoria Técnica. Se sugiere actualizarla periódicamente cada 2, 3, 4 o 6 meses."}<br />
+                 {" •	Es responsabilidad de los administradores de cada servidor llevar un control de las direcciones IP’s con acceso al servidor que administra."}<br />
+                 {" •	La solicitud para cambios en la infraestructura de seguridad (RFCs) será solicitada únicamente por los Administradores de cada sistema una vez que se apliquen los permisos de acceso en el propio sistema y aperturen los accesos en los cortafuegos locales de los servidores involucrados."}<br />
+                 {" •	Es responsabilidad de los Administradores documentar el control de accesos de cada servidor en su respectiva Memoria Técnica, actualizando la misma periódicamente cada 2, 3, 4 0 6 meses."}<br />
+                 {" •	Al firmar el solicitante se da por enterado de las políticas del servicio y acepta la responsabilidad de cualquier materialización de los riesgos derivados de las aperturas de comunicaciones asociadas al presente control de cambios."}<br />
+                </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    mt: 2,
+                    ml: 10,
+                    mr:10,
+                    mb:3,
+                    //mx: "auto"
+                  }}
+                >
+                  {[
+                    { name: "politicasaceptadas", label: "He leído las políticas del servicio y acepto la responsabilidad de cualquier materialización de los riesgos derivados de las aperturas de comunicaciones asociadas al presente documento." },
+                  ].map((item, index) => (
+                    <Box
+                      key={index}
+                      sx={{ width: "100%", minWidth: "60px",textAlign:"left"}}
+                    >
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={formData[item.name]}
+                            onChange={savePoliticas}
+                            name={item.name}
+                            color="primary"
+                          />
+                        }
+                        label={item.label}
+                      />
+                      
+                    </Box>
+                  ))}
+                  <FormHelperText
+                    sx={{
+                      ml: 2,
+                      mr: 2,
+                      mb: 1,
+                      mt: 2,
+                      justifyContent: "center",
+                      color: "red",
+                      display: errors?.politicasaceptadas ? "block" : "none",
+                    }}
+                  >
+                    {errors?.politicasaceptadas}
+                  </FormHelperText>
+                  
+                </Box>
+          </Box>
+          </Box>
 
       {/* Enviar Informacion */}
       {/* Box Responsive */}
@@ -3517,6 +3631,7 @@ export default function Home() {
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />      {/* BOTON FLOTANTE */}
       <Box 
         sx={{ 
+          display:"none",
           position: "fixed",
           bottom: 24,
           right: 24,
@@ -3533,7 +3648,7 @@ export default function Home() {
         onClose={handleClose}
         onSubmit={handleSubmit2}
         sx={{
-           '& .MuiDialog-container': {
+                     '& .MuiDialog-container': {
              backgroundColor: 'f5f5f5', // Or any other color
            },
            '& .MuiDialog-paper': {
@@ -3544,7 +3659,7 @@ export default function Home() {
           paper: {
             component: 'form',
             onSubmit: (event) => {
-              console.log("Informacion Enviada")
+              //console.log("Informacion Enviada")
             },
           },
         }}

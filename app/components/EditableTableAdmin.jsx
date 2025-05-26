@@ -5,6 +5,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import funcionrol from "../constants/funcionrol";
 import {
   GridRowModes,
   DataGrid,
@@ -200,6 +203,55 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+       renderEditCell: (params) => {
+                    const handleBlur = () => {
+                      // Método universal para finalizar la edición
+                      if (params.api.stopCellEditMode) {
+                        // Para DataGrid v6+
+                        params.api.stopCellEditMode({ id: params.id, field: params.field });
+                      } else if (params.api.commitCellChange) {
+                        // Para algunas versiones anteriores
+                        params.api.commitCellChange({ id: params.id, field: params.field });
+                        params.api.setCellMode(params.id, params.field, 'view');
+                      } else {
+                        // Fallback seguro
+                        params.api.setCellMode(params.id, params.field, 'view');
+                      }
+                    };
+                
+                    return (
+                      <Autocomplete
+                        disablePortal
+                        options={funcionrol}
+                        sx={{ width: '100%'}}
+                        freeSolo
+                        renderInput={(inputParams) => (
+                          <TextField 
+                            {...inputParams} 
+                            //label="Seleccionar"
+                            variant="standard"
+                            fullWidth
+                          />
+                        )}
+                        value={params.value || null}
+                        onChange={(event, newValue) => {
+                          if (params.api.setEditCellValue) {
+                            params.api.setEditCellValue({
+                              id: params.id,
+                              field: params.field,
+                              value: newValue || '',
+                            });
+                          } else {
+                            params.api.setCellValue(params.id, params.field, newValue || '');
+                          }
+                        }}
+                        onBlur={handleBlur}
+                        getOptionLabel={(option) => option || ''}
+                        isOptionEqualToValue={(option, value) => option === value}
+                      />
+                    );
+                  },
+                  renderCell: (params) => <span>{params.value || ''}</span>,
     },
     {
       field: "IPD",
@@ -310,6 +362,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
         display: "flex",
         flexDirection: "column",
         width: "calc(100% - 32px)",
+        height:"500px",
         ml: 2,
         mr: 4,
         mt: 3,

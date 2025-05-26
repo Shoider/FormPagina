@@ -88,7 +88,7 @@ export default function Home() {
   // Llamada API
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Lista formData en submit: ", formData);
+    //console.log("Lista formData en submit: ", formData);
 
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
@@ -240,7 +240,7 @@ export default function Home() {
             gutterBottom
             sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Formulario Para Solicitud Del Servicio De VPN
+            Formulario para solicitud del servicio de VPN
           </Typography>
         </Box>
       </Box>
