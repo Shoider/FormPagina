@@ -439,7 +439,7 @@ export default function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("Datos del formulario:", formData);
+    //console.log("Datos del formulario:", formData);
 
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
@@ -472,10 +472,10 @@ export default function Home() {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado("Descargar PDF");
       } else {
-        console.error("Error generating PDF");
+        //console.error("Error generating PDF");
       }
     } catch (error) {
-      console.error("Error:", error);
+      //console.error("Error:", error);
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
       setAlert({
         message: "Ocurrio un error",
@@ -520,11 +520,11 @@ export default function Home() {
             setOpenAlert(true);
             setBotonEstado2("Enviar");
           } else {
-            console.error("Error generando PDF");
+            //console.error("Error generando PDF");
             //console.error(pdfResponse.status)
           }
         } catch (error) {
-          console.error("Error:", error);
+          //console.error("Error:", error);
           setBotonEstado2("Enviar"); // Vuelve a "Enviar" en caso de error
           setAlert({
             message: "Ocurrio un error",
