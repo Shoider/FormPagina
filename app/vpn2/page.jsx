@@ -1688,7 +1688,7 @@ export default function Home() {
         <Typography
           variant="h4"
           align="center"
-          color="blue"
+          color="#9f2241"
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
@@ -1712,7 +1712,7 @@ export default function Home() {
             <Typography
               variant="subtitle2"
               align= "justify"
-              color="blue"
+              color="#9f2241"
               gutterBottom
               sx={{ mt: 0, width: "calc(100% - 32px)", ml: 0, mr: 4 }}
             >
