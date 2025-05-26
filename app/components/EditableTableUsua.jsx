@@ -397,7 +397,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true
     },
-    {
+    /* {
       field: "actions",
       type: "actions",
       headerName: "Actions",
@@ -446,7 +446,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
           />,
         ];
       },
-    },
+    }, */
   ];
 
   React.useEffect(() => {
