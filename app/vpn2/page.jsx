@@ -1688,6 +1688,7 @@ export default function Home() {
         <Typography
           variant="h4"
           align="center"
+          color="blue"
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
@@ -1709,10 +1710,11 @@ export default function Home() {
         >
           <Box sx={{ml: 3, mr: 3}}>
             <Typography
-              variant="caption"
+              variant="subtitle2"
               align= "justify"
+              color="blue"
               gutterBottom
-              sx={{ mt: 3, width: "calc(100% - 32px)", ml: 0, mr: 4 }}
+              sx={{ mt: 0, width: "calc(100% - 32px)", ml: 0, mr: 4 }}
             >
             1)	El usuario solicitante puede tramitar este formato las veces que sea necesario, según sus necesidades. Los servicios solicitados son acumulados a los existentes. Es responsabilidad del solicitante, indicar correctamente el movimiento (A, B, C) de los servicios especificados tomando en cuenta su historial de solicitudes.<br />
             2)	El Enlace Informático de la unidad administrativa solicitante, será quien gestione y de seguimiento a la solicitud de servicios de Red Privada Virtual (VPN) del personal de su unidad. <br />
@@ -1723,7 +1725,7 @@ export default function Home() {
             7)	El servicio de VPN, solo permitirá por cada usuario, una conexión desde un dispositivo remoto, por lo que no será posible tener 2 o más conexiones simultáneas para una misma cuenta.<br />
             8)	La sesión establecida será automáticamente cerrada transcurridos 10 minutos de inactividad. El usuario deberá repetir el proceso de inicio de sesión para conectarse a la red de la CONAGUA. Está prohibido usar cualquier proceso o software para mantener la sesión activa.<br />
             9)	El usuario autorizado de VPN acepta que al hacer uso del servicio de VPN mediante cualquier tipo de conexión, es de su exclusiva responsabilidad el costo que ello genere.<br />
-            10)	El equipo proporcionado por la CONAGUA ya cuenta con los elementos de seguridad necesarios para operar dentro de la red interna (actualizaciones del sistema operativo, actualizaciones de aplicaciones, software antimalware), pero es obligación del usuario autorizado verificar que estos elementos se encuentren actualizados. En el caso de equipo per-sonal, es responsabilidad del usuario autorizado ejecutar y mantener actualizado el sistema operativo, las aplicaciones instaladas y tener activos los elementos de seguridad como: Antivirus/Antimalware, corta fuego o firewall, protección de cuentas, seguridad del dispositivo, control de aplicaciones y exploradores entre otros que ofrezca el sistema ope-rativo o sean instalados de manera independiente.
+            10)	El equipo proporcionado por la CONAGUA ya cuenta con los elementos de seguridad necesarios para operar dentro de la red interna (actualizaciones del sistema operativo, actualizaciones de aplicaciones, software antimalware), pero es obligación del usuario autorizado verificar que estos elementos se encuentren actualizados. En el caso de equipo per-sonal, es responsabilidad del usuario autorizado ejecutar y mantener actualizado el sistema operativo, las aplicaciones instaladas y tener activos los elementos de seguridad como: Antivirus/Antimalware, corta fuego o firewall, protección de cuentas, seguridad del dispositivo, control de aplicaciones y exploradores entre otros que ofrezca el sistema ope-rativo o sean instalados de manera independiente.<br />
             11)	Si el usuario autorizado hace uso de su equipo personal para acceder a los servicios de la red interna de la CONAGUA mediante el uso de los servicios de VPN, acepta conocer y cumplir con las políticas, normas y disposiciones en mate-ria de seguridad de la información que aplican para los equipos que proporciona la CONAGUA.
             </Typography>
           </Box>
