@@ -3485,7 +3485,8 @@ export default function Home() {
                     justifyContent: "center",
                     mt: 2,
                     ml: 10,
-                    mr:10
+                    mr:10,
+                    mb:3,
                     //mx: "auto"
                   }}
                 >
