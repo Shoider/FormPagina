@@ -9,6 +9,7 @@ import {
   TextField,
   Button,
   FormControlLabel,
+  FormHelperText,
   FormLabel,
   Divider,
   FormGroup,
@@ -3495,7 +3496,7 @@ export default function Home() {
                   ].map((item, index) => (
                     <Box
                       key={index}
-                      sx={{ width: "100%", minWidth: "60px",textAlign:"center"}}
+                      sx={{ width: "100%", minWidth: "60px",textAlign:"left"}}
                     >
                       <FormControlLabel
                         control={
@@ -3511,6 +3512,19 @@ export default function Home() {
                       
                     </Box>
                   ))}
+                  <FormHelperText
+                    sx={{
+                      ml: 2,
+                      mr: 2,
+                      mb: 1,
+                      mt: 2,
+                      justifyContent: "center",
+                      color: "red",
+                      display: errors?.politicasaceptadas ? "block" : "none",
+                    }}
+                  >
+                    {errors?.politicasaceptadas}
+                  </FormHelperText>
                   
                 </Box>
           </Box>
