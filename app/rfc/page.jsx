@@ -3455,6 +3455,8 @@ export default function Home() {
                 autoComplete="off"
                 onSubmit={handleSubmit}
               >
+
+                <Box sx={{ml: 3, mr: 3}}>
                 <Typography
                   variant="caption"
                   align="center"
@@ -3474,7 +3476,7 @@ export default function Home() {
                  {" •	Es responsabilidad de los Administradores documentar el control de accesos de cada servidor en su respectiva Memoria Técnica, actualizando la misma periódicamente cada 2, 3, 4 0 6 meses."}<br />
                  {" •	Al firmar el solicitante se da por enterado de las políticas del servicio y acepta la responsabilidad de cualquier materialización de los riesgos derivados de las aperturas de comunicaciones asociadas al presente control de cambios."}<br />
                 </Typography>
-                
+                </Box>
                 <Box
                   sx={{
                     display: "flex",
