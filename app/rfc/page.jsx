@@ -156,6 +156,10 @@ export default function Home() {
     AltaOtro: altaOtroIsTrue,
     BajaOtro: bajaOtroIsTrue,
     CambioOtro: cambioOtroIsTrue,
+    
+
+    //POLITICAS
+    politicasaceptadas: false,
   });
 
   const Movimientoid = [
@@ -530,6 +534,19 @@ export default function Home() {
         }
       };
 
+///POLITICAS Y SERVICIOS
+  const savePoliticas = async (event) => {
+    const { name, type, checked } = event.target;
+    const isChecked = type === "checkbox" ? checked : false;
+
+    setFormData((prevFormData) => {
+      const updatedData = {
+        ...prevFormData,
+        [name]: isChecked, // Actualiza el valor del checkbox
+      };
+      return updatedData;
+    });
+  };
 
   //  VALIDADORES
 
@@ -3393,39 +3410,108 @@ export default function Home() {
         
       </Box>
 
-      {/* POLITICAS */}
-        <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-          {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-        AUTORIZA
-        </Typography>
-
-        </Box>
-          
+     {/* Datos de Politicas */}
+      {/* Form Box Responsive */}
+      <Box
+              component="section"
+              sx={{
+                mx: "auto",
+                width: "calc(100% - 32px)",
+                border: "2px solid grey",
+                mt: 2,
+                mb: 3,
+                p: 2,
+                borderRadius: 2,
+                background: "#F4F4F5",
+                padding: "0 8px",
+                "@media (min-width: 960px)": {
+                  maxWidth: "50.00%",
+                  width: "auto",
+                  margin: "2rem auto",
+                  padding: "2",
+                },
+              }}
+            >
+              {/* SubTitle */}
+              <Typography
+                variant="h4"
+                align="center"
+                gutterBottom
+                sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+              >
+                Políticas del servicio
+              </Typography>
+              <Box
+                component="form"
+                sx={{
+                  "& .MuiTextField-root": {
+                    mt: 2,
+                    width: "calc(100% - 32px)",
+                    ml: 20,
+                    mr: 90,
+                  },
+                }}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+              >
+                <Typography
+                  variant="caption"
+                  align="center"
+                  gutterBottom
+                  sx={{ mt: 10, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
+                >
+                 {" •	El solicitante deberá presentar este formato adjuntando el Memorando o Atenta nota y número de ticket de Mesa de ayuda asociado, sin los cuales no se podrá atender su solicitud. "}<br />
+                 {" •	El formato deberá estar debidamente llenado y contener toda la información requerida facilitando la aplicación expedita de las configuraciones solicitadas. Es responsabilidad del solicitante recabar la información con los Administradores de los sistemas o Áreas involucrados (Subgerencia de Sistemas y/o Subgerencia de Internet e Intranet)."}<br />
+                 {" •	El solicitante deberá proporcionar la dirección IP física y si utiliza dirección NAT agregarlo por cada servidor involucrado, no siendo responsabilidad de la SSTTS si al establecer la comunicación no conecta por falta de este dato. De no proporcionarse la dirección IP NAT correcta, las reglas de cortafuegos se configurarán por defecto con la dirección IP del adaptador de red de los servidores y corresponderá al Administrador del sistema aplicar los cambios en el sistema o servidores para establecer la comunicación."}<br />
+                 {" •	El solicitante tiene la obligación de indicar si se trata de un traslado de permisos de una dirección IP a otra."}<br />
+                 {" •	Para el traslado de permisos de una dirección IP a otra, se deberá llenar la sección de BAJAS con los permisos de la dirección IP anterior que se darán de baja, además de llenar la sección de ALTAS / CAMBIOS con los permisos que se requieren trasladar."}<br />
+                 {" •	Si el solicitante NO indica que se trata de un traslado de permisos, éste será responsable de cualquier acceso no autorizado que se derive de los permisos de la dirección IP anterior debido a no haber solicitado la baja correspondiente de dichos accesos."}<br />
+                 {" •	Es responsabilidad de los administradores de cada sistema llevar un control de las direcciones IP’s con acceso al sistema que administra."}<br />
+                 {" •	Es responsabilidad de los administradores de cada sistema documentar el control de accesos en la Memoria Técnica. Se sugiere actualizarla periódicamente cada 2, 3, 4 o 6 meses."}<br />
+                 {" •	Es responsabilidad de los administradores de cada servidor llevar un control de las direcciones IP’s con acceso al servidor que administra."}<br />
+                 {" •	La solicitud para cambios en la infraestructura de seguridad (RFCs) será solicitada únicamente por los Administradores de cada sistema una vez que se apliquen los permisos de acceso en el propio sistema y aperturen los accesos en los cortafuegos locales de los servidores involucrados."}<br />
+                 {" •	Es responsabilidad de los Administradores documentar el control de accesos de cada servidor en su respectiva Memoria Técnica, actualizando la misma periódicamente cada 2, 3, 4 0 6 meses."}<br />
+                 {" •	Al firmar el solicitante se da por enterado de las políticas del servicio y acepta la responsabilidad de cualquier materialización de los riesgos derivados de las aperturas de comunicaciones asociadas al presente control de cambios."}<br />
+                </Typography>
+                
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    mt: 2,
+                    ml: 10,
+                    mr:10
+                    //mx: "auto"
+                  }}
+                >
+                  {[
+                    { name: "politicasaceptadas", label: "He leído las políticas del servicio y acepto la responsabilidad de cualquier materialización de los riesgos derivados de las aperturas de comunicaciones asociadas al presente documento." },
+                  ].map((item, index) => (
+                    <Box
+                      key={index}
+                      sx={{ width: "100%", minWidth: "60px",textAlign:"center"}}
+                    >
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={formData[item.name]}
+                            onChange={savePoliticas}
+                            name={item.name}
+                            color="primary"
+                          />
+                        }
+                        label={item.label}
+                      />
+                      
+                    </Box>
+                  ))}
+                  
+                </Box>
+          </Box>
+          </Box>
 
       {/* Enviar Informacion */}
       {/* Box Responsive */}
