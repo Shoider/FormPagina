@@ -301,7 +301,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true
     },
-    {
+    /* {
       field: "actions",
       type: "actions",
       headerName: "Actions",
@@ -350,7 +350,7 @@ function EditableTableDes({ initialData, onDataChange }) {
           />,
         ];
       },
-    },
+    }, */
   ];
 
   React.useEffect(() => {

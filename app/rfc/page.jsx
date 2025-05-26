@@ -395,45 +395,66 @@ export default function Home() {
 
   const validarCamposRequeridos = (Data) => {
     const errores = {};
-    let isValid = true;
-    for (const key in Data) {
-      if (Data.hasOwnProperty(key) && !Data[key]) {
-        if (
-          key !== "desotro" && 
-          key !== "justifica" && 
-          key !== "justifica2" &&
-          key !== "justifica3" &&
-          key !== "intersistemas" &&
-          key !== "administrador" &&
-          key !== "desarrollador" &&
-          key !== "usuario" &&
-          key !== "otro" &&
-          key !== "AltaInter" &&
-          key !== "BajaInter" &&
-          key !== "CambioInter" &&
-          key !== "AltaAdmin" &&
-          key !== "BajaAdmin" &&
-          key !== "CambioAdmin" &&
-          key !== "AltaDes" &&
-          key !== "BajaDes" &&
-          key !== "CambioDes" &&
-          key !== "AltaUsua" &&
-          key !== "BajaUsua" &&
-          key !== "CambioUsua" &&
-          key !== "AltaOtro" &&
-          key !== "BajaOtro" &&
-          key !== "CambioOtro" &&
-          key !== "soli" &&
-          key !== "enlace"
-        ) {
-          //console.log("Campo requerido: ", key);
-          errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
-          isValid = false; // Al menos un campo está vacío
-        }
-      }
+    let isValid = true; // Asumimos que es válido al principio
+
+    // Lógica para los campos de justificación
+    const justifica = Data.justifica; // Asumiendo que el campo se llama justifica1 ahora
+    const justifica2 = Data.justifica2; // Asumiendo que el campo se llama justifica2
+    const justifica3 = Data.justifica3; // Asumiendo que el campo se llama justifica3
+
+    // Verifica si al menos uno de los campos de justificación está lleno
+    if (!justifica && !justifica2 && !justifica3) {
+        // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
+        errores.justifica = "Al menos uno de los campos de justificación es requerido";;
+        errores.justifica2 = "Al menos uno de los campos de justificación es requerido";;
+        errores.justifica3 = "Al menos uno de los campos de justificación es requerido";;
+        isValid = false;
     }
-    return [isValid, errores]; // Todos los campos están llenos
-  };
+
+
+    // Lógica para los demás campos requeridos
+    for (const key in Data) {
+        // Excluir campos que ya tienen su lógica de validación especial (como las justificaciones)
+        // y los que no son requeridos o se validan de otra forma.
+        if (
+            key !== "desotro" &&
+            key !== "justifica" && // Excluir justifica1 aquí
+            key !== "justifica2" && // Excluir justifica2 aquí
+            key !== "justifica3" && // Excluir justifica3 aquí
+            key !== "intersistemas" &&
+            key !== "administrador" &&
+            key !== "desarrollador" &&
+            key !== "usuario" &&
+            key !== "otro" &&
+            key !== "AltaInter" &&
+            key !== "BajaInter" &&
+            key !== "CambioInter" &&
+            key !== "AltaAdmin" &&
+            key !== "BajaAdmin" &&
+            key !== "CambioAdmin" &&
+            key !== "AltaDes" &&
+            key !== "BajaDes" &&
+            key !== "CambioDes" &&
+            key !== "AltaUsua" &&
+            key !== "BajaUsua" &&
+            key !== "CambioUsua" &&
+            key !== "AltaOtro" &&
+            key !== "BajaOtro" &&
+            key !== "CambioOtro" &&
+            key !== "soli" &&
+            key !== "enlace" &&
+            Data.hasOwnProperty(key) // Asegúrate de que la propiedad pertenece al objeto
+        ) {
+            // Si el campo es requerido y está vacío
+            if (!Data[key]) {
+                errores[key] = "Este campo es requerido";
+                isValid = false;
+            }
+        }
+    }
+
+    return [isValid, errores];
+};
 
   // Llamada API
   const handleSubmit = async (event) => {
@@ -443,6 +464,7 @@ export default function Home() {
 
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
+    //console.log(errors)
 
     if (!isValid) {
       setAlert({
@@ -1012,7 +1034,7 @@ export default function Home() {
                 mx: "auto",
               }}
             >
-              Tipo de Usuario *
+              Tipo de Cambio *
             </FormLabel>
             <Box
             sx={{
@@ -3303,6 +3325,7 @@ export default function Home() {
         >
           <TextField
             //required
+            error={!!errors?.justifica}
             id="justifica"
             name="justifica"
             label="Referencias a la documentación"
@@ -3314,6 +3337,7 @@ export default function Home() {
           />
           <TextField
             //required
+            error={!!errors?.justifica3}
             id="justifica3"
             name="justifica3"
             label="Razón ó Motivo"
@@ -3325,6 +3349,7 @@ export default function Home() {
           />
           <TextField
             //required
+            error={!!errors?.justifica2}
             id="justifica2"
             name="justifica2"
             label="Objetivo"
@@ -3334,6 +3359,17 @@ export default function Home() {
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
+        </Box>
+        <Box sx={{ml: 3, mb: 3, mx: "auto", alignItems: "center", display: "flex", justifyContent: "center"}}>
+          <FormHelperText
+            sx={{
+              color: "red",
+              textAlign: "center", // Opcional, mejora el centrado del texto
+              //display: errors?.justifica ? "block" : "none",
+            }}
+          >
+            {errors?.justifica}
+          </FormHelperText>
         </Box>
       </Box>
 
@@ -3387,7 +3423,7 @@ export default function Home() {
             error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
-            label="Nombre de Gerente ó Director Local"
+            label="Nombre de gerente ó director local"
             placeholder="Escribe el nombre completo del gerente o director local"
             value={formData.nombreJefe}
             onChange={handleChange}
@@ -3399,8 +3435,8 @@ export default function Home() {
             error={!!errors?.puestoJefe}
             id="puestoJefe"
             name="puestoJefe"
-            label="Puesto ó Cargo del que Autoriza"
-            placeholder="Escribe el puesto o cargo del que autoriza"
+            label="Puesto ó cargo de quien autoriza"
+            placeholder="Escribe el puesto o cargo de quien autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -3437,9 +3473,10 @@ export default function Home() {
                 variant="h4"
                 align="center"
                 gutterBottom
+                color="blue"
                 sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
               >
-                Políticas del servicio
+                POLÍTICAS DEL SERVICIO
               </Typography>
               <Box
                 component="form"
@@ -3461,13 +3498,14 @@ export default function Home() {
                   variant="caption"
                   align="center"
                   gutterBottom
+                  color="blue"
                   sx={{ mt: 10, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
                 >
                  {" •	El solicitante deberá presentar este formato adjuntando el Memorando o Atenta nota y número de ticket de Mesa de ayuda asociado, sin los cuales no se podrá atender su solicitud. "}<br />
                  {" •	El formato deberá estar debidamente llenado y contener toda la información requerida facilitando la aplicación expedita de las configuraciones solicitadas. Es responsabilidad del solicitante recabar la información con los Administradores de los sistemas o Áreas involucrados (Subgerencia de Sistemas y/o Subgerencia de Internet e Intranet)."}<br />
                  {" •	El solicitante deberá proporcionar la dirección IP física y si utiliza dirección NAT agregarlo por cada servidor involucrado, no siendo responsabilidad de la SSTTS si al establecer la comunicación no conecta por falta de este dato. De no proporcionarse la dirección IP NAT correcta, las reglas de cortafuegos se configurarán por defecto con la dirección IP del adaptador de red de los servidores y corresponderá al Administrador del sistema aplicar los cambios en el sistema o servidores para establecer la comunicación."}<br />
                  {" •	El solicitante tiene la obligación de indicar si se trata de un traslado de permisos de una dirección IP a otra."}<br />
-                 {" •	Para el traslado de permisos de una dirección IP a otra, se deberá llenar la sección de BAJAS con los permisos de la dirección IP anterior que se darán de baja, además de llenar la sección de ALTAS / CAMBIOS con los permisos que se requieren trasladar."}<br />
+                 {" •	Para el traslado de permisos de una dirección IP a otra, se deberá llenar la sección de BAJAS con los permisos de la dirección IP anterior que se darán de baja, además de llenar la sección de ALTAS con los permisos que se requieren trasladar."}<br />
                  {" •	Si el solicitante NO indica que se trata de un traslado de permisos, éste será responsable de cualquier acceso no autorizado que se derive de los permisos de la dirección IP anterior debido a no haber solicitado la baja correspondiente de dichos accesos."}<br />
                  {" •	Es responsabilidad de los administradores de cada sistema llevar un control de las direcciones IP’s con acceso al sistema que administra."}<br />
                  {" •	Es responsabilidad de los administradores de cada sistema documentar el control de accesos en la Memoria Técnica. Se sugiere actualizarla periódicamente cada 2, 3, 4 o 6 meses."}<br />
@@ -3491,11 +3529,11 @@ export default function Home() {
                   }}
                 >
                   {[
-                    { name: "politicasaceptadas", label: "He leído las políticas del servicio y acepto la responsabilidad de cualquier materialización de los riesgos derivados de las aperturas de comunicaciones asociadas al presente documento." },
+                    { name: "politicasaceptadas", label: "He leído y acepto las políticas del servicio" },
                   ].map((item, index) => (
                     <Box
                       key={index}
-                      sx={{ width: "100%", minWidth: "60px",textAlign:"left"}}
+                      sx={{ width: "100%", minWidth: "60px",textAlign:"center"}}
                     >
                       <FormControlLabel
                         control={
