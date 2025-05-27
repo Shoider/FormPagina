@@ -396,6 +396,7 @@ export default function Home() {
   const validarCamposRequeridos = (Data) => {
     const errores = {};
     let isValid = true; // Asumimos que es válido al principio
+    let isValidTabla = true;
 
     // Lógica para los campos de justificación
     const justifica = Data.justifica; // Asumiendo que el campo se llama justifica1 ahora
@@ -409,6 +410,254 @@ export default function Home() {
         errores.justifica2 = "Al menos uno de los campos de justificación es requerido";;
         errores.justifica3 = "Al menos uno de los campos de justificación es requerido";;
         isValid = false;
+    }
+///VALIDADOR DE QUE GUARDA RESGITRSO EN INTERSISTEMAS
+//ALTA INTERSISTEMAS
+    if (Data.intersistemas && Data.AltaInter) {
+    if (!Array.isArray(Data.registrosInterAltas) || Data.registrosInterAltas.length === 0) {
+      //errores.registrosInterAltas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosInterAltas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosInterAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+  //BAJA INTERISTEMAS
+    if (Data.intersistemas && Data.BajaInter) {
+    if (!Array.isArray(Data.registrosInterBajas) || Data.registrosInterBajas.length === 0) {
+      //errores.registrosInterBajas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosInterBajas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosInterBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Bajas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+    //CAMBIO ALTA INTERSISTEMAS
+    if (Data.intersistemas && Data.CambioInter) {
+    if (!Array.isArray(Data.registrosInterCambiosAltas) || Data.registrosInterCambiosAltas.length === 0) {
+      //errores.registrosInterAltas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosInterCambiosAltas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosInterCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+    //CAMBIO BAJA INTERSISTEMAS
+    if (Data.intersistemas && Data.CambioInter) {
+    if (!Array.isArray(Data.registrosInterCambiosBajas) || Data.registrosInterCambiosBajas.length === 0) {
+      //errores.registrosInterCambiosBajas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosInterCambiosBajas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosInterCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+
+////validador de guardado de registros administrador
+//altas ADMINISTRADOR 
+    if (Data.administrador && Data.AltaAdmin) {
+    if (!Array.isArray(Data.registrosAdminAltas) || Data.registrosAdminAltas.length === 0) {
+      //errores.registrosAdminAltas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosAdminAltas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosAdminAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+    ///bajas ADMINISTRADOR 
+    if (Data.administrador && Data.BajaAdmin) {
+    if (!Array.isArray(Data.registrosAdminBajas) || Data.registrosAdminBajas.length === 0) {
+      //errores.registrosAdminBajas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosAdminBajas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosAdminBajas${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Bajas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+    //cambiosaltas ADMINISTRADOR 
+    if (Data.administrador && Data.CambioAdmin) {
+    if (!Array.isArray(Data.registrosAdminCambiosAltas) || Data.registrosAdminCambiosAltas.length === 0) {
+      //errores.registrosAdminCambiosAltas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosAdminCambiosAltas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosAdminCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+    //CAMBIO BAJA ADMINISTRADOR
+    if (Data.administrador && Data.CambioAdmin) {
+    if (!Array.isArray(Data.registrosAdminCambiosBajas) || Data.registrosAdminCambiosBajas.length === 0) {
+      //errores.registrosAdminCambiosBajas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosAdminCambiosBajas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosAdminCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+
+    ///validador de guardado de registros DESARROLADOR 
+    //ALTA DESARROLLADOR 
+    if (Data.desarrollador && Data.AltaDes) {
+    if (!Array.isArray(Data.registrosDesAltas) || Data.registrosDesAltas.length === 0) {
+      //errores.registrosDesAltas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosDesAltas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosDesAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+    ///BAJA DESARROLLADOR 
+    if (Data.desarrollador && Data.BajaDes) {
+    if (!Array.isArray(Data.registrosDesBajas) || Data.registrosDesBajas.length === 0) {
+      //errores.registrosInterBajas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosDesBajas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosInterBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Bajas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+    //CAMBIOALTA DESARROLLADOR
+    if (Data.desarrollador && Data.CambioDes) {
+    if (!Array.isArray(Data.registrosDesCambiosAltas) || Data.registrosDesCambiosAltas.length === 0) {
+      //errores.registrosInterAltas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosDesCambiosAltas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosDesCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+    //CAMBIObaja
+    if (Data.desarrollador && Data.CambioDes) {
+    if (!Array.isArray(Data.registrosInterCambiosBajas) || Data.registrosInterCambiosBajas.length === 0) {
+      //errores.registrosInterCambiosBajas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosInterCambiosBajas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosInterCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+
+    //validador de guardado de registros USUARIO
+
+    //ALTA USUARIO
+    if (Data.usuario && Data.AltaUsua) {
+    if (!Array.isArray(Data.registrosUsuaAltas) || Data.registrosUsuaAltas.length === 0) {
+      //errores.registrosUsuaAltas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosUsuaAltas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosUsuaAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+    ///BAJA
+    if (Data.usuario && Data.BajaUsua) {
+    if (!Array.isArray(Data.registrosUsuaBajas) || Data.registrosUsuaBajas.length === 0) {
+      //errores.registrosInterBajas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosUsuaBajas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosInterBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Bajas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+    //CAMBIOALTA
+    if (Data.usuario && Data.CambioUsua) {
+    if (!Array.isArray(Data.registrosUsuaCambiosAltas) || Data.registrosUsuaCambiosAltas.length === 0) {
+      //errores.registrosInterAltas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosUsuaCambiosAltas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosDesCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+    //CAMBIObaja
+    if (Data.usuario && Data.CambioUsua) {
+    if (!Array.isArray(Data.registrosUsuaCambiosBajas) || Data.registrosUsuaCambiosBajas.length === 0) {
+      //errores.registrosInterCambiosBajas = "Debe agregar al menos un registro en Altas Intersistemas";
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosUsuaCambiosBajas.forEach((row, idx) => {
+        if (!row.id || !row.IPO  /* agrega aquí los campos requeridos */) {
+          //errores[`registrosInterCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+          isValidTabla = false;
+        }
+      });
+    }
     }
 
 
@@ -453,7 +702,7 @@ export default function Home() {
         }
     }
 
-    return [isValid, errores];
+    return [isValid,isValidTabla, errores];
 };
 
   // Llamada API
@@ -462,7 +711,7 @@ export default function Home() {
 
     //console.log("Datos del formulario:", formData);
 
-    const [isValid, getErrors] = validarCamposRequeridos(formData);
+    const [isValid,isValidTabla, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
     //console.log(errors)
 
@@ -470,6 +719,21 @@ export default function Home() {
       setAlert({
         //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
         message: "Por favor, complete todos los campos requeridos.",
+        severity: "error",
+      });
+      setOpenAlert(true);
+      return;
+    } else {
+      setAlert({
+        message: "Informacion Registrada",
+        severity: "success",
+      });
+      setOpenAlert(true);
+    }
+    if (!isValidTabla) {
+      setAlert({
+        //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
+        message: "Por favor, guarde los registros.",
         severity: "error",
       });
       setOpenAlert(true);
@@ -1314,7 +1578,7 @@ export default function Home() {
           </Box>
           <FormLabel
             component="legend"
-            sx={{
+              sx={{
               mx: "auto",
               display: "flex",
               justifyContent: "center",
@@ -1322,7 +1586,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Presione ENTER para guardar.
+            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           
           <FormLabel
@@ -1406,7 +1670,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Presione ENTER para guardar.
+            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           
           <FormLabel
@@ -1547,7 +1811,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Presione ENTER para guardar.
+            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           
           <FormLabel
@@ -1746,7 +2010,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-           Presione ENTER para guardar.
+           GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -1829,7 +2093,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Presione ENTER para guardar.
+            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -1968,7 +2232,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Presione ENTER para guardar.
+            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2165,7 +2429,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Presione ENTER para guardar.
+            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2248,7 +2512,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Presione ENTER para guardar.
+            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2387,7 +2651,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-           Presione ENTER para guardar.
+           GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2583,7 +2847,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Presione ENTER para guardar.
+            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2666,7 +2930,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Presione ENTER para guardar.
+            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2805,7 +3069,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Presione ENTER para guardar.
+            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3001,7 +3265,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Presione ENTER para guardar.
+            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3084,7 +3348,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Presione ENTER para guardar.
+            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3223,7 +3487,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Presione ENTER para guardar.
+            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
           </FormLabel>
           <FormLabel
             component="legend"

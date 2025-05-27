@@ -108,6 +108,7 @@ function EditToolbar(props) {
   );
 }
 
+
 function EditableTableUsua({ initialData, onDataChange }) {
   const [rows, setRows] = useState(initialData || []);
   const [rowModesModel, setRowModesModel] = useState({});
@@ -397,7 +398,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true
     },
-    /* {
+     {
       field: "actions",
       type: "actions",
       headerName: "Actions",
@@ -446,7 +447,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
           />,
         ];
       },
-    }, */
+    }, 
   ];
 
   React.useEffect(() => {

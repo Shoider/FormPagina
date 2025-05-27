@@ -359,7 +359,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true
     },
-    /* {
+     {
       field: "actions",
       type: "actions",
       headerName: "Actions",
@@ -408,7 +408,7 @@ function EditableTableInter({ initialData, onDataChange }) {
           />,
         ];
       },
-    }, */
+    }, 
   ];
 
   React.useEffect(() => {
