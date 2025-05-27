@@ -774,11 +774,11 @@ export default function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("Datos del formulario:", formData);
+    //console.log("Datos del formulario:", formData);
 
     const [isValid,isValidTabla, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
-    console.log("Errores: ", errors)
+    //console.log("Errores: ", errors)
 
     if (!isValid) {
       setAlert({
