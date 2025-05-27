@@ -3914,7 +3914,9 @@ export default function Home() {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={botonEstado === "Cargando..."}
+            disabled={
+              botonEstado === "Cargando..." || !formData.politicasaceptadas
+            }
             {...(botonEstado === "Descargar PDF" && {
               href: pdfUrl,
               download: "RegistroRFC.pdf",
@@ -4087,7 +4089,9 @@ export default function Home() {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={botonEstado2 === "Cargando..."}
+            disabled={
+              botonEstado2 === "Cargando..."
+            }
             {...(botonEstado2 === "Descargar PDF" && {
               href: pdfUrl,
               download: "RegistroRFC.pdf",

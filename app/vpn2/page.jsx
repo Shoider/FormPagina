@@ -1869,7 +1869,9 @@ export default function Home() {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={botonEstado === "Cargando..."}
+            disabled={
+              botonEstado === "Cargando..." || !formData.politicasaceptadas
+            }
             {...(botonEstado === "Descargar PDF" && {
               href: pdfUrl,
               download: "RegistroVPNMayo.pdf",
