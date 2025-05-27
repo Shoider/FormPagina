@@ -733,7 +733,7 @@ export default function Home() {
     if (!isValidTabla) {
       setAlert({
         //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
-        message: "Por favor, guarde los registros.",
+        message: "Por favor, complete los registros de las tablas REGLAS/COMUNICACIONES.",
         severity: "error",
       });
       setOpenAlert(true);
