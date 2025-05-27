@@ -110,7 +110,7 @@ function EditableTableRemoto({ initialData, onDataChange }) {
 
    const handleRowEditStop = (params, event) => {
      if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-       event.defaultMuiPrevented = true;
+       //event.defaultMuiPrevented = true;
      }
    };
  

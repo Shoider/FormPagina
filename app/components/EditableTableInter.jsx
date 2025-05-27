@@ -121,7 +121,7 @@ function EditableTableInter({ initialData, onDataChange }) {
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-      event.defaultMuiPrevented = true;
+      //event.defaultMuiPrevented = true;
     }
   };
 
@@ -368,7 +368,7 @@ function EditableTableInter({ initialData, onDataChange }) {
      {
       field: "actions",
       type: "actions",
-      headerName: "Actions",
+      headerName: "Acciones",
       width: 150,
       align: "center",
       headerAlign: "center",

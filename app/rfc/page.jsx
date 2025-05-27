@@ -108,6 +108,9 @@ export default function Home() {
   const [cambioAltaOtroTableData, setCambioAltaOtroTableData] = useState([]);
   const [cambioBajaOtroTableData, setCambioBajaOtroTableData] = useState([]);
 
+  // Generar PDF
+  const [pdfUrl, setPdfUrl] = useState(null);
+
   // Estados para el formulario
   const [formData, setFormData] = useState({
     desotro: "",
@@ -174,10 +177,7 @@ export default function Home() {
     },
   ];
 
-  // Generar PDF
-  const [pdfUrl, setPdfUrl] = useState(null);
-
-  // API
+  // Gaurdar cambios
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
     setFormData((prevFormData) => ({
@@ -709,7 +709,7 @@ export default function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    //console.log("Datos del formulario:", formData);
+    console.log("Datos del formulario:", formData);
 
     const [isValid,isValidTabla, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
