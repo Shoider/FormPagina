@@ -108,6 +108,7 @@ function EditToolbar(props) {
   );
 }
 
+
 function EditableTableUsua({ initialData, onDataChange }) {
   const [rows, setRows] = useState(initialData || []);
   const [rowModesModel, setRowModesModel] = useState({});
@@ -119,7 +120,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
 
    const handleRowEditStop = (params, event) => {
      if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-       event.defaultMuiPrevented = true;
+       //event.defaultMuiPrevented = true;
      }
    };
  
@@ -407,10 +408,10 @@ function EditableTableUsua({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true
     },
-    /* {
+     {
       field: "actions",
       type: "actions",
-      headerName: "Actions",
+      headerName: "Acciones",
       width: 150,
       align: "center",
       headerAlign: "center",
@@ -456,7 +457,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
           />,
         ];
       },
-    }, */
+    }, 
   ];
 
   React.useEffect(() => {

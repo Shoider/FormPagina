@@ -120,7 +120,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-      event.defaultMuiPrevented = true;
+      //event.defaultMuiPrevented = true;
     }
   };
 
@@ -204,20 +204,23 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true,
        renderEditCell: (params) => {
-                    const handleBlur = () => {
-                      // Método universal para finalizar la edición
-                      if (params.api.stopCellEditMode) {
-                        // Para DataGrid v6+
-                        params.api.stopCellEditMode({ id: params.id, field: params.field });
-                      } else if (params.api.commitCellChange) {
-                        // Para algunas versiones anteriores
-                        params.api.commitCellChange({ id: params.id, field: params.field });
-                        params.api.setCellMode(params.id, params.field, 'view');
-                      } else {
-                        // Fallback seguro
-                        params.api.setCellMode(params.id, params.field, 'view');
-                      }
-                    };
+              const handleBlur = async (event) => {
+                if (params.api.setEditCellValue) {
+                  await params.api.setEditCellValue({
+                    id: params.id,
+                    field: params.field,
+                    value: event?.target?.value ?? params.value ?? '',
+                  }, event);
+                }
+                if (params.api.stopCellEditMode) {
+                  params.api.stopCellEditMode({ id: params.id, field: params.field });
+                } else if (params.api.commitCellChange) {
+                  params.api.commitCellChange({ id: params.id, field: params.field });
+                  params.api.setCellMode(params.id, params.field, 'view');
+                } else {
+                  params.api.setCellMode(params.id, params.field, 'view');
+                }
+              };
                 
                     return (
                       <Autocomplete
@@ -300,10 +303,10 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true
     },
-    /* {
+     {
       field: "actions",
       type: "actions",
-      headerName: "Actions",
+      headerName: "Acciones",
       width: 150,
       align: "center",
       headerAlign: "center",
@@ -349,7 +352,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
           />,
         ];
       },
-    }, */
+    }, 
   ];
 
   React.useEffect(() => {
