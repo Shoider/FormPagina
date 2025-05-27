@@ -403,6 +403,30 @@ export default function Home() {
     const justifica2 = Data.justifica2; // Asumiendo que el campo se llama justifica2
     const justifica3 = Data.justifica3; // Asumiendo que el campo se llama justifica3
 
+    // Quien Solicita
+    const enlace = Data.enlace;
+    const soli = Data.soli;
+
+    // Tipo de movimiento
+    const inter = Data.intersistemas
+    const admin = Data.administrador
+    const desa = Data.desarrollador
+    const usua = Data.usuario
+
+    // Tipo de Cambio para cada moviminento
+    const altaInter = Data.AltaInter
+    const bajaInter = Data.BajaInter
+    const cambioInter = Data.CambioInter
+    const altaAdmin = Data.AltaAdmin
+    const bajaAdmin = Data.BajaAdmin
+    const cambioAdmin = Data.CambioAdmin
+    const altaDes = Data.AltaDes
+    const bajaDes = Data.BajaDes
+    const cambioDes = Data.CambioDes
+    const altaUsua = Data.AltaUsua
+    const bajaUsua = Data.BajaUsua
+    const cambioUsua = Data.CambioUsua
+
     // Verifica si al menos uno de los campos de justificación está lleno
     if (!justifica && !justifica2 && !justifica3) {
         // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
@@ -411,8 +435,49 @@ export default function Home() {
         errores.justifica3 = "Al menos uno de los campos de justificación es requerido";;
         isValid = false;
     }
-///VALIDADOR DE QUE GUARDA RESGITRSO EN INTERSISTEMAS
-//ALTA INTERSISTEMAS
+    // Verifica si al menos uno de los campos de justificación está lleno
+    if (!enlace && !soli) {
+        // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
+        errores.solicita = "Al menos uno de los campos es requerido";;
+        isValid = false;
+    }
+    if (!inter && !admin && !desa && !usua) {
+        // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
+        errores.validaCambio = "Al menos uno de los campos es requerido";;
+        isValid = false;
+    }
+    // Validadores para el tipo de movimiento
+    if (inter) {
+      if (!altaInter && !bajaInter && !cambioInter) {
+        // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
+        errores.movimientoInter = "Al menos uno de los campos es requerido";;
+        isValid = false;
+      }
+    }
+    if (admin) {
+      if (!altaAdmin && !bajaAdmin && !cambioAdmin) {
+        // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
+        errores.movimientoAdmin = "Al menos uno de los campos es requerido";;
+        isValid = false;
+      }
+    }
+    if (desa) {
+      if (!altaDes && !bajaDes && !cambioDes) {
+        // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
+        errores.movimientoDesa = "Al menos uno de los campos es requerido";;
+        isValid = false;
+      }
+    }
+    if (usua) {
+      if (!altaUsua && !bajaUsua && !cambioUsua) {
+        // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
+        errores.movimientoUsua = "Al menos uno de los campos es requerido";;
+        isValid = false;
+      }
+    }
+
+    ///VALIDADOR DE QUE GUARDA RESGITRSO EN INTERSISTEMAS
+    //ALTA INTERSISTEMAS
     if (Data.intersistemas && Data.AltaInter) {
     if (!Array.isArray(Data.registrosInterAltas) || Data.registrosInterAltas.length === 0) {
       //errores.registrosInterAltas = "Debe agregar al menos un registro en Altas Intersistemas";
@@ -709,11 +774,11 @@ export default function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("Datos del formulario:", formData);
+    //console.log("Datos del formulario:", formData);
 
     const [isValid,isValidTabla, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
-    //console.log(errors)
+    //console.log("Errores: ", errors)
 
     if (!isValid) {
       setAlert({
@@ -976,40 +1041,52 @@ export default function Home() {
           >
             * Puedes elegir ambos.
           </FormLabel>
-           <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      flexWrap: "wrap",
-                      mt: 2,
-                      ml: 10,
-                      mb: 1,
-                      mr:8,
-                    }}
-                  >
-                    {[
-                      { name: "enlace", label: "Enlace  Informático" },
-                      { name: "soli", label: "Usuario" },
-                      
-                    ].map((item, index) => (
-                      <Box
-                        key={index}
-                        sx={{ width: "50%", minWidth: "100px", textAlign: "center" }}
-                      >
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={formData[item.name]}
-                              onChange={saveCategorias}
-                              name={item.name}
-                              color="primary"
-                            />
-                          }
-                          label={item.label}
-                        />
-                      </Box>
-                    ))}
-                  </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              mt: 2,
+              ml: 10,
+              mb: 1,
+              mr:8,
+            }}
+          >
+            {[
+              { name: "enlace", label: "Enlace  Informático" },
+              { name: "soli", label: "Usuario" },
+              
+            ].map((item, index) => (
+              <Box
+                key={index}
+                sx={{ width: "50%", minWidth: "100px", textAlign: "center" }}
+              >
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={formData[item.name]}
+                      onChange={saveCategorias}
+                      name={item.name}
+                      color="primary"
+                    />
+                  }
+                  label={item.label}
+                />
+              </Box>
+            ))}
+            <FormHelperText
+            sx={{
+              mx: "auto",
+              mb: 1,
+              justifyContent: "center",
+              color: "red",
+              display: errors?.solicita ? "block" : "none",
+            }}
+          >
+            {errors?.solicita}
+          </FormHelperText>
+          </Box>
+          
         
       </Box>
       {/* Form Box Responsive */}
@@ -1369,6 +1446,16 @@ export default function Home() {
                 label="Otro"
               />
             </FormGroup>
+            <FormHelperText
+            sx={{
+              mx: "auto",
+              justifyContent: "center",
+              color: "red",
+              display: errors?.validaCambio ? "block" : "none",
+            }}
+          >
+            {errors?.validaCambio}
+          </FormHelperText>
             </Box>
             
             <Box
@@ -1531,6 +1618,19 @@ export default function Home() {
                 label="Cambio"
               />
             </FormGroup>
+            <FormHelperText
+              sx={{
+                //ml: 2,
+                //mr: 2,
+                mx: "auto",
+                mb: 1,
+                justifyContent: "center",
+                color: "red",
+                display: errors?.movimientoInter ? "block" : "none",
+              }}
+            >
+              {errors?.movimientoInter}
+            </FormHelperText>
           </Box>
 
         {/* Altas Tabla */}
@@ -1955,6 +2055,17 @@ export default function Home() {
               label="Cambio"
             />
           </FormGroup>
+          <FormHelperText
+            sx={{
+              mx: "auto",
+              mb: 1,
+              justifyContent: "center",
+              color: "red",
+              display: errors?.movimientoAdmin ? "block" : "none",
+            }}
+          >
+            {errors?.movimientoAdmin}
+          </FormHelperText>
         </Box>
 
         {/* Altas Tabla */}
@@ -2374,6 +2485,17 @@ export default function Home() {
               label="Cambio"
             />
           </FormGroup>
+          <FormHelperText
+            sx={{
+              mx: "auto",
+              mb: 1,
+              justifyContent: "center",
+              color: "red",
+              display: errors?.movimientoDesa ? "block" : "none",
+            }}
+          >
+            {errors?.movimientoDesa}
+          </FormHelperText>
         </Box>
 
         {/* Altas Tabla */}
@@ -2792,6 +2914,17 @@ export default function Home() {
               label="Cambio"
             />
           </FormGroup>
+          <FormHelperText
+            sx={{
+              mx: "auto",
+              mb: 1,
+              justifyContent: "center",
+              color: "red",
+              display: errors?.movimientoUsua ? "block" : "none",
+            }}
+          >
+            {errors?.movimientoUsua}
+          </FormHelperText>
         </Box>
 
         {/* Altas Tabla */}
