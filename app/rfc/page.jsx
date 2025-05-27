@@ -3737,7 +3737,7 @@ export default function Home() {
                 variant="h4"
                 align="center"
                 gutterBottom
-                color="blue"
+                color="#9F2241"
                 sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
               >
                 POLÍTICAS DEL SERVICIO
@@ -3759,11 +3759,11 @@ export default function Home() {
 
                 <Box sx={{ml: 3, mr: 3}}>
                 <Typography
-                  variant="caption"
-                  align="center"
+                  variant="subtitle2"
+                  align="justify"
                   gutterBottom
-                  color="blue"
-                  sx={{ mt: 10, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
+                  color="#9F2241"
+                  sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
                 >
                  {" •	El formato deberá estar debidamente llenado y contener toda la información requerida facilitando la aplicación expedita de las configuraciones solicitadas. Es responsabilidad del solicitante recabar la información con los Administradores de los sistemas o Áreas involucradas. "}<br />
                  {" •	El solicitante deberá presentar este formato adjuntando el Memorando o Atenta nota y número de ticket de Mesa de ayuda asociado, sin los cuales no se podrá atender su solicitud.  "}<br />
