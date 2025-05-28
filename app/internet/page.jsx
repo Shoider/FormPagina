@@ -110,6 +110,9 @@ export default function Home() {
     urlOtra4: "null",
     justificaOtra4: "null",
     otraC4: "null",
+
+    //POLITICAS
+    politicasaceptadas:false,
   });
 
   // CATEGORÍAS
@@ -367,6 +370,20 @@ export default function Home() {
       });
       setOpenAlert(true);
     }
+  };
+
+  ///POLITICAS Y SERVICIOS
+  const savePoliticas = async (event) => {
+    const { name, type, checked } = event.target;
+    const isChecked = type === "checkbox" ? checked : false;
+
+    setFormData((prevFormData) => {
+      const updatedData = {
+        ...prevFormData,
+        [name]: isChecked, // Actualiza el valor del checkbox
+      };
+      return updatedData;
+    });
   };
 
   //  VALIDADORES
@@ -2436,6 +2453,124 @@ export default function Home() {
         </FormLabel>
       </Box>
 
+      {/* Datos de Politicas */}
+            {/* Form Box Responsive */}
+            <Box
+                    component="section"
+                    sx={{
+                      mx: "auto",
+                      width: "calc(100% - 32px)",
+                      border: "2px solid grey",
+                      mt: 2,
+                      mb: 3,
+                      p: 2,
+                      borderRadius: 2,
+                      background: "#F4F4F5",
+                      padding: "0 8px",
+                      "@media (min-width: 960px)": {
+                        maxWidth: "50.00%",
+                        width: "auto",
+                        margin: "2rem auto",
+                        padding: "2",
+                      },
+                    }}
+                  >
+                    {/* SubTitle */}
+                    <Typography
+                      variant="h4"
+                      align="center"
+                      gutterBottom
+                      color="#9F2241"
+                      sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+                    >
+                      POLÍTICAS DEL SERVICIO
+                    </Typography>
+                    <Box
+                      component="form"
+                      sx={{
+                        "& .MuiTextField-root": {
+                          mt: 2,
+                          width: "calc(100% - 32px)",
+                          ml: 20,
+                          mr: 90,
+                        },
+                      }}
+                      noValidate
+                      autoComplete="off"
+                      onSubmit={handleSubmit}
+                    >
+      
+                      <Box sx={{ml: 3, mr: 3}}>
+                      <Typography
+                        variant="subtitle2"
+                        align="justify"
+                        gutterBottom
+                        color="#9F2241"
+                        sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
+                      >
+                       {" • Es responsabilidad de los servidores públicos, así como personal externo de los activos de información el adoptar las medidas que determine la CONAGUA para mantener y garantizar la seguridad de la Información, siendo la Gerencia de Tecnología de la Información y Comunicaciones la responsable de establecer los mecanismos que permitan garantizar la confidencialidad, integridad y disponibilidad de la Información. "}<br />
+                       {" • La Subgerencia de Internet e Intranet, adscrita a la Gerencia de Tecnología de la Información y Comunicaciones, como administrador del servicio es el área responsable de definir los lineamientos que deberán ser atendidos por todos los usuarios y administradores en la ampliación del servicio de navegación de internet. "}<br />
+                       {" • La Subgerencia de Internet e Intranet, será la responsable de implementar y garantizar la disponibilidad en todo momento del servicio. "}<br />
+                       {" • Los accesos para los servicios habilitados serán exclusivamente para los usuarios que tengan debidamente la justificación y que cumplan con el llenado del formato y su formalización mediante el memorándum correspondiente para hacer uso de ella. "}<br />
+                       {" • Es responsabilidad de quien autoriza los accesos solicitados y justificados anteriormente, así como la supervisión del correcto uso de los recursos, siendo la Subgerencia de Internet e Intranet el área responsable de la validación y supervisión periódica del buen uso de estos, lo anterior para salvaguardar el correcto funcionamiento de la infraestructura que soportan los servicios de la CONAGUA. "}<br />
+                       {" • Los usuarios con ampliación en la Navegación de Internet deben usar responsablemente el servicio de navegación web que es proporcionado por la Gerencia de Tecnología de la Información y Comunicaciones. "}<br />
+                       {" • Queda prohibido descargar y abrir páginas web o archivos sospechosos que puedan comprometer los equipos y la red. Para cualquier duda sobre algún sitio o página que represente actividad sospechosa, deberá hacer de conocimiento a la GTIC a través de la Mesa de Servicios. "}<br />
+                       {" • La violación, desatento u omisión de las políticas y procedimientos de Seguridad de la Información de la CONAGUA generan sanciones previstas en la Ley General de responsabilidades Administrativas; en la Ley del Servicio Profesional de Carrera en la Administración Pública Federal y demás disposiciones jurídicas aplicables."}<br />
+      
+                      </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          flexWrap: "wrap",
+                          justifyContent: "center",
+                          mt: 2,
+                          ml: 10,
+                          mr:10,
+                          mb:3,
+                          //mx: "auto"
+                        }}
+                      >
+                        {[
+                          { name: "politicasaceptadas", label: "He leído y acepto las políticas del servicio" },
+                        ].map((item, index) => (
+                          <Box
+                            key={index}
+                            sx={{ width: "100%", minWidth: "60px",textAlign:"center"}}
+                          >
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  checked={formData[item.name]}
+                                  onChange={savePoliticas}
+                                  name={item.name}
+                                  color="primary"
+                                />
+                              }
+                              label={item.label}
+                            />
+                            
+                          </Box>
+                        ))}
+                        <FormHelperText
+                          sx={{
+                            ml: 2,
+                            mr: 2,
+                            mb: 1,
+                            mt: 2,
+                            justifyContent: "center",
+                            color: "red",
+                            display: errors?.politicasaceptadas ? "block" : "none",
+                          }}
+                        >
+                          {errors?.politicasaceptadas}
+                        </FormHelperText>
+                        
+                      </Box>
+                </Box>
+                </Box>
+
       {/* Enviar Informacion */}
       {/* Box Responsive */}
       <Box
@@ -2521,7 +2656,7 @@ export default function Home() {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={botonEstado === "Cargando..."}
+            disabled={botonEstado === "Cargando..."|| !formData.politicasaceptadas}
             {...(botonEstado === "Descargar PDF" && {
               href: pdfUrl,
               download: "RegistroInternet.pdf",
