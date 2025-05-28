@@ -210,6 +210,17 @@ export default function Home() {
     const errores = {};
     let isValid = true;
 
+    const usua = Data.cuentaUsuario
+    const web = Data.accesoWeb
+    const remoto = Data.accesoRemoto
+
+    // Verifica si al menos uno de los campos de justificación está lleno
+    if (!usua && !web && !remoto) {
+        // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
+        errores.seleccion = "Al menos uno de los campos de justificación es requerido";;
+        isValid = false;
+    }
+
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
         // Excluir movimiento si cuentaUsuario es false
@@ -1326,18 +1337,17 @@ export default function Home() {
               
             </Box>
           ))}
-            {/*   <FormHelperText PENDIENTE
+           <FormHelperText
               sx={{
-                ml: 2,
-                mr: 2,
+                mx: "auto",
                 mb: 1,
                 justifyContent: "center",
                 color: "red",
-                display: errors?.cuentaUsuario ? "block" : "none",
+                display: errors?.seleccion ? "block" : "none",
               }}
             >
-              {errors?.cuentaUsuario}
-            </FormHelperText> */}
+              {errors?.seleccion}
+          </FormHelperText>
           
         </Box>
 

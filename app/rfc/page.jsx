@@ -1620,8 +1620,6 @@ export default function Home() {
             </FormGroup>
             <FormHelperText
               sx={{
-                //ml: 2,
-                //mr: 2,
                 mx: "auto",
                 mb: 1,
                 justifyContent: "center",
