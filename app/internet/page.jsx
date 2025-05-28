@@ -9,6 +9,7 @@ import {
   TextField,
   Button,
   FormControlLabel,
+    FormHelperText,
   FormLabel,
   Divider,
   Checkbox,
@@ -294,6 +295,29 @@ export default function Home() {
         }
       }
     }
+    const descarga =Data.descarga
+    const comercio =Data.comercio
+    const redes = Data.redes
+    const foros= Data.foros
+    const whats =Data.whats
+    const videos = Data.videos
+    const dropbox = Data.dropbox
+    const skype = Data.skype
+    const wetransfer =Data.wetransfer
+    const team = Data.team
+    const onedrive = Data.onedrive
+    const otra = Data.otra
+    const otra2=Data.otra2
+    const otra3=Data.otra3
+    const otra4=Data.otra4
+
+    // Verifica si al menos uno de los campos de categorías de navegación está lleno
+    if (!descarga && !comercio && !redes && !foros && !whats && !videos && !dropbox && !skype && !wetransfer && !team && !onedrive && !otra && !otra2 && !otra3 && !otra4) {
+        // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
+        errores.solicita = "Al menos uno de los campos es requerido";;
+        isValid = false;
+    }
+
     return [isValid, errores]; // Todos los campos están llenos
   };
 
@@ -1025,6 +1049,17 @@ export default function Home() {
               />
             </Box>
           ))}
+            <FormHelperText
+              sx={{
+                      mx: "auto",
+                      mb: 1,
+                      justifyContent: "center",
+                      color: "red",
+                      isplay: errors?.solicita ? "block" : "none",
+                  }}
+            >
+              {errors?.solicita}
+            </FormHelperText>
         </Box>
 
         <Divider
