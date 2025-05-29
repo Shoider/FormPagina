@@ -209,6 +209,7 @@ export default function Home() {
   const validarCamposRequeridos = (Data) => {
     const errores = {};
     let isValid = true;
+    let isValidTabla =true;
 
     const usua = Data.cuentaUsuario
     const web = Data.accesoWeb
@@ -238,8 +239,36 @@ export default function Home() {
         }
       }
     }
+    
+    ///VALIDADOR DE QUE GUARDA RESGITROS EN WEB
+    if (Data.accesoWeb ) {
+    if (!Array.isArray(Data.registrosWeb) || Data.registrosWeb.length === 0) {
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosWeb.forEach((row) => {
+        if (!row.url   /* agrega aquí los campos requeridos */) {
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+
+    ///VALIDADOR DE QUE GUARDA RESGITROS EN WEB
+    if (Data.accesoRemoto ) {
+    if (!Array.isArray(Data.registrosRemoto) || Data.registrosRemoto.length === 0) {
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosRemoto.forEach((row) => {
+        if (!row.direccion   /* agrega aquí los campos requeridos */) {
+          isValidTabla = false;
+        }
+      });
+    }
+    }
     console.log(errores)
-    return [isValid, errores];
+    return [isValid, isValidTabla, errores];
   };
 
   // Llamada API
@@ -247,7 +276,7 @@ export default function Home() {
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
 
-    const [isValid, getErrors] = validarCamposRequeridos(formData);
+    const [isValid,isValidTabla, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
 
     console.log("Lista getErrors en submit: ", getErrors)
@@ -267,6 +296,21 @@ export default function Home() {
       });
       setOpenAlert(true);
     }
+    if (!isValidTabla) {
+      setAlert({
+        message: "Por favor, complete la(s) tabla(s).",
+        severity: "error",
+      });
+      setOpenAlert(true);
+      return;
+    } else {
+      setAlert({
+        message: "Informacion Registrada",
+        severity: "success",
+      });
+      setOpenAlert(true);
+    }
+
 
     setBotonEstado("Cargando...");
 
@@ -1298,7 +1342,7 @@ export default function Home() {
                 fontSize: "0.8rem",
               }}
             >
-              Seleccione la opción(es) requeridas:
+              Seleccione la(s) opción(es) requeridas:
             </FormLabel>
           </Box>
         </Box>
