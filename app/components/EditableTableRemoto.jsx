@@ -5,6 +5,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import movimiento from "../constants/movimiento";
 import {
   GridRowModes,
   DataGrid,
@@ -166,6 +169,60 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+                   renderEditCell: (params) => {
+                          const handleBlur = async (event) => {
+                            if (params.api.setEditCellValue) {
+                              await params.api.setEditCellValue({
+                                id: params.id,
+                                field: params.field,
+                                value: event?.target?.value ?? params.value ?? '',
+                              }, event);
+                            }
+                            if (params.api.stopCellEditMode) {
+                              params.api.stopCellEditMode({ id: params.id, field: params.field });
+                            } else if (params.api.commitCellChange) {
+                              params.api.commitCellChange({ id: params.id, field: params.field });
+                              params.api.setCellMode(params.id, params.field, 'view');
+                            } else {
+                              params.api.setCellMode(params.id, params.field, 'view');
+                            }
+                          };
+            
+                      
+                          return (
+                            <Autocomplete
+                              disablePortal
+                              options={movimiento}
+                              sx={{ width: '100%'}}
+                              //freeSolo
+                              renderInput={(inputParams) => (
+                                <TextField 
+                                  {...inputParams} 
+                                  //label="Seleccionar"
+                                  variant="standard"
+                                  fullWidth
+                                />
+                              )}
+                              value={params.value || null}
+                              onChange={(event, newValue) => {
+                                if (params.api.setEditCellValue) {
+                                  params.api.setEditCellValue({
+                                    id: params.id,
+                                    field: params.field,
+                                    value: newValue || '',
+                                  });
+                                } else {
+                                  params.api.setCellValue(params.id, params.field, newValue || '');
+                                }
+                              }}
+                              onBlur={handleBlur}
+                              getOptionLabel={(option) => option || ''}
+                              isOptionEqualToValue={(option, value) => option === value}
+                            />
+                          );
+                        },
+                        renderCell: (params) => <span>{params.value || ''}</span>,
+      
     },
     {
       field: "nomenclatura",

@@ -12,6 +12,7 @@ import {
   RadioGroup,
   Radio,
   FormLabel,
+  Checkbox,
   Divider,
   MenuItem,
   FormHelperText,
@@ -70,6 +71,8 @@ export default function Home() {
     ala:"",
 
     usuaExterno: false, // Estado inicial como false
+    //politicas
+    politicasaceptadas:false,
   });
 
   const Tipos = [
@@ -184,6 +187,19 @@ export default function Home() {
     }
   };
 
+  ///POLITICAS Y SERVICIOS
+  const savePoliticas = async (event) => {
+    const { name, type, checked } = event.target;
+    const isChecked = type === "checkbox" ? checked : false;
+
+    setFormData((prevFormData) => {
+      const updatedData = {
+        ...prevFormData,
+        [name]: isChecked, // Actualiza el valor del checkbox
+      };
+      return updatedData;
+    });
+  };
   //  VALIDADORES
 
     const handleDireccion = (newValue) => {
@@ -1412,6 +1428,115 @@ export default function Home() {
           }}
         />
       </Box>
+      {/* Datos de Politicas */}
+            {/* Form Box Responsive */}
+            <Box
+                    component="section"
+                    sx={{
+                      mx: "auto",
+                      width: "calc(100% - 32px)",
+                      border: "2px solid grey",
+                      mt: 2,
+                      mb: 3,
+                      p: 2,
+                      borderRadius: 2,
+                      background: "#F4F4F5",
+                      padding: "0 8px",
+                      "@media (min-width: 960px)": {
+                        maxWidth: "50.00%",
+                        width: "auto",
+                        margin: "2rem auto",
+                        padding: "2",
+                      },
+                    }}
+                  >
+                    {/* SubTitle */}
+                    <Typography
+                      variant="h4"
+                      align="center"
+                      gutterBottom
+                      color="#9F2241"
+                      sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+                    >
+                      POLÍTICAS DEL SERVICIO
+                    </Typography>
+                    <Box
+                      component="form"
+                      sx={{
+                        "& .MuiTextField-root": {
+                          mt: 2,
+                          width: "calc(100% - 32px)",
+                          ml: 20,
+                          mr: 90,
+                        },
+                      }}
+                      noValidate
+                      autoComplete="off"
+                      onSubmit={handleSubmit}
+                    >
+      
+                      <Box sx={{ml: 3, mr: 3}}>
+                      <Typography
+                        variant="subtitle2"
+                        align="justify"
+                        gutterBottom
+                        color="#9F2241"
+                        sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
+                      >
+                       {" •   Aquí debrán de ir las políticas"}<br />
+                      </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          flexWrap: "wrap",
+                          justifyContent: "center",
+                          mt: 2,
+                          ml: 10,
+                          mr:10,
+                          mb:3,
+                          //mx: "auto"
+                        }}
+                      >
+                        {[
+                          { name: "politicasaceptadas", label: "He leído y acepto las políticas del servicio" },
+                        ].map((item, index) => (
+                          <Box
+                            key={index}
+                            sx={{ width: "100%", minWidth: "60px",textAlign:"center"}}
+                          >
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  checked={formData[item.name]}
+                                  onChange={savePoliticas}
+                                  name={item.name}
+                                  color="primary"
+                                />
+                              }
+                              label={item.label}
+                            />
+                            
+                          </Box>
+                        ))}
+                        <FormHelperText
+                          sx={{
+                            ml: 2,
+                            mr: 2,
+                            mb: 1,
+                            mt: 2,
+                            justifyContent: "center",
+                            color: "red",
+                            display: errors?.politicasaceptadas ? "block" : "none",
+                          }}
+                        >
+                          {errors?.politicasaceptadas}
+                        </FormHelperText>
+                        
+                      </Box>
+                </Box>
+                </Box>
 
       {/* Enviar Informacion */}
       {/* Box Responsive */}
@@ -1500,7 +1625,7 @@ export default function Home() {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={botonEstado === "Cargando..."}
+            disabled={botonEstado === "Cargando..." || !formData.politicasaceptadas}
             {...(botonEstado === "Descargar PDF" && {
               href: pdfUrl,
               download: "RegistroTelefonia.pdf",

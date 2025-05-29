@@ -37,6 +37,7 @@ import SyncIcon from '@mui/icons-material/Sync';
 // TABLAS
 import EditableTableWeb from "../components/EditableTableWeb.jsx";
 import EditableTableRemoto from "../components/EditableTableRemoto.jsx";
+import subgerencias from "../constants/subgerencias.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -209,6 +210,7 @@ export default function Home() {
   const validarCamposRequeridos = (Data) => {
     const errores = {};
     let isValid = true;
+    let isValidTabla =true;
 
     const usua = Data.cuentaUsuario
     const web = Data.accesoWeb
@@ -238,8 +240,36 @@ export default function Home() {
         }
       }
     }
+    
+    ///VALIDADOR DE QUE GUARDA RESGITROS EN WEB
+    if (Data.accesoWeb ) {
+    if (!Array.isArray(Data.registrosWeb) || Data.registrosWeb.length === 0) {
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosWeb.forEach((row) => {
+        if (!row.url   /* agrega aquí los campos requeridos */) {
+          isValidTabla = false;
+        }
+      });
+    }
+    }
+
+    ///VALIDADOR DE QUE GUARDA RESGITROS EN WEB
+    if (Data.accesoRemoto ) {
+    if (!Array.isArray(Data.registrosRemoto) || Data.registrosRemoto.length === 0) {
+      isValidTabla = false;
+    } else {
+      // Validar campos requeridos de cada registro
+      Data.registrosRemoto.forEach((row) => {
+        if (!row.direccion   /* agrega aquí los campos requeridos */) {
+          isValidTabla = false;
+        }
+      });
+    }
+    }
     console.log(errores)
-    return [isValid, errores];
+    return [isValid, isValidTabla, errores];
   };
 
   // Llamada API
@@ -247,7 +277,7 @@ export default function Home() {
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
 
-    const [isValid, getErrors] = validarCamposRequeridos(formData);
+    const [isValid,isValidTabla, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
 
     console.log("Lista getErrors en submit: ", getErrors)
@@ -267,6 +297,21 @@ export default function Home() {
       });
       setOpenAlert(true);
     }
+    if (!isValidTabla) {
+      setAlert({
+        message: "Por favor, complete la(s) tabla(s).",
+        severity: "error",
+      });
+      setOpenAlert(true);
+      return;
+    } else {
+      setAlert({
+        message: "Informacion Registrada",
+        severity: "success",
+      });
+      setOpenAlert(true);
+    }
+
 
     setBotonEstado("Cargando...");
 
@@ -379,6 +424,13 @@ export default function Home() {
     setFormData(prevFormData => ({
       ...prevFormData,
       unidadAdministrativaResponsable: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+
+  const handleSubgerencia = (newValue) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      subgerencia: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
 
@@ -581,7 +633,7 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-          <TextField
+          {/* <TextField
             required
             error={!!errors?.subgerencia}
             id="subgerencia"
@@ -592,21 +644,36 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
+          /> */}
+          <Autocomplete
+            disablePortal
+            options={subgerencias}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.subgerencia}
+                placeholder="Escriba ó seleccione la subgerencia o subdirección"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Subgerencia o Subdirección"
+              />
+            )}
+            id="subgerencia"
+            name="subgerencia"
+            onChange={(event, newValue) => {
+              handleSubgerencia(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === 'change') {
+                handleSubgerencia(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.subgerencia || ''} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ''}
+            isOptionEqualToValue={(option, value) => option === value}
           />
         </Box>
-
-        <FormLabel
-            component="legend"
-            sx={{
-              mt: 2,
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-            }}
-          >
-            Si en Subgerencia es SS, indicar como: Subgerencia de Sistemas
-          </FormLabel>
 
         <Divider
           sx={{
@@ -1298,7 +1365,7 @@ export default function Home() {
                 fontSize: "0.8rem",
               }}
             >
-              Seleccione la opción(es) requeridas:
+              Seleccione la(s) opción(es) requeridas:
             </FormLabel>
           </Box>
         </Box>
