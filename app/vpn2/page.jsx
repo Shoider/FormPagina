@@ -427,6 +427,13 @@ export default function Home() {
     }));
   };
 
+  const handleSubgerencia = (newValue) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      subgerencia: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+
   //Numeros de telefono
   const handleTelefonoEnlaceChange = (event) => {
     let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
@@ -655,11 +662,11 @@ export default function Home() {
             id="subgerencia"
             name="subgerencia"
             onChange={(event, newValue) => {
-              handleUA(newValue); // Maneja selección de opciones
+              handleSubgerencia(newValue); // Maneja selección de opciones
             }}
             onInputChange={(event, newInputValue) => {
               if (event?.type === 'change') {
-                handleUA(newInputValue); // Maneja texto escrito directamente
+                handleSubgerencia(newInputValue); // Maneja texto escrito directamente
               }
             }}
             inputValue={formData.subgerencia || ''} // Controla el valor mostrado
@@ -667,19 +674,6 @@ export default function Home() {
             isOptionEqualToValue={(option, value) => option === value}
           />
         </Box>
-
-        <FormLabel
-            component="legend"
-            sx={{
-              mt: 2,
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-            }}
-          >
-            Si en Subgerencia es SS, indicar como: Subgerencia de Sistemas
-          </FormLabel>
 
         <Divider
           sx={{
