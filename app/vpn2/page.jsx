@@ -37,6 +37,7 @@ import SyncIcon from '@mui/icons-material/Sync';
 // TABLAS
 import EditableTableWeb from "../components/EditableTableWeb.jsx";
 import EditableTableRemoto from "../components/EditableTableRemoto.jsx";
+import subgerencias from "../constants/subgerencias.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -426,6 +427,13 @@ export default function Home() {
     }));
   };
 
+  const handleSubgerencia = (newValue) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      subgerencia: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+
   //Numeros de telefono
   const handleTelefonoEnlaceChange = (event) => {
     let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
@@ -625,7 +633,7 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-          <TextField
+          {/* <TextField
             required
             error={!!errors?.subgerencia}
             id="subgerencia"
@@ -636,21 +644,36 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
+          /> */}
+          <Autocomplete
+            disablePortal
+            options={subgerencias}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.subgerencia}
+                placeholder="Escriba ó seleccione la subgerencia o subdirección"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Subgerencia o Subdirección"
+              />
+            )}
+            id="subgerencia"
+            name="subgerencia"
+            onChange={(event, newValue) => {
+              handleSubgerencia(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === 'change') {
+                handleSubgerencia(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.subgerencia || ''} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ''}
+            isOptionEqualToValue={(option, value) => option === value}
           />
         </Box>
-
-        <FormLabel
-            component="legend"
-            sx={{
-              mt: 2,
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-            }}
-          >
-            Si en Subgerencia es SS, indicar como: Subgerencia de Sistemas
-          </FormLabel>
 
         <Divider
           sx={{
