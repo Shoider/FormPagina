@@ -1270,7 +1270,7 @@ export default function Home() {
             //error={!!errors?.nomei}
             id="nomei"
             name="nomei"
-            label="Nombre completo"
+            label="Nombre Completo"
             placeholder="Nombre completo del enlace informático"
             value={formData.nomei}
             onChange={handleChange}
@@ -3850,7 +3850,7 @@ export default function Home() {
             error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
-            label="Nombre de gerente ó director local"
+            label="Nombre de Gerente ó Director Local"
             placeholder="Escribe el nombre completo del gerente o director local"
             value={formData.nombreJefe}
             onChange={handleChange}
@@ -3862,7 +3862,7 @@ export default function Home() {
             error={!!errors?.puestoJefe}
             id="puestoJefe"
             name="puestoJefe"
-            label="Puesto ó cargo de quien autoriza"
+            label="Puesto ó Cargo de Quien Autoriza"
             placeholder="Escribe el puesto o cargo de quien autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
@@ -4267,8 +4267,8 @@ export default function Home() {
               mr: 4,
               background:
                 botonEstado2 === "Descargar PDF"
-                  ? theme.palette.secondary.main
-                  : "#98989A",
+                  ? theme.palette.third.main
+                  : theme.palette.secondary.main,
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
@@ -4289,7 +4289,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
               ml: 2,
               mr: 4,
-              background: "#611232",
+              background: "#98989A",
               color: "#FFFFFF",
               border: "1px solid gray",
             }}

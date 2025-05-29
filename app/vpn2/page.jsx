@@ -1750,7 +1750,7 @@ export default function Home() {
             id="nombreAutoriza"
             name="nombreAutoriza"
             label="Nombre Completo"
-            placeholder="Gerente(a), Subgerente(a) o equivalente / Director(a) de Organismo / Director(a) Local"
+            placeholder="Gerente(a), subgerente(a) o equivalente / director(a) de organismo / director(a) local"
             value={formData.nombreAutoriza}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1762,7 +1762,7 @@ export default function Home() {
             id="puestoAutoriza"
             name="puestoAutoriza"
             label="Puesto o Cargo"
-            placeholder="Escriba el peusto o cargo de quien autoriza los servicios"
+            placeholder="Escriba el puesto o cargo de quien autoriza los servicios"
             value={formData.puestoAutoriza}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -2032,8 +2032,8 @@ export default function Home() {
               mr: 4,
               background:
                 botonEstado === "Descargar PDF"
-                  ? theme.palette.secondary.main
-                  : "#98989A",
+                  ? theme.palette.third.main
+                  : theme.palette.secondary.main,
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
@@ -2174,8 +2174,8 @@ export default function Home() {
               mr: 4,
               background:
                 botonEstado2 === "Descargar PDF"
-                  ? theme.palette.secondary.main
-                  : "#98989A",
+                  ? theme.palette.third.main
+                  : theme.palette.secondary.main,
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
@@ -2196,7 +2196,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
               ml: 2,
               mr: 4,
-              background: "#611232",
+              background: "#98989A",
               color: "#FFFFFF",
               border: "1px solid gray",
             }}

@@ -1628,8 +1628,8 @@ export default function Home() {
               mr: 4,
               background:
                 botonEstado === "Descargar PDF"
-                  ? theme.palette.secondary.main
-                  : "#98989A",
+                  ? theme.palette.third.main
+                  : theme.palette.secondary.main,
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
