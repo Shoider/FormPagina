@@ -78,7 +78,7 @@ function EditToolbar(props) {
     const id = nextId;
     setRows((oldRows) => [
       ...oldRows,
-      { 
+      {
         id,
         SO: "",
         IPO: "",
@@ -89,7 +89,7 @@ function EditToolbar(props) {
         PUER: "",
         TEMPO: "",
         FECHA: "",
-        isNew: true 
+        isNew: true,
       },
     ]);
     setRowModesModel((oldModel) => ({
@@ -108,7 +108,6 @@ function EditToolbar(props) {
   );
 }
 
-
 function EditableTableUsua({ initialData, onDataChange }) {
   const [rows, setRows] = useState(initialData || []);
   const [rowModesModel, setRowModesModel] = useState({});
@@ -118,45 +117,45 @@ function EditableTableUsua({ initialData, onDataChange }) {
       : 1,
   ); // Inicializamos nextId
 
-   const handleRowEditStop = (params, event) => {
-     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-       //event.defaultMuiPrevented = true;
-     }
-   };
- 
-   const handleEditClick = (id) => () => {
-     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-   };
- 
-   const handleSaveClick = (id) => () => {
-     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-   };
- 
-   const handleDeleteClick = (id) => () => {
-     setRows(rows.filter((row) => row.id !== id));
-   };
- 
-   const handleCancelClick = (id) => () => {
-     setRowModesModel({
-       ...rowModesModel,
-       [id]: { mode: GridRowModes.View, ignoreModifications: true },
-     });
- 
-     const editedRow = rows.find((row) => row.id === id);
-     if (editedRow.isNew) {
-       setRows(rows.filter((row) => row.id !== id));
-     }
-   };
- 
-   const processRowUpdate = (newRow) => {
-     const updatedRow = { ...newRow, isNew: false };
-     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-     return updatedRow;
-   };
- 
-   const handleRowModesModelChange = (newRowModesModel) => {
-     setRowModesModel(newRowModesModel);
-   };
+  const handleRowEditStop = (params, event) => {
+    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+      //event.defaultMuiPrevented = true;
+    }
+  };
+
+  const handleEditClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleSaveClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleDeleteClick = (id) => () => {
+    setRows(rows.filter((row) => row.id !== id));
+  };
+
+  const handleCancelClick = (id) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+  };
+
+  const processRowUpdate = (newRow) => {
+    const updatedRow = { ...newRow, isNew: false };
+    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    return updatedRow;
+  };
+
+  const handleRowModesModelChange = (newRowModesModel) => {
+    setRowModesModel(newRowModesModel);
+  };
   // Columnas optimizadas
   const columns = [
     {
@@ -176,33 +175,36 @@ function EditableTableUsua({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true,
       renderEditCell: (params) => {
-              const handleBlur = async (event) => {
-                if (params.api.setEditCellValue) {
-                  await params.api.setEditCellValue({
-                    id: params.id,
-                    field: params.field,
-                    value: event?.target?.value ?? params.value ?? '',
-                  }, event);
-                }
-                if (params.api.stopCellEditMode) {
-                  params.api.stopCellEditMode({ id: params.id, field: params.field });
-                } else if (params.api.commitCellChange) {
-                  params.api.commitCellChange({ id: params.id, field: params.field });
-                  params.api.setCellMode(params.id, params.field, 'view');
-                } else {
-                  params.api.setCellMode(params.id, params.field, 'view');
-                }
-              };
-    
+        const handleBlur = async (event) => {
+          if (params.api.setEditCellValue) {
+            await params.api.setEditCellValue(
+              {
+                id: params.id,
+                field: params.field,
+                value: event?.target?.value ?? params.value ?? "",
+              },
+              event,
+            );
+          }
+          if (params.api.stopCellEditMode) {
+            params.api.stopCellEditMode({ id: params.id, field: params.field });
+          } else if (params.api.commitCellChange) {
+            params.api.commitCellChange({ id: params.id, field: params.field });
+            params.api.setCellMode(params.id, params.field, "view");
+          } else {
+            params.api.setCellMode(params.id, params.field, "view");
+          }
+        };
+
         return (
           <Autocomplete
             disablePortal
             options={pisos}
-            sx={{ width: '100%'}}
+            sx={{ width: "100%" }}
             freeSolo
             renderInput={(inputParams) => (
-              <TextField 
-                {...inputParams} 
+              <TextField
+                {...inputParams}
                 //label="Seleccionar"
                 variant="standard"
                 fullWidth
@@ -214,19 +216,23 @@ function EditableTableUsua({ initialData, onDataChange }) {
                 params.api.setEditCellValue({
                   id: params.id,
                   field: params.field,
-                  value: newValue || '',
+                  value: newValue || "",
                 });
               } else {
-                params.api.setCellValue(params.id, params.field, newValue || '');
+                params.api.setCellValue(
+                  params.id,
+                  params.field,
+                  newValue || "",
+                );
               }
             }}
             onBlur={handleBlur}
-            getOptionLabel={(option) => option || ''}
+            getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
         );
       },
-      renderCell: (params) => <span>{params.value || ''}</span>,
+      renderCell: (params) => <span>{params.value || ""}</span>,
     },
     //{ field: 'FRO', headerName: 'Funcion ó Rol de Dispositivo(s) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: false },
     {
@@ -238,33 +244,36 @@ function EditableTableUsua({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true,
       renderEditCell: (params) => {
-              const handleBlur = async (event) => {
-                if (params.api.setEditCellValue) {
-                  await params.api.setEditCellValue({
-                    id: params.id,
-                    field: params.field,
-                    value: event?.target?.value ?? params.value ?? '',
-                  }, event);
-                }
-                if (params.api.stopCellEditMode) {
-                  params.api.stopCellEditMode({ id: params.id, field: params.field });
-                } else if (params.api.commitCellChange) {
-                  params.api.commitCellChange({ id: params.id, field: params.field });
-                  params.api.setCellMode(params.id, params.field, 'view');
-                } else {
-                  params.api.setCellMode(params.id, params.field, 'view');
-                }
-              };
-    
+        const handleBlur = async (event) => {
+          if (params.api.setEditCellValue) {
+            await params.api.setEditCellValue(
+              {
+                id: params.id,
+                field: params.field,
+                value: event?.target?.value ?? params.value ?? "",
+              },
+              event,
+            );
+          }
+          if (params.api.stopCellEditMode) {
+            params.api.stopCellEditMode({ id: params.id, field: params.field });
+          } else if (params.api.commitCellChange) {
+            params.api.commitCellChange({ id: params.id, field: params.field });
+            params.api.setCellMode(params.id, params.field, "view");
+          } else {
+            params.api.setCellMode(params.id, params.field, "view");
+          }
+        };
+
         return (
           <Autocomplete
             disablePortal
             options={segmentos}
-            sx={{ width: '100%'}}
+            sx={{ width: "100%" }}
             freeSolo
             renderInput={(inputParams) => (
-              <TextField 
-                {...inputParams} 
+              <TextField
+                {...inputParams}
                 //label="Seleccionar"
                 variant="standard"
                 fullWidth
@@ -276,19 +285,23 @@ function EditableTableUsua({ initialData, onDataChange }) {
                 params.api.setEditCellValue({
                   id: params.id,
                   field: params.field,
-                  value: newValue || '',
+                  value: newValue || "",
                 });
               } else {
-                params.api.setCellValue(params.id, params.field, newValue || '');
+                params.api.setCellValue(
+                  params.id,
+                  params.field,
+                  newValue || "",
+                );
               }
             }}
             onBlur={handleBlur}
-            getOptionLabel={(option) => option || ''}
+            getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
         );
       },
-      renderCell: (params) => <span>{params.value || ''}</span>,
+      renderCell: (params) => <span>{params.value || ""}</span>,
     },
     {
       field: "SD",
@@ -307,59 +320,65 @@ function EditableTableUsua({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-       renderEditCell: (params) => {
-              const handleBlur = async (event) => {
-                if (params.api.setEditCellValue) {
-                  await params.api.setEditCellValue({
-                    id: params.id,
-                    field: params.field,
-                    value: event?.target?.value ?? params.value ?? '',
-                  }, event);
-                }
-                if (params.api.stopCellEditMode) {
-                  params.api.stopCellEditMode({ id: params.id, field: params.field });
-                } else if (params.api.commitCellChange) {
-                  params.api.commitCellChange({ id: params.id, field: params.field });
-                  params.api.setCellMode(params.id, params.field, 'view');
-                } else {
-                  params.api.setCellMode(params.id, params.field, 'view');
-                }
-              };
+      renderEditCell: (params) => {
+        const handleBlur = async (event) => {
+          if (params.api.setEditCellValue) {
+            await params.api.setEditCellValue(
+              {
+                id: params.id,
+                field: params.field,
+                value: event?.target?.value ?? params.value ?? "",
+              },
+              event,
+            );
+          }
+          if (params.api.stopCellEditMode) {
+            params.api.stopCellEditMode({ id: params.id, field: params.field });
+          } else if (params.api.commitCellChange) {
+            params.api.commitCellChange({ id: params.id, field: params.field });
+            params.api.setCellMode(params.id, params.field, "view");
+          } else {
+            params.api.setCellMode(params.id, params.field, "view");
+          }
+        };
 
-          
-              return (
-                <Autocomplete
-                  disablePortal
-                  options={funcionrol}
-                  sx={{ width: '100%'}}
-                  freeSolo
-                  renderInput={(inputParams) => (
-                    <TextField 
-                      {...inputParams} 
-                      //label="Seleccionar"
-                      variant="standard"
-                      fullWidth
-                    />
-                  )}
-                  value={params.value || null}
-                  onChange={(event, newValue) => {
-                    if (params.api.setEditCellValue) {
-                      params.api.setEditCellValue({
-                        id: params.id,
-                        field: params.field,
-                        value: newValue || '',
-                      });
-                    } else {
-                      params.api.setCellValue(params.id, params.field, newValue || '');
-                    }
-                  }}
-                  onBlur={handleBlur}
-                  getOptionLabel={(option) => option || ''}
-                  isOptionEqualToValue={(option, value) => option === value}
-                />
-              );
-            },
-            renderCell: (params) => <span>{params.value || ''}</span>,
+        return (
+          <Autocomplete
+            disablePortal
+            options={funcionrol}
+            sx={{ width: "100%" }}
+            freeSolo
+            renderInput={(inputParams) => (
+              <TextField
+                {...inputParams}
+                //label="Seleccionar"
+                variant="standard"
+                fullWidth
+              />
+            )}
+            value={params.value || null}
+            onChange={(event, newValue) => {
+              if (params.api.setEditCellValue) {
+                params.api.setEditCellValue({
+                  id: params.id,
+                  field: params.field,
+                  value: newValue || "",
+                });
+              } else {
+                params.api.setCellValue(
+                  params.id,
+                  params.field,
+                  newValue || "",
+                );
+              }
+            }}
+            onBlur={handleBlur}
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+        );
+      },
+      renderCell: (params) => <span>{params.value || ""}</span>,
     },
     {
       field: "IPD",
@@ -406,9 +425,9 @@ function EditableTableUsua({ initialData, onDataChange }) {
       width: 200,
       align: "center",
       headerAlign: "center",
-      editable: true
+      editable: true,
     },
-     {
+    {
       field: "actions",
       type: "actions",
       headerName: "Acciones",
@@ -457,41 +476,41 @@ function EditableTableUsua({ initialData, onDataChange }) {
           />,
         ];
       },
-    }, 
+    },
   ];
 
   React.useEffect(() => {
     onDataChange(rows);
   }, [rows, onDataChange]);
 
-  
-
   // Actualización de números de fila cuando cambian los datos
   //useEffect(() => {
-    //setRows(prevRows => prevRows.map((row, index) => ({
-      //...row,
-      //No: index + 1
-    //})));
+  //setRows(prevRows => prevRows.map((row, index) => ({
+  //...row,
+  //No: index + 1
+  //})));
   //}, [rows.length]);
 
   //useEffect(() => {
-   // onDataChange(rows);
+  // onDataChange(rows);
   //}, [rows, onDataChange]);
 
   return (
-    <Box sx={{
-      display: "flex",
-      flexDirection: "column",
-      width: "calc(100% - 32px)",
-      height: "500px",
-      ml: 2,
-      mr: 4,
-      mt: 3,
-      mb: 3,
-      "& .actions": { color: "text.secondary" },
-      "& .textPrimary": { color: "text.primary" },
-      background: "white",
-    }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        width: "calc(100% - 32px)",
+        height: "500px",
+        ml: 2,
+        mr: 4,
+        mt: 3,
+        mb: 3,
+        "& .actions": { color: "text.secondary" },
+        "& .textPrimary": { color: "text.primary" },
+        background: "white",
+      }}
+    >
       <DataGrid
         rows={rows}
         columns={columns}

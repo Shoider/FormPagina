@@ -16,7 +16,7 @@ import {
   Divider,
   MenuItem,
   FormHelperText,
-  Autocomplete
+  Autocomplete,
 } from "@mui/material";
 import Image from "next/image";
 
@@ -67,12 +67,12 @@ export default function Home() {
     cNacional: "",
     eua: "",
     tipoUsuario: "Interno", // Default
-    piso:"",
-    ala:"",
+    piso: "",
+    ala: "",
 
     usuaExterno: false, // Estado inicial como false
     //politicas
-    politicasaceptadas:false,
+    politicasaceptadas: false,
   });
 
   const Tipos = [
@@ -156,7 +156,7 @@ export default function Home() {
       return;
     } else {
       setAlert({
-        message: "Informacion Registrada",
+        message: "Información Registrada",
         severity: "success",
       });
       setOpenAlert(true);
@@ -202,24 +202,24 @@ export default function Home() {
   };
   //  VALIDADORES
 
-    const handleDireccion = (newValue) => {
-      setFormData(prevFormData => ({
-        ...prevFormData,
-        direccion: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
-      }));
-    };
-    const handlePisos = (newValue) => {
-      setFormData(prevFormData => ({
-        ...prevFormData,
-        piso: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
-      }));
-    };
-    const handleAla = (newValue) => {
-      setFormData(prevFormData => ({
-        ...prevFormData,
-        ala: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
-      }));
-    };
+  const handleDireccion = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      direccion: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+  const handlePisos = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      piso: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+  const handleAla = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      ala: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
   const handleExtensionChange = (event) => {
     // let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
     let value = event.target.value.replace(/[^0-9-\s /]/g, "");
@@ -258,7 +258,7 @@ export default function Home() {
       (rawDate.getMonth() + 1).toString().padStart(2, "0"),
       rawDate.getFullYear(),
     ].join("-");
-   // console.log("Fecha de expiracion: ", rawDate);
+    // console.log("Fecha de expiracion: ", rawDate);
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -309,9 +309,9 @@ export default function Home() {
 
   // Manejo de Autocomplete
   const handleUA = (newValue) => {
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      uaUsuario: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+      uaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
 
@@ -469,7 +469,11 @@ export default function Home() {
             >
               <FormControlLabel value="ALTA" control={<Radio />} label="ALTA" />
               <FormControlLabel value="BAJA" control={<Radio />} label="BAJA" />
-              <FormControlLabel value="CAMBIO" control={<Radio />}  label="CAMBIO" />
+              <FormControlLabel
+                value="CAMBIO"
+                control={<Radio />}
+                label="CAMBIO"
+              />
             </RadioGroup>
             <FormHelperText
               sx={{
@@ -629,7 +633,7 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-        {/**PUESTO DE USUARIO, FALTABA */}
+          {/**PUESTO DE USUARIO, FALTABA */}
           <TextField
             required
             error={!!errors?.puestoUsuario}
@@ -643,103 +647,107 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
 
-        <Autocomplete
-          disablePortal
-          options={direccionAutocomplete}
-          freeSolo
-          renderInput={(params) => (
-            <TextField
-              required
-              error={!!errors?.direccion}
-              placeholder="Escriba o seleccione la dirección"
-              sx={{ background: "#FFFFFF" }}
-              {...params}
-              label="Dirección"
-            />
-          )}
-          id="direccion"
-          name="direccion"
-          onChange={(event, newValue) => {
-            handleDireccion(newValue); // Maneja selección de opciones
-          }}
-          onInputChange={(event, newInputValue) => {
-            if (event?.type === 'change') {
-              handleDireccion(newInputValue); // Maneja texto escrito directamente
-            }
-          }}
-          inputValue={formData.direccion || ''} // Controla el valor mostrado
-          getOptionLabel={(option) => option || ''}
-          isOptionEqualToValue={(option, value) => option === value}
-        />
-          {/**BOX PARA PISO Y ALA */}
-          <Box       
-          sx={{
-          display: formData.direccion === "Av. Insurgentes Sur 2416 Col.Copilco el Bajo. CP.04340, Coyoacán, CDMX" ? "flex" : "none",
-          align: "center",
-          headerAlign: "center",          
-          textAlign:"center" ,
-          
-          //display:"flex"    
-        }}        
-          >
           <Autocomplete
-          disablePortal
-          options={pisos}
-          freeSolo
-          sx={{width: "50%"}}
-          renderInput={(params) => (
-            <TextField
-              required
-              error={!!errors?.piso}
-              placeholder="Escriba o seleccione el piso"
-              sx={{ background: "#FFFFFF" }}
-              {...params}
-              label="Piso"
+            disablePortal
+            options={direccionAutocomplete}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.direccion}
+                placeholder="Escriba o seleccione la dirección"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Dirección"
+              />
+            )}
+            id="direccion"
+            name="direccion"
+            onChange={(event, newValue) => {
+              handleDireccion(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleDireccion(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.direccion || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+          {/**BOX PARA PISO Y ALA */}
+          <Box
+            sx={{
+              display:
+                formData.direccion ===
+                "Av. Insurgentes Sur 2416 Col.Copilco el Bajo. CP.04340, Coyoacán, CDMX"
+                  ? "flex"
+                  : "none",
+              align: "center",
+              headerAlign: "center",
+              textAlign: "center",
+
+              //display:"flex"
+            }}
+          >
+            <Autocomplete
+              disablePortal
+              options={pisos}
+              freeSolo
+              sx={{ width: "50%" }}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.piso}
+                  placeholder="Escriba o seleccione el piso"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Piso"
+                />
+              )}
+              id="piso"
+              name="piso"
+              onChange={(event, newValue) => {
+                handlePisos(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  handlePisos(newInputValue); // Maneja texto escrito directamente
+                }
+              }}
+              inputValue={formData.piso || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
             />
-          )}
-          id="piso"
-          name="piso"
-          onChange={(event, newValue) => {
-            handlePisos(newValue); // Maneja selección de opciones
-          }}
-          onInputChange={(event, newInputValue) => {
-            if (event?.type === 'change') {
-              handlePisos(newInputValue); // Maneja texto escrito directamente
-            }
-          }}
-          inputValue={formData.piso || ''} // Controla el valor mostrado
-          getOptionLabel={(option) => option || ''}
-          isOptionEqualToValue={(option, value) => option === value}
-        />
-        <Autocomplete
-          disablePortal
-          options={ala}
-          freeSolo
-          sx={{width: "50%"}}
-          renderInput={(params) => (
-            <TextField
-              required
-              error={!!errors?.ala}
-              placeholder="Escriba o seleccione la ala"
-              sx={{ background: "#FFFFFF" }}
-              {...params}
-              label="Ala"
+            <Autocomplete
+              disablePortal
+              options={ala}
+              freeSolo
+              sx={{ width: "50%" }}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.ala}
+                  placeholder="Escriba o seleccione la ala"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Ala"
+                />
+              )}
+              id="ala"
+              name="ala"
+              onChange={(event, newValue) => {
+                handleAla(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  handleAla(newInputValue); // Maneja texto escrito directamente
+                }
+              }}
+              inputValue={formData.ala || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
             />
-          )}
-          id="ala"
-          name="ala"
-          onChange={(event, newValue) => {
-            handleAla(newValue); // Maneja selección de opciones
-          }}
-          onInputChange={(event, newInputValue) => {
-            if (event?.type === 'change') {
-              handleAla(newInputValue); // Maneja texto escrito directamente
-            }
-          }}
-          inputValue={formData.ala || ''} // Controla el valor mostrado
-          getOptionLabel={(option) => option || ''}
-          isOptionEqualToValue={(option, value) => option === value}
-        />
           </Box>
           <Autocomplete
             disablePortal
@@ -761,15 +769,14 @@ export default function Home() {
               handleUA(newValue); // Maneja selección de opciones
             }}
             onInputChange={(event, newInputValue) => {
-              if (event?.type === 'change') {
+              if (event?.type === "change") {
                 handleUA(newInputValue); // Maneja texto escrito directamente
               }
             }}
-            inputValue={formData.uaUsuario || ''} // Controla el valor mostrado
-            getOptionLabel={(option) => option || ''}
+            inputValue={formData.uaUsuario || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
-          
         </Box>
         <Divider
           sx={{
@@ -870,7 +877,7 @@ export default function Home() {
             error={!!errors?.correoEmpleado}
             id="correoEmpleado"
             name="correoEmpleado"
-            label="Correo" 
+            label="Correo"
             placeholder="correo@correo.com"
             value={formData.correoEmpleado}
             onChange={handleChange}
@@ -1429,114 +1436,115 @@ export default function Home() {
         />
       </Box>
       {/* Datos de Politicas */}
-            {/* Form Box Responsive */}
-            <Box
-                    component="section"
-                    sx={{
-                      mx: "auto",
-                      width: "calc(100% - 32px)",
-                      border: "2px solid grey",
-                      mt: 2,
-                      mb: 3,
-                      p: 2,
-                      borderRadius: 2,
-                      background: "#F4F4F5",
-                      padding: "0 8px",
-                      "@media (min-width: 960px)": {
-                        maxWidth: "50.00%",
-                        width: "auto",
-                        margin: "2rem auto",
-                        padding: "2",
-                      },
-                    }}
-                  >
-                    {/* SubTitle */}
-                    <Typography
-                      variant="h4"
-                      align="center"
-                      gutterBottom
-                      color="#9F2241"
-                      sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-                    >
-                      POLÍTICAS DEL SERVICIO
-                    </Typography>
-                    <Box
-                      component="form"
-                      sx={{
-                        "& .MuiTextField-root": {
-                          mt: 2,
-                          width: "calc(100% - 32px)",
-                          ml: 20,
-                          mr: 90,
-                        },
-                      }}
-                      noValidate
-                      autoComplete="off"
-                      onSubmit={handleSubmit}
-                    >
-      
-                      <Box sx={{ml: 3, mr: 3}}>
-                      <Typography
-                        variant="subtitle2"
-                        align="justify"
-                        gutterBottom
-                        color="#9F2241"
-                        sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
-                      >
-                       {" •   Aquí debrán de ir las políticas"}<br />
-                      </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "row",
-                          flexWrap: "wrap",
-                          justifyContent: "center",
-                          mt: 2,
-                          ml: 10,
-                          mr:10,
-                          mb:3,
-                          //mx: "auto"
-                        }}
-                      >
-                        {[
-                          { name: "politicasaceptadas", label: "He leído y acepto las políticas del servicio" },
-                        ].map((item, index) => (
-                          <Box
-                            key={index}
-                            sx={{ width: "100%", minWidth: "60px",textAlign:"center"}}
-                          >
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  checked={formData[item.name]}
-                                  onChange={savePoliticas}
-                                  name={item.name}
-                                  color="primary"
-                                />
-                              }
-                              label={item.label}
-                            />
-                            
-                          </Box>
-                        ))}
-                        <FormHelperText
-                          sx={{
-                            ml: 2,
-                            mr: 2,
-                            mb: 1,
-                            mt: 2,
-                            justifyContent: "center",
-                            color: "red",
-                            display: errors?.politicasaceptadas ? "block" : "none",
-                          }}
-                        >
-                          {errors?.politicasaceptadas}
-                        </FormHelperText>
-                        
-                      </Box>
-                </Box>
-                </Box>
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          color="#9F2241"
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          POLÍTICAS DEL SERVICIO
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 20,
+              mr: 90,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <Box sx={{ ml: 3, mr: 3 }}>
+            <Typography
+              variant="subtitle2"
+              align="justify"
+              gutterBottom
+              color="#9F2241"
+              sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
+            >
+              {" •   Aquí debrán de ir las políticas"}
+              <br />
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              mt: 2,
+              ml: 10,
+              mr: 10,
+              mb: 3,
+              //mx: "auto"
+            }}
+          >
+            {[
+              {
+                name: "politicasaceptadas",
+                label: "He leído y acepto las políticas del servicio",
+              },
+            ].map((item, index) => (
+              <Box
+                key={index}
+                sx={{ width: "100%", minWidth: "60px", textAlign: "center" }}
+              >
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={formData[item.name]}
+                      onChange={savePoliticas}
+                      name={item.name}
+                      color="primary"
+                    />
+                  }
+                  label={item.label}
+                />
+              </Box>
+            ))}
+            <FormHelperText
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 1,
+                mt: 2,
+                justifyContent: "center",
+                color: "red",
+                display: errors?.politicasaceptadas ? "block" : "none",
+              }}
+            >
+              {errors?.politicasaceptadas}
+            </FormHelperText>
+          </Box>
+        </Box>
+      </Box>
 
       {/* Enviar Informacion */}
       {/* Box Responsive */}
@@ -1620,12 +1628,14 @@ export default function Home() {
               mr: 4,
               background:
                 botonEstado === "Descargar PDF"
-                  ? theme.palette.secondary.main
-                  : "#98989A",
+                  ? theme.palette.third.main
+                  : theme.palette.secondary.main,
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={botonEstado === "Cargando..." || !formData.politicasaceptadas}
+            disabled={
+              botonEstado === "Cargando..." || !formData.politicasaceptadas
+            }
             {...(botonEstado === "Descargar PDF" && {
               href: pdfUrl,
               download: "RegistroTelefonia.pdf",

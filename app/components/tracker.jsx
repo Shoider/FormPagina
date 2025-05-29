@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
-import { useMatomo } from '@datapunt/matomo-tracker-react';
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
+import { useMatomo } from "@datapunt/matomo-tracker-react";
 
 export default function Tracker() {
   const pathname = usePathname();
@@ -10,7 +10,7 @@ export default function Tracker() {
 
   useEffect(() => {
     trackPageView({
-      documentTitle: pathname,  // Opcional: título de la página
+      documentTitle: pathname, // Opcional: título de la página
       href: window.location.href,
     });
   }, [pathname, trackPageView]);

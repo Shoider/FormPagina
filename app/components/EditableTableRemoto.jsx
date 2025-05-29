@@ -76,14 +76,14 @@ function EditToolbar(props) {
     const id = nextId;
     setRows((oldRows) => [
       ...oldRows,
-      { 
+      {
         id,
         movimiento: "",
         nomenclatura: "",
         nombreSistema: "",
         direccion: "",
         sistemaOperativo: "",
-        isNew: true 
+        isNew: true,
       },
     ]);
     setRowModesModel((oldModel) => ({
@@ -111,45 +111,45 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       : 1,
   ); // Inicializamos nextId
 
-   const handleRowEditStop = (params, event) => {
-     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-       //event.defaultMuiPrevented = true;
-     }
-   };
- 
-   const handleEditClick = (id) => () => {
-     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-   };
- 
-   const handleSaveClick = (id) => () => {
-     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-   };
- 
-   const handleDeleteClick = (id) => () => {
-     setRows(rows.filter((row) => row.id !== id));
-   };
- 
-   const handleCancelClick = (id) => () => {
-     setRowModesModel({
-       ...rowModesModel,
-       [id]: { mode: GridRowModes.View, ignoreModifications: true },
-     });
- 
-     const editedRow = rows.find((row) => row.id === id);
-     if (editedRow.isNew) {
-       setRows(rows.filter((row) => row.id !== id));
-     }
-   };
- 
-   const processRowUpdate = (newRow) => {
-     const updatedRow = { ...newRow, isNew: false };
-     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-     return updatedRow;
-   };
- 
-   const handleRowModesModelChange = (newRowModesModel) => {
-     setRowModesModel(newRowModesModel);
-   };
+  const handleRowEditStop = (params, event) => {
+    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+      //event.defaultMuiPrevented = true;
+    }
+  };
+
+  const handleEditClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleSaveClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleDeleteClick = (id) => () => {
+    setRows(rows.filter((row) => row.id !== id));
+  };
+
+  const handleCancelClick = (id) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+  };
+
+  const processRowUpdate = (newRow) => {
+    const updatedRow = { ...newRow, isNew: false };
+    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    return updatedRow;
+  };
+
+  const handleRowModesModelChange = (newRowModesModel) => {
+    setRowModesModel(newRowModesModel);
+  };
   // Columnas optimizadas
   const columns = [
     {
@@ -169,60 +169,65 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-                   renderEditCell: (params) => {
-                          const handleBlur = async (event) => {
-                            if (params.api.setEditCellValue) {
-                              await params.api.setEditCellValue({
-                                id: params.id,
-                                field: params.field,
-                                value: event?.target?.value ?? params.value ?? '',
-                              }, event);
-                            }
-                            if (params.api.stopCellEditMode) {
-                              params.api.stopCellEditMode({ id: params.id, field: params.field });
-                            } else if (params.api.commitCellChange) {
-                              params.api.commitCellChange({ id: params.id, field: params.field });
-                              params.api.setCellMode(params.id, params.field, 'view');
-                            } else {
-                              params.api.setCellMode(params.id, params.field, 'view');
-                            }
-                          };
-            
-                      
-                          return (
-                            <Autocomplete
-                              disablePortal
-                              options={movimiento}
-                              sx={{ width: '100%'}}
-                              //freeSolo
-                              renderInput={(inputParams) => (
-                                <TextField 
-                                  {...inputParams} 
-                                  //label="Seleccionar"
-                                  variant="standard"
-                                  fullWidth
-                                />
-                              )}
-                              value={params.value || null}
-                              onChange={(event, newValue) => {
-                                if (params.api.setEditCellValue) {
-                                  params.api.setEditCellValue({
-                                    id: params.id,
-                                    field: params.field,
-                                    value: newValue || '',
-                                  });
-                                } else {
-                                  params.api.setCellValue(params.id, params.field, newValue || '');
-                                }
-                              }}
-                              onBlur={handleBlur}
-                              getOptionLabel={(option) => option || ''}
-                              isOptionEqualToValue={(option, value) => option === value}
-                            />
-                          );
-                        },
-                        renderCell: (params) => <span>{params.value || ''}</span>,
-      
+      renderEditCell: (params) => {
+        const handleBlur = async (event) => {
+          if (params.api.setEditCellValue) {
+            await params.api.setEditCellValue(
+              {
+                id: params.id,
+                field: params.field,
+                value: event?.target?.value ?? params.value ?? "",
+              },
+              event,
+            );
+          }
+          if (params.api.stopCellEditMode) {
+            params.api.stopCellEditMode({ id: params.id, field: params.field });
+          } else if (params.api.commitCellChange) {
+            params.api.commitCellChange({ id: params.id, field: params.field });
+            params.api.setCellMode(params.id, params.field, "view");
+          } else {
+            params.api.setCellMode(params.id, params.field, "view");
+          }
+        };
+
+        return (
+          <Autocomplete
+            disablePortal
+            options={movimiento}
+            sx={{ width: "100%" }}
+            //freeSolo
+            renderInput={(inputParams) => (
+              <TextField
+                {...inputParams}
+                //label="Seleccionar"
+                variant="standard"
+                fullWidth
+              />
+            )}
+            value={params.value || null}
+            onChange={(event, newValue) => {
+              if (params.api.setEditCellValue) {
+                params.api.setEditCellValue({
+                  id: params.id,
+                  field: params.field,
+                  value: newValue || "",
+                });
+              } else {
+                params.api.setCellValue(
+                  params.id,
+                  params.field,
+                  newValue || "",
+                );
+              }
+            }}
+            onBlur={handleBlur}
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+        );
+      },
+      renderCell: (params) => <span>{params.value || ""}</span>,
     },
     {
       field: "nomenclatura",
@@ -316,19 +321,21 @@ function EditableTableRemoto({ initialData, onDataChange }) {
   }, [rows, onDataChange]);
 
   return (
-    <Box sx={{
-      display: "flex",
-      flexDirection: "column",
-      width: "calc(100% - 32px)",
-      height: "500px",
-      ml: 2,
-      mr: 4,
-      mt: 3,
-      mb: 3,
-      "& .actions": { color: "text.secondary" },
-      "& .textPrimary": { color: "text.primary" },
-      background: "white",
-    }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        width: "calc(100% - 32px)",
+        height: "500px",
+        ml: 2,
+        mr: 4,
+        mt: 3,
+        mb: 3,
+        "& .actions": { color: "text.secondary" },
+        "& .textPrimary": { color: "text.primary" },
+        background: "white",
+      }}
+    >
       <DataGrid
         rows={rows}
         columns={columns}
