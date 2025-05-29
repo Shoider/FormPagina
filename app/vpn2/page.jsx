@@ -819,7 +819,7 @@ export default function Home() {
               sx={{ ml: 2, mr: 2, justifyContent: "center" }}
             >
               <FormControlLabel value="CONAGUA" control={ <Radio /> } label="CONAGUA" />
-              <FormControlLabel value="EXTERNO" control={ <Radio />} label="EXTERNO" />
+              <FormControlLabel value="EXTERNO" control={ <Radio />} label="Externo" />
             </RadioGroup>
             <FormHelperText
               sx={{
@@ -1030,7 +1030,7 @@ export default function Home() {
             gutterBottom
             sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Datos del la persona responsable en la CONAGUA para el solicitante externo
+            Datos de la persona responsable en la CONAGUA para el solicitante externo
           </Typography>
 
           <TextField
