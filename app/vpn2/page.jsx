@@ -37,6 +37,7 @@ import SyncIcon from '@mui/icons-material/Sync';
 // TABLAS
 import EditableTableWeb from "../components/EditableTableWeb.jsx";
 import EditableTableRemoto from "../components/EditableTableRemoto.jsx";
+import subgerencias from "../constants/subgerencias.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -625,7 +626,7 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-          <TextField
+          {/* <TextField
             required
             error={!!errors?.subgerencia}
             id="subgerencia"
@@ -636,6 +637,34 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
+          /> */}
+          <Autocomplete
+            disablePortal
+            options={subgerencias}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.subgerencia}
+                placeholder="Escriba ó seleccione la subgerencia o subdirección"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Subgerencia o Subdirección"
+              />
+            )}
+            id="subgerencia"
+            name="subgerencia"
+            onChange={(event, newValue) => {
+              handleUA(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === 'change') {
+                handleUA(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.unidadAdministrativa || ''} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ''}
+            isOptionEqualToValue={(option, value) => option === value}
           />
         </Box>
 
