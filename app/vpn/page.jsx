@@ -169,9 +169,9 @@ export default function Home() {
 
   // Manejo de Autocomplete
   const handleUA = (newValue) => {
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      ua: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+      ua: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
 
@@ -274,7 +274,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-         INFORMACIÓN DE LA SOLICITUD
+          INFORMACIÓN DE LA SOLICITUD
         </Typography>
         <Box
           component="form"
@@ -486,12 +486,12 @@ export default function Home() {
               handleUA(newValue); // Maneja selección de opciones
             }}
             onInputChange={(event, newInputValue) => {
-              if (event?.type === 'change') {
+              if (event?.type === "change") {
                 handleUA(newInputValue); // Maneja texto escrito directamente
               }
             }}
-            inputValue={formData.ua || ''} // Controla el valor mostrado
-            getOptionLabel={(option) => option || ''}
+            inputValue={formData.ua || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
           <TextField
@@ -764,53 +764,51 @@ export default function Home() {
               mb: 1,
             }}
           />
-          
 
           {formData.malware === "SI" && (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",              
-            }}
-          >
-            
-            <FormLabel
-              component="legend"
+            <Box
               sx={{
-                mt: 0,
                 display: "flex",
-                justifyContent: "center",
-                fontSize: "1.2rem",
+                flexDirection: "column",
+                alignItems: "center",
               }}
             >
-              Se Encuentra Vigente y Actualizado (Anti-Malware) *
-            </FormLabel>
-            <RadioGroup
-              row
-              aria-label="Se Encuentra Vigente y Actualizado (Anti-Malware)"
-              name="vigencia"
-              value={formData.vigencia}
-              onChange={handleChange}
-              required
-              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
-            >
-              <FormControlLabel value="SI" control={<Radio />} label="SI" />
-              <FormControlLabel value="NO" control={<Radio />} label="NO" />
-            </RadioGroup>
-            <FormHelperText
-              sx={{
-                ml: 2,
-                mr: 2,
-                mb: 1,
-                justifyContent: "center",
-                color: "red",
-              }}
-            >
-              {errors?.vigencia}
-            </FormHelperText>
-          </Box>
-              )}
+              <FormLabel
+                component="legend"
+                sx={{
+                  mt: 0,
+                  display: "flex",
+                  justifyContent: "center",
+                  fontSize: "1.2rem",
+                }}
+              >
+                Se Encuentra Vigente y Actualizado (Anti-Malware) *
+              </FormLabel>
+              <RadioGroup
+                row
+                aria-label="Se Encuentra Vigente y Actualizado (Anti-Malware)"
+                name="vigencia"
+                value={formData.vigencia}
+                onChange={handleChange}
+                required
+                sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+              >
+                <FormControlLabel value="SI" control={<Radio />} label="SI" />
+                <FormControlLabel value="NO" control={<Radio />} label="NO" />
+              </RadioGroup>
+              <FormHelperText
+                sx={{
+                  ml: 2,
+                  mr: 2,
+                  mb: 1,
+                  justifyContent: "center",
+                  color: "red",
+                }}
+              >
+                {errors?.vigencia}
+              </FormHelperText>
+            </Box>
+          )}
 
           <Divider
             sx={{
@@ -877,49 +875,49 @@ export default function Home() {
               mb: 1,
             }}
           />
-        {formData.so === "SI" && (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <FormLabel
-              component="legend"
+          {formData.so === "SI" && (
+            <Box
               sx={{
-                mt: 0,
                 display: "flex",
-                justifyContent: "center",
-                fontSize: "1.2rem",
+                flexDirection: "column",
+                alignItems: "center",
               }}
             >
-              Se Encuentra Licenciado y Actualizado (S.O.) *
-            </FormLabel>
-            <RadioGroup
-              row
-              aria-label="Se Encuentra Licenciado y Actualizado (S.O.)"
-              name="licencia"
-              value={formData.licencia}
-              onChange={handleChange}
-              required
-              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
-            >
-              <FormControlLabel value="SI" control={<Radio />} label="SI" />
-              <FormControlLabel value="NO" control={<Radio />} label="NO" />
-            </RadioGroup>
-            <FormHelperText
-              sx={{
-                ml: 2,
-                mr: 2,
-                mb: 1,
-                justifyContent: "center",
-                color: "red",
-              }}
-            >
-              {errors?.licencia}
-            </FormHelperText>
-          </Box>
+              <FormLabel
+                component="legend"
+                sx={{
+                  mt: 0,
+                  display: "flex",
+                  justifyContent: "center",
+                  fontSize: "1.2rem",
+                }}
+              >
+                Se Encuentra Licenciado y Actualizado (S.O.) *
+              </FormLabel>
+              <RadioGroup
+                row
+                aria-label="Se Encuentra Licenciado y Actualizado (S.O.)"
+                name="licencia"
+                value={formData.licencia}
+                onChange={handleChange}
+                required
+                sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+              >
+                <FormControlLabel value="SI" control={<Radio />} label="SI" />
+                <FormControlLabel value="NO" control={<Radio />} label="NO" />
+              </RadioGroup>
+              <FormHelperText
+                sx={{
+                  ml: 2,
+                  mr: 2,
+                  mb: 1,
+                  justifyContent: "center",
+                  color: "red",
+                }}
+              >
+                {errors?.licencia}
+              </FormHelperText>
+            </Box>
           )}
 
           <Divider

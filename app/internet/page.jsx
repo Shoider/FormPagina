@@ -9,11 +9,11 @@ import {
   TextField,
   Button,
   FormControlLabel,
-    FormHelperText,
+  FormHelperText,
   FormLabel,
   Divider,
   Checkbox,
-  Autocomplete
+  Autocomplete,
 } from "@mui/material";
 import Image from "next/image";
 import axios from "axios";
@@ -41,8 +41,8 @@ export default function Home() {
     extUsuario: "",
     nombreJefe: "",
     puestoJefe: "",
-    piso:"",
-    ala:"",
+    piso: "",
+    ala: "",
 
     descarga: false,
     comercio: false,
@@ -112,7 +112,7 @@ export default function Home() {
     otraC4: "null",
 
     //POLITICAS
-    politicasaceptadas:false,
+    politicasaceptadas: false,
   });
 
   // CATEGORÍAS
@@ -291,34 +291,68 @@ export default function Home() {
     let isValid = true;
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
-        if (key !== "descarga" && key !== "comercio" && key !== "redes" && key !== "foros" && key !== "whats" && key !== "videos" && key !== "dropbox" && key !== "onedrive" && key !== "skype" && key !== "wetransfer" && key !== "team" && key !== "otra" && key !== "otra2" && key !== "otra3" && key !== "otra4" && key !== "piso" && key !== "ala") {
-        //console.log("Campo requerido: ", key);
-        errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
-        isValid = false; // Al menos un campo está vacío
+        if (
+          key !== "descarga" &&
+          key !== "comercio" &&
+          key !== "redes" &&
+          key !== "foros" &&
+          key !== "whats" &&
+          key !== "videos" &&
+          key !== "dropbox" &&
+          key !== "onedrive" &&
+          key !== "skype" &&
+          key !== "wetransfer" &&
+          key !== "team" &&
+          key !== "otra" &&
+          key !== "otra2" &&
+          key !== "otra3" &&
+          key !== "otra4" &&
+          key !== "piso" &&
+          key !== "ala"
+        ) {
+          //console.log("Campo requerido: ", key);
+          errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
+          isValid = false; // Al menos un campo está vacío
         }
       }
     }
-    const descarga =Data.descarga
-    const comercio =Data.comercio
-    const redes = Data.redes
-    const foros= Data.foros
-    const whats =Data.whats
-    const videos = Data.videos
-    const dropbox = Data.dropbox
-    const skype = Data.skype
-    const wetransfer =Data.wetransfer
-    const team = Data.team
-    const onedrive = Data.onedrive
-    const otra = Data.otra
-    const otra2=Data.otra2
-    const otra3=Data.otra3
-    const otra4=Data.otra4
+    const descarga = Data.descarga;
+    const comercio = Data.comercio;
+    const redes = Data.redes;
+    const foros = Data.foros;
+    const whats = Data.whats;
+    const videos = Data.videos;
+    const dropbox = Data.dropbox;
+    const skype = Data.skype;
+    const wetransfer = Data.wetransfer;
+    const team = Data.team;
+    const onedrive = Data.onedrive;
+    const otra = Data.otra;
+    const otra2 = Data.otra2;
+    const otra3 = Data.otra3;
+    const otra4 = Data.otra4;
 
     // Verifica si al menos uno de los campos de categorías de navegación está lleno
-    if (!descarga && !comercio && !redes && !foros && !whats && !videos && !dropbox && !skype && !wetransfer && !team && !onedrive && !otra && !otra2 && !otra3 && !otra4) {
-        // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
-        errores.solicita = "Al menos uno de los campos es requerido";;
-        isValid = false;
+    if (
+      !descarga &&
+      !comercio &&
+      !redes &&
+      !foros &&
+      !whats &&
+      !videos &&
+      !dropbox &&
+      !skype &&
+      !wetransfer &&
+      !team &&
+      !onedrive &&
+      !otra &&
+      !otra2 &&
+      !otra3 &&
+      !otra4
+    ) {
+      // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
+      errores.solicita = "Al menos uno de los campos es requerido";
+      isValid = false;
     }
 
     return [isValid, errores]; // Todos los campos están llenos
@@ -424,36 +458,35 @@ export default function Home() {
 
   // Manejo de Autocomplete
   const handleUA = (newValue) => {
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      uaUsuario: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+      uaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
   const handleDireccion = (newValue) => {
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      direccion: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+      direccion: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
   const handlePisos = (newValue) => {
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      piso: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+      piso: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
   const handleAla = (newValue) => {
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      ala: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+      ala: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
   const handleTele = (newValue) => {
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      teleUsuario: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+      teleUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
-
 
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
@@ -687,12 +720,12 @@ export default function Home() {
               handleUA(newValue); // Maneja selección de opciones
             }}
             onInputChange={(event, newInputValue) => {
-              if (event?.type === 'change') {
+              if (event?.type === "change") {
                 handleUA(newInputValue); // Maneja texto escrito directamente
               }
             }}
-            inputValue={formData.uaUsuario || ''} // Controla el valor mostrado
-            getOptionLabel={(option) => option || ''}
+            inputValue={formData.uaUsuario || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
           <TextField
@@ -721,132 +754,136 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <Autocomplete
-          disablePortal
-          options={direccionAutocomplete}
-          freeSolo
-          renderInput={(params) => (
-            <TextField
-              required
-              error={!!errors?.direccion}
-              placeholder="Escriba o seleccione la dirección"
-              sx={{ background: "#FFFFFF" }}
-              {...params}
-              label="Dirección"
-            />
-          )}
-          id="direccion"
-          name="direccion"
-          onChange={(event, newValue) => {
-            handleDireccion(newValue); // Maneja selección de opciones
-          }}
-          onInputChange={(event, newInputValue) => {
-            if (event?.type === 'change') {
-              handleDireccion(newInputValue); // Maneja texto escrito directamente
-            }
-          }}
-          inputValue={formData.direccion || ''} // Controla el valor mostrado
-          getOptionLabel={(option) => option || ''}
-          isOptionEqualToValue={(option, value) => option === value}
-        />
+            disablePortal
+            options={direccionAutocomplete}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.direccion}
+                placeholder="Escriba o seleccione la dirección"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Dirección"
+              />
+            )}
+            id="direccion"
+            name="direccion"
+            onChange={(event, newValue) => {
+              handleDireccion(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleDireccion(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.direccion || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
           {/**BOX PARA PISO Y ALA */}
-          <Box       
-          sx={{
-          display: formData.direccion === "Av. Insurgentes Sur 2416 Col.Copilco el Bajo. CP.04340, Coyoacán, CDMX" ? "flex" : "none",
-          align: "center",
-          headerAlign: "center",          
-          textAlign:"center" ,
-          
-          //display:"flex"    
-        }}        
+          <Box
+            sx={{
+              display:
+                formData.direccion ===
+                "Av. Insurgentes Sur 2416 Col.Copilco el Bajo. CP.04340, Coyoacán, CDMX"
+                  ? "flex"
+                  : "none",
+              align: "center",
+              headerAlign: "center",
+              textAlign: "center",
+
+              //display:"flex"
+            }}
           >
-          <Autocomplete
-          disablePortal
-          options={pisos}
-          freeSolo
-          sx={{width: "50%"}}
-          renderInput={(params) => (
-            <TextField
-              required
-              error={!!errors?.piso}
-              placeholder="Escriba o seleccione el piso"
-              sx={{ background: "#FFFFFF" }}
-              {...params}
-              label="Piso"
+            <Autocomplete
+              disablePortal
+              options={pisos}
+              freeSolo
+              sx={{ width: "50%" }}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.piso}
+                  placeholder="Escriba o seleccione el piso"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Piso"
+                />
+              )}
+              id="piso"
+              name="piso"
+              onChange={(event, newValue) => {
+                handlePisos(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  handlePisos(newInputValue); // Maneja texto escrito directamente
+                }
+              }}
+              inputValue={formData.piso || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
             />
-          )}
-          id="piso"
-          name="piso"
-          onChange={(event, newValue) => {
-            handlePisos(newValue); // Maneja selección de opciones
-          }}
-          onInputChange={(event, newInputValue) => {
-            if (event?.type === 'change') {
-              handlePisos(newInputValue); // Maneja texto escrito directamente
-            }
-          }}
-          inputValue={formData.piso || ''} // Controla el valor mostrado
-          getOptionLabel={(option) => option || ''}
-          isOptionEqualToValue={(option, value) => option === value}
-        />
-        <Autocomplete
-          disablePortal
-          options={ala}
-          freeSolo
-          sx={{width: "50%"}}
-          renderInput={(params) => (
-            <TextField
-              required
-              error={!!errors?.ala}
-              placeholder="Escriba o seleccione la ala"
-              sx={{ background: "#FFFFFF" }}
-              {...params}
-              label="Ala"
+            <Autocomplete
+              disablePortal
+              options={ala}
+              freeSolo
+              sx={{ width: "50%" }}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.ala}
+                  placeholder="Escriba o seleccione la ala"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Ala"
+                />
+              )}
+              id="ala"
+              name="ala"
+              onChange={(event, newValue) => {
+                handleAla(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  handleAla(newInputValue); // Maneja texto escrito directamente
+                }
+              }}
+              inputValue={formData.ala || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
             />
-          )}
-          id="ala"
-          name="ala"
-          onChange={(event, newValue) => {
-            handleAla(newValue); // Maneja selección de opciones
-          }}
-          onInputChange={(event, newInputValue) => {
-            if (event?.type === 'change') {
-              handleAla(newInputValue); // Maneja texto escrito directamente
-            }
-          }}
-          inputValue={formData.ala || ''} // Controla el valor mostrado
-          getOptionLabel={(option) => option || ''}
-          isOptionEqualToValue={(option, value) => option === value}
-        />
           </Box>
           <Autocomplete
-          disablePortal
-          options={telefonoAutocomplete}
-          freeSolo
-          sx={{width: "100%"}}
-          renderInput={(params) => (
-            <TextField
-              required
-              error={!!errors?.teleUsuario}
-              placeholder="Escriba o seleccione el teléfono"
-              sx={{ background: "#FFFFFF" }}
-              {...params}
-              label="Teléfono"
-            />
-          )}
-          id="teleUsuario"
-          name="teleUsuario"
-          onChange={(event, newValue) => {
-            handleTele(newValue); // Maneja selección de opciones
-          }}
-          onInputChange={(event, newInputValue) => {
-            if (event?.type === 'change') {
-              handleTele(newInputValue); // Maneja texto escrito directamente
-            }
-          }}
-          inputValue={formData.teleUsuario || ''} // Controla el valor mostrado
-          getOptionLabel={(option) => option || ''}
-          isOptionEqualToValue={(option, value) => option === value}
-        />
+            disablePortal
+            options={telefonoAutocomplete}
+            freeSolo
+            sx={{ width: "100%" }}
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.teleUsuario}
+                placeholder="Escriba o seleccione el teléfono"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Teléfono"
+              />
+            )}
+            id="teleUsuario"
+            name="teleUsuario"
+            onChange={(event, newValue) => {
+              handleTele(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleTele(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.teleUsuario || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
           <TextField
             required
             error={!!errors?.extUsuario}
@@ -891,7 +928,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-       AUTORIZA
+          AUTORIZA
         </Typography>
         <Box
           component="form"
@@ -1032,7 +1069,7 @@ export default function Home() {
             mt: 2,
             ml: 10,
             mb: 1,
-            mr:8,
+            mr: 8,
           }}
         >
           {[
@@ -1066,17 +1103,17 @@ export default function Home() {
               />
             </Box>
           ))}
-            <FormHelperText
-              sx={{
-                      mx: "auto",
-                      mb: 1,
-                      justifyContent: "center",
-                      color: "red",
-                      isplay: errors?.solicita ? "block" : "none",
-                  }}
-            >
-              {errors?.solicita}
-            </FormHelperText>
+          <FormHelperText
+            sx={{
+              mx: "auto",
+              mb: 1,
+              justifyContent: "center",
+              color: "red",
+              isplay: errors?.solicita ? "block" : "none",
+            }}
+          >
+            {errors?.solicita}
+          </FormHelperText>
         </Box>
 
         <Divider
@@ -2322,7 +2359,7 @@ export default function Home() {
                   flexWrap: "wrap",
                   ml: 2,
                   mb: 0,
-                  mt:2,
+                  mt: 2,
                   display: formData.otra3 ? "block" : "none",
                 }}
               >
@@ -2454,122 +2491,145 @@ export default function Home() {
       </Box>
 
       {/* Datos de Politicas */}
-            {/* Form Box Responsive */}
-            <Box
-                    component="section"
-                    sx={{
-                      mx: "auto",
-                      width: "calc(100% - 32px)",
-                      border: "2px solid grey",
-                      mt: 2,
-                      mb: 3,
-                      p: 2,
-                      borderRadius: 2,
-                      background: "#F4F4F5",
-                      padding: "0 8px",
-                      "@media (min-width: 960px)": {
-                        maxWidth: "50.00%",
-                        width: "auto",
-                        margin: "2rem auto",
-                        padding: "2",
-                      },
-                    }}
-                  >
-                    {/* SubTitle */}
-                    <Typography
-                      variant="h4"
-                      align="center"
-                      gutterBottom
-                      color="#9F2241"
-                      sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-                    >
-                      POLÍTICAS DEL SERVICIO
-                    </Typography>
-                    <Box
-                      component="form"
-                      sx={{
-                        "& .MuiTextField-root": {
-                          mt: 2,
-                          width: "calc(100% - 32px)",
-                          ml: 20,
-                          mr: 90,
-                        },
-                      }}
-                      noValidate
-                      autoComplete="off"
-                      onSubmit={handleSubmit}
-                    >
-      
-                      <Box sx={{ml: 3, mr: 3}}>
-                      <Typography
-                        variant="subtitle2"
-                        align="justify"
-                        gutterBottom
-                        color="#9F2241"
-                        sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
-                      >
-                       {" • Es responsabilidad de los servidores públicos, así como personal externo de los activos de información el adoptar las medidas que determine la CONAGUA para mantener y garantizar la seguridad de la Información, siendo la Gerencia de Tecnología de la Información y Comunicaciones la responsable de establecer los mecanismos que permitan garantizar la confidencialidad, integridad y disponibilidad de la Información. "}<br />
-                       {" • La Subgerencia de Internet e Intranet, adscrita a la Gerencia de Tecnología de la Información y Comunicaciones, como administrador del servicio es el área responsable de definir los lineamientos que deberán ser atendidos por todos los usuarios y administradores en la ampliación del servicio de navegación de internet. "}<br />
-                       {" • La Subgerencia de Internet e Intranet, será la responsable de implementar y garantizar la disponibilidad en todo momento del servicio. "}<br />
-                       {" • Los accesos para los servicios habilitados serán exclusivamente para los usuarios que tengan debidamente la justificación y que cumplan con el llenado del formato y su formalización mediante el memorándum correspondiente para hacer uso de ella. "}<br />
-                       {" • Es responsabilidad de quien autoriza los accesos solicitados y justificados anteriormente, así como la supervisión del correcto uso de los recursos, siendo la Subgerencia de Internet e Intranet el área responsable de la validación y supervisión periódica del buen uso de estos, lo anterior para salvaguardar el correcto funcionamiento de la infraestructura que soportan los servicios de la CONAGUA. "}<br />
-                       {" • Los usuarios con ampliación en la Navegación de Internet deben usar responsablemente el servicio de navegación web que es proporcionado por la Gerencia de Tecnología de la Información y Comunicaciones. "}<br />
-                       {" • Queda prohibido descargar y abrir páginas web o archivos sospechosos que puedan comprometer los equipos y la red. Para cualquier duda sobre algún sitio o página que represente actividad sospechosa, deberá hacer de conocimiento a la GTIC a través de la Mesa de Servicios. "}<br />
-                       {" • La violación, desatento u omisión de las políticas y procedimientos de Seguridad de la Información de la CONAGUA generan sanciones previstas en la Ley General de responsabilidades Administrativas; en la Ley del Servicio Profesional de Carrera en la Administración Pública Federal y demás disposiciones jurídicas aplicables."}<br />
-      
-                      </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "row",
-                          flexWrap: "wrap",
-                          justifyContent: "center",
-                          mt: 2,
-                          ml: 10,
-                          mr:10,
-                          mb:3,
-                          //mx: "auto"
-                        }}
-                      >
-                        {[
-                          { name: "politicasaceptadas", label: "He leído y acepto las políticas del servicio" },
-                        ].map((item, index) => (
-                          <Box
-                            key={index}
-                            sx={{ width: "100%", minWidth: "60px",textAlign:"center"}}
-                          >
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  checked={formData[item.name]}
-                                  onChange={savePoliticas}
-                                  name={item.name}
-                                  color="primary"
-                                />
-                              }
-                              label={item.label}
-                            />
-                            
-                          </Box>
-                        ))}
-                        <FormHelperText
-                          sx={{
-                            ml: 2,
-                            mr: 2,
-                            mb: 1,
-                            mt: 2,
-                            justifyContent: "center",
-                            color: "red",
-                            display: errors?.politicasaceptadas ? "block" : "none",
-                          }}
-                        >
-                          {errors?.politicasaceptadas}
-                        </FormHelperText>
-                        
-                      </Box>
-                </Box>
-                </Box>
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          color="#9F2241"
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          POLÍTICAS DEL SERVICIO
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 20,
+              mr: 90,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <Box sx={{ ml: 3, mr: 3 }}>
+            <Typography
+              variant="subtitle2"
+              align="justify"
+              gutterBottom
+              color="#9F2241"
+              sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
+            >
+              {
+                " • Es responsabilidad de los servidores públicos, así como personal externo de los activos de información el adoptar las medidas que determine la CONAGUA para mantener y garantizar la seguridad de la Información, siendo la Gerencia de Tecnología de la Información y Comunicaciones la responsable de establecer los mecanismos que permitan garantizar la confidencialidad, integridad y disponibilidad de la Información. "
+              }
+              <br />
+              {
+                " • La Subgerencia de Internet e Intranet, adscrita a la Gerencia de Tecnología de la Información y Comunicaciones, como administrador del servicio es el área responsable de definir los lineamientos que deberán ser atendidos por todos los usuarios y administradores en la ampliación del servicio de navegación de internet. "
+              }
+              <br />
+              {
+                " • La Subgerencia de Internet e Intranet, será la responsable de implementar y garantizar la disponibilidad en todo momento del servicio. "
+              }
+              <br />
+              {
+                " • Los accesos para los servicios habilitados serán exclusivamente para los usuarios que tengan debidamente la justificación y que cumplan con el llenado del formato y su formalización mediante el memorándum correspondiente para hacer uso de ella. "
+              }
+              <br />
+              {
+                " • Es responsabilidad de quien autoriza los accesos solicitados y justificados anteriormente, así como la supervisión del correcto uso de los recursos, siendo la Subgerencia de Internet e Intranet el área responsable de la validación y supervisión periódica del buen uso de estos, lo anterior para salvaguardar el correcto funcionamiento de la infraestructura que soportan los servicios de la CONAGUA. "
+              }
+              <br />
+              {
+                " • Los usuarios con ampliación en la Navegación de Internet deben usar responsablemente el servicio de navegación web que es proporcionado por la Gerencia de Tecnología de la Información y Comunicaciones. "
+              }
+              <br />
+              {
+                " • Queda prohibido descargar y abrir páginas web o archivos sospechosos que puedan comprometer los equipos y la red. Para cualquier duda sobre algún sitio o página que represente actividad sospechosa, deberá hacer de conocimiento a la GTIC a través de la Mesa de Servicios. "
+              }
+              <br />
+              {
+                " • La violación, desatento u omisión de las políticas y procedimientos de Seguridad de la Información de la CONAGUA generan sanciones previstas en la Ley General de responsabilidades Administrativas; en la Ley del Servicio Profesional de Carrera en la Administración Pública Federal y demás disposiciones jurídicas aplicables."
+              }
+              <br />
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              mt: 2,
+              ml: 10,
+              mr: 10,
+              mb: 3,
+              //mx: "auto"
+            }}
+          >
+            {[
+              {
+                name: "politicasaceptadas",
+                label: "He leído y acepto las políticas del servicio",
+              },
+            ].map((item, index) => (
+              <Box
+                key={index}
+                sx={{ width: "100%", minWidth: "60px", textAlign: "center" }}
+              >
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={formData[item.name]}
+                      onChange={savePoliticas}
+                      name={item.name}
+                      color="primary"
+                    />
+                  }
+                  label={item.label}
+                />
+              </Box>
+            ))}
+            <FormHelperText
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 1,
+                mt: 2,
+                justifyContent: "center",
+                color: "red",
+                display: errors?.politicasaceptadas ? "block" : "none",
+              }}
+            >
+              {errors?.politicasaceptadas}
+            </FormHelperText>
+          </Box>
+        </Box>
+      </Box>
 
       {/* Enviar Informacion */}
       {/* Box Responsive */}
@@ -2656,7 +2716,9 @@ export default function Home() {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={botonEstado === "Cargando..."|| !formData.politicasaceptadas}
+            disabled={
+              botonEstado === "Cargando..." || !formData.politicasaceptadas
+            }
             {...(botonEstado === "Descargar PDF" && {
               href: pdfUrl,
               download: "RegistroInternet.pdf",
@@ -2665,7 +2727,6 @@ export default function Home() {
             {botonEstado}
           </Button>
         </Box>
-
       </Box>
 
       {/* ALERT */}

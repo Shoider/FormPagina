@@ -110,7 +110,12 @@ export default function Home() {
           },
         }}
       >
-        <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 2, ml: 2, mr: 2 }}
+        >
           Solicitud de cambios en cortafuegos (RFC)
         </Typography>
       </Button>
@@ -150,8 +155,13 @@ export default function Home() {
           },
         }}
       >
-        <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
-        Solicitud Del Servicio De VPN
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 2, ml: 2, mr: 2 }}
+        >
+          Solicitud Del Servicio De VPN
         </Typography>
       </Button>
 
@@ -272,7 +282,6 @@ export default function Home() {
         </Typography>
       </Button>
       */}
-
     </Container>
   );
 }

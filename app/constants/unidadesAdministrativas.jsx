@@ -44,7 +44,6 @@ const unidadesAdmin = [
   "Dirección Local Tabasco",
   "Dirección Local Tlaxcala",
   "Dirección Local Zacatecas",
-
 ];
 
 export default unidadesAdmin;

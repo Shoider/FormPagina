@@ -22,8 +22,7 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
-
+  DialogTitle,
 } from "@mui/material";
 
 import Image from "next/image";
@@ -32,7 +31,7 @@ import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 
 // ICONOS
-import SyncIcon from '@mui/icons-material/Sync';
+import SyncIcon from "@mui/icons-material/Sync";
 
 // TABLAS
 import EditableTableWeb from "../components/EditableTableWeb.jsx";
@@ -43,7 +42,7 @@ export default function Home() {
   const theme = useTheme();
   const [formData2, setFormData2] = useState({
     numeroFormato: "",
-    memorando: ""
+    memorando: "",
   });
 
   const [formData, setFormData] = useState({
@@ -81,7 +80,7 @@ export default function Home() {
 
     nombreAutoriza: "",
     puestoAutoriza: "",
-    
+
     // Checkbox
     cuentaUsuario: false,
     accesoWeb: false,
@@ -101,13 +100,9 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       registrosWeb: webTableData,
-      registrosRemoto: remotoTableData
+      registrosRemoto: remotoTableData,
     }));
-  }, 
-  [
-    webTableData,
-    remotoTableData
-  ]);
+  }, [webTableData, remotoTableData]);
 
   useEffect(() => {
     if (formData.solicitante === "CONAGUA") {
@@ -129,7 +124,8 @@ export default function Home() {
         unidadAdministrativaResponsable: "null",
         telefonoResponsable: "null",
       }));
-    } if (formData.solicitante === "EXTERNO") {
+    }
+    if (formData.solicitante === "EXTERNO") {
       setFormData((prev) => ({
         ...prev,
         nombreInterno: "null",
@@ -210,17 +206,18 @@ export default function Home() {
   const validarCamposRequeridos = (Data) => {
     const errores = {};
     let isValid = true;
-    let isValidTabla =true;
+    let isValidTabla = true;
 
-    const usua = Data.cuentaUsuario
-    const web = Data.accesoWeb
-    const remoto = Data.accesoRemoto
+    const usua = Data.cuentaUsuario;
+    const web = Data.accesoWeb;
+    const remoto = Data.accesoRemoto;
 
     // Verifica si al menos uno de los campos de justificación está lleno
     if (!usua && !web && !remoto) {
-        // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
-        errores.seleccion = "Al menos uno de los campos de justificación es requerido";;
-        isValid = false;
+      // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
+      errores.seleccion =
+        "Al menos uno de los campos de justificación es requerido";
+      isValid = false;
     }
 
     for (const key in Data) {
@@ -229,7 +226,12 @@ export default function Home() {
         if (key === "movimiento" && !formData.cuentaUsuario) {
           continue;
         }
-        if (key !== "cuentaUsuario" && key !== "accesoWeb" && key !== "accesoRemoto" && key !== "equipoExterno") {
+        if (
+          key !== "cuentaUsuario" &&
+          key !== "accesoWeb" &&
+          key !== "accesoRemoto" &&
+          key !== "equipoExterno"
+        ) {
           errores[key] = "Este campo es requerido";
           isValid = false;
         } else if (key === "cuentaUsuario") {
@@ -240,35 +242,38 @@ export default function Home() {
         }
       }
     }
-    
+
     ///VALIDADOR DE QUE GUARDA RESGITROS EN WEB
-    if (Data.accesoWeb ) {
-    if (!Array.isArray(Data.registrosWeb) || Data.registrosWeb.length === 0) {
-      isValidTabla = false;
-    } else {
-      // Validar campos requeridos de cada registro
-      Data.registrosWeb.forEach((row) => {
-        if (!row.url   /* agrega aquí los campos requeridos */) {
-          isValidTabla = false;
-        }
-      });
-    }
+    if (Data.accesoWeb) {
+      if (!Array.isArray(Data.registrosWeb) || Data.registrosWeb.length === 0) {
+        isValidTabla = false;
+      } else {
+        // Validar campos requeridos de cada registro
+        Data.registrosWeb.forEach((row) => {
+          if (!row.url /* agrega aquí los campos requeridos */) {
+            isValidTabla = false;
+          }
+        });
+      }
     }
 
     ///VALIDADOR DE QUE GUARDA RESGITROS EN WEB
-    if (Data.accesoRemoto ) {
-    if (!Array.isArray(Data.registrosRemoto) || Data.registrosRemoto.length === 0) {
-      isValidTabla = false;
-    } else {
-      // Validar campos requeridos de cada registro
-      Data.registrosRemoto.forEach((row) => {
-        if (!row.direccion   /* agrega aquí los campos requeridos */) {
-          isValidTabla = false;
-        }
-      });
+    if (Data.accesoRemoto) {
+      if (
+        !Array.isArray(Data.registrosRemoto) ||
+        Data.registrosRemoto.length === 0
+      ) {
+        isValidTabla = false;
+      } else {
+        // Validar campos requeridos de cada registro
+        Data.registrosRemoto.forEach((row) => {
+          if (!row.direccion /* agrega aquí los campos requeridos */) {
+            isValidTabla = false;
+          }
+        });
+      }
     }
-    }
-    console.log(errores)
+    console.log(errores);
     return [isValid, isValidTabla, errores];
   };
 
@@ -277,10 +282,11 @@ export default function Home() {
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
 
-    const [isValid,isValidTabla, getErrors] = validarCamposRequeridos(formData);
+    const [isValid, isValidTabla, getErrors] =
+      validarCamposRequeridos(formData);
     setErrors(getErrors);
 
-    console.log("Lista getErrors en submit: ", getErrors)
+    console.log("Lista getErrors en submit: ", getErrors);
 
     if (!isValid) {
       setAlert({
@@ -312,7 +318,6 @@ export default function Home() {
       setOpenAlert(true);
     }
 
-
     setBotonEstado("Cargando...");
 
     try {
@@ -338,7 +343,7 @@ export default function Home() {
     }
   };
 
-    // Llamada API Actualizar Memorando
+  // Llamada API Actualizar Memorando
   const handleSubmit2 = async (event) => {
     event.preventDefault();
     console.log("Lista formData2 en submit: ", formData2);
@@ -374,7 +379,7 @@ export default function Home() {
         setBotonEstado2("Enviar");
       } else {
         console.error("Error generando PDF");
-        console.error(pdfResponse.status)
+        console.error(pdfResponse.status);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -415,22 +420,22 @@ export default function Home() {
 
   // Manejo de Autocomplete
   const handleUA = (newValue) => {
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      unidadAdministrativa: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+      unidadAdministrativa: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
   const handleUARes = (newValue) => {
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      unidadAdministrativaResponsable: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+      unidadAdministrativaResponsable: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
 
   const handleSubgerencia = (newValue) => {
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      subgerencia: newValue || '' // Asegura que siempre haya un valor (incluso si es string vacío)
+      subgerencia: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
 
@@ -613,12 +618,12 @@ export default function Home() {
               handleUA(newValue); // Maneja selección de opciones
             }}
             onInputChange={(event, newInputValue) => {
-              if (event?.type === 'change') {
+              if (event?.type === "change") {
                 handleUA(newInputValue); // Maneja texto escrito directamente
               }
             }}
-            inputValue={formData.unidadAdministrativa || ''} // Controla el valor mostrado
-            getOptionLabel={(option) => option || ''}
+            inputValue={formData.unidadAdministrativa || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
           <TextField
@@ -665,12 +670,12 @@ export default function Home() {
               handleSubgerencia(newValue); // Maneja selección de opciones
             }}
             onInputChange={(event, newInputValue) => {
-              if (event?.type === 'change') {
+              if (event?.type === "change") {
                 handleSubgerencia(newInputValue); // Maneja texto escrito directamente
               }
             }}
-            inputValue={formData.subgerencia || ''} // Controla el valor mostrado
-            getOptionLabel={(option) => option || ''}
+            inputValue={formData.subgerencia || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
         </Box>
@@ -818,8 +823,16 @@ export default function Home() {
               required
               sx={{ ml: 2, mr: 2, justifyContent: "center" }}
             >
-              <FormControlLabel value="CONAGUA" control={ <Radio /> } label="CONAGUA" />
-              <FormControlLabel value="EXTERNO" control={ <Radio />} label="EXTERNO" />
+              <FormControlLabel
+                value="CONAGUA"
+                control={<Radio />}
+                label="CONAGUA"
+              />
+              <FormControlLabel
+                value="EXTERNO"
+                control={<Radio />}
+                label="EXTERNO"
+              />
             </RadioGroup>
             <FormHelperText
               sx={{
@@ -870,7 +883,7 @@ export default function Home() {
           >
             Datos del usuario solicitante CONAGUA
           </Typography>
-        
+
           <TextField
             required
             error={!!errors?.nombreInterno}
@@ -881,7 +894,7 @@ export default function Home() {
             value={formData.nombreInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256, mt:2 }}
+            inputProps={{ maxLength: 256, mt: 2 }}
           />
           <TextField
             required
@@ -946,7 +959,7 @@ export default function Home() {
           >
             Datos del usuario solicitante EXTERNO
           </Typography>
-        
+
           <TextField
             required
             error={!!errors?.nombreExterno}
@@ -957,7 +970,7 @@ export default function Home() {
             value={formData.nombreExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256, mt:2 }}
+            inputProps={{ maxLength: 256, mt: 2 }}
           />
           <TextField
             required
@@ -980,7 +993,7 @@ export default function Home() {
             placeholder="Escriba el nombre completo de la empresa"
             value={formData.empresaExterno}
             onChange={handleChange}
-            sx={{ background: "#FFFFFF"}}
+            sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
           <TextField
@@ -1003,7 +1016,7 @@ export default function Home() {
             ml: 2,
             mr: 2,
             mb: 3,
-            display: formData.solicitante === "EXTERNO" ? "block" : "none"
+            display: formData.solicitante === "EXTERNO" ? "block" : "none",
           }}
         />
 
@@ -1022,7 +1035,6 @@ export default function Home() {
           onSubmit={handleSubmit}
           display={formData.solicitante === "EXTERNO" ? "block" : "none"}
         >
-
           {/* SubTitle */}
           <Typography
             variant="h5"
@@ -1030,7 +1042,8 @@ export default function Home() {
             gutterBottom
             sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Datos del la persona responsable en la CONAGUA para el solicitante externo
+            Datos del la persona responsable en la CONAGUA para el solicitante
+            externo
           </Typography>
 
           <TextField
@@ -1089,12 +1102,12 @@ export default function Home() {
               handleUARes(newValue); // Maneja selección de opciones
             }}
             onInputChange={(event, newInputValue) => {
-              if (event?.type === 'change') {
+              if (event?.type === "change") {
                 handleUARes(newInputValue); // Maneja texto escrito directamente
               }
             }}
-            inputValue={formData.unidadAdministrativaResponsable || ''} // Controla el valor mostrado
-            getOptionLabel={(option) => option || ''}
+            inputValue={formData.unidadAdministrativaResponsable || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
           <TextField
@@ -1110,7 +1123,6 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
         </Box>
-
       </Box>
 
       {/* Datos del Equipo */}
@@ -1173,12 +1185,10 @@ export default function Home() {
             variant="h5"
             align="center"
             gutterBottom
-            sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4}}
+            sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
             Datos del Equipo de Origen
           </Typography>
-
-          
 
           <TextField
             required
@@ -1255,8 +1265,16 @@ export default function Home() {
               required
               sx={{ ml: 2, mr: 2, justifyContent: "center" }}
             >
-              <FormControlLabel value="CONAGUA" control={ <Radio /> } label="CONAGUA" />
-              <FormControlLabel value="Personal" control={ <Radio />} label="Personal" />
+              <FormControlLabel
+                value="CONAGUA"
+                control={<Radio />}
+                label="CONAGUA"
+              />
+              <FormControlLabel
+                value="Personal"
+                control={<Radio />}
+                label="Personal"
+              />
             </RadioGroup>
             <FormHelperText
               sx={{
@@ -1307,9 +1325,21 @@ export default function Home() {
               required
               sx={{ ml: 2, mr: 2, justifyContent: "center" }}
             >
-              <FormControlLabel value="Linux" control={ <Radio /> } label="Linux" />
-              <FormControlLabel value="macOS" control={ <Radio />} label="macOS" />
-              <FormControlLabel value="Windows" control={ <Radio />} label="Windows" />
+              <FormControlLabel
+                value="Linux"
+                control={<Radio />}
+                label="Linux"
+              />
+              <FormControlLabel
+                value="macOS"
+                control={<Radio />}
+                label="macOS"
+              />
+              <FormControlLabel
+                value="Windows"
+                control={<Radio />}
+                label="Windows"
+              />
             </RadioGroup>
             <FormHelperText
               sx={{
@@ -1324,7 +1354,7 @@ export default function Home() {
               {errors?.sistemaOperativo}
             </FormHelperText>
           </Box>
-        <Box/>
+          <Box />
 
           <Divider
             sx={{
@@ -1352,7 +1382,7 @@ export default function Home() {
               variant="h5"
               align="center"
               gutterBottom
-              sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 2, mt: 2}}
+              sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 2, mt: 2 }}
             >
               Tipo de Servicio
             </Typography>
@@ -1378,7 +1408,7 @@ export default function Home() {
             mt: 2,
             ml: 10,
             mb: 1,
-            mr:8,
+            mr: 8,
           }}
         >
           {[
@@ -1401,21 +1431,19 @@ export default function Home() {
                 }
                 label={item.label}
               />
-              
             </Box>
           ))}
-           <FormHelperText
-              sx={{
-                mx: "auto",
-                mb: 1,
-                justifyContent: "center",
-                color: "red",
-                display: errors?.seleccion ? "block" : "none",
-              }}
-            >
-              {errors?.seleccion}
+          <FormHelperText
+            sx={{
+              mx: "auto",
+              mb: 1,
+              justifyContent: "center",
+              color: "red",
+              display: errors?.seleccion ? "block" : "none",
+            }}
+          >
+            {errors?.seleccion}
           </FormHelperText>
-          
         </Box>
 
         {/* TABLA A) */}
@@ -1434,7 +1462,6 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-
           <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -1474,8 +1501,16 @@ export default function Home() {
               required
               sx={{ ml: 2, mr: 2, justifyContent: "center" }}
             >
-              <FormControlLabel value="ALTA" control={ <Radio /> } label="Alta Usuario" />
-              <FormControlLabel value="BAJA" control={ <Radio />} label="Baja Usuario" />
+              <FormControlLabel
+                value="ALTA"
+                control={<Radio />}
+                label="Alta Usuario"
+              />
+              <FormControlLabel
+                value="BAJA"
+                control={<Radio />}
+                label="Baja Usuario"
+              />
             </RadioGroup>
             <FormHelperText
               sx={{
@@ -1490,7 +1525,7 @@ export default function Home() {
             </FormHelperText>
           </Box>
         </Box>
-        
+
         {/* TABLA B) */}
         <Box
           component="form"
@@ -1529,7 +1564,7 @@ export default function Home() {
           >
             b) Acceso a sitios Web o Equipo
           </FormLabel>
-          
+
           <EditableTableWeb onDataChange={handleWebTableDataChange} />
 
           <FormLabel
@@ -1546,8 +1581,6 @@ export default function Home() {
             * Guardar registros antes de enviar.
           </FormLabel>
         </Box>
-
-
 
         {/* TABLA C) */}
         <Box
@@ -1601,7 +1634,8 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Nota: Ejemplo de nomeclatura: SGA-001. Ejemplo de nombre: CE0010DC01. Para el sistema operativo especificar nombre y versión.
+            Nota: Ejemplo de nomeclatura: SGA-001. Ejemplo de nombre:
+            CE0010DC01. Para el sistema operativo especificar nombre y versión.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -1659,10 +1693,9 @@ export default function Home() {
             placeholder="Escriba la justificacion de la necesidad del servicio"
             value={formData.justificacion}
             onChange={handleChange}
-            sx={{ background: "#FFFFFF" , mb: 3}}
+            sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
-
         </Box>
       </Box>
 
@@ -1735,10 +1768,9 @@ export default function Home() {
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
-
         </Box>
       </Box>
-      
+
       {/* Datos de Politicas */}
       {/* Form Box Responsive */}
       <Box
@@ -1785,28 +1817,88 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <Box sx={{ml: 3, mr: 3}}>
+          <Box sx={{ ml: 3, mr: 3 }}>
             <Typography
               variant="subtitle2"
-              align= "justify"
+              align="justify"
               color="#9f2241"
               gutterBottom
               sx={{ mt: 0, width: "calc(100% - 32px)", ml: 0, mr: 4 }}
             >
-            1)	El usuario solicitante puede tramitar este formato las veces que sea necesario, según sus necesidades. Los servicios solicitados son acumulados a los existentes. Es responsabilidad del solicitante, indicar correctamente el movimiento (A, B, C) de los servicios especificados tomando en cuenta su historial de solicitudes.<br />
-            2)	El Enlace Informático de la unidad administrativa solicitante, será quien gestione y de seguimiento a la solicitud de servicios de Red Privada Virtual (VPN) del personal de su unidad. <br />
-            3)	La Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad única y exclusivamente proveerá el servicio de acceso remoto por VPN al usuario solicitante autorizado por el titular de su unidad administrativa previa presentación del formato debidamente llenado.<br />
-            4)	La Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad, le proveerá al usuario autorizado la credencial de acceso, manual de instalación y configuración del software de cliente de VPN de usuario mediante correo electrónico personalizado.<br />
-            5)	El acceso a los servicios de red interna mediante el servicio de VPN, será con el uso de una contraseña que cumpla con la política correspondiente y el envío por correo electrónico al usuario de una clave de 6 dígitos como doble factor de autenticación. Es responsabilidad única y exclusiva del usuario autorizado a conservar en secreto, no proporcionar a terceros su contraseña y no permitir el acceso a su cuenta de correo electrónico para la obtención de la clave de 6 dígitos a terceros.<br />
-            6)	Posterior al proceso de autorización de acceso al usuario y ya establecido el túnel de VPN, solo el tráfico que se iden-tifique que tiene como destino la red interna de la CONAGUA cursará por el túnel de VPN, el resto del tráfico del equi-po origen del usuario seguirá las rutas que tenga definidas en su configuración para acceder a otros recursos de red.<br />
-            7)	El servicio de VPN, solo permitirá por cada usuario, una conexión desde un dispositivo remoto, por lo que no será posible tener 2 o más conexiones simultáneas para una misma cuenta.<br />
-            8)	La sesión establecida será automáticamente cerrada transcurridos 10 minutos de inactividad. El usuario deberá repetir el proceso de inicio de sesión para conectarse a la red de la CONAGUA. Está prohibido usar cualquier proceso o software para mantener la sesión activa.<br />
-            9)	El usuario autorizado de VPN acepta que al hacer uso del servicio de VPN mediante cualquier tipo de conexión, es de su exclusiva responsabilidad el costo que ello genere.<br />
-            10)	El equipo proporcionado por la CONAGUA ya cuenta con los elementos de seguridad necesarios para operar dentro de la red interna (actualizaciones del sistema operativo, actualizaciones de aplicaciones, software antimalware), pero es obligación del usuario autorizado verificar que estos elementos se encuentren actualizados. En el caso de equipo per-sonal, es responsabilidad del usuario autorizado ejecutar y mantener actualizado el sistema operativo, las aplicaciones instaladas y tener activos los elementos de seguridad como: Antivirus/Antimalware, corta fuego o firewall, protección de cuentas, seguridad del dispositivo, control de aplicaciones y exploradores entre otros que ofrezca el sistema ope-rativo o sean instalados de manera independiente.<br />
-            11)	Si el usuario autorizado hace uso de su equipo personal para acceder a los servicios de la red interna de la CONAGUA mediante el uso de los servicios de VPN, acepta conocer y cumplir con las políticas, normas y disposiciones en mate-ria de seguridad de la información que aplican para los equipos que proporciona la CONAGUA.
+              1) El usuario solicitante puede tramitar este formato las veces
+              que sea necesario, según sus necesidades. Los servicios
+              solicitados son acumulados a los existentes. Es responsabilidad
+              del solicitante, indicar correctamente el movimiento (A, B, C) de
+              los servicios especificados tomando en cuenta su historial de
+              solicitudes.
+              <br />
+              2) El Enlace Informático de la unidad administrativa solicitante,
+              será quien gestione y de seguimiento a la solicitud de servicios
+              de Red Privada Virtual (VPN) del personal de su unidad. <br />
+              3) La Subgerencia de Soporte Técnico, Telecomunicaciones y
+              Seguridad única y exclusivamente proveerá el servicio de acceso
+              remoto por VPN al usuario solicitante autorizado por el titular de
+              su unidad administrativa previa presentación del formato
+              debidamente llenado.
+              <br />
+              4) La Subgerencia de Soporte Técnico, Telecomunicaciones y
+              Seguridad, le proveerá al usuario autorizado la credencial de
+              acceso, manual de instalación y configuración del software de
+              cliente de VPN de usuario mediante correo electrónico
+              personalizado.
+              <br />
+              5) El acceso a los servicios de red interna mediante el servicio
+              de VPN, será con el uso de una contraseña que cumpla con la
+              política correspondiente y el envío por correo electrónico al
+              usuario de una clave de 6 dígitos como doble factor de
+              autenticación. Es responsabilidad única y exclusiva del usuario
+              autorizado a conservar en secreto, no proporcionar a terceros su
+              contraseña y no permitir el acceso a su cuenta de correo
+              electrónico para la obtención de la clave de 6 dígitos a terceros.
+              <br />
+              6) Posterior al proceso de autorización de acceso al usuario y ya
+              establecido el túnel de VPN, solo el tráfico que se iden-tifique
+              que tiene como destino la red interna de la CONAGUA cursará por el
+              túnel de VPN, el resto del tráfico del equi-po origen del usuario
+              seguirá las rutas que tenga definidas en su configuración para
+              acceder a otros recursos de red.
+              <br />
+              7) El servicio de VPN, solo permitirá por cada usuario, una
+              conexión desde un dispositivo remoto, por lo que no será posible
+              tener 2 o más conexiones simultáneas para una misma cuenta.
+              <br />
+              8) La sesión establecida será automáticamente cerrada
+              transcurridos 10 minutos de inactividad. El usuario deberá repetir
+              el proceso de inicio de sesión para conectarse a la red de la
+              CONAGUA. Está prohibido usar cualquier proceso o software para
+              mantener la sesión activa.
+              <br />
+              9) El usuario autorizado de VPN acepta que al hacer uso del
+              servicio de VPN mediante cualquier tipo de conexión, es de su
+              exclusiva responsabilidad el costo que ello genere.
+              <br />
+              10) El equipo proporcionado por la CONAGUA ya cuenta con los
+              elementos de seguridad necesarios para operar dentro de la red
+              interna (actualizaciones del sistema operativo, actualizaciones de
+              aplicaciones, software antimalware), pero es obligación del
+              usuario autorizado verificar que estos elementos se encuentren
+              actualizados. En el caso de equipo per-sonal, es responsabilidad
+              del usuario autorizado ejecutar y mantener actualizado el sistema
+              operativo, las aplicaciones instaladas y tener activos los
+              elementos de seguridad como: Antivirus/Antimalware, corta fuego o
+              firewall, protección de cuentas, seguridad del dispositivo,
+              control de aplicaciones y exploradores entre otros que ofrezca el
+              sistema ope-rativo o sean instalados de manera independiente.
+              <br />
+              11) Si el usuario autorizado hace uso de su equipo personal para
+              acceder a los servicios de la red interna de la CONAGUA mediante
+              el uso de los servicios de VPN, acepta conocer y cumplir con las
+              políticas, normas y disposiciones en mate-ria de seguridad de la
+              información que aplican para los equipos que proporciona la
+              CONAGUA.
             </Typography>
           </Box>
-          
+
           <Box
             sx={{
               display: "flex",
@@ -1815,12 +1907,15 @@ export default function Home() {
               justifyContent: "center",
               mt: 2,
               ml: 10,
-              mb: 3
+              mb: 3,
               //mx: "auto"
             }}
           >
             {[
-              { name: "politicasaceptadas", label: "Acepto términos y condiciones" },
+              {
+                name: "politicasaceptadas",
+                label: "Acepto términos y condiciones",
+              },
             ].map((item, index) => (
               <Box
                 key={index}
@@ -1837,7 +1932,6 @@ export default function Home() {
                   }
                   label={item.label}
                 />
-                
               </Box>
             ))}
             <FormHelperText
@@ -1852,10 +1946,7 @@ export default function Home() {
             >
               {errors?.politicasaceptadas}
             </FormHelperText>
-            
           </Box>
-          
-
         </Box>
       </Box>
 
@@ -1963,14 +2054,15 @@ export default function Home() {
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />
 
       {/* BOTON FLOTANTE */}
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           position: "fixed",
           bottom: 24,
           right: 24,
-          '& > :not(style)': { m: 1 } 
-          }}>
-        <Fab variant="extended" color = "success" onClick={handleClickOpen}>
+          "& > :not(style)": { m: 1 },
+        }}
+      >
+        <Fab variant="extended" color="success" onClick={handleClickOpen}>
           <SyncIcon sx={{ mr: 1 }} />
           Añadir Memorando
         </Fab>
@@ -1982,18 +2074,18 @@ export default function Home() {
         onClose={handleClose}
         onSubmit={handleSubmit2}
         sx={{
-           '& .MuiDialog-container': {
-             backgroundColor: 'f5f5f5', // Or any other color
-           },
-           '& .MuiDialog-paper': {
-             backgroundColor: '#f4f4f5', // Customize dialog content background
-           },
-         }}
+          "& .MuiDialog-container": {
+            backgroundColor: "f5f5f5", // Or any other color
+          },
+          "& .MuiDialog-paper": {
+            backgroundColor: "#f4f4f5", // Customize dialog content background
+          },
+        }}
         slotProps={{
           paper: {
-            component: 'form',
+            component: "form",
             onSubmit: (event) => {
-              console.log("Informacion Enviada")
+              console.log("Informacion Enviada");
             },
           },
         }}
@@ -2001,33 +2093,34 @@ export default function Home() {
         <DialogTitle>Añadir Memorando</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Aquí puede añadir el número de memorando que se le proporciono para completar el llenado de su formato.
+            Aquí puede añadir el número de memorando que se le proporciono para
+            completar el llenado de su formato.
           </DialogContentText>
-          <DialogContentText sx={{mt: 2}}>
+          <DialogContentText sx={{ mt: 2 }}>
             * Es su responsabilidad llenarlo adecuadamente.
           </DialogContentText>
           <Divider
-                    sx={{
-                      borderBottomWidth: "1px",
-                      borderColor: "grey",
-                      ml: 2,
-                      mr: 2,
-                      mb: 1,
-                      mt:2
-                    }}
-                  />
-                    <FormLabel
-                      component="legend"
-                      sx={{
-                        mx: "auto",
-                        mt:2,
-                        display: "flex",
-                        justifyContent: "center",
-                        fontSize: "0.8rem",
-                        width: "calc(100% - 32px)",
-                      }}
-                    >
-                      Dato de búsqueda (lo podrá encontrar en su formato).
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 1,
+              mt: 2,
+            }}
+          />
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Dato de búsqueda (lo podrá encontrar en su formato).
           </FormLabel>
           <TextField
             required
@@ -2043,18 +2136,18 @@ export default function Home() {
             fullWidth
           />
           <FormLabel
-                      component="legend"
-                      sx={{
-                        mx: "auto",
-                        mt:2,
-                        display: "flex",
-                        justifyContent: "center",
-                        fontSize: "0.8rem",
-                        width: "calc(100% - 32px)",
-                      }}
-                    >
-                      Dato a actualizar.
-            </FormLabel>
+            component="legend"
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Dato a actualizar.
+          </FormLabel>
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
@@ -2094,10 +2187,10 @@ export default function Home() {
           >
             {botonEstado2}
           </Button>
-          <Button 
-            variant="contained" 
+          <Button
+            variant="contained"
             onClick={handleClose}
-             sx={{
+            sx={{
               mt: 3,
               mb: 3,
               width: "calc(100% - 32px)",
@@ -2111,7 +2204,6 @@ export default function Home() {
             Cancelar
           </Button>
         </DialogActions>
-        
       </Dialog>
     </Container>
   );
