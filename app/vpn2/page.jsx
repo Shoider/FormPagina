@@ -662,7 +662,7 @@ export default function Home() {
                 handleUA(newInputValue); // Maneja texto escrito directamente
               }
             }}
-            inputValue={formData.unidadAdministrativa || ''} // Controla el valor mostrado
+            inputValue={formData.subgerencia || ''} // Controla el valor mostrado
             getOptionLabel={(option) => option || ''}
             isOptionEqualToValue={(option, value) => option === value}
           />

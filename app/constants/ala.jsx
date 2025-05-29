@@ -1,7 +1,7 @@
 // ALA, QUEDA ABIERTO POR FUTURAS ACTUALIZACIONES
 const ala = [
-  "ALA SUR",
-  "ALA PONIENTE",
+  "Ala Sur",
+  "Ala Poniente",
 ];
 
 export default ala;
