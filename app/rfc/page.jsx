@@ -790,7 +790,7 @@ export default function Home() {
       return;
     } else {
       setAlert({
-        message: "Informacion Registrada",
+        message: "Información Registrada",
         severity: "success",
       });
       setOpenAlert(true);
@@ -805,7 +805,7 @@ export default function Home() {
       return;
     } else {
       setAlert({
-        message: "Informacion Registrada",
+        message: "Información Registrada",
         severity: "success",
       });
       setOpenAlert(true);
@@ -832,6 +832,7 @@ export default function Home() {
         message: "Ocurrio un error",
         severity: "error",
       });
+      console.error(error)
       setOpenAlert(true);
     }
   };

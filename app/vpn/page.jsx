@@ -105,7 +105,7 @@ export default function Home() {
       return;
     } else {
       setAlert({
-        message: "Informacion Registrada",
+        message: "Información Registrada",
         severity: "success",
       });
       setOpenAlert(true);
