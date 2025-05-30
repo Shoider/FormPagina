@@ -169,7 +169,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
     },
     {
       field: "SO",
-      headerName: "Nombre(s) de Usuario(s) Zona(s) Origen",
+      headerName: "Nombre(s) de usuario(s), zona(s) origen",
       width: 300,
       align: "center",
       headerAlign: "center",
@@ -237,7 +237,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
     //{ field: 'FRO', headerName: 'Funcion ó Rol de Dispositivo(s) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: false },
     {
       field: "IPO",
-      headerName: "Segmento(s)/IP(s) Origen",
+      headerName: "Segmento(s)/IP(s) origen",
       type: "string",
       width: 300,
       align: "center",
@@ -305,7 +305,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
     },
     {
       field: "SD",
-      headerName: "Sistema Asociado a Anfitrion(es) Destino",
+      headerName: "Sistema asociado a anfitrion(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -314,7 +314,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
     },
     {
       field: "FRD",
-      headerName: "Rol de Anfitrión(es) Destino",
+      headerName: "Rol de anfitrión(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -382,7 +382,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
     },
     {
       field: "IPD",
-      headerName: "IP/NAT Anfitrión(es) Destino",
+      headerName: "IP/NAT anfitrión(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -391,7 +391,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
     },
     {
       field: "PRO",
-      headerName: "Protocolo TCP ó UDP",
+      headerName: "Protocolo TCP o UDP",
       width: 200,
       align: "center",
       headerAlign: "center",
@@ -420,7 +420,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
     },
     {
       field: "FECHA",
-      headerName: "Fechas del Plazo",
+      headerName: "Fechas del plazo",
       type: "string",
       width: 200,
       align: "center",

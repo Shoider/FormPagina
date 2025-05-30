@@ -170,7 +170,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
     },
     {
       field: "SO",
-      headerName: "Nombre(s) de Administrador(es)",
+      headerName: "Nombre(s) de administrador(es)",
       type: "string",
       width: 150,
       align: "center",
@@ -179,7 +179,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
     },
     {
       field: "IPO",
-      headerName: "IP Anfitrión(es) Origen",
+      headerName: "IP anfitrión(es) origen",
       type: "string",
       width: 200,
       align: "center",
@@ -188,7 +188,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
     },
     {
       field: "SD",
-      headerName: "Sistema Asociado a Anfitrion(es) Destino",
+      headerName: "Sistema asociado a anfitrion(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -197,7 +197,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
     },
     {
       field: "FRD",
-      headerName: "Funcion ó Rol de Anfitrión(es) Destino",
+      headerName: "Funcion ó rol de anfitrión(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -265,7 +265,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
     },
     {
       field: "IPD",
-      headerName: "IP/NAT Anfitrión(es) Destino",
+      headerName: "IP/NAT anfitrión(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -274,7 +274,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
     },
     {
       field: "PRO",
-      headerName: "Protocolo TCP ó UDP",
+      headerName: "Protocolo TCP o UDP",
       width: 200,
       align: "center",
       headerAlign: "center",
@@ -303,7 +303,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
     },
     {
       field: "FECHA",
-      headerName: "Fechas del Plazo",
+      headerName: "Fechas del plazo",
       type: "string",
       width: 200,
       align: "center",

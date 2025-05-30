@@ -180,7 +180,7 @@ function EditableTableInter({ initialData, onDataChange }) {
     },
     {
       field: "FRO",
-      headerName: "Funcion ó Rol de Anfitrión(es) Origen",
+      headerName: "Funcion ó rol de dispositivo(s) origen",
       type: "string",
       width: 200,
       align: "center",
@@ -248,7 +248,7 @@ function EditableTableInter({ initialData, onDataChange }) {
     },
     {
       field: "IPO",
-      headerName: "IP/NAT Anfitrión(es) Origen",
+      headerName: "IP/NAT dispositivo(s) origen",
       type: "string",
       width: 200,
       align: "center",
@@ -266,7 +266,7 @@ function EditableTableInter({ initialData, onDataChange }) {
     },
     {
       field: "FRD",
-      headerName: "Funcion ó Rol de Anfitrión(es) Destino",
+      headerName: "Funcion ó rol de dispositivo(s) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -334,7 +334,7 @@ function EditableTableInter({ initialData, onDataChange }) {
     },
     {
       field: "IPD",
-      headerName: "IP/NAT Anfitrión(es) Destino",
+      headerName: "IP/NAT dispositivo(s) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -343,7 +343,7 @@ function EditableTableInter({ initialData, onDataChange }) {
     },
     {
       field: "PRO",
-      headerName: "Protocolo TCP ó UDP",
+      headerName: "Protocolo TCP o UDP",
       width: 200,
       align: "center",
       headerAlign: "center",
@@ -372,7 +372,7 @@ function EditableTableInter({ initialData, onDataChange }) {
     },
     {
       field: "FECHA",
-      headerName: "Fechas del Plazo",
+      headerName: "Fechas del plazo",
       type: "string",
       width: 200,
       align: "center",
