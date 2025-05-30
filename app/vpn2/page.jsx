@@ -1857,9 +1857,9 @@ export default function Home() {
               electrónico para la obtención de la clave de 6 dígitos a terceros.
               <br />
               6) Posterior al proceso de autorización de acceso al usuario y ya
-              establecido el túnel de VPN, solo el tráfico que se iden-tifique
+              establecido el túnel de VPN, solo el tráfico que se identifique
               que tiene como destino la red interna de la CONAGUA cursará por el
-              túnel de VPN, el resto del tráfico del equi-po origen del usuario
+              túnel de VPN, el resto del tráfico del equipo origen del usuario
               seguirá las rutas que tenga definidas en su configuración para
               acceder a otros recursos de red.
               <br />
@@ -1882,13 +1882,13 @@ export default function Home() {
               interna (actualizaciones del sistema operativo, actualizaciones de
               aplicaciones, software antimalware), pero es obligación del
               usuario autorizado verificar que estos elementos se encuentren
-              actualizados. En el caso de equipo per-sonal, es responsabilidad
+              actualizados. En el caso de equipo personal, es responsabilidad
               del usuario autorizado ejecutar y mantener actualizado el sistema
               operativo, las aplicaciones instaladas y tener activos los
               elementos de seguridad como: Antivirus/Antimalware, corta fuego o
               firewall, protección de cuentas, seguridad del dispositivo,
               control de aplicaciones y exploradores entre otros que ofrezca el
-              sistema ope-rativo o sean instalados de manera independiente.
+              sistema operativo o sean instalados de manera independiente.
               <br />
               11) Si el usuario autorizado hace uso de su equipo personal para
               acceder a los servicios de la red interna de la CONAGUA mediante
