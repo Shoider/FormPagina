@@ -25,7 +25,7 @@ export default function FooterGlobal() {
               color="white"
               textAlign={{ xs: "center", sm: "left" }}
             >
-              En Desarrollo... Reportar errores o sugerencias.
+              En Desarrollo. Reportar errores o sugerencias.
             </Typography>
             <Typography
               variant="h6"
