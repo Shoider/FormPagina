@@ -525,7 +525,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosInterCambiosAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO /* agrega aquí los campos requeridos */) {
+          if (!row.id || !row.IPO || !row.IPD || !row.PUER/* agrega aquí los campos requeridos */) {
             //errores[`registrosInterCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -543,7 +543,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosInterCambiosBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO /* agrega aquí los campos requeridos */) {
+          if (!row.id || !row.IPO || !row.IPD || !row.PUER /* agrega aquí los campos requeridos */) {
             //errores[`registrosInterCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -563,7 +563,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosAdminAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO /* agrega aquí los campos requeridos */) {
+          if (!row.id || !row.IPO || !row.IPD || !row.PUER/* agrega aquí los campos requeridos */) {
             //errores[`registrosAdminAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -581,7 +581,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosAdminBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO /* agrega aquí los campos requeridos */) {
+          if (!row.id || !row.IPO || !row.IPD || !row.PUER /* agrega aquí los campos requeridos */) {
             //errores[`registrosAdminBajas${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Bajas Intersistemas`;
             isValidTabla = false;
           }
@@ -599,7 +599,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosAdminCambiosAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO /* agrega aquí los campos requeridos */) {
+          if (!row.id || !row.IPO || !row.IPD || !row.PUER /* agrega aquí los campos requeridos */) {
             //errores[`registrosAdminCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -617,7 +617,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosAdminCambiosBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO /* agrega aquí los campos requeridos */) {
+          if (!row.id || !row.IPO || !row.IPD || !row.PUER /* agrega aquí los campos requeridos */) {
             //errores[`registrosAdminCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -637,7 +637,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosDesAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO /* agrega aquí los campos requeridos */) {
+          if (!row.id || !row.IPO || !row.IPD || !row.PUER /* agrega aquí los campos requeridos */) {
             //errores[`registrosDesAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -655,7 +655,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosDesBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO /* agrega aquí los campos requeridos */) {
+          if (!row.id || !row.IPO || !row.IPD || !row.PUER /* agrega aquí los campos requeridos */) {
             //errores[`registrosInterBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Bajas Intersistemas`;
             isValidTabla = false;
           }
@@ -673,7 +673,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosDesCambiosAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO /* agrega aquí los campos requeridos */) {
+          if (!row.id || !row.IPO || !row.IPD || !row.PUER /* agrega aquí los campos requeridos */) {
             //errores[`registrosDesCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -691,7 +691,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosInterCambiosBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO /* agrega aquí los campos requeridos */) {
+          if (!row.id || !row.IPO || !row.IPD || !row.PUER /* agrega aquí los campos requeridos */) {
             //errores[`registrosInterCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -712,7 +712,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosUsuaAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO /* agrega aquí los campos requeridos */) {
+          if (!row.id || !row.IPO || !row.IPD || !row.PUER /* agrega aquí los campos requeridos */) {
             //errores[`registrosUsuaAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -730,7 +730,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosUsuaBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO /* agrega aquí los campos requeridos */) {
+          if (!row.id || !row.IPO || !row.IPD || !row.PUER /* agrega aquí los campos requeridos */) {
             //errores[`registrosInterBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Bajas Intersistemas`;
             isValidTabla = false;
           }
@@ -748,7 +748,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosUsuaCambiosAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO /* agrega aquí los campos requeridos */) {
+          if (!row.id || !row.IPO || !row.IPD || !row.PUER /* agrega aquí los campos requeridos */) {
             //errores[`registrosDesCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -766,7 +766,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosUsuaCambiosBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO /* agrega aquí los campos requeridos */) {
+          if (!row.id || !row.IPO || !row.IPD || !row.PUER /* agrega aquí los campos requeridos */) {
             //errores[`registrosInterCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
