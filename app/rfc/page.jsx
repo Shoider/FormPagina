@@ -1336,16 +1336,6 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mt: 3,
-              mb: 1,
-            }}
-          />
 
           <TextField
             required
