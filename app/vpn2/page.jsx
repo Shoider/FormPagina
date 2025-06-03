@@ -26,6 +26,7 @@ import {
 } from "@mui/material";
 
 import Image from "next/image";
+import Link from 'next/link';
 import axios from "axios";
 import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
@@ -1857,9 +1858,9 @@ export default function Home() {
               electrónico para la obtención de la clave de 6 dígitos a terceros.
               <br />
               6) Posterior al proceso de autorización de acceso al usuario y ya
-              establecido el túnel de VPN, solo el tráfico que se iden-tifique
+              establecido el túnel de VPN, solo el tráfico que se identifique
               que tiene como destino la red interna de la CONAGUA cursará por el
-              túnel de VPN, el resto del tráfico del equi-po origen del usuario
+              túnel de VPN, el resto del tráfico del equipo origen del usuario
               seguirá las rutas que tenga definidas en su configuración para
               acceder a otros recursos de red.
               <br />
@@ -1882,13 +1883,13 @@ export default function Home() {
               interna (actualizaciones del sistema operativo, actualizaciones de
               aplicaciones, software antimalware), pero es obligación del
               usuario autorizado verificar que estos elementos se encuentren
-              actualizados. En el caso de equipo per-sonal, es responsabilidad
+              actualizados. En el caso de equipo personal, es responsabilidad
               del usuario autorizado ejecutar y mantener actualizado el sistema
               operativo, las aplicaciones instaladas y tener activos los
               elementos de seguridad como: Antivirus/Antimalware, corta fuego o
               firewall, protección de cuentas, seguridad del dispositivo,
               control de aplicaciones y exploradores entre otros que ofrezca el
-              sistema ope-rativo o sean instalados de manera independiente.
+              sistema operativo o sean instalados de manera independiente.
               <br />
               11) Si el usuario autorizado hace uso de su equipo personal para
               acceder a los servicios de la red interna de la CONAGUA mediante
@@ -2046,6 +2047,46 @@ export default function Home() {
             })}
           >
             {botonEstado}
+          </Button>
+          <Button
+            component={Link}
+            href="/"
+            variant="contained"
+            sx={{
+              mt: 0,
+              mb: 3,
+              width: "calc(50% - 32px)",
+              ml: 2,
+              mr: 0,
+              background: "#98989A",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+          >
+            Regresar al Inicio
+          </Button>
+          <Button
+            type= "reset"
+            variant="contained"
+            sx={{
+              mt: 0,
+              mb: 3,
+              width: "calc(50% - 32px)",
+              ml: 4,
+              mr: 0,
+              background: theme.palette.secondary.main,
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+            disabled={
+              botonEstado !== "Descargar PDF"
+            }
+            onClick={() => {
+              window.location.reload();
+              window.scrollTo(0, 0);
+            }}
+          >
+            Nueva solicitud
           </Button>
         </Box>
       </Box>

@@ -16,6 +16,7 @@ import {
   Autocomplete,
 } from "@mui/material";
 import Image from "next/image";
+import Link from 'next/link';
 import axios from "axios";
 import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
@@ -553,68 +554,8 @@ export default function Home() {
             gutterBottom
             sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Formulario Para Solicitud De Ampliación del Servicio de Internet
+            Formulario para solicitud de ampliación del servicio de internet
           </Typography>
-        </Box>
-      </Box>
-
-      {/* Datos del la Solicitud */}
-      {/* Form Box Responsive */}
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-        {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-          INFORMACIÓN DE LA SOLICITUD
-        </Typography>
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            required
-            error={!!errors?.fechasoli}
-            id="fechasoli"
-            name="fechasoli"
-            label="Fecha de Solicitud"
-            type="date"
-            onChange={handleDateChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            InputLabelProps={{ shrink: true }}
-            inputProps={{ maxLength: 256 }}
-          />
         </Box>
       </Box>
 
@@ -895,6 +836,66 @@ export default function Home() {
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 4 }}
+          />
+        </Box>
+      </Box>
+
+      {/* Datos del la Solicitud */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          INFORMACIÓN DE LA SOLICITUD
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            required
+            error={!!errors?.fechasoli}
+            id="fechasoli"
+            name="fechasoli"
+            label="Fecha de Solicitud"
+            type="date"
+            onChange={handleDateChange}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            InputLabelProps={{ shrink: true }}
+            inputProps={{ maxLength: 256 }}
           />
         </Box>
       </Box>
@@ -2725,6 +2726,46 @@ export default function Home() {
             })}
           >
             {botonEstado}
+          </Button>
+          <Button
+            component={Link}
+            href="/"
+            variant="contained"
+            sx={{
+              mt: 0,
+              mb: 3,
+              width: "calc(50% - 32px)",
+              ml: 2,
+              mr: 0,
+              background: "#98989A",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+          >
+            Regresar al Inicio
+          </Button>
+          <Button
+            type= "reset"
+            variant="contained"
+            sx={{
+              mt: 0,
+              mb: 3,
+              width: "calc(50% - 32px)",
+              ml: 4,
+              mr: 0,
+              background: theme.palette.secondary.main,
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+            disabled={
+              botonEstado !== "Descargar PDF"
+            }
+            onClick={() => {
+              window.location.reload();
+              window.scrollTo(0, 0);
+            }}
+          >
+            Nueva solicitud
           </Button>
         </Box>
       </Box>

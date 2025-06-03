@@ -19,7 +19,7 @@ import {
   Autocomplete,
 } from "@mui/material";
 import Image from "next/image";
-
+import Link from 'next/link';
 import axios from "axios";
 
 import Alerts from "../components/alerts.jsx";
@@ -380,167 +380,8 @@ export default function Home() {
             gutterBottom
             sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Solicitud De Servicios de Telefonía
+            Solicitud de servicios de telefonía
           </Typography>
-        </Box>
-      </Box>
-
-      {/* Datos del la Solicitud */}
-      {/* Form Box Responsive */}
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-        {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-          INFORMACIÓN DE LA SOLICITUD
-        </Typography>
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mt: 3,
-              mb: 1,
-            }}
-          />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <FormLabel
-              component="legend"
-              sx={{
-                mt: 0,
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "1.2rem",
-              }}
-            >
-              Tipo de Movimiento *
-            </FormLabel>
-            <RadioGroup
-              row
-              aria-label="Tipo de Movimiento"
-              name="movimiento"
-              value={formData.movimiento}
-              onChange={handleChange}
-              required
-              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
-            >
-              <FormControlLabel value="ALTA" control={<Radio />} label="ALTA" />
-              <FormControlLabel value="BAJA" control={<Radio />} label="BAJA" />
-              <FormControlLabel
-                value="CAMBIO"
-                control={<Radio />}
-                label="CAMBIO"
-              />
-            </RadioGroup>
-            <FormHelperText
-              sx={{
-                ml: 2,
-                mr: 2,
-                mb: 1,
-                justifyContent: "center",
-                color: "red",
-              }}
-            >
-              {errors?.movimiento}
-            </FormHelperText>
-          </Box>
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mb: 0,
-            }}
-          />
-          <TextField
-            required
-            error={!!errors?.justificacion}
-            id="justificacion"
-            name="justificacion"
-            label="Justificación"
-            placeholder="Escriba la justificación"
-            value={formData.justificacion}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.activacion}
-            id="activacion"
-            name="activacion"
-            label="Fecha de activación"
-            type="date"
-            //value={formData.activacion}
-            onChange={handleDateChangeActiva}
-            sx={{ background: "#FFFFFF" }}
-            InputLabelProps={{ shrink: true }}
-          />
-          <TextField
-            required
-            error={!!errors?.expiracion}
-            id="expiracion"
-            name="expiracion"
-            label="Fecha de expiración"
-            type="date"
-            //value={formData.expiracion}
-            onChange={handleDateChangeExpira}
-            sx={{ background: "#FFFFFF" }}
-            InputLabelProps={{ shrink: true }}
-          />
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mb: 3,
-            }}
-          />
         </Box>
       </Box>
 
@@ -895,6 +736,165 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
+          />
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 3,
+            }}
+          />
+        </Box>
+      </Box>
+
+      {/* Datos del la Solicitud */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          INFORMACIÓN DE LA SOLICITUD
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 3,
+              mb: 1,
+            }}
+          />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <FormLabel
+              component="legend"
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
+            >
+              Tipo de Movimiento *
+            </FormLabel>
+            <RadioGroup
+              row
+              aria-label="Tipo de Movimiento"
+              name="movimiento"
+              value={formData.movimiento}
+              onChange={handleChange}
+              required
+              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+            >
+              <FormControlLabel value="ALTA" control={<Radio />} label="ALTA" />
+              <FormControlLabel value="BAJA" control={<Radio />} label="BAJA" />
+              <FormControlLabel
+                value="CAMBIO"
+                control={<Radio />}
+                label="CAMBIO"
+              />
+            </RadioGroup>
+            <FormHelperText
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 1,
+                justifyContent: "center",
+                color: "red",
+              }}
+            >
+              {errors?.movimiento}
+            </FormHelperText>
+          </Box>
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 0,
+            }}
+          />
+          <TextField
+            required
+            error={!!errors?.justificacion}
+            id="justificacion"
+            name="justificacion"
+            label="Justificación"
+            placeholder="Escriba la justificación"
+            value={formData.justificacion}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.activacion}
+            id="activacion"
+            name="activacion"
+            label="Fecha de activación"
+            type="date"
+            //value={formData.activacion}
+            onChange={handleDateChangeActiva}
+            sx={{ background: "#FFFFFF" }}
+            InputLabelProps={{ shrink: true }}
+          />
+          <TextField
+            required
+            error={!!errors?.expiracion}
+            id="expiracion"
+            name="expiracion"
+            label="Fecha de expiración"
+            type="date"
+            //value={formData.expiracion}
+            onChange={handleDateChangeExpira}
+            sx={{ background: "#FFFFFF" }}
+            InputLabelProps={{ shrink: true }}
           />
           <Divider
             sx={{
@@ -1642,6 +1642,46 @@ export default function Home() {
             })}
           >
             {botonEstado}
+          </Button>
+          <Button
+            component={Link}
+            href="/"
+            variant="contained"
+            sx={{
+              mt: 0,
+              mb: 3,
+              width: "calc(50% - 32px)",
+              ml: 2,
+              mr: 0,
+              background: "#98989A",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+          >
+            Regresar al Inicio
+          </Button>
+          <Button
+            type= "reset"
+            variant="contained"
+            sx={{
+              mt: 0,
+              mb: 3,
+              width: "calc(50% - 32px)",
+              ml: 4,
+              mr: 0,
+              background: theme.palette.secondary.main,
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+            disabled={
+              botonEstado !== "Descargar PDF"
+            }
+            onClick={() => {
+              window.location.reload();
+              window.scrollTo(0, 0);
+            }}
+          >
+            Nueva solicitud
           </Button>
         </Box>
       </Box>
