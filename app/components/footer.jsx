@@ -5,6 +5,7 @@ import XIcon from "@mui/icons-material/X";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { theme } from "../styles/global-theme";
+import Image from "next/image";
 
 export default function FooterGlobal() {
   return (
@@ -14,9 +15,10 @@ export default function FooterGlobal() {
         marginTop: "auto",
         backgroundColor: theme.palette.secondary.main,
         padding: "2.5rem 0",
+        position: "relative",
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{mb: 6}}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <Typography
@@ -25,15 +27,33 @@ export default function FooterGlobal() {
               color="white"
               textAlign={{ xs: "center", sm: "left" }}
             >
-              En Desarrollo. Reportar errores o sugerencias.
+              En Desarrollo.
             </Typography>
             <Typography
               variant="h6"
               fontWeight={700}
               color="white"
-              textAlign={{ xs: "center", sm: "left", mt: 10 }}
+              textAlign={{ xs: "center", sm: "left" }}
+            >
+              Reportar errores o sugerencias.
+            </Typography>
+            <Typography
+              variant="h6"
+              fontWeight={700}
+              color="white"
+              textAlign={{ xs: "center", sm: "left" }}
+              sx={{mt:2}}
             >
               Contacto: req.seguridad17@conagua.gob.mx
+            </Typography>
+            <Typography
+              variant="button"
+              fontWeight={700}
+              color="white"
+              textAlign={{ xs: "center", sm: "left"}}
+              sx={{mt:20}}
+            >
+              v0.6.0
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6} textAlign={{ xs: "center", sm: "right" }}>
@@ -71,6 +91,17 @@ export default function FooterGlobal() {
           </Grid>
         </Grid>
       </Container>
+      <Box
+        sx={{
+          width: "100%",
+          height: '50px', // Ajusta la altura según tus necesidades
+          backgroundImage: 'url("/pleca.svg")',
+          backgroundRepeat: 'repeat-x',
+          position: "absolute",
+          bottom: 0,
+        }}
+      />
     </Box>
+    
   );
 }

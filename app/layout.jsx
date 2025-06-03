@@ -10,7 +10,7 @@ import "@fontsource/noto-sans";
 
 export const metadata = {
   description: "Formularios de solicitudes de acceso",
-  version: "5.0.0",
+  version: "0.6.0",
   author: "CONAGUA (Brandon y Nidia)",
 };
 
