@@ -795,9 +795,9 @@ export default function Home() {
     //console.log("Datos del formulario:", formData);
 
     const [isValid, isValidTabla, getErrors] =
-      validarCamposRequeridos(formData);
+    validarCamposRequeridos(formData);
     setErrors(getErrors);
-    //console.log("Errores: ", errors)
+    console.log("Errores: ", errors)
 
     if (!isValid) {
       setAlert({
