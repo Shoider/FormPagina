@@ -4141,20 +4141,8 @@ export default function Home() {
         </Box>
       </Box>
 
-     {/*  <Box noWrap component={Link} href="/">
-              sx={{
-                mr: 2,
-                ml: 0.5,
-                color: "white",
-                fontSize: 30, // O 'x-large' o 36 (pixeles)
-              }}
-          </Box> */}
-
       {/* ALERT */}
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />{" "}
-
-
-
 
       {/* BOTON FLOTANTE */}
       <Box

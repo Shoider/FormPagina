@@ -26,6 +26,7 @@ import {
 } from "@mui/material";
 
 import Image from "next/image";
+import Link from 'next/link';
 import axios from "axios";
 import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
@@ -2046,6 +2047,46 @@ export default function Home() {
             })}
           >
             {botonEstado}
+          </Button>
+          <Button
+            component={Link}
+            href="/"
+            variant="contained"
+            sx={{
+              mt: 0,
+              mb: 3,
+              width: "calc(50% - 32px)",
+              ml: 2,
+              mr: 0,
+              background: "#98989A",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+          >
+            Regresar al Inicio
+          </Button>
+          <Button
+            type= "reset"
+            variant="contained"
+            sx={{
+              mt: 0,
+              mb: 3,
+              width: "calc(50% - 32px)",
+              ml: 4,
+              mr: 0,
+              background: theme.palette.secondary.main,
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+            disabled={
+              botonEstado !== "Descargar PDF"
+            }
+            onClick={() => {
+              window.location.reload();
+              window.scrollTo(0, 0);
+            }}
+          >
+            Nueva solicitud
           </Button>
         </Box>
       </Box>
