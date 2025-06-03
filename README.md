@@ -1,6 +1,6 @@
-# Formulario VPN / CONAGUA - Frontend
+# Formulario CONAGUA - Frontend
 
-Este proyecto representa el frontend de la aplicación Formulario VPN CONAGUA, diseñado para interactuar con la API correspondiente.
+Este proyecto representa el frontend de la aplicación Formulario, diseñado para interactuar con la API correspondiente.
 
 ## Tabla de Contenidos
 

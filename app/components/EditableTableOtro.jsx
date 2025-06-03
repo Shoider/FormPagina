@@ -257,7 +257,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       width: 200,
       align: "center",
       headerAlign: "center",
-      editable: true
+      editable: true,
     },
     /* {
       field: "actions",

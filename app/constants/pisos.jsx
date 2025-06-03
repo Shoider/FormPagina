@@ -1,5 +1,5 @@
 // PISOS DE CONAGUA ///QUEDA AL ÚLTIMO LAN
-const pisos = [  
+const pisos = [
   "Planta Baja",
   "Piso 1",
   "Piso 2",
