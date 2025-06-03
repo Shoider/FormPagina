@@ -29,6 +29,7 @@ import EditableTableDes from "../components/EditableTableDes.jsx";
 import EditableTableUsua from "../components/EditableTableUsua.jsx";
 import EditableTableOtro from "../components/EditableTableOtro.jsx";
 import Alerts from "../components/alerts.jsx";
+import Link from 'next/link';
 import axios from "axios";
 import { useEffect } from "react";
 
@@ -4082,8 +4083,8 @@ export default function Home() {
               mr: 4,
               background:
                 botonEstado === "Descargar PDF"
-                  ? theme.palette.secondary.main
-                  : "#98989A",
+                  ? theme.palette.third.main
+                  : theme.palette.secondary.main,
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
@@ -4097,10 +4098,64 @@ export default function Home() {
           >
             {botonEstado}
           </Button>
+          <Button
+            component={Link}
+            href="/"
+            variant="contained"
+            sx={{
+              mt: 0,
+              mb: 3,
+              width: "calc(50% - 32px)",
+              ml: 2,
+              mr: 0,
+              background: "#98989A",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+          >
+            Regresar al Inicio
+          </Button>
+          <Button
+            type= "reset"
+            variant="contained"
+            sx={{
+              mt: 0,
+              mb: 3,
+              width: "calc(50% - 32px)",
+              ml: 4,
+              mr: 0,
+              background: theme.palette.secondary.main,
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+            disabled={
+              botonEstado !== "Descargar PDF"
+            }
+            onClick={() => {
+              window.location.reload();
+              window.scrollTo(0, 0);
+            }}
+          >
+            Nueva solicitud
+          </Button>
         </Box>
       </Box>
+
+     {/*  <Box noWrap component={Link} href="/">
+              sx={{
+                mr: 2,
+                ml: 0.5,
+                color: "white",
+                fontSize: 30, // O 'x-large' o 36 (pixeles)
+              }}
+          </Box> */}
+
       {/* ALERT */}
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />{" "}
+
+
+
+
       {/* BOTON FLOTANTE */}
       <Box
         sx={{
