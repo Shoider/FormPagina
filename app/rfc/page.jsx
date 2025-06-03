@@ -9,6 +9,8 @@ import {
   TextField,
   Button,
   FormControlLabel,
+  RadioGroup,
+  Radio,
   FormHelperText,
   FormLabel,
   Divider,
@@ -118,19 +120,19 @@ export default function Home() {
     descbreve: "",
     nomei: "null",
     extei: "null",
-    noms: "null",
-    exts: "null",
-    puestos: "null",
-    areas: "null",
+    noms: "",
+    exts: "",
+    puestos: "",
+    areas: "",
     desdet: "",
     nombreJefe: "",
     puestoJefe: "",
     justifica: "",
     justifica2: "",
     justifica3: "",
-    noticket:"",
-    enlace: false,
-    soli: false,
+    noticket: "",
+    region: "",
+    
 
     // Estados para tipo de movimientos
     intersistemas: interIsTrue,
@@ -214,21 +216,7 @@ export default function Home() {
         [name]: isChecked, // Actualiza el valor del checkbox
       };
 
-      if (name === "soli") {
-        if (isChecked) {
-          //console.log("Checkbox 'soli' marcado");
-          updatedData.noms = "";
-          updatedData.exts = "";
-          updatedData.puestos = "";
-          updatedData.areas = "";
-        } else {
-          //console.log("Checkbox 'soli' desmarcado");
-          updatedData.noms = "null";
-          updatedData.exts = "null";
-          updatedData.puestos = "null";
-          updatedData.areas = "null";
-        }
-      } else if (name === "enlace") {
+       if (name === "regional") {
         if (isChecked) {
           updatedData.nomei = "";
           updatedData.extei = "";
@@ -728,43 +716,42 @@ export default function Home() {
 
     // Lógica para los demás campos requeridos
     for (const key in Data) {
-        // Excluir campos que ya tienen su lógica de validación especial (como las justificaciones)
-        // y los que no son requeridos o se validan de otra forma.
-        if (
-            key !== "desotro" &&
-            key !== "justifica" && // Excluir justifica1 aquí
-            key !== "justifica2" && // Excluir justifica2 aquí
-            key !== "justifica3" && // Excluir justifica3 aquí
-            key !== "intersistemas" &&
-            key !== "administrador" &&
-            key !== "desarrollador" &&
-            key !== "usuario" &&
-            key !== "otro" &&
-            key !== "AltaInter" &&
-            key !== "BajaInter" &&
-            key !== "CambioInter" &&
-            key !== "AltaAdmin" &&
-            key !== "BajaAdmin" &&
-            key !== "CambioAdmin" &&
-            key !== "AltaDes" &&
-            key !== "BajaDes" &&
-            key !== "CambioDes" &&
-            key !== "AltaUsua" &&
-            key !== "BajaUsua" &&
-            key !== "CambioUsua" &&
-            key !== "AltaOtro" &&
-            key !== "BajaOtro" &&
-            key !== "CambioOtro" &&
-            key !== "soli" &&
-            key !== "enlace" &&
-            Data.hasOwnProperty(key) // Asegúrate de que la propiedad pertenece al objeto
-        ) {
-            // Si el campo es requerido y está vacío
-            if (!Data[key]) {
-                errores[key] = "Este campo es requerido";
-                isValid = false;
-            }
+      // Excluir campos que ya tienen su lógica de validación especial (como las justificaciones)
+      // y los que no son requeridos o se validan de otra forma.
+      if (
+        key !== "desotro" &&
+        key !== "justifica" && // Excluir justifica1 aquí
+        key !== "justifica2" && // Excluir justifica2 aquí
+        key !== "justifica3" && // Excluir justifica3 aquí
+        key !== "intersistemas" &&
+        key !== "administrador" &&
+        key !== "desarrollador" &&
+        key !== "usuario" &&
+        key !== "otro" &&
+        key !== "AltaInter" &&
+        key !== "BajaInter" &&
+        key !== "CambioInter" &&
+        key !== "AltaAdmin" &&
+        key !== "BajaAdmin" &&
+        key !== "CambioAdmin" &&
+        key !== "AltaDes" &&
+        key !== "BajaDes" &&
+        key !== "CambioDes" &&
+        key !== "AltaUsua" &&
+        key !== "BajaUsua" &&
+        key !== "CambioUsua" &&
+        key !== "AltaOtro" &&
+        key !== "BajaOtro" &&
+        key !== "CambioOtro" &&
+        key !== "regional" &&
+        Data.hasOwnProperty(key) // Asegúrate de que la propiedad pertenece al objeto
+      ) {
+        // Si el campo es requerido y está vacío
+        if (!Data[key]) {
+          errores[key] = "Este campo es requerido";
+          isValid = false;
         }
+      }
     }
 
     return [isValid,isValidTabla, errores];
@@ -1025,102 +1012,91 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          ¿QUIÉN SOLICITA?
+          REGIÓN DE ORIGEN DE LA SOLICITUD
         </Typography>
-        <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              mb: 0,
-              mt: 1,
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.9rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            * Puedes elegir ambos.
-          </FormLabel>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              mt: 2,
-              ml: 10,
-              mb: 1,
-              mr:8,
-            }}
-          >
-            {[
-              { name: "enlace", label: "Enlace  Informático" },
-              { name: "soli", label: "Usuario" },
-              
-            ].map((item, index) => (
-              <Box
-                key={index}
-                sx={{ width: "50%", minWidth: "100px", textAlign: "center" }}
-              >
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={formData[item.name]}
-                      onChange={saveCategorias}
-                      name={item.name}
-                      color="primary"
-                    />
-                  }
-                  label={item.label}
-                />
-              </Box>
-            ))}
-            <FormHelperText
-            sx={{
-              mx: "auto",
-              mb: 1,
-              justifyContent: "center",
-              color: "red",
-              display: errors?.solicita ? "block" : "none",
-            }}
-          >
-            {errors?.solicita}
-          </FormHelperText>
-          </Box>
-          
-        
-      </Box>
-      {/* Form Box Responsive */}
-      <Box
-        component="section"
-        sx={{
-          display: formData.soli ? "block" : "none",
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-        {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-          INFORMACIÓN DEL SOLICITANTE
-        </Typography>
+        <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mt: 3,
+            mb: 1,
+          }}
+        />
 
+        <FormLabel
+                      component="legend"
+                      sx={{
+                        mt: 0,
+                        mb: 1,
+                        mx: "auto",
+                        display: "flex",
+                        justifyContent: "center",
+                        fontSize: "1.2rem",
+                      }}
+                    >
+                      Seleccione el Origen *
+        </FormLabel>
+        
+          <Box
+          sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}>
+                      <RadioGroup
+                        row
+                        name="region"
+                        value={formData.region}
+                        onChange={handleChange}
+                        required
+                        sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+                        
+                      >
+                        <FormControlLabel
+                          value="central"
+                          control={<Radio />}
+                          label="Oficinas Centrales"
+                          sx={{ ml: 2, mr: 2, justifyContent: "center" ,  width: "calc(50% - 32px)"}}
+                          //labelPlacement = "bottom"
+                        />
+                        <FormControlLabel
+                          value="regional"
+                          control={<Radio />}
+                          label="Oficinas regionales u organismos de cuenca"
+                          sx={{ ml: 2, mr: 2, justifyContent: "center" ,  width: "calc(50% - 32px)"}}
+                          //labelPlacement = "bottom"
+                        />
+                      </RadioGroup>
+          
+                      <FormHelperText
+                        sx={{
+                          ml: 2,
+                          mr: 2,
+                          mb: 2,
+                          justifyContent: "center",
+                          color: "red",
+                          display: errors?.region ? "block" : "none",
+                        }}
+                      >
+                        {errors?.region}
+                      </FormHelperText>
+          
+        </Box>
+
+        {/* Usuario */}
+        <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            mt: 2,
+            ml: 2,
+            mr: 2,
+            mb: 3,
+            //display: formData.soli ? "block" : "none",
+          }}
+        />
         <Box
           component="form"
           sx={{
@@ -1134,7 +1110,17 @@ export default function Home() {
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
+          //display={formData.soli ? "block" : "none"}
         >
+          {/* SubTitle */}
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
+            INFORMACIÓN DEL SOLICITANTE
+          </Typography>
           <TextField
             //required
             //error={!!errors?.noms}
@@ -1184,39 +1170,18 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
         </Box>
-      </Box>
-      {/**DATOS DEL ENLACE INFORMÁTICO */}
-      <Box
-      
-        component="section"
-        sx={{
-          display: formData.enlace ? "block" : "none",
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-        {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-          INFORMACIÓN DEL ENLACE INFORMÁTICO
-        </Typography>
+
+        {/* DATOS DEL ENLACE INFORMÁTICO */}
+        <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mb: 3,
+            display: formData.region === "regionales" ? "block" : "none",
+          }}
+        />
         <Box
           component="form"
           sx={{
@@ -1230,7 +1195,17 @@ export default function Home() {
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
+          display={formData.enlace ? "block" : "none"}
         >
+          {/* SubTitle */}
+          <Typography
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
+            INFORMACIÓN DEL ENLACE INFORMÁTICO
+          </Typography>
           <TextField
             //required
             //error={!!errors?.nomei}
