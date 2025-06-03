@@ -791,11 +791,10 @@ export default function Home() {
   // Llamada API
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     //console.log("Datos del formulario:", formData);
 
     const [isValid, isValidTabla, getErrors] =
-      validarCamposRequeridos(formData);
+    validarCamposRequeridos(formData);
     setErrors(getErrors);
     //console.log("Errores: ", errors)
 
@@ -849,7 +848,7 @@ export default function Home() {
       //console.error("Error:", error);
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
       setAlert({
-        message: "Ocurrio un error",
+        message: "Ocurrio un error interno",
         severity: "error",
       });
       console.error(error);
@@ -899,7 +898,7 @@ export default function Home() {
       //console.error("Error:", error);
       setBotonEstado2("Enviar"); // Vuelve a "Enviar" en caso de error
       setAlert({
-        message: "Ocurrio un error",
+        message: "Ocurrio un error interno",
         severity: "error",
       });
       setOpenAlert(true);
