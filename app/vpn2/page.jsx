@@ -30,6 +30,7 @@ import Link from 'next/link';
 import axios from "axios";
 import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
+import areas from "../constants/AREAS/areas.jsx";
 
 // ICONOS
 import SyncIcon from "@mui/icons-material/Sync";
@@ -37,7 +38,7 @@ import SyncIcon from "@mui/icons-material/Sync";
 // TABLAS
 import EditableTableWeb from "../components/EditableTableWeb.jsx";
 import EditableTableRemoto from "../components/EditableTableRemoto.jsx";
-import subgerencias from "../constants/subgerencias.jsx";
+import subgerencias from "../constants/SUBGERENCIAS/subgerencias.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -433,6 +434,14 @@ export default function Home() {
     }));
   };
 
+  // Manejo de Autocomplete de Área de Adscripción 
+  const handleArea = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      areaAdscripcion: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+
   const handleSubgerencia = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -470,6 +479,18 @@ export default function Home() {
       telefonoResponsable: value,
     }));
   };
+
+  //FILTRADO DE ÁREA DE ADSCRIPCIÓN
+  const filteredAreas = areas
+  .filter(area => area.unidad === formData.unidadAdministrativa)
+  .map(area => area.nombre);
+
+  //FILTRADO DE SUBGERERNCIAS O SUBDIRECCIONES
+
+  const filteredSubgerencia = subgerencias
+  .filter(subgerencia => subgerencia.area === formData.areaAdscripcion)
+  .map(subgerencia => subgerencia.nombre);
+
 
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
@@ -587,27 +608,17 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          {/*<TextField
-            required
-            error={!!errors?.memorando}
-            id="memorando"
-            name="memorando"
-            label="Número de Memorando"
-            placeholder="Escriba el número de memorando"
-            value={formData.memorando}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />*/}
+          
+          {/**UNIDAD ADMINISTRARTIVA */}
           <Autocomplete
             disablePortal
             options={unidadesAdmin}
-            freeSolo
+            //freeSolo
             renderInput={(params) => (
               <TextField
                 required
                 error={!!errors?.unidadAdministrativa}
-                placeholder="Escriba ó seleccione la unidad administrativa"
+                placeholder="Seleccione la unidad administrativa"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Unidad Administrativa"
@@ -617,44 +628,40 @@ export default function Home() {
             name="unidadAdministrativa"
             onChange={(event, newValue) => {
               handleUA(newValue); // Maneja selección de opciones
-            }}
-            onInputChange={(event, newInputValue) => {
-              if (event?.type === "change") {
-                handleUA(newInputValue); // Maneja texto escrito directamente
-              }
-            }}
+            }}            
             inputValue={formData.unidadAdministrativa || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
-          <TextField
-            required
-            error={!!errors?.areaAdscripcion}
-            id="areaAdscripcion"
-            name="areaAdscripcion"
-            label="Área de Adscripción"
-            placeholder="Escriba el nombre del área de adscripción"
-            value={formData.areaAdscripcion}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          {/* <TextField
-            required
-            error={!!errors?.subgerencia}
-            id="subgerencia"
-            name="subgerencia"
-            label="Subgerencia o Subdirección"
-            placeholder="Escriba el nombre de la Subgerencia o Subdirección"
-            value={formData.subgerencia}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          /> */}
+          {/**ÁREA DE ADSCRIPCIÓN */}
           <Autocomplete
             disablePortal
-            options={subgerencias}
-            freeSolo
+            options={filteredAreas}            
+            //freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                //error={!!errors?.unidadAdministrativa}
+                placeholder="Seleccione la área de adscripción"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Área de adscripción"
+              />
+            )}
+            id="areaAdscripcion"
+            name="areaAdscripcion"
+            onChange={(event, newValue) => {
+              handleArea(newValue); // Maneja selección de opciones
+            }}            
+            inputValue={formData.areaAdscripcion || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+          {/**SUBGERENCIA */}
+          <Autocomplete
+            disablePortal
+            options={filteredSubgerencia}
+            //freeSolo
             renderInput={(params) => (
               <TextField
                 required
@@ -669,11 +676,6 @@ export default function Home() {
             name="subgerencia"
             onChange={(event, newValue) => {
               handleSubgerencia(newValue); // Maneja selección de opciones
-            }}
-            onInputChange={(event, newInputValue) => {
-              if (event?.type === "change") {
-                handleSubgerencia(newInputValue); // Maneja texto escrito directamente
-              }
             }}
             inputValue={formData.subgerencia || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
@@ -1250,6 +1252,8 @@ export default function Home() {
               component="legend"
               sx={{
                 mt: 0,
+                mb: 1,
+                mx: "auto",
                 display: "flex",
                 justifyContent: "center",
                 fontSize: "1.2rem",
