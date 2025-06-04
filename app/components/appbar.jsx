@@ -58,8 +58,9 @@ export default function AppbarGlobal() {
               sx={{
                 mr: 2,
                 ml: 0.5,
+                mt: 0.3,
                 color: "white",
-                fontSize: 30, // O 'x-large' o 36 (pixeles)
+                fontSize: 36, // O 'x-large' o 36 (pixeles)
               }}
             />
           </Box>
