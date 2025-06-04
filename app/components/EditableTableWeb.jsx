@@ -165,70 +165,12 @@ function EditableTableWeb({ initialData, onDataChange }) {
     {
       field: "movimiento",
       headerName: "A | B | C",
-      type: "string",
-      width: 80,
+      width: 74,
       align: "center",
       headerAlign: "center",
       editable: true,
-      renderEditCell: (params) => {
-        const handleBlur = async (event) => {
-          if (params.api.setEditCellValue) {
-            await params.api.setEditCellValue(
-              {
-                id: params.id,
-                field: params.field,
-                value: event?.target?.value ?? params.value ?? "",
-              },
-              event,
-            );
-          }
-          if (params.api.stopCellEditMode) {
-            params.api.stopCellEditMode({ id: params.id, field: params.field });
-          } else if (params.api.commitCellChange) {
-            params.api.commitCellChange({ id: params.id, field: params.field });
-            params.api.setCellMode(params.id, params.field, "view");
-          } else {
-            params.api.setCellMode(params.id, params.field, "view");
-          }
-        };
-
-        return (
-          <Autocomplete
-            disablePortal
-            options={movimiento}
-            sx={{ width: "100%" }}
-            //freeSolo
-            renderInput={(inputParams) => (
-              <TextField
-                {...inputParams}
-                //label="Seleccionar"
-                variant="standard"
-                fullWidth
-              />
-            )}
-            value={params.value || null}
-            onChange={(event, newValue) => {
-              if (params.api.setEditCellValue) {
-                params.api.setEditCellValue({
-                  id: params.id,
-                  field: params.field,
-                  value: newValue || "",
-                });
-              } else {
-                params.api.setCellValue(
-                  params.id,
-                  params.field,
-                  newValue || "",
-                );
-              }
-            }}
-            onBlur={handleBlur}
-            getOptionLabel={(option) => option || ""}
-            isOptionEqualToValue={(option, value) => option === value}
-          />
-        );
-      },
-      renderCell: (params) => <span>{params.value || ""}</span>,
+      type: "singleSelect",
+      valueOptions: ["A", "B", "C"],
     },
     {
       field: "nombreSistema",
@@ -253,7 +195,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       </span>
       ),
       type: "string",
-      width: 100,
+      width: 80,
       align: "center",
       headerAlign: "center",
       editable: true,
@@ -266,7 +208,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       URL / IP<br />Equipo
       </span>
       ),
-      width: 80,
+      width: 130,
       align: "center",
       headerAlign: "center",
       editable: true,
