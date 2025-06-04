@@ -252,7 +252,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosWeb.forEach((row) => {
-          if (!row.url /* agrega aquí los campos requeridos */) {
+          if (!row.movimiento || !row.nombreSistema || !row.url || !row.puertosServicios) {
             isValidTabla = false;
           }
         });
