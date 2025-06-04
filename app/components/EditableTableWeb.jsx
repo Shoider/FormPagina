@@ -233,15 +233,11 @@ function EditableTableWeb({ initialData, onDataChange }) {
     {
       field: "nombreSistema",
       headerName: "Nombre Sistema / Servicio (si aplica)",
-      type: "string",
-      width: 270,
-      align: "center",
-      headerAlign: "center",
-      editable: true,
-    },
-    {
-      field: "siglas",
-      headerName: "Siglas (si aplica)",
+      renderHeader: () => (
+      <span>
+      Nombre<br />Sistema/<br /> Servicio
+      </span>
+      ),
       type: "string",
       width: 120,
       align: "center",
@@ -249,9 +245,28 @@ function EditableTableWeb({ initialData, onDataChange }) {
       editable: true,
     },
     {
+      field: "siglas",
+      headerName: "Siglas (si aplica)",
+      renderHeader: () => (
+      <span>
+      Siglas<br />(si aplica)
+      </span>
+      ),
+      type: "string",
+      width: 100,
+      align: "center",
+      headerAlign: "center",
+      editable: true,
+    },
+    {
       field: "url",
       headerName: "URL / IP Equipo",
-      width: 200,
+      renderHeader: () => (
+      <span>
+      URL / IP<br />Equipo
+      </span>
+      ),
+      width: 80,
       align: "center",
       headerAlign: "center",
       editable: true,
@@ -317,9 +332,14 @@ function EditableTableWeb({ initialData, onDataChange }) {
     },
     {
       field: "puertosServicios",
-      headerName: "Puertos o Servicios adicionales",
+      headerName: "Puerto o Servicio",
+      renderHeader: () => (
+      <span>
+      Puerto o<br/>Servicio
+      </span>
+      ),
       type: "string",
-      width: 230,
+      width: 80,
       align: "center",
       headerAlign: "center",
       editable: true,
@@ -328,7 +348,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       field: "actions",
       type: "actions",
       headerName: "Acciones",
-      width: 120,
+      width: 80,
       align: "center",
       headerAlign: "center",
       cellClassName: "actions",

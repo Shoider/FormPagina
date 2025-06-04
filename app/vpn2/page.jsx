@@ -30,6 +30,7 @@ import Link from 'next/link';
 import axios from "axios";
 import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
+import areas from "../constants/AREAS/areas.jsx";
 
 // ICONOS
 import SyncIcon from "@mui/icons-material/Sync";
@@ -37,7 +38,8 @@ import SyncIcon from "@mui/icons-material/Sync";
 // TABLAS
 import EditableTableWeb from "../components/EditableTableWeb.jsx";
 import EditableTableRemoto from "../components/EditableTableRemoto.jsx";
-import subgerencias from "../constants/subgerencias.jsx";
+import subgerencias from "../constants/SUBGERENCIAS/subgerencias.jsx";
+
 
 export default function Home() {
   const theme = useTheme();
@@ -151,6 +153,22 @@ export default function Home() {
       }));
     }
   }, [formData.solicitante]);
+  useEffect(()=>  {
+    if (formData.subgerencia === "Subgerencia de Sistemas"){
+      setFormData((prev) =>({
+        ...prev,
+        nombreAutoriza:"null",
+        puestoAutoriza:"null"
+      }));
+    }
+    if (formData.subgerencia ==! "Subgerencia de Sistemas"){
+      setFormData((prev) =>({
+        ...prev,
+        nombreAutoriza:"",
+        puestoAutoriza:""
+      }));
+    }
+  }, [formData.subgerencia]);
 
   // Manejadores de cambios
   const handleWebTableDataChange = (data) => {
@@ -251,14 +269,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosWeb.forEach((row) => {
-          if (!row.url /* agrega aquí los campos requeridos */) {
+          if (!row.movimiento || !row.nombreSistema || !row.url || !row.puertosServicios) {
             isValidTabla = false;
           }
         });
       }
     }
 
-    ///VALIDADOR DE QUE GUARDA RESGITROS EN WEB
+    ///VALIDADOR DE QUE GUARDA RESGITROS EN  REMOTO
     if (Data.accesoRemoto) {
       if (
         !Array.isArray(Data.registrosRemoto) ||
@@ -268,7 +286,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosRemoto.forEach((row) => {
-          if (!row.direccion /* agrega aquí los campos requeridos */) {
+          if (!row.movimiento || !row.nomeclatura || !row.nombreSistema ||!row.direccion ||!row.sistemaOperativo) {
             isValidTabla = false;
           }
         });
@@ -441,6 +459,14 @@ export default function Home() {
     }));
   };
 
+  // Manejo de Autocomplete de Área de Adscripción 
+  const handleArea = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      areaAdscripcion: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+
   const handleSubgerencia = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -451,7 +477,7 @@ export default function Home() {
   //Numeros de telefono
   const handleTelefonoEnlaceChange = (event) => {
     let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -461,7 +487,7 @@ export default function Home() {
 
   const handleTelefonoInternoChange = (event) => {
     let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -478,6 +504,29 @@ export default function Home() {
       telefonoResponsable: value,
     }));
   };
+
+  ///NÚMERO DE EMPLEADO
+  const handleNumeroEmpleado = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 5); // Limita la longitud a 4 caracteres
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      numeroEmpleadoResponsable: value,
+    }));
+  };
+
+  //FILTRADO DE ÁREA DE ADSCRIPCIÓN
+  const filteredAreas = areas[formData.unidadAdministrativa] || [];
+
+  //FILTRADO DE SUBGERERNCIAS O SUBDIRECCIONES
+  const filteredSubgerencia = subgerencias[formData.areaAdscripcion] || [];
+
+
+  //const filteredSubgerencia = subgerencias
+  //.filter(subgerencia => subgerencia.area === formData.areaAdscripcion)
+  //.map(subgerencia => subgerencia.nombre);
+
 
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
@@ -595,27 +644,17 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          {/*<TextField
-            required
-            error={!!errors?.memorando}
-            id="memorando"
-            name="memorando"
-            label="Número de Memorando"
-            placeholder="Escriba el número de memorando"
-            value={formData.memorando}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />*/}
+          
+          {/**UNIDAD ADMINISTRARTIVA */}
           <Autocomplete
             disablePortal
             options={unidadesAdmin}
-            freeSolo
+            //freeSolo
             renderInput={(params) => (
               <TextField
                 required
                 error={!!errors?.unidadAdministrativa}
-                placeholder="Escriba ó seleccione la unidad administrativa"
+                placeholder="Seleccione la unidad administrativa"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Unidad Administrativa"
@@ -625,44 +664,40 @@ export default function Home() {
             name="unidadAdministrativa"
             onChange={(event, newValue) => {
               handleUA(newValue); // Maneja selección de opciones
-            }}
-            onInputChange={(event, newInputValue) => {
-              if (event?.type === "change") {
-                handleUA(newInputValue); // Maneja texto escrito directamente
-              }
-            }}
+            }}            
             inputValue={formData.unidadAdministrativa || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
-          <TextField
-            required
-            error={!!errors?.areaAdscripcion}
-            id="areaAdscripcion"
-            name="areaAdscripcion"
-            label="Área de Adscripción"
-            placeholder="Escriba el nombre del área de adscripción"
-            value={formData.areaAdscripcion}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          {/* <TextField
-            required
-            error={!!errors?.subgerencia}
-            id="subgerencia"
-            name="subgerencia"
-            label="Subgerencia o Subdirección"
-            placeholder="Escriba el nombre de la Subgerencia o Subdirección"
-            value={formData.subgerencia}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          /> */}
+          {/**ÁREA DE ADSCRIPCIÓN */}
           <Autocomplete
             disablePortal
-            options={subgerencias}
-            freeSolo
+            options={filteredAreas}            
+            //freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                //error={!!errors?.unidadAdministrativa}
+                placeholder="Seleccione la área de adscripción"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Área de adscripción"
+              />
+            )}
+            id="areaAdscripcion"
+            name="areaAdscripcion"
+            onChange={(event, newValue) => {
+              handleArea(newValue); // Maneja selección de opciones
+            }}            
+            inputValue={formData.areaAdscripcion || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+          {/**SUBGERENCIA */}
+          <Autocomplete
+            disablePortal
+            options={filteredSubgerencia}
+            freeSolo={filteredSubgerencia.length === 0}
             renderInput={(params) => (
               <TextField
                 required
@@ -680,7 +715,9 @@ export default function Home() {
             }}
             onInputChange={(event, newInputValue) => {
               if (event?.type === "change") {
+                if(filteredSubgerencia.length === 0){
                 handleSubgerencia(newInputValue); // Maneja texto escrito directamente
+                }
               }
             }}
             inputValue={formData.subgerencia || ""} // Controla el valor mostrado
@@ -741,7 +778,7 @@ export default function Home() {
             id="telefonoEnlace"
             name="telefonoEnlace"
             label="Número de Teléfono y/o Extensión"
-            placeholder="Escriba el número de teléfono y/o extensión del enlace informático o responsable"
+            placeholder="XXXX-YYYY"
             value={formData.telefonoEnlace}
             onChange={handleTelefonoEnlaceChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -935,7 +972,7 @@ export default function Home() {
             id="telefonoInterno"
             name="telefonoInterno"
             label="Número de Teléfono y/o Extensión"
-            placeholder="Escriba el número de teléfono y/o extensión del usuario"
+            placeholder="XXXX-YYYY"
             value={formData.telefonoInterno}
             onChange={handleTelefonoInternoChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1005,6 +1042,9 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
+          <Box
+           display={formData.subgerencia === "Subgerencia de Sistemas" ? "block" : "none"}
+          >
           <TextField
             //error={!!errors?.equipoExterno}
             id="equipoExterno"
@@ -1016,6 +1056,7 @@ export default function Home() {
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
+          </Box>
         </Box>
 
         <Divider
@@ -1063,7 +1104,7 @@ export default function Home() {
             label="Número de Empleado"
             placeholder="Escriba el número de empleado del responsable"
             value={formData.numeroEmpleadoResponsable}
-            onChange={handleChange}
+            onChange={handleNumeroEmpleado}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
@@ -1093,16 +1134,16 @@ export default function Home() {
           />
           <Autocomplete
             disablePortal
-            options={unidadesAdmin}
+            options={filteredAreas}
             freeSolo
             renderInput={(params) => (
               <TextField
                 required
                 error={!!errors?.unidadAdministrativaResponsable}
-                placeholder="Escriba o seleccione la unidad administrativa del responsable"
+                placeholder="Seleccione la área de adscripción del responsable"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
-                label="Unidad Administrativa"
+                label="Área de Adscripción"
               />
             )}
             id="unidadAdministrativaResponsable"
@@ -1125,7 +1166,7 @@ export default function Home() {
             id="telefonoResponsable"
             name="telefonoResponsable"
             label="Número de Teléfono y/o Extension"
-            placeholder="Escriba el número de teléfono y/o extensión del responsable"
+            placeholder="XXXX-YYYY"
             value={formData.telefonoResponsable}
             onChange={handleTelefonoResponsableChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1228,7 +1269,7 @@ export default function Home() {
             error={!!errors?.serie}
             id="serie"
             name="serie"
-            label="Serie"
+            label="Número de Serie"
             placeholder="Escriba el No. de serie del equipo"
             value={formData.serie}
             onChange={handleChange}
@@ -1258,6 +1299,8 @@ export default function Home() {
               component="legend"
               sx={{
                 mt: 0,
+                mb: 1,
+                mx: "auto",
                 display: "flex",
                 justifyContent: "center",
                 fontSize: "1.2rem",
@@ -1419,6 +1462,7 @@ export default function Home() {
             mb: 1,
             mr: 8,
           }}
+          
         >
           {[
             { name: "cuentaUsuario", label: "Cuenta de usuario" },
@@ -1436,6 +1480,15 @@ export default function Home() {
                     onChange={saveCategorias}
                     name={item.name}
                     color="primary"
+                    // Deshabilita accesoWeb y accesoRemoto si cuentaUsuario está activo
+                    //Deshabilita cuentaUsuario si accesoWeb o accesoRemoto están activos
+                    //Permite eleguir uno o dos Accesos, pero no las tres opciones
+                    disabled={
+                      formData.cuentaUsuario &&
+                      (item.name === "accesoWeb" || item.name === "accesoRemoto") ||
+                      (formData.accesoRemoto || formData.accesoWeb) &&
+                      (item.name === "cuentaUsuario")
+                    }
                   />
                 }
                 label={item.label}
@@ -1729,6 +1782,8 @@ export default function Home() {
             padding: "2",
           },
         }}
+        display={formData.subgerencia ==! "Subgerencia de Sistemas" ? "block" : "none"}
+
       >
         {/* SubTitle */}
         <Typography
