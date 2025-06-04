@@ -348,7 +348,7 @@ export default function Home() {
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado("Descargar PDF");
-      } else if (pdfResponse.status === 201) {
+      } else if (pdfResponse.status === 423) {
         setAlert({
           message: "URL/IP Invalida de sus registros",
           severity: "warning"
