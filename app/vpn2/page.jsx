@@ -309,7 +309,6 @@ export default function Home() {
 
     if (!isValid) {
       setAlert({
-        //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
         message: "Por favor, complete todos los campos requeridos.",
         severity: "error",
       });
@@ -340,7 +339,6 @@ export default function Home() {
     setBotonEstado("Cargando...");
 
     try {
-      // PDF api
       const pdfResponse = await axios.post("/api/v2/vpn", formData, {
         responseType: "blob",
       });
@@ -348,8 +346,23 @@ export default function Home() {
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado("Descargar PDF");
+      } else if (pdfResponse.status === 423) {
+        setAlert({
+          message: "URL/IP invalida de sus registros de acceso a sitio web/equipo",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 424) {
+        setAlert({
+          message: "IP invalida de sus registros de escritorio remoto",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
       } else {
-        console.error("Error generando PDF");
+        console.error("Error interno");
+        console.error(pdfResponse.status);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -365,12 +378,6 @@ export default function Home() {
   // Llamada API Actualizar Memorando
   const handleSubmit2 = async (event) => {
     event.preventDefault();
-    console.log("Lista formData2 en submit: ", formData2);
-
-    //const [isValid, getErrors] = validarCamposRequeridos(formData2);
-    //setErrors(getErrors);
-
-    //console.log("Lista getErrors en submit: ", getErrors)
 
     setAlert({
       message: "Informacion Enviada",
@@ -381,7 +388,6 @@ export default function Home() {
     setBotonEstado2("Cargando...");
 
     try {
-      // PDF api
       const pdfResponse = await axios.post("/api/v2/vpnActualizar", formData2, {
         responseType: "blob",
       });
@@ -402,7 +408,7 @@ export default function Home() {
       }
     } catch (error) {
       console.error("Error:", error);
-      setBotonEstado2("Enviar"); // Vuelve a "Enviar" en caso de error
+      setBotonEstado2("Enviar");
       setAlert({
         message: "Ocurrio un error interno",
         severity: "error",
