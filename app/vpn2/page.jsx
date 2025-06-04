@@ -40,6 +40,7 @@ import EditableTableWeb from "../components/EditableTableWeb.jsx";
 import EditableTableRemoto from "../components/EditableTableRemoto.jsx";
 import subgerencias from "../constants/SUBGERENCIAS/subgerencias.jsx";
 
+
 export default function Home() {
   const theme = useTheme();
   const [formData2, setFormData2] = useState({
@@ -152,6 +153,22 @@ export default function Home() {
       }));
     }
   }, [formData.solicitante]);
+  useEffect(()=>  {
+    if (formData.subgerencia === "Subgerencia de Sistemas"){
+      setFormData((prev) =>({
+        ...prev,
+        nombreAutoriza:"null",
+        puestoAutoriza:"null"
+      }));
+    }
+    if (formData.subgerencia ==! "Subgerencia de Sistemas"){
+      setFormData((prev) =>({
+        ...prev,
+        nombreAutoriza:"",
+        puestoAutoriza:""
+      }));
+    }
+  }, [formData.subgerencia]);
 
   // Manejadores de cambios
   const handleWebTableDataChange = (data) => {
@@ -753,7 +770,7 @@ export default function Home() {
             id="telefonoEnlace"
             name="telefonoEnlace"
             label="Número de Teléfono y/o Extensión"
-            placeholder="Escriba el número de teléfono y/o extensión del enlace informático o responsable"
+            placeholder="XXXX-YYYY"
             value={formData.telefonoEnlace}
             onChange={handleTelefonoEnlaceChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -947,7 +964,7 @@ export default function Home() {
             id="telefonoInterno"
             name="telefonoInterno"
             label="Número de Teléfono y/o Extensión"
-            placeholder="Escriba el número de teléfono y/o extensión del usuario"
+            placeholder="XXXX-YYYY"
             value={formData.telefonoInterno}
             onChange={handleTelefonoInternoChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1109,16 +1126,16 @@ export default function Home() {
           />
           <Autocomplete
             disablePortal
-            options={unidadesAdmin}
+            options={filteredAreas}
             freeSolo
             renderInput={(params) => (
               <TextField
                 required
                 error={!!errors?.unidadAdministrativaResponsable}
-                placeholder="Escriba o seleccione la unidad administrativa del responsable"
+                placeholder="Seleccione la área de adscripción del responsable"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
-                label="Unidad Administrativa"
+                label="Área de Adscripción"
               />
             )}
             id="unidadAdministrativaResponsable"
@@ -1141,7 +1158,7 @@ export default function Home() {
             id="telefonoResponsable"
             name="telefonoResponsable"
             label="Número de Teléfono y/o Extension"
-            placeholder="Escriba el número de teléfono y/o extensión del responsable"
+            placeholder="XXXX-YYYY"
             value={formData.telefonoResponsable}
             onChange={handleTelefonoResponsableChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
