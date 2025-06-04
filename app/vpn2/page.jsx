@@ -330,8 +330,16 @@ export default function Home() {
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado("Descargar PDF");
+      } else if (pdfResponse.status === 201) {
+        setAlert({
+          message: "URL/IP Invalida de sus registros",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
       } else {
-        console.error("Error generando PDF");
+        console.error("Error interno");
+        console.error(pdfResponse.status);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -347,7 +355,7 @@ export default function Home() {
   // Llamada API Actualizar Memorando
   const handleSubmit2 = async (event) => {
     event.preventDefault();
-    console.log("Lista formData2 en submit: ", formData2);
+    //console.log("Lista formData2 en submit: ", formData2);
 
     //const [isValid, getErrors] = validarCamposRequeridos(formData2);
     //setErrors(getErrors);
