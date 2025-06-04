@@ -161,7 +161,7 @@ export default function Home() {
         puestoAutoriza:"null"
       }));
     }
-    if (formData.subgerencia ==! "Subgerencia de Sistemas"){
+    if (formData.subgerencia !== "Subgerencia de Sistemas"){
       setFormData((prev) =>({
         ...prev,
         nombreAutoriza:"",
