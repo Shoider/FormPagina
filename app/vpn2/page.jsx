@@ -286,7 +286,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosRemoto.forEach((row) => {
-          if (!row.movimiento || !row.nomeclatura || !row.nombreSistema ||!row.direccion ||!row.sistemaOperativo) {
+          if (!row.movimiento || !row.nomenclatura || !row.nombreSistema ||!row.direccion ||!row.sistemaOperativo) {
             isValidTabla = false;
           }
         });
