@@ -480,6 +480,17 @@ export default function Home() {
     }));
   };
 
+  ///NÚMERO DE EMPLEADO
+  const handleNumeroEmpleado = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 5); // Limita la longitud a 4 caracteres
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      numeroEmpleadoResponsable: value,
+    }));
+  };
+
   //FILTRADO DE ÁREA DE ADSCRIPCIÓN
   const filteredAreas = areas[formData.unidadAdministrativa] || [];
 
@@ -1068,7 +1079,7 @@ export default function Home() {
             label="Número de Empleado"
             placeholder="Escriba el número de empleado del responsable"
             value={formData.numeroEmpleadoResponsable}
-            onChange={handleChange}
+            onChange={handleNumeroEmpleado}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
@@ -1233,7 +1244,7 @@ export default function Home() {
             error={!!errors?.serie}
             id="serie"
             name="serie"
-            label="Serie"
+            label="Número de Serie"
             placeholder="Escriba el No. de serie del equipo"
             value={formData.serie}
             onChange={handleChange}
@@ -1426,6 +1437,7 @@ export default function Home() {
             mb: 1,
             mr: 8,
           }}
+          
         >
           {[
             { name: "cuentaUsuario", label: "Cuenta de usuario" },
@@ -1443,6 +1455,15 @@ export default function Home() {
                     onChange={saveCategorias}
                     name={item.name}
                     color="primary"
+                    // Deshabilita accesoWeb y accesoRemoto si cuentaUsuario está activo
+                    //Deshabilita cuentaUsuario si accesoWeb o accesoRemoto están activos
+                    //Permite eleguir uno o dos Accesos, pero no las tres opciones
+                    disabled={
+                      formData.cuentaUsuario &&
+                      (item.name === "accesoWeb" || item.name === "accesoRemoto") ||
+                      (formData.accesoRemoto || formData.accesoWeb) &&
+                      (item.name === "cuentaUsuario")
+                    }
                   />
                 }
                 label={item.label}
@@ -1736,6 +1757,8 @@ export default function Home() {
             padding: "2",
           },
         }}
+        display={formData.subgerencia ==! "Subgerencia de Sistemas" ? "block" : "none"}
+
       >
         {/* SubTitle */}
         <Typography
