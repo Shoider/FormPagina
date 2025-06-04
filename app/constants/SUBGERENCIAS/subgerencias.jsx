@@ -177,6 +177,69 @@ const subgerencias = {
     "Subgerencia de Regularización de Propiedad Social y Particular",
 
   ],
+  "Gerencia de Descentralización y de Transparencia y Acceso a la Información Pública":[
+    "Gerencia de Descentralización y de Transparencia y Acceso a la Información Pública",
+    "Subgerencia de Estudios y Políticas de Descentralización",
+    "Subgerencia de Normativa y Seguimiento de Transferencia de Programas y Recursos",
+    "Subgerencia de Transparencia y Acceso a la Información Pública Gubernamental",
+  ],
+  "Subdirección General Técnica ":[
+    "Coordinación de Proyectos Transversales, Transparencia e Innovación",
+  ],
+  "Gerencia de Aguas Subterráneas":[
+    "Gerencia de Aguas Subterráneas ",
+    "Subgerencia de Evaluación y Ordenamiento de Acuíferos",
+    "Subgerencia de Exploración y Monitoreo Geohidrológico",
+    "Subgerencia de Sistemas de Información Geohidrológicos",
+    "Subgerencia de Información Geográfica del Agua",
+  ],
+  "Gerencia de Aguas Superficiales e Ingeniería de Ríos":[
+    "Gerencia de Aguas Superficiales e Ingeniería de Ríos ",
+    "Subgerencia de Hidrología Operativa",
+    "Subgerencia de Análisis Hidrológicos",
+    "Subgerencia de Hidrometría",
+  ],
+  "Gerencia del Consultivo Técnico":[
+    "Gerencia del Consultivo Técnico ",
+    "Subgerencia de Ingeniería Hidráulica y Electromecánica",
+    "Subgerencia de Ingeniería Sanitaria y Ambiental",
+    "Subgerencia de Geotecnia",
+    "Subgerencia de Geología y Geohidrología",
+    "Subgerencia de Evaluación de Proyectos de Obras Hidráulicas Nuevas",
+    "Subgerencia de Seguridad de Presas",
+  ],
+  "Gerencia de Ingeniería y Asuntos Binacionales del Agua":[
+    "Gerencia de Ingeniería y Asuntos Binacionales del Agua ",
+    "Subgerencia de Regulación Técnica del Agua",
+    "Subgerencia de Gestión de Normas y Regulaciones Técnicas del Agua",
+    "Subgerencia de Asuntos Binacionales Noroeste",
+  ],
+  "Gerencia de Calidad del Agua":[
+    "Gerencia de Calidad del Agua ",
+    "Subgerencia de la Red Nacional de Medición de Calidad del Agua",
+    "Subgerencia de Estudios de Calidad del Agua e Impacto Ambiental",
+    "Subgerencia de Programas Sectoriales de Calidad del Agua",
+    "Subgerencia de Dictámenes Técnicos, Emergencias Hidroecológicas y Servicios Ambientales",
+  ],
+  "Coordinación General del Servicio Meteorológico Nacional":[
+    "Subgerencia de Pronóstico Meteorológico",
+    "Subgerencia de Monitoreo Atmosférico Ambiental",
+  ],
+  "Gerencia de Redes de Observación y Telemática":[
+    "Gerencia de Redes de Observación y Telemática ",
+    "Subgerencia de Informática y Telecomunicaciones",
+  ],
+  "Gerencia de Meteorología y Climatología":[
+    "Gerencia de Meteorología y Climatología"
+  ],
+  "Coordinación General de Recaudación y Fiscalización":[
+    "Subgerencia de Supervisión de la Fiscalización",
+    "Subgerencia de Auditorías Especiales",
+    "Subgerencia de Programación de la Fiscalización Nacional",
+    "Subgerencia de Coordinación Hacendaria y Procedimientos ",
+    "Subgerencia de Operación Recaudatoria.",
+    "Subgerencia de Control de Obligaciones Fiscales.",
+  ]
 };
 
 export default subgerencias;
