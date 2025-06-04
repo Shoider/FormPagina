@@ -1774,7 +1774,7 @@ export default function Home() {
             padding: "2",
           },
         }}
-        display={formData.subgerencia ==! "Subgerencia de Sistemas" ? "block" : "none"}
+        display={formData.subgerencia !== "Subgerencia de Sistemas" ? "block" : "none"}
 
       >
         {/* SubTitle */}
