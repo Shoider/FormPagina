@@ -661,7 +661,7 @@ export default function Home() {
           <Autocomplete
             disablePortal
             options={filteredSubgerencia}
-            //freeSolo
+            freeSolo={filteredSubgerencia.length === 0}
             renderInput={(params) => (
               <TextField
                 required
@@ -676,6 +676,13 @@ export default function Home() {
             name="subgerencia"
             onChange={(event, newValue) => {
               handleSubgerencia(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                if(filteredSubgerencia.length === 0){
+                handleSubgerencia(newInputValue); // Maneja texto escrito directamente
+                }
+              }
             }}
             inputValue={formData.subgerencia || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
