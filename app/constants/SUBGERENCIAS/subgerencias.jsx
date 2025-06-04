@@ -1,18 +1,20 @@
 // TERCER NIVEL - SUBGERENCIAS
-const subgerencias = [
-  {
-    area: "Gerencia de Protección a la Infraestructura y Atención de Emergencias",
-    nombre: "PRUEBA"
-  },
-  {
-    area: "Gerencia de Protección a la Infraestructura y Atención de Emergencias",
-    nombre: "PRRUEBA"
-  },
-  {
-    area: "Coordinación General de Comunicación y Cultura del Agua",
-    nombre: "PRUEBA CULTURA"
-  }
+const subgerencias = {
+  "Gerencia de Protección a la Infraestructura y Atención de Emergencias":[
+    "PRUEBA",
+    "PRUEBA2",
+    "PRUEBA3",
+  ],
   
-];
+  "Coordinación General de Comunicación y Cultura del Agua": [
+    "PRUEBA4",
+    "PRUEBA5",
+  ],
+  "Subdirección General de Administración":[
+    "PRUEBASSSS"
+  ]
+    
+  
+};
 
 export default subgerencias;

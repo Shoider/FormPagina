@@ -481,15 +481,15 @@ export default function Home() {
   };
 
   //FILTRADO DE ÁREA DE ADSCRIPCIÓN
-  const filteredAreas = areas
-  .filter(area => area.unidad === formData.unidadAdministrativa)
-  .map(area => area.nombre);
+  const filteredAreas = areas[formData.unidadAdministrativa] || [];
 
   //FILTRADO DE SUBGERERNCIAS O SUBDIRECCIONES
+  const filteredSubgerencia = subgerencias[formData.areaAdscripcion] || [];
 
-  const filteredSubgerencia = subgerencias
-  .filter(subgerencia => subgerencia.area === formData.areaAdscripcion)
-  .map(subgerencia => subgerencia.nombre);
+
+  //const filteredSubgerencia = subgerencias
+  //.filter(subgerencia => subgerencia.area === formData.areaAdscripcion)
+  //.map(subgerencia => subgerencia.nombre);
 
 
   return (
