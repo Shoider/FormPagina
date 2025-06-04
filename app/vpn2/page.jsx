@@ -259,7 +259,7 @@ export default function Home() {
       }
     }
 
-    ///VALIDADOR DE QUE GUARDA RESGITROS EN WEB
+    ///VALIDADOR DE QUE GUARDA RESGITROS EN  REMOTO
     if (Data.accesoRemoto) {
       if (
         !Array.isArray(Data.registrosRemoto) ||
@@ -269,7 +269,7 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosRemoto.forEach((row) => {
-          if (!row.direccion /* agrega aquí los campos requeridos */) {
+          if (!row.movimiento || !row.nomeclatura || !row.nombreSistema ||!row.direccion ||!row.sistemaOperativo) {
             isValidTabla = false;
           }
         });

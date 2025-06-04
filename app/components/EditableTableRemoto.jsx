@@ -156,7 +156,7 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       field: "id",
       headerName: "N°",
       type: "number",
-      width: 40,
+      width: 5,
       align: "center",
       headerAlign: "center",
       editable: false,
@@ -165,7 +165,7 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       field: "movimiento",
       headerName: "A | B | C",
       type: "string",
-      width: 80,
+      width: 74,
       align: "center",
       headerAlign: "center",
       editable: true,
@@ -233,7 +233,7 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       field: "nomenclatura",
       headerName: "Nomenclatura",
       type: "string",
-      width: 120,
+      width: 111,
       align: "center",
       headerAlign: "center",
       editable: true,
@@ -242,33 +242,44 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       field: "nombreSistema",
       headerName: "Nombre",
       type: "string",
-      width: 150,
+      width: 75,
       align: "center",
       headerAlign: "center",
       editable: true,
     },
     {
       field: "direccion",
-      headerName: "Dirección IP",
-      width: 150,
+      headerName: "Dirección\nIP",
+      renderHeader: () => (
+      <span>
+      Dirección<br />IP
+      </span>
+      ),
+      width: 80,
       align: "center",
       headerAlign: "center",
       editable: true,
     },
     {
       field: "sistemaOperativo",
-      headerName: "Sistema Operativo",
+      headerName: "Sistema\nOperativo",
+      renderHeader: () => (
+      <span>
+      Sistema<br />Operativo
+      </span>
+      ),
       type: "string",
-      width: 180,
+      width: 90,
       align: "center",
       headerAlign: "center",
       editable: true,
+      
     },
     {
       field: "actions",
       type: "actions",
       headerName: "Acciones",
-      width: 120,
+      width: 80,
       align: "center",
       headerAlign: "center",
       cellClassName: "actions",
