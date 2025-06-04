@@ -452,7 +452,7 @@ export default function Home() {
   //Numeros de telefono
   const handleTelefonoEnlaceChange = (event) => {
     let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -462,7 +462,7 @@ export default function Home() {
 
   const handleTelefonoInternoChange = (event) => {
     let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -1006,6 +1006,9 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
+          <Box
+           display={formData.subgerencia === "Subgerencia de Sistemas" ? "block" : "none"}
+          >
           <TextField
             //error={!!errors?.equipoExterno}
             id="equipoExterno"
@@ -1017,6 +1020,7 @@ export default function Home() {
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
+          </Box>
         </Box>
 
         <Divider

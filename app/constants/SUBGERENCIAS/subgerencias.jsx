@@ -22,7 +22,7 @@ const subgerencias = {
     "Subgerencia de Almacenes",
     "Subgerencia de Servicios Generales"
   ],
-  "Gerencia de Tecnología de la Información y Comunicaciones ":[
+  "Gerencia de Tecnología de la Información y Comunicaciones":[
     "Gerencia de Tecnología de la Información y Comunicaciones", 
     "Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad",
     "Subgerencia de Sistemas",
@@ -30,7 +30,7 @@ const subgerencias = {
     "Subgerencia de Normatividad y Recursos de Tecnología de la Información",
     "Subgerencia de Atención a Usuarios y Administración de Proyectos"
   ],
-  "Gerencia de Innovación y Fortalecimiento Institucional ":[
+  "Gerencia de Innovación y Fortalecimiento Institucional":[
     "Gerencia de Innovación y Fortalecimiento Institucional", 
     "Subgerencia de Normatividad y Calidad Institucional",
     "Subgerencia de Calidad",
@@ -44,7 +44,7 @@ const subgerencias = {
     "Coordinación de Proyectos Transversales, Transparencia e Innovación",
     "Subgerencia de Admininstración"
   ],
-  "Gerencia de Servicios a Usuarios ":[
+  "Gerencia de Servicios a Usuarios":[
     "Gerencia de Servicios a Usuarios", 
     "Subgerencia de Dictaminación y Titulación",
     "Subgerencia de Mejora Regulatoria de Trámites",
@@ -123,7 +123,7 @@ const subgerencias = {
     "Subgerencia de Tratamiento",
     "Subgerencia de Agua Limpia",
   ],
-  "Gerencia de Estudios y Proyectos de Agua Potable y Redes de Alcantarillado ":[
+  "Gerencia de Estudios y Proyectos de Agua Potable y Redes de Alcantarillado":[
     "Gerencia de Estudios y Proyectos de Agua Potable y Redes de Alcantarillado", 
     "Subgerencia de Proyectos Zona Norte",
     "Subgerencia de Coordianción de Información",
@@ -183,7 +183,7 @@ const subgerencias = {
     "Subgerencia de Normativa y Seguimiento de Transferencia de Programas y Recursos",
     "Subgerencia de Transparencia y Acceso a la Información Pública Gubernamental",
   ],
-  "Subdirección General Técnica ":[
+  "Subdirección General Técnica":[
     "Coordinación de Proyectos Transversales, Transparencia e Innovación",
   ],
   "Gerencia de Aguas Subterráneas":[
