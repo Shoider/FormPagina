@@ -346,16 +346,16 @@ export default function Home() {
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado("Descargar PDF");
-      } else if (pdfResponse.status === 423) {
+      } else if (pdfResponse.status === 208) {
         setAlert({
-          message: "URL/IP invalida de sus registros de acceso a sitio web/equipo",
+          message: "b) Verifica URL/IP del equipo",
           severity: "warning"
         });
         setOpenAlert(true);
         setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 424) {
+      } else if (pdfResponse.status === 209) {
         setAlert({
-          message: "IP invalida de sus registros de escritorio remoto",
+          message: "c) Verifica dirección IP",
           severity: "warning"
         });
         setOpenAlert(true);
