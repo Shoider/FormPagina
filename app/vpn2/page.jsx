@@ -121,7 +121,7 @@ export default function Home() {
         empresaExterno: "null",
         equipoExterno: "null",
 
-        numeroEmpleadoResponsable: "null",
+        numeroEmpleadoResponsable: "123456",
         nombreResponsable: "null",
         puestoResponsable: "null",
         unidadAdministrativaResponsable: "null",
@@ -226,6 +226,8 @@ export default function Home() {
     const errores = {};
     let isValid = true;
     let isValidTabla = true;
+    let isValidTelefono = true;
+    let isValidNoEmpleado =true;
 
     const usua = Data.cuentaUsuario;
     const web = Data.accesoWeb;
@@ -239,6 +241,11 @@ export default function Home() {
       isValid = false;
     }
 
+    if (Data.telefonoEnlace.length < 8){
+      isValidTelefono =false;
+    }
+    
+ 
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
         // Excluir movimiento si cuentaUsuario es false
@@ -293,7 +300,7 @@ export default function Home() {
       }
     }
     console.log(errores);
-    return [isValid, isValidTabla, errores];
+    return [isValid, isValidTabla,isValidTelefono, errores];
   };
 
   // Llamada API
@@ -301,7 +308,7 @@ export default function Home() {
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
 
-    const [isValid, isValidTabla, getErrors] =
+    const [isValid, isValidTabla, isValidTelefono, getErrors] =
       validarCamposRequeridos(formData);
     setErrors(getErrors);
 
@@ -310,7 +317,7 @@ export default function Home() {
     if (!isValid) {
       setAlert({
         message: "Por favor, complete todos los campos requeridos.",
-        severity: "error",
+        severity: "warning",
       });
       setOpenAlert(true);
       return;
@@ -324,7 +331,14 @@ export default function Home() {
     if (!isValidTabla) {
       setAlert({
         message: "Por favor, complete la(s) tabla(s).",
-        severity: "error",
+        severity: "warning",
+      });
+      setOpenAlert(true);
+      return;
+    }if (!isValidTelefono) {
+      setAlert({
+        message: "Teléfono de enlace informático inválido.",
+        severity: "warning",
       });
       setOpenAlert(true);
       return;
