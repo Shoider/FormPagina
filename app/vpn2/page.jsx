@@ -348,12 +348,26 @@ export default function Home() {
         setBotonEstado("Descargar PDF");
       } else if (pdfResponse.status === 208) {
         setAlert({
+          message: "Teléfono de usuario inválido",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      }else if (pdfResponse.status === 210) {
+        setAlert({
           message: "b) Verifica URL/IP del equipo",
           severity: "warning"
         });
         setOpenAlert(true);
         setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 209) {
+      }else if (pdfResponse.status === 211) {
+        setAlert({
+          message: "c) Verifica Nomenclatura",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 213) {
         setAlert({
           message: "c) Verifica dirección IP",
           severity: "warning"
