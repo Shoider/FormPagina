@@ -380,7 +380,7 @@ export default function Home() {
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 207) {
         setAlert({
-          message: "Correo electronico inválido",
+          message: "Correo electrónico inválido",
           severity: "warning"
         });
         setOpenAlert(true);
