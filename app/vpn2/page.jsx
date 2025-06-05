@@ -373,7 +373,7 @@ export default function Home() {
         setBotonEstado("Descargar PDF");
       } else if (pdfResponse.status === 206) {
         setAlert({
-          message: "Teléfono de enlace/contacto responsable inválido",
+          message: "Teléfono de enlace/contacto inválido",
           severity: "warning"
         });
         setOpenAlert(true);
@@ -415,14 +415,14 @@ export default function Home() {
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 220) {
         setAlert({
-          message: "c) Verifica 'Nomenclatura'",
+          message: "c) Verifica 'Nomenclatura'. Min: 8 Caracteres",
           severity: "warning"
         });
         setOpenAlert(true);
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 221) {
         setAlert({
-          message: "c) Verifica 'Nombre Sistema/Servicio'",
+          message: "c) Verifica 'Nombre'. Min: 11 Caracteres",
           severity: "warning"
         });
         setOpenAlert(true);
