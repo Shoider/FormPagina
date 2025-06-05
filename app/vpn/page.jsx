@@ -129,7 +129,7 @@ export default function Home() {
       console.error("Error:", error);
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
       setAlert({
-        message: "Ocurrio un error",
+        message: "Ocurrio un error interno",
         severity: "error",
       });
       setOpenAlert(true);
@@ -182,7 +182,7 @@ export default function Home() {
         sx={{
           width: "100", // Ocupa todo el ancho de la ventana gráfica
           overflow: "hidden",
-          height: "200px", // Ajusta la altura según sea necesario
+          height: "280px", // Ajusta la altura según sea necesario
           [theme.breakpoints.down("md")]: {
             height: "auto", // Ajusta la altura automáticamente en pantallas pequeñas
           },
