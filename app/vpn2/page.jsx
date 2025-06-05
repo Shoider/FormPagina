@@ -346,6 +346,13 @@ export default function Home() {
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado("Descargar PDF");
+      } else if (pdfResponse.status === 206) {
+        setAlert({
+          message: "Teléfono de enlace/contacto responsable inválido",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
       } else if (pdfResponse.status === 207) {
         setAlert({
           message: "Correo electronico inválido",
@@ -398,6 +405,13 @@ export default function Home() {
       } else if (pdfResponse.status === 222) {
         setAlert({
           message: "c) Verifica 'Dirección IP'",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 230) {
+        setAlert({
+          message: "Número de empleado inválido",
           severity: "warning"
         });
         setOpenAlert(true);
