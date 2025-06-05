@@ -9,6 +9,8 @@ import {
   TextField,
   Button,
   FormControlLabel,
+  RadioGroup,
+  Radio,
   FormHelperText,
   FormLabel,
   Divider,
@@ -117,12 +119,12 @@ export default function Home() {
     desotro: "",
     memo: "",
     descbreve: "",
-    nomei: "null",
-    extei: "null",
-    noms: "null",
-    exts: "null",
-    puestos: "null",
-    areas: "null",
+    nomei: "",
+    extei: "",
+    noms: "",
+    exts: "",
+    puestos: "",
+    areas: "",
     desdet: "",
     nombreJefe: "",
     puestoJefe: "",
@@ -130,8 +132,8 @@ export default function Home() {
     justifica2: "",
     justifica3: "",
     noticket: "",
-    enlace: false,
-    soli: false,
+    region: "",
+    
 
     // Estados para tipo de movimientos
     intersistemas: interIsTrue,
@@ -185,6 +187,7 @@ export default function Home() {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
+
   // HandleChange FormData2
   const handleChange2 = (event) => {
     const { name, value, type, checked } = event.target;
@@ -202,45 +205,6 @@ export default function Home() {
       movimientoID: selectedValue, // Guarda EL MOVIMIENTO seleccionado
     }));
   };
-
-  // Guardar datos de los checkbox
-  const saveCategorias = async (event) => {
-    const { name, type, checked } = event.target;
-    const isChecked = type === "checkbox" ? checked : false;
-
-    setFormData((prevFormData) => {
-      const updatedData = {
-        ...prevFormData,
-        [name]: isChecked, // Actualiza el valor del checkbox
-      };
-
-      if (name === "soli") {
-        if (isChecked) {
-          //console.log("Checkbox 'soli' marcado");
-          updatedData.noms = "";
-          updatedData.exts = "";
-          updatedData.puestos = "";
-          updatedData.areas = "";
-        } else {
-          //console.log("Checkbox 'soli' desmarcado");
-          updatedData.noms = "null";
-          updatedData.exts = "null";
-          updatedData.puestos = "null";
-          updatedData.areas = "null";
-        }
-      } else if (name === "enlace") {
-        if (isChecked) {
-          updatedData.nomei = "";
-          updatedData.extei = "";
-        } else {
-          updatedData.nomei = "null";
-          updatedData.extei = "null";
-        }
-      }
-      return updatedData;
-    });
-  };
-
   // Tablas
   useEffect(() => {
     setFormData((prevFormData) => ({
@@ -403,8 +367,7 @@ export default function Home() {
     const justifica3 = Data.justifica3; // Asumiendo que el campo se llama justifica3
 
     // Quien Solicita
-    const enlace = Data.enlace;
-    const soli = Data.soli;
+    const region = Data.region;
 
     // Tipo de movimiento
     const inter = Data.intersistemas;
@@ -438,10 +401,16 @@ export default function Home() {
       isValid = false;
     }
     // Verifica si al menos uno de los campos de justificación está lleno
-    if (!enlace && !soli) {
+    if (region === "regional") {
       // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
-      errores.solicita = "Al menos uno de los campos es requerido";
-      isValid = false;
+      if (!Data.extei) {
+          errores.extei = "Este campo es requerido";
+          isValid = false;
+      }
+      if (!Data.nomei) {
+          errores.nomei = "Este campo es requerido";
+          isValid = false;
+      }
     }
     if (!inter && !admin && !desa && !usua) {
       // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
@@ -804,8 +773,8 @@ export default function Home() {
         key !== "AltaOtro" &&
         key !== "BajaOtro" &&
         key !== "CambioOtro" &&
-        key !== "soli" &&
-        key !== "enlace" &&
+        key !== "extei" &&
+        key !== "nomei" &&
         Data.hasOwnProperty(key) // Asegúrate de que la propiedad pertenece al objeto
       ) {
         // Si el campo es requerido y está vacío
@@ -822,11 +791,10 @@ export default function Home() {
   // Llamada API
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     //console.log("Datos del formulario:", formData);
 
     const [isValid, isValidTabla, getErrors] =
-      validarCamposRequeridos(formData);
+    validarCamposRequeridos(formData);
     setErrors(getErrors);
     //console.log("Errores: ", errors)
 
@@ -880,7 +848,7 @@ export default function Home() {
       //console.error("Error:", error);
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
       setAlert({
-        message: "Ocurrio un error",
+        message: "Ocurrio un error interno",
         severity: "error",
       });
       console.error(error);
@@ -930,7 +898,7 @@ export default function Home() {
       //console.error("Error:", error);
       setBotonEstado2("Enviar"); // Vuelve a "Enviar" en caso de error
       setAlert({
-        message: "Ocurrio un error",
+        message: "Ocurrio un error interno",
         severity: "error",
       });
       setOpenAlert(true);
@@ -1074,7 +1042,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          ¿QUIÉN SOLICITA?
+          REGIÓN DE ORIGEN DE LA SOLICITUD
         </Typography>
         <Divider
           sx={{
@@ -1087,63 +1055,64 @@ export default function Home() {
           }}
         />
 
-        <Box
+        <FormLabel
+                      component="legend"
+                      sx={{
+                        mt: 0,
+                        mb: 1,
+                        mx: "auto",
+                        display: "flex",
+                        justifyContent: "center",
+                        fontSize: "1.2rem",
+                      }}
+                    >
+                      Seleccione el Origen *
+        </FormLabel>
+        
+          <Box
           sx={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            mt: 0,
-            ml: 10,
-            mb: 1,
-            mr: 8,
-          }}
-        >
-          {[
-            { name: "enlace", label: "Enlace  Informático" },
-            { name: "soli", label: "Usuario" },
-          ].map((item, index) => (
-            <Box
-              key={index}
-              sx={{ width: "50%", minWidth: "100px", textAlign: "center" }}
-            >
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formData[item.name]}
-                    onChange={saveCategorias}
-                    name={item.name}
-                    color="primary"
-                  />
-                }
-                label={item.label}
-              />
-            </Box>
-          ))}
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              mb: 1,
-              mt: 1,
               display: "flex",
-              justifyContent: "center",
-              fontSize: "0.9rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            * Puedes elegir ambos.
-          </FormLabel>
-          <FormHelperText
-            sx={{
-              mx: "auto",
-              mb: 1,
-              justifyContent: "center",
-              color: "red",
-              display: errors?.solicita ? "block" : "none",
-            }}
-          >
-            {errors?.solicita}
-          </FormHelperText>
+              flexDirection: "column",
+              alignItems: "center",
+            }}>
+              <RadioGroup
+                row
+                name="region"
+                value={formData.region}
+                onChange={handleChange}
+                required
+                sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+                
+              >
+                <FormControlLabel
+                  value="central"
+                  control={<Radio />}
+                  label="Oficinas Centrales"
+                  sx={{ ml: 2, mr: 2, justifyContent: "center" ,  width: "calc(50% - 32px)"}}
+                  //labelPlacement = "bottom"
+                />
+                <FormControlLabel
+                  value="regional"
+                  control={<Radio />}
+                  label="Oficinas regionales u organismos de cuenca"
+                  sx={{ ml: 2, mr: 2, justifyContent: "center" ,  width: "calc(50% - 32px)"}}
+                  //labelPlacement = "bottom"
+                />
+              </RadioGroup>
+  
+              <FormHelperText
+                sx={{
+                  ml: 2,
+                  mr: 2,
+                  mb: 0,
+                  justifyContent: "center",
+                  color: "red",
+                  display: errors?.region ? "block" : "none",
+                }}
+              >
+                {errors?.region}
+              </FormHelperText>
+          
         </Box>
 
         {/* Usuario */}
@@ -1151,10 +1120,11 @@ export default function Home() {
           sx={{
             borderBottomWidth: "1px",
             borderColor: "grey",
+            mt: 2,
             ml: 2,
             mr: 2,
             mb: 3,
-            display: formData.soli ? "block" : "none",
+            //display: formData.soli ? "block" : "none",
           }}
         />
         <Box
@@ -1170,7 +1140,7 @@ export default function Home() {
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
-          display={formData.soli ? "block" : "none"}
+          //display={formData.soli ? "block" : "none"}
         >
           {/* SubTitle */}
           <Typography
@@ -1182,8 +1152,8 @@ export default function Home() {
             INFORMACIÓN DEL SOLICITANTE
           </Typography>
           <TextField
-            //required
-            //error={!!errors?.noms}
+            required
+            error={!!errors?.noms}
             id="noms"
             name="noms"
             label="Nombre Completo"
@@ -1194,8 +1164,8 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            //required
-            //error={!!errors?.exts}
+            required
+            error={!!errors?.exts}
             id="exts"
             name="exts"
             label="Teléfono / Extensión"
@@ -1206,8 +1176,8 @@ export default function Home() {
             inputProps={{ maxLength: 20 }}
           />
           <TextField
-            //required
-            //error={!!errors?.puestos}
+            required
+            error={!!errors?.puestos}
             id="puestos"
             name="puestos"
             label="Puesto"
@@ -1218,8 +1188,8 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            //required
-            //error={!!errors?.areas}
+            required
+            error={!!errors?.areas}
             id="areas"
             name="areas"
             label="Área"
@@ -1239,7 +1209,7 @@ export default function Home() {
             ml: 2,
             mr: 2,
             mb: 3,
-            display: formData.enlace ? "block" : "none",
+            display: formData.region === "regional" ? "block" : "none",
           }}
         />
         <Box
@@ -1255,7 +1225,7 @@ export default function Home() {
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
-          display={formData.enlace ? "block" : "none"}
+          display={formData.region === "regional" ? "block" : "none"}
         >
           {/* SubTitle */}
           <Typography
@@ -1267,8 +1237,8 @@ export default function Home() {
             INFORMACIÓN DEL ENLACE INFORMÁTICO
           </Typography>
           <TextField
-            //required
-            //error={!!errors?.nomei}
+            required
+            error={!!errors?.nomei}
             id="nomei"
             name="nomei"
             label="Nombre Completo"
@@ -1279,8 +1249,8 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            //required
-            //error={!!errors?.extei}
+            required
+            error={!!errors?.extei}
             id="extei"
             name="extei"
             label="Teléfono / Extensión"
