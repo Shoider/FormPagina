@@ -121,7 +121,7 @@ export default function Home() {
         empresaExterno: "null",
         equipoExterno: "null",
 
-        numeroEmpleadoResponsable: "null",
+        numeroEmpleadoResponsable: "123456",
         nombreResponsable: "null",
         puestoResponsable: "null",
         unidadAdministrativaResponsable: "null",
@@ -226,12 +226,14 @@ export default function Home() {
     const errores = {};
     let isValid = true;
     let isValidTabla = true;
+    let isValidTelefono = true;
+    let isValidJustificacion =true;
 
     const usua = Data.cuentaUsuario;
     const web = Data.accesoWeb;
     const remoto = Data.accesoRemoto;
 
-    // Verifica si al menos uno de los campos de justificación está lleno
+    // Verifica si al menos uno de los campos este lleno
     if (!usua && !web && !remoto) {
       // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
       errores.seleccion =
@@ -239,6 +241,15 @@ export default function Home() {
       isValid = false;
     }
 
+    if (Data.telefonoEnlace.length < 7){
+      isValidTelefono =false;
+    }
+
+    if (Data.justificacion.length < 49){
+      isValidJustificacion =false;
+    }
+    
+ 
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
         // Excluir movimiento si cuentaUsuario es false
@@ -293,7 +304,7 @@ export default function Home() {
       }
     }
     console.log(errores);
-    return [isValid, isValidTabla, errores];
+    return [isValid, isValidTabla,isValidTelefono, isValidJustificacion, errores];
   };
 
   // Llamada API
@@ -301,7 +312,7 @@ export default function Home() {
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
 
-    const [isValid, isValidTabla, getErrors] =
+    const [isValid, isValidTabla, isValidTelefono, isValidJustificacion, getErrors] =
       validarCamposRequeridos(formData);
     setErrors(getErrors);
 
@@ -310,7 +321,7 @@ export default function Home() {
     if (!isValid) {
       setAlert({
         message: "Por favor, complete todos los campos requeridos.",
-        severity: "error",
+        severity: "warning",
       });
       setOpenAlert(true);
       return;
@@ -324,11 +335,25 @@ export default function Home() {
     if (!isValidTabla) {
       setAlert({
         message: "Por favor, complete la(s) tabla(s).",
-        severity: "error",
+        severity: "warning",
       });
       setOpenAlert(true);
       return;
-    } else {
+    }if (!isValidTelefono) {
+      setAlert({
+        message: "Teléfono de enlace informático inválido.",
+        severity: "warning",
+      });
+      setOpenAlert(true);
+      return;
+    } if (!isValidJustificacion) {
+      setAlert({
+        message: "Justificación de al menos 50 caracteres.",
+        severity: "warning",
+      });
+      setOpenAlert(true);
+      return;
+    }  else {
       setAlert({
         message: "Informacion Registrada",
         severity: "success",
@@ -346,16 +371,72 @@ export default function Home() {
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado("Descargar PDF");
+      } else if (pdfResponse.status === 206) {
+        setAlert({
+          message: "Teléfono de enlace/contacto inválido",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 207) {
+        setAlert({
+          message: "Correo electronico inválido",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
       } else if (pdfResponse.status === 208) {
         setAlert({
-          message: "b) Verifica URL/IP del equipo",
+          message: "Teléfono de usuario inválido",
           severity: "warning"
         });
         setOpenAlert(true);
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 209) {
         setAlert({
-          message: "c) Verifica dirección IP",
+          message: "Teléfono de usuario responsable inválido",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 210) {
+        setAlert({
+          message: "b) Verifica 'URL/IP del Equipo'",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 211) {
+        setAlert({
+          message: "b) Verifica 'Nombre Sistema/Servicio'",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 220) {
+        setAlert({
+          message: "c) Verifica 'Nomenclatura'. Min: 8 Caracteres",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 221) {
+        setAlert({
+          message: "c) Verifica 'Nombre'. Min: 11 Caracteres",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 222) {
+        setAlert({
+          message: "c) Verifica 'Dirección IP'",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 230) {
+        setAlert({
+          message: "Número de empleado inválido",
           severity: "warning"
         });
         setOpenAlert(true);
