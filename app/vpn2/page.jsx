@@ -227,13 +227,13 @@ export default function Home() {
     let isValid = true;
     let isValidTabla = true;
     let isValidTelefono = true;
-    let isValidNoEmpleado =true;
+    let isValidJustificacion =true;
 
     const usua = Data.cuentaUsuario;
     const web = Data.accesoWeb;
     const remoto = Data.accesoRemoto;
 
-    // Verifica si al menos uno de los campos de justificación está lleno
+    // Verifica si al menos uno de los campos este lleno
     if (!usua && !web && !remoto) {
       // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
       errores.seleccion =
@@ -241,8 +241,12 @@ export default function Home() {
       isValid = false;
     }
 
-    if (Data.telefonoEnlace.length < 8){
+    if (Data.telefonoEnlace.length < 7){
       isValidTelefono =false;
+    }
+
+    if (Data.justificacion.length < 49){
+      isValidJustificacion =false;
     }
     
  
@@ -300,7 +304,7 @@ export default function Home() {
       }
     }
     console.log(errores);
-    return [isValid, isValidTabla,isValidTelefono, errores];
+    return [isValid, isValidTabla,isValidTelefono, isValidJustificacion, errores];
   };
 
   // Llamada API
@@ -308,7 +312,7 @@ export default function Home() {
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
 
-    const [isValid, isValidTabla, isValidTelefono, getErrors] =
+    const [isValid, isValidTabla, isValidTelefono, isValidJustificacion, getErrors] =
       validarCamposRequeridos(formData);
     setErrors(getErrors);
 
@@ -342,7 +346,14 @@ export default function Home() {
       });
       setOpenAlert(true);
       return;
-    } else {
+    } if (!isValidJustificacion) {
+      setAlert({
+        message: "Justificación de al menos 50 caracteres.",
+        severity: "warning",
+      });
+      setOpenAlert(true);
+      return;
+    }  else {
       setAlert({
         message: "Informacion Registrada",
         severity: "success",
