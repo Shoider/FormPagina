@@ -371,6 +371,20 @@ export default function Home() {
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado("Descargar PDF");
+      } else if (pdfResponse.status === 206) {
+        setAlert({
+          message: "Teléfono de enlace/contacto responsable inválido",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 207) {
+        setAlert({
+          message: "Correo electronico inválido",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
       } else if (pdfResponse.status === 208) {
         setAlert({
           message: "Teléfono de usuario inválido",
@@ -394,21 +408,35 @@ export default function Home() {
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 211) {
         setAlert({
+          message: "b) Verifica 'Nombre Sistema/Servicio'",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 220) {
+        setAlert({
           message: "c) Verifica 'Nomenclatura'",
           severity: "warning"
         });
         setOpenAlert(true);
         setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 212) {
+      } else if (pdfResponse.status === 221) {
         setAlert({
           message: "c) Verifica 'Nombre Sistema/Servicio'",
           severity: "warning"
         });
         setOpenAlert(true);
         setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 213) {
+      } else if (pdfResponse.status === 222) {
         setAlert({
           message: "c) Verifica 'Dirección IP'",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 230) {
+        setAlert({
+          message: "Número de empleado inválido",
           severity: "warning"
         });
         setOpenAlert(true);

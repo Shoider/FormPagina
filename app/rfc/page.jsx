@@ -1013,6 +1013,7 @@ export default function Home() {
           </Typography>
         </Box>
       </Box>
+
       {/* Datos del Solicitante */}
       {/* Form Box Responsive */}
       <Box
@@ -1056,17 +1057,17 @@ export default function Home() {
         />
 
         <FormLabel
-                      component="legend"
-                      sx={{
-                        mt: 0,
-                        mb: 1,
-                        mx: "auto",
-                        display: "flex",
-                        justifyContent: "center",
-                        fontSize: "1.2rem",
-                      }}
-                    >
-                      Seleccione el Origen *
+          component="legend"
+          sx={{
+            mt: 0,
+            mb: 1,
+            mx: "auto",
+            display: "flex",
+            justifyContent: "center",
+            fontSize: "1.2rem",
+          }}
+        >
+          Seleccione el Origen *
         </FormLabel>
         
           <Box
@@ -1096,7 +1097,6 @@ export default function Home() {
                   control={<Radio />}
                   label="Oficinas regionales u organismos de cuenca"
                   sx={{ ml: 2, mr: 2, justifyContent: "center" ,  width: "calc(50% - 32px)"}}
-                  //labelPlacement = "bottom"
                 />
               </RadioGroup>
   
@@ -1114,8 +1114,6 @@ export default function Home() {
               </FormHelperText>
           
         </Box>
-
-        {/* Usuario */}
         <Divider
           sx={{
             borderBottomWidth: "1px",
@@ -1124,9 +1122,40 @@ export default function Home() {
             ml: 2,
             mr: 2,
             mb: 3,
-            //display: formData.soli ? "block" : "none",
           }}
         />
+      </Box>
+
+      {/* Datos del Solicitante Usuario */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          INFORMACIÓN DEL SOLICITANTE
+        </Typography>
         <Box
           component="form"
           sx={{
@@ -1140,17 +1169,7 @@ export default function Home() {
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
-          //display={formData.soli ? "block" : "none"}
         >
-          {/* SubTitle */}
-          <Typography
-            variant="h5"
-            align="center"
-            gutterBottom
-            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-          >
-            INFORMACIÓN DEL SOLICITANTE
-          </Typography>
           <TextField
             required
             error={!!errors?.noms}
@@ -1201,17 +1220,40 @@ export default function Home() {
           />
         </Box>
 
-        {/* DATOS DEL ENLACE INFORMÁTICO */}
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 2,
-            mr: 2,
-            mb: 3,
-            display: formData.region === "regional" ? "block" : "none",
-          }}
-        />
+          
+      </Box>
+
+      {/* Datos del enlace informatico */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+        display={formData.region === "regional" ? "block" : "none"}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          INFORMACIÓN DEL ENLACE INFORMÁTICO
+        </Typography>
         <Box
           component="form"
           sx={{
@@ -1225,17 +1267,7 @@ export default function Home() {
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
-          display={formData.region === "regional" ? "block" : "none"}
         >
-          {/* SubTitle */}
-          <Typography
-            variant="h5"
-            align="center"
-            gutterBottom
-            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-          >
-            INFORMACIÓN DEL ENLACE INFORMÁTICO
-          </Typography>
           <TextField
             required
             error={!!errors?.nomei}
@@ -1262,6 +1294,7 @@ export default function Home() {
           />
         </Box>
       </Box>
+
       {/* Datos del Registro */}
       {/* Form Box Responsive */}
       <Box
