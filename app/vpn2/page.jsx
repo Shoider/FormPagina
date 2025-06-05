@@ -353,23 +353,37 @@ export default function Home() {
         });
         setOpenAlert(true);
         setBotonEstado("Enviar");
-      }else if (pdfResponse.status === 210) {
+      } else if (pdfResponse.status === 209) {
         setAlert({
-          message: "b) Verifica URL/IP del equipo",
+          message: "Teléfono de usuario responsable inválido",
           severity: "warning"
         });
         setOpenAlert(true);
         setBotonEstado("Enviar");
-      }else if (pdfResponse.status === 211) {
+      } else if (pdfResponse.status === 210) {
         setAlert({
-          message: "c) Verifica Nomenclatura",
+          message: "b) Verifica 'URL/IP del Equipo'",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 211) {
+        setAlert({
+          message: "c) Verifica 'Nomenclatura'",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      } else if (pdfResponse.status === 212) {
+        setAlert({
+          message: "c) Verifica 'Nombre Sistema/Servicio'",
           severity: "warning"
         });
         setOpenAlert(true);
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 213) {
         setAlert({
-          message: "c) Verifica dirección IP",
+          message: "c) Verifica 'Dirección IP'",
           severity: "warning"
         });
         setOpenAlert(true);
