@@ -1146,6 +1146,7 @@ export default function Home() {
             padding: "2",
           },
         }}
+        display={formData.region ? "block" : "none"}
       >
         {/* SubTitle */}
         <Typography
@@ -1324,7 +1325,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          INFORMACIÓN PARA REGISTRO
+          INFORMACIÓN DE LA SOLICITUD
         </Typography>
         <Box
           component="form"
