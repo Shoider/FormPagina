@@ -356,6 +356,23 @@ export default function Home() {
     severity: "",
   });
 
+  useEffect(() => {
+        if (formData.region === "centrales") {
+          setFormData((prev) => ({
+            ...prev,
+            nomei: "null",
+            extei:"null",
+           
+          }));
+          if (formData.region === "regional") {
+          setFormData((prev) => ({
+            ...prev,
+            nomei: "",
+            extei:"",
+           
+          }))}
+        }}, [formData.region]);
+
   const validarCamposRequeridos = (Data) => {
     const errores = {};
     let isValid = true; // Asumimos que es válido al principio
@@ -388,6 +405,8 @@ export default function Home() {
     const altaUsua = Data.AltaUsua;
     const bajaUsua = Data.BajaUsua;
     const cambioUsua = Data.CambioUsua;
+
+    
 
     // Verifica si al menos uno de los campos de justificación está lleno
     if (!justifica && !justifica2 && !justifica3) {
