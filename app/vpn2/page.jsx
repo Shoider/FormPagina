@@ -1476,6 +1476,7 @@ export default function Home() {
                 label="Windows"
               />
             </RadioGroup>
+            </Box>
             <TextField
             required
             error={!!errors?.versionSO}
@@ -1487,7 +1488,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+            />
             <FormHelperText
               sx={{
                 ml: 2,
@@ -1500,10 +1501,6 @@ export default function Home() {
             >
               {errors?.sistemaOperativo}
             </FormHelperText>
-
-          </Box>
-          <Box />
-
           <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -1715,7 +1712,7 @@ export default function Home() {
             "& .MuiTextField-root": {
               mt: 2,
               width: "calc(100% - 32px)",
-              ml: 2,
+              ml: 20,
               mr: 4,
             },
           }}
@@ -1732,21 +1729,16 @@ export default function Home() {
               mb: 2,
             }}
           />
+          <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          b) Acceso a Sitios Web o Equipo
+        </Typography>
 
-          <FormLabel
-            component="legend"
-            sx={{
-              mt: 0,
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "1.2rem",
-            }}
-          >
-            b) Acceso a Sitios Web o Equipo
-          </FormLabel>
-
-          <EditableTableWeb onDataChange={handleWebTableDataChange} />
+          <EditableTableWeb onDataChange={handleWebTableDataChange}/>
 
           <FormLabel
             component="legend"
@@ -1810,19 +1802,14 @@ export default function Home() {
               mb: 2,
             }}
           />
-
-          <FormLabel
-            component="legend"
-            sx={{
-              mt: 0,
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "1.2rem",
-            }}
-          >
-            c) Acceso a Escritorio Remoto
-          </FormLabel>
+          <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          c) Acceso a Escritorio Remoto
+        </Typography>
 
           <EditableTableRemoto onDataChange={handleRemotoTableDataChange} />
 
@@ -1838,7 +1825,7 @@ export default function Home() {
             }}
           >
             Nota: Ejemplo de nomeclatura: SGA-001. Ejemplo de nombre:
-            CE0010DC01. Para el sistema operativo especificar nombre y versión.
+            CE0010DC01.
           </FormLabel>
           <FormLabel
             component="legend"
