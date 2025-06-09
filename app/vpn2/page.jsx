@@ -737,7 +737,7 @@ export default function Home() {
               <TextField
                 required
                 error={!!errors?.unidadAdministrativa}
-                placeholder="Seleccione la unidad administrativa"
+                placeholder="Seleccione la Unidad Administrativa"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Unidad Administrativa"
@@ -761,10 +761,10 @@ export default function Home() {
               <TextField
                 required
                 //error={!!errors?.unidadAdministrativa}
-                placeholder="Seleccione la área de adscripción"
+                placeholder="Seleccione la Área de Adscripción"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
-                label="Área de adscripción"
+                label="Área de Adscripción"
               />
             )}
             id="areaAdscripcion"
@@ -785,7 +785,7 @@ export default function Home() {
               <TextField
                 required
                 error={!!errors?.subgerencia}
-                placeholder="Escriba ó seleccione la subgerencia o subdirección"
+                placeholder="Escriba o Seleccione la Subgerencia o Subdirección"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Subgerencia o Subdirección"
@@ -849,7 +849,7 @@ export default function Home() {
             id="nombreEnlace"
             name="nombreEnlace"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo del enlace informático ó contacto responsable"
+            placeholder="Escriba el Nombre Completo del Enlace Informático o Contacto Responsable"
             value={formData.nombreEnlace}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1010,7 +1010,7 @@ export default function Home() {
             gutterBottom
             sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Datos del usuario solicitante CONAGUA
+            Datos del Usuario Solicitante CONAGUA
           </Typography>
 
           <TextField
@@ -1019,7 +1019,7 @@ export default function Home() {
             id="nombreInterno"
             name="nombreInterno"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo del usuario"
+            placeholder="Escriba el Nombre Completo del Usuario"
             value={formData.nombreInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1031,7 +1031,7 @@ export default function Home() {
             id="puestoInterno"
             name="puestoInterno"
             label="Puesto ó Cargo"
-            placeholder="Escriba el puesto o cargo del usuario"
+            placeholder="Escriba el Puesto o Cargo del Usuario"
             value={formData.puestoInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1043,7 +1043,7 @@ export default function Home() {
             id="correoInterno"
             name="correoInterno"
             label="Correo Electrónico"
-            placeholder="Escriba el correo electrónico del usuario"
+            placeholder="Escriba el Correo Electrónico del Usuario"
             value={formData.correoInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1095,7 +1095,7 @@ export default function Home() {
             id="nombreExterno"
             name="nombreExterno"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo del usuario"
+            placeholder="Escriba el Nombre Completo del Usuario"
             value={formData.nombreExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1107,7 +1107,7 @@ export default function Home() {
             id="correoExterno"
             name="correoExterno"
             label="Correo Electrónico"
-            placeholder="Escriba el correo electrónico del usuario"
+            placeholder="Escriba el Correo Electrónico del Usuario"
             value={formData.correoExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1119,7 +1119,7 @@ export default function Home() {
             id="empresaExterno"
             name="empresaExterno"
             label="Nombre Completo de la Empresa"
-            placeholder="Escriba el nombre completo de la empresa"
+            placeholder="Escriba el Nombre Completo de la Empresa"
             value={formData.empresaExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1133,7 +1133,7 @@ export default function Home() {
             id="equipoExterno"
             name="equipoExterno"
             label="Equipo de Desarrollo"
-            placeholder="Llenar solo por personal de la Subgerencia de Sistemas de la GTIC"
+            placeholder="Llenar Solo por Personal de la Subgerencia de Sistemas de la GTIC"
             value={formData.equipoExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1185,7 +1185,7 @@ export default function Home() {
             id="numeroEmpleadoResponsable"
             name="numeroEmpleadoResponsable"
             label="Número de Empleado"
-            placeholder="Escriba el número de empleado del responsable"
+            placeholder="Escriba el Número de Empleado del Responsable"
             value={formData.numeroEmpleadoResponsable}
             onChange={handleNumeroEmpleado}
             sx={{ background: "#FFFFFF" }}
@@ -1197,7 +1197,7 @@ export default function Home() {
             id="nombreResponsable"
             name="nombreResponsable"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo del responable"
+            placeholder="Escriba el Nombre Completo del Responable"
             value={formData.nombreResponsable}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1209,7 +1209,7 @@ export default function Home() {
             id="puestoResponsable"
             name="puestoResponsable"
             label="Puesto o Cargo"
-            placeholder="Escriba el puesto o cargo del responsable"
+            placeholder="Escriba el Puesto o Cargo del Responsable"
             value={formData.puestoResponsable}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1223,7 +1223,7 @@ export default function Home() {
               <TextField
                 required
                 error={!!errors?.unidadAdministrativaResponsable}
-                placeholder="Seleccione la área de adscripción del responsable"
+                placeholder="Seleccione la área de Adscripción del Responsable"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Área de Adscripción"
@@ -1329,7 +1329,7 @@ export default function Home() {
             id="marca"
             name="marca"
             label="Marca"
-            placeholder="Escriba la marca del equipo"
+            placeholder="Escriba la Marca del Equipo"
             value={formData.marca}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1341,7 +1341,7 @@ export default function Home() {
             id="modelo"
             name="modelo"
             label="Modelo"
-            placeholder="Escriba el modelo del equipo"
+            placeholder="Escriba el Modelo del Equipo"
             value={formData.modelo}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1353,7 +1353,7 @@ export default function Home() {
             id="serie"
             name="serie"
             label="Número de Serie"
-            placeholder="Escriba el No. de serie del equipo"
+            placeholder="Escriba el No. de Serie del Equipo"
             value={formData.serie}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1482,7 +1482,7 @@ export default function Home() {
             id="versionSO"
             name="versionSO"
             label="Versión del Sistema Operativo"
-            placeholder="Escriba la versión del Sistema Operativo"
+            placeholder="Escriba la Versión del Sistema Operativo"
             value={formData.versionSO}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1561,9 +1561,9 @@ export default function Home() {
           
         >
           {[
-            { name: "cuentaUsuario", label: "Cuenta de usuario" },
-            { name: "accesoWeb", label: "Acceso a sitios Web o Equipo" },
-            { name: "accesoRemoto", label: "Acceso a escritorio remoto" },
+            { name: "cuentaUsuario", label: "Cuenta de Usuario" },
+            { name: "accesoWeb", label: "Acceso a Sitios Web o Equipo" },
+            { name: "accesoRemoto", label: "Acceso a Escritorio Remoto" },
           ].map((item, index) => (
             <Box
               key={index}
@@ -1648,7 +1648,7 @@ export default function Home() {
                 fontSize: "1.2rem",
               }}
             >
-              a) Cuenta de usuario
+              a) Cuenta de Usuario
             </FormLabel>
             <RadioGroup
               row
@@ -1743,7 +1743,7 @@ export default function Home() {
               fontSize: "1.2rem",
             }}
           >
-            b) Acceso a sitios Web o Equipo
+            b) Acceso a Sitios Web o Equipo
           </FormLabel>
 
           <EditableTableWeb onDataChange={handleWebTableDataChange} />
@@ -1821,7 +1821,7 @@ export default function Home() {
               fontSize: "1.2rem",
             }}
           >
-            c) Acceso a escritorio remoto
+            c) Acceso a Escritorio Remoto
           </FormLabel>
 
           <EditableTableRemoto onDataChange={handleRemotoTableDataChange} />
@@ -1905,7 +1905,7 @@ export default function Home() {
             id="justificacion"
             name="justificacion"
             label="Justificación"
-            placeholder="Justifique la necesidad del servicio (Min.50 caracteres)"
+            placeholder="Justifique la Necesidad del Servicio (Min.50 caracteres)"
             value={formData.justificacion}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1969,7 +1969,7 @@ export default function Home() {
             id="nombreAutoriza"
             name="nombreAutoriza"
             label="Nombre Completo"
-            placeholder="Gerente(a), subgerente(a) o equivalente / director(a) de organismo / director(a) local"
+            placeholder="Gerente(a), Subgerente(a) o Equivalente / Director(a) de organismo / Director(a) Local"
             value={formData.nombreAutoriza}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1981,7 +1981,7 @@ export default function Home() {
             id="puestoAutoriza"
             name="puestoAutoriza"
             label="Puesto o Cargo"
-            placeholder="Escriba el puesto o cargo de quien autoriza los servicios"
+            placeholder="Escriba el Puesto o Cargo de Quien Autoriza los Servicios"
             value={formData.puestoAutoriza}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}

@@ -1062,7 +1062,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          REGIÓN DE ORIGEN DE LA SOLICITUD
+          Región de Origen de la Solicitud
         </Typography>
         <Divider
           sx={{
@@ -1114,7 +1114,7 @@ export default function Home() {
                 <FormControlLabel
                   value="regional"
                   control={<Radio />}
-                  label="Oficinas regionales u organismos de cuenca"
+                  label="Oficinas Regionales u Organismos de Cuenca"
                   sx={{ ml: 2, mr: 2, justifyContent: "center" ,  width: "calc(50% - 32px)"}}
                 />
               </RadioGroup>
@@ -1174,7 +1174,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          INFORMACIÓN DEL SOLICITANTE
+          Información del Solicitante
         </Typography>
         <Box
           component="form"
@@ -1272,7 +1272,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          INFORMACIÓN DEL ENLACE INFORMÁTICO
+          Información del Enlace Informático
         </Typography>
         <Box
           component="form"
@@ -1344,7 +1344,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          INFORMACIÓN DE LA SOLICITUD
+          Información de la Solicitud
         </Typography>
         <Box
           component="form"
@@ -1583,7 +1583,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-          REGLAS / COMUNICACIONES
+          Reglas / Comunicaciones
         </Typography>
         <Typography
           variant="h5"
@@ -1591,7 +1591,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 0, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-          INTERSISTEMAS
+          Intersistemas
         </Typography>
 
         <Divider
@@ -2016,7 +2016,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-          REGLAS / COMUNICACIONES
+          Reglas / Comunicaciones
         </Typography>
         <Typography
           variant="h5"
@@ -2024,7 +2024,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 0, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-          ADMINISTRADOR
+          Administrador
         </Typography>
 
         <Divider
@@ -2446,7 +2446,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-          REGLAS / COMUNICACIONES
+          Reglas / Comunicaciones
         </Typography>
         <Typography
           variant="h5"
@@ -2454,7 +2454,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 0, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-          DESARROLLADOR
+          Desarrollador
         </Typography>
 
         <Divider
@@ -2875,7 +2875,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-          REGLAS / COMUNICACIONES
+          Reglas / Comunicaciones
         </Typography>
         <Typography
           variant="h5"
@@ -2883,7 +2883,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 0, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-          USUARIO
+          Usuario
         </Typography>
 
         <Divider
@@ -3303,7 +3303,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4, mb: 3 }}
         >
-          REGLAS / COMUNICACIONES
+          Reglas / Comunicaciones
         </Typography>
         <Typography
           variant="h5"
@@ -3718,7 +3718,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          JUSTIFICACIÓN
+          Justificación
         </Typography>
         <Divider
           sx={{
@@ -3762,7 +3762,7 @@ export default function Home() {
             error={!!errors?.justifica}
             id="justifica"
             name="justifica"
-            label="Referencias a la documentación"
+            label="Referencias a la Documentación"
             placeholder="De los sistemas y/o plataformas que soportan y/o justifican los cambios solicitados."
             value={formData.justifica}
             onChange={handleChange}
@@ -3843,7 +3843,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          AUTORIZA
+          Autoriza
         </Typography>
         <Box
           component="form"
@@ -3864,7 +3864,7 @@ export default function Home() {
             error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
-            label="Nombre de Gerente ó Director Local"
+            label="Nombre de Gerente o Director Local"
             placeholder="Escribe el nombre completo del gerente o director local"
             value={formData.nombreJefe}
             onChange={handleChange}
@@ -3876,7 +3876,7 @@ export default function Home() {
             error={!!errors?.puestoJefe}
             id="puestoJefe"
             name="puestoJefe"
-            label="Puesto ó Cargo de Quien Autoriza"
+            label="Puesto o Cargo de Quien Autoriza"
             placeholder="Escribe el puesto o cargo de quien autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
@@ -3915,7 +3915,7 @@ export default function Home() {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          POLÍTICAS DEL SERVICIO
+          Políticas del Servicio
         </Typography>
         <Box
           component="form"
@@ -4053,7 +4053,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          GENERAR SOLICITUD
+          Generar Solicitud
         </Typography>
         <Divider
           sx={{
