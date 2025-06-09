@@ -343,16 +343,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
         "& .actions": { color: "text.secondary" },
         "& .textPrimary": { color: "text.primary" },
         background: "white",
-/*         padding: "0 8px",
-          "@media (min-width: 1000px)": {
-            maxWidth: "100.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-            //display: formData.accesoRemoto ? "block" : "none",
-          }, */
       }}
-      
     >
       <DataGrid
         rows={rows}
