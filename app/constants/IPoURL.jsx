@@ -1,7 +1,8 @@
 //TIPO DE MOVIMIENTO PARA TABLA DE ACCESOS 
 const ipourl = [
     "172.", 
-    "https://",
+    "http",
+    "https",
 ];
 
 export default ipourl;

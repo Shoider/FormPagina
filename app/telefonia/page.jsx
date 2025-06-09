@@ -707,7 +707,7 @@ export default function Home() {
             id="extEmpleado"
             name="extEmpleado"
             label="Teléfono / Extensión"
-            placeholder="Escriba el número de teléfono ó extensión"
+            placeholder="Escriba el número de teléfono o extensión"
             value={formData.extEmpleado}
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF" }}
@@ -958,7 +958,7 @@ export default function Home() {
             error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
-            label="Funcionario con Cargo de Subgerente, Homólogo ó Superior"
+            label="Funcionario con Cargo de Subgerente, Homólogo o Superior"
             placeholder="Escriba el nombre completo del funcionario"
             value={formData.nombreJefe}
             onChange={handleChange}
@@ -970,8 +970,8 @@ export default function Home() {
             error={!!errors?.puestoJefe}
             id="puestoJefe"
             name="puestoJefe"
-            label="Puesto ó Cargo"
-            placeholder="Escriba el puesto ó cargo del que autoriza"
+            label="Puesto o Cargo"
+            placeholder="Escriba el puesto o cargo del que autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}

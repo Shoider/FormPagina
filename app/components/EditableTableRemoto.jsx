@@ -156,7 +156,8 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       field: "id",
       headerName: "N°",
       type: "number",
-      width: 5,
+      width:"auto",
+      flex:0.3,
       align: "center",
       headerAlign: "center",
       editable: false,
@@ -164,18 +165,20 @@ function EditableTableRemoto({ initialData, onDataChange }) {
     {
       field: "movimiento",
       headerName: "A | B | C",
-      width: 74,
+      width:"auto",
+      flex:0.7,
       align: "center",
       headerAlign: "center",
       editable: true,
       type: "singleSelect",
-      valueOptions: ["A", "B", "C"],
+      valueOptions: movimiento,
     },
     {
       field: "nomenclatura",
       headerName: "Nomenclatura",
+      flex:0.7,
       type: "string",
-      width: 115,
+      width:"auto",
       align: "center",
       headerAlign: "center",
       editable: true,
@@ -183,34 +186,27 @@ function EditableTableRemoto({ initialData, onDataChange }) {
     {
       field: "nombreSistema",
       headerName: "Nombre",
+      flex:1,
       type: "string",
-      width: 90,
+      width:"auto",
       align: "center",
       headerAlign: "center",
       editable: true,
     },
     {
       field: "direccion",
-      headerName: "Dirección\nIP",
-      renderHeader: () => (
-      <span>
-      Dirección<br />IP
-      </span>
-      ),
-      width: 100,
+      headerName: "Dirección IP",
+      width:"auto",
+      flex:1,
       align: "center",
       headerAlign: "center",
       editable: true,
     },
     {
       field: "sistemaOperativo",
-      headerName: "Sistema\nOperativo",
-      renderHeader: () => (
-      <span>
-      Sistema<br />Operativo
-      </span>
-      ),
-      width: 90,
+      headerName: "Sistema Operativo",
+      width:"auto",
+      flex:1,
       align: "center",
       headerAlign: "center",
       editable: true,
@@ -221,7 +217,8 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       field: "actions",
       type: "actions",
       headerName: "Acciones",
-      width: 80,
+      flex:1,
+      width:"auto",
       align: "center",
       headerAlign: "center",
       cellClassName: "actions",

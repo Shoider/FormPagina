@@ -234,7 +234,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       },
       renderCell: (params) => <span>{params.value || ""}</span>,
     },
-    //{ field: 'FRO', headerName: 'Funcion ó Rol de Dispositivo(s) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: false },
+    //{ field: 'FRO', headerName: 'Funcion o Rol de Dispositivo(s) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: false },
     {
       field: "IPO",
       headerName: "Segmento(s)/IP(s) origen",

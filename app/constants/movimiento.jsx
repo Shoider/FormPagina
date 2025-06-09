@@ -1,8 +1,8 @@
 //TIPO DE MOVIMIENTO
 const movimiento = [
-    "A", 
-    "B", 
-    "C"
+  { value: "A", label: "Alta" },
+  { value: "B", label: "Baja" },
+  { value: "C", label: "Cambio" }
 ];
 
 export default movimiento;

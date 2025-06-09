@@ -23,6 +23,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  InputAdornment 
 } from "@mui/material";
 
 import Image from "next/image";
@@ -253,6 +254,10 @@ export default function Home() {
 
     if (Data.justificacion.length < 49){
       isValidJustificacion =false;
+    }
+
+    if(Data.subgerencia == ""){
+      Data.subgerencia = "~"
     }
     
  
@@ -742,7 +747,7 @@ export default function Home() {
               <TextField
                 required
                 error={!!errors?.unidadAdministrativa}
-                placeholder="Seleccione la unidad administrativa"
+                placeholder="Seleccione la Unidad Administrativa"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Unidad Administrativa"
@@ -766,10 +771,10 @@ export default function Home() {
               <TextField
                 required
                 //error={!!errors?.unidadAdministrativa}
-                placeholder="Seleccione la área de adscripción"
+                placeholder="Seleccione la Área de Adscripción"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
-                label="Área de adscripción"
+                label="Área de Adscripción"
               />
             )}
             id="areaAdscripcion"
@@ -788,9 +793,9 @@ export default function Home() {
             freeSolo={filteredSubgerencia.length === 0}
             renderInput={(params) => (
               <TextField
-                required
+                //required
                 error={!!errors?.subgerencia}
-                placeholder="Escriba ó seleccione la subgerencia o subdirección"
+                placeholder="Escriba o Seleccione la Subgerencia o Subdirección"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Subgerencia o Subdirección"
@@ -808,6 +813,14 @@ export default function Home() {
                 }
               }
             }}
+            onBlur={() => {
+            if (
+              filteredSubgerencia.length === 0 &&
+              (!formData.subgerencia || formData.subgerencia.trim() === "")
+            ) {
+              handleSubgerencia("~");
+            }
+          }}
             inputValue={formData.subgerencia || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
@@ -854,7 +867,7 @@ export default function Home() {
             id="nombreEnlace"
             name="nombreEnlace"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo del enlace informático ó contacto responsable"
+            placeholder="Escriba el Nombre Completo del Enlace Informático o Contacto Responsable"
             value={formData.nombreEnlace}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1015,7 +1028,7 @@ export default function Home() {
             gutterBottom
             sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Datos del usuario solicitante CONAGUA
+            Datos del Usuario Solicitante CONAGUA
           </Typography>
 
           <TextField
@@ -1024,7 +1037,7 @@ export default function Home() {
             id="nombreInterno"
             name="nombreInterno"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo del usuario"
+            placeholder="Escriba el Nombre Completo del Usuario"
             value={formData.nombreInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1035,24 +1048,26 @@ export default function Home() {
             error={!!errors?.puestoInterno}
             id="puestoInterno"
             name="puestoInterno"
-            label="Puesto ó Cargo"
-            placeholder="Escriba el puesto o cargo del usuario"
+            label="Puesto o Cargo"
+            placeholder="Escriba el Puesto o Cargo del Usuario"
             value={formData.puestoInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
+            
           />
           <TextField
             required
             error={!!errors?.correoInterno}
             id="correoInterno"
             name="correoInterno"
-            label="Correo Electrónico"
-            placeholder="Escriba el correo electrónico del usuario"
+            label="Correo Institucional"
+            placeholder="usuario@conagua.gob.mx"
             value={formData.correoInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
+            
           />
           <TextField
             required
@@ -1100,7 +1115,7 @@ export default function Home() {
             id="nombreExterno"
             name="nombreExterno"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo del usuario"
+            placeholder="Escriba el Nombre Completo del Usuario"
             value={formData.nombreExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1112,7 +1127,7 @@ export default function Home() {
             id="correoExterno"
             name="correoExterno"
             label="Correo Electrónico"
-            placeholder="Escriba el correo electrónico del usuario"
+            placeholder="Escriba el Correo Electrónico del Usuario"
             value={formData.correoExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1124,7 +1139,7 @@ export default function Home() {
             id="empresaExterno"
             name="empresaExterno"
             label="Nombre Completo de la Empresa"
-            placeholder="Escriba el nombre completo de la empresa"
+            placeholder="Escriba el Nombre Completo de la Empresa"
             value={formData.empresaExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1138,7 +1153,7 @@ export default function Home() {
             id="equipoExterno"
             name="equipoExterno"
             label="Equipo de Desarrollo"
-            placeholder="Llenar solo por personal de la Subgerencia de Sistemas de la GTIC"
+            placeholder="Llenar Solo por Personal de la Subgerencia de Sistemas de la GTIC"
             value={formData.equipoExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1181,7 +1196,7 @@ export default function Home() {
             sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
             Datos de la Persona Responsable en la CONAGUA para el Solicitante
-            externo
+            Externo
           </Typography>
 
           <TextField
@@ -1190,7 +1205,7 @@ export default function Home() {
             id="numeroEmpleadoResponsable"
             name="numeroEmpleadoResponsable"
             label="Número de Empleado"
-            placeholder="Escriba el número de empleado del responsable"
+            placeholder="Escriba el Número de Empleado del Responsable"
             value={formData.numeroEmpleadoResponsable}
             onChange={handleNumeroEmpleado}
             sx={{ background: "#FFFFFF" }}
@@ -1202,7 +1217,7 @@ export default function Home() {
             id="nombreResponsable"
             name="nombreResponsable"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo del responable"
+            placeholder="Escriba el Nombre Completo del Responable"
             value={formData.nombreResponsable}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1214,7 +1229,7 @@ export default function Home() {
             id="puestoResponsable"
             name="puestoResponsable"
             label="Puesto o Cargo"
-            placeholder="Escriba el puesto o cargo del responsable"
+            placeholder="Escriba el Puesto o Cargo del Responsable"
             value={formData.puestoResponsable}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1228,7 +1243,7 @@ export default function Home() {
               <TextField
                 required
                 error={!!errors?.unidadAdministrativaResponsable}
-                placeholder="Seleccione la área de adscripción del responsable"
+                placeholder="Seleccione la área de Adscripción del Responsable"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Área de Adscripción"
@@ -1292,7 +1307,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Servicios Ssolicitados
+          Servicios Solicitados
         </Typography>
         <Box
           component="form"
@@ -1334,7 +1349,7 @@ export default function Home() {
             id="marca"
             name="marca"
             label="Marca"
-            placeholder="Escriba la marca del equipo"
+            placeholder="Escriba la Marca del Equipo"
             value={formData.marca}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1346,7 +1361,7 @@ export default function Home() {
             id="modelo"
             name="modelo"
             label="Modelo"
-            placeholder="Escriba el modelo del equipo"
+            placeholder="Escriba el Modelo del Equipo"
             value={formData.modelo}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1358,7 +1373,7 @@ export default function Home() {
             id="serie"
             name="serie"
             label="Número de Serie"
-            placeholder="Escriba el No. de serie del equipo"
+            placeholder="Escriba el No. de Serie del Equipo"
             value={formData.serie}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1481,18 +1496,19 @@ export default function Home() {
                 label="Windows"
               />
             </RadioGroup>
+            </Box>
             <TextField
             required
             error={!!errors?.versionSO}
             id="versionSO"
             name="versionSO"
             label="Versión del Sistema Operativo"
-            placeholder="Escriba la versión del Sistema Operativo"
+            placeholder="Escriba la Versión del Sistema Operativo"
             value={formData.versionSO}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+            />
             <FormHelperText
               sx={{
                 ml: 2,
@@ -1505,10 +1521,6 @@ export default function Home() {
             >
               {errors?.sistemaOperativo}
             </FormHelperText>
-
-          </Box>
-          <Box />
-
           <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -1560,15 +1572,15 @@ export default function Home() {
             flexWrap: "wrap",
             mt: 2,
             ml: 10,
-            mb: 1,
+            mb: 3,
             mr: 8,
           }}
           
         >
           {[
-            { name: "cuentaUsuario", label: "Cuenta de usuario" },
-            { name: "accesoWeb", label: "Acceso a sitios Web o Equipo" },
-            { name: "accesoRemoto", label: "Acceso a escritorio remoto" },
+            { name: "cuentaUsuario", label: "Cuenta de Usuario" },
+            { name: "accesoWeb", label: "Acceso a Sitios Web o Equipo" },
+            { name: "accesoRemoto", label: "Acceso a Escritorio Remoto" },
           ].map((item, index) => (
             <Box
               key={index}
@@ -1653,7 +1665,7 @@ export default function Home() {
                 fontSize: "1.2rem",
               }}
             >
-              a) Cuenta de usuario
+              a) Cuenta de Usuario
             </FormLabel>
             <RadioGroup
               row
@@ -1662,7 +1674,7 @@ export default function Home() {
               value={formData.movimiento}
               onChange={handleChange}
               required
-              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+              sx={{ ml: 2, mr: 2, mb:2, justifyContent: "center" }}
             >
               <FormControlLabel
                 value="ALTA"
@@ -1687,17 +1699,40 @@ export default function Home() {
               {errors?.movimiento}
             </FormHelperText>
           </Box>
-        </Box>
+        </Box>     
 
+      </Box>
+
+      {/*BOX PARA TABLA B*/}
+      <Box
+        component="section"
+        sx={{
+          display: formData.accesoWeb ? "block" : "none",
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 1000px)": {
+            maxWidth: "80.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
         {/* TABLA B) */}
         <Box
           component="form"
-          sx={{
-            display: formData.accesoWeb ? "block" : "none",
+          sx={{            
             "& .MuiTextField-root": {
               mt: 2,
               width: "calc(100% - 32px)",
-              ml: 2,
+              ml: 20,
               mr: 4,
             },
           }}
@@ -1714,21 +1749,16 @@ export default function Home() {
               mb: 2,
             }}
           />
+          <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          b) Acceso a Sitios Web o Equipo
+        </Typography>
 
-          <FormLabel
-            component="legend"
-            sx={{
-              mt: 0,
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "1.2rem",
-            }}
-          >
-            b) Acceso a sitios Web o Equipo
-          </FormLabel>
-
-          <EditableTableWeb onDataChange={handleWebTableDataChange} />
+          <EditableTableWeb onDataChange={handleWebTableDataChange}/>
 
           <FormLabel
             component="legend"
@@ -1744,12 +1774,34 @@ export default function Home() {
             * Guardar registros antes de enviar.
           </FormLabel>
         </Box>
+      </Box>
 
-        {/* TABLA C) */}
+      {/**BOX PARA TABLA C */}
+      <Box
+        component="section"
+        sx={{
+          display: formData.accesoRemoto ? "block" : "none",
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 1000px)": {
+            maxWidth: "80.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+      {/* TABLA C) */}
         <Box
           component="form"
           sx={{
-            display: formData.accesoRemoto ? "block" : "none",
             "& .MuiTextField-root": {
               mt: 2,
               width: "calc(100% - 32px)",
@@ -1770,19 +1822,14 @@ export default function Home() {
               mb: 2,
             }}
           />
-
-          <FormLabel
-            component="legend"
-            sx={{
-              mt: 0,
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "1.2rem",
-            }}
-          >
-            c) Acceso a escritorio remoto
-          </FormLabel>
+          <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          c) Acceso a Escritorio Remoto
+        </Typography>
 
           <EditableTableRemoto onDataChange={handleRemotoTableDataChange} />
 
@@ -1798,7 +1845,7 @@ export default function Home() {
             }}
           >
             Nota: Ejemplo de nomeclatura: SGA-001. Ejemplo de nombre:
-            CE0010DC01. Para el sistema operativo especificar nombre y versión.
+            CE0010DC01.
           </FormLabel>
           <FormLabel
             component="legend"
@@ -1814,19 +1861,31 @@ export default function Home() {
             * Guardar registros antes de enviar.
           </FormLabel>
         </Box>
+        </Box>
 
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 2,
-            mr: 2,
-            mb: 2,
-          }}
-        />
-
-        <Typography
-          variant="h5"
+        {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+      <Typography
+          variant="h4"
           align="center"
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
@@ -1853,14 +1912,16 @@ export default function Home() {
             id="justificacion"
             name="justificacion"
             label="Justificación"
-            placeholder="Justifique la necesidad del servicio (Min.50 caracteres)"
+            placeholder="Justifique la Necesidad del Servicio (Min.50 caracteres)"
             value={formData.justificacion}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
         </Box>
+
       </Box>
+
 
       {/* Datos de Autoriza */}
       {/* Form Box Responsive */}
@@ -1915,7 +1976,7 @@ export default function Home() {
             id="nombreAutoriza"
             name="nombreAutoriza"
             label="Nombre Completo"
-            placeholder="Gerente(a), subgerente(a) o equivalente / director(a) de organismo / director(a) local"
+            placeholder="Gerente(a), Subgerente(a) o Equivalente / Director(a) de organismo / Director(a) Local"
             value={formData.nombreAutoriza}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1927,7 +1988,7 @@ export default function Home() {
             id="puestoAutoriza"
             name="puestoAutoriza"
             label="Puesto o Cargo"
-            placeholder="Escriba el puesto o cargo de quien autoriza los servicios"
+            placeholder="Escriba el Puesto o Cargo de Quien Autoriza los Servicios"
             value={formData.puestoAutoriza}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
