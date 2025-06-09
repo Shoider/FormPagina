@@ -178,7 +178,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
     },
     {
       field: "FRO",
-      headerName: "Funcion ó Rol de Anfitrión(es) Origen",
+      headerName: "Funcion o Rol de Anfitrión(es) Origen",
       type: "string",
       width: 200,
       align: "center",
@@ -205,7 +205,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
     },
     {
       field: "FRD",
-      headerName: "Funcion ó Rol de Anfitrión(es) Destino",
+      headerName: "Funcion o Rol de Anfitrión(es) Destino",
       type: "string",
       width: 200,
       align: "center",
@@ -223,7 +223,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
     },
     {
       field: "PRO",
-      headerName: "Protocolo TCP ó UDP",
+      headerName: "Protocolo TCP o UDP",
       width: 200,
       align: "center",
       headerAlign: "center",

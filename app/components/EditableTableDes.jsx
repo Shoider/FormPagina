@@ -177,7 +177,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true,
     },
-    //{ field: 'FRO', headerName: 'Funcion ó Rol de Dispositivo(s) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: false },
+    //{ field: 'FRO', headerName: 'Funcion o Rol de Dispositivo(s) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: false },
     {
       field: "IPO",
       headerName: "IP anfitrión(es) origen",
@@ -198,7 +198,7 @@ function EditableTableDes({ initialData, onDataChange }) {
     },
     {
       field: "FRD",
-      headerName: "Funcion ó rol de anfitrión(es) destino",
+      headerName: "Funcion o rol de anfitrión(es) destino",
       type: "string",
       width: 200,
       align: "center",

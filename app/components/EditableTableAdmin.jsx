@@ -197,7 +197,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
     },
     {
       field: "FRD",
-      headerName: "Funcion ó rol de anfitrión(es) destino",
+      headerName: "Funcion o rol de anfitrión(es) destino",
       type: "string",
       width: 200,
       align: "center",

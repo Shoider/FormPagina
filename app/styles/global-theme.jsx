@@ -30,6 +30,6 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "Noto Sans, sans-serif",
+    fontFamily: "Noto Sans",
   },
 });
