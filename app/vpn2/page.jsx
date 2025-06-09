@@ -1057,15 +1057,12 @@ export default function Home() {
             id="correoInterno"
             name="correoInterno"
             label="Correo Institucional"
-            placeholder="Escriba el Correo Electrónico del Usuario"
+            placeholder="usuario@conagua.gob.mx"
             value={formData.correoInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-            slotProps={{
-            input: {
-              endAdornment: <InputAdornment position="end">@conagua.gob.mx</InputAdornment>,
-            },}}
+            
           />
           <TextField
             required
