@@ -23,6 +23,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  InputAdornment 
 } from "@mui/material";
 
 import Image from "next/image";
@@ -1048,18 +1049,23 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
+            
           />
           <TextField
             required
             error={!!errors?.correoInterno}
             id="correoInterno"
             name="correoInterno"
-            label="Correo Electrónico"
+            label="Correo Institucional"
             placeholder="Escriba el Correo Electrónico del Usuario"
             value={formData.correoInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
+            slotProps={{
+            input: {
+              endAdornment: <InputAdornment position="end">@conagua.gob.mx</InputAdornment>,
+            },}}
           />
           <TextField
             required
