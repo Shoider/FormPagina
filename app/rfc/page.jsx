@@ -3774,7 +3774,7 @@ export default function Home() {
             error={!!errors?.justifica3}
             id="justifica3"
             name="justifica3"
-            label="Razón ó Motivo"
+            label="Razón o Motivo"
             placeholder="Por ejemplo: Cambio de lugar del Administrador/Desarrollador/Usuario."
             value={formData.justifica3}
             onChange={handleChange}
@@ -3864,8 +3864,8 @@ export default function Home() {
             error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
-            label="Nombre de Gerente ó Director Local"
-            placeholder="Escribe el nombre completo del gerente ó director local"
+            label="Nombre de Gerente o Director Local"
+            placeholder="Escribe el nombre completo del gerente o director local"
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -3876,8 +3876,8 @@ export default function Home() {
             error={!!errors?.puestoJefe}
             id="puestoJefe"
             name="puestoJefe"
-            label="Puesto ó Cargo de Quien Autoriza"
-            placeholder="Escribe el puesto ó cargo de quien autoriza"
+            label="Puesto o Cargo de Quien Autoriza"
+            placeholder="Escribe el puesto o cargo de quien autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
