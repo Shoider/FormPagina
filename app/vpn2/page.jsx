@@ -249,6 +249,10 @@ export default function Home() {
     if (Data.justificacion.length < 49){
       isValidJustificacion =false;
     }
+
+    if(Data.subgerencia == ""){
+      Data.subgerencia = "~"
+    }
     
  
     for (const key in Data) {
@@ -803,6 +807,14 @@ export default function Home() {
                 }
               }
             }}
+            onBlur={() => {
+            if (
+              filteredSubgerencia.length === 0 &&
+              (!formData.subgerencia || formData.subgerencia.trim() === "")
+            ) {
+              handleSubgerencia("~");
+            }
+          }}
             inputValue={formData.subgerencia || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
