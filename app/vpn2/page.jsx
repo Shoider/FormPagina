@@ -1287,7 +1287,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Servicios Ssolicitados
+          Servicios Solicitados
         </Typography>
         <Box
           component="form"
@@ -1555,7 +1555,7 @@ export default function Home() {
             flexWrap: "wrap",
             mt: 2,
             ml: 10,
-            mb: 1,
+            mb: 3,
             mr: 8,
           }}
           
@@ -1657,7 +1657,7 @@ export default function Home() {
               value={formData.movimiento}
               onChange={handleChange}
               required
-              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+              sx={{ ml: 2, mr: 2, mb:2, justifyContent: "center" }}
             >
               <FormControlLabel
                 value="ALTA"
@@ -1682,13 +1682,36 @@ export default function Home() {
               {errors?.movimiento}
             </FormHelperText>
           </Box>
-        </Box>
+        </Box>     
 
+      </Box>
+
+      {/*BOX PARA TABLA B*/}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 1000px)": {
+            maxWidth: "80.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+            display: formData.accesoWeb ? "block" : "none",
+          },
+        }}
+      >
         {/* TABLA B) */}
         <Box
           component="form"
-          sx={{
-            display: formData.accesoWeb ? "block" : "none",
+          sx={{            
             "& .MuiTextField-root": {
               mt: 2,
               width: "calc(100% - 32px)",
@@ -1739,12 +1762,34 @@ export default function Home() {
             * Guardar registros antes de enviar.
           </FormLabel>
         </Box>
+      </Box>
 
-        {/* TABLA C) */}
+      {/**BOX PARA TABLA C */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 1000px)": {
+            maxWidth: "80.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+            display: formData.accesoRemoto ? "block" : "none",
+          },
+        }}
+      >
+      {/* TABLA C) */}
         <Box
           component="form"
           sx={{
-            display: formData.accesoRemoto ? "block" : "none",
             "& .MuiTextField-root": {
               mt: 2,
               width: "calc(100% - 32px)",
@@ -1809,19 +1854,31 @@ export default function Home() {
             * Guardar registros antes de enviar.
           </FormLabel>
         </Box>
+        </Box>
 
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 2,
-            mr: 2,
-            mb: 2,
-          }}
-        />
-
-        <Typography
-          variant="h5"
+        {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+      <Typography
+          variant="h4"
           align="center"
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
@@ -1855,7 +1912,9 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
         </Box>
+
       </Box>
+
 
       {/* Datos de Autoriza */}
       {/* Form Box Responsive */}

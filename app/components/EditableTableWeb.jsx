@@ -157,7 +157,8 @@ function EditableTableWeb({ initialData, onDataChange }) {
       field: "id",
       headerName: "N°",
       type: "number",
-      width: 40,
+      flex:0.3,
+      width:"auto",
       align: "center",
       headerAlign: "center",
       editable: false,
@@ -165,23 +166,20 @@ function EditableTableWeb({ initialData, onDataChange }) {
     {
       field: "movimiento",
       headerName: "A | B | C",
-      width: 74,
+      width:"auto",
+      flex:0.7,
       align: "center",
       headerAlign: "center",
       editable: true,
       type: "singleSelect",
-      valueOptions: ["A", "B", "C"],
+      valueOptions: movimiento,
     },
     {
       field: "nombreSistema",
-      headerName: "Nombre Sistema / Servicio (si aplica)",
-      renderHeader: () => (
-      <span>
-      Nombre<br />Sistema/<br /> Servicio
-      </span>
-      ),
+      headerName: "Nombre Sistema / Servicio",
       type: "string",
-      width: 120,
+      width:"auto",
+      flex:1.2,
       align: "center",
       headerAlign: "center",
       editable: true,
@@ -189,13 +187,9 @@ function EditableTableWeb({ initialData, onDataChange }) {
     {
       field: "siglas",
       headerName: "Siglas (si aplica)",
-      renderHeader: () => (
-      <span>
-      Siglas<br />(si aplica)
-      </span>
-      ),
       type: "string",
-      width: 80,
+      width:"auto",
+      flex:1,
       align: "center",
       headerAlign: "center",
       editable: true,
@@ -203,12 +197,8 @@ function EditableTableWeb({ initialData, onDataChange }) {
     {
       field: "url",
       headerName: "URL / IP Equipo",
-      renderHeader: () => (
-      <span>
-      URL / IP<br />Equipo
-      </span>
-      ),
-      width: 130,
+      width:"auto",
+      flex:1,
       align: "center",
       headerAlign: "center",
       editable: true,
@@ -275,13 +265,9 @@ function EditableTableWeb({ initialData, onDataChange }) {
     {
       field: "puertosServicios",
       headerName: "Puerto o Servicio",
-      renderHeader: () => (
-      <span>
-      Puerto o<br/>Servicio
-      </span>
-      ),
       type: "string",
-      width: 80,
+      width:"auto",
+      flex:1,
       align: "center",
       headerAlign: "center",
       editable: true,
@@ -290,7 +276,8 @@ function EditableTableWeb({ initialData, onDataChange }) {
       field: "actions",
       type: "actions",
       headerName: "Acciones",
-      width: 80,
+      width:"auto",
+      flex:0.8,
       align: "center",
       headerAlign: "center",
       cellClassName: "actions",
@@ -347,7 +334,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       sx={{
         display: "flex",
         flexDirection: "column",
-        width: "calc(100% - 32px)",
+        width: "auto",
         height: "500px",
         ml: 2,
         mr: 4,
@@ -356,7 +343,16 @@ function EditableTableWeb({ initialData, onDataChange }) {
         "& .actions": { color: "text.secondary" },
         "& .textPrimary": { color: "text.primary" },
         background: "white",
+        padding: "0 8px",
+          "@media (min-width: 1000px)": {
+            maxWidth: "100.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+            //display: formData.accesoRemoto ? "block" : "none",
+          },
       }}
+      
     >
       <DataGrid
         rows={rows}
