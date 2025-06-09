@@ -180,7 +180,7 @@ function EditableTableInter({ initialData, onDataChange }) {
     },
     {
       field: "FRO",
-      headerName: "Funcion ó rol de dispositivo(s) origen",
+      headerName: "Funcion o rol de dispositivo(s) origen",
       type: "string",
       width: 200,
       align: "center",
@@ -266,7 +266,7 @@ function EditableTableInter({ initialData, onDataChange }) {
     },
     {
       field: "FRD",
-      headerName: "Funcion ó rol de dispositivo(s) destino",
+      headerName: "Funcion o rol de dispositivo(s) destino",
       type: "string",
       width: 200,
       align: "center",

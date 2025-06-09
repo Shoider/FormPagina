@@ -622,8 +622,8 @@ export default function Home() {
             error={!!errors?.puestoUsuario}
             id="puestoUsuario"
             name="puestoUsuario"
-            label="Puesto ó Cargo"
-            placeholder="Escriba el puesto ó cargo"
+            label="Puesto o Cargo"
+            placeholder="Escriba el puesto o cargo"
             value={formData.puestoUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -950,7 +950,7 @@ export default function Home() {
             error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
-            label="Funcionario con Cargo de Subgerente, Homólogo ó Superior"
+            label="Funcionario con Cargo de Subgerente, Homólogo o Superior"
             placeholder="Escriba el nombre completo del funcionario"
             value={formData.nombreJefe}
             onChange={handleChange}
@@ -962,8 +962,8 @@ export default function Home() {
             error={!!errors?.puestoJefe}
             id="puestoJefe"
             name="puestoJefe"
-            label="Puesto ó Cargo del que Autoriza"
-            placeholder="Escriba el puesto ó cargo del que autoriza"
+            label="Puesto o Cargo del que Autoriza"
+            placeholder="Escriba el puesto o cargo del que autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}

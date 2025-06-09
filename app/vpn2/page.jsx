@@ -792,7 +792,7 @@ export default function Home() {
                 placeholder="Escriba o Seleccione la Subgerencia o Subdirección"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
-                label="Subgerencia ó Subdirección"
+                label="Subgerencia o Subdirección"
               />
             )}
             id="subgerencia"
@@ -1042,7 +1042,7 @@ export default function Home() {
             error={!!errors?.puestoInterno}
             id="puestoInterno"
             name="puestoInterno"
-            label="Puesto ó Cargo"
+            label="Puesto o Cargo"
             placeholder="Escriba el Puesto o Cargo del Usuario"
             value={formData.puestoInterno}
             onChange={handleChange}
@@ -1968,7 +1968,7 @@ export default function Home() {
             id="nombreAutoriza"
             name="nombreAutoriza"
             label="Nombre Completo"
-            placeholder="Gerente(a), Subgerente(a) ó Equivalente / Director(a) de organismo / Director(a) Local"
+            placeholder="Gerente(a), Subgerente(a) o Equivalente / Director(a) de organismo / Director(a) Local"
             value={formData.nombreAutoriza}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1979,8 +1979,8 @@ export default function Home() {
             error={!!errors?.puestoAutoriza}
             id="puestoAutoriza"
             name="puestoAutoriza"
-            label="Puesto ó Cargo"
-            placeholder="Escriba el Puesto ó Cargo de Quien Autoriza los Servicios"
+            label="Puesto o Cargo"
+            placeholder="Escriba el Puesto o Cargo de Quien Autoriza los Servicios"
             value={formData.puestoAutoriza}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
