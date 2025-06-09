@@ -3843,7 +3843,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Autoriza
+          Autoriza Servicio
         </Typography>
         <Box
           component="form"
@@ -3864,8 +3864,8 @@ export default function Home() {
             error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
-            label="Nombre de Gerente o Director Local"
-            placeholder="Escribe el nombre completo del gerente o director local"
+            label="Nombre de Gerente ó Director Local"
+            placeholder="Escribe el nombre completo del gerente ó director local"
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -3876,8 +3876,8 @@ export default function Home() {
             error={!!errors?.puestoJefe}
             id="puestoJefe"
             name="puestoJefe"
-            label="Puesto o Cargo de Quien Autoriza"
-            placeholder="Escribe el puesto o cargo de quien autoriza"
+            label="Puesto ó Cargo de Quien Autoriza"
+            placeholder="Escribe el puesto ó cargo de quien autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
