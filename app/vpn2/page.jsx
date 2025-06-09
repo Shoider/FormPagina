@@ -77,6 +77,7 @@ export default function Home() {
 
     tipoEquipo: "",
     sistemaOperativo: "",
+    versionSO:"",
     marca: "",
     modelo: "",
     serie: "",
@@ -529,6 +530,8 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       unidadAdministrativa: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      areaAdscripcion:"",
+      subgerencia:"",
     }));
   };
   const handleUARes = (newValue) => {
@@ -543,6 +546,7 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       areaAdscripcion: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      subgerencia:"",
     }));
   };
 
@@ -706,7 +710,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          DATOS DE IDENTIFICACIÓN DEL ÁREA SOLICITANTE
+          Datos de Identificación del Área Solicitante
         </Typography>
 
         <Box
@@ -823,7 +827,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          ENLACE INFORMÁTICO O CONTACTO RESPONSABLE DEL ÁREA DE ADSCRIPCIÓN
+          Enlace Informático o Contacto Responsable del Área de Adscripción
         </Typography>
         <Box
           component="form"
@@ -895,7 +899,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          DATOS DE IDENTIFICACIÓN DEL USUARIO SOLICITANTE
+          Datos de Identificación del Usuario Solicitante
         </Typography>
         <Box
           component="form"
@@ -956,7 +960,7 @@ export default function Home() {
               <FormControlLabel
                 value="EXTERNO"
                 control={<Radio />}
-                label="EXTERNO"
+                label="Externo"
               />
             </RadioGroup>
             <FormHelperText
@@ -1082,7 +1086,7 @@ export default function Home() {
             gutterBottom
             sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Datos del usuario solicitante EXTERNO
+            Datos del Usuario Solicitante Externo
           </Typography>
 
           <TextField
@@ -1171,7 +1175,7 @@ export default function Home() {
             gutterBottom
             sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            Datos del la persona responsable en la CONAGUA para el solicitante
+            Datos de la Persona Responsable en la CONAGUA para el Solicitante
             externo
           </Typography>
 
@@ -1283,7 +1287,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          SERVICIOS SOLICITADOS
+          Servicios Ssolicitados
         </Typography>
         <Box
           component="form"
@@ -1355,7 +1359,7 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-
+          
           <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -1472,6 +1476,18 @@ export default function Home() {
                 label="Windows"
               />
             </RadioGroup>
+            <TextField
+            required
+            error={!!errors?.versionSO}
+            id="versionSO"
+            name="versionSO"
+            label="Versión del Sistema Operativo"
+            placeholder="Escriba la versión del Sistema Operativo"
+            value={formData.versionSO}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
             <FormHelperText
               sx={{
                 ml: 2,
@@ -1484,6 +1500,7 @@ export default function Home() {
             >
               {errors?.sistemaOperativo}
             </FormHelperText>
+
           </Box>
           <Box />
 
@@ -1493,7 +1510,7 @@ export default function Home() {
               borderColor: "grey",
               ml: 2,
               mr: 2,
-              mt: 0,
+              mt: 2,
               mb: 1,
             }}
           />
@@ -1809,7 +1826,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Justificación de la necesidad del servicio
+          Justificación de la Necesidad del Servicio
         </Typography>
         <Box
           component="form"
@@ -1871,7 +1888,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          AUTORIZA SERVICIO
+          Autoriza Servicio
         </Typography>
         <Box
           component="form"
@@ -1944,7 +1961,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Términos y condiciones del uso del servicio
+          Términos y Condiciones del Uso del Servicio
         </Typography>
         <Box
           component="form"
@@ -2122,7 +2139,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          GENERAR SOLICITUD
+          Generar Solicitud
         </Typography>
         <Divider
           sx={{

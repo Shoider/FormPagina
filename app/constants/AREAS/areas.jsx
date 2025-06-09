@@ -289,7 +289,7 @@ const areas = {
     "Centro de Previsión Meteorológica"
    ],
   "Dirección Local Baja California Sur": [
-    "Dirección Local Baja Californi Sur",
+    "Dirección Local Baja California Sur",
     "Subdirección de Administración del Agua",
     "Subdirección de Infraestructura Hidroagrícola",
     "Subdirección de Agua Potable, Drenaje y Saneamiento",

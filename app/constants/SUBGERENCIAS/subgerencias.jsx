@@ -6,7 +6,7 @@ const subgerencias = {
   "Gerencia de Personal": [
     "Gerencia de Personal", 
     "Subgerencia de Organización y Planeación de Personal",
-    "Subgerencia de Administración de Remunuraciones ",
+    "Subgerencia de Administración de Renumeraciones ",
     "Subgerencia de Relaciones Laborales",
     "Subgerencia de Desarrollo de Personal"
   ],
@@ -42,7 +42,7 @@ const subgerencias = {
   ],
   "Subdirección General de Administración del Agua":[
     "Coordinación de Proyectos Transversales, Transparencia e Innovación",
-    "Subgerencia de Admininstración"
+    "Subgerencia de Administración"
   ],
   "Gerencia de Servicios a Usuarios":[
     "Gerencia de Servicios a Usuarios", 
@@ -104,7 +104,7 @@ const subgerencias = {
     "Subgerencia de Infraestructura y Manejo del Agua",
     "Subgerencia de Proyectos de Obras de Protección en Ríos",
     "Subgerencia de Proyectos Especiales",
-    "Subgerencia de Seguimiento y Evalaución de Protección de Ríos",
+    "Subgerencia de Seguimiento y Evaluación de Protección de Ríos",
   ],
   "Gerencia de Distritos de Riego":[
     "Gerencia de Distritos de Riego ",
@@ -126,7 +126,7 @@ const subgerencias = {
   "Gerencia de Estudios y Proyectos de Agua Potable y Redes de Alcantarillado":[
     "Gerencia de Estudios y Proyectos de Agua Potable y Redes de Alcantarillado", 
     "Subgerencia de Proyectos Zona Norte",
-    "Subgerencia de Coordianción de Información",
+    "Subgerencia de Coordinación de Información",
     "Subgerencia de Estudios",
     "Subgerencia de Proyectos de Zona Sur",
   ],
@@ -139,9 +139,9 @@ const subgerencias = {
   ],
   "Gerencia de Programas Federales de Agua Potable y Saneamiento":[
     "Gerencia de Programas Federales de Agua Potable y Saneamiento ",
-    "Subgerencia de Programación y Presupuesto de Agua Potable y Sanamiento",
+    "Subgerencia de Programación y Presupuesto de Agua Potable y Saneamiento",
     "Subgerencia de Participación Social e Institucional",
-    "Subgerencia de Control y Seguimiento de Programas Federales de Agua Potable, Drenaje y Sanamiento",
+    "Subgerencia de Control y Seguimiento de Programas Federales de Agua Potable, Drenaje y Saneamiento",
     "Subgerencia de Coordinación Técnica de Programas Federales",
   ],
   "Gerencia de Normatividad":[
