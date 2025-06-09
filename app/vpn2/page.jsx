@@ -1176,7 +1176,7 @@ export default function Home() {
             sx={{ width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
             Datos de la Persona Responsable en la CONAGUA para el Solicitante
-            externo
+            Externo
           </Typography>
 
           <TextField
@@ -1690,6 +1690,7 @@ export default function Home() {
       <Box
         component="section"
         sx={{
+          display: formData.accesoWeb ? "block" : "none",
           mx: "auto",
           width: "calc(100% - 32px)",
           border: "2px solid grey",
@@ -1704,7 +1705,6 @@ export default function Home() {
             width: "auto",
             margin: "2rem auto",
             padding: "2",
-            display: formData.accesoWeb ? "block" : "none",
           },
         }}
       >
@@ -1768,6 +1768,7 @@ export default function Home() {
       <Box
         component="section"
         sx={{
+          display: formData.accesoRemoto ? "block" : "none",
           mx: "auto",
           width: "calc(100% - 32px)",
           border: "2px solid grey",
@@ -1782,7 +1783,6 @@ export default function Home() {
             width: "auto",
             margin: "2rem auto",
             padding: "2",
-            display: formData.accesoRemoto ? "block" : "none",
           },
         }}
       >
