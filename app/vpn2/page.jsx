@@ -149,12 +149,29 @@ export default function Home() {
         unidadAdministrativaResponsable: "",
         telefonoResponsable: "",
       }));
+    if (formData.solicitante === "EXTERNO" && formData.subgerencia==="Subgerencia de Sistemas") {
+      setFormData((prev) => ({
+        ...prev,
+        nombreInterno: "null",
+        puestoInterno: "null",
+        correoInterno: "null",
+        telefonoInterno: "null",
+
+        nombreExterno: "",
+        correoExterno: "",
+        empresaExterno: "",
+        equipoExterno: "",
+
+        numeroEmpleadoResponsable: "",
+        puestoResponsable: "",
+        unidadAdministrativaResponsable: "",
+    }));
     } else {
       setFormData((prev) => ({
         ...prev,
       }));
-    }
-  }, [formData.solicitante, formData.subgerencia]);
+    }}
+  } ,[formData.solicitante, formData.subgerencia]);
   useEffect(()=>  {
     if (formData.subgerencia === "Subgerencia de Sistemas"){
       setFormData((prev) =>({
