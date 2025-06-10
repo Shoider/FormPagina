@@ -130,7 +130,7 @@ export default function Home() {
         telefonoResponsable: "null",
       }));
     }
-    if (formData.solicitante === "EXTERNO") {
+    if (formData.solicitante === "EXTERNO" && formData.subgerencia!=="Subgerencia de Sistemas") {
       setFormData((prev) => ({
         ...prev,
         nombreInterno: "null",
@@ -154,13 +154,15 @@ export default function Home() {
         ...prev,
       }));
     }
-  }, [formData.solicitante]);
+  }, [formData.solicitante, formData.subgerencia]);
   useEffect(()=>  {
     if (formData.subgerencia === "Subgerencia de Sistemas"){
       setFormData((prev) =>({
         ...prev,
         nombreAutoriza:"null",
-        puestoAutoriza:"null"
+        puestoAutoriza:"null",
+        nombreResponsable:formData.nombreEnlace,
+        telefonoResponsable:formData.telefonoEnlace
       }));
     }
     if (formData.subgerencia !== "Subgerencia de Sistemas"){
@@ -169,8 +171,10 @@ export default function Home() {
         nombreAutoriza:"",
         puestoAutoriza:""
       }));
-    }
-  }, [formData.subgerencia]);
+    }    
+  }, [formData.subgerencia, formData.nombreEnlace, formData.telefonoEnlace]);
+
+ 
 
   // Manejadores de cambios
   const handleWebTableDataChange = (data) => {
