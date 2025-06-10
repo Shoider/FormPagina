@@ -141,7 +141,7 @@ export default function Home() {
         </Typography>
         <Popover
         id="mouse-over-popover"
-        sx={{ pointerEvents: 'none',mx:35,justifyContent: "center"}}
+        sx={{ pointerEvents: 'none'}}
         open={open}
         anchorEl={anchorEl}
         anchorOrigin={{
@@ -150,12 +150,14 @@ export default function Home() {
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'center',
+          horizontal: 'left',
         }}
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 1 }}>Se utiliza para solicitar la apertura de comunicaciones de red entre servidores, entre sistemas de cómputo de usuarios y los sistemas (servidores) que utilizan o para acceder algún servicio de Internet que requiera conexión por puertos distintos a TCP 80 y 443.</Typography>
+        <Typography sx={{ p: 1 }}>Se utiliza para solicitar la apertura de comunicaciones de red entre servidores, <br/> 
+          entre sistemas de cómputo de usuarios  y los sistemas (servidores) que utilizan <br/>o para acceder algún  
+          servicio de Internet que requiera conexión por puertos<br/> distintos a TCP 80 y 443.</Typography>
       </Popover>
       </Button>
 
@@ -208,7 +210,7 @@ export default function Home() {
         </Typography>
         <Popover
         id="mouse-over-popover"
-        sx={{ pointerEvents: 'none',mx:35,justifyContent: "center" }}
+        sx={{ pointerEvents: 'none' }}
         open={open2}
         anchorEl={anchorEl2}
         anchorOrigin={{
