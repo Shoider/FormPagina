@@ -110,7 +110,25 @@ export default function Home() {
   }, [webTableData, remotoTableData]);
 
   useEffect(() => {
-    if (formData.solicitante === "CONAGUA") {
+    if (formData.solicitante === "CONAGUA" && formData.subgerencia==="Subgerencia de Sistemas") {
+      setFormData((prev) => ({
+        ...prev,
+        nombreInterno: "",
+        puestoInterno: "",
+        correoInterno: "",
+        telefonoInterno: "",
+
+        nombreExterno: "null",
+        correoExterno: "null",
+        empresaExterno: "null",
+        equipoExterno: "null",
+
+        numeroEmpleadoResponsable: "123456",
+        puestoResponsable: "null",
+        unidadAdministrativaResponsable: "null",
+      }));
+    }
+    if (formData.solicitante === "CONAGUA" && formData.subgerencia!=="Subgerencia de Sistemas") {
       setFormData((prev) => ({
         ...prev,
         nombreInterno: "",
@@ -130,6 +148,24 @@ export default function Home() {
         telefonoResponsable: "null",
       }));
     }
+    if (formData.solicitante === "EXTERNO" && formData.subgerencia==="Subgerencia de Sistemas") {
+      setFormData((prev) => ({
+        ...prev,
+        nombreInterno: "null",
+        puestoInterno: "null",
+        correoInterno: "null",
+        telefonoInterno: "null",
+
+        nombreExterno: "",
+        correoExterno: "",
+        empresaExterno: "",
+        equipoExterno: "",
+
+        numeroEmpleadoResponsable: "",
+        puestoResponsable: "",
+        unidadAdministrativaResponsable: "",
+
+      }));
     if (formData.solicitante === "EXTERNO" && formData.subgerencia!=="Subgerencia de Sistemas") {
       setFormData((prev) => ({
         ...prev,
@@ -148,23 +184,7 @@ export default function Home() {
         puestoResponsable: "",
         unidadAdministrativaResponsable: "",
         telefonoResponsable: "",
-      }));
-    if (formData.solicitante === "EXTERNO" && formData.subgerencia==="Subgerencia de Sistemas") {
-      setFormData((prev) => ({
-        ...prev,
-        nombreInterno: "null",
-        puestoInterno: "null",
-        correoInterno: "null",
-        telefonoInterno: "null",
-
-        nombreExterno: "",
-        correoExterno: "",
-        empresaExterno: "",
-        equipoExterno: "",
-
-        numeroEmpleadoResponsable: "",
-        puestoResponsable: "",
-        unidadAdministrativaResponsable: "",
+        
     }));
     } else {
       setFormData((prev) => ({
