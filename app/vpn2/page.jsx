@@ -344,7 +344,7 @@ export default function Home() {
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
 
-    const [isValid, isValidTabla, isValidTelefono, isValidJustificacion, getErrors] =
+    /* const [isValid, isValidTabla, isValidTelefono, isValidJustificacion, getErrors] =
       validarCamposRequeridos(formData);
     setErrors(getErrors);
 
@@ -391,99 +391,66 @@ export default function Home() {
         severity: "success",
       });
       setOpenAlert(true);
-    }
+    } */
 
-    setBotonEstado("Cargando...");
+    //setBotonEstado("Cargando...");
 
     try {
-      const pdfResponse = await axios.post("/api/v2/vpn", formData, {
-        responseType: "blob",
+      
+      const formResponse = await axios.post("http://127.0.0.1:5001/api/v3/vpn", formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
-      if (pdfResponse.status === 200) {
-        setPdfUrl(URL.createObjectURL(pdfResponse.data));
-        setBotonEstado("Descargar PDF");
-      } else if (pdfResponse.status === 206) {
-        setAlert({
-          message: "Teléfono de enlace/contacto inválido",
-          severity: "warning"
-        });
-        setOpenAlert(true);
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 207) {
-        setAlert({
-          message: "Correo electronico inválido",
-          severity: "warning"
-        });
-        setOpenAlert(true);
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 208) {
-        setAlert({
-          message: "Teléfono de usuario inválido",
-          severity: "warning"
-        });
-        setOpenAlert(true);
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 209) {
-        setAlert({
-          message: "Teléfono de usuario responsable inválido",
-          severity: "warning"
-        });
-        setOpenAlert(true);
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 210) {
-        setAlert({
-          message: "b) Verifica 'URL/IP del Equipo'",
-          severity: "warning"
-        });
-        setOpenAlert(true);
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 211) {
-        setAlert({
-          message: "b) Verifica 'Nombre Sistema/Servicio'",
-          severity: "warning"
-        });
-        setOpenAlert(true);
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 220) {
-        setAlert({
-          message: "c) Verifica 'Nomenclatura'. Min: 8 Caracteres",
-          severity: "warning"
-        });
-        setOpenAlert(true);
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 221) {
-        setAlert({
-          message: "c) Verifica 'Nombre'. Min: 11 Caracteres",
-          severity: "warning"
-        });
-        setOpenAlert(true);
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 222) {
-        setAlert({
-          message: "c) Verifica 'Dirección IP'",
-          severity: "warning"
-        });
-        setOpenAlert(true);
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 230) {
-        setAlert({
-          message: "Número de empleado inválido",
-          severity: "warning"
-        });
-        setOpenAlert(true);
-        setBotonEstado("Enviar");
-      } else {
-        console.error("Error interno");
-        console.error(pdfResponse.status);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      console.log("Respuesta: ", formResponse.data)
+      const { message: formMessage, id: formId } = formResponse.data;
+      console.log("Petición exitosa:", formMessage);
+      console.log("ID recibido:", formId);
+
       setAlert({
-        message: "Ocurrio un error interno",
-        severity: "error",
+        message: formMessage,
+        severity: "success",
       });
+      setOpenAlert(true);
+
+      /* const pdfResponse = await axios.post("/api/v2/vpn", formData, {
+        responseType: "blob",
+      });  */
+
+    } catch (error) {
+
+      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+
+      if (error.response) {
+        // Si hay respuesta, podemos acceder al código de estado y a los datos.
+        const statusCode = error.response.status;
+        const errorData = error.response.data;
+
+        console.error(`Error con código ${statusCode}:`, errorData.message);
+
+        // Manejamos el caso específico del error 422.
+        if (statusCode === 422) {
+          setAlert({
+            // Usamos el mensaje de error que viene de la API.
+            message: errorData.message || "Hay errores en los datos enviados.",
+            severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
+          });
+        } else {
+          // 3. Manejamos otros errores del servidor (ej. 404, 500).
+          setAlert({
+            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            severity: "error",
+          });
+        }
+      } else {
+        // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        console.error("Error de red o de conexión:", error.message);
+        setAlert({
+          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          severity: "error",
+        });
+      } 
       setOpenAlert(true);
     }
   };
@@ -861,7 +828,7 @@ export default function Home() {
 
         {/* PARTE 2 */}
         <Typography
-          variant="h5"
+          variant=""
           align="center"
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
