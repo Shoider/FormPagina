@@ -215,7 +215,12 @@ export default function Home() {
     setOpen(true);
   };
   const handleClose = () => {
-    setOpen(false);
+    //
+    
+              window.location.reload();
+              window.scrollTo(0, 0);
+              setOpen(false);
+          
   };
 
   // Alertas
@@ -2465,7 +2470,8 @@ export default function Home() {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-          >
+                      >
+            
             Cancelar
           </Button>
         </DialogActions>

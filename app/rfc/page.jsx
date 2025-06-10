@@ -23,6 +23,7 @@ import {
   DialogContentText,
   DialogTitle,
   MenuItem,
+  Tooltip
 } from "@mui/material";
 import Image from "next/image";
 import EditableTableInter from "../components/EditableTableInter.jsx";
@@ -1480,6 +1481,7 @@ export default function Home() {
                 }
                 label="Usuario"
               />
+              <Tooltip title="No está disponible">
               <FormControlLabel
                 control={
                   <Checkbox
@@ -1490,8 +1492,9 @@ export default function Home() {
                     color="primary"
                   />
                 }
-                label="Otro"
-              />
+                label="Otro"                
+              />            
+              </Tooltip>
             </FormGroup>
             <FormHelperText
               sx={{
@@ -1516,6 +1519,7 @@ export default function Home() {
               },
             }}
           >
+            <Tooltip title="No está disponible">
             <TextField
               disabled={!formData.otro}
               required={formData.otro}
@@ -1528,6 +1532,7 @@ export default function Home() {
               sx={{ background: "#FFFFFF", mb: 3 }}
               inputProps={{ maxLength: 32 }}
             />
+            </Tooltip>
             <Divider
               sx={{
                 borderBottomWidth: "1px",
@@ -4121,6 +4126,7 @@ export default function Home() {
           >
             {botonEstado}
           </Button>
+          
           <Button
             component={Link}
             href="/"
