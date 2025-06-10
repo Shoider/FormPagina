@@ -127,8 +127,7 @@ export default function Home() {
         puestoResponsable: "null",
         unidadAdministrativaResponsable: "null",
       }));
-    }
-    if (formData.solicitante === "CONAGUA" && formData.subgerencia!=="Subgerencia de Sistemas") {
+    } else if (formData.solicitante === "CONAGUA" && formData.subgerencia!=="Subgerencia de Sistemas") {
       setFormData((prev) => ({
         ...prev,
         nombreInterno: "",
@@ -147,8 +146,7 @@ export default function Home() {
         unidadAdministrativaResponsable: "null",
         telefonoResponsable: "null",
       }));
-    }
-    if (formData.solicitante === "EXTERNO" && formData.subgerencia==="Subgerencia de Sistemas") {
+    } else if (formData.solicitante === "EXTERNO" && formData.subgerencia==="Subgerencia de Sistemas") {
       setFormData((prev) => ({
         ...prev,
         nombreInterno: "null",
@@ -165,8 +163,7 @@ export default function Home() {
         puestoResponsable: "",
         unidadAdministrativaResponsable: "",
 
-      }));
-    if (formData.solicitante === "EXTERNO" && formData.subgerencia!=="Subgerencia de Sistemas") {
+      })); } else if (formData.solicitante === "EXTERNO" && formData.subgerencia!=="Subgerencia de Sistemas") {
       setFormData((prev) => ({
         ...prev,
         nombreInterno: "null",
@@ -190,7 +187,7 @@ export default function Home() {
       setFormData((prev) => ({
         ...prev,
       }));
-    }}
+    }
   } ,[formData.solicitante, formData.subgerencia]);
   useEffect(()=>  {
     if (formData.subgerencia === "Subgerencia de Sistemas"){
@@ -426,6 +423,13 @@ export default function Home() {
       } else if (pdfResponse.status === 206) {
         setAlert({
           message: "Teléfono de enlace/contacto inválido",
+          severity: "warning"
+        });
+        setOpenAlert(true);
+        setBotonEstado("Enviar");
+      }else if (pdfResponse.status === 205) {
+        setAlert({
+          message: "Correo institucional inválido",
           severity: "warning"
         });
         setOpenAlert(true);
