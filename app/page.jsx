@@ -1,12 +1,28 @@
 "use client";
 
 import React, { useState } from "react";
-import { Box, Container, Typography, Button, useTheme } from "@mui/material";
+import { Box, Container, Typography, Button, useTheme, Popover } from "@mui/material";
 import Image from "next/image";
 
 export default function Home() {
   const theme = useTheme();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
 
+  const [anchorEl2, setAnchorEl2] = React.useState(null);
+  const handlePopoverOpen2 = (event) => {
+    setAnchorEl2(event.currentTarget);
+  };
+  const handlePopoverClose2 = () => {
+    setAnchorEl2(null);
+  };
+  const open2 = Boolean(anchorEl2);
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
       {/* Banner Responsive */}
@@ -115,9 +131,32 @@ export default function Home() {
           align="center"
           gutterBottom
           sx={{ mt: 2, ml: 2, mr: 2 }}
+          aria-owns={open ? 'mouse-over-popover' : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpen}
+          onMouseLeave={handlePopoverClose}
         >
           Solicitud de cambios en cortafuegos (RFC)
+          
         </Typography>
+        <Popover
+        id="mouse-over-popover"
+        sx={{ pointerEvents: 'none' }}
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        onClose={handlePopoverClose}
+        disableRestoreFocus
+      >
+        <Typography sx={{ p: 2 }}>Se utiliza para solicitar la apertura de comunicaciones de red entre servidores, entre sistemas de cómputo de usuarios y los sistemas (servidores) que utilizan o para acceder algún servicio de Internet que requiera conexión por puertos distintos a TCP 80 y 443.</Typography>
+      </Popover>
       </Button>
 
       {/* VPN 2 */}
@@ -160,9 +199,31 @@ export default function Home() {
           align="center"
           gutterBottom
           sx={{ mt: 2, ml: 2, mr: 2 }}
+          aria-owns={open ? 'mouse-over-popover' : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpen2}
+          onMouseLeave={handlePopoverClose2}
         >
           Solicitud Del Servicio De VPN
         </Typography>
+        <Popover
+        id="mouse-over-popover"
+        sx={{ pointerEvents: 'none' }}
+        open={open2}
+        anchorEl={anchorEl2}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        onClose={handlePopoverClose2}
+        disableRestoreFocus
+      >
+       <Typography sx={{ p: 2 }}>Se utiliza para...</Typography>
+      </Popover>
       </Button>
 
       {/* TELEFONIA */}
@@ -281,7 +342,7 @@ export default function Home() {
         Solicitud Del Servicio De VPN
         </Typography>
       </Button>
-      */}
+      */}       
     </Container>
   );
 }
