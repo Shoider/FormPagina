@@ -202,7 +202,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
     },
     {
       field: "siglas",
-      headerName: "Siglas (si aplica)",
+      headerName: "Sigla (si aplica)",
       type: "string",
       width:"auto",
       flex:1,
