@@ -23,7 +23,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  InputAdornment 
 } from "@mui/material";
 
 import Image from "next/image";
@@ -418,87 +417,86 @@ export default function Home() {
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado("Descargar PDF");
+        setAlert({
+          message: "Ya puede descargar su PDF",
+          severity: "success",
+        });
       } else if (pdfResponse.status === 206) {
         setAlert({
           message: "Teléfono de enlace/contacto inválido",
           severity: "warning"
         });
-        setOpenAlert(true);
         setBotonEstado("Enviar");
       }else if (pdfResponse.status === 205) {
         setAlert({
           message: "Correo institucional inválido",
           severity: "warning"
         });
-        setOpenAlert(true);
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 207) {
         setAlert({
           message: "Correo electrónico inválido",
           severity: "warning"
         });
-        setOpenAlert(true);
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 208) {
         setAlert({
           message: "Teléfono de usuario inválido",
           severity: "warning"
         });
-        setOpenAlert(true);
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 209) {
         setAlert({
           message: "Teléfono de usuario responsable inválido",
           severity: "warning"
         });
-        setOpenAlert(true);
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 210) {
         setAlert({
           message: "b) Verifica 'URL/IP del Equipo'",
           severity: "warning"
         });
-        setOpenAlert(true);
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 211) {
         setAlert({
           message: "b) Verifica 'Nombre Sistema/Servicio'",
           severity: "warning"
         });
-        setOpenAlert(true);
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 220) {
         setAlert({
           message: "c) Verifica 'Nomenclatura'. Min: 8 Caracteres",
           severity: "warning"
         });
-        setOpenAlert(true);
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 221) {
         setAlert({
           message: "c) Verifica 'Nombre'. Min: 11 Caracteres",
           severity: "warning"
         });
-        setOpenAlert(true);
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 222) {
         setAlert({
           message: "c) Verifica 'Dirección IP'",
           severity: "warning"
         });
-        setOpenAlert(true);
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 230) {
         setAlert({
           message: "Número de empleado inválido",
           severity: "warning"
         });
-        setOpenAlert(true);
         setBotonEstado("Enviar");
       } else {
-        console.error("Error interno");
-        console.error(pdfResponse.status);
+        setAlert({
+          message: "Error desconocido",
+          severity: "error",
+        });
+        setBotonEstado("Enviar");
+        //console.error("Error interno");
+        //console.error(pdfResponse.status);
       }
+      setOpenAlert(true);
     } catch (error) {
       console.error("Error:", error);
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
@@ -515,7 +513,7 @@ export default function Home() {
     event.preventDefault();
 
     setAlert({
-      message: "Informacion Enviada",
+      message: "Informacion enviada",
       severity: "success",
     });
     setOpenAlert(true);
@@ -528,6 +526,10 @@ export default function Home() {
       });
 
       if (pdfResponse.status === 200) {
+        setAlert({
+          message: "Ya puede descargar su PDF",
+          severity: "success",
+        });
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado2("Descargar PDF");
       } else if (pdfResponse.status === 203) {
@@ -535,14 +537,19 @@ export default function Home() {
           message: "No se encontro el número de formato",
           severity: "warning",
         });
-        setOpenAlert(true);
         setBotonEstado2("Enviar");
       } else {
-        console.error("Error generando PDF");
-        console.error(pdfResponse.status);
+        setAlert({
+          message: "Error desconocido",
+          severity: "error",
+        });
+        setBotonEstado2("Enviar");
+        //console.error("Error generando PDF");
+        //console.error(pdfResponse.status);
       }
+      setOpenAlert(true);
     } catch (error) {
-      console.error("Error:", error);
+      //console.error("Error:", error);
       setBotonEstado2("Enviar");
       setAlert({
         message: "Ocurrio un error interno",
