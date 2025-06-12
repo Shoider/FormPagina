@@ -257,6 +257,8 @@ export default function Home() {
   // Modal
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => {
+    //No abrir el modal si ya está en modo descarga
+    if (botonEstado === "Descargar PDF") return;
     const [isValid, isValidTabla, isValidTelefono, isValidJustificacion, getErrors] =
     validarCamposRequeridos(formData);
     setErrors(getErrors);
@@ -2334,6 +2336,7 @@ export default function Home() {
           >
             {botonEstado}
           </Button>
+          {/**REVISAR QUE EL MODAL NO SE VUELVA A ABRIR CUANDO EL BOTÓN YA ESTÁ EN DESCARGANDO */}
           <Modal
             open={openModal}
             onClose={handleCloseModal}
