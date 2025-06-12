@@ -344,8 +344,7 @@ export default function Home() {
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
 
-    /* const [isValid, isValidTabla, isValidTelefono, isValidJustificacion, getErrors] =
-      validarCamposRequeridos(formData);
+    const [isValid, isValidTabla, isValidTelefono, isValidJustificacion, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
 
     console.log("Lista getErrors en submit: ", getErrors);
@@ -357,47 +356,26 @@ export default function Home() {
       });
       setOpenAlert(true);
       return;
-    } else {
-      setAlert({
-        message: "Información Registrada",
-        severity: "success",
-      });
-      setOpenAlert(true);
-    }
-    if (!isValidTabla) {
+    } else if (!isValidTabla) {
       setAlert({
         message: "Por favor, complete la(s) tabla(s).",
         severity: "warning",
       });
       setOpenAlert(true);
       return;
-    }if (!isValidTelefono) {
+    } else {
       setAlert({
-        message: "Teléfono de enlace informático inválido.",
-        severity: "warning",
-      });
-      setOpenAlert(true);
-      return;
-    } if (!isValidJustificacion) {
-      setAlert({
-        message: "Justificación de al menos 50 caracteres.",
-        severity: "warning",
-      });
-      setOpenAlert(true);
-      return;
-    }  else {
-      setAlert({
-        message: "Informacion Registrada",
+        message: "Información Enviada",
         severity: "success",
       });
       setOpenAlert(true);
-    } */
+    }
 
-    //setBotonEstado("Cargando...");
+    setBotonEstado("Cargando...");
 
     try {
-      
-      const formResponse = await axios.post("http://127.0.0.1:5001/api/v3/vpn", formData, {
+      // Aqui llamamos a la primera api que valida campos
+      const formResponse = await axios.post("/api2/v3/vpn", formData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -414,9 +392,34 @@ export default function Home() {
       });
       setOpenAlert(true);
 
-      /* const pdfResponse = await axios.post("/api/v2/vpn", formData, {
-        responseType: "blob",
-      });  */
+      try {
+        // Aqui llamamos a la otra api para el pdf
+        const pdfResponse = await axios.post("/api/v3/vpn", { id: formId }, {
+          responseType: "blob",
+        });
+
+        if (pdfResponse.status === 200) {
+          setPdfUrl(URL.createObjectURL(pdfResponse.data));
+          setBotonEstado("Descargar PDF");
+          setAlert({
+            message: "PDF listo para descargar",
+            severity: "success",
+          });
+          setOpenAlert(true);
+        } else {
+          console.error("Ocurrio un error al generar el PDF");
+          console.error(pdfResponse.status);
+        }
+
+      } catch (error) {
+        console.error("Error:", error);
+        setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+        setAlert({
+          message: "Ocurrio un error al generar el PDF",
+          severity: "error",
+        });
+        setOpenAlert(true);
+      }
 
     } catch (error) {
 
