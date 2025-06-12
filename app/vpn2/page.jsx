@@ -125,7 +125,6 @@ export default function Home() {
 
         numeroEmpleadoResponsable: "123456",
         puestoResponsable: "null",
-        unidadAdministrativaResponsable: "null",
       }));
     } else if (formData.solicitante === "CONAGUA" && formData.subgerencia!=="Subgerencia de Sistemas") {
       setFormData((prev) => ({
@@ -161,7 +160,6 @@ export default function Home() {
 
         numeroEmpleadoResponsable: "",
         puestoResponsable: "",
-        unidadAdministrativaResponsable: "",
 
       })); } else if (formData.solicitante === "EXTERNO" && formData.subgerencia!=="Subgerencia de Sistemas") {
       setFormData((prev) => ({
@@ -196,7 +194,8 @@ export default function Home() {
         nombreAutoriza:"null",
         puestoAutoriza:"null",
         nombreResponsable:formData.nombreEnlace,
-        telefonoResponsable:formData.telefonoEnlace
+        telefonoResponsable:formData.telefonoEnlace,
+        unidadAdministrativaResponsable:formData.areaAdscripcion
       }));
     }
     if (formData.subgerencia !== "Subgerencia de Sistemas"){
@@ -206,7 +205,7 @@ export default function Home() {
         puestoAutoriza:""
       }));
     }    
-  }, [formData.subgerencia, formData.nombreEnlace, formData.telefonoEnlace]);
+  }, [formData.subgerencia, formData.nombreEnlace, formData.telefonoEnlace, formData.areaAdscripcion]);
 
  
 
