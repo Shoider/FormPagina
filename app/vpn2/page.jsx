@@ -619,8 +619,12 @@ export default function Home() {
 
   //Numeros de telefono
   const handleTelefonoEnlaceChange = (event) => {
-    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
+    // Elimina todo lo que no sea dígito
+    let value = event.target.value.replace(/\D/g, "");
+    value = value.slice(0, 20); // Limita la longitud
+
+    // Agrupa en bloques de 4 dígitos separados por guion
+    value = value.match(/.{1,4}/g)?.join("-") || "";
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -629,8 +633,12 @@ export default function Home() {
   };
 
   const handleTelefonoInternoChange = (event) => {
-    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
+    // Elimina todo lo que no sea dígito
+    let value = event.target.value.replace(/\D/g, "");
+    value = value.slice(0, 20); // Limita la longitud
+
+    // Agrupa en bloques de 4 dígitos separados por guion
+    value = value.match(/.{1,4}/g)?.join("-") || "";
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -639,8 +647,12 @@ export default function Home() {
   };
 
   const handleTelefonoResponsableChange = (event) => {
-    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
+    // Elimina todo lo que no sea dígito
+    let value = event.target.value.replace(/\D/g, "");
+    value = value.slice(0, 20); // Limita la longitud
+
+    // Agrupa en bloques de 4 dígitos separados por guion
+    value = value.match(/.{1,4}/g)?.join("-") || "";
 
     setFormData((prevFormData) => ({
       ...prevFormData,
