@@ -352,7 +352,8 @@ export default function Home() {
   // Modal
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => {
-    
+    //No abrir el modal si ya está en modo descarga
+    if (botonEstado === "Descargar PDF") return;
     const [isValid, isValidTabla, getErrors] =
     validarCamposRequeridos(formData);
     setErrors(getErrors);
