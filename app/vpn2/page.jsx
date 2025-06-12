@@ -383,7 +383,7 @@ export default function Home() {
     }
     if (!isValidTabla) {
       setAlert({
-        message: "Por favor, complete la(s) tabla(s).",
+        message: "Por favor, completa o eliminaregistro de las tablas.",
         severity: "warning",
       });
       setOpenAlert(true);
