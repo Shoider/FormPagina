@@ -272,7 +272,7 @@ export default function Home() {
       });
     } else if (!isValidTabla) {
       setAlert({
-        message: "Por favor, completa o elimina el registro de las tablas.",
+        message: "Por favor, completa o elimina el registro de la(s) tabla(s).",
         severity: "warning",
       });
     } else if (!isValidTelefono) {
