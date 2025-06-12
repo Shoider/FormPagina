@@ -248,12 +248,11 @@ export default function Home() {
     setOpen(true);
   };
   const handleClose = () => {
-    //
-    
-              window.location.reload();
-              window.scrollTo(0, 0);
-              setOpen(false);
-          
+    setOpen(false);
+    setFormData2({
+      numeroFormato: "",
+      memorando: "",
+    });
   };
 
   // Alertas
