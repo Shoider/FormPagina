@@ -2181,7 +2181,7 @@ export default function Home() {
               11) Si el usuario autorizado hace uso de su equipo personal para
               acceder a los servicios de la red interna de la CONAGUA mediante
               el uso de los servicios de VPN, acepta conocer y cumplir con las
-              políticas, normas y disposiciones en mate-ria de seguridad de la
+              políticas, normas y disposiciones en materia de seguridad de la
               información que aplican para los equipos que proporciona la
               CONAGUA.
             </Typography>
