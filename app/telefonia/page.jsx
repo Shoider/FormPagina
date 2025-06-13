@@ -17,6 +17,7 @@ import {
   MenuItem,
   FormHelperText,
   Autocomplete,
+  Modal,
 } from "@mui/material";
 import Image from "next/image";
 import Link from 'next/link';
@@ -111,6 +112,33 @@ export default function Home() {
   // Boton
   const [botonEstado, setBotonEstado] = useState("Enviar");
 
+  //Modal
+   const [openModal, setOpenModal] = useState(false);
+    const handleOpenModal = () => {
+      //No abrir el modal si ya está en modo descarga
+      if (botonEstado === "Descargar PDF") return;
+      const [isValid, isValidTabla, getErrors] =
+      validarCamposRequeridos(formData);
+      setErrors(getErrors);
+  
+      //console.log("Lista getErrors en submit: ", getErrors);
+  
+      if (!isValid) {
+        setAlert({
+          message: "Por favor, complete todos los campos requeridos.",
+          severity: "warning",
+        });
+      } else {
+        setOpenModal(true);
+        return;
+      }
+      setOpenAlert(true);
+      return;
+    };
+    
+    const handleCloseModal = () => {
+      setOpenModal(false);
+    };
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
 
@@ -139,6 +167,7 @@ export default function Home() {
   // Llamada API
 
   const handleSubmit = async (event) => {
+    handleCloseModal();
     event.preventDefault();
 
     console.log("Datos del formulario:", formData);
@@ -1618,7 +1647,8 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           <Button
-            type="submit"
+            //type="submit"
+            onClick={handleOpenModal}
             variant="contained"
             sx={{
               mt: 3,
@@ -1643,6 +1673,89 @@ export default function Home() {
           >
             {botonEstado}
           </Button>
+
+        <Modal
+                    open={openModal}
+                    onClose={handleCloseModal}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                  <Box sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 400,
+                    background: "#F4F4F5",
+                    border: "2px solid grey",
+                    borderRadius: 2,
+                    boxShadow: 24,
+                    pt: 2,
+                    px: 4,
+                    pb: 3,
+                  }}>
+                    <Typography id="modal-modal-title" align="center" variant="h6" component="h2">
+                      ¡ADVERTENCIA!
+                    </Typography>
+                    <Divider
+                      sx={{
+                        borderBottomWidth: "1px",
+                        borderColor: "grey",
+                        ml: 0,
+                        mr: 0,
+                        mt: 2,
+                        mb: 1,
+                      }}
+                    />
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }} >
+                      Asegurate de que la información registrada es correcta, ya que no se
+                      puede corregir una vez enviada.
+                    </Typography>
+                    <Divider
+                      sx={{
+                        borderBottomWidth: "1px",
+                        borderColor: "grey",
+                        ml: 0,
+                        mr: 0,
+                        mt: 2,
+                        mb: 0,
+                      }}
+                    />
+                    <Button
+                    onClick={handleCloseModal}
+                    variant="contained"
+                    sx={{
+                      mt: 3,
+                      mb: 0,
+                      width: "calc(50% - 16px)",
+                      ml: 0,
+                      mr: 0,
+                      background: "#98989A",
+                      color: "#FFFFFF",
+                      border: "1px solid gray",
+                    }}
+                  >
+                    Regresar
+                  </Button>
+                  <Button
+                    onClick={handleSubmit}
+                    variant="contained"
+                    sx={{
+                      mt: 3,
+                      mb: 0,
+                      width: "calc(50% - 16px)",
+                      ml: 4,
+                      mr: 0,
+                      background: theme.palette.secondary.main,
+                      color: "#FFFFFF",
+                      border: "1px solid gray",
+                    }}
+                  >
+                    Enviar
+                  </Button>
+                  </Box>
+                </Modal>
+
           <Button
             component={Link}
             href="/"
