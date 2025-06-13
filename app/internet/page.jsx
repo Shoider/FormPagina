@@ -25,6 +25,8 @@ import direccionAutocomplete from "../constants/direccion.jsx";
 import ala from "../constants/ala.jsx";
 import pisos from "../constants/pisos.jsx";
 import telefonoAutocomplete from "../constants/telefono.jsx";
+import areas from "../constants/AREAS/areas.jsx";
+
 
 export default function Home() {
   const theme = useTheme();
@@ -493,8 +495,18 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       uaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      areaUsuario:"",
     }));
   };
+  // Manejo de Autocomplete de Área de Adscripción 
+  const handleArea = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      areaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)      
+    }));
+  };
+  //FILTRADO DE ÁREA DE ADSCRIPCIÓN
+  const filteredAreas = areas[formData.uaUsuario] || [];
   const handleDireccion = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -660,22 +672,10 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-          <TextField
-            required
-            error={!!errors?.areaUsuario}
-            id="areaUsuario"
-            name="areaUsuario"
-            label="Área"
-            placeholder="Escriba el área del usuario"
-            value={formData.areaUsuario}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
           <Autocomplete
             disablePortal
             options={unidadesAdmin}
-            freeSolo
+            //freeSolo
             renderInput={(params) => (
               <TextField
                 required
@@ -691,15 +691,39 @@ export default function Home() {
             onChange={(event, newValue) => {
               handleUA(newValue); // Maneja selección de opciones
             }}
-            onInputChange={(event, newInputValue) => {
-              if (event?.type === "change") {
-                handleUA(newInputValue); // Maneja texto escrito directamente
-              }
-            }}
+           // onInputChange={(event, newInputValue) => {
+             // if (event?.type === "change") {
+               // handleUA(newInputValue); // Maneja texto escrito directamente
+              //}
+            //}}
             inputValue={formData.uaUsuario || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
+          {/**ÁREA DE ADSCRIPCIÓN */}
+            <Autocomplete
+              disablePortal
+              options={filteredAreas}            
+              //freeSolo
+              renderInput={(params) => (
+                <TextField
+                  required
+                  //error={!!errors?.unidadAdministrativa}
+                  placeholder="Seleccione la Área de Adscripción"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Área de Adscripción"
+                />
+              )}
+              id="areaUsuario"
+              name="areaUsuario"
+              onChange={(event, newValue) => {
+                handleArea(newValue); // Maneja selección de opciones
+              }}            
+              inputValue={formData.areaUsuario || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />    
           <TextField
             required
             error={!!errors?.ipUsuario}
