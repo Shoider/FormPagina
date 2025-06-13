@@ -232,6 +232,7 @@ export default function Home() {
   };
   //FILTRADO DE ÁREA DE ADSCRIPCIÓN
     const filteredAreas = areas[formData.unidadAdministrativa] || [];
+  */
   //TIPO MOVIMIENTO
   const handleChangeMovimiento = (event) => {
     const selectedValue = event.target.value;
@@ -240,7 +241,7 @@ export default function Home() {
       movimientoID: selectedValue, // Guarda EL MOVIMIENTO seleccionado
     }));
   };
-  */
+  
   // Tablas
   useEffect(() => {
     setFormData((prevFormData) => ({
