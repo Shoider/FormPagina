@@ -215,7 +215,7 @@ export default function Home() {
 
       try {
         // Aqui llamamos a la otra api para el pdf
-        const pdfResponse = await axios.post("/api/v3/vpn", { id: formId }, {
+        const pdfResponse = await axios.post("/api/v3/telefonia", { id: formId }, {
           responseType: "blob",
         });
 
