@@ -426,7 +426,13 @@ export default function Home() {
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado("Descargar PDF");
-      } else {
+      } else if (pdfResponse.status === 250) {
+        setAlert({
+          message: "URL inválida, verifica 'http'",
+          severity: "warning"
+        });
+        setBotonEstado("Enviar");
+      }else {
         console.error("Error generating PDF");
       }
     } catch (error) {
