@@ -141,7 +141,7 @@ export default function Home() {
         </Typography>
         <Popover
         id="mouse-over-popover"
-        sx={{ pointerEvents: 'none' }}
+        sx={{ pointerEvents: 'none'}}
         open={open}
         anchorEl={anchorEl}
         anchorOrigin={{
@@ -155,7 +155,9 @@ export default function Home() {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 2 }}>Se utiliza para solicitar la apertura de comunicaciones de red entre servidores, entre sistemas de cómputo de usuarios y los sistemas (servidores) que utilizan o para acceder algún servicio de Internet que requiera conexión por puertos distintos a TCP 80 y 443.</Typography>
+        <Typography sx={{ p: 1 }}>Se utiliza para solicitar la apertura de comunicaciones de red entre servidores, <br/> 
+          entre sistemas de cómputo de usuarios  y los sistemas (servidores) que utilizan <br/>o para acceder algún  
+          servicio de Internet que requiera conexión por puertos<br/> distintos a TCP 80 y 443.</Typography>
       </Popover>
       </Button>
 
@@ -204,7 +206,7 @@ export default function Home() {
           onMouseEnter={handlePopoverOpen2}
           onMouseLeave={handlePopoverClose2}
         >
-          Solicitud Del Servicio De VPN
+          Solicitud de acceso remoto a través de una red virtual (VPN)
         </Typography>
         <Popover
         id="mouse-over-popover"
@@ -222,7 +224,11 @@ export default function Home() {
         onClose={handlePopoverClose2}
         disableRestoreFocus
       >
-       <Typography sx={{ p: 2 }}>Se utiliza para...</Typography>
+       <Typography sx={{ p: 2 }}>
+      Permite llenar la solicitud para alta, baja o cambio de los tipos de servicio  de <br/> 
+      conexión remota permitidos para una conexión de red privada virtual mejor <br/>  
+      conocida como VPN.
+      </Typography>
       </Popover>
       </Button>
 

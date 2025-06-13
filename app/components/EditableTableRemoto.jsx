@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Box, Button, styled } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -105,11 +105,18 @@ function EditToolbar(props) {
 function EditableTableRemoto({ initialData, onDataChange }) {
   const [rows, setRows] = useState(initialData || []);
   const [rowModesModel, setRowModesModel] = useState({});
-  const [nextId, setNextId] = useState(
-    initialData && initialData.length > 0
-      ? Math.max(...initialData.map((item) => item.id)) + 1
-      : 1,
-  ); // Inicializamos nextId
+  
+  const calculateNextId = useCallback((currentData) => {
+    return currentData && currentData.length > 0
+      ? Math.max(...currentData.map((item) => item.id)) + 1
+      : 1;
+  }, []);
+  
+  const [nextId, setNextId] = useState(() => calculateNextId(initialData));
+  
+  useEffect(() => {
+    setNextId(calculateNextId(initialData));
+  }, [initialData, calculateNextId]);
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -126,7 +133,16 @@ function EditableTableRemoto({ initialData, onDataChange }) {
   };
 
   const handleDeleteClick = (id) => () => {
-    setRows(rows.filter((row) => row.id !== id));
+    const newRows = rows.filter((row) => row.id !== id);
+
+    // Actualiza los id iterando
+    const updatedRows = newRows.map((row, index) => ({
+      ...row,
+      id: index + 1,
+    }));
+
+    setRows(updatedRows);
+    setNextId(calculateNextId(updatedRows));
   };
 
   const handleCancelClick = (id) => () => {
@@ -139,6 +155,9 @@ function EditableTableRemoto({ initialData, onDataChange }) {
     if (editedRow.isNew) {
       setRows(rows.filter((row) => row.id !== id));
     }
+    const newRows = rows.filter((row) => row.id !== id);
+    setRows(newRows);
+    setNextId(calculateNextId(newRows));
   };
 
   const processRowUpdate = (newRow) => {

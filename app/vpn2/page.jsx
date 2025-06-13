@@ -23,7 +23,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  InputAdornment 
+  Modal,
 } from "@mui/material";
 
 import Image from "next/image";
@@ -40,7 +40,6 @@ import SyncIcon from "@mui/icons-material/Sync";
 import EditableTableWeb from "../components/EditableTableWeb.jsx";
 import EditableTableRemoto from "../components/EditableTableRemoto.jsx";
 import subgerencias from "../constants/SUBGERENCIAS/subgerencias.jsx";
-
 
 export default function Home() {
   const theme = useTheme();
@@ -110,7 +109,23 @@ export default function Home() {
   }, [webTableData, remotoTableData]);
 
   useEffect(() => {
-    if (formData.solicitante === "CONAGUA") {
+    if (formData.solicitante === "CONAGUA" && formData.subgerencia==="Subgerencia de Sistemas") {
+      setFormData((prev) => ({
+        ...prev,
+        nombreInterno: "",
+        puestoInterno: "",
+        correoInterno: "",
+        telefonoInterno: "",
+
+        nombreExterno: "null",
+        correoExterno: "null",
+        empresaExterno: "null",
+        equipoExterno: "null",
+
+        numeroEmpleadoResponsable: "123456",
+        puestoResponsable: "null",
+      }));
+    } else if (formData.solicitante === "CONAGUA" && formData.subgerencia!=="Subgerencia de Sistemas") {
       setFormData((prev) => ({
         ...prev,
         nombreInterno: "",
@@ -129,8 +144,23 @@ export default function Home() {
         unidadAdministrativaResponsable: "null",
         telefonoResponsable: "null",
       }));
-    }
-    if (formData.solicitante === "EXTERNO" && formData.subgerencia!=="Subgerencia de Sistemas") {
+    } else if (formData.solicitante === "EXTERNO" && formData.subgerencia==="Subgerencia de Sistemas") {
+      setFormData((prev) => ({
+        ...prev,
+        nombreInterno: "null",
+        puestoInterno: "null",
+        correoInterno: "null",
+        telefonoInterno: "null",
+
+        nombreExterno: "",
+        correoExterno: "",
+        empresaExterno: "",
+        equipoExterno: "",
+
+        numeroEmpleadoResponsable: "",
+        puestoResponsable: "",
+
+      })); } else if (formData.solicitante === "EXTERNO" && formData.subgerencia!=="Subgerencia de Sistemas") {
       setFormData((prev) => ({
         ...prev,
         nombreInterno: "null",
@@ -148,29 +178,13 @@ export default function Home() {
         puestoResponsable: "",
         unidadAdministrativaResponsable: "",
         telefonoResponsable: "",
-      }));
-    if (formData.solicitante === "EXTERNO" && formData.subgerencia==="Subgerencia de Sistemas") {
-      setFormData((prev) => ({
-        ...prev,
-        nombreInterno: "null",
-        puestoInterno: "null",
-        correoInterno: "null",
-        telefonoInterno: "null",
-
-        nombreExterno: "",
-        correoExterno: "",
-        empresaExterno: "",
-        equipoExterno: "",
-
-        numeroEmpleadoResponsable: "",
-        puestoResponsable: "",
-        unidadAdministrativaResponsable: "",
+        
     }));
     } else {
       setFormData((prev) => ({
         ...prev,
       }));
-    }}
+    }
   } ,[formData.solicitante, formData.subgerencia]);
   useEffect(()=>  {
     if (formData.subgerencia === "Subgerencia de Sistemas"){
@@ -179,7 +193,8 @@ export default function Home() {
         nombreAutoriza:"null",
         puestoAutoriza:"null",
         nombreResponsable:formData.nombreEnlace,
-        telefonoResponsable:formData.telefonoEnlace
+        telefonoResponsable:formData.telefonoEnlace,
+        unidadAdministrativaResponsable:formData.areaAdscripcion
       }));
     }
     if (formData.subgerencia !== "Subgerencia de Sistemas"){
@@ -189,7 +204,7 @@ export default function Home() {
         puestoAutoriza:""
       }));
     }    
-  }, [formData.subgerencia, formData.nombreEnlace, formData.telefonoEnlace]);
+  }, [formData.subgerencia, formData.nombreEnlace, formData.telefonoEnlace, formData.areaAdscripcion]);
 
  
 
@@ -232,12 +247,54 @@ export default function Home() {
     setOpen(true);
   };
   const handleClose = () => {
-    //
-    
-              window.location.reload();
-              window.scrollTo(0, 0);
-              setOpen(false);
-          
+    setOpen(false);
+    setFormData2({
+      numeroFormato: "",
+      memorando: "",
+    });
+  };
+
+  // Modal
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => {
+    //No abrir el modal si ya está en modo descarga
+    if (botonEstado === "Descargar PDF") return;
+    const [isValid, isValidTabla, isValidTelefono, isValidJustificacion, getErrors] =
+    validarCamposRequeridos(formData);
+    setErrors(getErrors);
+
+    //console.log("Lista getErrors en submit: ", getErrors);
+
+    if (!isValid) {
+      setAlert({
+        message: "Por favor, complete todos los campos requeridos.",
+        severity: "warning",
+      });
+    } else if (!isValidTabla) {
+      setAlert({
+        message: "Por favor, completa o elimina el registro de la(s) tabla(s).",
+        severity: "warning",
+      });
+    } else if (!isValidTelefono) {
+      setAlert({
+        message: "Teléfono de enlace informático inválido.",
+        severity: "warning",
+      });
+    } else if (!isValidJustificacion) {
+      setAlert({
+        message: "Justificación de al menos 50 caracteres.",
+        severity: "warning",
+      });
+    } else {
+      setOpenModal(true);
+      return;
+    }
+    setOpenAlert(true);
+    return;
+  };
+  
+  const handleCloseModal = () => {
+    setOpenModal(false);
   };
 
   // Alertas
@@ -341,6 +398,7 @@ export default function Home() {
 
   // Llamada API
   const handleSubmit = async (event) => {
+    handleCloseModal();
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
 
@@ -463,7 +521,7 @@ export default function Home() {
     event.preventDefault();
 
     setAlert({
-      message: "Informacion Enviada",
+      message: "Informacion enviada",
       severity: "success",
     });
     setOpenAlert(true);
@@ -476,6 +534,10 @@ export default function Home() {
       });
 
       if (pdfResponse.status === 200) {
+        setAlert({
+          message: "Ya puede descargar su PDF",
+          severity: "success",
+        });
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado2("Descargar PDF");
       } else if (pdfResponse.status === 203) {
@@ -483,14 +545,19 @@ export default function Home() {
           message: "No se encontro el número de formato",
           severity: "warning",
         });
-        setOpenAlert(true);
         setBotonEstado2("Enviar");
       } else {
-        console.error("Error generando PDF");
-        console.error(pdfResponse.status);
+        setAlert({
+          message: "Error desconocido",
+          severity: "error",
+        });
+        setBotonEstado2("Enviar");
+        //console.error("Error generando PDF");
+        //console.error(pdfResponse.status);
       }
+      setOpenAlert(true);
     } catch (error) {
-      console.error("Error:", error);
+      //console.error("Error:", error);
       setBotonEstado2("Enviar");
       setAlert({
         message: "Ocurrio un error interno",
@@ -560,8 +627,12 @@ export default function Home() {
 
   //Numeros de telefono
   const handleTelefonoEnlaceChange = (event) => {
-    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
+    // Elimina todo lo que no sea dígito
+    let value = event.target.value.replace(/\D/g, "");
+    value = value.slice(0, 20); // Limita la longitud
+
+    // Agrupa en bloques de 4 dígitos separados por guion
+    value = value.match(/.{1,4}/g)?.join("-") || "";
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -570,8 +641,12 @@ export default function Home() {
   };
 
   const handleTelefonoInternoChange = (event) => {
-    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
+    // Elimina todo lo que no sea dígito
+    let value = event.target.value.replace(/\D/g, "");
+    value = value.slice(0, 20); // Limita la longitud
+
+    // Agrupa en bloques de 4 dígitos separados por guion
+    value = value.match(/.{1,4}/g)?.join("-") || "";
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -580,8 +655,12 @@ export default function Home() {
   };
 
   const handleTelefonoResponsableChange = (event) => {
-    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
-    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
+    // Elimina todo lo que no sea dígito
+    let value = event.target.value.replace(/\D/g, "");
+    value = value.slice(0, 20); // Limita la longitud
+
+    // Agrupa en bloques de 4 dígitos separados por guion
+    value = value.match(/.{1,4}/g)?.join("-") || "";
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -2110,7 +2189,7 @@ export default function Home() {
               11) Si el usuario autorizado hace uso de su equipo personal para
               acceder a los servicios de la red interna de la CONAGUA mediante
               el uso de los servicios de VPN, acepta conocer y cumplir con las
-              políticas, normas y disposiciones en mate-ria de seguridad de la
+              políticas, normas y disposiciones en materia de seguridad de la
               información que aplican para los equipos que proporciona la
               CONAGUA.
             </Typography>
@@ -2239,7 +2318,8 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           <Button
-            type="submit"
+            //type="submit"
+            onClick={handleOpenModal}
             variant="contained"
             sx={{
               mt: 3,
@@ -2264,6 +2344,88 @@ export default function Home() {
           >
             {botonEstado}
           </Button>
+          {/**REVISAR QUE EL MODAL NO SE VUELVA A ABRIR CUANDO EL BOTÓN YA ESTÁ EN DESCARGANDO */}
+          <Modal
+            open={openModal}
+            onClose={handleCloseModal}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+          <Box sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            background: "#F4F4F5",
+            border: "2px solid grey",
+            borderRadius: 2,
+            boxShadow: 24,
+            pt: 2,
+            px: 4,
+            pb: 3,
+          }}>
+            <Typography id="modal-modal-title" align="center" variant="h6" component="h2">
+              ¡ADVERTENCIA!
+            </Typography>
+            <Divider
+              sx={{
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 0,
+                mr: 0,
+                mt: 2,
+                mb: 1,
+              }}
+            />
+            <Typography id="modal-modal-description" sx={{ mt: 2 }} >
+              Asegurate de que la información registrada es correcta, ya que no se
+              puede corregir una vez enviada.
+            </Typography>
+            <Divider
+              sx={{
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 0,
+                mr: 0,
+                mt: 2,
+                mb: 0,
+              }}
+            />
+            <Button
+            onClick={handleCloseModal}
+            variant="contained"
+            sx={{
+              mt: 3,
+              mb: 0,
+              width: "calc(50% - 16px)",
+              ml: 0,
+              mr: 0,
+              background: "#98989A",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+          >
+            Regresar
+          </Button>
+          <Button
+            onClick={handleSubmit}
+            variant="contained"
+            sx={{
+              mt: 3,
+              mb: 0,
+              width: "calc(50% - 16px)",
+              ml: 4,
+              mr: 0,
+              background: theme.palette.secondary.main,
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+          >
+            Enviar
+          </Button>
+          </Box>
+        </Modal>
           <Button
             component={Link}
             href="/"
