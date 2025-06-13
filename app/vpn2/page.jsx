@@ -2313,7 +2313,7 @@ export default function Home() {
           >
             {botonEstado}
           </Button>
-          {/**REVISAR QUE EL MODAL NO SE VUELVA A ABRIR CUANDO EL BOTÓN YA ESTÁ EN DESCARGANDO */}
+
           <Modal
             open={openModal}
             onClose={handleCloseModal}

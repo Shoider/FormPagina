@@ -17,6 +17,7 @@ import {
   MenuItem,
   FormHelperText,
   Autocomplete,
+  Modal,
 } from "@mui/material";
 import Image from "next/image";
 import Link from 'next/link';
@@ -99,7 +100,7 @@ export default function Home() {
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
 
-  // API
+  // Cambios
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
     setFormData((prevFormData) => ({
@@ -113,6 +114,34 @@ export default function Home() {
 
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
+
+    // Modal
+    const [openModal, setOpenModal] = useState(false);
+    const handleOpenModal = () => {
+      //No abrir el modal si ya está en modo descarga
+      if (botonEstado === "Descargar PDF") return;
+      const [isValid, getErrors] =
+      validarCamposRequeridos(formData);
+      setErrors(getErrors);
+  
+      //console.log("Lista getErrors en submit: ", getErrors);
+  
+      if (!isValid) {
+        setAlert({
+          message: "Por favor, complete todos los campos requeridos.",
+          severity: "warning",
+        });
+      } else {
+        setOpenModal(true);
+        return;
+      }
+      setOpenAlert(true);
+      return;
+    };
+    
+    const handleCloseModal = () => {
+      setOpenModal(false);
+    };
 
   const [errors, setErrors] = useState({});
 
@@ -140,6 +169,7 @@ export default function Home() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    handleCloseModal();
 
     console.log("Datos del formulario:", formData);
 
@@ -156,7 +186,7 @@ export default function Home() {
       return;
     } else {
       setAlert({
-        message: "Información Registrada",
+        message: "Información registrada",
         severity: "success",
       });
       setOpenAlert(true);
@@ -166,26 +196,91 @@ export default function Home() {
 
     try {
       // PDF api
-      const pdfResponse = await axios.post("/api/v1/tel", formData, {
-        responseType: "blob",
+      const pdfResponse = await axios.post("/api2/v3/telefonia", formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
-      if (pdfResponse.status === 200) {
-        setPdfUrl(URL.createObjectURL(pdfResponse.data));
-        setBotonEstado("Descargar PDF");
-      } else {
-        console.error("Error generating PDF");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      console.log("Respuesta: ", formResponse.data)
+      const { message: formMessage, id: formId } = formResponse.data;
+      console.log("Petición exitosa:", formMessage);
+      console.log("ID recibido:", formId);
+
       setAlert({
-        message: "Ocurrio un error interno",
-        severity: "error",
+        message: formMessage,
+        severity: "success",
       });
+      setOpenAlert(true);
+
+      try {
+        // Aqui llamamos a la otra api para el pdf
+        const pdfResponse = await axios.post("/api/v3/vpn", { id: formId }, {
+          responseType: "blob",
+        });
+
+          if (pdfResponse.status === 200) {
+            setPdfUrl(URL.createObjectURL(pdfResponse.data));
+            setBotonEstado("Descargar PDF");
+            setAlert({
+              message: "PDF listo para descargar",
+              severity: "success",
+            });
+            setOpenAlert(true);
+          } else {
+            console.error("Ocurrio un error al generar el PDF");
+            console.error(pdfResponse.status);
+          }
+        
+          } catch (error) {
+            console.error("Error:", error);
+            setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+            setAlert({
+              message: "Ocurrio un error al generar el PDF",
+              severity: "error",
+            });
+            setOpenAlert(true);
+          }
+
+        } catch (error) {
+
+        setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+
+            if (error.response) {
+        // Si hay respuesta, podemos acceder al código de estado y a los datos.
+        const statusCode = error.response.status;
+        const errorData = error.response.data;
+
+        console.error(`Error con código ${statusCode}:`, errorData.message);
+
+        // Manejamos el caso específico del error 422.
+        if (statusCode === 422) {
+          setAlert({
+            // Usamos el mensaje de error que viene de la API.
+            message: errorData.message || "Hay errores en los datos enviados.",
+            severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
+          });
+        } else {
+          // 3. Manejamos otros errores del servidor (ej. 404, 500).
+          setAlert({
+            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            severity: "error",
+          });
+        }
+      } else {
+        // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        console.error("Error de red o de conexión:", error.message);
+        setAlert({
+          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          severity: "error",
+        });
+      } 
       setOpenAlert(true);
     }
   };
+
+
+
 
   ///POLITICAS Y SERVICIOS
   const savePoliticas = async (event) => {
@@ -1618,7 +1713,8 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           <Button
-            type="submit"
+            //type="submit"
+            onClick={handleOpenModal}
             variant="contained"
             sx={{
               mt: 3,
@@ -1643,6 +1739,89 @@ export default function Home() {
           >
             {botonEstado}
           </Button>
+
+          <Modal
+                      open={openModal}
+                      onClose={handleCloseModal}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                    <Box sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: 400,
+                      background: "#F4F4F5",
+                      border: "2px solid grey",
+                      borderRadius: 2,
+                      boxShadow: 24,
+                      pt: 2,
+                      px: 4,
+                      pb: 3,
+                    }}>
+                      <Typography id="modal-modal-title" align="center" variant="h6" component="h2">
+                        ¡ADVERTENCIA!
+                      </Typography>
+                      <Divider
+                        sx={{
+                          borderBottomWidth: "1px",
+                          borderColor: "grey",
+                          ml: 0,
+                          mr: 0,
+                          mt: 2,
+                          mb: 1,
+                        }}
+                      />
+                      <Typography id="modal-modal-description" sx={{ mt: 2 }} >
+                        Asegurate de que la información registrada es correcta, ya que no se
+                        puede corregir una vez enviada.
+                      </Typography>
+                      <Divider
+                        sx={{
+                          borderBottomWidth: "1px",
+                          borderColor: "grey",
+                          ml: 0,
+                          mr: 0,
+                          mt: 2,
+                          mb: 0,
+                        }}
+                      />
+                      <Button
+                      onClick={handleCloseModal}
+                      variant="contained"
+                      sx={{
+                        mt: 3,
+                        mb: 0,
+                        width: "calc(50% - 16px)",
+                        ml: 0,
+                        mr: 0,
+                        background: "#98989A",
+                        color: "#FFFFFF",
+                        border: "1px solid gray",
+                      }}
+                    >
+                      Regresar
+                    </Button>
+                    <Button
+                      onClick={handleSubmit}
+                      variant="contained"
+                      sx={{
+                        mt: 3,
+                        mb: 0,
+                        width: "calc(50% - 16px)",
+                        ml: 4,
+                        mr: 0,
+                        background: theme.palette.secondary.main,
+                        color: "#FFFFFF",
+                        border: "1px solid gray",
+                      }}
+                    >
+                      Enviar
+                    </Button>
+                    </Box>
+                  </Modal>
+
           <Button
             component={Link}
             href="/"
