@@ -259,7 +259,7 @@ export default function Home() {
   const handleOpenModal = () => {
     //No abrir el modal si ya está en modo descarga
     if (botonEstado === "Descargar PDF") return;
-    const [isValid, isValidTabla, isValidTelefono, isValidJustificacion, getErrors] =
+    const [isValid, isValidTabla, getErrors] =
     validarCamposRequeridos(formData);
     setErrors(getErrors);
 
@@ -273,16 +273,6 @@ export default function Home() {
     } else if (!isValidTabla) {
       setAlert({
         message: "Por favor, completa o elimina el registro de la(s) tabla(s).",
-        severity: "warning",
-      });
-    } else if (!isValidTelefono) {
-      setAlert({
-        message: "Teléfono de enlace informático inválido.",
-        severity: "warning",
-      });
-    } else if (!isValidJustificacion) {
-      setAlert({
-        message: "Justificación de al menos 50 caracteres.",
         severity: "warning",
       });
     } else {
@@ -402,32 +392,11 @@ export default function Home() {
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
 
-    const [isValid, isValidTabla, isValidTelefono, isValidJustificacion, getErrors] = validarCamposRequeridos(formData);
-    setErrors(getErrors);
-
-    console.log("Lista getErrors en submit: ", getErrors);
-
-    if (!isValid) {
-      setAlert({
-        message: "Por favor, complete todos los campos requeridos.",
-        severity: "warning",
-      });
-      setOpenAlert(true);
-      return;
-    } else if (!isValidTabla) {
-      setAlert({
-        message: "Por favor, complete la(s) tabla(s).",
-        severity: "warning",
-      });
-      setOpenAlert(true);
-      return;
-    } else {
-      setAlert({
-        message: "Información Enviada",
-        severity: "success",
-      });
-      setOpenAlert(true);
-    }
+    setAlert({
+      message: "Información Enviada",
+      severity: "success",
+    });
+    setOpenAlert(true);
 
     setBotonEstado("Cargando...");
 
