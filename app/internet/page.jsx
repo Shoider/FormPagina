@@ -406,7 +406,7 @@ export default function Home() {
 
     try {
       // Aqui llamamos a la primera api que valida campos
-      const pdfResponse = await axios.post("/api/v3/internet", formData, {
+      const formResponse = await axios.post("/api/v3/internet", formData, {
         headers: {
           'Content-Type': 'application/json',
         },
