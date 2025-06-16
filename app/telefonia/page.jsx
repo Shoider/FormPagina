@@ -30,6 +30,7 @@ import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 import direccionAutocomplete from "../constants/direccion.jsx";
 import ala from "../constants/ala.jsx";
 import pisos from "../constants/pisos.jsx";
+import modelos from "../constants/MODELOSTELEFONOS/modelos.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -284,7 +285,14 @@ export default function Home() {
       setOpenAlert(true);
     }
   };
-
+const handleModelo = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      modelo: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+//FILTRADO DE MODELOS
+  const filteredModelo = modelos[formData.marca] || [];
 
 
 
@@ -405,6 +413,7 @@ export default function Home() {
     setFormData((prevData) => ({
       ...prevData,
       marca: selectedValue, // Guarda la marca seleccionado
+      modelo:"",
     }));
   };
 
@@ -1133,7 +1142,7 @@ export default function Home() {
             id="marca"
             name="marca"
             label="Marca"
-            placeholder="Escriba la marca del equipo"
+            //placeholder="Escriba la marca del equipo"
             defaultValue="HUAWEI"
             sx={{ background: "#FFFFFF" }}
             onChange={handleChangeMarca}
@@ -1145,18 +1154,34 @@ export default function Home() {
               </MenuItem>
             ))}
           </TextField>
-
-          <TextField
-            required
-            error={!!errors?.modelo}
+          {/**MODELO */}
+          <Autocomplete
+            disablePortal
+            options={filteredModelo}            
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                //error={!!errors?.unidadAdministrativa}
+                placeholder="Seleccione el modelo"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Modelo"
+              />
+            )}
             id="modelo"
             name="modelo"
-            label="Modelo"
-            placeholder="Escriba el modelo del equipo"
-            value={formData.modelo}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 16 }}
+            onChange={(event, newValue) => {
+              handleModelo(newValue); // Maneja selección de opciones
+            }}            
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {                
+                handleModelo(newInputValue) // Maneja texto escrito directamente                
+              }
+            }}
+            inputValue={formData.modelo || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
           />
           <TextField
             required
