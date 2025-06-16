@@ -178,6 +178,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: false,
+      sortable:false,
     },
     {
       field: "movimiento",
@@ -189,6 +190,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: movimiento,
+      sortable:false,
     },
     {
       field: "nombreSistema",
@@ -199,6 +201,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "siglas",
@@ -209,6 +212,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "url",
@@ -218,6 +222,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "puertosServicios",
@@ -228,6 +233,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "actions",
@@ -238,6 +244,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       cellClassName: "actions",
+      sortable:false,
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
@@ -305,6 +312,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       <DataGrid
         rows={rows}
         columns={columns}
+        disableColumnMenu
         editMode="row"
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}
