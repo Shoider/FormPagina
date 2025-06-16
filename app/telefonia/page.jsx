@@ -174,28 +174,13 @@ export default function Home() {
   const handleSubmit = async (event) => {
     handleCloseModal();
     event.preventDefault();
-    handleCloseModal();
+    console.log("Lista formData en submit: ", formData);
 
-    console.log("Datos del formulario:", formData);
-
-    const [isValid, getErrors] = validarCamposRequeridos(formData);
-    setErrors(getErrors);
-
-    if (!isValid) {
-      setAlert({
-        //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
-        message: "Por favor, complete todos los campos requeridos.",
-        severity: "error",
-      });
-      setOpenAlert(true);
-      return;
-    } else {
-      setAlert({
-        message: "Información registrada",
-        severity: "success",
-      });
-      setOpenAlert(true);
-    }
+    setAlert({
+      message: "Información Enviada",
+      severity: "success",
+    });
+    setOpenAlert(true);
 
     setBotonEstado("Cargando...");
 

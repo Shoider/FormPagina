@@ -262,11 +262,10 @@ export default function Home() {
   const handleOpenModal = () => {
     //No abrir el modal si ya está en modo descarga
     if (botonEstado === "Descargar PDF") return;
-    const [isValid, isValidTabla, getErrors] =
-    validarCamposRequeridos(formData);
+    const [isValid, isValidTabla, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
 
-    //console.log("Lista getErrors en submit: ", getErrors);
+    console.log("Lista getErrors en submit: ", getErrors);
 
     if (!isValid) {
       setAlert({
@@ -386,7 +385,7 @@ export default function Home() {
       }
     }
     console.log(errores);
-    return [isValid, isValidTabla,isValidTelefono, isValidJustificacion, errores];
+    return [isValid, isValidTabla, errores];
   };
 
   // Llamada API
