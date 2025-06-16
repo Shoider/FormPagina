@@ -180,6 +180,7 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: false,
+      sortable : false,
     },
     {
       field: "movimiento",
@@ -191,6 +192,7 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: movimiento,
+      sortable: false,
     },
     {
       field: "nomenclatura",
@@ -201,6 +203,7 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "nombreSistema",
@@ -211,6 +214,7 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "direccion",
@@ -220,6 +224,7 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "sistemaOperativo",
@@ -231,6 +236,7 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: ["Windows", "Linux", "macOS"],
+      sortable:false,
     },
     {
       field: "actions",
@@ -241,6 +247,7 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       cellClassName: "actions",
+      sortable:false,
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
@@ -308,6 +315,7 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       <DataGrid
         rows={rows}
         columns={columns}
+        disableColumnMenu
         editMode="row"
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}

@@ -185,6 +185,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: false,
+      sortable:false,
     },
     {
       field: "SO",
@@ -194,6 +195,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "FRO",
@@ -203,6 +205,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "IPO",
@@ -212,6 +215,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "SD",
@@ -221,6 +225,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "FRD",
@@ -230,6 +235,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "IPD",
@@ -239,6 +245,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "PRO",
@@ -249,6 +256,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: ["TCP", "UDP"],
+      sortable:false,
     },
     {
       field: "PUER",
@@ -258,6 +266,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "TEMPO",
@@ -268,6 +277,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: ["TEMPORAL", "PERMANENTE"],
+      sortable:false,
     },
     {
       field: "FECHA",
@@ -277,6 +287,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     /* {
       field: "actions",
@@ -352,6 +363,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       <DataGrid
         rows={rows}
         columns={columns}
+        disableColumnMenu
         editMode="row"
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}

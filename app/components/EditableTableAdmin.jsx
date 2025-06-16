@@ -186,6 +186,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: false,
+      sortable:false,
     },
     {
       field: "SO",
@@ -195,6 +196,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "IPO",
@@ -204,6 +206,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "SD",
@@ -213,6 +216,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "FRD",
@@ -222,6 +226,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
       renderEditCell: (params) => {
         const handleBlur = async (event) => {
           if (params.api.setEditCellValue) {
@@ -290,6 +295,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "PRO",
@@ -300,6 +306,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: ["TCP", "UDP"],
+      sortable:false,
     },
     {
       field: "PUER",
@@ -309,6 +316,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "TEMPO",
@@ -319,6 +327,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: ["TEMPORAL", "PERMANENTE"],
+      sortable:false,
     },
     {
       field: "FECHA",
@@ -328,6 +337,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "actions",
@@ -337,6 +347,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       cellClassName: "actions",
+      sortable:false,
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
@@ -404,6 +415,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       <DataGrid
         rows={rows}
         columns={columns}
+        disableColumnMenu
         editMode="row"
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}

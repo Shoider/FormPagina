@@ -1849,19 +1849,6 @@ export default function Home() {
 
           <EditableTableWeb onDataChange={handleWebTableDataChange}/>
 
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              mb: 3,
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            * Guardar registros antes de enviar.
-          </FormLabel>
         </Box>
       </Box>
 
@@ -1926,7 +1913,7 @@ export default function Home() {
             component="legend"
             sx={{
               mx: "auto",
-              mb: 1,
+              mb: 2,
               display: "flex",
               justifyContent: "center",
               fontSize: "0.8rem",
@@ -1935,19 +1922,6 @@ export default function Home() {
           >
             Nota: Ejemplo de nomeclatura: SGA-001. Ejemplo de nombre:
             CE0010DC01.
-          </FormLabel>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              mb: 3,
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            * Guardar registros antes de enviar.
           </FormLabel>
         </Box>
         </Box>
