@@ -185,6 +185,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: false,
+      sortable:false,
     },
     {
       field: "SO",
@@ -193,6 +194,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
       renderEditCell: (params) => {
         const handleBlur = async (event) => {
           if (params.api.setEditCellValue) {
@@ -262,6 +264,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
       renderEditCell: (params) => {
         const handleBlur = async (event) => {
           if (params.api.setEditCellValue) {
@@ -330,6 +333,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "FRD",
@@ -339,6 +343,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
       renderEditCell: (params) => {
         const handleBlur = async (event) => {
           if (params.api.setEditCellValue) {
@@ -407,6 +412,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "PRO",
@@ -417,6 +423,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: ["TCP", "UDP"],
+      sortable:false,
     },
     {
       field: "PUER",
@@ -426,6 +433,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "TEMPO",
@@ -436,6 +444,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: ["TEMPORAL", "PERMANENTE"],
+      sortable:false,
     },
     {
       field: "FECHA",
@@ -445,6 +454,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "actions",
@@ -454,6 +464,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       cellClassName: "actions",
+      sortable:false,
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
@@ -533,6 +544,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       <DataGrid
         rows={rows}
         columns={columns}
+        disableColumnMenu
         editMode="row"
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}

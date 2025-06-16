@@ -187,6 +187,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: false,
+      sortable:false,
     },
     {
       field: "SO",
@@ -196,6 +197,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "FRO",
@@ -205,6 +207,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
       renderEditCell: (params) => {
         const handleBlur = async (event) => {
           if (params.api.setEditCellValue) {
@@ -273,6 +276,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "SD",
@@ -282,6 +286,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "FRD",
@@ -291,6 +296,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
       renderEditCell: (params) => {
         const handleBlur = async (event) => {
           if (params.api.setEditCellValue) {
@@ -359,6 +365,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "PRO",
@@ -369,6 +376,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: ["TCP", "UDP"],
+      sortable:false,
     },
     {
       field: "PUER",
@@ -378,6 +386,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "TEMPO",
@@ -388,6 +397,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: ["TEMPORAL", "PERMANENTE"],
+      sortable:false,
     },
     {
       field: "FECHA",
@@ -397,6 +407,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "actions",
@@ -406,6 +417,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       cellClassName: "actions",
+      sortable:false,
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
@@ -473,6 +485,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       <DataGrid
         rows={rows}
         columns={columns}
+        disableColumnMenu
         editMode="row"
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}

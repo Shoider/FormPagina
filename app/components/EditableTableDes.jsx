@@ -186,6 +186,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: false,
+      sortable:false,
     },
     {
       field: "SO",
@@ -195,6 +196,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     //{ field: 'FRO', headerName: 'Funcion o Rol de Dispositivo(s) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: false },
     {
@@ -205,6 +207,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "SD",
@@ -214,6 +217,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "FRD",
@@ -223,6 +227,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
       renderEditCell: (params) => {
         const handleBlur = async (event) => {
           if (params.api.setEditCellValue) {
@@ -291,6 +296,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "PRO",
@@ -299,6 +305,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
       type: "singleSelect",
       valueOptions: ["TCP", "UDP"],
     },
@@ -310,6 +317,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "TEMPO",
@@ -320,6 +328,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: ["TEMPORAL", "PERMANENTE"],
+      sortable:false,
     },
     {
       field: "FECHA",
@@ -329,6 +338,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
+      sortable:false,
     },
     {
       field: "actions",
@@ -338,6 +348,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       cellClassName: "actions",
+      sortable:false,
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
@@ -405,6 +416,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       <DataGrid
         rows={rows}
         columns={columns}
+        disableColumnMenu
         editMode="row"
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}
