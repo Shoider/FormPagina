@@ -848,37 +848,99 @@ export default function Home() {
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
 
-    setBotonEstado("Cargando...");
-    
     setAlert({
-      message: "Información Registrada",
+      message: "Información Enviada",
       severity: "success",
     });
     setOpenAlert(true);
 
+    setBotonEstado("Cargando...");
+
     try {
-      // PDF api
-      const pdfResponse = await axios.post("/api/v1/rfc", formData, {
-        responseType: "blob",
+      // Aqui llamamos a la primera api que valida campos
+      const formResponse = await axios.post("/api2/v3/rfc", formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
-      if (pdfResponse.status === 200) {
-        setPdfUrl(URL.createObjectURL(pdfResponse.data));
-        setBotonEstado("Descargar PDF");
-      } else {
-        //console.error("Error generating PDF");
-      }
-    } catch (error) {
-      //console.error("Error:", error);
-      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      console.log("Respuesta: ", formResponse.data)
+      const { message: formMessage, id: formId } = formResponse.data;
+      console.log("Petición exitosa:", formMessage);
+      console.log("ID recibido:", formId);
+
       setAlert({
-        message: "Ocurrio un error interno",
-        severity: "error",
+        message: formMessage,
+        severity: "success",
       });
-      console.error(error);
+      setOpenAlert(true);
+
+      try {
+        // Aqui llamamos a la otra api para el pdf
+        const pdfResponse = await axios.post("/api/v3/rfc", { id: formId }, {
+          responseType: "blob",
+        });
+
+        if (pdfResponse.status === 200) {
+          setPdfUrl(URL.createObjectURL(pdfResponse.data));
+          setBotonEstado("Descargar PDF");
+          setAlert({
+            message: "PDF listo para descargar",
+            severity: "success",
+          });
+          setOpenAlert(true);
+        } else {
+          console.error("Ocurrio un error al generar el PDF");
+          console.error(pdfResponse.status);
+        }
+
+      } catch (error) {
+        console.error("Error:", error);
+        setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+        setAlert({
+          message: "Ocurrio un error al generar el PDF",
+          severity: "error",
+        });
+        setOpenAlert(true);
+      }
+
+    } catch (error) {
+
+      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+
+      if (error.response) {
+        // Si hay respuesta, podemos acceder al código de estado y a los datos.
+        const statusCode = error.response.status;
+        const errorData = error.response.data;
+
+        console.error(`Error con código ${statusCode}:`, errorData.message);
+
+        // Manejamos el caso específico del error 422.
+        if (statusCode === 422) {
+          setAlert({
+            // Usamos el mensaje de error que viene de la API.
+            message: errorData.message || "Hay errores en los datos enviados.",
+            severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
+          });
+        } else {
+          // Manejamos otros errores del servidor (ej. 404, 500).
+          setAlert({
+            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            severity: "error",
+          });
+        }
+      } else {
+        // Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        console.error("Error de red o de conexión:", error.message);
+        setAlert({
+          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          severity: "error",
+        });
+      } 
       setOpenAlert(true);
     }
   };
+
   // Llamada API Actualizar Memorando
   const handleSubmit2 = async (event) => {
     event.preventDefault();
