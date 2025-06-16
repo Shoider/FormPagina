@@ -465,7 +465,7 @@ export default function Home() {
         setBotonEstado("Enviar");
       } else if (pdfResponse.status === 220) {
         setAlert({
-          message: "c) Verifica 'Nomenclatura'. Min: 8 Caracteres",
+          message: "c) Verifica 'Nomenclatura'. Min: 7 Caracteres",
           severity: "warning"
         });
         setBotonEstado("Enviar");
