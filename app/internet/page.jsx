@@ -340,9 +340,19 @@ export default function Home() {
           key !== "otra3" &&
           key !== "otra4" &&
           key !== "piso" &&
-          key !== "ala"
+          key !== "ala" &&
+          key !== "urlDescarga" &&
+          key !== "urlComercio" &&
+          key !== "urlRedes" &&
+          key !== "urlForos" &&
+          key !== "urlWhats" &&
+          key !== "urlVideos" &&
+          key !== "urlDropbox" &&
+          key !== "urlOnedrive" &&
+          key !== "urlSkype" &&
+          key !== "rulWetransfer"
         ) {
-          //console.log("Campo requerido: ", key);
+          console.log("Campo requerido: ", key);
           errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
           isValid = false; // Al menos un campo está vacío
         }
@@ -757,7 +767,7 @@ export default function Home() {
               renderInput={(params) => (
                 <TextField
                   required
-                  //error={!!errors?.unidadAdministrativa}
+                  error={!!errors?.areaUsuario}
                   placeholder="Seleccione la Área de Adscripción"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
