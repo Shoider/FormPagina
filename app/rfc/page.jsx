@@ -121,6 +121,9 @@ export default function Home() {
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
 
+  // Nombre PDF
+  const [nombreArchivo, setNombreArchivo] = useState("");
+
   // Estados para el formulario
   const [formData, setFormData] = useState({
     desotro: "",
@@ -900,9 +903,11 @@ export default function Home() {
       });
 
       console.log("Respuesta: ", formResponse.data)
-      const { message: formMessage, id: formId } = formResponse.data;
-      console.log("Petición exitosa:", formMessage);
-      console.log("ID recibido:", formId);
+      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Petición exitosa: ", formMessage);
+      console.log("ID recibido: ", formId);
+      console.log("Epoch recibido: ", epoch)
+      setNombreArchivo(`RFC_${epoch}.pdf`);
 
       setAlert({
         message: formMessage,
@@ -4574,7 +4579,7 @@ export default function Home() {
             disabled={botonEstado2 === "Cargando..."}
             {...(botonEstado2 === "Descargar PDF" && {
               href: pdfUrl,
-              download: "RegistroRFC.pdf",
+              download: nombreArchivo,
             })}
           >
             {botonEstado2}

@@ -101,9 +101,10 @@ export default function Home() {
   const [remotoTableData, setRemotoTableData] = useState([]);
 
   // Nombre PDF
-
-  // Nombre PDF
   const [nombreArchivo, setNombreArchivo] = useState("");
+
+  // Generar PDF
+  const [pdfUrl, setPdfUrl] = useState(null);
 
   useEffect(() => {
     setFormData((prevFormData) => ({
@@ -220,9 +221,6 @@ export default function Home() {
   const handleRemotoTableDataChange = (data) => {
     setRemotoTableData(data);
   };
-
-  // Generar PDF
-  const [pdfUrl, setPdfUrl] = useState(null);
 
   // HandleChange FormData
   const handleChange = (event) => {
