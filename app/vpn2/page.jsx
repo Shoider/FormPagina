@@ -100,6 +100,11 @@ export default function Home() {
   const [webTableData, setWebTableData] = useState([]);
   const [remotoTableData, setRemotoTableData] = useState([]);
 
+  // Nombre PDF
+
+  // Nombre PDF
+  const [nombreArchivo, setNombreArchivo] = useState("");
+
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -409,9 +414,11 @@ export default function Home() {
       });
 
       console.log("Respuesta: ", formResponse.data)
-      const { message: formMessage, id: formId } = formResponse.data;
-      console.log("Petición exitosa:", formMessage);
-      console.log("ID recibido:", formId);
+      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Petición exitosa: ", formMessage);
+      console.log("ID recibido: ", formId);
+      console.log("Epoch recibido: ", epoch)
+      setNombreArchivo(`VPN_${epoch}.pdf`);
 
       setAlert({
         message: formMessage,
@@ -506,9 +513,11 @@ export default function Home() {
       });
 
       console.log("Respuesta: ", formResponse.data)
-      const { message: formMessage, id: formId } = formResponse.data;
-      console.log("Petición exitosa:", formMessage);
-      console.log("ID recibido:", formId);
+      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Petición exitosa: ", formMessage);
+      console.log("ID recibido: ", formId);
+      console.log("Epoch recibido: ", epoch)
+      setNombreArchivo(`VPN_${epoch}.pdf`);
 
       setAlert({
         message: formMessage,
@@ -2332,7 +2341,7 @@ export default function Home() {
             }
             {...(botonEstado === "Descargar PDF" && {
               href: pdfUrl,
-              download: "RegistroVPNMayo.pdf",
+              download: nombreArchivo,
             })}
           >
             {botonEstado}
@@ -2594,7 +2603,7 @@ export default function Home() {
             disabled={botonEstado2 === "Cargando..."}
             {...(botonEstado2 === "Descargar PDF" && {
               href: pdfUrl,
-              download: "RegistroVPNMayo.pdf",
+              download: nombreArchivo,
             })}
           >
             {botonEstado2}
