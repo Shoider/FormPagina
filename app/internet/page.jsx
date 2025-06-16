@@ -14,6 +14,7 @@ import {
   Divider,
   Checkbox,
   Autocomplete,
+  Modal,
 } from "@mui/material";
 import Image from "next/image";
 import Link from 'next/link';
@@ -24,6 +25,8 @@ import direccionAutocomplete from "../constants/direccion.jsx";
 import ala from "../constants/ala.jsx";
 import pisos from "../constants/pisos.jsx";
 import telefonoAutocomplete from "../constants/telefono.jsx";
+import areas from "../constants/AREAS/areas.jsx";
+
 
 export default function Home() {
   const theme = useTheme();
@@ -276,6 +279,34 @@ export default function Home() {
 
   // Boton
   const [botonEstado, setBotonEstado] = useState("Enviar");
+//Modal
+   const [openModal, setOpenModal] = useState(false);
+    const handleOpenModal = () => {
+      //No abrir el modal si ya está en modo descarga
+      if (botonEstado === "Descargar PDF") return;
+      const [isValid, isValidTabla, getErrors] =
+      validarCamposRequeridos(formData);
+      setErrors(getErrors);
+  
+      //console.log("Lista getErrors en submit: ", getErrors);
+  
+      if (!isValid) {
+        setAlert({
+          message: "Por favor, complete todos los campos requeridos.",
+          severity: "warning",
+        });
+      } else {
+        setOpenModal(true);
+        return;
+      }
+      setOpenAlert(true);
+      return;
+    };
+    
+    const handleCloseModal = () => {
+      setOpenModal(false);
+    };
+
 
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
@@ -361,6 +392,8 @@ export default function Home() {
 
   // Llamada API
   const handleSubmit = async (event) => {
+    handleCloseModal();
+
     event.preventDefault();
     console.log("datos de formdata internet:", formData);
 
@@ -393,7 +426,13 @@ export default function Home() {
       if (pdfResponse.status === 200) {
         setPdfUrl(URL.createObjectURL(pdfResponse.data));
         setBotonEstado("Descargar PDF");
-      } else {
+      } else if (pdfResponse.status === 250) {
+        setAlert({
+          message: "URL inválida, verifica 'http'",
+          severity: "warning"
+        });
+        setBotonEstado("Enviar");
+      }else {
         console.error("Error generating PDF");
       }
     } catch (error) {
@@ -462,8 +501,18 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       uaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      areaUsuario:"",
     }));
   };
+  // Manejo de Autocomplete de Área de Adscripción 
+  const handleArea = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      areaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)      
+    }));
+  };
+  //FILTRADO DE ÁREA DE ADSCRIPCIÓN
+  const filteredAreas = areas[formData.uaUsuario] || [];
   const handleDireccion = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -629,22 +678,10 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-          <TextField
-            required
-            error={!!errors?.areaUsuario}
-            id="areaUsuario"
-            name="areaUsuario"
-            label="Área"
-            placeholder="Escriba el área del usuario"
-            value={formData.areaUsuario}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
           <Autocomplete
             disablePortal
             options={unidadesAdmin}
-            freeSolo
+            //freeSolo
             renderInput={(params) => (
               <TextField
                 required
@@ -660,15 +697,39 @@ export default function Home() {
             onChange={(event, newValue) => {
               handleUA(newValue); // Maneja selección de opciones
             }}
-            onInputChange={(event, newInputValue) => {
-              if (event?.type === "change") {
-                handleUA(newInputValue); // Maneja texto escrito directamente
-              }
-            }}
+           // onInputChange={(event, newInputValue) => {
+             // if (event?.type === "change") {
+               // handleUA(newInputValue); // Maneja texto escrito directamente
+              //}
+            //}}
             inputValue={formData.uaUsuario || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
+          {/**ÁREA DE ADSCRIPCIÓN */}
+            <Autocomplete
+              disablePortal
+              options={filteredAreas}            
+              //freeSolo
+              renderInput={(params) => (
+                <TextField
+                  required
+                  //error={!!errors?.unidadAdministrativa}
+                  placeholder="Seleccione la Área de Adscripción"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Área de Adscripción"
+                />
+              )}
+              id="areaUsuario"
+              name="areaUsuario"
+              onChange={(event, newValue) => {
+                handleArea(newValue); // Maneja selección de opciones
+              }}            
+              inputValue={formData.areaUsuario || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />    
           <TextField
             required
             error={!!errors?.ipUsuario}
@@ -2702,7 +2763,8 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           <Button
-            type="submit"
+            //type="submit"
+            onClick={handleOpenModal}
             variant="contained"
             sx={{
               mt: 3,
@@ -2727,6 +2789,87 @@ export default function Home() {
           >
             {botonEstado}
           </Button>
+          <Modal
+                              open={openModal}
+                              onClose={handleCloseModal}
+                              aria-labelledby="modal-modal-title"
+                              aria-describedby="modal-modal-description"
+                            >
+                            <Box sx={{
+                              position: 'absolute',
+                              top: '50%',
+                              left: '50%',
+                              transform: 'translate(-50%, -50%)',
+                              width: 400,
+                              background: "#F4F4F5",
+                              border: "2px solid grey",
+                              borderRadius: 2,
+                              boxShadow: 24,
+                              pt: 2,
+                              px: 4,
+                              pb: 3,
+                            }}>
+                              <Typography id="modal-modal-title" align="center" variant="h6" component="h2">
+                                ¡ADVERTENCIA!
+                              </Typography>
+                              <Divider
+                                sx={{
+                                  borderBottomWidth: "1px",
+                                  borderColor: "grey",
+                                  ml: 0,
+                                  mr: 0,
+                                  mt: 2,
+                                  mb: 1,
+                                }}
+                              />
+                              <Typography id="modal-modal-description" sx={{ mt: 2 }} >
+                                Asegurate de que la información registrada es correcta, ya que no se
+                                puede corregir una vez enviada.
+                              </Typography>
+                              <Divider
+                                sx={{
+                                  borderBottomWidth: "1px",
+                                  borderColor: "grey",
+                                  ml: 0,
+                                  mr: 0,
+                                  mt: 2,
+                                  mb: 0,
+                                }}
+                              />
+                              <Button
+                              onClick={handleCloseModal}
+                              variant="contained"
+                              sx={{
+                                mt: 3,
+                                mb: 0,
+                                width: "calc(50% - 16px)",
+                                ml: 0,
+                                mr: 0,
+                                background: "#98989A",
+                                color: "#FFFFFF",
+                                border: "1px solid gray",
+                              }}
+                            >
+                              Regresar
+                            </Button>
+                            <Button
+                              onClick={handleSubmit}
+                              variant="contained"
+                              sx={{
+                                mt: 3,
+                                mb: 0,
+                                width: "calc(50% - 16px)",
+                                ml: 4,
+                                mr: 0,
+                                background: theme.palette.secondary.main,
+                                color: "#FFFFFF",
+                                border: "1px solid gray",
+                              }}
+                            >
+                              Enviar
+                            </Button>
+                            </Box>
+                          </Modal>
           <Button
             component={Link}
             href="/"

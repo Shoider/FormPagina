@@ -11,6 +11,7 @@ import {
   FormControlLabel,
   RadioGroup,
   Radio,
+  Autocomplete,
   FormHelperText,
   FormLabel,
   Divider,
@@ -36,6 +37,10 @@ import Alerts from "../components/alerts.jsx";
 import Link from 'next/link';
 import axios from "axios";
 import { useEffect } from "react";
+//import areas from "../constants/AREAS/areas.jsx";
+//import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
+
+
 
 // ICONOS
 import SyncIcon from "@mui/icons-material/Sync";
@@ -135,7 +140,7 @@ export default function Home() {
     justifica3: "",
     noticket: "",
     region: "",
-    
+    unidadAdministrativa:"",
 
     // Estados para tipo de movimientos
     intersistemas: interIsTrue,
@@ -199,6 +204,35 @@ export default function Home() {
     }));
   };
 
+  //SOLO EN CASO DE QUE QUIERA UN LISTADO EN ÁREAS
+/*
+    // Manejo de Autocomplete de UA
+  const handleUA = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      unidadAdministrativa: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      areas:"",
+      //subgerencia:"",
+    }));
+  };
+  const handleUARes = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      unidadAdministrativaResponsable: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+
+   // Manejo de Autocomplete de Área de Adscripción 
+  const handleArea = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      areas: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      subgerencia:"",
+    }));
+  };
+  //FILTRADO DE ÁREA DE ADSCRIPCIÓN
+    const filteredAreas = areas[formData.unidadAdministrativa] || [];
+  */
   //TIPO MOVIMIENTO
   const handleChangeMovimiento = (event) => {
     const selectedValue = event.target.value;
@@ -207,6 +241,7 @@ export default function Home() {
       movimientoID: selectedValue, // Guarda EL MOVIMIENTO seleccionado
     }));
   };
+  
   // Tablas
   useEffect(() => {
     setFormData((prevFormData) => ({
@@ -1305,6 +1340,56 @@ export default function Home() {
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
+          {/**SOLO EN CASO DE QUE DIGA QUE SI QUIERE UN LISTADO DE ÁREAS */}
+          {/**UNIDAD ADMINISTRARTIVA */}
+          {/*<Autocomplete
+            disablePortal
+            options={unidadesAdmin}
+            //freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.unidadAdministrativa}
+                placeholder="Seleccione la Unidad Administrativa"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Unidad Administrativa"
+              />
+            )}
+            id="unidadAdministrativa"
+            name="unidadAdministrativa"
+            onChange={(event, newValue) => {
+              handleUA(newValue); // Maneja selección de opciones
+            }}            
+            inputValue={formData.unidadAdministrativa || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />*/}
+
+          {/**ÁREA DE ADSCRIPCIÓN */}
+          {/*  <Autocomplete
+              disablePortal
+              options={filteredAreas}            
+              //freeSolo
+              renderInput={(params) => (
+                <TextField
+                  required
+                  //error={!!errors?.unidadAdministrativa}
+                  placeholder="Seleccione la Área de Adscripción"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Área de Adscripción"
+                />
+              )}
+              id="areas"
+              name="areas"
+              onChange={(event, newValue) => {
+                handleArea(newValue); // Maneja selección de opciones
+              }}            
+              inputValue={formData.areas || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />    */}    
         </Box>
 
           
