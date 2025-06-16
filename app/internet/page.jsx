@@ -353,7 +353,7 @@ export default function Home() {
           key !== "urlDropbox" &&
           key !== "urlOnedrive" &&
           key !== "urlSkype" &&
-          key !== "rulWetransfer"
+          key !== "urlWetransfer"
         ) {
           console.log("Campo requerido: ", key);
           errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
