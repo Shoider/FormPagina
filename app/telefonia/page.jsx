@@ -112,33 +112,6 @@ export default function Home() {
   // Boton
   const [botonEstado, setBotonEstado] = useState("Enviar");
 
-  //Modal
-   const [openModal, setOpenModal] = useState(false);
-    const handleOpenModal = () => {
-      //No abrir el modal si ya está en modo descarga
-      if (botonEstado === "Descargar PDF") return;
-      const [isValid, isValidTabla, getErrors] =
-      validarCamposRequeridos(formData);
-      setErrors(getErrors);
-  
-      //console.log("Lista getErrors en submit: ", getErrors);
-  
-      if (!isValid) {
-        setAlert({
-          message: "Por favor, complete todos los campos requeridos.",
-          severity: "warning",
-        });
-      } else {
-        setOpenModal(true);
-        return;
-      }
-      setOpenAlert(true);
-      return;
-    };
-    
-    const handleCloseModal = () => {
-      setOpenModal(false);
-    };
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
 
@@ -224,7 +197,7 @@ export default function Home() {
 
     try {
       // PDF api
-      const pdfResponse = await axios.post("/api2/v3/telefonia", formData, {
+      const formResponse = await axios.post("/api2/v3/telefonia", formData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -274,34 +247,34 @@ export default function Home() {
 
         setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
 
-            if (error.response) {
-        // Si hay respuesta, podemos acceder al código de estado y a los datos.
-        const statusCode = error.response.status;
-        const errorData = error.response.data;
+          if (error.response) {
+            // Si hay respuesta, podemos acceder al código de estado y a los datos.
+            const statusCode = error.response.status;
+            const errorData = error.response.data;
 
-        console.error(`Error con código ${statusCode}:`, errorData.message);
+            console.error(`Error con código ${statusCode}:`, errorData.message);
 
-        // Manejamos el caso específico del error 422.
-        if (statusCode === 422) {
-          setAlert({
-            // Usamos el mensaje de error que viene de la API.
-            message: errorData.message || "Hay errores en los datos enviados.",
-            severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
-          });
-        } else {
-          // 3. Manejamos otros errores del servidor (ej. 404, 500).
-          setAlert({
-            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
-            severity: "error",
-          });
-        }
-      } else {
-        // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
-        console.error("Error de red o de conexión:", error.message);
-        setAlert({
-          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
-          severity: "error",
-        });
+            // Manejamos el caso específico del error 422.
+            if (statusCode === 422) {
+              setAlert({
+                // Usamos el mensaje de error que viene de la API.
+                message: errorData.message || "Hay errores en los datos enviados.",
+                severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
+              });
+            } else {
+              // 3. Manejamos otros errores del servidor (ej. 404, 500).
+              setAlert({
+                message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+                severity: "error",
+              });
+            }
+          } else {
+            // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+            console.error("Error de red o de conexión:", error.message);
+            setAlert({
+              message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+              severity: "error",
+            });
       } 
       setOpenAlert(true);
     }
