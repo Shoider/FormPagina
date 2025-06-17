@@ -105,15 +105,15 @@ function EditToolbar(props) {
 function EditableTableRemoto({ initialData, onDataChange }) {
   const [rows, setRows] = useState(initialData || []);
   const [rowModesModel, setRowModesModel] = useState({});
-  
+
   const calculateNextId = useCallback((currentData) => {
     return currentData && currentData.length > 0
       ? Math.max(...currentData.map((item) => item.id)) + 1
       : 1;
   }, []);
-  
+
   const [nextId, setNextId] = useState(() => calculateNextId(initialData));
-  
+
   useEffect(() => {
     setNextId(calculateNextId(initialData));
   }, [initialData, calculateNextId]);
@@ -175,18 +175,18 @@ function EditableTableRemoto({ initialData, onDataChange }) {
       field: "id",
       headerName: "N°",
       type: "number",
-      width:"auto",
-      flex:0.3,
+      width: "auto",
+      flex: 0.3,
       align: "center",
       headerAlign: "center",
       editable: false,
-      sortable : false,
+      sortable: false,
     },
     {
       field: "movimiento",
       headerName: "A | B | C",
-      width:"auto",
-      flex:0.7,
+      width: "auto",
+      flex: 0.7,
       align: "center",
       headerAlign: "center",
       editable: true,
@@ -197,57 +197,57 @@ function EditableTableRemoto({ initialData, onDataChange }) {
     {
       field: "nomenclatura",
       headerName: "Nomenclatura",
-      flex:0.7,
+      flex: 0.7,
       type: "string",
-      width:"auto",
+      width: "auto",
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "nombreSistema",
       headerName: "Nombre",
-      flex:1,
+      flex: 1,
       type: "string",
-      width:"auto",
+      width: "auto",
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "direccion",
       headerName: "Dirección IP",
-      width:"auto",
-      flex:1,
+      width: "auto",
+      flex: 1,
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "sistemaOperativo",
       headerName: "Sistema operativo",
-      width:"auto",
-      flex:1,
+      width: "auto",
+      flex: 1,
       align: "center",
       headerAlign: "center",
       editable: true,
       type: "singleSelect",
       valueOptions: ["Windows", "Linux", "macOS"],
-      sortable:false,
+      sortable: false,
     },
     {
       field: "actions",
       type: "actions",
       headerName: "Acciones",
-      flex:1,
-      width:"auto",
+      flex: 1,
+      width: "auto",
       align: "center",
       headerAlign: "center",
       cellClassName: "actions",
-      sortable:false,
+      sortable: false,
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 

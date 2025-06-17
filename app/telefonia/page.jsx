@@ -20,7 +20,7 @@ import {
   Modal,
 } from "@mui/material";
 import Image from "next/image";
-import Link from 'next/link';
+import Link from "next/link";
 import axios from "axios";
 
 import Alerts from "../components/alerts.jsx";
@@ -124,33 +124,32 @@ export default function Home() {
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
 
-    // Modal
-    const [openModal, setOpenModal] = useState(false);
-    const handleOpenModal = () => {
-      //No abrir el modal si ya está en modo descarga
-      if (botonEstado === "Descargar PDF") return;
-      const [isValid, getErrors] =
-      validarCamposRequeridos(formData);
-      setErrors(getErrors);
-  
-      console.log("Lista getErrors en submit: ", getErrors);
-  
-      if (!isValid) {
-        setAlert({
-          message: "Por favor, complete todos los campos requeridos.",
-          severity: "warning",
-        });
-      } else {
-        setOpenModal(true);
-        return;
-      }
-      setOpenAlert(true);
+  // Modal
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => {
+    //No abrir el modal si ya está en modo descarga
+    if (botonEstado === "Descargar PDF") return;
+    const [isValid, getErrors] = validarCamposRequeridos(formData);
+    setErrors(getErrors);
+
+    console.log("Lista getErrors en submit: ", getErrors);
+
+    if (!isValid) {
+      setAlert({
+        message: "Por favor, complete todos los campos requeridos.",
+        severity: "warning",
+      });
+    } else {
+      setOpenModal(true);
       return;
-    };
-    
-    const handleCloseModal = () => {
-      setOpenModal(false);
-    };
+    }
+    setOpenAlert(true);
+    return;
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   const [errors, setErrors] = useState({});
 
@@ -193,15 +192,19 @@ export default function Home() {
       // PDF api
       const formResponse = await axios.post("/api2/v3/telefonia", formData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
-      console.log("Respuesta: ", formResponse.data)
-      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Respuesta: ", formResponse.data);
+      const {
+        message: formMessage,
+        id: formId,
+        epoch: epoch,
+      } = formResponse.data;
       console.log("Petición exitosa: ", formMessage);
       console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch)
+      console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`TELEFONIA_${epoch}.pdf`);
 
       setAlert({
@@ -212,23 +215,26 @@ export default function Home() {
 
       try {
         // Aqui llamamos a la otra api para el pdf
-        const pdfResponse = await axios.post("/api/v3/telefonia", { id: formId }, {
-          responseType: "blob",
-        });
+        const pdfResponse = await axios.post(
+          "/api/v3/telefonia",
+          { id: formId },
+          {
+            responseType: "blob",
+          },
+        );
 
-          if (pdfResponse.status === 200) {
-            setPdfUrl(URL.createObjectURL(pdfResponse.data));
-            setBotonEstado("Descargar PDF");
-            setAlert({
-              message: "PDF listo para descargar",
-              severity: "success",
-            });
-            setOpenAlert(true);
-          } else {
-            console.error("Ocurrio un error al generar el PDF");
-            console.error(pdfResponse.status);
-          }
-        
+        if (pdfResponse.status === 200) {
+          setPdfUrl(URL.createObjectURL(pdfResponse.data));
+          setBotonEstado("Descargar PDF");
+          setAlert({
+            message: "PDF listo para descargar",
+            severity: "success",
+          });
+          setOpenAlert(true);
+        } else {
+          console.error("Ocurrio un error al generar el PDF");
+          console.error(pdfResponse.status);
+        }
       } catch (error) {
         console.error("Error:", error);
         setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
@@ -238,10 +244,8 @@ export default function Home() {
         });
         setOpenAlert(true);
       }
-
     } catch (error) {
-
-    setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
 
       if (error.response) {
         // Si hay respuesta, podemos acceder al código de estado y a los datos.
@@ -252,7 +256,7 @@ export default function Home() {
 
         // Construct an object to update the errors state
         const newErrors = {
-          [errorData.campo]: errorData.message // Use the field name as the key and the message as the value
+          [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
         };
         setErrors(newErrors);
         //console.log("Errores API: ", newErrors); // Log the newErrors object
@@ -269,7 +273,7 @@ export default function Home() {
         } else {
           // 3. Manejamos otros errores del servidor (ej. 404, 500).
           setAlert({
-            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
             severity: "error",
           });
         }
@@ -277,24 +281,23 @@ export default function Home() {
         // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
         console.error("Error de red o de conexión:", error.message);
         setAlert({
-          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          message:
+            "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
           severity: "error",
         });
-      } 
+      }
       setOpenAlert(true);
     }
   };
 
-const handleModelo = (newValue) => {
+  const handleModelo = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       modelo: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
-//FILTRADO DE MODELOS
+  //FILTRADO DE MODELOS
   const filteredModelo = modelos[formData.marca] || [];
-
-
 
   ///POLITICAS Y SERVICIOS
   const savePoliticas = async (event) => {
@@ -413,7 +416,7 @@ const handleModelo = (newValue) => {
     setFormData((prevData) => ({
       ...prevData,
       marca: selectedValue, // Guarda la marca seleccionado
-      modelo:"",
+      modelo: "",
     }));
   };
 
@@ -727,7 +730,6 @@ const handleModelo = (newValue) => {
             onChange={(event, newValue) => {
               handleUA(newValue); // Maneja selección de opciones
             }}
-            
             inputValue={formData.uaUsuario || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
@@ -1161,7 +1163,7 @@ const handleModelo = (newValue) => {
           {/**MODELO */}
           <Autocomplete
             disablePortal
-            options={filteredModelo}            
+            options={filteredModelo}
             freeSolo
             renderInput={(params) => (
               <TextField
@@ -1177,10 +1179,10 @@ const handleModelo = (newValue) => {
             name="modelo"
             onChange={(event, newValue) => {
               handleModelo(newValue); // Maneja selección de opciones
-            }}            
+            }}
             onInputChange={(event, newInputValue) => {
-              if (event?.type === "change") {                
-                handleModelo(newInputValue) // Maneja texto escrito directamente                
+              if (event?.type === "change") {
+                handleModelo(newInputValue); // Maneja texto escrito directamente
               }
             }}
             inputValue={formData.modelo || ""} // Controla el valor mostrado
@@ -1213,7 +1215,6 @@ const handleModelo = (newValue) => {
           />
         </Box>
       </Box>
-
 
       {/* Datos del Servicio */}
       {/* Form Box Responsive */}
@@ -1270,8 +1271,6 @@ const handleModelo = (newValue) => {
             mb: 1,
           }}
         />
-
-        
 
         {/* <Box
           sx={{
@@ -1502,7 +1501,7 @@ const handleModelo = (newValue) => {
           </FormHelperText>
         </Box>
 
-{/*         <Divider
+        {/*         <Divider
           sx={{
             borderBottomWidth: "1px",
             borderColor: "grey",
@@ -1559,14 +1558,7 @@ const handleModelo = (newValue) => {
             mb: 3,
           }}
         />
-
-
       </Box>
-
-      
-
-
-
 
       {/* Datos de Politicas */}
       {/* Form Box Responsive */}
@@ -1622,46 +1614,56 @@ const handleModelo = (newValue) => {
               color="#9F2241"
               sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
             >
-              1.	El formato deberá estar debidamente llenado y contener toda la información 
-              requerida facilitando la aplicación expedita de las configuraciones solicitadas.
+              1. El formato deberá estar debidamente llenado y contener toda la
+              información requerida facilitando la aplicación expedita de las
+              configuraciones solicitadas.
               <br />
-              2.	El solicitante deberá presentar este formato adjuntando el memorando y número 
-              de caso (ticket) de Mesa de ayuda asociado, sin los cuales no se podrá atender su 
-              solicitud.  
-              <br/>
-              3.	El solicitante deberá proporcionar la dirección IP de su equipo de cómputo para
-               poder aplicar las configuraciones requeridas. Esta información la podrá obtener 
-               utilizando el comando “ipconfig /all” en una ventana de línea de comando. 
-               En caso de requerir ayuda para ejecutar el comando indicado, favor de contactar al 
-               área de Soporte Técnico de la CONAGUA.
-              <br/>
-              4.	El solicitante deberá agregar en la <b>Justificación</b> si la solicitud se deriva de 
-              un cambio de lugar (oficina, mampara o piso) del usuario que a su vez haya derivado 
-              en un cambio de dirección IP de su equipo de cómputo. 
-              <br/>
-              5.	En caso de un cambio de dirección IP, el usuario deberá especificar la dirección
-               IP anterior para eliminar los privilegios en dicha dirección IP. Si el solicitante 
-               NO indica que se trata de un cambio de dirección IP, éste será responsable de cualquier 
-               acceso no autorizado que se derive de los permisos de la dirección IP anterior al no 
-               tramitar la baja correspondiente.
-              <br/>
-              6.	El usuario es responsable del uso que se otorga con el acceso ampliado otorgado a su 
-              equipo de cómputo, por lo que deberá vigilar que el uso sea acorde a las políticas de la
-               Seguridad de la Información definidas por la Gerencia de Tecnología de la Información
-                y Comunicaciones. 
-               <br/>
-              7.	El solicitante deberá conservar el Acuse o copia del formato firmado y sellado, así 
-              como el memorando asociado, para posteriores aclaraciones. 
-              <br/>
-              8.	Es responsabilidad de los gerentes y subgerentes llevar un control de los usuarios y 
-              sus direcciones IP’s con accesos de Internet ampliados. 
-              <br/>
-              9.	Al firmar el usuario se da por enterado de las políticas del servicio y acepta la 
-              responsabilidad de cualquier uso inadecuado que se le dé a los privilegios de acceso ampliados 
-              los cuales haya solicitado.
-              <br/>
-              10.	Al firmar el Gerente o Director que autoriza se da por enterado de las políticas del servicio 
-              y acepta la corresponsabilidad del uso que le dé el usuario al acceso ampliado otorgado.
+              2. El solicitante deberá presentar este formato adjuntando el
+              memorando y número de caso (ticket) de Mesa de ayuda asociado, sin
+              los cuales no se podrá atender su solicitud.
+              <br />
+              3. El solicitante deberá proporcionar la dirección IP de su equipo
+              de cómputo para poder aplicar las configuraciones requeridas. Esta
+              información la podrá obtener utilizando el comando “ipconfig /all”
+              en una ventana de línea de comando. En caso de requerir ayuda para
+              ejecutar el comando indicado, favor de contactar al área de
+              Soporte Técnico de la CONAGUA.
+              <br />
+              4. El solicitante deberá agregar en la <b>Justificación</b> si la
+              solicitud se deriva de un cambio de lugar (oficina, mampara o
+              piso) del usuario que a su vez haya derivado en un cambio de
+              dirección IP de su equipo de cómputo.
+              <br />
+              5. En caso de un cambio de dirección IP, el usuario deberá
+              especificar la dirección IP anterior para eliminar los privilegios
+              en dicha dirección IP. Si el solicitante NO indica que se trata de
+              un cambio de dirección IP, éste será responsable de cualquier
+              acceso no autorizado que se derive de los permisos de la dirección
+              IP anterior al no tramitar la baja correspondiente.
+              <br />
+              6. El usuario es responsable del uso que se otorga con el acceso
+              ampliado otorgado a su equipo de cómputo, por lo que deberá
+              vigilar que el uso sea acorde a las políticas de la Seguridad de
+              la Información definidas por la Gerencia de Tecnología de la
+              Información y Comunicaciones.
+              <br />
+              7. El solicitante deberá conservar el Acuse o copia del formato
+              firmado y sellado, así como el memorando asociado, para
+              posteriores aclaraciones.
+              <br />
+              8. Es responsabilidad de los gerentes y subgerentes llevar un
+              control de los usuarios y sus direcciones IP’s con accesos de
+              Internet ampliados.
+              <br />
+              9. Al firmar el usuario se da por enterado de las políticas del
+              servicio y acepta la responsabilidad de cualquier uso inadecuado
+              que se le dé a los privilegios de acceso ampliados los cuales haya
+              solicitado.
+              <br />
+              10. Al firmar el Gerente o Director que autoriza se da por
+              enterado de las políticas del servicio y acepta la
+              corresponsabilidad del uso que le dé el usuario al acceso ampliado
+              otorgado.
             </Typography>
           </Box>
           <Box
@@ -1680,7 +1682,8 @@ const handleModelo = (newValue) => {
             {[
               {
                 name: "politicasaceptadas",
-                label: "He léido y acepto los términos y condiciones del servicio *",
+                label:
+                  "He léido y acepto los términos y condiciones del servicio *",
               },
             ].map((item, index) => (
               <Box
@@ -1816,87 +1819,94 @@ const handleModelo = (newValue) => {
             {botonEstado}
           </Button>
 
-        <Modal
-          open={openModal}
-          onClose={handleCloseModal}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-        <Box sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 400,
-          background: "#F4F4F5",
-          border: "2px solid grey",
-          borderRadius: 2,
-          boxShadow: 24,
-          pt: 2,
-          px: 4,
-          pb: 3,
-        }}>
-          <Typography id="modal-modal-title" align="center" variant="h6" component="h2">
-            ¡ADVERTENCIA!
-          </Typography>
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 0,
-              mr: 0,
-              mt: 2,
-              mb: 1,
-            }}
-          />
-          <Typography id="modal-modal-description" sx={{ mt: 2 }} >
-            Asegurate de que la información registrada es correcta, ya que no se
-            puede corregir una vez enviada.
-          </Typography>
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 0,
-              mr: 0,
-              mt: 2,
-              mb: 0,
-            }}
-          />
-          <Button
-          onClick={handleCloseModal}
-          variant="contained"
-          sx={{
-            mt: 3,
-            mb: 0,
-            width: "calc(50% - 16px)",
-            ml: 0,
-            mr: 0,
-            background: "#98989A",
-            color: "#FFFFFF",
-            border: "1px solid gray",
-          }}
-        >
-          Regresar
-        </Button>
-        <Button
-          onClick={handleSubmit}
-          variant="contained"
-          sx={{
-            mt: 3,
-            mb: 0,
-            width: "calc(50% - 16px)",
-            ml: 4,
-            mr: 0,
-            background: theme.palette.secondary.main,
-            color: "#FFFFFF",
-            border: "1px solid gray",
-          }}
-        >
-          Enviar
-        </Button>
-        </Box>
-      </Modal>
+          <Modal
+            open={openModal}
+            onClose={handleCloseModal}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 400,
+                background: "#F4F4F5",
+                border: "2px solid grey",
+                borderRadius: 2,
+                boxShadow: 24,
+                pt: 2,
+                px: 4,
+                pb: 3,
+              }}
+            >
+              <Typography
+                id="modal-modal-title"
+                align="center"
+                variant="h6"
+                component="h2"
+              >
+                ¡ADVERTENCIA!
+              </Typography>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 1,
+                }}
+              />
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Asegurate de que la información registrada es correcta, ya que
+                no se puede corregir una vez enviada.
+              </Typography>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 0,
+                }}
+              />
+              <Button
+                onClick={handleCloseModal}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 0,
+                  mr: 0,
+                  background: "#98989A",
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Regresar
+              </Button>
+              <Button
+                onClick={handleSubmit}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 4,
+                  mr: 0,
+                  background: theme.palette.secondary.main,
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Enviar
+              </Button>
+            </Box>
+          </Modal>
 
           <Button
             component={Link}
@@ -1916,7 +1926,7 @@ const handleModelo = (newValue) => {
             Regresar al Inicio
           </Button>
           <Button
-            type= "reset"
+            type="reset"
             variant="contained"
             sx={{
               mt: 0,
@@ -1928,9 +1938,7 @@ const handleModelo = (newValue) => {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={
-              botonEstado !== "Descargar PDF"
-            }
+            disabled={botonEstado !== "Descargar PDF"}
             onClick={() => {
               window.location.reload();
               window.scrollTo(0, 0);

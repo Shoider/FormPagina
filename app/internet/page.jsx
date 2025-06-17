@@ -17,7 +17,7 @@ import {
   Modal,
 } from "@mui/material";
 import Image from "next/image";
-import Link from 'next/link';
+import Link from "next/link";
 import axios from "axios";
 import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
@@ -26,7 +26,6 @@ import ala from "../constants/ala.jsx";
 import pisos from "../constants/pisos.jsx";
 import telefonoAutocomplete from "../constants/telefono.jsx";
 import areas from "../constants/AREAS/areas.jsx";
-
 
 export default function Home() {
   const theme = useTheme();
@@ -40,7 +39,7 @@ export default function Home() {
     ipUsuario: "",
     correoUsuario: "",
     direccion: "",
-    teleUsuario: "", 
+    teleUsuario: "",
     extUsuario: "",
     nombreJefe: "",
     puestoJefe: "",
@@ -278,38 +277,36 @@ export default function Home() {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-  
+
   // Boton
   const [botonEstado, setBotonEstado] = useState("Enviar");
   //Modal
-   const [openModal, setOpenModal] = useState(false);
-    const handleOpenModal = () => {
-      //No abrir el modal si ya está en modo descarga
-      if (botonEstado === "Descargar PDF") return;
-      const [isValid, getErrors] =
-      validarCamposRequeridos(formData);
-      setErrors(getErrors);
-  
-      //console.log("Lista getErrors en submit: ", getErrors);
-      //console.log(formData)
-  
-      if (!isValid) {
-        setAlert({
-          message: "Por favor, complete todos los campos requeridos.",
-          severity: "warning",
-        });
-      } else {
-        setOpenModal(true);
-        return;
-      }
-      setOpenAlert(true);
-      return;
-    };
-    
-    const handleCloseModal = () => {
-      setOpenModal(false);
-    };
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => {
+    //No abrir el modal si ya está en modo descarga
+    if (botonEstado === "Descargar PDF") return;
+    const [isValid, getErrors] = validarCamposRequeridos(formData);
+    setErrors(getErrors);
 
+    //console.log("Lista getErrors en submit: ", getErrors);
+    //console.log(formData)
+
+    if (!isValid) {
+      setAlert({
+        message: "Por favor, complete todos los campos requeridos.",
+        severity: "warning",
+      });
+    } else {
+      setOpenModal(true);
+      return;
+    }
+    setOpenAlert(true);
+    return;
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
@@ -421,15 +418,19 @@ export default function Home() {
       // Aqui llamamos a la primera api que valida campos
       const formResponse = await axios.post("/api2/v3/internet", formData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
-      console.log("Respuesta: ", formResponse.data)
-      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Respuesta: ", formResponse.data);
+      const {
+        message: formMessage,
+        id: formId,
+        epoch: epoch,
+      } = formResponse.data;
       console.log("Petición exitosa: ", formMessage);
       console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch)
+      console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`INTERNET_${epoch}.pdf`);
 
       setAlert({
@@ -440,9 +441,13 @@ export default function Home() {
 
       try {
         // Aqui llamamos a la otra api para el pdf
-        const pdfResponse = await axios.post("/api/v3/internet", { id: formId }, {
-          responseType: "blob",
-        });
+        const pdfResponse = await axios.post(
+          "/api/v3/internet",
+          { id: formId },
+          {
+            responseType: "blob",
+          },
+        );
 
         if (pdfResponse.status === 200) {
           setPdfUrl(URL.createObjectURL(pdfResponse.data));
@@ -456,7 +461,6 @@ export default function Home() {
           console.error("Ocurrio un error al generar el PDF");
           console.error(pdfResponse.status);
         }
-
       } catch (error) {
         console.error("Error:", error);
         setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
@@ -466,9 +470,7 @@ export default function Home() {
         });
         setOpenAlert(true);
       }
-
     } catch (error) {
-
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
 
       if (error.response) {
@@ -480,7 +482,7 @@ export default function Home() {
 
         // Construct an object to update the errors state
         const newErrors = {
-          [errorData.campo]: errorData.message // Use the field name as the key and the message as the value
+          [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
         };
         setErrors(newErrors);
         //console.log("Errores API: ", newErrors); // Log the newErrors object
@@ -497,7 +499,7 @@ export default function Home() {
         } else {
           // 3. Manejamos otros errores del servidor (ej. 404, 500).
           setAlert({
-            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
             severity: "error",
           });
         }
@@ -505,10 +507,11 @@ export default function Home() {
         // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
         console.error("Error de red o de conexión:", error.message);
         setAlert({
-          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          message:
+            "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
           severity: "error",
         });
-      } 
+      }
       setOpenAlert(true);
     }
   };
@@ -570,14 +573,14 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       uaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
-      areaUsuario:"",
+      areaUsuario: "",
     }));
   };
-  // Manejo de Autocomplete de Área de Adscripción 
+  // Manejo de Autocomplete de Área de Adscripción
   const handleArea = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      areaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)      
+      areaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
   //FILTRADO DE ÁREA DE ADSCRIPCIÓN
@@ -766,39 +769,39 @@ export default function Home() {
             onChange={(event, newValue) => {
               handleUA(newValue); // Maneja selección de opciones
             }}
-           // onInputChange={(event, newInputValue) => {
-             // if (event?.type === "change") {
-               // handleUA(newInputValue); // Maneja texto escrito directamente
-              //}
+            // onInputChange={(event, newInputValue) => {
+            // if (event?.type === "change") {
+            // handleUA(newInputValue); // Maneja texto escrito directamente
+            //}
             //}}
             inputValue={formData.uaUsuario || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
           {/**ÁREA DE ADSCRIPCIÓN */}
-            <Autocomplete
-              disablePortal
-              options={filteredAreas}            
-              //freeSolo
-              renderInput={(params) => (
-                <TextField
-                  required
-                  error={!!errors?.areaUsuario}
-                  placeholder="Seleccione la Área de Adscripción"
-                  sx={{ background: "#FFFFFF" }}
-                  {...params}
-                  label="Área de Adscripción"
-                />
-              )}
-              id="areaUsuario"
-              name="areaUsuario"
-              onChange={(event, newValue) => {
-                handleArea(newValue); // Maneja selección de opciones
-              }}            
-              inputValue={formData.areaUsuario || ""} // Controla el valor mostrado
-              getOptionLabel={(option) => option || ""}
-              isOptionEqualToValue={(option, value) => option === value}
-            />    
+          <Autocomplete
+            disablePortal
+            options={filteredAreas}
+            //freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.areaUsuario}
+                placeholder="Seleccione la Área de Adscripción"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Área de Adscripción"
+              />
+            )}
+            id="areaUsuario"
+            name="areaUsuario"
+            onChange={(event, newValue) => {
+              handleArea(newValue); // Maneja selección de opciones
+            }}
+            inputValue={formData.areaUsuario || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
           <TextField
             required
             error={!!errors?.ipUsuario}
@@ -926,21 +929,23 @@ export default function Home() {
               isOptionEqualToValue={(option, value) => option === value}
             />
           </Box>
-          
+
           <Autocomplete
             freeSolo
-            
             options={telefonoAutocomplete}
             getOptionLabel={(option) => option.label || option.value || ""}
             onChange={(event, newValue) => {
-              if (typeof newValue === 'string') {
-                handleChange({ target: { name: 'teleUsuario', value: newValue } });
+              if (typeof newValue === "string") {
+                handleChange({
+                  target: { name: "teleUsuario", value: newValue },
+                });
               } else if (newValue && newValue.value) {
-                handleChange({ target: { name: 'teleUsuario', value: newValue.value } });
+                handleChange({
+                  target: { name: "teleUsuario", value: newValue.value },
+                });
+              } else {
+                handleChange({ target: { name: "teleUsuario", value: "" } });
               }
-              else {
-                  handleChange({ target: { name: 'teleUsuario', value: '' } });
-                }
             }}
             renderInput={(params) => (
               <TextField
@@ -2617,55 +2622,54 @@ export default function Home() {
               color="#9F2241"
               sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
             >
-              
-                • Es responsabilidad de los servidores públicos, así como personal externo de los activos de información 
-                el adoptar las medidas que determine la CONAGUA para mantener y garantizar la seguridad de la Información, 
-                siendo la Gerencia de Tecnología de la Información y Comunicaciones la responsable de establecer los mecanismos 
-                que permitan garantizar la confidencialidad, integridad y disponibilidad de la Información. 
-              
+              • Es responsabilidad de los servidores públicos, así como personal
+              externo de los activos de información el adoptar las medidas que
+              determine la CONAGUA para mantener y garantizar la seguridad de la
+              Información, siendo la Gerencia de Tecnología de la Información y
+              Comunicaciones la responsable de establecer los mecanismos que
+              permitan garantizar la confidencialidad, integridad y
+              disponibilidad de la Información.
               <br />
-              
-                • La Subgerencia de Internet e Intranet, adscrita a la Gerencia de Tecnología de la Información y Comunicaciones, 
-                como administrador del servicio es el área responsable de definir los lineamientos que deberán ser atendidos por 
-                todos los usuarios y administradores en la ampliación del servicio de navegación de internet. 
-              
+              • La Subgerencia de Internet e Intranet, adscrita a la Gerencia de
+              Tecnología de la Información y Comunicaciones, como administrador
+              del servicio es el área responsable de definir los lineamientos
+              que deberán ser atendidos por todos los usuarios y administradores
+              en la ampliación del servicio de navegación de internet.
               <br />
-              
-                • La Subgerencia de Internet e Intranet, será la responsable de implementar y garantizar la disponibilidad 
-                en todo momento del servicio. 
-              
+              • La Subgerencia de Internet e Intranet, será la responsable de
+              implementar y garantizar la disponibilidad en todo momento del
+              servicio.
               <br />
-              
-                 • Los accesos para los servicios habilitados serán exclusivamente para los usuarios que tengan debidamente la 
-                 justificación y que cumplan con el llenado del formato y su formalización mediante el memorándum correspondiente 
-                 para hacer uso de ella. 
-              
+              • Los accesos para los servicios habilitados serán exclusivamente
+              para los usuarios que tengan debidamente la justificación y que
+              cumplan con el llenado del formato y su formalización mediante el
+              memorándum correspondiente para hacer uso de ella.
               <br />
-              
-                • Es responsabilidad de quien autoriza los accesos solicitados y justificados anteriormente, así como
-                 la supervisión del correcto uso de los recursos, siendo la Subgerencia de Internet e Intranet el área
-                  responsable de la validación y supervisión periódica del buen uso de estos, lo anterior para salvaguardar 
-                  el correcto funcionamiento de la infraestructura que soportan los servicios de la CONAGUA. 
-              
+              • Es responsabilidad de quien autoriza los accesos solicitados y
+              justificados anteriormente, así como la supervisión del correcto
+              uso de los recursos, siendo la Subgerencia de Internet e Intranet
+              el área responsable de la validación y supervisión periódica del
+              buen uso de estos, lo anterior para salvaguardar el correcto
+              funcionamiento de la infraestructura que soportan los servicios de
+              la CONAGUA.
               <br />
-              
-                • Los usuarios con ampliación en la Navegación de Internet deben usar responsablemente el servicio de 
-                navegación web que es proporcionado por la Gerencia de Tecnología de la Información y Comunicaciones. 
-              
+              • Los usuarios con ampliación en la Navegación de Internet deben
+              usar responsablemente el servicio de navegación web que es
+              proporcionado por la Gerencia de Tecnología de la Información y
+              Comunicaciones.
               <br />
-              
-                 • Queda prohibido descargar y abrir páginas web o archivos sospechosos que puedan comprometer los equipos 
-                 y la red. Para cualquier duda sobre algún sitio o página que represente actividad sospechosa, deberá hacer 
-                 de conocimiento a la GTIC a través de la Mesa de Servicios. 
-              
-
+              • Queda prohibido descargar y abrir páginas web o archivos
+              sospechosos que puedan comprometer los equipos y la red. Para
+              cualquier duda sobre algún sitio o página que represente actividad
+              sospechosa, deberá hacer de conocimiento a la GTIC a través de la
+              Mesa de Servicios.
               <br />
-              
-                • La violación, desatento u omisión de las políticas y procedimientos de Seguridad de la Información 
-                de la CONAGUA generan sanciones previstas en la Ley General de responsabilidades Administrativas; en la 
-                Ley del Servicio Profesional de Carrera en la Administración Pública Federal y demás disposiciones 
-                jurídicas aplicables.
-              
+              • La violación, desatento u omisión de las políticas y
+              procedimientos de Seguridad de la Información de la CONAGUA
+              generan sanciones previstas en la Ley General de responsabilidades
+              Administrativas; en la Ley del Servicio Profesional de Carrera en
+              la Administración Pública Federal y demás disposiciones jurídicas
+              aplicables.
               <br />
             </Typography>
           </Box>
@@ -2685,7 +2689,8 @@ export default function Home() {
             {[
               {
                 name: "politicasaceptadas",
-                label: "He léido y acepto los términos y condiciones del servicio *",
+                label:
+                  "He léido y acepto los términos y condiciones del servicio *",
               },
             ].map((item, index) => (
               <Box
@@ -2819,26 +2824,33 @@ export default function Home() {
             {botonEstado}
           </Button>
           <Modal
-              open={openModal}
-              onClose={handleCloseModal}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
+            open={openModal}
+            onClose={handleCloseModal}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 400,
+                background: "#F4F4F5",
+                border: "2px solid grey",
+                borderRadius: 2,
+                boxShadow: 24,
+                pt: 2,
+                px: 4,
+                pb: 3,
+              }}
             >
-            <Box sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: 400,
-              background: "#F4F4F5",
-              border: "2px solid grey",
-              borderRadius: 2,
-              boxShadow: 24,
-              pt: 2,
-              px: 4,
-              pb: 3,
-            }}>
-              <Typography id="modal-modal-title" align="center" variant="h6" component="h2">
+              <Typography
+                id="modal-modal-title"
+                align="center"
+                variant="h6"
+                component="h2"
+              >
                 ¡ADVERTENCIA!
               </Typography>
               <Divider
@@ -2851,9 +2863,9 @@ export default function Home() {
                   mb: 1,
                 }}
               />
-              <Typography id="modal-modal-description" sx={{ mt: 2 }} >
-                Asegurate de que la información registrada es correcta, ya que no se
-                puede corregir una vez enviada.
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Asegurate de que la información registrada es correcta, ya que
+                no se puede corregir una vez enviada.
               </Typography>
               <Divider
                 sx={{
@@ -2866,37 +2878,37 @@ export default function Home() {
                 }}
               />
               <Button
-              onClick={handleCloseModal}
-              variant="contained"
-              sx={{
-                mt: 3,
-                mb: 0,
-                width: "calc(50% - 16px)",
-                ml: 0,
-                mr: 0,
-                background: "#98989A",
-                color: "#FFFFFF",
-                border: "1px solid gray",
-              }}
-            >
-              Regresar
-            </Button>
-            <Button
-              onClick={handleSubmit}
-              variant="contained"
-              sx={{
-                mt: 3,
-                mb: 0,
-                width: "calc(50% - 16px)",
-                ml: 4,
-                mr: 0,
-                background: theme.palette.secondary.main,
-                color: "#FFFFFF",
-                border: "1px solid gray",
-              }}
-            >
-              Enviar
-            </Button>
+                onClick={handleCloseModal}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 0,
+                  mr: 0,
+                  background: "#98989A",
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Regresar
+              </Button>
+              <Button
+                onClick={handleSubmit}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 4,
+                  mr: 0,
+                  background: theme.palette.secondary.main,
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Enviar
+              </Button>
             </Box>
           </Modal>
           <Button
@@ -2917,7 +2929,7 @@ export default function Home() {
             Regresar al Inicio
           </Button>
           <Button
-            type= "reset"
+            type="reset"
             variant="contained"
             sx={{
               mt: 0,
@@ -2929,9 +2941,7 @@ export default function Home() {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={
-              botonEstado !== "Descargar PDF"
-            }
+            disabled={botonEstado !== "Descargar PDF"}
             onClick={() => {
               window.location.reload();
               window.scrollTo(0, 0);

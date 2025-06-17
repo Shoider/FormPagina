@@ -113,58 +113,58 @@ function EditableTableOtro({ initialData, onDataChange }) {
   const [rowModesModel, setRowModesModel] = useState({});
 
   const calculateNextId = useCallback((currentData) => {
-      return currentData && currentData.length > 0
-        ? Math.max(...currentData.map((item) => item.id)) + 1
-        : 1;
-    }, []);
-  
-    const [nextId, setNextId] = useState(() => calculateNextId(initialData));
-  
-    useEffect(() => {
-      setNextId(calculateNextId(initialData));
-    }, [initialData, calculateNextId]);
-  
-    const handleRowEditStop = (params, event) => {
-      if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-        //event.defaultMuiPrevented = true;
-      }
-    };
-  
-    const handleEditClick = (id) => () => {
-      setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-    };
-  
-    const handleSaveClick = (id) => () => {
-      setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-    };
-  
-    const handleDeleteClick = (id) => () => {
-      const newRows = rows.filter((row) => row.id !== id);
-  
-      // Actualiza los id iterando
-      const updatedRows = newRows.map((row, index) => ({
-        ...row,
-        id: index + 1,
-      }));
-  
-      setRows(updatedRows);
-      setNextId(calculateNextId(updatedRows));
-    };
-  
-    const handleCancelClick = (id) => () => {
-      setRowModesModel({
-        ...rowModesModel,
-        [id]: { mode: GridRowModes.View, ignoreModifications: true },
-      });
-  
-      const editedRow = rows.find((row) => row.id === id);
-      if (editedRow.isNew) {
-        setRows(rows.filter((row) => row.id !== id));
-      }
-      const newRows = rows.filter((row) => row.id !== id);
-      setRows(newRows);
-      setNextId(calculateNextId(newRows));
-    };
+    return currentData && currentData.length > 0
+      ? Math.max(...currentData.map((item) => item.id)) + 1
+      : 1;
+  }, []);
+
+  const [nextId, setNextId] = useState(() => calculateNextId(initialData));
+
+  useEffect(() => {
+    setNextId(calculateNextId(initialData));
+  }, [initialData, calculateNextId]);
+
+  const handleRowEditStop = (params, event) => {
+    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+      //event.defaultMuiPrevented = true;
+    }
+  };
+
+  const handleEditClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleSaveClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleDeleteClick = (id) => () => {
+    const newRows = rows.filter((row) => row.id !== id);
+
+    // Actualiza los id iterando
+    const updatedRows = newRows.map((row, index) => ({
+      ...row,
+      id: index + 1,
+    }));
+
+    setRows(updatedRows);
+    setNextId(calculateNextId(updatedRows));
+  };
+
+  const handleCancelClick = (id) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+    const newRows = rows.filter((row) => row.id !== id);
+    setRows(newRows);
+    setNextId(calculateNextId(newRows));
+  };
 
   const processRowUpdate = (newRow) => {
     const updatedRow = { ...newRow, isNew: false };
@@ -185,7 +185,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: false,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "SO",
@@ -195,7 +195,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "FRO",
@@ -205,7 +205,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "IPO",
@@ -215,7 +215,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "SD",
@@ -225,7 +225,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "FRD",
@@ -235,7 +235,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "IPD",
@@ -245,7 +245,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "PRO",
@@ -256,7 +256,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: ["TCP", "UDP"],
-      sortable:false,
+      sortable: false,
     },
     {
       field: "PUER",
@@ -266,7 +266,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "TEMPO",
@@ -277,7 +277,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: ["TEMPORAL", "PERMANENTE"],
-      sortable:false,
+      sortable: false,
     },
     {
       field: "FECHA",
@@ -287,7 +287,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     /* {
       field: "actions",

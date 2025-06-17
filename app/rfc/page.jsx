@@ -34,13 +34,11 @@ import EditableTableDes from "../components/EditableTableDes.jsx";
 import EditableTableUsua from "../components/EditableTableUsua.jsx";
 import EditableTableOtro from "../components/EditableTableOtro.jsx";
 import Alerts from "../components/alerts.jsx";
-import Link from 'next/link';
+import Link from "next/link";
 import axios from "axios";
 import { useEffect } from "react";
 //import areas from "../constants/AREAS/areas.jsx";
 //import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
-
-
 
 // ICONOS
 import SyncIcon from "@mui/icons-material/Sync";
@@ -208,7 +206,7 @@ export default function Home() {
   };
 
   //SOLO EN CASO DE QUE QUIERA UN LISTADO EN ÁREAS
-/*
+  /*
     // Manejo de Autocomplete de UA
   const handleUA = (newValue) => {
     setFormData((prevFormData) => ({
@@ -244,7 +242,7 @@ export default function Home() {
       movimientoID: selectedValue, // Guarda EL MOVIMIENTO seleccionado
     }));
   };
-  
+
   // Tablas
   useEffect(() => {
     setFormData((prevFormData) => ({
@@ -393,7 +391,7 @@ export default function Home() {
     //No abrir el modal si ya está en modo descarga
     if (botonEstado === "Descargar PDF") return;
     const [isValid, isValidTabla, getErrors] =
-    validarCamposRequeridos(formData);
+      validarCamposRequeridos(formData);
     setErrors(getErrors);
 
     //console.log("Lista getErrors en submit: ", getErrors);
@@ -405,7 +403,8 @@ export default function Home() {
       });
     } else if (!isValidTabla) {
       setAlert({
-        message: "Por favor, complete los registros de las tablas REGLAS/COMUNICACIONES.",
+        message:
+          "Por favor, complete los registros de las tablas REGLAS/COMUNICACIONES.",
         severity: "warning",
       });
     } else {
@@ -415,7 +414,7 @@ export default function Home() {
     setOpenAlert(true);
     return;
   };
-  
+
   const handleCloseModal = () => {
     setOpenModal(false);
   };
@@ -434,17 +433,17 @@ export default function Home() {
       setFormData((prev) => ({
         ...prev,
         nomei: "null",
-        extei:"null",
-        
+        extei: "null",
       }));
       if (formData.region === "regional") {
-      setFormData((prev) => ({
-        ...prev,
-        nomei: "",
-        extei:"",
-        
-      }))}
-    }}, [formData.region]);
+        setFormData((prev) => ({
+          ...prev,
+          nomei: "",
+          extei: "",
+        }));
+      }
+    }
+  }, [formData.region]);
 
   const validarCamposRequeridos = (Data) => {
     const errores = {};
@@ -479,8 +478,6 @@ export default function Home() {
     const bajaUsua = Data.BajaUsua;
     const cambioUsua = Data.CambioUsua;
 
-    
-
     // Verifica si al menos uno de los campos de justificación está lleno
     if (!justifica && !justifica2 && !justifica3) {
       // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
@@ -496,12 +493,12 @@ export default function Home() {
     if (region === "regional") {
       // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
       if (!Data.extei) {
-          errores.extei = "Este campo es requerido";
-          isValid = false;
+        errores.extei = "Este campo es requerido";
+        isValid = false;
       }
       if (!Data.nomei) {
-          errores.nomei = "Este campo es requerido";
-          isValid = false;
+        errores.nomei = "Este campo es requerido";
+        isValid = false;
       }
     }
     if (!inter && !admin && !desa && !usua) {
@@ -551,7 +548,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosInterAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO /* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosInterAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -569,7 +573,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosInterBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO /* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosInterBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Bajas Intersistemas`;
             isValidTabla = false;
           }
@@ -587,7 +598,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosInterCambiosAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO/* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosInterCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -605,7 +623,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosInterCambiosBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO /* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosInterCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -625,7 +650,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosAdminAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO/* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosAdminAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -643,7 +675,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosAdminBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO /* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosAdminBajas${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Bajas Intersistemas`;
             isValidTabla = false;
           }
@@ -661,7 +700,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosAdminCambiosAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO /* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosAdminCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -679,7 +725,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosAdminCambiosBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO /* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosAdminCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -699,7 +752,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosDesAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO /* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosDesAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -717,7 +777,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosDesBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO /* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosInterBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Bajas Intersistemas`;
             isValidTabla = false;
           }
@@ -735,7 +802,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosDesCambiosAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO /* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosDesCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -753,7 +827,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosInterCambiosBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO /* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosInterCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -774,7 +855,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosUsuaAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO /* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosUsuaAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -792,7 +880,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosUsuaBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO /* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosInterBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Bajas Intersistemas`;
             isValidTabla = false;
           }
@@ -810,7 +905,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosUsuaCambiosAltas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO /* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosDesCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -828,7 +930,14 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosUsuaCambiosBajas.forEach((row, idx) => {
-          if (!row.id || !row.IPO || !row.IPD || !row.PUER || !row.TEMPO || !row.PRO /* agrega aquí los campos requeridos */) {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
             //errores[`registrosInterCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
@@ -898,15 +1007,19 @@ export default function Home() {
       // Aqui llamamos a la primera api que valida campos
       const formResponse = await axios.post("/api2/v3/rfc", formData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
-      console.log("Respuesta: ", formResponse.data)
-      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Respuesta: ", formResponse.data);
+      const {
+        message: formMessage,
+        id: formId,
+        epoch: epoch,
+      } = formResponse.data;
       console.log("Petición exitosa: ", formMessage);
       console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch)
+      console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`RFC_${epoch}.pdf`);
 
       setAlert({
@@ -917,9 +1030,13 @@ export default function Home() {
 
       try {
         // Aqui llamamos a la otra api para el pdf
-        const pdfResponse = await axios.post("/api/v3/rfc", { id: formId }, {
-          responseType: "blob",
-        });
+        const pdfResponse = await axios.post(
+          "/api/v3/rfc",
+          { id: formId },
+          {
+            responseType: "blob",
+          },
+        );
 
         if (pdfResponse.status === 200) {
           setPdfUrl(URL.createObjectURL(pdfResponse.data));
@@ -933,7 +1050,6 @@ export default function Home() {
           console.error("Ocurrio un error al generar el PDF");
           console.error(pdfResponse.status);
         }
-
       } catch (error) {
         console.error("Error:", error);
         setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
@@ -943,9 +1059,7 @@ export default function Home() {
         });
         setOpenAlert(true);
       }
-
     } catch (error) {
-
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
 
       if (error.response) {
@@ -953,16 +1067,20 @@ export default function Home() {
         const statusCode = error.response.status;
         const errorData = error.response.data;
 
-        console.error(`Error con código ${statusCode}:`, errorData.message, errorData.campo);
+        console.error(
+          `Error con código ${statusCode}:`,
+          errorData.message,
+          errorData.campo,
+        );
 
         // Construct an object to update the errors state
         const newErrors = {
-          [errorData.campo]: errorData.message // Use the field name as the key and the message as the value
+          [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
         };
         setErrors(newErrors);
         console.log("Errores API: ", newErrors); // Log the newErrors object
 
-        console.log("Objeto Errors: ", errors)
+        console.log("Objeto Errors: ", errors);
 
         // Manejamos el caso específico del error 422.
         if (statusCode === 422) {
@@ -974,7 +1092,7 @@ export default function Home() {
         } else {
           // Manejamos otros errores del servidor (ej. 404, 500).
           setAlert({
-            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
             severity: "error",
           });
         }
@@ -982,10 +1100,11 @@ export default function Home() {
         // Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
         console.error("Error de red o de conexión:", error.message);
         setAlert({
-          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          message:
+            "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
           severity: "error",
         });
-      } 
+      }
       setOpenAlert(true);
     }
   };
@@ -1055,7 +1174,7 @@ export default function Home() {
   };
 
   //  VALIDADORES
-  
+
   ///HANDLE TELÉFONO SOLICITANTE
   const handleTelefonoSoliChange = (event) => {
     // Elimina todo lo que no sea dígito
@@ -1155,7 +1274,6 @@ export default function Home() {
           </Typography>
         </Box>
       </Box>
-
       {/* Datos del Solicitante */}
       {/* Form Box Responsive */}
       <Box
@@ -1211,50 +1329,59 @@ export default function Home() {
         >
           Seleccione el origen *
         </FormLabel>
-        
-          <Box
+
+        <Box
           sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}>
-              <RadioGroup
-                row
-                name="region"
-                value={formData.region}
-                onChange={handleChange}
-                required
-                sx={{ ml: 2, mr: 2, justifyContent: "center" }}
-                
-              >
-                <FormControlLabel
-                  value="central"
-                  control={<Radio />}
-                  label="Oficinas Centrales"
-                  sx={{ ml: 2, mr: 2, justifyContent: "center" ,  width: "calc(50% - 32px)"}}
-                  //labelPlacement = "bottom"
-                />
-                <FormControlLabel
-                  value="regional"
-                  control={<Radio />}
-                  label="Oficinas Regionales u Organismos de Cuenca"
-                  sx={{ ml: 2, mr: 2, justifyContent: "center" ,  width: "calc(50% - 32px)"}}
-                />
-              </RadioGroup>
-  
-              <FormHelperText
-                sx={{
-                  ml: 2,
-                  mr: 2,
-                  mb: 0,
-                  justifyContent: "center",
-                  color: "red",
-                  display: errors?.region ? "block" : "none",
-                }}
-              >
-                {errors?.region}
-              </FormHelperText>
-          
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <RadioGroup
+            row
+            name="region"
+            value={formData.region}
+            onChange={handleChange}
+            required
+            sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+          >
+            <FormControlLabel
+              value="central"
+              control={<Radio />}
+              label="Oficinas Centrales"
+              sx={{
+                ml: 2,
+                mr: 2,
+                justifyContent: "center",
+                width: "calc(50% - 32px)",
+              }}
+              //labelPlacement = "bottom"
+            />
+            <FormControlLabel
+              value="regional"
+              control={<Radio />}
+              label="Oficinas Regionales u Organismos de Cuenca"
+              sx={{
+                ml: 2,
+                mr: 2,
+                justifyContent: "center",
+                width: "calc(50% - 32px)",
+              }}
+            />
+          </RadioGroup>
+
+          <FormHelperText
+            sx={{
+              ml: 2,
+              mr: 2,
+              mb: 0,
+              justifyContent: "center",
+              color: "red",
+              display: errors?.region ? "block" : "none",
+            }}
+          >
+            {errors?.region}
+          </FormHelperText>
         </Box>
         <Divider
           sx={{
@@ -1267,7 +1394,6 @@ export default function Home() {
           }}
         />
       </Box>
-
       {/* Datos del Solicitante Usuario */}
       <Box
         component="section"
@@ -1410,12 +1536,9 @@ export default function Home() {
               inputValue={formData.areas || ""} // Controla el valor mostrado
               getOptionLabel={(option) => option || ""}
               isOptionEqualToValue={(option, value) => option === value}
-            />    */}    
+            />    */}
         </Box>
-
-          
       </Box>
-
       {/* Datos del enlace informatico */}
       <Box
         component="section"
@@ -1487,7 +1610,6 @@ export default function Home() {
           />
         </Box>
       </Box>
-
       {/* Datos del Registro */}
       {/* Form Box Responsive */}
       <Box
@@ -1533,7 +1655,6 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-
           <TextField
             required
             error={!!errors?.memo}
@@ -1654,18 +1775,18 @@ export default function Home() {
                 label="Usuario"
               />
               <Tooltip title="No está disponible">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    disabled
-                    checked={formData.otro}
-                    onChange={saveComboBox}
-                    name="otro"
-                    color="primary"
-                  />
-                }
-                label="Otro"                
-              />            
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      disabled
+                      checked={formData.otro}
+                      onChange={saveComboBox}
+                      name="otro"
+                      color="primary"
+                    />
+                  }
+                  label="Otro"
+                />
               </Tooltip>
             </FormGroup>
             <FormHelperText
@@ -1692,18 +1813,18 @@ export default function Home() {
             }}
           >
             <Tooltip title="No está disponible">
-            <TextField
-              disabled={!formData.otro}
-              required={formData.otro}
-              id="desotro"
-              name="desotro"
-              label="Otro"
-              placeholder="Describa brevemente"
-              value={formData.desotro}
-              onChange={handleChange}
-              sx={{ background: "#FFFFFF", mb: 3 }}
-              inputProps={{ maxLength: 32 }}
-            />
+              <TextField
+                disabled={!formData.otro}
+                required={formData.otro}
+                id="desotro"
+                name="desotro"
+                label="Otro"
+                placeholder="Describa brevemente"
+                value={formData.desotro}
+                onChange={handleChange}
+                sx={{ background: "#FFFFFF", mb: 3 }}
+                inputProps={{ maxLength: 32 }}
+              />
             </Tooltip>
             <Divider
               sx={{
@@ -1895,7 +2016,6 @@ export default function Home() {
           >
             <EditableTableInter onDataChange={handleInterAltaTableDataChange} />
           </Box>
- 
 
           <FormLabel
             component="legend"
@@ -1908,7 +2028,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -1968,7 +2088,6 @@ export default function Home() {
           >
             <EditableTableInter onDataChange={handleInterBajaTableDataChange} />
           </Box>
- 
 
           <FormLabel
             component="legend"
@@ -1981,7 +2100,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2098,7 +2217,6 @@ export default function Home() {
               onDataChange={handleInterCambioBajaTableDataChange}
             />
           </Box>
- 
 
           <FormLabel
             component="legend"
@@ -2111,7 +2229,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2296,7 +2414,7 @@ export default function Home() {
           >
             <EditableTableAdmin onDataChange={handleAdminAltaTableDataChange} />
           </Box>
- 
+
           <FormLabel
             component="legend"
             sx={{
@@ -2308,7 +2426,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2368,7 +2486,7 @@ export default function Home() {
           >
             <EditableTableAdmin onDataChange={handleAdminBajaTableDataChange} />
           </Box>
- 
+
           <FormLabel
             component="legend"
             sx={{
@@ -2380,7 +2498,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2496,7 +2614,7 @@ export default function Home() {
               onDataChange={handleAdminCambioBajaTableDataChange}
             />
           </Box>
- 
+
           <FormLabel
             component="legend"
             sx={{
@@ -2508,7 +2626,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2692,7 +2810,7 @@ export default function Home() {
           >
             <EditableTableDes onDataChange={handleDesAltaTableDataChange} />
           </Box>
- 
+
           <FormLabel
             component="legend"
             sx={{
@@ -2704,7 +2822,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2764,7 +2882,7 @@ export default function Home() {
           >
             <EditableTableDes onDataChange={handleDesBajaTableDataChange} />
           </Box>
- 
+
           <FormLabel
             component="legend"
             sx={{
@@ -2776,7 +2894,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2892,7 +3010,7 @@ export default function Home() {
               onDataChange={handleDesCambioBajaTableDataChange}
             />
           </Box>
- 
+
           <FormLabel
             component="legend"
             sx={{
@@ -2904,7 +3022,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3087,7 +3205,7 @@ export default function Home() {
           >
             <EditableTableUsua onDataChange={handleUsuaAltaTableDataChange} />
           </Box>
- 
+
           <FormLabel
             component="legend"
             sx={{
@@ -3099,7 +3217,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3159,7 +3277,7 @@ export default function Home() {
           >
             <EditableTableUsua onDataChange={handleUsuaBajaTableDataChange} />
           </Box>
- 
+
           <FormLabel
             component="legend"
             sx={{
@@ -3171,7 +3289,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3287,7 +3405,7 @@ export default function Home() {
               onDataChange={handleUsuaCambioBajaTableDataChange}
             />
           </Box>
- 
+
           <FormLabel
             component="legend"
             sx={{
@@ -3299,7 +3417,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3471,7 +3589,7 @@ export default function Home() {
           >
             <EditableTableOtro onDataChange={handleOtroAltaTableDataChange} />
           </Box>
- 
+
           <FormLabel
             component="legend"
             sx={{
@@ -3483,7 +3601,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3543,7 +3661,7 @@ export default function Home() {
           >
             <EditableTableOtro onDataChange={handleOtroBajaTableDataChange} />
           </Box>
- 
+
           <FormLabel
             component="legend"
             sx={{
@@ -3555,7 +3673,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3671,7 +3789,7 @@ export default function Home() {
               onDataChange={handleOtroCambioBajaTableDataChange}
             />
           </Box>
- 
+
           <FormLabel
             component="legend"
             sx={{
@@ -3683,7 +3801,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-             En caso de proporcionar dirección NAT verificar que sea la correcta
+            En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3823,7 +3941,7 @@ export default function Home() {
               color: "red",
               textAlign: "center", // Opcional, mejora el centrado del texto
               //display: errors?.justifica ? "block" : "none",
-              mb: 0
+              mb: 0,
             }}
           >
             {errors?.justifica}
@@ -3954,37 +4072,42 @@ export default function Home() {
               color="#9F2241"
               sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
             >
-              
-              •	El formato deberá estar debidamente llenado y contener toda la información requerida 
-              facilitando la aplicación expedita de las configuraciones solicitadas. Es responsabilidad del 
-              solicitante recabar la información con los Administradores de los sistemas o Áreas involucradas.<br />
-              
-              •	El solicitante deberá presentar este formato adjuntando el Memorando o Atenta nota y número de
-               ticket de Mesa de ayuda asociado, sin los cuales no se podrá atender su solicitud. <br />
-              
-              •	El solicitante deberá proporcionar la dirección IP física y si utiliza, la dirección IP NAT, 
-              por cada servidor involucrado. De no proporcionarse la dirección IP NAT correcta, las reglas de 
-              cortafuegos se configurarán por defecto con la dirección IP del adaptador de red de los servidores 
-              y corresponderá al Administrador del sistema aplicar los cambios en el sistema o servidores para lograr 
-              establecer la comunicación.<br />
-              
-              •	Para el traslado de permisos de una dirección IP a otra, se deberá llenar la sección BAJAS 
-              con los permisos de la dirección IP anterior además de llenar la sección de ALTAS con los permisos que
-               se requieren trasladar. Si el solicitante NO indica que se trata de un traslado de permisos, éste será 
-               responsable de cualquier acceso no autorizado que se derive de los permisos de la dirección IP anterior 
-               al no tramitar la baja correspondiente. <br />
-
-              •	La solicitud para cambios en la infraestructura de seguridad (RFCs) será solicitada únicamente 
-              por los Administradores de cada sistema una vez que se apliquen los permisos de acceso en el propio 
-              sistema y se aperturen los accesos en los cortafuegos locales de los servidores involucrados. <br />
-              
-              •	Es responsabilidad de los administradores de cada servidor y/o Sistema llevar un control de las 
-              direcciones IP’s con acceso al servidor y/o sistema que administra. <br />
-             
-              •	Al firmar el solicitante se da por enterado de las políticas del servicio y acepta la responsabilidad
-               de cualquier materialización de los riesgos derivados de las aperturas de comunicaciones asociadas 
-               al presente control de cambios. <br />
-               
+              • El formato deberá estar debidamente llenado y contener toda la
+              información requerida facilitando la aplicación expedita de las
+              configuraciones solicitadas. Es responsabilidad del solicitante
+              recabar la información con los Administradores de los sistemas o
+              Áreas involucradas.
+              <br />
+              • El solicitante deberá presentar este formato adjuntando el
+              Memorando o Atenta nota y número de ticket de Mesa de ayuda
+              asociado, sin los cuales no se podrá atender su solicitud. <br />
+              • El solicitante deberá proporcionar la dirección IP física y si
+              utiliza, la dirección IP NAT, por cada servidor involucrado. De no
+              proporcionarse la dirección IP NAT correcta, las reglas de
+              cortafuegos se configurarán por defecto con la dirección IP del
+              adaptador de red de los servidores y corresponderá al
+              Administrador del sistema aplicar los cambios en el sistema o
+              servidores para lograr establecer la comunicación.
+              <br />
+              • Para el traslado de permisos de una dirección IP a otra, se
+              deberá llenar la sección BAJAS con los permisos de la dirección IP
+              anterior además de llenar la sección de ALTAS con los permisos que
+              se requieren trasladar. Si el solicitante NO indica que se trata
+              de un traslado de permisos, éste será responsable de cualquier
+              acceso no autorizado que se derive de los permisos de la dirección
+              IP anterior al no tramitar la baja correspondiente. <br />
+              • La solicitud para cambios en la infraestructura de seguridad
+              (RFCs) será solicitada únicamente por los Administradores de cada
+              sistema una vez que se apliquen los permisos de acceso en el
+              propio sistema y se aperturen los accesos en los cortafuegos
+              locales de los servidores involucrados. <br />
+              • Es responsabilidad de los administradores de cada servidor y/o
+              Sistema llevar un control de las direcciones IP’s con acceso al
+              servidor y/o sistema que administra. <br />
+              • Al firmar el solicitante se da por enterado de las políticas del
+              servicio y acepta la responsabilidad de cualquier materialización
+              de los riesgos derivados de las aperturas de comunicaciones
+              asociadas al presente control de cambios. <br />
             </Typography>
           </Box>
           <Box
@@ -4003,7 +4126,8 @@ export default function Home() {
             {[
               {
                 name: "politicasaceptadas",
-                label: "He léido y acepto los términos y condiciones del servicio *",
+                label:
+                  "He léido y acepto los términos y condiciones del servicio *",
               },
             ].map((item, index) => (
               <Box
@@ -4144,82 +4268,89 @@ export default function Home() {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-          <Box sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 400,
-            background: "#F4F4F5",
-            border: "2px solid grey",
-            borderRadius: 2,
-            boxShadow: 24,
-            pt: 2,
-            px: 4,
-            pb: 3,
-          }}>
-            <Typography id="modal-modal-title" align="center" variant="h6" component="h2">
-              ¡ADVERTENCIA!
-            </Typography>
-            <Divider
+            <Box
               sx={{
-                borderBottomWidth: "1px",
-                borderColor: "grey",
-                ml: 0,
-                mr: 0,
-                mt: 2,
-                mb: 1,
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 400,
+                background: "#F4F4F5",
+                border: "2px solid grey",
+                borderRadius: 2,
+                boxShadow: 24,
+                pt: 2,
+                px: 4,
+                pb: 3,
               }}
-            />
-            <Typography id="modal-modal-description" sx={{ mt: 2 }} >
-              Asegurate de que la información registrada es correcta, ya que no se
-              puede corregir una vez enviada.
-            </Typography>
-            <Divider
-              sx={{
-                borderBottomWidth: "1px",
-                borderColor: "grey",
-                ml: 0,
-                mr: 0,
-                mt: 2,
-                mb: 0,
-              }}
-            />
-            <Button
-            onClick={handleCloseModal}
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 0,
-              width: "calc(50% - 16px)",
-              ml: 0,
-              mr: 0,
-              background: "#98989A",
-              color: "#FFFFFF",
-              border: "1px solid gray",
-            }}
-          >
-            Regresar
-          </Button>
-          <Button
-            onClick={handleSubmit}
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 0,
-              width: "calc(50% - 16px)",
-              ml: 4,
-              mr: 0,
-              background: theme.palette.secondary.main,
-              color: "#FFFFFF",
-              border: "1px solid gray",
-            }}
-          >
-            Enviar
-          </Button>
-          </Box>
-        </Modal>
-          
+            >
+              <Typography
+                id="modal-modal-title"
+                align="center"
+                variant="h6"
+                component="h2"
+              >
+                ¡ADVERTENCIA!
+              </Typography>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 1,
+                }}
+              />
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Asegurate de que la información registrada es correcta, ya que
+                no se puede corregir una vez enviada.
+              </Typography>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 0,
+                }}
+              />
+              <Button
+                onClick={handleCloseModal}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 0,
+                  mr: 0,
+                  background: "#98989A",
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Regresar
+              </Button>
+              <Button
+                onClick={handleSubmit}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 4,
+                  mr: 0,
+                  background: theme.palette.secondary.main,
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Enviar
+              </Button>
+            </Box>
+          </Modal>
+
           <Button
             component={Link}
             href="/"
@@ -4238,7 +4369,7 @@ export default function Home() {
             Regresar al Inicio
           </Button>
           <Button
-            type= "reset"
+            type="reset"
             variant="contained"
             sx={{
               mt: 0,
@@ -4250,9 +4381,7 @@ export default function Home() {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={
-              botonEstado !== "Descargar PDF"
-            }
+            disabled={botonEstado !== "Descargar PDF"}
             onClick={() => {
               window.location.reload();
               window.scrollTo(0, 0);
@@ -4262,10 +4391,8 @@ export default function Home() {
           </Button>
         </Box>
       </Box>
-
       {/* ALERT */}
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />{" "}
-
       {/* BOTON FLOTANTE */}
       <Box
         sx={{

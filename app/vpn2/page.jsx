@@ -27,7 +27,7 @@ import {
 } from "@mui/material";
 
 import Image from "next/image";
-import Link from 'next/link';
+import Link from "next/link";
 import axios from "axios";
 import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
@@ -77,7 +77,7 @@ export default function Home() {
 
     tipoEquipo: "",
     sistemaOperativo: "",
-    versionSO:"",
+    versionSO: "",
     marca: "",
     modelo: "",
     serie: "",
@@ -115,7 +115,10 @@ export default function Home() {
   }, [webTableData, remotoTableData]);
 
   useEffect(() => {
-    if (formData.solicitante === "CONAGUA" && formData.subgerencia==="Subgerencia de Sistemas") {
+    if (
+      formData.solicitante === "CONAGUA" &&
+      formData.subgerencia === "Subgerencia de Sistemas"
+    ) {
       setFormData((prev) => ({
         ...prev,
         nombreInterno: "",
@@ -131,7 +134,10 @@ export default function Home() {
         numeroEmpleadoResponsable: "123456",
         puestoResponsable: "null",
       }));
-    } else if (formData.solicitante === "CONAGUA" && formData.subgerencia!=="Subgerencia de Sistemas") {
+    } else if (
+      formData.solicitante === "CONAGUA" &&
+      formData.subgerencia !== "Subgerencia de Sistemas"
+    ) {
       setFormData((prev) => ({
         ...prev,
         nombreInterno: "",
@@ -150,7 +156,10 @@ export default function Home() {
         unidadAdministrativaResponsable: "null",
         telefonoResponsable: "null",
       }));
-    } else if (formData.solicitante === "EXTERNO" && formData.subgerencia==="Subgerencia de Sistemas") {
+    } else if (
+      formData.solicitante === "EXTERNO" &&
+      formData.subgerencia === "Subgerencia de Sistemas"
+    ) {
       setFormData((prev) => ({
         ...prev,
         nombreInterno: "null",
@@ -165,8 +174,11 @@ export default function Home() {
 
         numeroEmpleadoResponsable: "",
         puestoResponsable: "",
-
-      })); } else if (formData.solicitante === "EXTERNO" && formData.subgerencia!=="Subgerencia de Sistemas") {
+      }));
+    } else if (
+      formData.solicitante === "EXTERNO" &&
+      formData.subgerencia !== "Subgerencia de Sistemas"
+    ) {
       setFormData((prev) => ({
         ...prev,
         nombreInterno: "null",
@@ -184,35 +196,37 @@ export default function Home() {
         puestoResponsable: "",
         unidadAdministrativaResponsable: "",
         telefonoResponsable: "",
-        
-    }));
+      }));
     } else {
       setFormData((prev) => ({
         ...prev,
       }));
     }
-  } ,[formData.solicitante, formData.subgerencia]);
-  useEffect(()=>  {
-    if (formData.subgerencia === "Subgerencia de Sistemas"){
-      setFormData((prev) =>({
+  }, [formData.solicitante, formData.subgerencia]);
+  useEffect(() => {
+    if (formData.subgerencia === "Subgerencia de Sistemas") {
+      setFormData((prev) => ({
         ...prev,
-        nombreAutoriza:"null",
-        puestoAutoriza:"null",
-        nombreResponsable:formData.nombreEnlace,
-        telefonoResponsable:formData.telefonoEnlace,
-        unidadAdministrativaResponsable:formData.areaAdscripcion
+        nombreAutoriza: "null",
+        puestoAutoriza: "null",
+        nombreResponsable: formData.nombreEnlace,
+        telefonoResponsable: formData.telefonoEnlace,
+        unidadAdministrativaResponsable: formData.areaAdscripcion,
       }));
     }
-    if (formData.subgerencia !== "Subgerencia de Sistemas"){
-      setFormData((prev) =>({
+    if (formData.subgerencia !== "Subgerencia de Sistemas") {
+      setFormData((prev) => ({
         ...prev,
-        nombreAutoriza:"",
-        puestoAutoriza:""
+        nombreAutoriza: "",
+        puestoAutoriza: "",
       }));
-    }    
-  }, [formData.subgerencia, formData.nombreEnlace, formData.telefonoEnlace, formData.areaAdscripcion]);
-
- 
+    }
+  }, [
+    formData.subgerencia,
+    formData.nombreEnlace,
+    formData.telefonoEnlace,
+    formData.areaAdscripcion,
+  ]);
 
   // Manejadores de cambios
   const handleWebTableDataChange = (data) => {
@@ -262,7 +276,8 @@ export default function Home() {
   const handleOpenModal = () => {
     //No abrir el modal si ya está en modo descarga
     if (botonEstado === "Descargar PDF") return;
-    const [isValid, isValidTabla, getErrors] = validarCamposRequeridos(formData);
+    const [isValid, isValidTabla, getErrors] =
+      validarCamposRequeridos(formData);
     setErrors(getErrors);
 
     console.log("Lista getErrors en submit: ", getErrors);
@@ -284,7 +299,7 @@ export default function Home() {
     setOpenAlert(true);
     return;
   };
-  
+
   const handleCloseModal = () => {
     setOpenModal(false);
   };
@@ -304,7 +319,7 @@ export default function Home() {
     let isValid = true;
     let isValidTabla = true;
     let isValidTelefono = true;
-    let isValidJustificacion =true;
+    let isValidJustificacion = true;
 
     const usua = Data.cuentaUsuario;
     const web = Data.accesoWeb;
@@ -318,19 +333,18 @@ export default function Home() {
       isValid = false;
     }
 
-    if (Data.telefonoEnlace.length < 7){
-      isValidTelefono =false;
+    if (Data.telefonoEnlace.length < 7) {
+      isValidTelefono = false;
     }
 
-    if (Data.justificacion.length < 49){
-      isValidJustificacion =false;
+    if (Data.justificacion.length < 49) {
+      isValidJustificacion = false;
     }
 
-    if(Data.subgerencia == ""){
-      Data.subgerencia = "~"
+    if (Data.subgerencia == "") {
+      Data.subgerencia = "~";
     }
-    
- 
+
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
         // Excluir movimiento si cuentaUsuario es false
@@ -361,7 +375,12 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosWeb.forEach((row) => {
-          if (!row.movimiento || !row.nombreSistema || !row.url || !row.puertosServicios) {
+          if (
+            !row.movimiento ||
+            !row.nombreSistema ||
+            !row.url ||
+            !row.puertosServicios
+          ) {
             isValidTabla = false;
           }
         });
@@ -378,7 +397,13 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosRemoto.forEach((row) => {
-          if (!row.movimiento || !row.nomenclatura || !row.nombreSistema ||!row.direccion ||!row.sistemaOperativo) {
+          if (
+            !row.movimiento ||
+            !row.nomenclatura ||
+            !row.nombreSistema ||
+            !row.direccion ||
+            !row.sistemaOperativo
+          ) {
             isValidTabla = false;
           }
         });
@@ -406,15 +431,19 @@ export default function Home() {
       // Aqui llamamos a la primera api que valida campos
       const formResponse = await axios.post("/api2/v3/vpn", formData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
-      console.log("Respuesta: ", formResponse.data)
-      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Respuesta: ", formResponse.data);
+      const {
+        message: formMessage,
+        id: formId,
+        epoch: epoch,
+      } = formResponse.data;
       console.log("Petición exitosa: ", formMessage);
       console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch)
+      console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`VPN_${epoch}.pdf`);
 
       setAlert({
@@ -425,9 +454,13 @@ export default function Home() {
 
       try {
         // Aqui llamamos a la otra api para el pdf
-        const pdfResponse = await axios.post("/api/v3/vpn", { id: formId }, {
-          responseType: "blob",
-        });
+        const pdfResponse = await axios.post(
+          "/api/v3/vpn",
+          { id: formId },
+          {
+            responseType: "blob",
+          },
+        );
 
         if (pdfResponse.status === 200) {
           setPdfUrl(URL.createObjectURL(pdfResponse.data));
@@ -441,7 +474,6 @@ export default function Home() {
           console.error("Ocurrio un error al generar el PDF");
           console.error(pdfResponse.status);
         }
-
       } catch (error) {
         console.error("Error:", error);
         setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
@@ -451,9 +483,7 @@ export default function Home() {
         });
         setOpenAlert(true);
       }
-
     } catch (error) {
-
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
 
       if (error.response) {
@@ -461,16 +491,20 @@ export default function Home() {
         const statusCode = error.response.status;
         const errorData = error.response.data;
 
-        console.error(`Error con código ${statusCode}:`, errorData.message, errorData.campo);
+        console.error(
+          `Error con código ${statusCode}:`,
+          errorData.message,
+          errorData.campo,
+        );
 
         // Construct an object to update the errors state
         const newErrors = {
-          [errorData.campo]: errorData.message // Use the field name as the key and the message as the value
+          [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
         };
         setErrors(newErrors);
         console.log("Errores API: ", newErrors); // Log the newErrors object
 
-        console.log("Objeto Errors: ", errors)
+        console.log("Objeto Errors: ", errors);
 
         // Manejamos el caso específico del error 422.
         if (statusCode === 422) {
@@ -482,7 +516,7 @@ export default function Home() {
         } else {
           // 3. Manejamos otros errores del servidor (ej. 404, 500).
           setAlert({
-            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
             severity: "error",
           });
         }
@@ -490,10 +524,11 @@ export default function Home() {
         // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
         console.error("Error de red o de conexión:", error.message);
         setAlert({
-          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          message:
+            "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
           severity: "error",
         });
-      } 
+      }
       setOpenAlert(true);
     }
   };
@@ -512,17 +547,25 @@ export default function Home() {
 
     try {
       // Aqui llamamos a la primera api que valida campos
-      const formResponse = await axios.post("/api2/v3/vpnActualizar", formData2, {
-        headers: {
-          'Content-Type': 'application/json',
+      const formResponse = await axios.post(
+        "/api2/v3/vpnActualizar",
+        formData2,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
 
-      console.log("Respuesta: ", formResponse.data)
-      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Respuesta: ", formResponse.data);
+      const {
+        message: formMessage,
+        id: formId,
+        epoch: epoch,
+      } = formResponse.data;
       console.log("Petición exitosa: ", formMessage);
       console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch)
+      console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`VPN_${epoch}.pdf`);
 
       setAlert({
@@ -533,9 +576,13 @@ export default function Home() {
 
       try {
         // Aqui llamamos a la otra api para el pdf
-        const pdfResponse = await axios.post("/api/v3/vpn", { id: formId }, {
-          responseType: "blob",
-        });
+        const pdfResponse = await axios.post(
+          "/api/v3/vpn",
+          { id: formId },
+          {
+            responseType: "blob",
+          },
+        );
 
         if (pdfResponse.status === 200) {
           setPdfUrl(URL.createObjectURL(pdfResponse.data));
@@ -549,7 +596,6 @@ export default function Home() {
           console.error("Ocurrio un error al generar el PDF");
           console.error(pdfResponse.status);
         }
-
       } catch (error) {
         console.error("Error:", error);
         setBotonEstado2("Enviar"); // Vuelve a "Enviar" en caso de error
@@ -559,9 +605,7 @@ export default function Home() {
         });
         setOpenAlert(true);
       }
-
     } catch (error) {
-
       setBotonEstado2("Enviar"); // Vuelve a "Enviar" en caso de error
 
       if (error.response) {
@@ -580,23 +624,24 @@ export default function Home() {
           });
         } else if (statusCode === 402) {
           setAlert({
-            message: errorData.message || 'Ocurrió un error inesperado.',
+            message: errorData.message || "Ocurrió un error inesperado.",
             severity: "error",
           });
         } else {
           // Manejamos otros errores del servidor (ej. 404, 500).
           setAlert({
-            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
             severity: "error",
           });
         }
       } else {
         console.error("Error de red o de conexión:", error.message);
         setAlert({
-          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          message:
+            "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
           severity: "error",
         });
-      } 
+      }
       setOpenAlert(true);
     }
   };
@@ -632,8 +677,8 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       unidadAdministrativa: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
-      areaAdscripcion:"",
-      subgerencia:"",
+      areaAdscripcion: "",
+      subgerencia: "",
     }));
   };
   const handleUARes = (newValue) => {
@@ -643,12 +688,12 @@ export default function Home() {
     }));
   };
 
-  // Manejo de Autocomplete de Área de Adscripción 
+  // Manejo de Autocomplete de Área de Adscripción
   const handleArea = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       areaAdscripcion: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
-      subgerencia:"",
+      subgerencia: "",
     }));
   };
 
@@ -719,11 +764,9 @@ export default function Home() {
   //FILTRADO DE SUBGERERNCIAS O SUBDIRECCIONES
   const filteredSubgerencia = subgerencias[formData.areaAdscripcion] || [];
 
-
   //const filteredSubgerencia = subgerencias
   //.filter(subgerencia => subgerencia.area === formData.areaAdscripcion)
   //.map(subgerencia => subgerencia.nombre);
-
 
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
@@ -841,7 +884,6 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          
           {/**UNIDAD ADMINISTRARTIVA */}
           <Autocomplete
             disablePortal
@@ -861,7 +903,7 @@ export default function Home() {
             name="unidadAdministrativa"
             onChange={(event, newValue) => {
               handleUA(newValue); // Maneja selección de opciones
-            }}            
+            }}
             inputValue={formData.unidadAdministrativa || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
@@ -869,7 +911,7 @@ export default function Home() {
           {/**ÁREA DE ADSCRIPCIÓN */}
           <Autocomplete
             disablePortal
-            options={filteredAreas}            
+            options={filteredAreas}
             //freeSolo
             renderInput={(params) => (
               <TextField
@@ -885,7 +927,7 @@ export default function Home() {
             name="areaAdscripcion"
             onChange={(event, newValue) => {
               handleArea(newValue); // Maneja selección de opciones
-            }}            
+            }}
             inputValue={formData.areaAdscripcion || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
@@ -912,19 +954,19 @@ export default function Home() {
             }}
             onInputChange={(event, newInputValue) => {
               if (event?.type === "change") {
-                if(filteredSubgerencia.length === 0){
-                handleSubgerencia(newInputValue); // Maneja texto escrito directamente
+                if (filteredSubgerencia.length === 0) {
+                  handleSubgerencia(newInputValue); // Maneja texto escrito directamente
                 }
               }
             }}
             onBlur={() => {
-            if (
-              filteredSubgerencia.length === 0 &&
-              (!formData.subgerencia || formData.subgerencia.trim() === "")
-            ) {
-              handleSubgerencia("~");
-            }
-          }}
+              if (
+                filteredSubgerencia.length === 0 &&
+                (!formData.subgerencia || formData.subgerencia.trim() === "")
+              ) {
+                handleSubgerencia("~");
+              }
+            }}
             inputValue={formData.subgerencia || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
@@ -1158,7 +1200,6 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-            
           />
           <TextField
             required
@@ -1171,7 +1212,6 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-            
           />
           <TextField
             required
@@ -1250,19 +1290,23 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <Box
-           display={formData.subgerencia === "Subgerencia de Sistemas" ? "block" : "none"}
+            display={
+              formData.subgerencia === "Subgerencia de Sistemas"
+                ? "block"
+                : "none"
+            }
           >
-          <TextField
-            //error={!!errors?.equipoExterno}
-            id="equipoExterno"
-            name="equipoExterno"
-            label="Equipo de desarrollo"
-            placeholder="Llenar solo por personal de la subgerencia de sistemas de la GTIC"
-            value={formData.equipoExterno}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
-          />
+            <TextField
+              //error={!!errors?.equipoExterno}
+              id="equipoExterno"
+              name="equipoExterno"
+              label="Equipo de desarrollo"
+              placeholder="Llenar solo por personal de la subgerencia de sistemas de la GTIC"
+              value={formData.equipoExterno}
+              onChange={handleChange}
+              sx={{ background: "#FFFFFF", mb: 3 }}
+              inputProps={{ maxLength: 256 }}
+            />
           </Box>
         </Box>
 
@@ -1483,7 +1527,7 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-          
+
           <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -1600,8 +1644,8 @@ export default function Home() {
                 label="Windows"
               />
             </RadioGroup>
-            </Box>
-            <TextField
+          </Box>
+          <TextField
             required
             error={!!errors?.versionSO}
             id="versionSO"
@@ -1612,19 +1656,19 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-            />
-            <FormHelperText
-              sx={{
-                ml: 2,
-                mr: 2,
-                mb: 2,
-                justifyContent: "center",
-                color: "red",
-                display: errors?.sistemaOperativo ? "block" : "none",
-              }}
-            >
-              {errors?.sistemaOperativo}
-            </FormHelperText>
+          />
+          <FormHelperText
+            sx={{
+              ml: 2,
+              mr: 2,
+              mb: 2,
+              justifyContent: "center",
+              color: "red",
+              display: errors?.sistemaOperativo ? "block" : "none",
+            }}
+          >
+            {errors?.sistemaOperativo}
+          </FormHelperText>
           <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -1679,7 +1723,6 @@ export default function Home() {
             mb: 3,
             mr: 8,
           }}
-          
         >
           {[
             { name: "cuentaUsuario", label: "Cuenta de usuario" },
@@ -1701,10 +1744,11 @@ export default function Home() {
                     //Deshabilita cuentaUsuario si accesoWeb o accesoRemoto están activos
                     //Permite eleguir uno o dos Accesos, pero no las tres opciones
                     disabled={
-                      formData.cuentaUsuario &&
-                      (item.name === "accesoWeb" || item.name === "accesoRemoto") ||
-                      (formData.accesoRemoto || formData.accesoWeb) &&
-                      (item.name === "cuentaUsuario")
+                      (formData.cuentaUsuario &&
+                        (item.name === "accesoWeb" ||
+                          item.name === "accesoRemoto")) ||
+                      ((formData.accesoRemoto || formData.accesoWeb) &&
+                        item.name === "cuentaUsuario")
                     }
                   />
                 }
@@ -1778,7 +1822,7 @@ export default function Home() {
               value={formData.movimiento}
               onChange={handleChange}
               required
-              sx={{ ml: 2, mr: 2, mb:2, justifyContent: "center" }}
+              sx={{ ml: 2, mr: 2, mb: 2, justifyContent: "center" }}
             >
               <FormControlLabel
                 value="ALTA"
@@ -1803,8 +1847,7 @@ export default function Home() {
               {errors?.movimiento}
             </FormHelperText>
           </Box>
-        </Box>     
-
+        </Box>
       </Box>
 
       {/*BOX PARA TABLA B*/}
@@ -1832,7 +1875,7 @@ export default function Home() {
         {/* TABLA B) */}
         <Box
           component="form"
-          sx={{            
+          sx={{
             "& .MuiTextField-root": {
               mt: 2,
               width: "calc(100% - 32px)",
@@ -1854,16 +1897,15 @@ export default function Home() {
             }}
           />
           <Typography
-          variant="h5"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-          b) Acceso a sitios web o equipo
-        </Typography>
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
+            b) Acceso a sitios web o equipo
+          </Typography>
 
-          <EditableTableWeb onDataChange={handleWebTableDataChange}/>
-
+          <EditableTableWeb onDataChange={handleWebTableDataChange} />
         </Box>
       </Box>
 
@@ -1889,7 +1931,7 @@ export default function Home() {
           },
         }}
       >
-      {/* TABLA C) */}
+        {/* TABLA C) */}
         <Box
           component="form"
           sx={{
@@ -1914,13 +1956,13 @@ export default function Home() {
             }}
           />
           <Typography
-          variant="h5"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-          c) Acceso a escritorio remoto
-        </Typography>
+            variant="h5"
+            align="center"
+            gutterBottom
+            sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          >
+            c) Acceso a escritorio remoto
+          </Typography>
 
           <EditableTableRemoto onDataChange={handleRemotoTableDataChange} />
 
@@ -1939,9 +1981,9 @@ export default function Home() {
             CE0010DC01.
           </FormLabel>
         </Box>
-        </Box>
+      </Box>
 
-        {/* Form Box Responsive */}
+      {/* Form Box Responsive */}
       <Box
         component="section"
         sx={{
@@ -1962,7 +2004,7 @@ export default function Home() {
           },
         }}
       >
-      <Typography
+        <Typography
           variant="h4"
           align="center"
           gutterBottom
@@ -1997,9 +2039,7 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
         </Box>
-
       </Box>
-
 
       {/* Datos de Autoriza */}
       {/* Form Box Responsive */}
@@ -2022,8 +2062,9 @@ export default function Home() {
             padding: "2",
           },
         }}
-        display={formData.subgerencia !== "Subgerencia de Sistemas" ? "block" : "none"}
-
+        display={
+          formData.subgerencia !== "Subgerencia de Sistemas" ? "block" : "none"
+        }
       >
         {/* SubTitle */}
         <Typography
@@ -2218,7 +2259,8 @@ export default function Home() {
             {[
               {
                 name: "politicasaceptadas",
-                label: "He léido y acepto los términos y condiciones del servicio *",
+                label:
+                  "He léido y acepto los términos y condiciones del servicio *",
               },
             ].map((item, index) => (
               <Box
@@ -2359,81 +2401,88 @@ export default function Home() {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-          <Box sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 400,
-            background: "#F4F4F5",
-            border: "2px solid grey",
-            borderRadius: 2,
-            boxShadow: 24,
-            pt: 2,
-            px: 4,
-            pb: 3,
-          }}>
-            <Typography id="modal-modal-title" align="center" variant="h6" component="h2">
-              ¡ADVERTENCIA!
-            </Typography>
-            <Divider
+            <Box
               sx={{
-                borderBottomWidth: "1px",
-                borderColor: "grey",
-                ml: 0,
-                mr: 0,
-                mt: 2,
-                mb: 1,
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 400,
+                background: "#F4F4F5",
+                border: "2px solid grey",
+                borderRadius: 2,
+                boxShadow: 24,
+                pt: 2,
+                px: 4,
+                pb: 3,
               }}
-            />
-            <Typography id="modal-modal-description" sx={{ mt: 2 }} >
-              Asegurate de que la información registrada es correcta, ya que no se
-              puede corregir una vez enviada.
-            </Typography>
-            <Divider
-              sx={{
-                borderBottomWidth: "1px",
-                borderColor: "grey",
-                ml: 0,
-                mr: 0,
-                mt: 2,
-                mb: 0,
-              }}
-            />
-            <Button
-            onClick={handleCloseModal}
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 0,
-              width: "calc(50% - 16px)",
-              ml: 0,
-              mr: 0,
-              background: "#98989A",
-              color: "#FFFFFF",
-              border: "1px solid gray",
-            }}
-          >
-            Regresar
-          </Button>
-          <Button
-            onClick={handleSubmit}
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 0,
-              width: "calc(50% - 16px)",
-              ml: 4,
-              mr: 0,
-              background: theme.palette.secondary.main,
-              color: "#FFFFFF",
-              border: "1px solid gray",
-            }}
-          >
-            Enviar
-          </Button>
-          </Box>
-        </Modal>
+            >
+              <Typography
+                id="modal-modal-title"
+                align="center"
+                variant="h6"
+                component="h2"
+              >
+                ¡ADVERTENCIA!
+              </Typography>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 1,
+                }}
+              />
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Asegurate de que la información registrada es correcta, ya que
+                no se puede corregir una vez enviada.
+              </Typography>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 0,
+                }}
+              />
+              <Button
+                onClick={handleCloseModal}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 0,
+                  mr: 0,
+                  background: "#98989A",
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Regresar
+              </Button>
+              <Button
+                onClick={handleSubmit}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 4,
+                  mr: 0,
+                  background: theme.palette.secondary.main,
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Enviar
+              </Button>
+            </Box>
+          </Modal>
           <Button
             component={Link}
             href="/"
@@ -2452,7 +2501,7 @@ export default function Home() {
             Regresar al inicio
           </Button>
           <Button
-            type= "reset"
+            type="reset"
             variant="contained"
             sx={{
               mt: 0,
@@ -2464,9 +2513,7 @@ export default function Home() {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={
-              botonEstado !== "Descargar PDF"
-            }
+            disabled={botonEstado !== "Descargar PDF"}
             onClick={() => {
               window.location.reload();
               window.scrollTo(0, 0);
@@ -2627,8 +2674,7 @@ export default function Home() {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-                      >
-            
+          >
             Cancelar
           </Button>
         </DialogActions>
