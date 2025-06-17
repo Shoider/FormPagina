@@ -2593,7 +2593,7 @@ export default function Home() {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Políticas del Servicio
+          Términos y condiciones del servicio
         </Typography>
         <Box
           component="form"
