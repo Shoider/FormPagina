@@ -1,12 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import { Box, Container, Typography, Button, useTheme, Popover } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  Button,
+  useTheme,
+  Popover,
+} from "@mui/material";
 import Image from "next/image";
 
 export default function Home() {
   const theme = useTheme();
-  
+
   // Popover
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handlePopoverOpen = (event) => {
@@ -152,34 +159,38 @@ export default function Home() {
           align="center"
           gutterBottom
           sx={{ mt: 2, ml: 2, mr: 2 }}
-          aria-owns={open ? 'mouse-over-popover' : undefined}
+          aria-owns={open ? "mouse-over-popover" : undefined}
           aria-haspopup="true"
           onMouseEnter={handlePopoverOpen}
           onMouseLeave={handlePopoverClose}
         >
           Solicitud de cambios en cortafuegos (RFC)
-          
         </Typography>
         <Popover
-        id="mouse-over-popover"
-        sx={{ pointerEvents: 'none'}}
-        open={open}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        onClose={handlePopoverClose}
-        disableRestoreFocus
-      >
-        <Typography sx={{ p: 1 }}>Se utiliza para solicitar la apertura de comunicaciones de red entre servidores, <br/> 
-          entre sistemas de cómputo de usuarios  y los sistemas (servidores) que utilizan <br/>o para acceder algún  
-          servicio de Internet que requiera conexión por puertos<br/> distintos a TCP 80 y 443.</Typography>
-      </Popover>
+          id="mouse-over-popover"
+          sx={{ pointerEvents: "none" }}
+          open={open}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          onClose={handlePopoverClose}
+          disableRestoreFocus
+        >
+          <Typography sx={{ p: 1 }}>
+            Se utiliza para solicitar la apertura de comunicaciones de red entre
+            servidores, <br />
+            entre sistemas de cómputo de usuarios y los sistemas (servidores)
+            que utilizan <br />o para acceder algún servicio de Internet que
+            requiera conexión por puertos
+            <br /> distintos a TCP 80 y 443.
+          </Typography>
+        </Popover>
       </Button>
 
       {/* VPN MAYO */}
@@ -222,7 +233,7 @@ export default function Home() {
           align="center"
           gutterBottom
           sx={{ mt: 2, ml: 2, mr: 2 }}
-          aria-owns={open ? 'mouse-over-popover' : undefined}
+          aria-owns={open ? "mouse-over-popover" : undefined}
           aria-haspopup="true"
           onMouseEnter={handlePopoverOpen2}
           onMouseLeave={handlePopoverClose2}
@@ -230,27 +241,29 @@ export default function Home() {
           Solicitud de acceso remoto a través de una red virtual (VPN)
         </Typography>
         <Popover
-        id="mouse-over-popover"
-        sx={{ pointerEvents: 'none' }}
-        open={open2}
-        anchorEl={anchorEl2}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        onClose={handlePopoverClose2}
-        disableRestoreFocus
-      >
-       <Typography sx={{ p: 2 }}>
-      Permite llenar la solicitud para alta, baja o cambio de los tipos de servicio  de <br/> 
-      conexión remota permitidos para una conexión de red privada virtual mejor <br/>  
-      conocida como VPN.
-      </Typography>
-      </Popover>
+          id="mouse-over-popover"
+          sx={{ pointerEvents: "none" }}
+          open={open2}
+          anchorEl={anchorEl2}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          onClose={handlePopoverClose2}
+          disableRestoreFocus
+        >
+          <Typography sx={{ p: 2 }}>
+            Permite llenar la solicitud para alta, baja o cambio de los tipos de
+            servicio de <br />
+            conexión remota permitidos para una conexión de red privada virtual
+            mejor <br />
+            conocida como VPN.
+          </Typography>
+        </Popover>
       </Button>
 
       {/* TELEFONIA */}
@@ -293,7 +306,7 @@ export default function Home() {
           align="center"
           gutterBottom
           sx={{ mt: 2, ml: 2, mr: 2 }}
-          aria-owns={open ? 'mouse-over-popover' : undefined}
+          aria-owns={open ? "mouse-over-popover" : undefined}
           aria-haspopup="true"
           onMouseEnter={handlePopoverOpen3}
           onMouseLeave={handlePopoverClose3}
@@ -301,25 +314,23 @@ export default function Home() {
           Solicitud de servicios de telefonía
         </Typography>
         <Popover
-        id="mouse-over-popover"
-        sx={{ pointerEvents: 'none' }}
-        open={open3}
-        anchorEl={anchorEl3}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        onClose={handlePopoverClose3}
-        disableRestoreFocus
-      >
-       <Typography sx={{ p: 2 }}>
-      TELEFONIA
-      </Typography>
-      </Popover>
+          id="mouse-over-popover"
+          sx={{ pointerEvents: "none" }}
+          open={open3}
+          anchorEl={anchorEl3}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          onClose={handlePopoverClose3}
+          disableRestoreFocus
+        >
+          <Typography sx={{ p: 2 }}>TELEFONIA</Typography>
+        </Popover>
       </Button>
 
       {/* INTERNET */}
@@ -362,35 +373,32 @@ export default function Home() {
           align="center"
           gutterBottom
           sx={{ mt: 2, ml: 2, mr: 2 }}
-          aria-owns={open ? 'mouse-over-popover' : undefined}
+          aria-owns={open ? "mouse-over-popover" : undefined}
           aria-haspopup="true"
           onMouseEnter={handlePopoverOpen4}
           onMouseLeave={handlePopoverClose4}
         >
-          Solicitud de Ampliación del Servicio de Internet 
+          Solicitud de Ampliación del Servicio de Internet
         </Typography>
         <Popover
-        id="mouse-over-popover"
-        sx={{ pointerEvents: 'none' }}
-        open={open4}
-        anchorEl={anchorEl4}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        onClose={handlePopoverClose4}
-        disableRestoreFocus
-      >
-       <Typography sx={{ p: 2 }}>
-      INTERNET
-      </Typography>
-      </Popover>
+          id="mouse-over-popover"
+          sx={{ pointerEvents: "none" }}
+          open={open4}
+          anchorEl={anchorEl4}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          onClose={handlePopoverClose4}
+          disableRestoreFocus
+        >
+          <Typography sx={{ p: 2 }}>INTERNET</Typography>
+        </Popover>
       </Button>
- 
     </Container>
   );
 }

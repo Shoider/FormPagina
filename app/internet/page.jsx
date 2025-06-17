@@ -17,7 +17,7 @@ import {
   Modal,
 } from "@mui/material";
 import Image from "next/image";
-import Link from 'next/link';
+import Link from "next/link";
 import axios from "axios";
 import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
@@ -26,7 +26,6 @@ import ala from "../constants/ala.jsx";
 import pisos from "../constants/pisos.jsx";
 import telefonoAutocomplete from "../constants/telefono.jsx";
 import areas from "../constants/AREAS/areas.jsx";
-
 
 export default function Home() {
   const theme = useTheme();
@@ -40,7 +39,7 @@ export default function Home() {
     ipUsuario: "",
     correoUsuario: "",
     direccion: "",
-    teleUsuario: "", 
+    teleUsuario: "",
     extUsuario: "",
     nombreJefe: "",
     puestoJefe: "",
@@ -278,38 +277,36 @@ export default function Home() {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-  
+
   // Boton
   const [botonEstado, setBotonEstado] = useState("Enviar");
   //Modal
-   const [openModal, setOpenModal] = useState(false);
-    const handleOpenModal = () => {
-      //No abrir el modal si ya está en modo descarga
-      if (botonEstado === "Descargar PDF") return;
-      const [isValid, getErrors] =
-      validarCamposRequeridos(formData);
-      setErrors(getErrors);
-  
-      //console.log("Lista getErrors en submit: ", getErrors);
-      //console.log(formData)
-  
-      if (!isValid) {
-        setAlert({
-          message: "Por favor, complete todos los campos requeridos.",
-          severity: "warning",
-        });
-      } else {
-        setOpenModal(true);
-        return;
-      }
-      setOpenAlert(true);
-      return;
-    };
-    
-    const handleCloseModal = () => {
-      setOpenModal(false);
-    };
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => {
+    //No abrir el modal si ya está en modo descarga
+    if (botonEstado === "Descargar PDF") return;
+    const [isValid, getErrors] = validarCamposRequeridos(formData);
+    setErrors(getErrors);
 
+    //console.log("Lista getErrors en submit: ", getErrors);
+    //console.log(formData)
+
+    if (!isValid) {
+      setAlert({
+        message: "Por favor, complete todos los campos requeridos.",
+        severity: "warning",
+      });
+    } else {
+      setOpenModal(true);
+      return;
+    }
+    setOpenAlert(true);
+    return;
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
@@ -421,15 +418,19 @@ export default function Home() {
       // Aqui llamamos a la primera api que valida campos
       const formResponse = await axios.post("/api2/v3/internet", formData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
-      console.log("Respuesta: ", formResponse.data)
-      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Respuesta: ", formResponse.data);
+      const {
+        message: formMessage,
+        id: formId,
+        epoch: epoch,
+      } = formResponse.data;
       console.log("Petición exitosa: ", formMessage);
       console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch)
+      console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`INTERNET_${epoch}.pdf`);
 
       setAlert({
@@ -440,9 +441,13 @@ export default function Home() {
 
       try {
         // Aqui llamamos a la otra api para el pdf
-        const pdfResponse = await axios.post("/api/v3/internet", { id: formId }, {
-          responseType: "blob",
-        });
+        const pdfResponse = await axios.post(
+          "/api/v3/internet",
+          { id: formId },
+          {
+            responseType: "blob",
+          },
+        );
 
         if (pdfResponse.status === 200) {
           setPdfUrl(URL.createObjectURL(pdfResponse.data));
@@ -456,7 +461,6 @@ export default function Home() {
           console.error("Ocurrio un error al generar el PDF");
           console.error(pdfResponse.status);
         }
-
       } catch (error) {
         console.error("Error:", error);
         setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
@@ -466,9 +470,7 @@ export default function Home() {
         });
         setOpenAlert(true);
       }
-
     } catch (error) {
-
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
 
       if (error.response) {
@@ -480,7 +482,7 @@ export default function Home() {
 
         // Construct an object to update the errors state
         const newErrors = {
-          [errorData.campo]: errorData.message // Use the field name as the key and the message as the value
+          [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
         };
         setErrors(newErrors);
         //console.log("Errores API: ", newErrors); // Log the newErrors object
@@ -497,7 +499,7 @@ export default function Home() {
         } else {
           // 3. Manejamos otros errores del servidor (ej. 404, 500).
           setAlert({
-            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
             severity: "error",
           });
         }
@@ -505,10 +507,11 @@ export default function Home() {
         // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
         console.error("Error de red o de conexión:", error.message);
         setAlert({
-          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          message:
+            "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
           severity: "error",
         });
-      } 
+      }
       setOpenAlert(true);
     }
   };
@@ -570,14 +573,14 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       uaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
-      areaUsuario:"",
+      areaUsuario: "",
     }));
   };
-  // Manejo de Autocomplete de Área de Adscripción 
+  // Manejo de Autocomplete de Área de Adscripción
   const handleArea = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      areaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)      
+      areaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
   //FILTRADO DE ÁREA DE ADSCRIPCIÓN
@@ -706,7 +709,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Datos del Usuario (a) que Utilizará el Servicio
+          Datos del usuario(a) que utilizará el servicio
         </Typography>
 
         <Box
@@ -728,8 +731,8 @@ export default function Home() {
             error={!!errors?.nombreUsuario}
             id="nombreUsuario"
             name="nombreUsuario"
-            label="Nombre Completo"
-            placeholder="Escriba el Nombre Completo del Usuario"
+            label="Nombre completo"
+            placeholder="Escriba el nombre y apellidos"
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -741,7 +744,7 @@ export default function Home() {
             id="puestoUsuario"
             name="puestoUsuario"
             label="Puesto o Cargo"
-            placeholder="Escriba el Puesto o Cargo del Usuario"
+            placeholder="Escriba el puesto del usuario"
             value={formData.puestoUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -766,46 +769,46 @@ export default function Home() {
             onChange={(event, newValue) => {
               handleUA(newValue); // Maneja selección de opciones
             }}
-           // onInputChange={(event, newInputValue) => {
-             // if (event?.type === "change") {
-               // handleUA(newInputValue); // Maneja texto escrito directamente
-              //}
+            // onInputChange={(event, newInputValue) => {
+            // if (event?.type === "change") {
+            // handleUA(newInputValue); // Maneja texto escrito directamente
+            //}
             //}}
             inputValue={formData.uaUsuario || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
           {/**ÁREA DE ADSCRIPCIÓN */}
-            <Autocomplete
-              disablePortal
-              options={filteredAreas}            
-              //freeSolo
-              renderInput={(params) => (
-                <TextField
-                  required
-                  error={!!errors?.areaUsuario}
-                  placeholder="Seleccione la Área de Adscripción"
-                  sx={{ background: "#FFFFFF" }}
-                  {...params}
-                  label="Área de Adscripción"
-                />
-              )}
-              id="areaUsuario"
-              name="areaUsuario"
-              onChange={(event, newValue) => {
-                handleArea(newValue); // Maneja selección de opciones
-              }}            
-              inputValue={formData.areaUsuario || ""} // Controla el valor mostrado
-              getOptionLabel={(option) => option || ""}
-              isOptionEqualToValue={(option, value) => option === value}
-            />    
+          <Autocomplete
+            disablePortal
+            options={filteredAreas}
+            //freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.areaUsuario}
+                placeholder="Seleccione la Área de Adscripción"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Área de Adscripción"
+              />
+            )}
+            id="areaUsuario"
+            name="areaUsuario"
+            onChange={(event, newValue) => {
+              handleArea(newValue); // Maneja selección de opciones
+            }}
+            inputValue={formData.areaUsuario || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
           <TextField
             required
             error={!!errors?.ipUsuario}
             id="ipUsuario"
             name="ipUsuario"
-            label="IP del Equipo Asignado"
-            placeholder="Escriba la IP del Equipo"
+            label="IP del equipo asignado"
+            placeholder="Escriba la IP del equipo"
             value={formData.ipUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -876,7 +879,7 @@ export default function Home() {
                 <TextField
                   required
                   error={!!errors?.piso}
-                  placeholder="Escriba o Seleccione el Piso"
+                  placeholder="Escriba o seleccione el piso"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Piso"
@@ -905,7 +908,7 @@ export default function Home() {
                 <TextField
                   required
                   error={!!errors?.ala}
-                  placeholder="Escriba o Seleccione el Ala"
+                  placeholder="Escriba o seleccione el ala"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Ala"
@@ -926,29 +929,31 @@ export default function Home() {
               isOptionEqualToValue={(option, value) => option === value}
             />
           </Box>
-          
+
           <Autocomplete
             freeSolo
-            
             options={telefonoAutocomplete}
             getOptionLabel={(option) => option.label || option.value || ""}
             onChange={(event, newValue) => {
-              if (typeof newValue === 'string') {
-                handleChange({ target: { name: 'teleUsuario', value: newValue } });
+              if (typeof newValue === "string") {
+                handleChange({
+                  target: { name: "teleUsuario", value: newValue },
+                });
               } else if (newValue && newValue.value) {
-                handleChange({ target: { name: 'teleUsuario', value: newValue.value } });
+                handleChange({
+                  target: { name: "teleUsuario", value: newValue.value },
+                });
+              } else {
+                handleChange({ target: { name: "teleUsuario", value: "" } });
               }
-              else {
-                  handleChange({ target: { name: 'teleUsuario', value: '' } });
-                }
             }}
             renderInput={(params) => (
               <TextField
                 {...params}
                 required
                 error={!!errors?.teleUsuario}
-                label="Teléfono del Usuario"
-                placeholder="Seleccione o Escriba el Teléfono del Usuario"
+                label="Teléfono del usuario"
+                placeholder="Seleccione o escriba el teléfono del usuario"
                 name="teleUsuario"
                 value={formData.teleUsuario}
                 sx={{ background: "#FFFFFF" }}
@@ -963,7 +968,7 @@ export default function Home() {
             id="extUsuario"
             name="extUsuario"
             label="Extensión"
-            placeholder="Escriba el Número de Extensión"
+            placeholder="Escriba el número de extensión"
             value={formData.extUsuario}
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1001,7 +1006,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Autoriza Servicio
+          Autoriza servicio
         </Typography>
         <Box
           component="form"
@@ -1022,8 +1027,8 @@ export default function Home() {
             error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
-            label="Funcionario con Cargo de Subgerente, Homólogo o Superior"
-            placeholder="Escriba el Nombre Completo del Funcionario"
+            label="Funcionario con cargo de Subgerente, Homólogo o Superior"
+            placeholder="Escriba el nombre completo del funcionario"
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1034,8 +1039,8 @@ export default function Home() {
             error={!!errors?.puestoJefe}
             id="puestoJefe"
             name="puestoJefe"
-            label="Puesto o Cargo del que Autoriza"
-            placeholder="Escriba el Puesto o Cargo de quien Autoriza"
+            label="Puesto o cargo"
+            placeholder="Escriba el puesto o cargo del funcionario que autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1073,7 +1078,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Categoría de Navegación
+          Categoría de navegación
         </Typography>
         <Box
           component="form"
@@ -1119,7 +1124,7 @@ export default function Home() {
                 fontSize: "1.2rem",
               }}
             >
-              Perfiles avanzados de navegación.
+              Perfiles avanzados de navegación
             </FormLabel>
             <FormLabel
               component="legend"
@@ -1147,9 +1152,9 @@ export default function Home() {
         >
           {[
             { name: "descarga", label: "Descarga de software" },
-            { name: "foros", label: "Foros y Blogs" },
-            { name: "comercio", label: "Comercio Electrónico" },
-            { name: "redes", label: "Redes Sociales" },
+            { name: "foros", label: "Foros y blogs" },
+            { name: "comercio", label: "Comercio electrónico" },
+            { name: "redes", label: "Redes sociales" },
             { name: "videos", label: "Videos-YouTube (Streaming)" },
             { name: "whats", label: "WhatsApp Web" },
             { name: "dropbox", label: "DropBox" },
@@ -1246,7 +1251,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Justificación de Servicios Requeridos
+          Justificación de servicios requeridos
         </Typography>
         <Box
           component="form"
@@ -1306,7 +1311,7 @@ export default function Home() {
                 fontSize: "1.2rem",
               }}
             >
-              Descarga de Software.
+              Descarga de software.
             </FormLabel>
           </Box>
 
@@ -1315,7 +1320,7 @@ export default function Home() {
             error={!!errors?.urlDescarga}
             id="urlDescarga"
             name="urlDescarga"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlDescarga}
             onChange={handleChange}
@@ -1328,7 +1333,7 @@ export default function Home() {
             id="justificaDescarga"
             name="justificaDescarga"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaDescarga}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1398,7 +1403,7 @@ export default function Home() {
             error={!!errors?.urlForos}
             id="urlForos"
             name="urlForos"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlForos}
             onChange={handleChange}
@@ -1411,7 +1416,7 @@ export default function Home() {
             id="justificaForos"
             name="justificaForos"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaForos}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1480,7 +1485,7 @@ export default function Home() {
             error={!!errors?.urlComercio}
             id="urlComercio"
             name="urlComercio"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlComercio}
             onChange={handleChange}
@@ -1493,7 +1498,7 @@ export default function Home() {
             id="justificaComercio"
             name="justificaComercio"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaComercio}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1562,7 +1567,7 @@ export default function Home() {
             error={!!errors?.urlRedes}
             id="urlRedes"
             name="urlRedes"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlRedes}
             onChange={handleChange}
@@ -1575,7 +1580,7 @@ export default function Home() {
             id="justificaRedes"
             name="justificaRedes"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaRedes}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1644,7 +1649,7 @@ export default function Home() {
             error={!!errors?.urlVideos}
             id="urlVideos"
             name="urlVideos"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlVideos}
             onChange={handleChange}
@@ -1657,7 +1662,7 @@ export default function Home() {
             id="justificaVideos"
             name="justificaVideos"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaVideos}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1726,7 +1731,7 @@ export default function Home() {
             error={!!errors?.urlWhats}
             id="urlWhats"
             name="urlWhats"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlWhats}
             onChange={handleChange}
@@ -1739,7 +1744,7 @@ export default function Home() {
             id="justificaWhats"
             name="justificaWhats"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaWhats}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1808,7 +1813,7 @@ export default function Home() {
             error={!!errors?.urlDropbox}
             id="urlDropbpx"
             name="urlDropbox"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlDropbox}
             onChange={handleChange}
@@ -1890,7 +1895,7 @@ export default function Home() {
             error={!!errors?.urlOnedrive}
             id="urlOnedrive"
             name="urlOnedrive"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlOnedrive}
             onChange={handleChange}
@@ -1903,7 +1908,7 @@ export default function Home() {
             id="justificaOnedrive"
             name="justificaOnedrive"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaOnedrive}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1972,7 +1977,7 @@ export default function Home() {
             error={!!errors?.urlSkype}
             id="urlSkype"
             name="urlSkype"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlSkype}
             onChange={handleChange}
@@ -1985,7 +1990,7 @@ export default function Home() {
             id="justificaSkype"
             name="justificaSkype"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaSkype}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2054,7 +2059,7 @@ export default function Home() {
             error={!!errors?.urlWetransfer}
             id="urlWetransfer"
             name="urlWetransfer"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlWetransfer}
             onChange={handleChange}
@@ -2067,7 +2072,7 @@ export default function Home() {
             id="justificaWetransfer"
             name="justificaWetransfer"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaWetransfer}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2136,7 +2141,7 @@ export default function Home() {
             error={!!errors?.urlTeam}
             id="urlTeam"
             name="urlTeam"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlTeam}
             onChange={handleChange}
@@ -2149,7 +2154,7 @@ export default function Home() {
             id="justificaTeam"
             name="justificaTeam"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaTeam}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2230,7 +2235,7 @@ export default function Home() {
             error={!!errors?.urlOtra}
             id="urlOtra"
             name="urlOtra"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlOtra}
             onChange={handleChange}
@@ -2243,7 +2248,7 @@ export default function Home() {
             id="justificaOtra"
             name="justificaOtra"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaOtra}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2326,7 +2331,7 @@ export default function Home() {
               error={!!errors?.urlOtra2}
               id="urlOtra2"
               name="urlOtra2"
-              label="Referencia del Servicio Requerido (URL)"
+              label="Referencia del servicio requerido (URL)"
               placeholder="Escriba la URL del servicio"
               value={formData.urlOtra2}
               onChange={handleChange}
@@ -2339,7 +2344,7 @@ export default function Home() {
               id="justificaOtra2"
               name="justificaOtra2"
               label="Justificación"
-              placeholder="Escriba la Justificación"
+              placeholder="Escriba la justificación"
               value={formData.justificaOtra2}
               onChange={handleChange}
               sx={{ background: "#FFFFFF" }}
@@ -2418,7 +2423,7 @@ export default function Home() {
                 id="justificaOtra3"
                 name="justificaOtra3"
                 label="Justificación"
-                placeholder="Escriba la Justificación"
+                placeholder="Escriba la justificación"
                 value={formData.justificaOtra3}
                 onChange={handleChange}
                 sx={{ background: "#FFFFFF" }}
@@ -2490,7 +2495,7 @@ export default function Home() {
                   error={!!errors?.urlOtra4}
                   id="urlOtra4"
                   name="urlOtra4"
-                  label="Referencia del Servicio Requerido (URL)"
+                  label="Referencia del servicio requerido (URL)"
                   placeholder="Escriba la URL del Servicio"
                   value={formData.urlOtra4}
                   onChange={handleChange}
@@ -2503,7 +2508,7 @@ export default function Home() {
                   id="justificaOtra4"
                   name="justificaOtra4"
                   label="Justificación"
-                  placeholder="Escriba la Justificación"
+                  placeholder="Escriba la justificación"
                   value={formData.justificaOtra4}
                   onChange={handleChange}
                   sx={{ background: "#FFFFFF" }}
@@ -2593,7 +2598,7 @@ export default function Home() {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Políticas del Servicio
+          Términos y condiciones del servicio
         </Typography>
         <Box
           component="form"
@@ -2609,65 +2614,55 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <Box sx={{ ml: 3, mr: 3 }}>
+          <Box sx={{ ml: 3, mr: 0 }}>
             <Typography
               variant="subtitle2"
               align="justify"
               gutterBottom
               color="#9F2241"
-              sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
+              sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 0 }}
             >
-              
-                • Es responsabilidad de los servidores públicos, así como personal externo de los activos de información 
-                el adoptar las medidas que determine la CONAGUA para mantener y garantizar la seguridad de la Información, 
-                siendo la Gerencia de Tecnología de la Información y Comunicaciones la responsable de establecer los mecanismos 
-                que permitan garantizar la confidencialidad, integridad y disponibilidad de la Información. 
-              
+              1.	El formato deberá estar debidamente llenado y contener toda la información 
+              requerida facilitando la aplicación expedita de las configuraciones solicitadas.
               <br />
-              
-                • La Subgerencia de Internet e Intranet, adscrita a la Gerencia de Tecnología de la Información y Comunicaciones, 
-                como administrador del servicio es el área responsable de definir los lineamientos que deberán ser atendidos por 
-                todos los usuarios y administradores en la ampliación del servicio de navegación de internet. 
-              
-              <br />
-              
-                • La Subgerencia de Internet e Intranet, será la responsable de implementar y garantizar la disponibilidad 
-                en todo momento del servicio. 
-              
-              <br />
-              
-                 • Los accesos para los servicios habilitados serán exclusivamente para los usuarios que tengan debidamente la 
-                 justificación y que cumplan con el llenado del formato y su formalización mediante el memorándum correspondiente 
-                 para hacer uso de ella. 
-              
-              <br />
-              
-                • Es responsabilidad de quien autoriza los accesos solicitados y justificados anteriormente, así como
-                 la supervisión del correcto uso de los recursos, siendo la Subgerencia de Internet e Intranet el área
-                  responsable de la validación y supervisión periódica del buen uso de estos, lo anterior para salvaguardar 
-                  el correcto funcionamiento de la infraestructura que soportan los servicios de la CONAGUA. 
-              
-              <br />
-              
-                • Los usuarios con ampliación en la Navegación de Internet deben usar responsablemente el servicio de 
-                navegación web que es proporcionado por la Gerencia de Tecnología de la Información y Comunicaciones. 
-              
-              <br />
-              
-                 • Queda prohibido descargar y abrir páginas web o archivos sospechosos que puedan comprometer los equipos 
-                 y la red. Para cualquier duda sobre algún sitio o página que represente actividad sospechosa, deberá hacer 
-                 de conocimiento a la GTIC a través de la Mesa de Servicios. 
-              
-
-              <br />
-              
-                • La violación, desatento u omisión de las políticas y procedimientos de Seguridad de la Información 
-                de la CONAGUA generan sanciones previstas en la Ley General de responsabilidades Administrativas; en la 
-                Ley del Servicio Profesional de Carrera en la Administración Pública Federal y demás disposiciones 
-                jurídicas aplicables.
-              
-              <br />
-            </Typography>
+              2.	El solicitante deberá presentar este formato adjuntando el memorando y número 
+              de caso (ticket) de Mesa de ayuda asociado, sin los cuales no se podrá atender su 
+              solicitud.  
+              <br/>
+              3.	El solicitante deberá proporcionar la dirección IP de su equipo de cómputo para
+                poder aplicar las configuraciones requeridas. Esta información la podrá obtener 
+                utilizando el comando “ipconfig /all” en una ventana de línea de comando. 
+                En caso de requerir ayuda para ejecutar el comando indicado, favor de contactar al 
+                área de Soporte Técnico de la CONAGUA.
+              <br/>
+              4.	El solicitante deberá agregar en la <b>Justificación</b> si la solicitud se deriva de 
+              un cambio de lugar (oficina, mampara o piso) del usuario que a su vez haya derivado 
+              en un cambio de dirección IP de su equipo de cómputo. 
+              <br/>
+              5.	En caso de un cambio de dirección IP, el usuario deberá especificar la dirección
+                IP anterior para eliminar los privilegios en dicha dirección IP. Si el solicitante 
+                NO indica que se trata de un cambio de dirección IP, éste será responsable de cualquier 
+                acceso no autorizado que se derive de los permisos de la dirección IP anterior al no 
+                tramitar la baja correspondiente.
+              <br/>
+              6.	El usuario es responsable del uso que se otorga con el acceso ampliado otorgado a su 
+              equipo de cómputo, por lo que deberá vigilar que el uso sea acorde a las políticas de la
+                Seguridad de la Información definidas por la Gerencia de Tecnología de la Información
+                y Comunicaciones. 
+                <br/>
+              7.	El solicitante deberá conservar el Acuse o copia del formato firmado y sellado, así 
+              como el memorando asociado, para posteriores aclaraciones. 
+              <br/>
+              8.	Es responsabilidad de los gerentes y subgerentes llevar un control de los usuarios y 
+              sus direcciones IP’s con accesos de Internet ampliados. 
+              <br/>
+              9.	Al firmar el usuario se da por enterado de las políticas del servicio y acepta la 
+              responsabilidad de cualquier uso inadecuado que se le dé a los privilegios de acceso ampliados 
+              los cuales haya solicitado.
+              <br/>
+              10.	Al firmar el Gerente o Director que autoriza se da por enterado de las políticas del servicio 
+              y acepta la corresponsabilidad del uso que le dé el usuario al acceso ampliado otorgado.
+          </Typography>
           </Box>
           <Box
             sx={{
@@ -2676,8 +2671,8 @@ export default function Home() {
               flexWrap: "wrap",
               justifyContent: "center",
               mt: 2,
-              ml: 10,
-              mr: 10,
+              ml: 3,
+              mr: 0,
               mb: 3,
               //mx: "auto"
             }}
@@ -2685,7 +2680,8 @@ export default function Home() {
             {[
               {
                 name: "politicasaceptadas",
-                label: "He Leído y Acepto las Políticas del Servicio",
+                label:
+                  "He léido y acepto los términos y condiciones del servicio *",
               },
             ].map((item, index) => (
               <Box
@@ -2751,7 +2747,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Generar Solicitud
+          Generar solicitud
         </Typography>
         <Divider
           sx={{
@@ -2819,26 +2815,33 @@ export default function Home() {
             {botonEstado}
           </Button>
           <Modal
-              open={openModal}
-              onClose={handleCloseModal}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
+            open={openModal}
+            onClose={handleCloseModal}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 400,
+                background: "#F4F4F5",
+                border: "2px solid grey",
+                borderRadius: 2,
+                boxShadow: 24,
+                pt: 2,
+                px: 4,
+                pb: 3,
+              }}
             >
-            <Box sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: 400,
-              background: "#F4F4F5",
-              border: "2px solid grey",
-              borderRadius: 2,
-              boxShadow: 24,
-              pt: 2,
-              px: 4,
-              pb: 3,
-            }}>
-              <Typography id="modal-modal-title" align="center" variant="h6" component="h2">
+              <Typography
+                id="modal-modal-title"
+                align="center"
+                variant="h6"
+                component="h2"
+              >
                 ¡ADVERTENCIA!
               </Typography>
               <Divider
@@ -2851,9 +2854,9 @@ export default function Home() {
                   mb: 1,
                 }}
               />
-              <Typography id="modal-modal-description" sx={{ mt: 2 }} >
-                Asegurate de que la información registrada es correcta, ya que no se
-                puede corregir una vez enviada.
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Asegurate de que la información registrada es correcta, ya que
+                no se puede corregir una vez enviada.
               </Typography>
               <Divider
                 sx={{
@@ -2866,37 +2869,37 @@ export default function Home() {
                 }}
               />
               <Button
-              onClick={handleCloseModal}
-              variant="contained"
-              sx={{
-                mt: 3,
-                mb: 0,
-                width: "calc(50% - 16px)",
-                ml: 0,
-                mr: 0,
-                background: "#98989A",
-                color: "#FFFFFF",
-                border: "1px solid gray",
-              }}
-            >
-              Regresar
-            </Button>
-            <Button
-              onClick={handleSubmit}
-              variant="contained"
-              sx={{
-                mt: 3,
-                mb: 0,
-                width: "calc(50% - 16px)",
-                ml: 4,
-                mr: 0,
-                background: theme.palette.secondary.main,
-                color: "#FFFFFF",
-                border: "1px solid gray",
-              }}
-            >
-              Enviar
-            </Button>
+                onClick={handleCloseModal}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 0,
+                  mr: 0,
+                  background: "#98989A",
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Regresar
+              </Button>
+              <Button
+                onClick={handleSubmit}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 4,
+                  mr: 0,
+                  background: theme.palette.secondary.main,
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Enviar
+              </Button>
             </Box>
           </Modal>
           <Button
@@ -2917,7 +2920,7 @@ export default function Home() {
             Regresar al Inicio
           </Button>
           <Button
-            type= "reset"
+            type="reset"
             variant="contained"
             sx={{
               mt: 0,
@@ -2929,9 +2932,7 @@ export default function Home() {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={
-              botonEstado !== "Descargar PDF"
-            }
+            disabled={botonEstado !== "Descargar PDF"}
             onClick={() => {
               window.location.reload();
               window.scrollTo(0, 0);

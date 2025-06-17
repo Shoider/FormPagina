@@ -20,7 +20,7 @@ import {
   Modal,
 } from "@mui/material";
 import Image from "next/image";
-import Link from 'next/link';
+import Link from "next/link";
 import axios from "axios";
 
 import Alerts from "../components/alerts.jsx";
@@ -44,6 +44,12 @@ export default function Home() {
     uaUsuario: "",
     puestoUsuario: "",
 
+    tipoUsuario: "Interno", // Default
+    piso: "",
+    ala: "",
+
+    usuaExterno: false, // Estado inicial como false
+
     // USUARIO EXTERNO
     extEmpleado: "0000",
     correoEmpleado: "null@null.null",
@@ -55,6 +61,7 @@ export default function Home() {
     nombreJefe: "",
     puestoJefe: "",
 
+    // Caracteristicas
     marca: "Huawei", //Default
     modelo: "",
     serie: "",
@@ -62,18 +69,16 @@ export default function Home() {
 
     // Radios
     movimiento: "", //ALTA, BAJA, CAMBIO
-    mundo: "",
-    local: "",
-    cLocal: "",
-    nacional: "",
-    cNacional: "",
-    eua: "",
-    tipoUsuario: "Interno", // Default
-    piso: "",
-    ala: "",
 
-    usuaExterno: false, // Estado inicial como false
-    //politicas
+    // Servicios solicitados
+    //local: "",
+    celular: "",
+    nacional: "",
+    mundo: "",
+    //cNacional: "",
+    //eua: "",
+
+    // Politicas
     politicasaceptadas: false,
   });
 
@@ -119,33 +124,32 @@ export default function Home() {
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
 
-    // Modal
-    const [openModal, setOpenModal] = useState(false);
-    const handleOpenModal = () => {
-      //No abrir el modal si ya está en modo descarga
-      if (botonEstado === "Descargar PDF") return;
-      const [isValid, getErrors] =
-      validarCamposRequeridos(formData);
-      setErrors(getErrors);
-  
-      console.log("Lista getErrors en submit: ", getErrors);
-  
-      if (!isValid) {
-        setAlert({
-          message: "Por favor, complete todos los campos requeridos.",
-          severity: "warning",
-        });
-      } else {
-        setOpenModal(true);
-        return;
-      }
-      setOpenAlert(true);
+  // Modal
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => {
+    //No abrir el modal si ya está en modo descarga
+    if (botonEstado === "Descargar PDF") return;
+    const [isValid, getErrors] = validarCamposRequeridos(formData);
+    setErrors(getErrors);
+
+    console.log("Lista getErrors en submit: ", getErrors);
+
+    if (!isValid) {
+      setAlert({
+        message: "Por favor, complete todos los campos requeridos.",
+        severity: "warning",
+      });
+    } else {
+      setOpenModal(true);
       return;
-    };
-    
-    const handleCloseModal = () => {
-      setOpenModal(false);
-    };
+    }
+    setOpenAlert(true);
+    return;
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   const [errors, setErrors] = useState({});
 
@@ -188,15 +192,19 @@ export default function Home() {
       // PDF api
       const formResponse = await axios.post("/api2/v3/telefonia", formData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
-      console.log("Respuesta: ", formResponse.data)
-      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Respuesta: ", formResponse.data);
+      const {
+        message: formMessage,
+        id: formId,
+        epoch: epoch,
+      } = formResponse.data;
       console.log("Petición exitosa: ", formMessage);
       console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch)
+      console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`TELEFONIA_${epoch}.pdf`);
 
       setAlert({
@@ -207,23 +215,26 @@ export default function Home() {
 
       try {
         // Aqui llamamos a la otra api para el pdf
-        const pdfResponse = await axios.post("/api/v3/telefonia", { id: formId }, {
-          responseType: "blob",
-        });
+        const pdfResponse = await axios.post(
+          "/api/v3/telefonia",
+          { id: formId },
+          {
+            responseType: "blob",
+          },
+        );
 
-          if (pdfResponse.status === 200) {
-            setPdfUrl(URL.createObjectURL(pdfResponse.data));
-            setBotonEstado("Descargar PDF");
-            setAlert({
-              message: "PDF listo para descargar",
-              severity: "success",
-            });
-            setOpenAlert(true);
-          } else {
-            console.error("Ocurrio un error al generar el PDF");
-            console.error(pdfResponse.status);
-          }
-        
+        if (pdfResponse.status === 200) {
+          setPdfUrl(URL.createObjectURL(pdfResponse.data));
+          setBotonEstado("Descargar PDF");
+          setAlert({
+            message: "PDF listo para descargar",
+            severity: "success",
+          });
+          setOpenAlert(true);
+        } else {
+          console.error("Ocurrio un error al generar el PDF");
+          console.error(pdfResponse.status);
+        }
       } catch (error) {
         console.error("Error:", error);
         setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
@@ -233,10 +244,8 @@ export default function Home() {
         });
         setOpenAlert(true);
       }
-
     } catch (error) {
-
-    setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
 
       if (error.response) {
         // Si hay respuesta, podemos acceder al código de estado y a los datos.
@@ -247,7 +256,7 @@ export default function Home() {
 
         // Construct an object to update the errors state
         const newErrors = {
-          [errorData.campo]: errorData.message // Use the field name as the key and the message as the value
+          [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
         };
         setErrors(newErrors);
         //console.log("Errores API: ", newErrors); // Log the newErrors object
@@ -264,7 +273,7 @@ export default function Home() {
         } else {
           // 3. Manejamos otros errores del servidor (ej. 404, 500).
           setAlert({
-            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
             severity: "error",
           });
         }
@@ -272,24 +281,23 @@ export default function Home() {
         // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
         console.error("Error de red o de conexión:", error.message);
         setAlert({
-          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          message:
+            "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
           severity: "error",
         });
-      } 
+      }
       setOpenAlert(true);
     }
   };
 
-const handleModelo = (newValue) => {
+  const handleModelo = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       modelo: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
-//FILTRADO DE MODELOS
+  //FILTRADO DE MODELOS
   const filteredModelo = modelos[formData.marca] || [];
-
-
 
   ///POLITICAS Y SERVICIOS
   const savePoliticas = async (event) => {
@@ -408,7 +416,7 @@ const handleModelo = (newValue) => {
     setFormData((prevData) => ({
       ...prevData,
       marca: selectedValue, // Guarda la marca seleccionado
-      modelo:"",
+      modelo: "",
     }));
   };
 
@@ -519,8 +527,16 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Datos del Usuario (a) que Utilizará el Servicio
+          Datos del usuario(a) que utilizará el servicio
         </Typography>
+        {/* <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Datos del Usuario (a) que Utilizará el Servicio
+        </Typography> */}
 
         <Box
           component="form"
@@ -542,7 +558,7 @@ const handleModelo = (newValue) => {
             select
             id="tipoUsuario"
             name="tipoUsuario"
-            label="Tipo de Usuario"
+            label="Tipo de usuario"
             defaultValue="Interno"
             sx={{ background: "#FFFFFF" }}
             onChange={handleChangeExterno}
@@ -560,8 +576,8 @@ const handleModelo = (newValue) => {
             error={!!errors?.nombreUsuario}
             id="nombreUsuario"
             name="nombreUsuario"
-            label="Nombre Completo"
-            placeholder="Escriba el Nombre Completo"
+            label="Nombre completo"
+            placeholder="Escriba el nombre y apellidos"
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -586,7 +602,7 @@ const handleModelo = (newValue) => {
             id="puestoUsuario"
             name="puestoUsuario"
             label="Puesto"
-            placeholder="Escriba el Puesto del Usuario"
+            placeholder="Escriba el puesto del usuario"
             value={formData.puestoUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -601,7 +617,7 @@ const handleModelo = (newValue) => {
               <TextField
                 required
                 error={!!errors?.direccion}
-                placeholder="Escriba o Seleccione la Dirección"
+                placeholder="Escriba o seleccione la dirección"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Dirección"
@@ -645,7 +661,7 @@ const handleModelo = (newValue) => {
                 <TextField
                   required
                   error={!!errors?.piso}
-                  placeholder="Escriba o Seleccione el Piso"
+                  placeholder="Escriba o seleccione el piso"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Piso"
@@ -674,7 +690,7 @@ const handleModelo = (newValue) => {
                 <TextField
                   required
                   error={!!errors?.ala}
-                  placeholder="Escriba o Seleccione el Ala"
+                  placeholder="Escriba o seleccione el ala"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Ala"
@@ -714,7 +730,6 @@ const handleModelo = (newValue) => {
             onChange={(event, newValue) => {
               handleUA(newValue); // Maneja selección de opciones
             }}
-            
             inputValue={formData.uaUsuario || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
@@ -761,7 +776,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Datos del Empleado (a) de CONAGUA Responsable
+          Datos del empleado(a) de CONAGUA responsable
         </Typography>
         <Box
           component="form"
@@ -783,7 +798,7 @@ const handleModelo = (newValue) => {
             id="nombreEmpleado"
             name="nombreEmpleado"
             label="Nombre Completo"
-            placeholder="Escriba el Nombre Completo del Empleado"
+            placeholder="Escriba el nombre completo del empleado"
             value={formData.nombreEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -794,8 +809,8 @@ const handleModelo = (newValue) => {
             error={!!errors?.idEmpleado}
             id="idEmpleado"
             name="idEmpleado"
-            label="Número De Empleado"
-            placeholder="Escriba el Número de Empleado"
+            label="Número de empleado"
+            placeholder="Escriba el número de empleado"
             value={formData.idEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -808,7 +823,7 @@ const handleModelo = (newValue) => {
             id="extEmpleado"
             name="extEmpleado"
             label="Teléfono / Extensión"
-            placeholder="Escriba el Número de Teléfono o Extensión"
+            placeholder="Escriba el número de teléfono o extensión"
             value={formData.extEmpleado}
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF" }}
@@ -832,7 +847,7 @@ const handleModelo = (newValue) => {
             id="puestoEmpleado"
             name="puestoEmpleado"
             label="Puesto"
-            placeholder="Escriba el Puesto del Empleado"
+            placeholder="Escriba el puesto del empleado"
             value={formData.puestoEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -879,7 +894,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Información de la Solicitud
+          Información de la solicitud
         </Typography>
         <Box
           component="form"
@@ -921,7 +936,7 @@ const handleModelo = (newValue) => {
                 fontSize: "1.2rem",
               }}
             >
-              Tipo de Movimiento *
+              Tipo de movimiento *
             </FormLabel>
             <RadioGroup
               row
@@ -967,7 +982,7 @@ const handleModelo = (newValue) => {
             id="justificacion"
             name="justificacion"
             label="Justificación"
-            placeholder="Escriba la Justificación del Servicio"
+            placeholder="Escriba la justificación del servicio"
             value={formData.justificacion}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -978,7 +993,7 @@ const handleModelo = (newValue) => {
             error={!!errors?.activacion}
             id="activacion"
             name="activacion"
-            label="Fecha de Activación"
+            label="Fecha de activación"
             type="date"
             //value={formData.activacion}
             onChange={handleDateChangeActiva}
@@ -990,7 +1005,7 @@ const handleModelo = (newValue) => {
             error={!!errors?.expiracion}
             id="expiracion"
             name="expiracion"
-            label="Fecha de Expiración"
+            label="Fecha de expiración"
             type="date"
             //value={formData.expiracion}
             onChange={handleDateChangeExpira}
@@ -1038,7 +1053,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Área que Autoriza
+          Área que autoriza
         </Typography>
         <Box
           component="form"
@@ -1059,8 +1074,8 @@ const handleModelo = (newValue) => {
             error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
-            label="Funcionario con Cargo de Subgerente, Homólogo o Superior"
-            placeholder="Escriba el Nombre Completo del Funcionario"
+            label="Funcionario con cargo de Subgerente, Homólogo o Superior"
+            placeholder="Escriba el nombre completo del funcionario"
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1071,8 +1086,8 @@ const handleModelo = (newValue) => {
             error={!!errors?.puestoJefe}
             id="puestoJefe"
             name="puestoJefe"
-            label="Puesto o Cargo"
-            placeholder="Escriba el Puesto o Cargo del que Autoriza"
+            label="Puesto o cargo"
+            placeholder="Escriba el puesto o cargo del funcionario que autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1110,7 +1125,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Características del Equipo
+          Características del equipo
         </Typography>
         <Box
           component="form"
@@ -1148,13 +1163,13 @@ const handleModelo = (newValue) => {
           {/**MODELO */}
           <Autocomplete
             disablePortal
-            options={filteredModelo}            
+            options={filteredModelo}
             freeSolo
             renderInput={(params) => (
               <TextField
                 required
                 //error={!!errors?.unidadAdministrativa}
-                placeholder="Seleccione el Modelo"
+                placeholder="Seleccione el modelo"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Modelo"
@@ -1164,10 +1179,10 @@ const handleModelo = (newValue) => {
             name="modelo"
             onChange={(event, newValue) => {
               handleModelo(newValue); // Maneja selección de opciones
-            }}            
+            }}
             onInputChange={(event, newInputValue) => {
-              if (event?.type === "change") {                
-                handleModelo(newInputValue) // Maneja texto escrito directamente                
+              if (event?.type === "change") {
+                handleModelo(newInputValue); // Maneja texto escrito directamente
               }
             }}
             inputValue={formData.modelo || ""} // Controla el valor mostrado
@@ -1180,7 +1195,7 @@ const handleModelo = (newValue) => {
             id="serie"
             name="serie"
             label="Serie"
-            placeholder="Escriba el No. de Serie del Equipo"
+            placeholder="Escriba el No. de serie del equipo"
             value={formData.serie}
             onChange={handleChange}
             inputProps={{ maxLength: 16 }}
@@ -1191,24 +1206,16 @@ const handleModelo = (newValue) => {
             error={!!errors?.version}
             id="version"
             name="version"
-            label="Versión de Sistema Operativo"
-            placeholder="Escriba la Versión del Sistema Operativo"
+            label="Versión de sistema operativo"
+            placeholder="Escriba la versión del sistema operativo"
             value={formData.version}
             onChange={handleChange}
             inputProps={{ maxLength: 16 }}
-            sx={{ background: "#FFFFFF" }}
-          />
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mb: 3,
-            }}
+            sx={{ background: "#FFFFFF", mb: 3 }}
           />
         </Box>
       </Box>
+
       {/* Datos del Servicio */}
       {/* Form Box Responsive */}
       <Box
@@ -1238,7 +1245,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Características del Servicio Solicitado
+          Características del servicio solicitado
         </Typography>
         <Box
           component="form"
@@ -1265,55 +1272,7 @@ const handleModelo = (newValue) => {
           }}
         />
 
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <FormLabel
-            component="legend"
-            sx={{
-              mt: 0,
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "1.2rem",
-            }}
-          >
-            Servicio de Larga Distancia Resto del Mundo*
-          </FormLabel>
-          <RadioGroup
-            row
-            aria-label="Servicio de Larga Distancia Resto del Mundo"
-            name="mundo"
-            value={formData.mundo}
-            onChange={handleChange}
-            required
-            sx={{ ml: 2, mr: 2, justifyContent: "center" }}
-          >
-            <FormControlLabel value="SI" control={<Radio />} label="SI" />
-            <FormControlLabel value="NO" control={<Radio />} label="NO" />
-          </RadioGroup>
-          <FormHelperText
-            sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
-          >
-            {errors?.mundo}
-          </FormHelperText>
-        </Box>
-
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 2,
-            mr: 2,
-            mt: 0,
-            mb: 1,
-          }}
-        />
-
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -1340,8 +1299,8 @@ const handleModelo = (newValue) => {
             required
             sx={{ ml: 2, mr: 2, justifyContent: "center" }}
           >
-            <FormControlLabel value="SI" control={<Radio />} label="SI" />
-            <FormControlLabel value="NO" control={<Radio />} label="NO" />
+            <FormControlLabel value="SI" control={<Radio />} label="Sí" />
+            <FormControlLabel value="NO" control={<Radio />} label="No" />
           </RadioGroup>
           <FormHelperText
             sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
@@ -1359,7 +1318,7 @@ const handleModelo = (newValue) => {
             mt: 0,
             mb: 1,
           }}
-        />
+        /> */}
 
         <Box
           sx={{
@@ -1377,24 +1336,24 @@ const handleModelo = (newValue) => {
               fontSize: "1.2rem",
             }}
           >
-            Servicio Celular Local *
+            ¿Requiere servicio celular local y foráneo? *
           </FormLabel>
           <RadioGroup
             row
             aria-label="Servicio Celular Local"
-            name="cLocal"
-            value={formData.cLocal}
+            name="celular"
+            value={formData.celular}
             onChange={handleChange}
             required
             sx={{ ml: 2, mr: 2, justifyContent: "center" }}
           >
-            <FormControlLabel value="SI" control={<Radio />} label="SI" />
-            <FormControlLabel value="NO" control={<Radio />} label="NO" />
+            <FormControlLabel value="SI" control={<Radio />} label="Sí" />
+            <FormControlLabel value="NO" control={<Radio />} label="No" />
           </RadioGroup>
           <FormHelperText
             sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
           >
-            {errors?.cLocal}
+            {errors?.celular}
           </FormHelperText>
         </Box>
 
@@ -1425,7 +1384,7 @@ const handleModelo = (newValue) => {
               fontSize: "1.2rem",
             }}
           >
-            Servicio Larga Distancia Nacional *
+            ¿Requiere servicio de larga distancia nacional? *
           </FormLabel>
           <RadioGroup
             row
@@ -1436,8 +1395,8 @@ const handleModelo = (newValue) => {
             required
             sx={{ ml: 2, mr: 2, justifyContent: "center" }}
           >
-            <FormControlLabel value="SI" control={<Radio />} label="SI" />
-            <FormControlLabel value="NO" control={<Radio />} label="NO" />
+            <FormControlLabel value="SI" control={<Radio />} label="Sí" />
+            <FormControlLabel value="NO" control={<Radio />} label="No" />
           </RadioGroup>
           <FormHelperText
             sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
@@ -1457,7 +1416,7 @@ const handleModelo = (newValue) => {
           }}
         />
 
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -1484,8 +1443,8 @@ const handleModelo = (newValue) => {
             required
             sx={{ ml: 2, mr: 2, justifyContent: "center" }}
           >
-            <FormControlLabel value="SI" control={<Radio />} label="SI" />
-            <FormControlLabel value="NO" control={<Radio />} label="NO" />
+            <FormControlLabel value="SI" control={<Radio />} label="Sí" />
+            <FormControlLabel value="NO" control={<Radio />} label="No" />
           </RadioGroup>
           <FormHelperText
             sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
@@ -1495,6 +1454,54 @@ const handleModelo = (newValue) => {
         </Box>
 
         <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mt: 0,
+            mb: 1,
+          }}
+        /> */}
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <FormLabel
+            component="legend"
+            sx={{
+              mt: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "1.2rem",
+            }}
+          >
+            ¿Requiere servicio de larga distancia internacional? *
+          </FormLabel>
+          <RadioGroup
+            row
+            aria-label="Servicio Larga Distancia Estados Unidos y Canadá"
+            name="mundo"
+            value={formData.mundo}
+            onChange={handleChange}
+            required
+            sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+          >
+            <FormControlLabel value="SI" control={<Radio />} label="Sí" />
+            <FormControlLabel value="NO" control={<Radio />} label="No" />
+          </RadioGroup>
+          <FormHelperText
+            sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
+          >
+            {errors?.mundo}
+          </FormHelperText>
+        </Box>
+
+        {/*         <Divider
           sx={{
             borderBottomWidth: "1px",
             borderColor: "grey",
@@ -1521,13 +1528,13 @@ const handleModelo = (newValue) => {
               fontSize: "1.2rem",
             }}
           >
-            Servicio Larga Distancia Estados Unidos y Canadá: *
+            Servicio de Larga Distancia Resto del Mundo *
           </FormLabel>
           <RadioGroup
             row
-            aria-label="Servicio Larga Distancia Estados Unidos y Canadá:"
-            name="eua"
-            value={formData.eua}
+            aria-label="Servicio de Larga Distancia Resto del Mundo"
+            name="mundo"
+            value={formData.mundo}
             onChange={handleChange}
             required
             sx={{ ml: 2, mr: 2, justifyContent: "center" }}
@@ -1538,9 +1545,9 @@ const handleModelo = (newValue) => {
           <FormHelperText
             sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
           >
-            {errors?.eua}
+            {errors?.mundo}
           </FormHelperText>
-        </Box>
+        </Box> */}
 
         <Divider
           sx={{
@@ -1552,6 +1559,7 @@ const handleModelo = (newValue) => {
           }}
         />
       </Box>
+
       {/* Datos de Politicas */}
       {/* Form Box Responsive */}
       <Box
@@ -1582,7 +1590,7 @@ const handleModelo = (newValue) => {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Politicas del Servicio
+          Términos y condiciones del servicio
         </Typography>
         <Box
           component="form"
@@ -1606,8 +1614,7 @@ const handleModelo = (newValue) => {
               color="#9F2241"
               sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
             >
-              {" •   Aquí debrán de ir las políticas"}
-              <br />
+              PENDIENTES
             </Typography>
           </Box>
           <Box
@@ -1617,8 +1624,8 @@ const handleModelo = (newValue) => {
               flexWrap: "wrap",
               justifyContent: "center",
               mt: 2,
-              ml: 10,
-              mr: 10,
+              ml: 3,
+              mr: 0,
               mb: 3,
               //mx: "auto"
             }}
@@ -1626,7 +1633,8 @@ const handleModelo = (newValue) => {
             {[
               {
                 name: "politicasaceptadas",
-                label: "He Leído y Acepto las Políticas del Servicio",
+                label:
+                  "He léido y acepto los términos y condiciones del servicio *",
               },
             ].map((item, index) => (
               <Box
@@ -1692,7 +1700,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Generar Solicitud
+          Generar solicitud
         </Typography>
         <Divider
           sx={{
@@ -1762,87 +1770,94 @@ const handleModelo = (newValue) => {
             {botonEstado}
           </Button>
 
-        <Modal
-          open={openModal}
-          onClose={handleCloseModal}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-        <Box sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 400,
-          background: "#F4F4F5",
-          border: "2px solid grey",
-          borderRadius: 2,
-          boxShadow: 24,
-          pt: 2,
-          px: 4,
-          pb: 3,
-        }}>
-          <Typography id="modal-modal-title" align="center" variant="h6" component="h2">
-            ¡ADVERTENCIA!
-          </Typography>
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 0,
-              mr: 0,
-              mt: 2,
-              mb: 1,
-            }}
-          />
-          <Typography id="modal-modal-description" sx={{ mt: 2 }} >
-            Asegurate de que la información registrada es correcta, ya que no se
-            puede corregir una vez enviada.
-          </Typography>
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 0,
-              mr: 0,
-              mt: 2,
-              mb: 0,
-            }}
-          />
-          <Button
-          onClick={handleCloseModal}
-          variant="contained"
-          sx={{
-            mt: 3,
-            mb: 0,
-            width: "calc(50% - 16px)",
-            ml: 0,
-            mr: 0,
-            background: "#98989A",
-            color: "#FFFFFF",
-            border: "1px solid gray",
-          }}
-        >
-          Regresar
-        </Button>
-        <Button
-          onClick={handleSubmit}
-          variant="contained"
-          sx={{
-            mt: 3,
-            mb: 0,
-            width: "calc(50% - 16px)",
-            ml: 4,
-            mr: 0,
-            background: theme.palette.secondary.main,
-            color: "#FFFFFF",
-            border: "1px solid gray",
-          }}
-        >
-          Enviar
-        </Button>
-        </Box>
-      </Modal>
+          <Modal
+            open={openModal}
+            onClose={handleCloseModal}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 400,
+                background: "#F4F4F5",
+                border: "2px solid grey",
+                borderRadius: 2,
+                boxShadow: 24,
+                pt: 2,
+                px: 4,
+                pb: 3,
+              }}
+            >
+              <Typography
+                id="modal-modal-title"
+                align="center"
+                variant="h6"
+                component="h2"
+              >
+                ¡ADVERTENCIA!
+              </Typography>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 1,
+                }}
+              />
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Asegurate de que la información registrada es correcta, ya que
+                no se puede corregir una vez enviada.
+              </Typography>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 0,
+                }}
+              />
+              <Button
+                onClick={handleCloseModal}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 0,
+                  mr: 0,
+                  background: "#98989A",
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Regresar
+              </Button>
+              <Button
+                onClick={handleSubmit}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 4,
+                  mr: 0,
+                  background: theme.palette.secondary.main,
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Enviar
+              </Button>
+            </Box>
+          </Modal>
 
           <Button
             component={Link}
@@ -1862,7 +1877,7 @@ const handleModelo = (newValue) => {
             Regresar al Inicio
           </Button>
           <Button
-            type= "reset"
+            type="reset"
             variant="contained"
             sx={{
               mt: 0,
@@ -1874,9 +1889,7 @@ const handleModelo = (newValue) => {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={
-              botonEstado !== "Descargar PDF"
-            }
+            disabled={botonEstado !== "Descargar PDF"}
             onClick={() => {
               window.location.reload();
               window.scrollTo(0, 0);

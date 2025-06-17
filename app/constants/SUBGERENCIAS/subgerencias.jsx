@@ -1,205 +1,205 @@
 // TERCER NIVEL - SUBGERENCIAS
 const subgerencias = {
-  "Subdirección General de Administración":[
-    "Enlace y Gestión Administrativa"
-  ],  
+  "Subdirección General de Administración": ["Enlace y Gestión Administrativa"],
   "Gerencia de Personal": [
-    "Gerencia de Personal", 
+    "Gerencia de Personal",
     "Subgerencia de Organización y Planeación de Personal",
     "Subgerencia de Administración de Renumeraciones ",
     "Subgerencia de Relaciones Laborales",
-    "Subgerencia de Desarrollo de Personal"
+    "Subgerencia de Desarrollo de Personal",
   ],
-  "Gerencia de Recursos Financieros":[
-    "Gerencia de Recursos Financieros", 
+  "Gerencia de Recursos Financieros": [
+    "Gerencia de Recursos Financieros",
     "Subgerencia de Presupuesto",
     "Subgerencia de Tesorería",
-    "Subgerencia de Contabilidad"
+    "Subgerencia de Contabilidad",
   ],
-  "Gerencia de Recursos Materiales":[
-    "Gerencia de Recursos Materiales", 
+  "Gerencia de Recursos Materiales": [
+    "Gerencia de Recursos Materiales",
     "Subgerencia de Adquisiciones",
     "Subgerencia de Almacenes",
-    "Subgerencia de Servicios Generales"
+    "Subgerencia de Servicios Generales",
   ],
-  "Gerencia de Tecnología de la Información y Comunicaciones":[
-    "Gerencia de Tecnología de la Información y Comunicaciones", 
+  "Gerencia de Tecnología de la Información y Comunicaciones": [
+    "Gerencia de Tecnología de la Información y Comunicaciones",
     "Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad",
     "Subgerencia de Sistemas",
     "Subgerencia de Internet e Intranet",
     "Subgerencia de Normatividad y Recursos de Tecnología de la Información",
-    "Subgerencia de Atención a Usuarios y Administración de Proyectos"
+    "Subgerencia de Atención a Usuarios y Administración de Proyectos",
   ],
-  "Gerencia de Innovación y Fortalecimiento Institucional":[
-    "Gerencia de Innovación y Fortalecimiento Institucional", 
+  "Gerencia de Innovación y Fortalecimiento Institucional": [
+    "Gerencia de Innovación y Fortalecimiento Institucional",
     "Subgerencia de Normatividad y Calidad Institucional",
     "Subgerencia de Calidad",
-    "Subgerencia de Innovación"
+    "Subgerencia de Innovación",
   ],
-  "Coordinación de Atención a Organismos Fiscalizadores":[
-    "Coordinación de Atención a Organismos Fiscalizadores", 
-    "Subgerencia de Programas Institucionales y Especiales"
+  "Coordinación de Atención a Organismos Fiscalizadores": [
+    "Coordinación de Atención a Organismos Fiscalizadores",
+    "Subgerencia de Programas Institucionales y Especiales",
   ],
-  "Subdirección General de Administración del Agua":[
+  "Subdirección General de Administración del Agua": [
     "Coordinación de Proyectos Transversales, Transparencia e Innovación",
-    "Subgerencia de Administración"
+    "Subgerencia de Administración",
   ],
-  "Gerencia de Servicios a Usuarios":[
-    "Gerencia de Servicios a Usuarios", 
+  "Gerencia de Servicios a Usuarios": [
+    "Gerencia de Servicios a Usuarios",
     "Subgerencia de Dictaminación y Titulación",
     "Subgerencia de Mejora Regulatoria de Trámites",
     "Subgerencia de Atención a Usuarios",
   ],
-  "Gerencia del Registro Público de Derechos de Agua":[
-    "Gerencia del Registro Público de Derechos de Agua", 
+  "Gerencia del Registro Público de Derechos de Agua": [
+    "Gerencia del Registro Público de Derechos de Agua",
     "Subgerencia de Control Documental",
     "Subgerencia de Operación",
     "Subgerencia de Control Estadístico y Cartografía",
   ],
-  "Gerencia de Inspección y Medición":[
-    "Gerencia de Inspección y Medición", 
+  "Gerencia de Inspección y Medición": [
+    "Gerencia de Inspección y Medición",
     "Subgerencia de Inspección",
-  ],  
-  "Gerencia de Calificación de Infracciones, Análisis y Evaluación":[
-    "Gerencia de Calificación de Infracciones, Análisis y Evaluación", 
+  ],
+  "Gerencia de Calificación de Infracciones, Análisis y Evaluación": [
+    "Gerencia de Calificación de Infracciones, Análisis y Evaluación",
     "Subgerencia de Normativa de Aguas Nacionales",
     "Subgerencia de Calificación de Infracciones e Imposición de Sanciones",
     "Subgerencia de Supervisión y Evaluación",
   ],
-  "Gerencia de Regulación y Bancos del Agua":[
-    "Gerencia de Regulación y Bancos del Agua", 
+  "Gerencia de Regulación y Bancos del Agua": [
+    "Gerencia de Regulación y Bancos del Agua",
     "Subgerencia de Estadística y Operación de Sistemas de Información",
     "Subgerencia de Estudios Económicos",
     "Subgerencia de Información e Integración de Padrones de Usuarios",
     "Subgerencia de Regulación y Bancos de Agua",
   ],
-  "Subdirección General de Infraestructura Hidroagrícola":[
-    "Coordinación de Proyectos Transversales, Transparencia e Innovación"
+  "Subdirección General de Infraestructura Hidroagrícola": [
+    "Coordinación de Proyectos Transversales, Transparencia e Innovación",
   ],
-  "Gerencia de Construcción de Infraestructura Hidroagrícola":[
-    "Gerencia de Construcción de Infraestructura Hidroagrícola", 
+  "Gerencia de Construcción de Infraestructura Hidroagrícola": [
+    "Gerencia de Construcción de Infraestructura Hidroagrícola",
     "Subgerencia de Técnica",
     "Subgerencia de Apoyo a la Supervisión de Obras de Infraestructura Hidroagrícola",
     "Subgerencia de Programación y Evaluación",
     "Subgerencia de Control y Seguimiento de Programas de Obra Pública",
   ],
-  "Gerencia de Proyectos de Infraestructura Hidroagrícola":[
+  "Gerencia de Proyectos de Infraestructura Hidroagrícola": [
     "Gerencia de Proyectos de Infraestructura Hidroagrícola ",
     "Subgerencia de Diseño de Presas",
     "Subgerencia de Diseño de Zonas de Riego y Temporal Tecnificado",
     "Subgerencia de Diseños Electromecánicos",
     "Subgerencia de Geotecnia y Cimentaciones",
-    "Subgerencia de Rehabilitación de Presas y Monitoreo Estructural"
+    "Subgerencia de Rehabilitación de Presas y Monitoreo Estructural",
   ],
-  "Gerencia de Unidades de Riego":[
-    "Gerencia de Unidades de Riego", 
+  "Gerencia de Unidades de Riego": [
+    "Gerencia de Unidades de Riego",
     "Subgerencia de Apoyo Técnico a la Conservación, Mantenimiento y Concesiones de la Infraestructura Hidroagrícola",
     "Subgerencia de Rehabilitación y Modernización de Unidades de Riego",
     "Subgerencia de Sistemas de Riego e Información Geográfica",
     "Subgerencia de Integración, Seguimiento y Evaluación",
   ],
-  "Gerencia de Infraestructura de Protección en Ríos y de Distritos de Temporal":[
-    "Gerencia de Infraestructura de Protección en Ríos y de Distritos de Temporal ",
-    "Subgerencia de Control y Seguimiento",
-    "Subgerencia de Infraestructura y Manejo del Agua",
-    "Subgerencia de Proyectos de Obras de Protección en Ríos",
-    "Subgerencia de Proyectos Especiales",
-    "Subgerencia de Seguimiento y Evaluación de Protección de Ríos",
-  ],
-  "Gerencia de Distritos de Riego":[
+  "Gerencia de Infraestructura de Protección en Ríos y de Distritos de Temporal":
+    [
+      "Gerencia de Infraestructura de Protección en Ríos y de Distritos de Temporal ",
+      "Subgerencia de Control y Seguimiento",
+      "Subgerencia de Infraestructura y Manejo del Agua",
+      "Subgerencia de Proyectos de Obras de Protección en Ríos",
+      "Subgerencia de Proyectos Especiales",
+      "Subgerencia de Seguimiento y Evaluación de Protección de Ríos",
+    ],
+  "Gerencia de Distritos de Riego": [
     "Gerencia de Distritos de Riego ",
     "Subgerencia de Operación",
     "Subgerencia de Evaluación y Seguimiento",
     "Subgerencia de Conservación",
   ],
-  "Subdirección General de Agua Potable, Drenaje y Saneamiento":[
+  "Subdirección General de Agua Potable, Drenaje y Saneamiento": [
     "Coordinación de Proyectos Transversales, Transparencia e Innovación",
     "Subgerencia de Administración ",
   ],
-  "Gerencia de Potabilización y Tratamiento":[
+  "Gerencia de Potabilización y Tratamiento": [
     "Gerencia de Potabilización y Tratamiento ",
     "Subgerencia de Potabilización",
     "Subgerencia de Programas de Saneamiento",
     "Subgerencia de Tratamiento",
     "Subgerencia de Agua Limpia",
   ],
-  "Gerencia de Estudios y Proyectos de Agua Potable y Redes de Alcantarillado":[
-    "Gerencia de Estudios y Proyectos de Agua Potable y Redes de Alcantarillado", 
-    "Subgerencia de Proyectos Zona Norte",
-    "Subgerencia de Coordinación de Información",
-    "Subgerencia de Estudios",
-    "Subgerencia de Proyectos de Zona Sur",
-  ],
-  "Gerencia de Fortalecimiento de Organismos Operadores":[
+  "Gerencia de Estudios y Proyectos de Agua Potable y Redes de Alcantarillado":
+    [
+      "Gerencia de Estudios y Proyectos de Agua Potable y Redes de Alcantarillado",
+      "Subgerencia de Proyectos Zona Norte",
+      "Subgerencia de Coordinación de Información",
+      "Subgerencia de Estudios",
+      "Subgerencia de Proyectos de Zona Sur",
+    ],
+  "Gerencia de Fortalecimiento de Organismos Operadores": [
     "Gerencia de Fortalecimiento de Organismos Operadores ",
     "Subgerencia de Programación, Coordinación y Evaluación del Presupuesto",
     "Subgerencia de Programas de Fortalecimiento",
     "Subgerencia de Financiamiento y Modernización de Organismos Operadores",
     "Subgerencia de Apoyo a Organismos Operadores",
   ],
-  "Gerencia de Programas Federales de Agua Potable y Saneamiento":[
+  "Gerencia de Programas Federales de Agua Potable y Saneamiento": [
     "Gerencia de Programas Federales de Agua Potable y Saneamiento ",
     "Subgerencia de Programación y Presupuesto de Agua Potable y Saneamiento",
     "Subgerencia de Participación Social e Institucional",
     "Subgerencia de Control y Seguimiento de Programas Federales de Agua Potable, Drenaje y Saneamiento",
     "Subgerencia de Coordinación Técnica de Programas Federales",
   ],
-  "Gerencia de Normatividad":[
+  "Gerencia de Normatividad": [
     "Gerencia de Normatividad ",
     "Subgerencia de Normas Mexicanas",
     "Subgerencia de Normas Oficiales Mexicanas",
     "Subgerencia de Gestión de Riesgos y Evaluación de la Conformidad",
   ],
-  "Gerencia de Infraestructura Hidráulica Pluvial":[
+  "Gerencia de Infraestructura Hidráulica Pluvial": [
     "Gerencia de Infraestructura Hidráulica Pluvial ",
     "Subgerencia de Infraestructura Hidráulica Pluvial Zona Centro",
     "Subgerencia de Infraestructura Hidráulica Pluvial Zona Sur",
     "Subgerencia de Integración de Información Geográfica de Infraestructura Hidráulica Pluvia",
     "Subgerencia de Infraestructura Hidráulica Pluvial Zona Norte",
   ],
-  "Subdirección General Jurídica":[
+  "Subdirección General Jurídica": [
     "Coordinación de Proyectos Transversales, Transparencia e Innovación",
     "Subgerencia de Administración",
   ],
-  "Gerencia de lo Consultivo":[
+  "Gerencia de lo Consultivo": [
     "Gerencia de lo Consultivo ",
     "Subgerencia de lo Consultivo",
     "Subgerencia de Recursos Administrativos",
   ],
-  "Gerencia de lo Contencioso":[
-    "Gerencia de lo Contencioso", 
+  "Gerencia de lo Contencioso": [
+    "Gerencia de lo Contencioso",
     "Subgerencia de Juicios Fiscales",
   ],
-  "Gerencia de Procedimientos Administrativos":[
+  "Gerencia de Procedimientos Administrativos": [
     "Gerencia de Procedimientos Administrativos ",
     "Subgerencia de Procedimientos y Programas",
     "Subgerencia de Contratos y Convenios",
     "Subgerencia de Regularización de Propiedad Social y Particular",
-
   ],
-  "Gerencia de Descentralización y de Transparencia y Acceso a la Información Pública":[
-    "Gerencia de Descentralización y de Transparencia y Acceso a la Información Pública",
-    "Subgerencia de Estudios y Políticas de Descentralización",
-    "Subgerencia de Normativa y Seguimiento de Transferencia de Programas y Recursos",
-    "Subgerencia de Transparencia y Acceso a la Información Pública Gubernamental",
-  ],
-  "Subdirección General Técnica":[
+  "Gerencia de Descentralización y de Transparencia y Acceso a la Información Pública":
+    [
+      "Gerencia de Descentralización y de Transparencia y Acceso a la Información Pública",
+      "Subgerencia de Estudios y Políticas de Descentralización",
+      "Subgerencia de Normativa y Seguimiento de Transferencia de Programas y Recursos",
+      "Subgerencia de Transparencia y Acceso a la Información Pública Gubernamental",
+    ],
+  "Subdirección General Técnica": [
     "Coordinación de Proyectos Transversales, Transparencia e Innovación",
   ],
-  "Gerencia de Aguas Subterráneas":[
+  "Gerencia de Aguas Subterráneas": [
     "Gerencia de Aguas Subterráneas ",
     "Subgerencia de Evaluación y Ordenamiento de Acuíferos",
     "Subgerencia de Exploración y Monitoreo Geohidrológico",
     "Subgerencia de Sistemas de Información Geohidrológicos",
     "Subgerencia de Información Geográfica del Agua",
   ],
-  "Gerencia de Aguas Superficiales e Ingeniería de Ríos":[
+  "Gerencia de Aguas Superficiales e Ingeniería de Ríos": [
     "Gerencia de Aguas Superficiales e Ingeniería de Ríos ",
     "Subgerencia de Hidrología Operativa",
     "Subgerencia de Análisis Hidrológicos",
     "Subgerencia de Hidrometría",
   ],
-  "Gerencia del Consultivo Técnico":[
+  "Gerencia del Consultivo Técnico": [
     "Gerencia del Consultivo Técnico ",
     "Subgerencia de Ingeniería Hidráulica y Electromecánica",
     "Subgerencia de Ingeniería Sanitaria y Ambiental",
@@ -208,38 +208,38 @@ const subgerencias = {
     "Subgerencia de Evaluación de Proyectos de Obras Hidráulicas Nuevas",
     "Subgerencia de Seguridad de Presas",
   ],
-  "Gerencia de Ingeniería y Asuntos Binacionales del Agua":[
+  "Gerencia de Ingeniería y Asuntos Binacionales del Agua": [
     "Gerencia de Ingeniería y Asuntos Binacionales del Agua ",
     "Subgerencia de Regulación Técnica del Agua",
     "Subgerencia de Gestión de Normas y Regulaciones Técnicas del Agua",
     "Subgerencia de Asuntos Binacionales Noroeste",
   ],
-  "Gerencia de Calidad del Agua":[
+  "Gerencia de Calidad del Agua": [
     "Gerencia de Calidad del Agua ",
     "Subgerencia de la Red Nacional de Medición de Calidad del Agua",
     "Subgerencia de Estudios de Calidad del Agua e Impacto Ambiental",
     "Subgerencia de Programas Sectoriales de Calidad del Agua",
     "Subgerencia de Dictámenes Técnicos, Emergencias Hidroecológicas y Servicios Ambientales",
   ],
-  "Coordinación General del Servicio Meteorológico Nacional":[
+  "Coordinación General del Servicio Meteorológico Nacional": [
     "Subgerencia de Pronóstico Meteorológico",
     "Subgerencia de Monitoreo Atmosférico Ambiental",
   ],
-  "Gerencia de Redes de Observación y Telemática":[
+  "Gerencia de Redes de Observación y Telemática": [
     "Gerencia de Redes de Observación y Telemática ",
     "Subgerencia de Informática y Telecomunicaciones",
   ],
-  "Gerencia de Meteorología y Climatología":[
-    "Gerencia de Meteorología y Climatología"
+  "Gerencia de Meteorología y Climatología": [
+    "Gerencia de Meteorología y Climatología",
   ],
-  "Coordinación General de Recaudación y Fiscalización":[
+  "Coordinación General de Recaudación y Fiscalización": [
     "Subgerencia de Supervisión de la Fiscalización",
     "Subgerencia de Auditorías Especiales",
     "Subgerencia de Programación de la Fiscalización Nacional",
     "Subgerencia de Coordinación Hacendaria y Procedimientos ",
     "Subgerencia de Operación Recaudatoria.",
     "Subgerencia de Control de Obligaciones Fiscales.",
-  ]
+  ],
 };
 
 export default subgerencias;

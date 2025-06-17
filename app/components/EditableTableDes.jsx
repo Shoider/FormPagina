@@ -114,58 +114,58 @@ function EditableTableDes({ initialData, onDataChange }) {
   const [rowModesModel, setRowModesModel] = useState({});
 
   const calculateNextId = useCallback((currentData) => {
-      return currentData && currentData.length > 0
-        ? Math.max(...currentData.map((item) => item.id)) + 1
-        : 1;
-    }, []);
-  
+    return currentData && currentData.length > 0
+      ? Math.max(...currentData.map((item) => item.id)) + 1
+      : 1;
+  }, []);
+
   const [nextId, setNextId] = useState(() => calculateNextId(initialData));
-  
-    useEffect(() => {
-      setNextId(calculateNextId(initialData));
-    }, [initialData, calculateNextId]);
-  
-    const handleRowEditStop = (params, event) => {
-      if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-        //event.defaultMuiPrevented = true;
-      }
-    };
-  
-    const handleEditClick = (id) => () => {
-      setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-    };
-  
-    const handleSaveClick = (id) => () => {
-      setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-    };
-  
-    const handleDeleteClick = (id) => () => {
-      const newRows = rows.filter((row) => row.id !== id);
-  
-      // Actualiza los id iterando
-      const updatedRows = newRows.map((row, index) => ({
-        ...row,
-        id: index + 1,
-      }));
-  
-      setRows(updatedRows);
-      setNextId(calculateNextId(updatedRows));
-    };
-  
-    const handleCancelClick = (id) => () => {
-      setRowModesModel({
-        ...rowModesModel,
-        [id]: { mode: GridRowModes.View, ignoreModifications: true },
-      });
-  
-      const editedRow = rows.find((row) => row.id === id);
-      if (editedRow.isNew) {
-        setRows(rows.filter((row) => row.id !== id));
-      }
-      const newRows = rows.filter((row) => row.id !== id);
-      setRows(newRows);
-      setNextId(calculateNextId(newRows));
-    };
+
+  useEffect(() => {
+    setNextId(calculateNextId(initialData));
+  }, [initialData, calculateNextId]);
+
+  const handleRowEditStop = (params, event) => {
+    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+      //event.defaultMuiPrevented = true;
+    }
+  };
+
+  const handleEditClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleSaveClick = (id) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleDeleteClick = (id) => () => {
+    const newRows = rows.filter((row) => row.id !== id);
+
+    // Actualiza los id iterando
+    const updatedRows = newRows.map((row, index) => ({
+      ...row,
+      id: index + 1,
+    }));
+
+    setRows(updatedRows);
+    setNextId(calculateNextId(updatedRows));
+  };
+
+  const handleCancelClick = (id) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+    const newRows = rows.filter((row) => row.id !== id);
+    setRows(newRows);
+    setNextId(calculateNextId(newRows));
+  };
 
   const processRowUpdate = (newRow) => {
     const updatedRow = { ...newRow, isNew: false };
@@ -186,7 +186,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: false,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "SO",
@@ -196,7 +196,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     //{ field: 'FRO', headerName: 'Funcion o Rol de Dispositivo(s) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: false },
     {
@@ -207,7 +207,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "SD",
@@ -217,7 +217,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "FRD",
@@ -227,7 +227,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
       renderEditCell: (params) => {
         const handleBlur = async (event) => {
           if (params.api.setEditCellValue) {
@@ -296,7 +296,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "PRO",
@@ -305,7 +305,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
       type: "singleSelect",
       valueOptions: ["TCP", "UDP"],
     },
@@ -317,7 +317,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "TEMPO",
@@ -328,7 +328,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       editable: true,
       type: "singleSelect",
       valueOptions: ["TEMPORAL", "PERMANENTE"],
-      sortable:false,
+      sortable: false,
     },
     {
       field: "FECHA",
@@ -338,7 +338,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable:false,
+      sortable: false,
     },
     {
       field: "actions",
@@ -348,7 +348,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       cellClassName: "actions",
-      sortable:false,
+      sortable: false,
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
 
