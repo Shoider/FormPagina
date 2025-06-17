@@ -1292,8 +1292,8 @@ const handleModelo = (newValue) => {
             required
             sx={{ ml: 2, mr: 2, justifyContent: "center" }}
           >
-            <FormControlLabel value="SI" control={<Radio />} label="SI" />
-            <FormControlLabel value="NO" control={<Radio />} label="NO" />
+            <FormControlLabel value="SI" control={<Radio />} label="Sí" />
+            <FormControlLabel value="NO" control={<Radio />} label="No" />
           </RadioGroup>
           <FormHelperText
             sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
@@ -1329,7 +1329,7 @@ const handleModelo = (newValue) => {
               fontSize: "1.2rem",
             }}
           >
-            Servicio Celular Local y Foraneo *
+            ¿Requiere servicio celular local y foráneo? *
           </FormLabel>
           <RadioGroup
             row
@@ -1340,8 +1340,8 @@ const handleModelo = (newValue) => {
             required
             sx={{ ml: 2, mr: 2, justifyContent: "center" }}
           >
-            <FormControlLabel value="SI" control={<Radio />} label="SI" />
-            <FormControlLabel value="NO" control={<Radio />} label="NO" />
+            <FormControlLabel value="SI" control={<Radio />} label="Sí" />
+            <FormControlLabel value="NO" control={<Radio />} label="No" />
           </RadioGroup>
           <FormHelperText
             sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
@@ -1377,7 +1377,7 @@ const handleModelo = (newValue) => {
               fontSize: "1.2rem",
             }}
           >
-            Servicio Larga Distancia Nacional *
+            ¿Requiere servicio de larga distancia nacional? *
           </FormLabel>
           <RadioGroup
             row
@@ -1388,8 +1388,8 @@ const handleModelo = (newValue) => {
             required
             sx={{ ml: 2, mr: 2, justifyContent: "center" }}
           >
-            <FormControlLabel value="SI" control={<Radio />} label="SI" />
-            <FormControlLabel value="NO" control={<Radio />} label="NO" />
+            <FormControlLabel value="SI" control={<Radio />} label="Sí" />
+            <FormControlLabel value="NO" control={<Radio />} label="No" />
           </RadioGroup>
           <FormHelperText
             sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
@@ -1436,8 +1436,8 @@ const handleModelo = (newValue) => {
             required
             sx={{ ml: 2, mr: 2, justifyContent: "center" }}
           >
-            <FormControlLabel value="SI" control={<Radio />} label="SI" />
-            <FormControlLabel value="NO" control={<Radio />} label="NO" />
+            <FormControlLabel value="SI" control={<Radio />} label="Sí" />
+            <FormControlLabel value="NO" control={<Radio />} label="No" />
           </RadioGroup>
           <FormHelperText
             sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
@@ -1473,7 +1473,7 @@ const handleModelo = (newValue) => {
               fontSize: "1.2rem",
             }}
           >
-            Servicio Larga Distancia Internacional *
+            ¿Requiere servicio de larga distancia internacional? *
           </FormLabel>
           <RadioGroup
             row
@@ -1484,8 +1484,8 @@ const handleModelo = (newValue) => {
             required
             sx={{ ml: 2, mr: 2, justifyContent: "center" }}
           >
-            <FormControlLabel value="SI" control={<Radio />} label="SI" />
-            <FormControlLabel value="NO" control={<Radio />} label="NO" />
+            <FormControlLabel value="SI" control={<Radio />} label="Sí" />
+            <FormControlLabel value="NO" control={<Radio />} label="No" />
           </RadioGroup>
           <FormHelperText
             sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
@@ -1590,7 +1590,7 @@ const handleModelo = (newValue) => {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Politicas del Servicio
+          Políticas del Servicio
         </Typography>
         <Box
           component="form"
