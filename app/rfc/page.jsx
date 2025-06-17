@@ -1185,7 +1185,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Región de Origen de la Solicitud
+          Región de origen de la solicitud
         </Typography>
         <Divider
           sx={{
@@ -1209,7 +1209,7 @@ export default function Home() {
             fontSize: "1.2rem",
           }}
         >
-          Seleccione el Origen *
+          Seleccione el origen *
         </FormLabel>
         
           <Box
@@ -1297,7 +1297,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Información del Solicitante
+          Información del solicitante
         </Typography>
         <Box
           component="form"
@@ -1318,7 +1318,7 @@ export default function Home() {
             error={!!errors?.noms}
             id="noms"
             name="noms"
-            label="Nombre Completo"
+            label="Nombre completo"
             placeholder="Nombre completo del solicitante"
             value={formData.noms}
             onChange={handleChange}
@@ -1445,7 +1445,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Información del Enlace Informático
+          Información del enlace informático
         </Typography>
         <Box
           component="form"
@@ -1466,7 +1466,7 @@ export default function Home() {
             error={!!errors?.nomei}
             id="nomei"
             name="nomei"
-            label="Nombre Completo"
+            label="Nombre completo"
             placeholder="Nombre completo del enlace informático"
             value={formData.nomei}
             onChange={handleChange}
@@ -1517,7 +1517,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Información de la Solicitud
+          Información de la solicitud
         </Typography>
         <Box
           component="form"
@@ -1539,7 +1539,7 @@ export default function Home() {
             error={!!errors?.memo}
             id="memo"
             name="memo"
-            label="Memorando / Atenta Nota"
+            label="Memorando / Atenta nota"
             placeholder="Ingrese su memorando / atenta nota"
             value={formData.memo}
             onChange={handleChange}
@@ -1563,7 +1563,7 @@ export default function Home() {
             error={!!errors?.descbreve}
             id="descbreve"
             name="descbreve"
-            label="Solicitud"
+            label="Descripcion breve"
             placeholder="Descripción breve de la solicitud"
             value={formData.descbreve}
             onChange={handleChange}
@@ -1594,7 +1594,7 @@ export default function Home() {
               mx: "auto",
             }}
           >
-            Tipo de Cambio *
+            Tipo de cambio *
           </FormLabel>
           <Box
             sx={{
@@ -1698,7 +1698,7 @@ export default function Home() {
               id="desotro"
               name="desotro"
               label="Otro"
-              placeholder="Describa Brevemente"
+              placeholder="Describa brevemente"
               value={formData.desotro}
               onChange={handleChange}
               sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1719,7 +1719,7 @@ export default function Home() {
               error={!!errors?.desdet}
               id="desdet"
               name="desdet"
-              label="Descripción Detallada"
+              label="Descripción detallada"
               placeholder="Descripción a detalle de las configuraciones solicitadas"
               value={formData.desdet}
               onChange={handleChange}
@@ -1801,7 +1801,7 @@ export default function Home() {
               fontSize: "1.2rem",
             }}
           >
-            Tipo de Movimiento
+            Tipo de movimiento
           </FormLabel>
           <FormGroup row>
             <FormControlLabel
@@ -1895,18 +1895,7 @@ export default function Home() {
           >
             <EditableTableInter onDataChange={handleInterAltaTableDataChange} />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
 
           <FormLabel
             component="legend"
@@ -1919,7 +1908,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -1979,18 +1968,7 @@ export default function Home() {
           >
             <EditableTableInter onDataChange={handleInterBajaTableDataChange} />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
 
           <FormLabel
             component="legend"
@@ -2003,7 +1981,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2120,18 +2098,7 @@ export default function Home() {
               onDataChange={handleInterCambioBajaTableDataChange}
             />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
 
           <FormLabel
             component="legend"
@@ -2144,7 +2111,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2329,18 +2296,7 @@ export default function Home() {
           >
             <EditableTableAdmin onDataChange={handleAdminAltaTableDataChange} />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
           <FormLabel
             component="legend"
             sx={{
@@ -2352,7 +2308,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2412,18 +2368,7 @@ export default function Home() {
           >
             <EditableTableAdmin onDataChange={handleAdminBajaTableDataChange} />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
           <FormLabel
             component="legend"
             sx={{
@@ -2435,7 +2380,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2551,18 +2496,7 @@ export default function Home() {
               onDataChange={handleAdminCambioBajaTableDataChange}
             />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
           <FormLabel
             component="legend"
             sx={{
@@ -2574,7 +2508,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2758,18 +2692,7 @@ export default function Home() {
           >
             <EditableTableDes onDataChange={handleDesAltaTableDataChange} />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
           <FormLabel
             component="legend"
             sx={{
@@ -2781,7 +2704,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2841,18 +2764,7 @@ export default function Home() {
           >
             <EditableTableDes onDataChange={handleDesBajaTableDataChange} />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
           <FormLabel
             component="legend"
             sx={{
@@ -2864,7 +2776,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -2980,18 +2892,7 @@ export default function Home() {
               onDataChange={handleDesCambioBajaTableDataChange}
             />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
           <FormLabel
             component="legend"
             sx={{
@@ -3003,7 +2904,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3186,18 +3087,7 @@ export default function Home() {
           >
             <EditableTableUsua onDataChange={handleUsuaAltaTableDataChange} />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
           <FormLabel
             component="legend"
             sx={{
@@ -3209,7 +3099,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3269,18 +3159,7 @@ export default function Home() {
           >
             <EditableTableUsua onDataChange={handleUsuaBajaTableDataChange} />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
           <FormLabel
             component="legend"
             sx={{
@@ -3292,7 +3171,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3408,18 +3287,7 @@ export default function Home() {
               onDataChange={handleUsuaCambioBajaTableDataChange}
             />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
           <FormLabel
             component="legend"
             sx={{
@@ -3431,7 +3299,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3603,18 +3471,7 @@ export default function Home() {
           >
             <EditableTableOtro onDataChange={handleOtroAltaTableDataChange} />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
           <FormLabel
             component="legend"
             sx={{
@@ -3626,7 +3483,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3686,18 +3543,7 @@ export default function Home() {
           >
             <EditableTableOtro onDataChange={handleOtroBajaTableDataChange} />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
           <FormLabel
             component="legend"
             sx={{
@@ -3709,7 +3555,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3825,18 +3671,7 @@ export default function Home() {
               onDataChange={handleOtroCambioBajaTableDataChange}
             />
           </Box>
-          <FormLabel
-            component="legend"
-            sx={{
-              mx: "auto",
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "0.8rem",
-              width: "calc(100% - 32px)",
-            }}
-          >
-            GUARDE LOS REGISTROS ANTES DE CONTINUAR.
-          </FormLabel>
+ 
           <FormLabel
             component="legend"
             sx={{
@@ -3848,7 +3683,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de proporcionar dirección NAT verificar que sea la correcta.
+             En caso de proporcionar dirección NAT verificar que sea la correcta
           </FormLabel>
           <FormLabel
             component="legend"
@@ -3918,7 +3753,7 @@ export default function Home() {
             width: "calc(100% - 32px)",
           }}
         >
-          * Proporcionar al menos una opción de justificación.
+          Proporcionar al menos una opción de justificación *
         </FormLabel>
         <Box
           component="form"
@@ -3939,7 +3774,7 @@ export default function Home() {
             error={!!errors?.justifica}
             id="justifica"
             name="justifica"
-            label="Referencias a la Documentación"
+            label="Referencias a la documentación"
             placeholder="De los sistemas y/o plataformas que soportan y/o justifican los cambios solicitados."
             value={formData.justifica}
             onChange={handleChange}
@@ -3951,7 +3786,7 @@ export default function Home() {
             error={!!errors?.justifica3}
             id="justifica3"
             name="justifica3"
-            label="Razón o Motivo"
+            label="Razón o motivo"
             placeholder="Por ejemplo: Cambio de lugar del Administrador/Desarrollador/Usuario."
             value={formData.justifica3}
             onChange={handleChange}
@@ -3975,10 +3810,12 @@ export default function Home() {
           sx={{
             ml: 3,
             mb: 3,
+            mt: 0,
             mx: "auto",
             alignItems: "center",
             display: "flex",
             justifyContent: "center",
+            display: errors.justifica ? "block" : "none",
           }}
         >
           <FormHelperText
@@ -3986,6 +3823,7 @@ export default function Home() {
               color: "red",
               textAlign: "center", // Opcional, mejora el centrado del texto
               //display: errors?.justifica ? "block" : "none",
+              mb: 0
             }}
           >
             {errors?.justifica}
@@ -4020,7 +3858,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Autoriza Servicio
+          Autoriza el servicio
         </Typography>
         <Box
           component="form"
@@ -4041,8 +3879,8 @@ export default function Home() {
             error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
-            label="Nombre de Gerente o Director Local"
-            placeholder="Escribe el nombre completo del gerente o director local"
+            label="Nombre completo"
+            placeholder="Gerente(a), Subgerente(a) o equivalente / Director(a) de organismo / Director(a) Local"
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -4053,7 +3891,7 @@ export default function Home() {
             error={!!errors?.puestoJefe}
             id="puestoJefe"
             name="puestoJefe"
-            label="Puesto o Cargo de Quien Autoriza"
+            label="Puesto o cargo"
             placeholder="Escribe el puesto o cargo de quien autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
@@ -4165,7 +4003,7 @@ export default function Home() {
             {[
               {
                 name: "politicasaceptadas",
-                label: "He leído y acepto las políticas del servicio",
+                label: "He léido y acepto los términos y condiciones del servicio *",
               },
             ].map((item, index) => (
               <Box
@@ -4230,7 +4068,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Generar Solicitud
+          Generar solicitud
         </Typography>
         <Divider
           sx={{
@@ -4440,7 +4278,7 @@ export default function Home() {
       >
         <Fab variant="extended" color="success" onClick={handleClickOpen}>
           <SyncIcon sx={{ mr: 1 }} />
-          Actualizar Función o Rol
+          Actualizar función o rol
         </Fab>
       </Box>
       {/* DIALOG */}
@@ -4465,7 +4303,7 @@ export default function Home() {
           },
         }}
       >
-        <DialogTitle>Actualizar Función o Rol de Origen</DialogTitle>
+        <DialogTitle>Actualizar función o rol de origen</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Aquí puede actualizar la función o rol de origen de su
