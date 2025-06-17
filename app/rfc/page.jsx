@@ -1046,26 +1046,33 @@ export default function Home() {
   };
 
   //  VALIDADORES
+  
+  ///HANDLE TELÉFONO SOLICITANTE
+  const handleTelefonoSoliChange = (event) => {
+    // Elimina todo lo que no sea dígito
+    let value = event.target.value.replace(/\D/g, "");
+    value = value.slice(0, 20); // Limita la longitud
 
-  const handleExtensionChangeE = (event) => {
-    //let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
-    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Permite números, guiones y espacios
-
-    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
-
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      extei: value,
-    }));
-  };
-  const handleExtensionChangeS = (event) => {
-    //let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
-    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Permite números, guiones y espacios
-    value = value.slice(0, 20); // Limita la longitud a 10 caracteres
+    // Agrupa en bloques de 4 dígitos separados por guion
+    value = value.match(/.{1,4}/g)?.join("-") || "";
 
     setFormData((prevFormData) => ({
       ...prevFormData,
       exts: value,
+    }));
+  };
+  //HANDLE TELÉFONO ENLACE
+  const handleTelefonoEnlaceChange = (event) => {
+    // Elimina todo lo que no sea dígito
+    let value = event.target.value.replace(/\D/g, "");
+    value = value.slice(0, 20); // Limita la longitud
+
+    // Agrupa en bloques de 4 dígitos separados por guion
+    value = value.match(/.{1,4}/g)?.join("-") || "";
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      extei: value,
     }));
   };
 
@@ -1317,7 +1324,7 @@ export default function Home() {
             label="Teléfono / Extensión"
             placeholder="Teléfono o extensión del solicitante"
             value={formData.exts}
-            onChange={handleExtensionChangeS}
+            onChange={handleTelefonoSoliChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 20 }}
           />
@@ -1465,7 +1472,7 @@ export default function Home() {
             label="Teléfono / Extensión"
             placeholder="Teléfono o extensión del enlace informático"
             value={formData.extei}
-            onChange={handleExtensionChangeE}
+            onChange={handleTelefonoEnlaceChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 20 }}
           />
