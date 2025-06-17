@@ -524,8 +524,16 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Datos del Usuario (a) que Utilizará el Servicio
+          Datos del usuario que utilizará el servicio
         </Typography>
+        {/* <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Datos del Usuario (a) que Utilizará el Servicio
+        </Typography> */}
 
         <Box
           component="form"
@@ -547,7 +555,7 @@ const handleModelo = (newValue) => {
             select
             id="tipoUsuario"
             name="tipoUsuario"
-            label="Tipo de Usuario"
+            label="Tipo de usuario"
             defaultValue="Interno"
             sx={{ background: "#FFFFFF" }}
             onChange={handleChangeExterno}
@@ -565,8 +573,8 @@ const handleModelo = (newValue) => {
             error={!!errors?.nombreUsuario}
             id="nombreUsuario"
             name="nombreUsuario"
-            label="Nombre Completo"
-            placeholder="Escriba el Nombre Completo"
+            label="Nombre completo"
+            placeholder="Escriba el nombre y apellidos"
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -591,7 +599,7 @@ const handleModelo = (newValue) => {
             id="puestoUsuario"
             name="puestoUsuario"
             label="Puesto"
-            placeholder="Escriba el Puesto del Usuario"
+            placeholder="Escriba el puesto del usuario"
             value={formData.puestoUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -606,7 +614,7 @@ const handleModelo = (newValue) => {
               <TextField
                 required
                 error={!!errors?.direccion}
-                placeholder="Escriba o Seleccione la Dirección"
+                placeholder="Escriba o seleccione la dirección"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Dirección"
@@ -650,7 +658,7 @@ const handleModelo = (newValue) => {
                 <TextField
                   required
                   error={!!errors?.piso}
-                  placeholder="Escriba o Seleccione el Piso"
+                  placeholder="Escriba o seleccione el piso"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Piso"
@@ -679,7 +687,7 @@ const handleModelo = (newValue) => {
                 <TextField
                   required
                   error={!!errors?.ala}
-                  placeholder="Escriba o Seleccione el Ala"
+                  placeholder="Escriba o seleccione el ala"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Ala"
@@ -884,7 +892,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Información de la Solicitud
+          Información de la solicitud
         </Typography>
         <Box
           component="form"
@@ -926,7 +934,7 @@ const handleModelo = (newValue) => {
                 fontSize: "1.2rem",
               }}
             >
-              Tipo de Movimiento *
+              Tipo de movimiento *
             </FormLabel>
             <RadioGroup
               row
@@ -972,7 +980,7 @@ const handleModelo = (newValue) => {
             id="justificacion"
             name="justificacion"
             label="Justificación"
-            placeholder="Escriba la Justificación del Servicio"
+            placeholder="Escriba la justificación del servicio"
             value={formData.justificacion}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -983,7 +991,7 @@ const handleModelo = (newValue) => {
             error={!!errors?.activacion}
             id="activacion"
             name="activacion"
-            label="Fecha de Activación"
+            label="Fecha de activación"
             type="date"
             //value={formData.activacion}
             onChange={handleDateChangeActiva}
@@ -995,7 +1003,7 @@ const handleModelo = (newValue) => {
             error={!!errors?.expiracion}
             id="expiracion"
             name="expiracion"
-            label="Fecha de Expiración"
+            label="Fecha de expiración"
             type="date"
             //value={formData.expiracion}
             onChange={handleDateChangeExpira}
@@ -1043,7 +1051,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Área que Autoriza
+          Área que autoriza
         </Typography>
         <Box
           component="form"
@@ -1064,8 +1072,8 @@ const handleModelo = (newValue) => {
             error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
-            label="Funcionario con Cargo de Subgerente, Homólogo o Superior"
-            placeholder="Escriba el Nombre Completo del Funcionario"
+            label="Funcionario con cargo de Subgerente, Homólogo o Superior"
+            placeholder="Escriba el nombre completo del funcionario"
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1076,8 +1084,8 @@ const handleModelo = (newValue) => {
             error={!!errors?.puestoJefe}
             id="puestoJefe"
             name="puestoJefe"
-            label="Puesto o Cargo"
-            placeholder="Escriba el Puesto o Cargo del que Autoriza"
+            label="Puesto o cargo"
+            placeholder="Escriba el puesto o cargo del funcionario que autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1115,7 +1123,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Características del Equipo
+          Características del equipo
         </Typography>
         <Box
           component="form"
@@ -1159,7 +1167,7 @@ const handleModelo = (newValue) => {
               <TextField
                 required
                 //error={!!errors?.unidadAdministrativa}
-                placeholder="Seleccione el Modelo"
+                placeholder="Seleccione el modelo"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Modelo"
@@ -1185,7 +1193,7 @@ const handleModelo = (newValue) => {
             id="serie"
             name="serie"
             label="Serie"
-            placeholder="Escriba el No. de Serie del Equipo"
+            placeholder="Escriba el No. de serie del equipo"
             value={formData.serie}
             onChange={handleChange}
             inputProps={{ maxLength: 16 }}
@@ -1196,8 +1204,8 @@ const handleModelo = (newValue) => {
             error={!!errors?.version}
             id="version"
             name="version"
-            label="Versión de Sistema Operativo"
-            placeholder="Escriba la Versión del Sistema Operativo"
+            label="Versión de sistema operativo"
+            placeholder="Escriba la versión del sistema operativo"
             value={formData.version}
             onChange={handleChange}
             inputProps={{ maxLength: 16 }}
@@ -1236,7 +1244,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Características del Servicio Solicitado
+          Características del servicio solicitado
         </Typography>
         <Box
           component="form"
@@ -1590,7 +1598,7 @@ const handleModelo = (newValue) => {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Políticas del Servicio
+          Políticas del servicio
         </Typography>
         <Box
           component="form"
@@ -1614,7 +1622,7 @@ const handleModelo = (newValue) => {
               color="#9F2241"
               sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
             >
-              {" •   Aquí debrán de ir las políticas"}
+              {" •   Aquí deberán de ir las políticas"}
               <br />
             </Typography>
           </Box>
@@ -1634,7 +1642,7 @@ const handleModelo = (newValue) => {
             {[
               {
                 name: "politicasaceptadas",
-                label: "He Leído y Acepto las Políticas del Servicio",
+                label: "He leído y acepto las políticas del servicio",
               },
             ].map((item, index) => (
               <Box
@@ -1700,7 +1708,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Generar Solicitud
+          Generar solicitud
         </Typography>
         <Divider
           sx={{
