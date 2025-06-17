@@ -194,7 +194,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
     },
     {
       field: "nombreSistema",
-      headerName: "Nombre Sistema / Servicio",
+      headerName: "Nombre sistema / servicio",
       type: "string",
       width:"auto",
       flex:1.2,
@@ -216,7 +216,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
     },
     {
       field: "url",
-      headerName: "URL / IP Equipo",
+      headerName: "URL / IP equipo",
       width:"auto",
       flex:1,
       align: "center",
@@ -226,7 +226,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
     },
     {
       field: "puertosServicios",
-      headerName: "Puerto o Servicio",
+      headerName: "Puerto o servicio",
       type: "string",
       width:"auto",
       flex:1,

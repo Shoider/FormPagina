@@ -228,7 +228,7 @@ function EditableTableRemoto({ initialData, onDataChange }) {
     },
     {
       field: "sistemaOperativo",
-      headerName: "Sistema Operativo",
+      headerName: "Sistema operativo",
       width:"auto",
       flex:1,
       align: "center",
