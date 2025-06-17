@@ -143,7 +143,7 @@ export default function Home() {
     justifica3: "",
     noticket: "",
     region: "",
-    unidadAdministrativa:"",
+    //unidadAdministrativa:"",
 
     // Estados para tipo de movimientos
     intersistemas: interIsTrue,

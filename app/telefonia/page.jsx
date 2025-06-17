@@ -55,7 +55,7 @@ export default function Home() {
     nombreJefe: "",
     puestoJefe: "",
 
-    marca: "HUAWEI", //Default
+    marca: "Huawei", //Default
     modelo: "",
     serie: "",
     version: "",
@@ -89,12 +89,12 @@ export default function Home() {
   ];
   const Marcas = [
     {
-      value: "AVAYA",
-      label: "AVAYA",
+      value: "Avaya",
+      label: "Avaya",
     },
     {
-      value: "HUAWEI",
-      label: "HUAWEI",
+      value: "Huawei",
+      label: "Huawei",
     },
   ];
 
@@ -509,7 +509,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          DATOS DEL USUARIO (A) QUE UTILIZARÁ EL SERVICIO
+          Datos del Usuario (a) que Utilizará el Servicio
         </Typography>
 
         <Box
@@ -551,7 +551,7 @@ const handleModelo = (newValue) => {
             id="nombreUsuario"
             name="nombreUsuario"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo"
+            placeholder="Escriba el Nombre Completo"
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -576,7 +576,7 @@ const handleModelo = (newValue) => {
             id="puestoUsuario"
             name="puestoUsuario"
             label="Puesto"
-            placeholder="Escriba el nombre puesto del usuario"
+            placeholder="Escriba el Puesto del Usuario"
             value={formData.puestoUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -591,7 +591,7 @@ const handleModelo = (newValue) => {
               <TextField
                 required
                 error={!!errors?.direccion}
-                placeholder="Escriba o seleccione la dirección"
+                placeholder="Escriba o Seleccione la Dirección"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Dirección"
@@ -635,7 +635,7 @@ const handleModelo = (newValue) => {
                 <TextField
                   required
                   error={!!errors?.piso}
-                  placeholder="Escriba o seleccione el piso"
+                  placeholder="Escriba o Seleccione el Piso"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Piso"
@@ -664,7 +664,7 @@ const handleModelo = (newValue) => {
                 <TextField
                   required
                   error={!!errors?.ala}
-                  placeholder="Escriba o seleccione la ala"
+                  placeholder="Escriba o Seleccione el Ala"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Ala"
@@ -688,7 +688,7 @@ const handleModelo = (newValue) => {
           <Autocomplete
             disablePortal
             options={unidadesAdmin}
-            freeSolo
+            //freeSolo
             renderInput={(params) => (
               <TextField
                 required
@@ -696,7 +696,7 @@ const handleModelo = (newValue) => {
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Unidad Administrativa"
-                placeholder="Escriba o seleccione la unidad administrativa"
+                placeholder="Seleccione la Unidad Administrativa"
               />
             )}
             id="uaUsuario"
@@ -704,11 +704,7 @@ const handleModelo = (newValue) => {
             onChange={(event, newValue) => {
               handleUA(newValue); // Maneja selección de opciones
             }}
-            onInputChange={(event, newInputValue) => {
-              if (event?.type === "change") {
-                handleUA(newInputValue); // Maneja texto escrito directamente
-              }
-            }}
+            
             inputValue={formData.uaUsuario || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
@@ -755,7 +751,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          DATOS DEL EMPLEADO (A) DE CONAGUA RESPONSABLE
+          Datos del Empleado (a) de CONAGUA Responsable
         </Typography>
         <Box
           component="form"
@@ -777,7 +773,7 @@ const handleModelo = (newValue) => {
             id="nombreEmpleado"
             name="nombreEmpleado"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo"
+            placeholder="Escriba el Nombre Completo del Empleado"
             value={formData.nombreEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -789,7 +785,7 @@ const handleModelo = (newValue) => {
             id="idEmpleado"
             name="idEmpleado"
             label="Número De Empleado"
-            placeholder="Escriba el número de empleado"
+            placeholder="Escriba el Número de Empleado"
             value={formData.idEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -802,7 +798,7 @@ const handleModelo = (newValue) => {
             id="extEmpleado"
             name="extEmpleado"
             label="Teléfono / Extensión"
-            placeholder="Escriba el número de teléfono o extensión"
+            placeholder="Escriba el Número de Teléfono o Extensión"
             value={formData.extEmpleado}
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF" }}
@@ -826,7 +822,7 @@ const handleModelo = (newValue) => {
             id="puestoEmpleado"
             name="puestoEmpleado"
             label="Puesto"
-            placeholder="Escriba el puesto del empleado"
+            placeholder="Escriba el Puesto del Empleado"
             value={formData.puestoEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -873,7 +869,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          INFORMACIÓN DE LA SOLICITUD
+          Información de la Solicitud
         </Typography>
         <Box
           component="form"
@@ -926,12 +922,12 @@ const handleModelo = (newValue) => {
               required
               sx={{ ml: 2, mr: 2, justifyContent: "center" }}
             >
-              <FormControlLabel value="ALTA" control={<Radio />} label="ALTA" />
-              <FormControlLabel value="BAJA" control={<Radio />} label="BAJA" />
+              <FormControlLabel value="ALTA" control={<Radio />} label="Alta" />
+              <FormControlLabel value="BAJA" control={<Radio />} label="Baja" />
               <FormControlLabel
                 value="CAMBIO"
                 control={<Radio />}
-                label="CAMBIO"
+                label="Cambio"
               />
             </RadioGroup>
             <FormHelperText
@@ -961,7 +957,7 @@ const handleModelo = (newValue) => {
             id="justificacion"
             name="justificacion"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación del Servicio"
             value={formData.justificacion}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -972,7 +968,7 @@ const handleModelo = (newValue) => {
             error={!!errors?.activacion}
             id="activacion"
             name="activacion"
-            label="Fecha de activación"
+            label="Fecha de Activación"
             type="date"
             //value={formData.activacion}
             onChange={handleDateChangeActiva}
@@ -984,7 +980,7 @@ const handleModelo = (newValue) => {
             error={!!errors?.expiracion}
             id="expiracion"
             name="expiracion"
-            label="Fecha de expiración"
+            label="Fecha de Expiración"
             type="date"
             //value={formData.expiracion}
             onChange={handleDateChangeExpira}
@@ -1032,7 +1028,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          ÁREA QUE AUTORIZA
+          Área que Autoriza
         </Typography>
         <Box
           component="form"
@@ -1054,7 +1050,7 @@ const handleModelo = (newValue) => {
             id="nombreJefe"
             name="nombreJefe"
             label="Funcionario con Cargo de Subgerente, Homólogo o Superior"
-            placeholder="Escriba el nombre completo del funcionario"
+            placeholder="Escriba el Nombre Completo del Funcionario"
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1066,7 +1062,7 @@ const handleModelo = (newValue) => {
             id="puestoJefe"
             name="puestoJefe"
             label="Puesto o Cargo"
-            placeholder="Escriba el puesto o cargo del que autoriza"
+            placeholder="Escriba el Puesto o Cargo del que Autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1104,7 +1100,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          CARACTERÍSTICAS DEL EQUIPO
+          Características del Equipo
         </Typography>
         <Box
           component="form"
@@ -1128,7 +1124,7 @@ const handleModelo = (newValue) => {
             name="marca"
             label="Marca"
             //placeholder="Escriba la marca del equipo"
-            defaultValue="HUAWEI"
+            defaultValue="Huawei"
             sx={{ background: "#FFFFFF" }}
             onChange={handleChangeMarca}
             //helperText="Porfavor selecciona el tipo de usuario"
@@ -1148,7 +1144,7 @@ const handleModelo = (newValue) => {
               <TextField
                 required
                 //error={!!errors?.unidadAdministrativa}
-                placeholder="Seleccione el modelo"
+                placeholder="Seleccione el Modelo"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Modelo"
@@ -1174,7 +1170,7 @@ const handleModelo = (newValue) => {
             id="serie"
             name="serie"
             label="Serie"
-            placeholder="Escriba el No. de serie del equipo"
+            placeholder="Escriba el No. de Serie del Equipo"
             value={formData.serie}
             onChange={handleChange}
             inputProps={{ maxLength: 16 }}
@@ -1186,7 +1182,7 @@ const handleModelo = (newValue) => {
             id="version"
             name="version"
             label="Versión de Sistema Operativo"
-            placeholder="Escriba la versión del sistema operativo"
+            placeholder="Escriba la Versión del Sistema Operativo"
             value={formData.version}
             onChange={handleChange}
             inputProps={{ maxLength: 16 }}
@@ -1232,7 +1228,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          CARACTERÍSTICAS DEL SERVICIO SOLICITADO
+          Características del Servicio Solicitado
         </Typography>
         <Box
           component="form"
@@ -1576,7 +1572,7 @@ const handleModelo = (newValue) => {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          POLÍTICAS DEL SERVICIO
+          Politicas del Servicio
         </Typography>
         <Box
           component="form"
@@ -1620,7 +1616,7 @@ const handleModelo = (newValue) => {
             {[
               {
                 name: "politicasaceptadas",
-                label: "He leído y acepto las políticas del servicio",
+                label: "He Leído y Acepto las Políticas del Servicio",
               },
             ].map((item, index) => (
               <Box
@@ -1686,7 +1682,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          GENERAR SOLICITUD
+          Generar Solicitud
         </Typography>
         <Divider
           sx={{

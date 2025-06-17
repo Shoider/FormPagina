@@ -695,7 +695,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          DATOS DEL USUARIO (A) QUE UTILIZARÁ EL SERVICIO
+          Datos del Usuario (a) que Utilizará el Servicio
         </Typography>
 
         <Box
@@ -718,7 +718,7 @@ export default function Home() {
             id="nombreUsuario"
             name="nombreUsuario"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo"
+            placeholder="Escriba el Nombre Completo del Usuario"
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -730,7 +730,7 @@ export default function Home() {
             id="puestoUsuario"
             name="puestoUsuario"
             label="Puesto o Cargo"
-            placeholder="Escriba el puesto o cargo"
+            placeholder="Escriba el Puesto o Cargo del Usuario"
             value={formData.puestoUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -744,7 +744,7 @@ export default function Home() {
               <TextField
                 required
                 error={!!errors?.uaUsuario}
-                placeholder="Escriba o seleccione la unidad administrativa"
+                placeholder="Seleccione la Unidad Administrativa"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Unidad Administrativa"
@@ -794,7 +794,7 @@ export default function Home() {
             id="ipUsuario"
             name="ipUsuario"
             label="IP del Equipo Asignado"
-            placeholder="Escriba la IP del equipo"
+            placeholder="Escriba la IP del Equipo"
             value={formData.ipUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -865,7 +865,7 @@ export default function Home() {
                 <TextField
                   required
                   error={!!errors?.piso}
-                  placeholder="Escriba o seleccione el piso"
+                  placeholder="Escriba o Seleccione el Piso"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Piso"
@@ -894,7 +894,7 @@ export default function Home() {
                 <TextField
                   required
                   error={!!errors?.ala}
-                  placeholder="Escriba o seleccione la ala"
+                  placeholder="Escriba o Seleccione el Ala"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Ala"
@@ -924,7 +924,7 @@ export default function Home() {
               <TextField
                 required
                 error={!!errors?.teleUsuario}
-                placeholder="Escriba o seleccione el teléfono"
+                placeholder="Escriba o Seleccione el Teléfono"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Teléfono"
@@ -950,7 +950,7 @@ export default function Home() {
             id="extUsuario"
             name="extUsuario"
             label="Extensión"
-            placeholder="Escriba el número de extensión"
+            placeholder="Escriba el Número de Extensión"
             value={formData.extUsuario}
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -988,7 +988,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          INFORMACIÓN DE LA SOLICITUD
+          Información de la Solicitud 
         </Typography>
         <Box
           component="form"
@@ -1048,7 +1048,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          AUTORIZA
+          Autoriza Servicio
         </Typography>
         <Box
           component="form"
@@ -1070,7 +1070,7 @@ export default function Home() {
             id="nombreJefe"
             name="nombreJefe"
             label="Funcionario con Cargo de Subgerente, Homólogo o Superior"
-            placeholder="Escriba el nombre completo del funcionario"
+            placeholder="Escriba el Nombre Completo del Funcionario"
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1082,7 +1082,7 @@ export default function Home() {
             id="puestoJefe"
             name="puestoJefe"
             label="Puesto o Cargo del que Autoriza"
-            placeholder="Escriba el puesto o cargo del que autoriza"
+            placeholder="Escriba el Puesto o Cargo de quien Autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1120,7 +1120,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          CATEGORÍAS DE NAVEGACIÓN
+          Categoría de Navegación
         </Typography>
         <Box
           component="form"
@@ -1293,7 +1293,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          JUSTIFICACIÓN DE SERVICIOS REQUERIDOS
+          Justificación de Servicios Requeridos
         </Typography>
         <Box
           component="form"
@@ -1362,7 +1362,7 @@ export default function Home() {
             //error={!!errors?.urlDescarga}
             id="urlDescarga"
             name="urlDescarga"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlDescarga}
             onChange={handleChange}
@@ -1375,7 +1375,7 @@ export default function Home() {
             id="justificaDescarga"
             name="justificaDescarga"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaDescarga}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1445,7 +1445,7 @@ export default function Home() {
             //error={!!errors?.urlForos}
             id="urlForos"
             name="urlForos"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlForos}
             onChange={handleChange}
@@ -1458,7 +1458,7 @@ export default function Home() {
             id="justificaForos"
             name="justificaForos"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaForos}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1527,7 +1527,7 @@ export default function Home() {
             //error={!!errors?.urlComercio}
             id="urlComercio"
             name="urlComercio"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlComercio}
             onChange={handleChange}
@@ -1540,7 +1540,7 @@ export default function Home() {
             id="justificaComercio"
             name="justificaComercio"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaComercio}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1609,7 +1609,7 @@ export default function Home() {
             //error={!!errors?.urlRedes}
             id="urlRedes"
             name="urlRedes"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlRedes}
             onChange={handleChange}
@@ -1622,7 +1622,7 @@ export default function Home() {
             id="justificaRedes"
             name="justificaRedes"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaRedes}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1691,7 +1691,7 @@ export default function Home() {
             //error={!!errors?.urlVideos}
             id="urlVideos"
             name="urlVideos"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlVideos}
             onChange={handleChange}
@@ -1704,7 +1704,7 @@ export default function Home() {
             id="justificaVideos"
             name="justificaVideos"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaVideos}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1773,7 +1773,7 @@ export default function Home() {
             //error={!!errors?.urlWhats}
             id="urlWhats"
             name="urlWhats"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlWhats}
             onChange={handleChange}
@@ -1786,7 +1786,7 @@ export default function Home() {
             id="justificaWhats"
             name="justificaWhats"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaWhats}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1855,7 +1855,7 @@ export default function Home() {
             // error={!!errors?.urlDropbox}
             id="urlDropbpx"
             name="urlDropbox"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlDropbox}
             onChange={handleChange}
@@ -1937,7 +1937,7 @@ export default function Home() {
             // error={!!errors?.urlOnedrive}
             id="urlOnedrive"
             name="urlOnedrive"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlOnedrive}
             onChange={handleChange}
@@ -1950,7 +1950,7 @@ export default function Home() {
             id="justificaOnedrive"
             name="justificaOnedrive"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaOnedrive}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2019,7 +2019,7 @@ export default function Home() {
             //error={!!errors?.urlSkype}
             id="urlSkype"
             name="urlSkype"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlSkype}
             onChange={handleChange}
@@ -2032,7 +2032,7 @@ export default function Home() {
             id="justificaSkype"
             name="justificaSkype"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaSkype}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2101,7 +2101,7 @@ export default function Home() {
             //  error={!!errors?.urlWetransfer}
             id="urlWetransfer"
             name="urlWetransfer"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlWetransfer}
             onChange={handleChange}
@@ -2114,7 +2114,7 @@ export default function Home() {
             id="justificaWetransfer"
             name="justificaWetransfer"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaWetransfer}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2183,7 +2183,7 @@ export default function Home() {
             //  error={!!errors?.urlTeam}
             id="urlTeam"
             name="urlTeam"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlTeam}
             onChange={handleChange}
@@ -2196,7 +2196,7 @@ export default function Home() {
             id="justificaTeam"
             name="justificaTeam"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaTeam}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2266,7 +2266,7 @@ export default function Home() {
             id="otraC"
             name="otraC"
             label="Describe cual"
-            placeholder="Escriba el nombre del servicio"
+            placeholder="Escriba el Nombre del Servicio"
             value={formData.otraC}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2277,7 +2277,7 @@ export default function Home() {
             error={!!errors?.urlOtra}
             id="urlOtra"
             name="urlOtra"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlOtra}
             onChange={handleChange}
@@ -2290,7 +2290,7 @@ export default function Home() {
             id="justificaOtra"
             name="justificaOtra"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaOtra}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2362,7 +2362,7 @@ export default function Home() {
               id="otraC2"
               name="otraC2"
               label="Describe cual"
-              placeholder="Escriba el nombre del servicio"
+              placeholder="Escriba el Nombre del Servicio"
               value={formData.otraC2}
               onChange={handleChange}
               sx={{ background: "#FFFFFF" }}
@@ -2373,7 +2373,7 @@ export default function Home() {
               error={!!errors?.urlOtra2}
               id="urlOtra2"
               name="urlOtra2"
-              label="Referencia del servicio requerido (URL)"
+              label="Referencia del Servicio Requerido (URL)"
               placeholder="Escriba la URL del servicio"
               value={formData.urlOtra2}
               onChange={handleChange}
@@ -2386,7 +2386,7 @@ export default function Home() {
               id="justificaOtra2"
               name="justificaOtra2"
               label="Justificación"
-              placeholder="Escriba la justificación"
+              placeholder="Escriba la Justificación"
               value={formData.justificaOtra2}
               onChange={handleChange}
               sx={{ background: "#FFFFFF" }}
@@ -2441,7 +2441,7 @@ export default function Home() {
                 id="otraC3"
                 name="otraC3"
                 label="Describe cual"
-                placeholder="Escriba el nombre del servicio"
+                placeholder="Escriba el Nombre del Servicio"
                 value={formData.otraC3}
                 onChange={handleChange}
                 sx={{ background: "#FFFFFF" }}
@@ -2453,7 +2453,7 @@ export default function Home() {
                 id="urlOtra3"
                 name="urlOtra3"
                 label="Referencia del servicio requerido (URL)"
-                placeholder="Escriba la URL del servicio"
+                placeholder="Escriba la URL del Servicio"
                 value={formData.urlOtra3}
                 onChange={handleChange}
                 sx={{ background: "#FFFFFF" }}
@@ -2465,7 +2465,7 @@ export default function Home() {
                 id="justificaOtra3"
                 name="justificaOtra3"
                 label="Justificación"
-                placeholder="Escriba la justificación"
+                placeholder="Escriba la Justificación"
                 value={formData.justificaOtra3}
                 onChange={handleChange}
                 sx={{ background: "#FFFFFF" }}
@@ -2526,7 +2526,7 @@ export default function Home() {
                   id="otraC4"
                   name="otraC4"
                   label="Describe cual"
-                  placeholder="Escriba el nombre del servicio"
+                  placeholder="Escriba el Nombre del Servicio"
                   value={formData.otraC4}
                   onChange={handleChange}
                   sx={{ background: "#FFFFFF" }}
@@ -2537,8 +2537,8 @@ export default function Home() {
                   error={!!errors?.urlOtra4}
                   id="urlOtra4"
                   name="urlOtra4"
-                  label="Referencia del servicio requerido (URL)"
-                  placeholder="Escriba la URL del servicio"
+                  label="Referencia del Servicio Requerido (URL)"
+                  placeholder="Escriba la URL del Servicio"
                   value={formData.urlOtra4}
                   onChange={handleChange}
                   sx={{ background: "#FFFFFF" }}
@@ -2550,7 +2550,7 @@ export default function Home() {
                   id="justificaOtra4"
                   name="justificaOtra4"
                   label="Justificación"
-                  placeholder="Escriba la justificación"
+                  placeholder="Escriba la Justificación"
                   value={formData.justificaOtra4}
                   onChange={handleChange}
                   sx={{ background: "#FFFFFF" }}
@@ -2640,7 +2640,7 @@ export default function Home() {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          POLÍTICAS DEL SERVICIO
+          Políticas del Servicio
         </Typography>
         <Box
           component="form"
@@ -2664,37 +2664,55 @@ export default function Home() {
               color="#9F2241"
               sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
             >
-              {
-                " • Es responsabilidad de los servidores públicos, así como personal externo de los activos de información el adoptar las medidas que determine la CONAGUA para mantener y garantizar la seguridad de la Información, siendo la Gerencia de Tecnología de la Información y Comunicaciones la responsable de establecer los mecanismos que permitan garantizar la confidencialidad, integridad y disponibilidad de la Información. "
-              }
+              
+                • Es responsabilidad de los servidores públicos, así como personal externo de los activos de información 
+                el adoptar las medidas que determine la CONAGUA para mantener y garantizar la seguridad de la Información, 
+                siendo la Gerencia de Tecnología de la Información y Comunicaciones la responsable de establecer los mecanismos 
+                que permitan garantizar la confidencialidad, integridad y disponibilidad de la Información. 
+              
               <br />
-              {
-                " • La Subgerencia de Internet e Intranet, adscrita a la Gerencia de Tecnología de la Información y Comunicaciones, como administrador del servicio es el área responsable de definir los lineamientos que deberán ser atendidos por todos los usuarios y administradores en la ampliación del servicio de navegación de internet. "
-              }
+              
+                • La Subgerencia de Internet e Intranet, adscrita a la Gerencia de Tecnología de la Información y Comunicaciones, 
+                como administrador del servicio es el área responsable de definir los lineamientos que deberán ser atendidos por 
+                todos los usuarios y administradores en la ampliación del servicio de navegación de internet. 
+              
               <br />
-              {
-                " • La Subgerencia de Internet e Intranet, será la responsable de implementar y garantizar la disponibilidad en todo momento del servicio. "
-              }
+              
+                • La Subgerencia de Internet e Intranet, será la responsable de implementar y garantizar la disponibilidad 
+                en todo momento del servicio. 
+              
               <br />
-              {
-                " • Los accesos para los servicios habilitados serán exclusivamente para los usuarios que tengan debidamente la justificación y que cumplan con el llenado del formato y su formalización mediante el memorándum correspondiente para hacer uso de ella. "
-              }
+              
+                 • Los accesos para los servicios habilitados serán exclusivamente para los usuarios que tengan debidamente la 
+                 justificación y que cumplan con el llenado del formato y su formalización mediante el memorándum correspondiente 
+                 para hacer uso de ella. 
+              
               <br />
-              {
-                " • Es responsabilidad de quien autoriza los accesos solicitados y justificados anteriormente, así como la supervisión del correcto uso de los recursos, siendo la Subgerencia de Internet e Intranet el área responsable de la validación y supervisión periódica del buen uso de estos, lo anterior para salvaguardar el correcto funcionamiento de la infraestructura que soportan los servicios de la CONAGUA. "
-              }
+              
+                • Es responsabilidad de quien autoriza los accesos solicitados y justificados anteriormente, así como
+                 la supervisión del correcto uso de los recursos, siendo la Subgerencia de Internet e Intranet el área
+                  responsable de la validación y supervisión periódica del buen uso de estos, lo anterior para salvaguardar 
+                  el correcto funcionamiento de la infraestructura que soportan los servicios de la CONAGUA. 
+              
               <br />
-              {
-                " • Los usuarios con ampliación en la Navegación de Internet deben usar responsablemente el servicio de navegación web que es proporcionado por la Gerencia de Tecnología de la Información y Comunicaciones. "
-              }
+              
+                • Los usuarios con ampliación en la Navegación de Internet deben usar responsablemente el servicio de 
+                navegación web que es proporcionado por la Gerencia de Tecnología de la Información y Comunicaciones. 
+              
               <br />
-              {
-                " • Queda prohibido descargar y abrir páginas web o archivos sospechosos que puedan comprometer los equipos y la red. Para cualquier duda sobre algún sitio o página que represente actividad sospechosa, deberá hacer de conocimiento a la GTIC a través de la Mesa de Servicios. "
-              }
+              
+                 • Queda prohibido descargar y abrir páginas web o archivos sospechosos que puedan comprometer los equipos 
+                 y la red. Para cualquier duda sobre algún sitio o página que represente actividad sospechosa, deberá hacer 
+                 de conocimiento a la GTIC a través de la Mesa de Servicios. 
+              
+
               <br />
-              {
-                " • La violación, desatento u omisión de las políticas y procedimientos de Seguridad de la Información de la CONAGUA generan sanciones previstas en la Ley General de responsabilidades Administrativas; en la Ley del Servicio Profesional de Carrera en la Administración Pública Federal y demás disposiciones jurídicas aplicables."
-              }
+              
+                • La violación, desatento u omisión de las políticas y procedimientos de Seguridad de la Información 
+                de la CONAGUA generan sanciones previstas en la Ley General de responsabilidades Administrativas; en la 
+                Ley del Servicio Profesional de Carrera en la Administración Pública Federal y demás disposiciones 
+                jurídicas aplicables.
+              
               <br />
             </Typography>
           </Box>
@@ -2714,7 +2732,7 @@ export default function Home() {
             {[
               {
                 name: "politicasaceptadas",
-                label: "He leído y acepto las políticas del servicio",
+                label: "He Leído y Acepto las Políticas del Servicio",
               },
             ].map((item, index) => (
               <Box
@@ -2780,7 +2798,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          GENERAR SOLICITUD
+          Generar Solicitud
         </Typography>
         <Divider
           sx={{
