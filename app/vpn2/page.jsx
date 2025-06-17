@@ -935,7 +935,7 @@ export default function Home() {
 
         {/* PARTE 2 */}
         <Typography
-          variant=""
+          variant="h5"
           align="center"
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
