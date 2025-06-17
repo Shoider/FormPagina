@@ -243,16 +243,16 @@ export default function Home() {
         const statusCode = error.response.status;
         const errorData = error.response.data;
 
-        console.error(`Error con código ${statusCode}:`, errorData.message, errorData.campo);
+        //console.error(`Error con código ${statusCode}:`, errorData.message, errorData.campo);
 
         // Construct an object to update the errors state
         const newErrors = {
           [errorData.campo]: errorData.message // Use the field name as the key and the message as the value
         };
         setErrors(newErrors);
-        console.log("Errores API: ", newErrors); // Log the newErrors object
+        //console.log("Errores API: ", newErrors); // Log the newErrors object
 
-        console.log("Objeto Errors: ", errors)
+        //console.log("Objeto Errors: ", errors)
 
         // Manejamos el caso específico del error 422.
         if (statusCode === 422) {
