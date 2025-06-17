@@ -33,7 +33,6 @@ export default function Home() {
   // Tipo de CATEGORIA
 
   const [formData, setFormData] = useState({
-    fechasoli: "",
     uaUsuario: "",
     areaUsuario: "",
     nombreUsuario: "",
@@ -955,66 +954,6 @@ export default function Home() {
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 4 }}
-          />
-        </Box>
-      </Box>
-
-      {/* Datos del la Solicitud */}
-      {/* Form Box Responsive */}
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-        {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-          Información de la Solicitud 
-        </Typography>
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            required
-            error={!!errors?.fechasoli}
-            id="fechasoli"
-            name="fechasoli"
-            label="Fecha de Solicitud"
-            type="date"
-            onChange={handleDateChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            InputLabelProps={{ shrink: true }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
       </Box>
