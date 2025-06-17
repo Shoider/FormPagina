@@ -128,7 +128,7 @@ export default function Home() {
       validarCamposRequeridos(formData);
       setErrors(getErrors);
   
-      //console.log("Lista getErrors en submit: ", getErrors);
+      console.log("Lista getErrors en submit: ", getErrors);
   
       if (!isValid) {
         setAlert({
@@ -224,52 +224,62 @@ export default function Home() {
             console.error(pdfResponse.status);
           }
         
-          } catch (error) {
-            console.error("Error:", error);
-            setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
-            setAlert({
-              message: "Ocurrio un error al generar el PDF",
-              severity: "error",
-            });
-            setOpenAlert(true);
-          }
-
-        } catch (error) {
-
+      } catch (error) {
+        console.error("Error:", error);
         setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+        setAlert({
+          message: "Ocurrio un error al generar el PDF",
+          severity: "error",
+        });
+        setOpenAlert(true);
+      }
 
-          if (error.response) {
-            // Si hay respuesta, podemos acceder al código de estado y a los datos.
-            const statusCode = error.response.status;
-            const errorData = error.response.data;
+    } catch (error) {
 
-            console.error(`Error con código ${statusCode}:`, errorData.message);
+    setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
 
-            // Manejamos el caso específico del error 422.
-            if (statusCode === 422) {
-              setAlert({
-                // Usamos el mensaje de error que viene de la API.
-                message: errorData.message || "Hay errores en los datos enviados.",
-                severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
-              });
-            } else {
-              // 3. Manejamos otros errores del servidor (ej. 404, 500).
-              setAlert({
-                message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
-                severity: "error",
-              });
-            }
-          } else {
-            // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
-            console.error("Error de red o de conexión:", error.message);
-            setAlert({
-              message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
-              severity: "error",
-            });
+      if (error.response) {
+        // Si hay respuesta, podemos acceder al código de estado y a los datos.
+        const statusCode = error.response.status;
+        const errorData = error.response.data;
+
+        console.error(`Error con código ${statusCode}:`, errorData.message, errorData.campo);
+
+        // Construct an object to update the errors state
+        const newErrors = {
+          [errorData.campo]: errorData.message // Use the field name as the key and the message as the value
+        };
+        setErrors(newErrors);
+        console.log("Errores API: ", newErrors); // Log the newErrors object
+
+        console.log("Objeto Errors: ", errors)
+
+        // Manejamos el caso específico del error 422.
+        if (statusCode === 422) {
+          setAlert({
+            // Usamos el mensaje de error que viene de la API.
+            message: errorData.message || "Hay errores en los datos enviados.",
+            severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
+          });
+        } else {
+          // 3. Manejamos otros errores del servidor (ej. 404, 500).
+          setAlert({
+            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            severity: "error",
+          });
+        }
+      } else {
+        // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        console.error("Error de red o de conexión:", error.message);
+        setAlert({
+          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          severity: "error",
+        });
       } 
       setOpenAlert(true);
     }
   };
+
 const handleModelo = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,

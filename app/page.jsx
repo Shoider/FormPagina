@@ -44,8 +44,6 @@ export default function Home() {
   };
   const open4 = Boolean(anchorEl4);
 
-
-
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
       {/* Banner Responsive */}
