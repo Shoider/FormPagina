@@ -17,6 +17,7 @@ import {
   MenuItem,
   FormHelperText,
   Autocomplete,
+  Modal,
 } from "@mui/material";
 import Image from "next/image";
 import Link from 'next/link';
@@ -29,6 +30,7 @@ import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 import direccionAutocomplete from "../constants/direccion.jsx";
 import ala from "../constants/ala.jsx";
 import pisos from "../constants/pisos.jsx";
+import modelos from "../constants/MODELOSTELEFONOS/modelos.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -53,7 +55,7 @@ export default function Home() {
     nombreJefe: "",
     puestoJefe: "",
 
-    marca: "HUAWEI", //Default
+    marca: "Huawei", //Default
     modelo: "",
     serie: "",
     version: "",
@@ -87,19 +89,22 @@ export default function Home() {
   ];
   const Marcas = [
     {
-      value: "AVAYA",
-      label: "AVAYA",
+      value: "Avaya",
+      label: "Avaya",
     },
     {
-      value: "HUAWEI",
-      label: "HUAWEI",
+      value: "Huawei",
+      label: "Huawei",
     },
   ];
+
+  // Nombre PDF
+  const [nombreArchivo, setNombreArchivo] = useState("");
 
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
 
-  // API
+  // Cambios
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
     setFormData((prevFormData) => ({
@@ -113,6 +118,34 @@ export default function Home() {
 
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
+
+    // Modal
+    const [openModal, setOpenModal] = useState(false);
+    const handleOpenModal = () => {
+      //No abrir el modal si ya está en modo descarga
+      if (botonEstado === "Descargar PDF") return;
+      const [isValid, getErrors] =
+      validarCamposRequeridos(formData);
+      setErrors(getErrors);
+  
+      console.log("Lista getErrors en submit: ", getErrors);
+  
+      if (!isValid) {
+        setAlert({
+          message: "Por favor, complete todos los campos requeridos.",
+          severity: "warning",
+        });
+      } else {
+        setOpenModal(true);
+        return;
+      }
+      setOpenAlert(true);
+      return;
+    };
+    
+    const handleCloseModal = () => {
+      setOpenModal(false);
+    };
 
   const [errors, setErrors] = useState({});
 
@@ -139,53 +172,124 @@ export default function Home() {
   // Llamada API
 
   const handleSubmit = async (event) => {
+    handleCloseModal();
     event.preventDefault();
+    console.log("Lista formData en submit: ", formData);
 
-    console.log("Datos del formulario:", formData);
-
-    const [isValid, getErrors] = validarCamposRequeridos(formData);
-    setErrors(getErrors);
-
-    if (!isValid) {
-      setAlert({
-        //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
-        message: "Por favor, complete todos los campos requeridos.",
-        severity: "error",
-      });
-      setOpenAlert(true);
-      return;
-    } else {
-      setAlert({
-        message: "Información Registrada",
-        severity: "success",
-      });
-      setOpenAlert(true);
-    }
+    setAlert({
+      message: "Información Enviada",
+      severity: "success",
+    });
+    setOpenAlert(true);
 
     setBotonEstado("Cargando...");
 
     try {
       // PDF api
-      const pdfResponse = await axios.post("/api/v1/tel", formData, {
-        responseType: "blob",
+      const formResponse = await axios.post("/api2/v3/telefonia", formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
-      if (pdfResponse.status === 200) {
-        setPdfUrl(URL.createObjectURL(pdfResponse.data));
-        setBotonEstado("Descargar PDF");
-      } else {
-        console.error("Error generating PDF");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      console.log("Respuesta: ", formResponse.data)
+      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Petición exitosa: ", formMessage);
+      console.log("ID recibido: ", formId);
+      console.log("Epoch recibido: ", epoch)
+      setNombreArchivo(`TELEFONIA_${epoch}.pdf`);
+
       setAlert({
-        message: "Ocurrio un error interno",
-        severity: "error",
+        message: formMessage,
+        severity: "success",
       });
+      setOpenAlert(true);
+
+      try {
+        // Aqui llamamos a la otra api para el pdf
+        const pdfResponse = await axios.post("/api/v3/telefonia", { id: formId }, {
+          responseType: "blob",
+        });
+
+          if (pdfResponse.status === 200) {
+            setPdfUrl(URL.createObjectURL(pdfResponse.data));
+            setBotonEstado("Descargar PDF");
+            setAlert({
+              message: "PDF listo para descargar",
+              severity: "success",
+            });
+            setOpenAlert(true);
+          } else {
+            console.error("Ocurrio un error al generar el PDF");
+            console.error(pdfResponse.status);
+          }
+        
+      } catch (error) {
+        console.error("Error:", error);
+        setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+        setAlert({
+          message: "Ocurrio un error al generar el PDF",
+          severity: "error",
+        });
+        setOpenAlert(true);
+      }
+
+    } catch (error) {
+
+    setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+
+      if (error.response) {
+        // Si hay respuesta, podemos acceder al código de estado y a los datos.
+        const statusCode = error.response.status;
+        const errorData = error.response.data;
+
+        //console.error(`Error con código ${statusCode}:`, errorData.message, errorData.campo);
+
+        // Construct an object to update the errors state
+        const newErrors = {
+          [errorData.campo]: errorData.message // Use the field name as the key and the message as the value
+        };
+        setErrors(newErrors);
+        //console.log("Errores API: ", newErrors); // Log the newErrors object
+
+        //console.log("Objeto Errors: ", errors)
+
+        // Manejamos el caso específico del error 422.
+        if (statusCode === 422) {
+          setAlert({
+            // Usamos el mensaje de error que viene de la API.
+            message: errorData.message || "Hay errores en los datos enviados.",
+            severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
+          });
+        } else {
+          // 3. Manejamos otros errores del servidor (ej. 404, 500).
+          setAlert({
+            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            severity: "error",
+          });
+        }
+      } else {
+        // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        console.error("Error de red o de conexión:", error.message);
+        setAlert({
+          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          severity: "error",
+        });
+      } 
       setOpenAlert(true);
     }
   };
+
+const handleModelo = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      modelo: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+//FILTRADO DE MODELOS
+  const filteredModelo = modelos[formData.marca] || [];
+
+
 
   ///POLITICAS Y SERVICIOS
   const savePoliticas = async (event) => {
@@ -304,6 +408,7 @@ export default function Home() {
     setFormData((prevData) => ({
       ...prevData,
       marca: selectedValue, // Guarda la marca seleccionado
+      modelo:"",
     }));
   };
 
@@ -414,7 +519,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          DATOS DEL USUARIO (A) QUE UTILIZARÁ EL SERVICIO
+          Datos del Usuario (a) que Utilizará el Servicio
         </Typography>
 
         <Box
@@ -456,7 +561,7 @@ export default function Home() {
             id="nombreUsuario"
             name="nombreUsuario"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo"
+            placeholder="Escriba el Nombre Completo"
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -481,7 +586,7 @@ export default function Home() {
             id="puestoUsuario"
             name="puestoUsuario"
             label="Puesto"
-            placeholder="Escriba el nombre puesto del usuario"
+            placeholder="Escriba el Puesto del Usuario"
             value={formData.puestoUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -496,7 +601,7 @@ export default function Home() {
               <TextField
                 required
                 error={!!errors?.direccion}
-                placeholder="Escriba o seleccione la dirección"
+                placeholder="Escriba o Seleccione la Dirección"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Dirección"
@@ -540,7 +645,7 @@ export default function Home() {
                 <TextField
                   required
                   error={!!errors?.piso}
-                  placeholder="Escriba o seleccione el piso"
+                  placeholder="Escriba o Seleccione el Piso"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Piso"
@@ -569,7 +674,7 @@ export default function Home() {
                 <TextField
                   required
                   error={!!errors?.ala}
-                  placeholder="Escriba o seleccione la ala"
+                  placeholder="Escriba o Seleccione el Ala"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Ala"
@@ -593,7 +698,7 @@ export default function Home() {
           <Autocomplete
             disablePortal
             options={unidadesAdmin}
-            freeSolo
+            //freeSolo
             renderInput={(params) => (
               <TextField
                 required
@@ -601,7 +706,7 @@ export default function Home() {
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Unidad Administrativa"
-                placeholder="Escriba o seleccione la unidad administrativa"
+                placeholder="Seleccione la Unidad Administrativa"
               />
             )}
             id="uaUsuario"
@@ -609,11 +714,7 @@ export default function Home() {
             onChange={(event, newValue) => {
               handleUA(newValue); // Maneja selección de opciones
             }}
-            onInputChange={(event, newInputValue) => {
-              if (event?.type === "change") {
-                handleUA(newInputValue); // Maneja texto escrito directamente
-              }
-            }}
+            
             inputValue={formData.uaUsuario || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
@@ -660,7 +761,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          DATOS DEL EMPLEADO (A) DE CONAGUA RESPONSABLE
+          Datos del Empleado (a) de CONAGUA Responsable
         </Typography>
         <Box
           component="form"
@@ -682,7 +783,7 @@ export default function Home() {
             id="nombreEmpleado"
             name="nombreEmpleado"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo"
+            placeholder="Escriba el Nombre Completo del Empleado"
             value={formData.nombreEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -694,7 +795,7 @@ export default function Home() {
             id="idEmpleado"
             name="idEmpleado"
             label="Número De Empleado"
-            placeholder="Escriba el número de empleado"
+            placeholder="Escriba el Número de Empleado"
             value={formData.idEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -707,7 +808,7 @@ export default function Home() {
             id="extEmpleado"
             name="extEmpleado"
             label="Teléfono / Extensión"
-            placeholder="Escriba el número de teléfono o extensión"
+            placeholder="Escriba el Número de Teléfono o Extensión"
             value={formData.extEmpleado}
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF" }}
@@ -731,7 +832,7 @@ export default function Home() {
             id="puestoEmpleado"
             name="puestoEmpleado"
             label="Puesto"
-            placeholder="Escriba el puesto del empleado"
+            placeholder="Escriba el Puesto del Empleado"
             value={formData.puestoEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -778,7 +879,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          INFORMACIÓN DE LA SOLICITUD
+          Información de la Solicitud
         </Typography>
         <Box
           component="form"
@@ -831,12 +932,12 @@ export default function Home() {
               required
               sx={{ ml: 2, mr: 2, justifyContent: "center" }}
             >
-              <FormControlLabel value="ALTA" control={<Radio />} label="ALTA" />
-              <FormControlLabel value="BAJA" control={<Radio />} label="BAJA" />
+              <FormControlLabel value="ALTA" control={<Radio />} label="Alta" />
+              <FormControlLabel value="BAJA" control={<Radio />} label="Baja" />
               <FormControlLabel
                 value="CAMBIO"
                 control={<Radio />}
-                label="CAMBIO"
+                label="Cambio"
               />
             </RadioGroup>
             <FormHelperText
@@ -866,7 +967,7 @@ export default function Home() {
             id="justificacion"
             name="justificacion"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación del Servicio"
             value={formData.justificacion}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -877,7 +978,7 @@ export default function Home() {
             error={!!errors?.activacion}
             id="activacion"
             name="activacion"
-            label="Fecha de activación"
+            label="Fecha de Activación"
             type="date"
             //value={formData.activacion}
             onChange={handleDateChangeActiva}
@@ -889,7 +990,7 @@ export default function Home() {
             error={!!errors?.expiracion}
             id="expiracion"
             name="expiracion"
-            label="Fecha de expiración"
+            label="Fecha de Expiración"
             type="date"
             //value={formData.expiracion}
             onChange={handleDateChangeExpira}
@@ -937,7 +1038,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          ÁREA QUE AUTORIZA
+          Área que Autoriza
         </Typography>
         <Box
           component="form"
@@ -959,7 +1060,7 @@ export default function Home() {
             id="nombreJefe"
             name="nombreJefe"
             label="Funcionario con Cargo de Subgerente, Homólogo o Superior"
-            placeholder="Escriba el nombre completo del funcionario"
+            placeholder="Escriba el Nombre Completo del Funcionario"
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -971,7 +1072,7 @@ export default function Home() {
             id="puestoJefe"
             name="puestoJefe"
             label="Puesto o Cargo"
-            placeholder="Escriba el puesto o cargo del que autoriza"
+            placeholder="Escriba el Puesto o Cargo del que Autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1009,7 +1110,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          CARACTERÍSTICAS DEL EQUIPO
+          Características del Equipo
         </Typography>
         <Box
           component="form"
@@ -1032,8 +1133,8 @@ export default function Home() {
             id="marca"
             name="marca"
             label="Marca"
-            placeholder="Escriba la marca del equipo"
-            defaultValue="HUAWEI"
+            //placeholder="Escriba la marca del equipo"
+            defaultValue="Huawei"
             sx={{ background: "#FFFFFF" }}
             onChange={handleChangeMarca}
             //helperText="Porfavor selecciona el tipo de usuario"
@@ -1044,18 +1145,34 @@ export default function Home() {
               </MenuItem>
             ))}
           </TextField>
-
-          <TextField
-            required
-            error={!!errors?.modelo}
+          {/**MODELO */}
+          <Autocomplete
+            disablePortal
+            options={filteredModelo}            
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                //error={!!errors?.unidadAdministrativa}
+                placeholder="Seleccione el Modelo"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Modelo"
+              />
+            )}
             id="modelo"
             name="modelo"
-            label="Modelo"
-            placeholder="Escriba el modelo del equipo"
-            value={formData.modelo}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 16 }}
+            onChange={(event, newValue) => {
+              handleModelo(newValue); // Maneja selección de opciones
+            }}            
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {                
+                handleModelo(newInputValue) // Maneja texto escrito directamente                
+              }
+            }}
+            inputValue={formData.modelo || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
           />
           <TextField
             required
@@ -1063,7 +1180,7 @@ export default function Home() {
             id="serie"
             name="serie"
             label="Serie"
-            placeholder="Escriba el No. de serie del equipo"
+            placeholder="Escriba el No. de Serie del Equipo"
             value={formData.serie}
             onChange={handleChange}
             inputProps={{ maxLength: 16 }}
@@ -1075,7 +1192,7 @@ export default function Home() {
             id="version"
             name="version"
             label="Versión de Sistema Operativo"
-            placeholder="Escriba la versión del sistema operativo"
+            placeholder="Escriba la Versión del Sistema Operativo"
             value={formData.version}
             onChange={handleChange}
             inputProps={{ maxLength: 16 }}
@@ -1121,7 +1238,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          CARACTERÍSTICAS DEL SERVICIO SOLICITADO
+          Características del Servicio Solicitado
         </Typography>
         <Box
           component="form"
@@ -1465,7 +1582,7 @@ export default function Home() {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          POLÍTICAS DEL SERVICIO
+          Politicas del Servicio
         </Typography>
         <Box
           component="form"
@@ -1509,7 +1626,7 @@ export default function Home() {
             {[
               {
                 name: "politicasaceptadas",
-                label: "He leído y acepto las políticas del servicio",
+                label: "He Leído y Acepto las Políticas del Servicio",
               },
             ].map((item, index) => (
               <Box
@@ -1575,7 +1692,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          GENERAR SOLICITUD
+          Generar Solicitud
         </Typography>
         <Divider
           sx={{
@@ -1618,7 +1735,8 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           <Button
-            type="submit"
+            //type="submit"
+            onClick={handleOpenModal}
             variant="contained"
             sx={{
               mt: 3,
@@ -1638,11 +1756,94 @@ export default function Home() {
             }
             {...(botonEstado === "Descargar PDF" && {
               href: pdfUrl,
-              download: "RegistroTelefonia.pdf",
+              download: nombreArchivo,
             })}
           >
             {botonEstado}
           </Button>
+
+        <Modal
+          open={openModal}
+          onClose={handleCloseModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+        <Box sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          background: "#F4F4F5",
+          border: "2px solid grey",
+          borderRadius: 2,
+          boxShadow: 24,
+          pt: 2,
+          px: 4,
+          pb: 3,
+        }}>
+          <Typography id="modal-modal-title" align="center" variant="h6" component="h2">
+            ¡ADVERTENCIA!
+          </Typography>
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 0,
+              mr: 0,
+              mt: 2,
+              mb: 1,
+            }}
+          />
+          <Typography id="modal-modal-description" sx={{ mt: 2 }} >
+            Asegurate de que la información registrada es correcta, ya que no se
+            puede corregir una vez enviada.
+          </Typography>
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 0,
+              mr: 0,
+              mt: 2,
+              mb: 0,
+            }}
+          />
+          <Button
+          onClick={handleCloseModal}
+          variant="contained"
+          sx={{
+            mt: 3,
+            mb: 0,
+            width: "calc(50% - 16px)",
+            ml: 0,
+            mr: 0,
+            background: "#98989A",
+            color: "#FFFFFF",
+            border: "1px solid gray",
+          }}
+        >
+          Regresar
+        </Button>
+        <Button
+          onClick={handleSubmit}
+          variant="contained"
+          sx={{
+            mt: 3,
+            mb: 0,
+            width: "calc(50% - 16px)",
+            ml: 4,
+            mr: 0,
+            background: theme.palette.secondary.main,
+            color: "#FFFFFF",
+            border: "1px solid gray",
+          }}
+        >
+          Enviar
+        </Button>
+        </Box>
+      </Modal>
+
           <Button
             component={Link}
             href="/"

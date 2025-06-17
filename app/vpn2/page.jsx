@@ -100,6 +100,12 @@ export default function Home() {
   const [webTableData, setWebTableData] = useState([]);
   const [remotoTableData, setRemotoTableData] = useState([]);
 
+  // Nombre PDF
+  const [nombreArchivo, setNombreArchivo] = useState("");
+
+  // Generar PDF
+  const [pdfUrl, setPdfUrl] = useState(null);
+
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -216,9 +222,6 @@ export default function Home() {
     setRemotoTableData(data);
   };
 
-  // Generar PDF
-  const [pdfUrl, setPdfUrl] = useState(null);
-
   // HandleChange FormData
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -259,11 +262,10 @@ export default function Home() {
   const handleOpenModal = () => {
     //No abrir el modal si ya está en modo descarga
     if (botonEstado === "Descargar PDF") return;
-    const [isValid, isValidTabla, isValidTelefono, isValidJustificacion, getErrors] =
-    validarCamposRequeridos(formData);
+    const [isValid, isValidTabla, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
 
-    //console.log("Lista getErrors en submit: ", getErrors);
+    console.log("Lista getErrors en submit: ", getErrors);
 
     if (!isValid) {
       setAlert({
@@ -273,16 +275,6 @@ export default function Home() {
     } else if (!isValidTabla) {
       setAlert({
         message: "Por favor, completa o elimina el registro de la(s) tabla(s).",
-        severity: "warning",
-      });
-    } else if (!isValidTelefono) {
-      setAlert({
-        message: "Teléfono de enlace informático inválido.",
-        severity: "warning",
-      });
-    } else if (!isValidJustificacion) {
-      setAlert({
-        message: "Justificación de al menos 50 caracteres.",
         severity: "warning",
       });
     } else {
@@ -393,7 +385,7 @@ export default function Home() {
       }
     }
     console.log(errores);
-    return [isValid, isValidTabla,isValidTelefono, isValidJustificacion, errores];
+    return [isValid, isValidTabla, errores];
   };
 
   // Llamada API
@@ -402,108 +394,106 @@ export default function Home() {
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
 
-    setBotonEstado("Cargando...");
     setAlert({
-      message: "Informacion registrada",
+      message: "Información Enviada",
       severity: "success",
     });
     setOpenAlert(true);
 
+    setBotonEstado("Cargando...");
+
     try {
-      const pdfResponse = await axios.post("/api/v2/vpn", formData, {
-        responseType: "blob",
+      // Aqui llamamos a la primera api que valida campos
+      const formResponse = await axios.post("/api2/v3/vpn", formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
-      if (pdfResponse.status === 200) {
-        setPdfUrl(URL.createObjectURL(pdfResponse.data));
-        setBotonEstado("Descargar PDF");
-        setAlert({
-          message: "Ya puede descargar su PDF",
-          severity: "success",
+      console.log("Respuesta: ", formResponse.data)
+      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Petición exitosa: ", formMessage);
+      console.log("ID recibido: ", formId);
+      console.log("Epoch recibido: ", epoch)
+      setNombreArchivo(`VPN_${epoch}.pdf`);
+
+      setAlert({
+        message: formMessage,
+        severity: "success",
+      });
+      setOpenAlert(true);
+
+      try {
+        // Aqui llamamos a la otra api para el pdf
+        const pdfResponse = await axios.post("/api/v3/vpn", { id: formId }, {
+          responseType: "blob",
         });
-      } else if (pdfResponse.status === 206) {
+
+        if (pdfResponse.status === 200) {
+          setPdfUrl(URL.createObjectURL(pdfResponse.data));
+          setBotonEstado("Descargar PDF");
+          setAlert({
+            message: "PDF listo para descargar",
+            severity: "success",
+          });
+          setOpenAlert(true);
+        } else {
+          console.error("Ocurrio un error al generar el PDF");
+          console.error(pdfResponse.status);
+        }
+
+      } catch (error) {
+        console.error("Error:", error);
+        setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
         setAlert({
-          message: "Teléfono de enlace/contacto inválido",
-          severity: "warning"
-        });
-        setBotonEstado("Enviar");
-      }else if (pdfResponse.status === 205) {
-        setAlert({
-          message: "Correo institucional inválido",
-          severity: "warning"
-        });
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 207) {
-        setAlert({
-          message: "Correo electrónico inválido",
-          severity: "warning"
-        });
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 208) {
-        setAlert({
-          message: "Teléfono de usuario inválido",
-          severity: "warning"
-        });
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 209) {
-        setAlert({
-          message: "Teléfono de usuario responsable inválido",
-          severity: "warning"
-        });
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 210) {
-        setAlert({
-          message: "b) Verifica 'URL/IP del Equipo'",
-          severity: "warning"
-        });
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 211) {
-        setAlert({
-          message: "b) Verifica 'Nombre Sistema/Servicio'",
-          severity: "warning"
-        });
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 220) {
-        setAlert({
-          message: "c) Verifica 'Nomenclatura'. Min: 7 Caracteres",
-          severity: "warning"
-        });
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 221) {
-        setAlert({
-          message: "c) Verifica 'Nombre'. Min: 11 Caracteres",
-          severity: "warning"
-        });
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 222) {
-        setAlert({
-          message: "c) Verifica 'Dirección IP'",
-          severity: "warning"
-        });
-        setBotonEstado("Enviar");
-      } else if (pdfResponse.status === 230) {
-        setAlert({
-          message: "Número de empleado inválido",
-          severity: "warning"
-        });
-        setBotonEstado("Enviar");
-      } else {
-        setAlert({
-          message: "Error desconocido",
+          message: "Ocurrio un error al generar el PDF",
           severity: "error",
         });
-        setBotonEstado("Enviar");
-        //console.error("Error interno");
-        //console.error(pdfResponse.status);
+        setOpenAlert(true);
       }
-      setOpenAlert(true);
+
     } catch (error) {
-      console.error("Error:", error);
+
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
-      setAlert({
-        message: "Ocurrio un error interno",
-        severity: "error",
-      });
+
+      if (error.response) {
+        // Si hay respuesta, podemos acceder al código de estado y a los datos.
+        const statusCode = error.response.status;
+        const errorData = error.response.data;
+
+        console.error(`Error con código ${statusCode}:`, errorData.message, errorData.campo);
+
+        // Construct an object to update the errors state
+        const newErrors = {
+          [errorData.campo]: errorData.message // Use the field name as the key and the message as the value
+        };
+        setErrors(newErrors);
+        console.log("Errores API: ", newErrors); // Log the newErrors object
+
+        console.log("Objeto Errors: ", errors)
+
+        // Manejamos el caso específico del error 422.
+        if (statusCode === 422) {
+          setAlert({
+            // Usamos el mensaje de error que viene de la API.
+            message: errorData.message || "Hay errores en los datos enviados.",
+            severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
+          });
+        } else {
+          // 3. Manejamos otros errores del servidor (ej. 404, 500).
+          setAlert({
+            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            severity: "error",
+          });
+        }
+      } else {
+        // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        console.error("Error de red o de conexión:", error.message);
+        setAlert({
+          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          severity: "error",
+        });
+      } 
       setOpenAlert(true);
     }
   };
@@ -521,40 +511,92 @@ export default function Home() {
     setBotonEstado2("Cargando...");
 
     try {
-      const pdfResponse = await axios.post("/api/v2/vpnActualizar", formData2, {
-        responseType: "blob",
+      // Aqui llamamos a la primera api que valida campos
+      const formResponse = await axios.post("/api2/v3/vpnActualizar", formData2, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
-      if (pdfResponse.status === 200) {
-        setAlert({
-          message: "Ya puede descargar su PDF",
-          severity: "success",
+      console.log("Respuesta: ", formResponse.data)
+      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Petición exitosa: ", formMessage);
+      console.log("ID recibido: ", formId);
+      console.log("Epoch recibido: ", epoch)
+      setNombreArchivo(`VPN_${epoch}.pdf`);
+
+      setAlert({
+        message: formMessage,
+        severity: "success",
+      });
+      setOpenAlert(true);
+
+      try {
+        // Aqui llamamos a la otra api para el pdf
+        const pdfResponse = await axios.post("/api/v3/vpn", { id: formId }, {
+          responseType: "blob",
         });
-        setPdfUrl(URL.createObjectURL(pdfResponse.data));
-        setBotonEstado2("Descargar PDF");
-      } else if (pdfResponse.status === 203) {
+
+        if (pdfResponse.status === 200) {
+          setPdfUrl(URL.createObjectURL(pdfResponse.data));
+          setBotonEstado2("Descargar PDF");
+          setAlert({
+            message: "PDF listo para descargar",
+            severity: "success",
+          });
+          setOpenAlert(true);
+        } else {
+          console.error("Ocurrio un error al generar el PDF");
+          console.error(pdfResponse.status);
+        }
+
+      } catch (error) {
+        console.error("Error:", error);
+        setBotonEstado2("Enviar"); // Vuelve a "Enviar" en caso de error
         setAlert({
-          message: "No se encontro el número de formato",
-          severity: "warning",
-        });
-        setBotonEstado2("Enviar");
-      } else {
-        setAlert({
-          message: "Error desconocido",
+          message: "Ocurrio un error al generar el PDF",
           severity: "error",
         });
-        setBotonEstado2("Enviar");
-        //console.error("Error generando PDF");
-        //console.error(pdfResponse.status);
+        setOpenAlert(true);
       }
-      setOpenAlert(true);
+
     } catch (error) {
-      //console.error("Error:", error);
-      setBotonEstado2("Enviar");
-      setAlert({
-        message: "Ocurrio un error interno",
-        severity: "error",
-      });
+
+      setBotonEstado2("Enviar"); // Vuelve a "Enviar" en caso de error
+
+      if (error.response) {
+        // Si hay respuesta, podemos acceder al código de estado y a los datos.
+        const statusCode = error.response.status;
+        const errorData = error.response.data;
+
+        console.error(`Error con código ${statusCode}:`, errorData.message);
+
+        // Manejamos el caso específico del error 422.
+        if (statusCode === 422) {
+          // Usamos el mensaje de error que viene de la API.
+          setAlert({
+            message: errorData.message || "Hay errores en los datos enviados.",
+            severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
+          });
+        } else if (statusCode === 402) {
+          setAlert({
+            message: errorData.message || 'Ocurrió un error inesperado.',
+            severity: "error",
+          });
+        } else {
+          // Manejamos otros errores del servidor (ej. 404, 500).
+          setAlert({
+            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            severity: "error",
+          });
+        }
+      } else {
+        console.error("Error de red o de conexión:", error.message);
+        setAlert({
+          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          severity: "error",
+        });
+      } 
       setOpenAlert(true);
     }
   };
@@ -2305,12 +2347,12 @@ export default function Home() {
             }
             {...(botonEstado === "Descargar PDF" && {
               href: pdfUrl,
-              download: "RegistroVPNMayo.pdf",
+              download: nombreArchivo,
             })}
           >
             {botonEstado}
           </Button>
-          {/**REVISAR QUE EL MODAL NO SE VUELVA A ABRIR CUANDO EL BOTÓN YA ESTÁ EN DESCARGANDO */}
+
           <Modal
             open={openModal}
             onClose={handleCloseModal}
@@ -2567,7 +2609,7 @@ export default function Home() {
             disabled={botonEstado2 === "Cargando..."}
             {...(botonEstado2 === "Descargar PDF" && {
               href: pdfUrl,
-              download: "RegistroVPNMayo.pdf",
+              download: nombreArchivo,
             })}
           >
             {botonEstado2}

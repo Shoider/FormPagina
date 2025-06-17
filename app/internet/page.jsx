@@ -14,6 +14,7 @@ import {
   Divider,
   Checkbox,
   Autocomplete,
+  Modal,
 } from "@mui/material";
 import Image from "next/image";
 import Link from 'next/link';
@@ -24,13 +25,14 @@ import direccionAutocomplete from "../constants/direccion.jsx";
 import ala from "../constants/ala.jsx";
 import pisos from "../constants/pisos.jsx";
 import telefonoAutocomplete from "../constants/telefono.jsx";
+import areas from "../constants/AREAS/areas.jsx";
+
 
 export default function Home() {
   const theme = useTheme();
   // Tipo de CATEGORIA
 
   const [formData, setFormData] = useState({
-    fechasoli: "",
     uaUsuario: "",
     areaUsuario: "",
     nombreUsuario: "",
@@ -38,7 +40,7 @@ export default function Home() {
     ipUsuario: "",
     correoUsuario: "",
     direccion: "",
-    teleUsuario: "",
+    teleUsuario: "", 
     extUsuario: "",
     nombreJefe: "",
     puestoJefe: "",
@@ -115,6 +117,12 @@ export default function Home() {
     //POLITICAS
     politicasaceptadas: false,
   });
+
+  // Nombre PDF
+  const [nombreArchivo, setNombreArchivo] = useState("");
+
+  // Generar PDF
+  const [pdfUrl, setPdfUrl] = useState(null);
 
   // CATEGORÍAS
   const saveCategorias = async (event) => {
@@ -262,9 +270,6 @@ export default function Home() {
     });
   };
 
-  // Generar PDF
-  const [pdfUrl, setPdfUrl] = useState(null);
-
   // handleChange
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -273,9 +278,38 @@ export default function Home() {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-
+  
   // Boton
   const [botonEstado, setBotonEstado] = useState("Enviar");
+  //Modal
+   const [openModal, setOpenModal] = useState(false);
+    const handleOpenModal = () => {
+      //No abrir el modal si ya está en modo descarga
+      if (botonEstado === "Descargar PDF") return;
+      const [isValid, getErrors] =
+      validarCamposRequeridos(formData);
+      setErrors(getErrors);
+  
+      //console.log("Lista getErrors en submit: ", getErrors);
+      //console.log(formData)
+  
+      if (!isValid) {
+        setAlert({
+          message: "Por favor, complete todos los campos requeridos.",
+          severity: "warning",
+        });
+      } else {
+        setOpenModal(true);
+        return;
+      }
+      setOpenAlert(true);
+      return;
+    };
+    
+    const handleCloseModal = () => {
+      setOpenModal(false);
+    };
+
 
   // Alertas
   const [openAlert, setOpenAlert] = useState(false);
@@ -309,9 +343,19 @@ export default function Home() {
           key !== "otra3" &&
           key !== "otra4" &&
           key !== "piso" &&
-          key !== "ala"
+          key !== "ala" &&
+          key !== "urlDescarga" &&
+          key !== "urlComercio" &&
+          key !== "urlRedes" &&
+          key !== "urlForos" &&
+          key !== "urlWhats" &&
+          key !== "urlVideos" &&
+          key !== "urlDropbox" &&
+          key !== "urlOnedrive" &&
+          key !== "urlSkype" &&
+          key !== "urlWetransfer"
         ) {
-          //console.log("Campo requerido: ", key);
+          console.log("Campo requerido: ", key);
           errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
           isValid = false; // Al menos un campo está vacío
         }
@@ -361,48 +405,110 @@ export default function Home() {
 
   // Llamada API
   const handleSubmit = async (event) => {
+    handleCloseModal();
     event.preventDefault();
     console.log("datos de formdata internet:", formData);
 
-    const [isValid, getErrors] = validarCamposRequeridos(formData);
-    setErrors(getErrors);
-
-    if (!isValid) {
-      setAlert({
-        message: "Por favor, complete todos los campos requeridos.",
-        severity: "error",
-      });
-      setOpenAlert(true);
-      return;
-    } else {
-      setAlert({
-        message: "Información Registrada",
-        severity: "success",
-      });
-      setOpenAlert(true);
-    }
+    setAlert({
+      message: "Información Enviada",
+      severity: "success",
+    });
+    setOpenAlert(true);
 
     setBotonEstado("Cargando...");
 
     try {
-      // PDF api
-      const pdfResponse = await axios.post("/api/v1/inter", formData, {
-        responseType: "blob",
+      // Aqui llamamos a la primera api que valida campos
+      const formResponse = await axios.post("/api2/v3/internet", formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
-      if (pdfResponse.status === 200) {
-        setPdfUrl(URL.createObjectURL(pdfResponse.data));
-        setBotonEstado("Descargar PDF");
-      } else {
-        console.error("Error generating PDF");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      console.log("Respuesta: ", formResponse.data)
+      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Petición exitosa: ", formMessage);
+      console.log("ID recibido: ", formId);
+      console.log("Epoch recibido: ", epoch)
+      setNombreArchivo(`INTERNET_${epoch}.pdf`);
+
       setAlert({
-        message: "Ocurrio un error interno",
-        severity: "error",
+        message: formMessage,
+        severity: "success",
       });
+      setOpenAlert(true);
+
+      try {
+        // Aqui llamamos a la otra api para el pdf
+        const pdfResponse = await axios.post("/api/v3/internet", { id: formId }, {
+          responseType: "blob",
+        });
+
+        if (pdfResponse.status === 200) {
+          setPdfUrl(URL.createObjectURL(pdfResponse.data));
+          setBotonEstado("Descargar PDF");
+          setAlert({
+            message: "PDF listo para descargar",
+            severity: "success",
+          });
+          setOpenAlert(true);
+        } else {
+          console.error("Ocurrio un error al generar el PDF");
+          console.error(pdfResponse.status);
+        }
+
+      } catch (error) {
+        console.error("Error:", error);
+        setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+        setAlert({
+          message: "Ocurrio un error al generar el PDF",
+          severity: "error",
+        });
+        setOpenAlert(true);
+      }
+
+    } catch (error) {
+
+      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+
+      if (error.response) {
+        // Si hay respuesta, podemos acceder al código de estado y a los datos.
+        const statusCode = error.response.status;
+        const errorData = error.response.data;
+
+        //console.error(`Error con código ${statusCode}:`, errorData.message, errorData.campo);
+
+        // Construct an object to update the errors state
+        const newErrors = {
+          [errorData.campo]: errorData.message // Use the field name as the key and the message as the value
+        };
+        setErrors(newErrors);
+        //console.log("Errores API: ", newErrors); // Log the newErrors object
+
+        //console.log("Objeto Errors: ", errors)
+
+        // Manejamos el caso específico del error 422.
+        if (statusCode === 422) {
+          setAlert({
+            // Usamos el mensaje de error que viene de la API.
+            message: errorData.message || "Hay errores en los datos enviados.",
+            severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
+          });
+        } else {
+          // 3. Manejamos otros errores del servidor (ej. 404, 500).
+          setAlert({
+            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            severity: "error",
+          });
+        }
+      } else {
+        // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        console.error("Error de red o de conexión:", error.message);
+        setAlert({
+          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          severity: "error",
+        });
+      } 
       setOpenAlert(true);
     }
   };
@@ -431,6 +537,8 @@ export default function Home() {
       extUsuario: value,
     }));
   };
+
+  //PENDIENTE DE AGREGAR PARA EL AUTOCOMPLETE
   const handleTelefonoChange = (event) => {
     let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
     value = value.slice(0, 10); // Limita la longitud a 4 caracteres
@@ -462,8 +570,18 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       uaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      areaUsuario:"",
     }));
   };
+  // Manejo de Autocomplete de Área de Adscripción 
+  const handleArea = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      areaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)      
+    }));
+  };
+  //FILTRADO DE ÁREA DE ADSCRIPCIÓN
+  const filteredAreas = areas[formData.uaUsuario] || [];
   const handleDireccion = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -588,7 +706,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          DATOS DEL USUARIO (A) QUE UTILIZARÁ EL SERVICIO
+          Datos del Usuario (a) que Utilizará el Servicio
         </Typography>
 
         <Box
@@ -611,7 +729,7 @@ export default function Home() {
             id="nombreUsuario"
             name="nombreUsuario"
             label="Nombre Completo"
-            placeholder="Escriba el nombre completo"
+            placeholder="Escriba el Nombre Completo del Usuario"
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -623,20 +741,8 @@ export default function Home() {
             id="puestoUsuario"
             name="puestoUsuario"
             label="Puesto o Cargo"
-            placeholder="Escriba el puesto o cargo"
+            placeholder="Escriba el Puesto o Cargo del Usuario"
             value={formData.puestoUsuario}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
-            error={!!errors?.areaUsuario}
-            id="areaUsuario"
-            name="areaUsuario"
-            label="Área"
-            placeholder="Escriba el área del usuario"
-            value={formData.areaUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
@@ -644,12 +750,12 @@ export default function Home() {
           <Autocomplete
             disablePortal
             options={unidadesAdmin}
-            freeSolo
+            //freeSolo
             renderInput={(params) => (
               <TextField
                 required
                 error={!!errors?.uaUsuario}
-                placeholder="Escriba o seleccione la unidad administrativa"
+                placeholder="Seleccione la Unidad Administrativa"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Unidad Administrativa"
@@ -660,22 +766,46 @@ export default function Home() {
             onChange={(event, newValue) => {
               handleUA(newValue); // Maneja selección de opciones
             }}
-            onInputChange={(event, newInputValue) => {
-              if (event?.type === "change") {
-                handleUA(newInputValue); // Maneja texto escrito directamente
-              }
-            }}
+           // onInputChange={(event, newInputValue) => {
+             // if (event?.type === "change") {
+               // handleUA(newInputValue); // Maneja texto escrito directamente
+              //}
+            //}}
             inputValue={formData.uaUsuario || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
+          {/**ÁREA DE ADSCRIPCIÓN */}
+            <Autocomplete
+              disablePortal
+              options={filteredAreas}            
+              //freeSolo
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.areaUsuario}
+                  placeholder="Seleccione la Área de Adscripción"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Área de Adscripción"
+                />
+              )}
+              id="areaUsuario"
+              name="areaUsuario"
+              onChange={(event, newValue) => {
+                handleArea(newValue); // Maneja selección de opciones
+              }}            
+              inputValue={formData.areaUsuario || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />    
           <TextField
             required
             error={!!errors?.ipUsuario}
             id="ipUsuario"
             name="ipUsuario"
             label="IP del Equipo Asignado"
-            placeholder="Escriba la IP del equipo"
+            placeholder="Escriba la IP del Equipo"
             value={formData.ipUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -746,7 +876,7 @@ export default function Home() {
                 <TextField
                   required
                   error={!!errors?.piso}
-                  placeholder="Escriba o seleccione el piso"
+                  placeholder="Escriba o Seleccione el Piso"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Piso"
@@ -775,7 +905,7 @@ export default function Home() {
                 <TextField
                   required
                   error={!!errors?.ala}
-                  placeholder="Escriba o seleccione la ala"
+                  placeholder="Escriba o Seleccione el Ala"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Ala"
@@ -796,34 +926,36 @@ export default function Home() {
               isOptionEqualToValue={(option, value) => option === value}
             />
           </Box>
+          
           <Autocomplete
-            disablePortal
-            options={telefonoAutocomplete}
             freeSolo
-            sx={{ width: "100%" }}
+            
+            options={telefonoAutocomplete}
+            getOptionLabel={(option) => option.label || option.value || ""}
+            onChange={(event, newValue) => {
+              if (typeof newValue === 'string') {
+                handleChange({ target: { name: 'teleUsuario', value: newValue } });
+              } else if (newValue && newValue.value) {
+                handleChange({ target: { name: 'teleUsuario', value: newValue.value } });
+              }
+              else {
+                  handleChange({ target: { name: 'teleUsuario', value: '' } });
+                }
+            }}
             renderInput={(params) => (
               <TextField
+                {...params}
                 required
                 error={!!errors?.teleUsuario}
-                placeholder="Escriba o seleccione el teléfono"
+                label="Teléfono del Usuario"
+                placeholder="Seleccione o Escriba el Teléfono del Usuario"
+                name="teleUsuario"
+                value={formData.teleUsuario}
                 sx={{ background: "#FFFFFF" }}
-                {...params}
-                label="Teléfono"
+                onChange={handleChange}
+                fullWidth
               />
             )}
-            id="teleUsuario"
-            name="teleUsuario"
-            onChange={(event, newValue) => {
-              handleTele(newValue); // Maneja selección de opciones
-            }}
-            onInputChange={(event, newInputValue) => {
-              if (event?.type === "change") {
-                handleTele(newInputValue); // Maneja texto escrito directamente
-              }
-            }}
-            inputValue={formData.teleUsuario || ""} // Controla el valor mostrado
-            getOptionLabel={(option) => option || ""}
-            isOptionEqualToValue={(option, value) => option === value}
           />
           <TextField
             required
@@ -831,71 +963,11 @@ export default function Home() {
             id="extUsuario"
             name="extUsuario"
             label="Extensión"
-            placeholder="Escriba el número de extensión"
+            placeholder="Escriba el Número de Extensión"
             value={formData.extUsuario}
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 4 }}
-          />
-        </Box>
-      </Box>
-
-      {/* Datos del la Solicitud */}
-      {/* Form Box Responsive */}
-      <Box
-        component="section"
-        sx={{
-          mx: "auto",
-          width: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
-          p: 2,
-          borderRadius: 2,
-          background: "#F4F4F5",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-        }}
-      >
-        {/* SubTitle */}
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
-        >
-          INFORMACIÓN DE LA SOLICITUD
-        </Typography>
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <TextField
-            required
-            error={!!errors?.fechasoli}
-            id="fechasoli"
-            name="fechasoli"
-            label="Fecha de Solicitud"
-            type="date"
-            onChange={handleDateChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            InputLabelProps={{ shrink: true }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
       </Box>
@@ -929,7 +1001,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          AUTORIZA
+          Autoriza Servicio
         </Typography>
         <Box
           component="form"
@@ -951,7 +1023,7 @@ export default function Home() {
             id="nombreJefe"
             name="nombreJefe"
             label="Funcionario con Cargo de Subgerente, Homólogo o Superior"
-            placeholder="Escriba el nombre completo del funcionario"
+            placeholder="Escriba el Nombre Completo del Funcionario"
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -963,7 +1035,7 @@ export default function Home() {
             id="puestoJefe"
             name="puestoJefe"
             label="Puesto o Cargo del que Autoriza"
-            placeholder="Escriba el puesto o cargo del que autoriza"
+            placeholder="Escriba el Puesto o Cargo de quien Autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1001,7 +1073,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          CATEGORÍAS DE NAVEGACIÓN
+          Categoría de Navegación
         </Typography>
         <Box
           component="form"
@@ -1174,7 +1246,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          JUSTIFICACIÓN DE SERVICIOS REQUERIDOS
+          Justificación de Servicios Requeridos
         </Typography>
         <Box
           component="form"
@@ -1240,10 +1312,10 @@ export default function Home() {
 
           <TextField
             //required
-            //error={!!errors?.urlDescarga}
+            error={!!errors?.urlDescarga}
             id="urlDescarga"
             name="urlDescarga"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlDescarga}
             onChange={handleChange}
@@ -1256,7 +1328,7 @@ export default function Home() {
             id="justificaDescarga"
             name="justificaDescarga"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaDescarga}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1323,10 +1395,10 @@ export default function Home() {
           </Box>
           <TextField
             //required
-            //error={!!errors?.urlForos}
+            error={!!errors?.urlForos}
             id="urlForos"
             name="urlForos"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlForos}
             onChange={handleChange}
@@ -1339,7 +1411,7 @@ export default function Home() {
             id="justificaForos"
             name="justificaForos"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaForos}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1405,10 +1477,10 @@ export default function Home() {
           </Box>
           <TextField
             //required
-            //error={!!errors?.urlComercio}
+            error={!!errors?.urlComercio}
             id="urlComercio"
             name="urlComercio"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlComercio}
             onChange={handleChange}
@@ -1421,7 +1493,7 @@ export default function Home() {
             id="justificaComercio"
             name="justificaComercio"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaComercio}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1487,10 +1559,10 @@ export default function Home() {
           </Box>
           <TextField
             //required
-            //error={!!errors?.urlRedes}
+            error={!!errors?.urlRedes}
             id="urlRedes"
             name="urlRedes"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlRedes}
             onChange={handleChange}
@@ -1503,7 +1575,7 @@ export default function Home() {
             id="justificaRedes"
             name="justificaRedes"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaRedes}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1569,10 +1641,10 @@ export default function Home() {
           </Box>
           <TextField
             //required
-            //error={!!errors?.urlVideos}
+            error={!!errors?.urlVideos}
             id="urlVideos"
             name="urlVideos"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlVideos}
             onChange={handleChange}
@@ -1585,7 +1657,7 @@ export default function Home() {
             id="justificaVideos"
             name="justificaVideos"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaVideos}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1651,10 +1723,10 @@ export default function Home() {
           </Box>
           <TextField
             // required
-            //error={!!errors?.urlWhats}
+            error={!!errors?.urlWhats}
             id="urlWhats"
             name="urlWhats"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlWhats}
             onChange={handleChange}
@@ -1667,7 +1739,7 @@ export default function Home() {
             id="justificaWhats"
             name="justificaWhats"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaWhats}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1732,11 +1804,11 @@ export default function Home() {
             </FormLabel>
           </Box>
           <TextField
-            // required
-            // error={!!errors?.urlDropbox}
+            //required
+            error={!!errors?.urlDropbox}
             id="urlDropbpx"
             name="urlDropbox"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlDropbox}
             onChange={handleChange}
@@ -1814,11 +1886,11 @@ export default function Home() {
             </FormLabel>
           </Box>
           <TextField
-            // required
-            // error={!!errors?.urlOnedrive}
+            //required
+            error={!!errors?.urlOnedrive}
             id="urlOnedrive"
             name="urlOnedrive"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlOnedrive}
             onChange={handleChange}
@@ -1831,7 +1903,7 @@ export default function Home() {
             id="justificaOnedrive"
             name="justificaOnedrive"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaOnedrive}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1897,10 +1969,10 @@ export default function Home() {
           </Box>
           <TextField
             //required
-            //error={!!errors?.urlSkype}
+            error={!!errors?.urlSkype}
             id="urlSkype"
             name="urlSkype"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlSkype}
             onChange={handleChange}
@@ -1913,7 +1985,7 @@ export default function Home() {
             id="justificaSkype"
             name="justificaSkype"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaSkype}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1978,11 +2050,11 @@ export default function Home() {
             </FormLabel>
           </Box>
           <TextField
-            //  required
-            //  error={!!errors?.urlWetransfer}
+            //required
+            error={!!errors?.urlWetransfer}
             id="urlWetransfer"
             name="urlWetransfer"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlWetransfer}
             onChange={handleChange}
@@ -1995,7 +2067,7 @@ export default function Home() {
             id="justificaWetransfer"
             name="justificaWetransfer"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaWetransfer}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2060,11 +2132,11 @@ export default function Home() {
             </FormLabel>
           </Box>
           <TextField
-            //  required
-            //  error={!!errors?.urlTeam}
+            //required
+            error={!!errors?.urlTeam}
             id="urlTeam"
             name="urlTeam"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlTeam}
             onChange={handleChange}
@@ -2077,7 +2149,7 @@ export default function Home() {
             id="justificaTeam"
             name="justificaTeam"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaTeam}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2147,7 +2219,7 @@ export default function Home() {
             id="otraC"
             name="otraC"
             label="Describe cual"
-            placeholder="Escriba el nombre del servicio"
+            placeholder="Escriba el Nombre del Servicio"
             value={formData.otraC}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2158,7 +2230,7 @@ export default function Home() {
             error={!!errors?.urlOtra}
             id="urlOtra"
             name="urlOtra"
-            label="Referencia del servicio requerido (URL)"
+            label="Referencia del Servicio Requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlOtra}
             onChange={handleChange}
@@ -2171,7 +2243,7 @@ export default function Home() {
             id="justificaOtra"
             name="justificaOtra"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Escriba la Justificación"
             value={formData.justificaOtra}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2243,7 +2315,7 @@ export default function Home() {
               id="otraC2"
               name="otraC2"
               label="Describe cual"
-              placeholder="Escriba el nombre del servicio"
+              placeholder="Escriba el Nombre del Servicio"
               value={formData.otraC2}
               onChange={handleChange}
               sx={{ background: "#FFFFFF" }}
@@ -2254,7 +2326,7 @@ export default function Home() {
               error={!!errors?.urlOtra2}
               id="urlOtra2"
               name="urlOtra2"
-              label="Referencia del servicio requerido (URL)"
+              label="Referencia del Servicio Requerido (URL)"
               placeholder="Escriba la URL del servicio"
               value={formData.urlOtra2}
               onChange={handleChange}
@@ -2267,7 +2339,7 @@ export default function Home() {
               id="justificaOtra2"
               name="justificaOtra2"
               label="Justificación"
-              placeholder="Escriba la justificación"
+              placeholder="Escriba la Justificación"
               value={formData.justificaOtra2}
               onChange={handleChange}
               sx={{ background: "#FFFFFF" }}
@@ -2322,7 +2394,7 @@ export default function Home() {
                 id="otraC3"
                 name="otraC3"
                 label="Describe cual"
-                placeholder="Escriba el nombre del servicio"
+                placeholder="Escriba el Nombre del Servicio"
                 value={formData.otraC3}
                 onChange={handleChange}
                 sx={{ background: "#FFFFFF" }}
@@ -2334,7 +2406,7 @@ export default function Home() {
                 id="urlOtra3"
                 name="urlOtra3"
                 label="Referencia del servicio requerido (URL)"
-                placeholder="Escriba la URL del servicio"
+                placeholder="Escriba la URL del Servicio"
                 value={formData.urlOtra3}
                 onChange={handleChange}
                 sx={{ background: "#FFFFFF" }}
@@ -2346,7 +2418,7 @@ export default function Home() {
                 id="justificaOtra3"
                 name="justificaOtra3"
                 label="Justificación"
-                placeholder="Escriba la justificación"
+                placeholder="Escriba la Justificación"
                 value={formData.justificaOtra3}
                 onChange={handleChange}
                 sx={{ background: "#FFFFFF" }}
@@ -2407,7 +2479,7 @@ export default function Home() {
                   id="otraC4"
                   name="otraC4"
                   label="Describe cual"
-                  placeholder="Escriba el nombre del servicio"
+                  placeholder="Escriba el Nombre del Servicio"
                   value={formData.otraC4}
                   onChange={handleChange}
                   sx={{ background: "#FFFFFF" }}
@@ -2418,8 +2490,8 @@ export default function Home() {
                   error={!!errors?.urlOtra4}
                   id="urlOtra4"
                   name="urlOtra4"
-                  label="Referencia del servicio requerido (URL)"
-                  placeholder="Escriba la URL del servicio"
+                  label="Referencia del Servicio Requerido (URL)"
+                  placeholder="Escriba la URL del Servicio"
                   value={formData.urlOtra4}
                   onChange={handleChange}
                   sx={{ background: "#FFFFFF" }}
@@ -2431,7 +2503,7 @@ export default function Home() {
                   id="justificaOtra4"
                   name="justificaOtra4"
                   label="Justificación"
-                  placeholder="Escriba la justificación"
+                  placeholder="Escriba la Justificación"
                   value={formData.justificaOtra4}
                   onChange={handleChange}
                   sx={{ background: "#FFFFFF" }}
@@ -2521,7 +2593,7 @@ export default function Home() {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          POLÍTICAS DEL SERVICIO
+          Políticas del Servicio
         </Typography>
         <Box
           component="form"
@@ -2545,37 +2617,55 @@ export default function Home() {
               color="#9F2241"
               sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
             >
-              {
-                " • Es responsabilidad de los servidores públicos, así como personal externo de los activos de información el adoptar las medidas que determine la CONAGUA para mantener y garantizar la seguridad de la Información, siendo la Gerencia de Tecnología de la Información y Comunicaciones la responsable de establecer los mecanismos que permitan garantizar la confidencialidad, integridad y disponibilidad de la Información. "
-              }
+              
+                • Es responsabilidad de los servidores públicos, así como personal externo de los activos de información 
+                el adoptar las medidas que determine la CONAGUA para mantener y garantizar la seguridad de la Información, 
+                siendo la Gerencia de Tecnología de la Información y Comunicaciones la responsable de establecer los mecanismos 
+                que permitan garantizar la confidencialidad, integridad y disponibilidad de la Información. 
+              
               <br />
-              {
-                " • La Subgerencia de Internet e Intranet, adscrita a la Gerencia de Tecnología de la Información y Comunicaciones, como administrador del servicio es el área responsable de definir los lineamientos que deberán ser atendidos por todos los usuarios y administradores en la ampliación del servicio de navegación de internet. "
-              }
+              
+                • La Subgerencia de Internet e Intranet, adscrita a la Gerencia de Tecnología de la Información y Comunicaciones, 
+                como administrador del servicio es el área responsable de definir los lineamientos que deberán ser atendidos por 
+                todos los usuarios y administradores en la ampliación del servicio de navegación de internet. 
+              
               <br />
-              {
-                " • La Subgerencia de Internet e Intranet, será la responsable de implementar y garantizar la disponibilidad en todo momento del servicio. "
-              }
+              
+                • La Subgerencia de Internet e Intranet, será la responsable de implementar y garantizar la disponibilidad 
+                en todo momento del servicio. 
+              
               <br />
-              {
-                " • Los accesos para los servicios habilitados serán exclusivamente para los usuarios que tengan debidamente la justificación y que cumplan con el llenado del formato y su formalización mediante el memorándum correspondiente para hacer uso de ella. "
-              }
+              
+                 • Los accesos para los servicios habilitados serán exclusivamente para los usuarios que tengan debidamente la 
+                 justificación y que cumplan con el llenado del formato y su formalización mediante el memorándum correspondiente 
+                 para hacer uso de ella. 
+              
               <br />
-              {
-                " • Es responsabilidad de quien autoriza los accesos solicitados y justificados anteriormente, así como la supervisión del correcto uso de los recursos, siendo la Subgerencia de Internet e Intranet el área responsable de la validación y supervisión periódica del buen uso de estos, lo anterior para salvaguardar el correcto funcionamiento de la infraestructura que soportan los servicios de la CONAGUA. "
-              }
+              
+                • Es responsabilidad de quien autoriza los accesos solicitados y justificados anteriormente, así como
+                 la supervisión del correcto uso de los recursos, siendo la Subgerencia de Internet e Intranet el área
+                  responsable de la validación y supervisión periódica del buen uso de estos, lo anterior para salvaguardar 
+                  el correcto funcionamiento de la infraestructura que soportan los servicios de la CONAGUA. 
+              
               <br />
-              {
-                " • Los usuarios con ampliación en la Navegación de Internet deben usar responsablemente el servicio de navegación web que es proporcionado por la Gerencia de Tecnología de la Información y Comunicaciones. "
-              }
+              
+                • Los usuarios con ampliación en la Navegación de Internet deben usar responsablemente el servicio de 
+                navegación web que es proporcionado por la Gerencia de Tecnología de la Información y Comunicaciones. 
+              
               <br />
-              {
-                " • Queda prohibido descargar y abrir páginas web o archivos sospechosos que puedan comprometer los equipos y la red. Para cualquier duda sobre algún sitio o página que represente actividad sospechosa, deberá hacer de conocimiento a la GTIC a través de la Mesa de Servicios. "
-              }
+              
+                 • Queda prohibido descargar y abrir páginas web o archivos sospechosos que puedan comprometer los equipos 
+                 y la red. Para cualquier duda sobre algún sitio o página que represente actividad sospechosa, deberá hacer 
+                 de conocimiento a la GTIC a través de la Mesa de Servicios. 
+              
+
               <br />
-              {
-                " • La violación, desatento u omisión de las políticas y procedimientos de Seguridad de la Información de la CONAGUA generan sanciones previstas en la Ley General de responsabilidades Administrativas; en la Ley del Servicio Profesional de Carrera en la Administración Pública Federal y demás disposiciones jurídicas aplicables."
-              }
+              
+                • La violación, desatento u omisión de las políticas y procedimientos de Seguridad de la Información 
+                de la CONAGUA generan sanciones previstas en la Ley General de responsabilidades Administrativas; en la 
+                Ley del Servicio Profesional de Carrera en la Administración Pública Federal y demás disposiciones 
+                jurídicas aplicables.
+              
               <br />
             </Typography>
           </Box>
@@ -2595,7 +2685,7 @@ export default function Home() {
             {[
               {
                 name: "politicasaceptadas",
-                label: "He leído y acepto las políticas del servicio",
+                label: "He Leído y Acepto las Políticas del Servicio",
               },
             ].map((item, index) => (
               <Box
@@ -2661,7 +2751,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          GENERAR SOLICITUD
+          Generar Solicitud
         </Typography>
         <Divider
           sx={{
@@ -2702,7 +2792,8 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           <Button
-            type="submit"
+            //type="submit"
+            onClick={handleOpenModal}
             variant="contained"
             sx={{
               mt: 3,
@@ -2722,11 +2813,92 @@ export default function Home() {
             }
             {...(botonEstado === "Descargar PDF" && {
               href: pdfUrl,
-              download: "RegistroInternet.pdf",
+              download: nombreArchivo,
             })}
           >
             {botonEstado}
           </Button>
+          <Modal
+              open={openModal}
+              onClose={handleCloseModal}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+            <Box sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 400,
+              background: "#F4F4F5",
+              border: "2px solid grey",
+              borderRadius: 2,
+              boxShadow: 24,
+              pt: 2,
+              px: 4,
+              pb: 3,
+            }}>
+              <Typography id="modal-modal-title" align="center" variant="h6" component="h2">
+                ¡ADVERTENCIA!
+              </Typography>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 1,
+                }}
+              />
+              <Typography id="modal-modal-description" sx={{ mt: 2 }} >
+                Asegurate de que la información registrada es correcta, ya que no se
+                puede corregir una vez enviada.
+              </Typography>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 0,
+                }}
+              />
+              <Button
+              onClick={handleCloseModal}
+              variant="contained"
+              sx={{
+                mt: 3,
+                mb: 0,
+                width: "calc(50% - 16px)",
+                ml: 0,
+                mr: 0,
+                background: "#98989A",
+                color: "#FFFFFF",
+                border: "1px solid gray",
+              }}
+            >
+              Regresar
+            </Button>
+            <Button
+              onClick={handleSubmit}
+              variant="contained"
+              sx={{
+                mt: 3,
+                mb: 0,
+                width: "calc(50% - 16px)",
+                ml: 4,
+                mr: 0,
+                background: theme.palette.secondary.main,
+                color: "#FFFFFF",
+                border: "1px solid gray",
+              }}
+            >
+              Enviar
+            </Button>
+            </Box>
+          </Modal>
           <Button
             component={Link}
             href="/"

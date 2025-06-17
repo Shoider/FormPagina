@@ -11,6 +11,7 @@ import {
   FormControlLabel,
   RadioGroup,
   Radio,
+  Autocomplete,
   FormHelperText,
   FormLabel,
   Divider,
@@ -36,6 +37,10 @@ import Alerts from "../components/alerts.jsx";
 import Link from 'next/link';
 import axios from "axios";
 import { useEffect } from "react";
+//import areas from "../constants/AREAS/areas.jsx";
+//import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
+
+
 
 // ICONOS
 import SyncIcon from "@mui/icons-material/Sync";
@@ -116,6 +121,9 @@ export default function Home() {
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
 
+  // Nombre PDF
+  const [nombreArchivo, setNombreArchivo] = useState("");
+
   // Estados para el formulario
   const [formData, setFormData] = useState({
     desotro: "",
@@ -135,7 +143,7 @@ export default function Home() {
     justifica3: "",
     noticket: "",
     region: "",
-    
+    //unidadAdministrativa:"",
 
     // Estados para tipo de movimientos
     intersistemas: interIsTrue,
@@ -199,6 +207,35 @@ export default function Home() {
     }));
   };
 
+  //SOLO EN CASO DE QUE QUIERA UN LISTADO EN ÁREAS
+/*
+    // Manejo de Autocomplete de UA
+  const handleUA = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      unidadAdministrativa: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      areas:"",
+      //subgerencia:"",
+    }));
+  };
+  const handleUARes = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      unidadAdministrativaResponsable: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+
+   // Manejo de Autocomplete de Área de Adscripción 
+  const handleArea = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      areas: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      subgerencia:"",
+    }));
+  };
+  //FILTRADO DE ÁREA DE ADSCRIPCIÓN
+    const filteredAreas = areas[formData.unidadAdministrativa] || [];
+  */
   //TIPO MOVIMIENTO
   const handleChangeMovimiento = (event) => {
     const selectedValue = event.target.value;
@@ -207,6 +244,7 @@ export default function Home() {
       movimientoID: selectedValue, // Guarda EL MOVIMIENTO seleccionado
     }));
   };
+  
   // Tablas
   useEffect(() => {
     setFormData((prevFormData) => ({
@@ -848,37 +886,110 @@ export default function Home() {
     event.preventDefault();
     console.log("Lista formData en submit: ", formData);
 
-    setBotonEstado("Cargando...");
-    
     setAlert({
-      message: "Información Registrada",
+      message: "Información Enviada",
       severity: "success",
     });
     setOpenAlert(true);
 
+    setBotonEstado("Cargando...");
+
     try {
-      // PDF api
-      const pdfResponse = await axios.post("/api/v1/rfc", formData, {
-        responseType: "blob",
+      // Aqui llamamos a la primera api que valida campos
+      const formResponse = await axios.post("/api2/v3/rfc", formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
-      if (pdfResponse.status === 200) {
-        setPdfUrl(URL.createObjectURL(pdfResponse.data));
-        setBotonEstado("Descargar PDF");
-      } else {
-        //console.error("Error generating PDF");
-      }
-    } catch (error) {
-      //console.error("Error:", error);
-      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      console.log("Respuesta: ", formResponse.data)
+      const { message: formMessage, id: formId, epoch: epoch } = formResponse.data;
+      console.log("Petición exitosa: ", formMessage);
+      console.log("ID recibido: ", formId);
+      console.log("Epoch recibido: ", epoch)
+      setNombreArchivo(`RFC_${epoch}.pdf`);
+
       setAlert({
-        message: "Ocurrio un error interno",
-        severity: "error",
+        message: formMessage,
+        severity: "success",
       });
-      console.error(error);
+      setOpenAlert(true);
+
+      try {
+        // Aqui llamamos a la otra api para el pdf
+        const pdfResponse = await axios.post("/api/v3/rfc", { id: formId }, {
+          responseType: "blob",
+        });
+
+        if (pdfResponse.status === 200) {
+          setPdfUrl(URL.createObjectURL(pdfResponse.data));
+          setBotonEstado("Descargar PDF");
+          setAlert({
+            message: "PDF listo para descargar",
+            severity: "success",
+          });
+          setOpenAlert(true);
+        } else {
+          console.error("Ocurrio un error al generar el PDF");
+          console.error(pdfResponse.status);
+        }
+
+      } catch (error) {
+        console.error("Error:", error);
+        setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+        setAlert({
+          message: "Ocurrio un error al generar el PDF",
+          severity: "error",
+        });
+        setOpenAlert(true);
+      }
+
+    } catch (error) {
+
+      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+
+      if (error.response) {
+        // Si hay respuesta, podemos acceder al código de estado y a los datos.
+        const statusCode = error.response.status;
+        const errorData = error.response.data;
+
+        console.error(`Error con código ${statusCode}:`, errorData.message, errorData.campo);
+
+        // Construct an object to update the errors state
+        const newErrors = {
+          [errorData.campo]: errorData.message // Use the field name as the key and the message as the value
+        };
+        setErrors(newErrors);
+        console.log("Errores API: ", newErrors); // Log the newErrors object
+
+        console.log("Objeto Errors: ", errors)
+
+        // Manejamos el caso específico del error 422.
+        if (statusCode === 422) {
+          setAlert({
+            // Usamos el mensaje de error que viene de la API.
+            message: errorData.message || "Hay errores en los datos enviados.",
+            severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
+          });
+        } else {
+          // Manejamos otros errores del servidor (ej. 404, 500).
+          setAlert({
+            message: `Error ${statusCode}: ${errorData.message || 'Ocurrió un error inesperado.'}`,
+            severity: "error",
+          });
+        }
+      } else {
+        // Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        console.error("Error de red o de conexión:", error.message);
+        setAlert({
+          message: "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          severity: "error",
+        });
+      } 
       setOpenAlert(true);
     }
   };
+
   // Llamada API Actualizar Memorando
   const handleSubmit2 = async (event) => {
     event.preventDefault();
@@ -944,26 +1055,33 @@ export default function Home() {
   };
 
   //  VALIDADORES
+  
+  ///HANDLE TELÉFONO SOLICITANTE
+  const handleTelefonoSoliChange = (event) => {
+    // Elimina todo lo que no sea dígito
+    let value = event.target.value.replace(/\D/g, "");
+    value = value.slice(0, 20); // Limita la longitud
 
-  const handleExtensionChangeE = (event) => {
-    //let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
-    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Permite números, guiones y espacios
-
-    value = value.slice(0, 20); // Limita la longitud a 4 caracteres
-
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      extei: value,
-    }));
-  };
-  const handleExtensionChangeS = (event) => {
-    //let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
-    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Permite números, guiones y espacios
-    value = value.slice(0, 20); // Limita la longitud a 10 caracteres
+    // Agrupa en bloques de 4 dígitos separados por guion
+    value = value.match(/.{1,4}/g)?.join("-") || "";
 
     setFormData((prevFormData) => ({
       ...prevFormData,
       exts: value,
+    }));
+  };
+  //HANDLE TELÉFONO ENLACE
+  const handleTelefonoEnlaceChange = (event) => {
+    // Elimina todo lo que no sea dígito
+    let value = event.target.value.replace(/\D/g, "");
+    value = value.slice(0, 20); // Limita la longitud
+
+    // Agrupa en bloques de 4 dígitos separados por guion
+    value = value.match(/.{1,4}/g)?.join("-") || "";
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      extei: value,
     }));
   };
 
@@ -1215,7 +1333,7 @@ export default function Home() {
             label="Teléfono / Extensión"
             placeholder="Teléfono o extensión del solicitante"
             value={formData.exts}
-            onChange={handleExtensionChangeS}
+            onChange={handleTelefonoSoliChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 20 }}
           />
@@ -1243,6 +1361,56 @@ export default function Home() {
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
+          {/**SOLO EN CASO DE QUE DIGA QUE SI QUIERE UN LISTADO DE ÁREAS */}
+          {/**UNIDAD ADMINISTRARTIVA */}
+          {/*<Autocomplete
+            disablePortal
+            options={unidadesAdmin}
+            //freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.unidadAdministrativa}
+                placeholder="Seleccione la Unidad Administrativa"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Unidad Administrativa"
+              />
+            )}
+            id="unidadAdministrativa"
+            name="unidadAdministrativa"
+            onChange={(event, newValue) => {
+              handleUA(newValue); // Maneja selección de opciones
+            }}            
+            inputValue={formData.unidadAdministrativa || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />*/}
+
+          {/**ÁREA DE ADSCRIPCIÓN */}
+          {/*  <Autocomplete
+              disablePortal
+              options={filteredAreas}            
+              //freeSolo
+              renderInput={(params) => (
+                <TextField
+                  required
+                  //error={!!errors?.unidadAdministrativa}
+                  placeholder="Seleccione la Área de Adscripción"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Área de Adscripción"
+                />
+              )}
+              id="areas"
+              name="areas"
+              onChange={(event, newValue) => {
+                handleArea(newValue); // Maneja selección de opciones
+              }}            
+              inputValue={formData.areas || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />    */}    
         </Box>
 
           
@@ -1313,7 +1481,7 @@ export default function Home() {
             label="Teléfono / Extensión"
             placeholder="Teléfono o extensión del enlace informático"
             value={formData.extei}
-            onChange={handleExtensionChangeE}
+            onChange={handleTelefonoEnlaceChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 20 }}
           />
@@ -4427,7 +4595,7 @@ export default function Home() {
             disabled={botonEstado2 === "Cargando..."}
             {...(botonEstado2 === "Descargar PDF" && {
               href: pdfUrl,
-              download: "RegistroRFC.pdf",
+              download: nombreArchivo,
             })}
           >
             {botonEstado2}

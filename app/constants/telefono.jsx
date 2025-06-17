@@ -2,7 +2,7 @@ import { FormHelperText } from "@mui/material";
 
 // TELEFONO CONAGUA
 const telefonoAutocomplete = [
-    "55 5174 4000 (CONAGUA)",
+    { label: 'CONAGUA', value: '55-5174-4000' },
 ];
 
 export default telefonoAutocomplete;
