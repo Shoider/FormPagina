@@ -40,7 +40,7 @@ export default function Home() {
     ipUsuario: "",
     correoUsuario: "",
     direccion: "",
-    teleUsuario: "",
+    teleUsuario: "", 
     extUsuario: "",
     nombreJefe: "",
     puestoJefe: "",
@@ -278,7 +278,7 @@ export default function Home() {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-
+  
   // Boton
   const [botonEstado, setBotonEstado] = useState("Enviar");
   //Modal
@@ -291,6 +291,7 @@ export default function Home() {
       setErrors(getErrors);
   
       //console.log("Lista getErrors en submit: ", getErrors);
+      //console.log(formData)
   
       if (!isValid) {
         setAlert({
@@ -527,6 +528,8 @@ export default function Home() {
       extUsuario: value,
     }));
   };
+
+  //PENDIENTE DE AGREGAR PARA EL AUTOCOMPLETE
   const handleTelefonoChange = (event) => {
     let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
     value = value.slice(0, 10); // Limita la longitud a 4 caracteres
@@ -914,34 +917,35 @@ export default function Home() {
               isOptionEqualToValue={(option, value) => option === value}
             />
           </Box>
+          
           <Autocomplete
-            disablePortal
-            options={telefonoAutocomplete}
             freeSolo
-            sx={{ width: "100%" }}
+            
+            options={telefonoAutocomplete}
+            getOptionLabel={(option) => option.label || option.value || ""}
+            onChange={(event, newValue) => {
+              if (typeof newValue === 'string') {
+                handleChange({ target: { name: 'teleUsuario', value: newValue } });
+              } else if (newValue && newValue.value) {
+                handleChange({ target: { name: 'teleUsuario', value: newValue.value } });
+              }
+              else {
+                  handleChange({ target: { name: 'teleUsuario', value: '' } });
+                }
+            }}
             renderInput={(params) => (
               <TextField
-                required
-                error={!!errors?.teleUsuario}
-                placeholder="Escriba o Seleccione el Teléfono"
-                sx={{ background: "#FFFFFF" }}
                 {...params}
-                label="Teléfono"
+                required
+                label="Teléfono del Usuario"
+                placeholder="Seleccione o Escriba el Teléfono del Usuario"
+                name="teleUsuario"
+                value={formData.teleUsuario}
+                sx={{ background: "#FFFFFF" }}
+                onChange={handleChange}
+                fullWidth
               />
             )}
-            id="teleUsuario"
-            name="teleUsuario"
-            onChange={(event, newValue) => {
-              handleTele(newValue); // Maneja selección de opciones
-            }}
-            onInputChange={(event, newInputValue) => {
-              if (event?.type === "change") {
-                handleTele(newInputValue); // Maneja texto escrito directamente
-              }
-            }}
-            inputValue={formData.teleUsuario || ""} // Controla el valor mostrado
-            getOptionLabel={(option) => option || ""}
-            isOptionEqualToValue={(option, value) => option === value}
           />
           <TextField
             required
