@@ -946,6 +946,7 @@ export default function Home() {
               <TextField
                 {...params}
                 required
+                error={!!errors?.teleUsuario}
                 label="Teléfono del Usuario"
                 placeholder="Seleccione o Escriba el Teléfono del Usuario"
                 name="teleUsuario"
@@ -1311,7 +1312,7 @@ export default function Home() {
 
           <TextField
             //required
-            //error={!!errors?.urlDescarga}
+            error={!!errors?.urlDescarga}
             id="urlDescarga"
             name="urlDescarga"
             label="Referencia del Servicio Requerido (URL)"
@@ -1394,7 +1395,7 @@ export default function Home() {
           </Box>
           <TextField
             //required
-            //error={!!errors?.urlForos}
+            error={!!errors?.urlForos}
             id="urlForos"
             name="urlForos"
             label="Referencia del Servicio Requerido (URL)"
@@ -1476,7 +1477,7 @@ export default function Home() {
           </Box>
           <TextField
             //required
-            //error={!!errors?.urlComercio}
+            error={!!errors?.urlComercio}
             id="urlComercio"
             name="urlComercio"
             label="Referencia del Servicio Requerido (URL)"
@@ -1558,7 +1559,7 @@ export default function Home() {
           </Box>
           <TextField
             //required
-            //error={!!errors?.urlRedes}
+            error={!!errors?.urlRedes}
             id="urlRedes"
             name="urlRedes"
             label="Referencia del Servicio Requerido (URL)"
@@ -1640,7 +1641,7 @@ export default function Home() {
           </Box>
           <TextField
             //required
-            //error={!!errors?.urlVideos}
+            error={!!errors?.urlVideos}
             id="urlVideos"
             name="urlVideos"
             label="Referencia del Servicio Requerido (URL)"
@@ -1722,7 +1723,7 @@ export default function Home() {
           </Box>
           <TextField
             // required
-            //error={!!errors?.urlWhats}
+            error={!!errors?.urlWhats}
             id="urlWhats"
             name="urlWhats"
             label="Referencia del Servicio Requerido (URL)"
@@ -1803,8 +1804,8 @@ export default function Home() {
             </FormLabel>
           </Box>
           <TextField
-            // required
-            // error={!!errors?.urlDropbox}
+            //required
+            error={!!errors?.urlDropbox}
             id="urlDropbpx"
             name="urlDropbox"
             label="Referencia del Servicio Requerido (URL)"
@@ -1885,8 +1886,8 @@ export default function Home() {
             </FormLabel>
           </Box>
           <TextField
-            // required
-            // error={!!errors?.urlOnedrive}
+            //required
+            error={!!errors?.urlOnedrive}
             id="urlOnedrive"
             name="urlOnedrive"
             label="Referencia del Servicio Requerido (URL)"
@@ -1968,7 +1969,7 @@ export default function Home() {
           </Box>
           <TextField
             //required
-            //error={!!errors?.urlSkype}
+            error={!!errors?.urlSkype}
             id="urlSkype"
             name="urlSkype"
             label="Referencia del Servicio Requerido (URL)"
@@ -2049,8 +2050,8 @@ export default function Home() {
             </FormLabel>
           </Box>
           <TextField
-            //  required
-            //  error={!!errors?.urlWetransfer}
+            //required
+            error={!!errors?.urlWetransfer}
             id="urlWetransfer"
             name="urlWetransfer"
             label="Referencia del Servicio Requerido (URL)"
@@ -2131,8 +2132,8 @@ export default function Home() {
             </FormLabel>
           </Box>
           <TextField
-            //  required
-            //  error={!!errors?.urlTeam}
+            //required
+            error={!!errors?.urlTeam}
             id="urlTeam"
             name="urlTeam"
             label="Referencia del Servicio Requerido (URL)"
