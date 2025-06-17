@@ -2685,7 +2685,7 @@ export default function Home() {
             {[
               {
                 name: "politicasaceptadas",
-                label: "He Leído y Acepto las Políticas del Servicio",
+                label: "He léido y acepto los términos y condiciones del servicio *",
               },
             ].map((item, index) => (
               <Box
@@ -2751,7 +2751,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Generar Solicitud
+          Generar solicitud
         </Typography>
         <Divider
           sx={{
