@@ -40,7 +40,7 @@ export default function Home() {
     ipUsuario: "",
     correoUsuario: "",
     direccion: "",
-    teleUsuario: "",
+    teleUsuario: "", 
     extUsuario: "",
     nombreJefe: "",
     puestoJefe: "",
