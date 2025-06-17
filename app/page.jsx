@@ -6,6 +6,8 @@ import Image from "next/image";
 
 export default function Home() {
   const theme = useTheme();
+  
+  // Popover
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -23,6 +25,27 @@ export default function Home() {
     setAnchorEl2(null);
   };
   const open2 = Boolean(anchorEl2);
+
+  const [anchorEl3, setAnchorEl3] = React.useState(null);
+  const handlePopoverOpen3 = (event) => {
+    setAnchorEl3(event.currentTarget);
+  };
+  const handlePopoverClose3 = () => {
+    setAnchorEl3(null);
+  };
+  const open3 = Boolean(anchorEl3);
+
+  const [anchorEl4, setAnchorEl4] = React.useState(null);
+  const handlePopoverOpen4 = (event) => {
+    setAnchorEl4(event.currentTarget);
+  };
+  const handlePopoverClose4 = () => {
+    setAnchorEl4(null);
+  };
+  const open4 = Boolean(anchorEl4);
+
+
+
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
       {/* Banner Responsive */}
@@ -161,7 +184,7 @@ export default function Home() {
       </Popover>
       </Button>
 
-      {/* VPN 2 */}
+      {/* VPN MAYO */}
       <Button
         variant="outlined"
         href="/vpn2"
@@ -233,86 +256,9 @@ export default function Home() {
       </Button>
 
       {/* TELEFONIA */}
-      {/* <Button
-        variant="outlined"
-        href="/telefonia"
-        sx={{
-          width: "auto%",
-          height: "calc(100% - 32px)",
-          border: "2px solid grey", //
-          mt: 2,
-          mb: 3,
-          ml: 2,
-          mr: 2,
-          p: 2,
-          color: theme.palette.text.dark,
-          borderRadius: 2,
-          display: "flex",
-          background: "#F4F4F5",
-          boxSizing: "border-box",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-          fontSize: theme.typography.h4.fontSize,
-          "&:hover": {
-            transform: "scale(1.02)",
-            transition: "transform 0.3s ease-in-out",
-            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-          },
-        }}
-      >
-        <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
-          SOLICITUD DE SERVICIOS DE TELEFONÍA
-        </Typography>
-      </Button> */}
-
-      {/* TELEFONIA */}
-      {/* <Button
-        variant="outlined"
-        href="/internet"
-        sx={{
-          width: "auto%",
-          height: "calc(100% - 32px)",
-          border: "2px solid grey", //
-          mt: 2,
-          mb: 3,
-          ml: 2,
-          mr: 2,
-          p: 2,
-          color: theme.palette.text.dark,
-          borderRadius: 2,
-          display: "flex",
-          background: "#F4F4F5",
-          boxSizing: "border-box",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-          fontSize: theme.typography.h4.fontSize,
-          "&:hover": {
-            transform: "scale(1.02)",
-            transition: "transform 0.3s ease-in-out",
-            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-          },
-        }}
-      >
-        <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
-          SOLICITUD DE AMPLIACIÓN DE INTERNET
-        </Typography>
-      </Button> */}
-
-      {/* VPN */}
-      {/* 
       <Button
         variant="outlined"
-        href="/vpn"
+        href="/telefonia"
         sx={{
           width: "auto%",
           height: "calc(100% - 32px)",
@@ -344,11 +290,109 @@ export default function Home() {
           },
         }}
       >
-        <Typography variant="h4" align="center" gutterBottom sx={{ mt: 2, ml: 2, mr: 2 }}>
-        Solicitud Del Servicio De VPN
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 2, ml: 2, mr: 2 }}
+          aria-owns={open ? 'mouse-over-popover' : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpen3}
+          onMouseLeave={handlePopoverClose3}
+        >
+          Solicitud de servicios de telefonía
         </Typography>
+        <Popover
+        id="mouse-over-popover"
+        sx={{ pointerEvents: 'none' }}
+        open={open3}
+        anchorEl={anchorEl3}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        onClose={handlePopoverClose3}
+        disableRestoreFocus
+      >
+       <Typography sx={{ p: 2 }}>
+      TELEFONIA
+      </Typography>
+      </Popover>
       </Button>
-      */}       
+
+      {/* INTERNET */}
+      <Button
+        variant="outlined"
+        href="/internet"
+        sx={{
+          width: "auto%",
+          height: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          ml: 2,
+          mr: 2,
+          p: 2,
+          color: theme.palette.text.dark,
+          borderRadius: 2,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "#F4F4F5",
+          boxSizing: "border-box",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+          fontSize: theme.typography.h4.fontSize,
+          "&:hover": {
+            transform: "scale(1.02)",
+            transition: "transform 0.3s ease-in-out",
+            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+          },
+        }}
+      >
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 2, ml: 2, mr: 2 }}
+          aria-owns={open ? 'mouse-over-popover' : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpen4}
+          onMouseLeave={handlePopoverClose4}
+        >
+          Solicitud de Ampliación del Servicio de Internet 
+        </Typography>
+        <Popover
+        id="mouse-over-popover"
+        sx={{ pointerEvents: 'none' }}
+        open={open4}
+        anchorEl={anchorEl4}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        onClose={handlePopoverClose4}
+        disableRestoreFocus
+      >
+       <Typography sx={{ p: 2 }}>
+      INTERNET
+      </Typography>
+      </Popover>
+      </Button>
+ 
     </Container>
   );
 }
