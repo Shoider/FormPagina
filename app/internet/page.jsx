@@ -2622,56 +2622,47 @@ export default function Home() {
               color="#9F2241"
               sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
             >
-              • Es responsabilidad de los servidores públicos, así como personal
-              externo de los activos de información el adoptar las medidas que
-              determine la CONAGUA para mantener y garantizar la seguridad de la
-              Información, siendo la Gerencia de Tecnología de la Información y
-              Comunicaciones la responsable de establecer los mecanismos que
-              permitan garantizar la confidencialidad, integridad y
-              disponibilidad de la Información.
+              1.	El formato deberá estar debidamente llenado y contener toda la información 
+              requerida facilitando la aplicación expedita de las configuraciones solicitadas.
               <br />
-              • La Subgerencia de Internet e Intranet, adscrita a la Gerencia de
-              Tecnología de la Información y Comunicaciones, como administrador
-              del servicio es el área responsable de definir los lineamientos
-              que deberán ser atendidos por todos los usuarios y administradores
-              en la ampliación del servicio de navegación de internet.
-              <br />
-              • La Subgerencia de Internet e Intranet, será la responsable de
-              implementar y garantizar la disponibilidad en todo momento del
-              servicio.
-              <br />
-              • Los accesos para los servicios habilitados serán exclusivamente
-              para los usuarios que tengan debidamente la justificación y que
-              cumplan con el llenado del formato y su formalización mediante el
-              memorándum correspondiente para hacer uso de ella.
-              <br />
-              • Es responsabilidad de quien autoriza los accesos solicitados y
-              justificados anteriormente, así como la supervisión del correcto
-              uso de los recursos, siendo la Subgerencia de Internet e Intranet
-              el área responsable de la validación y supervisión periódica del
-              buen uso de estos, lo anterior para salvaguardar el correcto
-              funcionamiento de la infraestructura que soportan los servicios de
-              la CONAGUA.
-              <br />
-              • Los usuarios con ampliación en la Navegación de Internet deben
-              usar responsablemente el servicio de navegación web que es
-              proporcionado por la Gerencia de Tecnología de la Información y
-              Comunicaciones.
-              <br />
-              • Queda prohibido descargar y abrir páginas web o archivos
-              sospechosos que puedan comprometer los equipos y la red. Para
-              cualquier duda sobre algún sitio o página que represente actividad
-              sospechosa, deberá hacer de conocimiento a la GTIC a través de la
-              Mesa de Servicios.
-              <br />
-              • La violación, desatento u omisión de las políticas y
-              procedimientos de Seguridad de la Información de la CONAGUA
-              generan sanciones previstas en la Ley General de responsabilidades
-              Administrativas; en la Ley del Servicio Profesional de Carrera en
-              la Administración Pública Federal y demás disposiciones jurídicas
-              aplicables.
-              <br />
-            </Typography>
+              2.	El solicitante deberá presentar este formato adjuntando el memorando y número 
+              de caso (ticket) de Mesa de ayuda asociado, sin los cuales no se podrá atender su 
+              solicitud.  
+              <br/>
+              3.	El solicitante deberá proporcionar la dirección IP de su equipo de cómputo para
+                poder aplicar las configuraciones requeridas. Esta información la podrá obtener 
+                utilizando el comando “ipconfig /all” en una ventana de línea de comando. 
+                En caso de requerir ayuda para ejecutar el comando indicado, favor de contactar al 
+                área de Soporte Técnico de la CONAGUA.
+              <br/>
+              4.	El solicitante deberá agregar en la <b>Justificación</b> si la solicitud se deriva de 
+              un cambio de lugar (oficina, mampara o piso) del usuario que a su vez haya derivado 
+              en un cambio de dirección IP de su equipo de cómputo. 
+              <br/>
+              5.	En caso de un cambio de dirección IP, el usuario deberá especificar la dirección
+                IP anterior para eliminar los privilegios en dicha dirección IP. Si el solicitante 
+                NO indica que se trata de un cambio de dirección IP, éste será responsable de cualquier 
+                acceso no autorizado que se derive de los permisos de la dirección IP anterior al no 
+                tramitar la baja correspondiente.
+              <br/>
+              6.	El usuario es responsable del uso que se otorga con el acceso ampliado otorgado a su 
+              equipo de cómputo, por lo que deberá vigilar que el uso sea acorde a las políticas de la
+                Seguridad de la Información definidas por la Gerencia de Tecnología de la Información
+                y Comunicaciones. 
+                <br/>
+              7.	El solicitante deberá conservar el Acuse o copia del formato firmado y sellado, así 
+              como el memorando asociado, para posteriores aclaraciones. 
+              <br/>
+              8.	Es responsabilidad de los gerentes y subgerentes llevar un control de los usuarios y 
+              sus direcciones IP’s con accesos de Internet ampliados. 
+              <br/>
+              9.	Al firmar el usuario se da por enterado de las políticas del servicio y acepta la 
+              responsabilidad de cualquier uso inadecuado que se le dé a los privilegios de acceso ampliados 
+              los cuales haya solicitado.
+              <br/>
+              10.	Al firmar el Gerente o Director que autoriza se da por enterado de las políticas del servicio 
+              y acepta la corresponsabilidad del uso que le dé el usuario al acceso ampliado otorgado.
+          </Typography>
           </Box>
           <Box
             sx={{
