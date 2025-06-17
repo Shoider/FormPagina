@@ -2614,13 +2614,13 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <Box sx={{ ml: 3, mr: 3 }}>
+          <Box sx={{ ml: 3, mr: 0 }}>
             <Typography
               variant="subtitle2"
               align="justify"
               gutterBottom
               color="#9F2241"
-              sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
+              sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 0 }}
             >
               1.	El formato deberá estar debidamente llenado y contener toda la información 
               requerida facilitando la aplicación expedita de las configuraciones solicitadas.
@@ -2671,8 +2671,8 @@ export default function Home() {
               flexWrap: "wrap",
               justifyContent: "center",
               mt: 2,
-              ml: 10,
-              mr: 10,
+              ml: 3,
+              mr: 0,
               mb: 3,
               //mx: "auto"
             }}

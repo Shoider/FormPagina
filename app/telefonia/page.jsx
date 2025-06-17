@@ -1624,8 +1624,8 @@ export default function Home() {
               flexWrap: "wrap",
               justifyContent: "center",
               mt: 2,
-              ml: 10,
-              mr: 10,
+              ml: 3,
+              mr: 0,
               mb: 3,
               //mx: "auto"
             }}

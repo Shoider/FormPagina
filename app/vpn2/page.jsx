@@ -2162,13 +2162,13 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <Box sx={{ ml: 3, mr: 3 }}>
+          <Box sx={{ ml: 3, mr: 0 }}>
             <Typography
               variant="subtitle2"
               align="justify"
               color="#9f2241"
               gutterBottom
-              sx={{ mt: 0, width: "calc(100% - 32px)", ml: 0, mr: 4 }}
+              sx={{ mt: 0, width: "calc(100% - 32px)", ml: 0, mr: 0 }}
             >
               1) El usuario solicitante puede tramitar este formato las veces
               que sea necesario, según sus necesidades. Los servicios
@@ -2251,7 +2251,7 @@ export default function Home() {
               flexWrap: "wrap",
               justifyContent: "center",
               mt: 2,
-              ml: 10,
+              ml: 3,
               mb: 3,
               //mx: "auto"
             }}

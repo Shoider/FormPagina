@@ -4046,9 +4046,9 @@ export default function Home() {
           align="center"
           gutterBottom
           color="#9F2241"
-          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 0 }}
         >
-          Políticas del Servicio
+          Términos y condiciones del servicio
         </Typography>
         <Box
           component="form"
@@ -4057,20 +4057,20 @@ export default function Home() {
               mt: 2,
               width: "calc(100% - 32px)",
               ml: 20,
-              mr: 90,
+              mr: 0,
             },
           }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <Box sx={{ ml: 3, mr: 3 }}>
+          <Box sx={{ ml: 3, mr: 0 }}>
             <Typography
               variant="subtitle2"
               align="justify"
               gutterBottom
               color="#9F2241"
-              sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
+              sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 0 }}
             >
               
               1.	El formato deberá estar debidamente llenado y contener toda la información requerida 
@@ -4112,8 +4112,8 @@ export default function Home() {
               flexWrap: "wrap",
               justifyContent: "center",
               mt: 2,
-              ml: 10,
-              mr: 10,
+              ml: 3,
+              mr: 0,
               mb: 3,
               //mx: "auto"
             }}
