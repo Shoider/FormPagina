@@ -44,6 +44,12 @@ export default function Home() {
     uaUsuario: "",
     puestoUsuario: "",
 
+    tipoUsuario: "Interno", // Default
+    piso: "",
+    ala: "",
+
+    usuaExterno: false, // Estado inicial como false
+
     // USUARIO EXTERNO
     extEmpleado: "0000",
     correoEmpleado: "null@null.null",
@@ -55,6 +61,7 @@ export default function Home() {
     nombreJefe: "",
     puestoJefe: "",
 
+    // Caracteristicas
     marca: "Huawei", //Default
     modelo: "",
     serie: "",
@@ -62,18 +69,16 @@ export default function Home() {
 
     // Radios
     movimiento: "", //ALTA, BAJA, CAMBIO
-    mundo: "",
-    local: "",
-    cLocal: "",
-    nacional: "",
-    cNacional: "",
-    eua: "",
-    tipoUsuario: "Interno", // Default
-    piso: "",
-    ala: "",
 
-    usuaExterno: false, // Estado inicial como false
-    //politicas
+    // Servicios solicitados
+    //local: "",
+    celular: "",
+    nacional: "",
+    mundo: "",
+    //cNacional: "",
+    //eua: "",
+
+    // Politicas
     politicasaceptadas: false,
   });
 
@@ -1196,19 +1201,12 @@ const handleModelo = (newValue) => {
             value={formData.version}
             onChange={handleChange}
             inputProps={{ maxLength: 16 }}
-            sx={{ background: "#FFFFFF" }}
-          />
-          <Divider
-            sx={{
-              borderBottomWidth: "1px",
-              borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mb: 3,
-            }}
+            sx={{ background: "#FFFFFF", mb: 3 }}
           />
         </Box>
       </Box>
+
+
       {/* Datos del Servicio */}
       {/* Form Box Responsive */}
       <Box
@@ -1265,55 +1263,9 @@ const handleModelo = (newValue) => {
           }}
         />
 
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <FormLabel
-            component="legend"
-            sx={{
-              mt: 0,
-              display: "flex",
-              justifyContent: "center",
-              fontSize: "1.2rem",
-            }}
-          >
-            Servicio de Larga Distancia Resto del Mundo*
-          </FormLabel>
-          <RadioGroup
-            row
-            aria-label="Servicio de Larga Distancia Resto del Mundo"
-            name="mundo"
-            value={formData.mundo}
-            onChange={handleChange}
-            required
-            sx={{ ml: 2, mr: 2, justifyContent: "center" }}
-          >
-            <FormControlLabel value="SI" control={<Radio />} label="SI" />
-            <FormControlLabel value="NO" control={<Radio />} label="NO" />
-          </RadioGroup>
-          <FormHelperText
-            sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
-          >
-            {errors?.mundo}
-          </FormHelperText>
-        </Box>
+        
 
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 2,
-            mr: 2,
-            mt: 0,
-            mb: 1,
-          }}
-        />
-
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -1359,7 +1311,7 @@ const handleModelo = (newValue) => {
             mt: 0,
             mb: 1,
           }}
-        />
+        /> */}
 
         <Box
           sx={{
@@ -1377,13 +1329,13 @@ const handleModelo = (newValue) => {
               fontSize: "1.2rem",
             }}
           >
-            Servicio Celular Local *
+            Servicio Celular Local y Foraneo *
           </FormLabel>
           <RadioGroup
             row
             aria-label="Servicio Celular Local"
-            name="cLocal"
-            value={formData.cLocal}
+            name="celular"
+            value={formData.celular}
             onChange={handleChange}
             required
             sx={{ ml: 2, mr: 2, justifyContent: "center" }}
@@ -1394,7 +1346,7 @@ const handleModelo = (newValue) => {
           <FormHelperText
             sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
           >
-            {errors?.cLocal}
+            {errors?.celular}
           </FormHelperText>
         </Box>
 
@@ -1457,7 +1409,7 @@ const handleModelo = (newValue) => {
           }}
         />
 
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -1503,6 +1455,54 @@ const handleModelo = (newValue) => {
             mt: 0,
             mb: 1,
           }}
+        /> */}
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <FormLabel
+            component="legend"
+            sx={{
+              mt: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "1.2rem",
+            }}
+          >
+            Servicio Larga Distancia Internacional *
+          </FormLabel>
+          <RadioGroup
+            row
+            aria-label="Servicio Larga Distancia Estados Unidos y Canadá"
+            name="mundo"
+            value={formData.mundo}
+            onChange={handleChange}
+            required
+            sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+          >
+            <FormControlLabel value="SI" control={<Radio />} label="SI" />
+            <FormControlLabel value="NO" control={<Radio />} label="NO" />
+          </RadioGroup>
+          <FormHelperText
+            sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
+          >
+            {errors?.mundo}
+          </FormHelperText>
+        </Box>
+
+{/*         <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mt: 0,
+            mb: 1,
+          }}
         />
 
         <Box
@@ -1521,13 +1521,13 @@ const handleModelo = (newValue) => {
               fontSize: "1.2rem",
             }}
           >
-            Servicio Larga Distancia Estados Unidos y Canadá: *
+            Servicio de Larga Distancia Resto del Mundo *
           </FormLabel>
           <RadioGroup
             row
-            aria-label="Servicio Larga Distancia Estados Unidos y Canadá:"
-            name="eua"
-            value={formData.eua}
+            aria-label="Servicio de Larga Distancia Resto del Mundo"
+            name="mundo"
+            value={formData.mundo}
             onChange={handleChange}
             required
             sx={{ ml: 2, mr: 2, justifyContent: "center" }}
@@ -1538,9 +1538,9 @@ const handleModelo = (newValue) => {
           <FormHelperText
             sx={{ ml: 2, mr: 2, mb: 1, justifyContent: "center", color: "red" }}
           >
-            {errors?.eua}
+            {errors?.mundo}
           </FormHelperText>
-        </Box>
+        </Box> */}
 
         <Divider
           sx={{
@@ -1551,7 +1551,15 @@ const handleModelo = (newValue) => {
             mb: 3,
           }}
         />
+
+
       </Box>
+
+      
+
+
+
+
       {/* Datos de Politicas */}
       {/* Form Box Responsive */}
       <Box
