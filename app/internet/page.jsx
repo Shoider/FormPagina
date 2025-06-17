@@ -706,7 +706,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Datos del Usuario (a) que Utilizará el Servicio
+          Datos del usuario(a) que utilizará el servicio
         </Typography>
 
         <Box
@@ -728,8 +728,8 @@ export default function Home() {
             error={!!errors?.nombreUsuario}
             id="nombreUsuario"
             name="nombreUsuario"
-            label="Nombre Completo"
-            placeholder="Escriba el Nombre Completo del Usuario"
+            label="Nombre completo"
+            placeholder="Escriba el nombre y apellidos"
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -741,7 +741,7 @@ export default function Home() {
             id="puestoUsuario"
             name="puestoUsuario"
             label="Puesto o Cargo"
-            placeholder="Escriba el Puesto o Cargo del Usuario"
+            placeholder="Escriba el puesto del usuario"
             value={formData.puestoUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -804,8 +804,8 @@ export default function Home() {
             error={!!errors?.ipUsuario}
             id="ipUsuario"
             name="ipUsuario"
-            label="IP del Equipo Asignado"
-            placeholder="Escriba la IP del Equipo"
+            label="IP del equipo asignado"
+            placeholder="Escriba la IP del equipo"
             value={formData.ipUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -876,7 +876,7 @@ export default function Home() {
                 <TextField
                   required
                   error={!!errors?.piso}
-                  placeholder="Escriba o Seleccione el Piso"
+                  placeholder="Escriba o seleccione el piso"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Piso"
@@ -905,7 +905,7 @@ export default function Home() {
                 <TextField
                   required
                   error={!!errors?.ala}
-                  placeholder="Escriba o Seleccione el Ala"
+                  placeholder="Escriba o seleccione el ala"
                   sx={{ background: "#FFFFFF" }}
                   {...params}
                   label="Ala"
@@ -947,8 +947,8 @@ export default function Home() {
                 {...params}
                 required
                 error={!!errors?.teleUsuario}
-                label="Teléfono del Usuario"
-                placeholder="Seleccione o Escriba el Teléfono del Usuario"
+                label="Teléfono del usuario"
+                placeholder="Seleccione o escriba el teléfono del usuario"
                 name="teleUsuario"
                 value={formData.teleUsuario}
                 sx={{ background: "#FFFFFF" }}
@@ -963,7 +963,7 @@ export default function Home() {
             id="extUsuario"
             name="extUsuario"
             label="Extensión"
-            placeholder="Escriba el Número de Extensión"
+            placeholder="Escriba el número de extensión"
             value={formData.extUsuario}
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1001,7 +1001,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Autoriza Servicio
+          Autoriza servicio
         </Typography>
         <Box
           component="form"
@@ -1022,8 +1022,8 @@ export default function Home() {
             error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
-            label="Funcionario con Cargo de Subgerente, Homólogo o Superior"
-            placeholder="Escriba el Nombre Completo del Funcionario"
+            label="Funcionario con cargo de Subgerente, Homólogo o Superior"
+            placeholder="Escriba el nombre completo del funcionario"
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1034,8 +1034,8 @@ export default function Home() {
             error={!!errors?.puestoJefe}
             id="puestoJefe"
             name="puestoJefe"
-            label="Puesto o Cargo del que Autoriza"
-            placeholder="Escriba el Puesto o Cargo de quien Autoriza"
+            label="Puesto o cargo"
+            placeholder="Escriba el puesto o cargo del funcionario que autoriza"
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
@@ -1073,7 +1073,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Categoría de Navegación
+          Categoría de navegación
         </Typography>
         <Box
           component="form"
@@ -1119,7 +1119,7 @@ export default function Home() {
                 fontSize: "1.2rem",
               }}
             >
-              Perfiles avanzados de navegación.
+              Perfiles avanzados de navegación
             </FormLabel>
             <FormLabel
               component="legend"
@@ -1147,9 +1147,9 @@ export default function Home() {
         >
           {[
             { name: "descarga", label: "Descarga de software" },
-            { name: "foros", label: "Foros y Blogs" },
-            { name: "comercio", label: "Comercio Electrónico" },
-            { name: "redes", label: "Redes Sociales" },
+            { name: "foros", label: "Foros y blogs" },
+            { name: "comercio", label: "Comercio electrónico" },
+            { name: "redes", label: "Redes sociales" },
             { name: "videos", label: "Videos-YouTube (Streaming)" },
             { name: "whats", label: "WhatsApp Web" },
             { name: "dropbox", label: "DropBox" },
@@ -1246,7 +1246,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Justificación de Servicios Requeridos
+          Justificación de servicios requeridos
         </Typography>
         <Box
           component="form"
@@ -1306,7 +1306,7 @@ export default function Home() {
                 fontSize: "1.2rem",
               }}
             >
-              Descarga de Software.
+              Descarga de software.
             </FormLabel>
           </Box>
 
@@ -1315,7 +1315,7 @@ export default function Home() {
             error={!!errors?.urlDescarga}
             id="urlDescarga"
             name="urlDescarga"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlDescarga}
             onChange={handleChange}
@@ -1328,7 +1328,7 @@ export default function Home() {
             id="justificaDescarga"
             name="justificaDescarga"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaDescarga}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1398,7 +1398,7 @@ export default function Home() {
             error={!!errors?.urlForos}
             id="urlForos"
             name="urlForos"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlForos}
             onChange={handleChange}
@@ -1411,7 +1411,7 @@ export default function Home() {
             id="justificaForos"
             name="justificaForos"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaForos}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1480,7 +1480,7 @@ export default function Home() {
             error={!!errors?.urlComercio}
             id="urlComercio"
             name="urlComercio"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlComercio}
             onChange={handleChange}
@@ -1493,7 +1493,7 @@ export default function Home() {
             id="justificaComercio"
             name="justificaComercio"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaComercio}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1562,7 +1562,7 @@ export default function Home() {
             error={!!errors?.urlRedes}
             id="urlRedes"
             name="urlRedes"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlRedes}
             onChange={handleChange}
@@ -1575,7 +1575,7 @@ export default function Home() {
             id="justificaRedes"
             name="justificaRedes"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaRedes}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1644,7 +1644,7 @@ export default function Home() {
             error={!!errors?.urlVideos}
             id="urlVideos"
             name="urlVideos"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlVideos}
             onChange={handleChange}
@@ -1657,7 +1657,7 @@ export default function Home() {
             id="justificaVideos"
             name="justificaVideos"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaVideos}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1726,7 +1726,7 @@ export default function Home() {
             error={!!errors?.urlWhats}
             id="urlWhats"
             name="urlWhats"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlWhats}
             onChange={handleChange}
@@ -1739,7 +1739,7 @@ export default function Home() {
             id="justificaWhats"
             name="justificaWhats"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaWhats}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1808,7 +1808,7 @@ export default function Home() {
             error={!!errors?.urlDropbox}
             id="urlDropbpx"
             name="urlDropbox"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlDropbox}
             onChange={handleChange}
@@ -1890,7 +1890,7 @@ export default function Home() {
             error={!!errors?.urlOnedrive}
             id="urlOnedrive"
             name="urlOnedrive"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlOnedrive}
             onChange={handleChange}
@@ -1903,7 +1903,7 @@ export default function Home() {
             id="justificaOnedrive"
             name="justificaOnedrive"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaOnedrive}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1972,7 +1972,7 @@ export default function Home() {
             error={!!errors?.urlSkype}
             id="urlSkype"
             name="urlSkype"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlSkype}
             onChange={handleChange}
@@ -1985,7 +1985,7 @@ export default function Home() {
             id="justificaSkype"
             name="justificaSkype"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaSkype}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2054,7 +2054,7 @@ export default function Home() {
             error={!!errors?.urlWetransfer}
             id="urlWetransfer"
             name="urlWetransfer"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlWetransfer}
             onChange={handleChange}
@@ -2067,7 +2067,7 @@ export default function Home() {
             id="justificaWetransfer"
             name="justificaWetransfer"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaWetransfer}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2136,7 +2136,7 @@ export default function Home() {
             error={!!errors?.urlTeam}
             id="urlTeam"
             name="urlTeam"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlTeam}
             onChange={handleChange}
@@ -2149,7 +2149,7 @@ export default function Home() {
             id="justificaTeam"
             name="justificaTeam"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaTeam}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2230,7 +2230,7 @@ export default function Home() {
             error={!!errors?.urlOtra}
             id="urlOtra"
             name="urlOtra"
-            label="Referencia del Servicio Requerido (URL)"
+            label="Referencia del servicio requerido (URL)"
             placeholder="Escriba la URL del servicio"
             value={formData.urlOtra}
             onChange={handleChange}
@@ -2243,7 +2243,7 @@ export default function Home() {
             id="justificaOtra"
             name="justificaOtra"
             label="Justificación"
-            placeholder="Escriba la Justificación"
+            placeholder="Escriba la justificación"
             value={formData.justificaOtra}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2326,7 +2326,7 @@ export default function Home() {
               error={!!errors?.urlOtra2}
               id="urlOtra2"
               name="urlOtra2"
-              label="Referencia del Servicio Requerido (URL)"
+              label="Referencia del servicio requerido (URL)"
               placeholder="Escriba la URL del servicio"
               value={formData.urlOtra2}
               onChange={handleChange}
@@ -2339,7 +2339,7 @@ export default function Home() {
               id="justificaOtra2"
               name="justificaOtra2"
               label="Justificación"
-              placeholder="Escriba la Justificación"
+              placeholder="Escriba la justificación"
               value={formData.justificaOtra2}
               onChange={handleChange}
               sx={{ background: "#FFFFFF" }}
@@ -2418,7 +2418,7 @@ export default function Home() {
                 id="justificaOtra3"
                 name="justificaOtra3"
                 label="Justificación"
-                placeholder="Escriba la Justificación"
+                placeholder="Escriba la justificación"
                 value={formData.justificaOtra3}
                 onChange={handleChange}
                 sx={{ background: "#FFFFFF" }}
@@ -2490,7 +2490,7 @@ export default function Home() {
                   error={!!errors?.urlOtra4}
                   id="urlOtra4"
                   name="urlOtra4"
-                  label="Referencia del Servicio Requerido (URL)"
+                  label="Referencia del servicio requerido (URL)"
                   placeholder="Escriba la URL del Servicio"
                   value={formData.urlOtra4}
                   onChange={handleChange}
@@ -2503,7 +2503,7 @@ export default function Home() {
                   id="justificaOtra4"
                   name="justificaOtra4"
                   label="Justificación"
-                  placeholder="Escriba la Justificación"
+                  placeholder="Escriba la justificación"
                   value={formData.justificaOtra4}
                   onChange={handleChange}
                   sx={{ background: "#FFFFFF" }}
