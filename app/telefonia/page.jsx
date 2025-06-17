@@ -524,7 +524,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Datos del usuario que utilizará el servicio
+          Datos del usuario(a) que utilizará el servicio
         </Typography>
         {/* <Typography
           variant="h4"
@@ -1598,7 +1598,7 @@ const handleModelo = (newValue) => {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Políticas del servicio
+          Términos y condiciones del servicio
         </Typography>
         <Box
           component="form"
@@ -1642,7 +1642,7 @@ const handleModelo = (newValue) => {
             {[
               {
                 name: "politicasaceptadas",
-                label: "He leído y acepto las políticas del servicio",
+                label: "He léido y acepto los términos y condiciones del servicio *",
               },
             ].map((item, index) => (
               <Box
