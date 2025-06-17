@@ -774,7 +774,7 @@ const handleModelo = (newValue) => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Datos del Empleado (a) de CONAGUA Responsable
+          Datos del empleado(a) de CONAGUA responsable
         </Typography>
         <Box
           component="form"
@@ -796,7 +796,7 @@ const handleModelo = (newValue) => {
             id="nombreEmpleado"
             name="nombreEmpleado"
             label="Nombre Completo"
-            placeholder="Escriba el Nombre Completo del Empleado"
+            placeholder="Escriba el nombre completo del empleado"
             value={formData.nombreEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -807,8 +807,8 @@ const handleModelo = (newValue) => {
             error={!!errors?.idEmpleado}
             id="idEmpleado"
             name="idEmpleado"
-            label="Número De Empleado"
-            placeholder="Escriba el Número de Empleado"
+            label="Número de empleado"
+            placeholder="Escriba el número de empleado"
             value={formData.idEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -821,7 +821,7 @@ const handleModelo = (newValue) => {
             id="extEmpleado"
             name="extEmpleado"
             label="Teléfono / Extensión"
-            placeholder="Escriba el Número de Teléfono o Extensión"
+            placeholder="Escriba el número de teléfono o extensión"
             value={formData.extEmpleado}
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF" }}
@@ -845,7 +845,7 @@ const handleModelo = (newValue) => {
             id="puestoEmpleado"
             name="puestoEmpleado"
             label="Puesto"
-            placeholder="Escriba el Puesto del Empleado"
+            placeholder="Escriba el puesto del empleado"
             value={formData.puestoEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
