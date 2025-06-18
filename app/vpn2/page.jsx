@@ -217,10 +217,10 @@ export default function Home() {
     //No abrir el modal si ya está en modo descarga
     if (botonEstado === "Descargar PDF") return;
     const [isValid, isValidTabla, getErrors] =
-      validarCamposRequeridos(formData);
+    validarCamposRequeridos(formData);
     setErrors(getErrors);
 
-    console.log("Lista getErrors en submit: ", getErrors);
+    console.log("Lista errores en submit: ", getErrors);
 
     if (!isValid) {
       setAlert({
@@ -361,6 +361,7 @@ export default function Home() {
   const handleSubmit = async (event) => {
     handleCloseModal();
     event.preventDefault();
+
     console.log("Lista formData en submit: ", formData);
 
     setAlert({
@@ -379,15 +380,15 @@ export default function Home() {
         },
       });
 
-      //console.log("Respuesta: ", formResponse.data);
+      console.log("Respuesta: ", formResponse.data);
       const {
         message: formMessage,
         id: formId,
         epoch: epoch,
       } = formResponse.data;
-      //console.log("Petición exitosa: ", formMessage);
-      //console.log("ID recibido: ", formId);
-      //console.log("Epoch recibido: ", epoch);
+      console.log("Petición exitosa: ", formMessage);
+      console.log("ID recibido: ", formId);
+      console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`VPN_${epoch}.pdf`);
 
       setAlert({
@@ -446,9 +447,9 @@ export default function Home() {
           [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
         };
         setErrors(newErrors);
-        //console.log("Errores API: ", newErrors); // Log the newErrors object
+        console.log("Errores API: ", newErrors); // Log the newErrors object
 
-        //console.log("Objeto Errors: ", errors);
+        console.log("Objeto Errors: ", errors);
 
         // Manejamos el caso específico del error 422.
         if (statusCode === 422) {
@@ -458,14 +459,14 @@ export default function Home() {
             severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
           });
         } else {
-          // 3. Manejamos otros errores del servidor (ej. 404, 500).
+          // Manejamos otros errores del servidor (ej. 404, 500).
           setAlert({
             message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
             severity: "error",
           });
         }
       } else {
-        // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        // Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
         console.error("Error de red o de conexión:", error.message);
         setAlert({
           message:

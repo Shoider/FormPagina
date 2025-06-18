@@ -404,7 +404,7 @@ export default function Home() {
   const handleSubmit = async (event) => {
     handleCloseModal();
     event.preventDefault();
-    console.log("datos de formdata internet:", formData);
+    //console.log("datos de formdata internet:", formData);
 
     setAlert({
       message: "Información Enviada",
@@ -422,15 +422,15 @@ export default function Home() {
         },
       });
 
-      console.log("Respuesta: ", formResponse.data);
+      //console.log("Respuesta: ", formResponse.data);
       const {
         message: formMessage,
         id: formId,
         epoch: epoch,
       } = formResponse.data;
-      console.log("Petición exitosa: ", formMessage);
-      console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch);
+      //console.log("Petición exitosa: ", formMessage);
+      //console.log("ID recibido: ", formId);
+      //console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`INTERNET_${epoch}.pdf`);
 
       setAlert({
