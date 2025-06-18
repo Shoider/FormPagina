@@ -2681,7 +2681,7 @@ export default function Home() {
               {
                 name: "politicasaceptadas",
                 label:
-                  "He léido y acepto los términos y condiciones del servicio *",
+                  "He leído y acepto los términos y condiciones del servicio *",
               },
             ].map((item, index) => (
               <Box
