@@ -1017,9 +1017,10 @@ export default function Home() {
         id: formId,
         epoch: epoch,
       } = formResponse.data;
-      console.log("Petición exitosa: ", formMessage);
-      console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch);
+
+      //console.log("Petición exitosa: ", formMessage);
+      //console.log("ID recibido: ", formId);
+      //console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`RFC_${epoch}.pdf`);
 
       setAlert({
@@ -4251,7 +4252,7 @@ export default function Home() {
             }
             {...(botonEstado === "Descargar PDF" && {
               href: pdfUrl,
-              download: "RegistroRFC.pdf",
+              download: nombreArchivo,
             })}
           >
             {botonEstado}
