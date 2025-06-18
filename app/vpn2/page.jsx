@@ -273,18 +273,19 @@ export default function Home() {
       "serie",
       "movimiento",
       "justificacion"
-      
     ]
   }
   if (Data.solicitante === "CONAGUA") {
-    camposRequeridos = [
+    const nuevosCampos = [
       "nombreInterno",
       "puestoInterno",
       "correoInterno",
       "telefonoInterno"    
     ];
+
+    camposRequeridos = [...camposRequeridos, ...nuevosCampos];
   } else if (Data.solicitante === "EXTERNO") {
-    camposRequeridos = [
+    const nuevosCampos = [
       "nombreExterno",
       "correoExterno",
       "empresaExterno",
@@ -294,6 +295,8 @@ export default function Home() {
       "unidadAdministrativaResponsable",
       "telefonoResponsable"
     ];
+
+    camposRequeridos = [...camposRequeridos, ...nuevosCampos];
   }
 
   // Valida solo los campos requeridos
@@ -2028,7 +2031,7 @@ export default function Home() {
               value={formData.movimiento}
               onChange={handleChange}
               required
-              sx={{ ml: 2, mr: 2, mb: 2, justifyContent: "center" }}
+              sx={{ ml: 2, mr: 2, mb: 0, justifyContent: "center" }}
             >
               <FormControlLabel
                 value="ALTA"
@@ -2045,7 +2048,7 @@ export default function Home() {
               sx={{
                 ml: 2,
                 mr: 2,
-                mb: 0,
+                mb: 2,
                 justifyContent: "center",
                 color: "red",
               }}
