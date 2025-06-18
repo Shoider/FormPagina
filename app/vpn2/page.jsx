@@ -1845,7 +1845,7 @@ export default function Home() {
               sx={{
                 ml: 2,
                 mr: 2,
-                mb: 2,
+                mb: 0,
                 justifyContent: "center",
                 color: "red",
                 display: errors?.sistemaOperativo ? "block" : "none",
@@ -1865,19 +1865,8 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
-          <FormHelperText
-            sx={{
-              ml: 2,
-              mr: 2,
-              mb: 2,
-              justifyContent: "center",
-              color: "red",
-              display: errors?.sistemaOperativo ? "block" : "none",
-            }}
-          >
-            {errors?.sistemaOperativo}
-          </FormHelperText>
+          />       
+                      
           <Divider
             sx={{
               borderBottomWidth: "1px",
