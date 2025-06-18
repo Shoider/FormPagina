@@ -253,6 +253,16 @@ export default function Home() {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
+  //NUMERO DE FORMATO
+  const handleNumeroFormato2 = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+
+    setFormData2((prevFormData) => ({
+      ...prevFormData,
+      numeroFormato: value,
+    }));
+  };
 
   // Boton
   const [botonEstado, setBotonEstado] = useState("Enviar");
@@ -273,6 +283,14 @@ export default function Home() {
 
   // Modal
   const [openModal, setOpenModal] = useState(false);
+  const [openModal2, setOpenModal2] = useState(false);
+  const handleOpenModal2 = () => {    
+      setOpenModal2(true);
+      return;
+  };
+  const handleCloseModal2 = () => {
+    setOpenModal2(false);
+  };
   const handleOpenModal = () => {
     //No abrir el modal si ya está en modo descarga
     if (botonEstado === "Descargar PDF") return;
@@ -646,6 +664,126 @@ export default function Home() {
     }
   };
 
+  //PARA BOTÓN DE ACTUALIZAR FORMATO
+    // Llamada API
+  const handleSubmit3 = async (event) => {
+    handleCloseModal();
+    event.preventDefault();
+    console.log("Lista formData en submit: ", formData2.numeroFormato);
+
+    setAlert({
+      message: "Información Enviada",
+      severity: "success",
+    });
+    setOpenAlert(true);
+
+    setBotonEstado("Cargando...");
+
+    try {
+      // Aqui llamamos a la primera api que valida campos
+      const formResponse = await axios.post("/api2/v3/folio",  { id: formData2.numeroFormato }, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("Respuesta: ", formResponse.data);
+      const {
+        message: formMessage,
+        id: formId,
+        epoch: epoch,
+      } = formResponse.data;
+      console.log("Petición exitosa: ", formMessage);
+      console.log("ID recibido: ", formId);
+      console.log("Epoch recibido: ", epoch);
+      setNombreArchivo(`VPN_${epoch}.pdf`);
+
+      setAlert({
+        message: formMessage,
+        severity: "success",
+      });
+      setOpenAlert(true);
+
+      try {
+        // Aqui llamamos a la otra api para el pdf
+        const pdfResponse = await axios.post(
+          "/api/v3/vpn",
+          { id: formId },
+          {
+            responseType: "blob",
+          },
+        );
+
+        if (pdfResponse.status === 200) {
+          setPdfUrl(URL.createObjectURL(pdfResponse.data));
+          setBotonEstado("Descargar PDF");
+          setAlert({
+            message: "PDF listo para descargar",
+            severity: "success",
+          });
+          setOpenAlert(true);
+        } else {
+          console.error("Ocurrio un error al generar el PDF");
+          console.error(pdfResponse.status);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+        setAlert({
+          message: "Ocurrio un error al generar el PDF",
+          severity: "error",
+        });
+        setOpenAlert(true);
+      }
+    } catch (error) {
+      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+
+      if (error.response) {
+        // Si hay respuesta, podemos acceder al código de estado y a los datos.
+        const statusCode = error.response.status;
+        const errorData = error.response.data;
+
+        console.error(
+          `Error con código ${statusCode}:`,
+          errorData.message,
+          errorData.campo,
+        );
+
+        // Construct an object to update the errors state
+        const newErrors = {
+          [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
+        };
+        setErrors(newErrors);
+        console.log("Errores API: ", newErrors); // Log the newErrors object
+
+        console.log("Objeto Errors: ", errors);
+
+        // Manejamos el caso específico del error 422.
+        if (statusCode === 422) {
+          setAlert({
+            // Usamos el mensaje de error que viene de la API.
+            message: errorData.message || "Hay errores en los datos enviados.",
+            severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
+          });
+        } else {
+          // 3. Manejamos otros errores del servidor (ej. 404, 500).
+          setAlert({
+            message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
+            severity: "error",
+          });
+        }
+      } else {
+        // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        console.error("Error de red o de conexión:", error.message);
+        setAlert({
+          message:
+            "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          severity: "error",
+        });
+      }
+      setOpenAlert(true);
+    }
+  };
   // CATEGORÍAS
   const saveCategorias = async (event) => {
     const { name, type, checked } = event.target;
@@ -755,6 +893,16 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       numeroEmpleadoResponsable: value,
+    }));
+  };
+  //NUMERO DE FORMATO
+  const handleNumeroFormato = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+
+    setFormData2((prevFormData) => ({
+      ...prevFormData,
+      numeroFormato: value,
     }));
   };
 
@@ -972,6 +1120,135 @@ export default function Home() {
             isOptionEqualToValue={(option, value) => option === value}
           />
         </Box>
+
+        <Button
+            //type="submit"
+            onClick={handleOpenModal2}
+            variant="contained"
+            sx={{
+              mt: 3,
+              mb: 3,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              background: theme.palette.secondary.main,
+              color: "#FFFFFF",
+              border: "1px solid gray",
+              display:formData.subgerencia === "Subgerencia de Sistemas" ? "block" : "none"
+            }}                       
+          >
+            ¿Desea actualizar el formato?
+          </Button>
+
+        <Modal
+            open={openModal2}
+            onClose={handleCloseModal2}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 400,
+                background: "#F4F4F5",
+                border: "2px solid grey",
+                borderRadius: 2,
+                boxShadow: 24,
+                pt: 2,
+                px: 4,
+                pb: 3,
+              }}
+            >
+              <Typography
+                id="modal-modal-title"
+                align="center"
+                variant="h6"
+                component="h2"
+              >
+                Actualizar Formato
+              </Typography>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 1,
+                }}
+              />
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Ingresa el número de formato <b>base</b> para que puedas actualizar tu formato, este se encuentra en la parte superior derecha.
+              </Typography>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 2,
+                }}
+              />
+              <TextField
+              required
+              id="numeroFormato"
+              name="numeroFormato"
+              label="Número de formato"
+              placeholder="AAMMDDXXXX"
+              value={formData2.numeroFormato}
+              onChange={handleNumeroFormato}
+              sx={{ background: "#FFFFFF" }}
+              fullWidth
+              inputProps={{ maxLength: 10 }}
+            />
+            <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 0,
+                }}
+              />
+              <Button
+                onClick={handleCloseModal2}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 0,
+                  mr: 0,
+                  background: "#98989A",
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Regresar
+              </Button>
+              <Button
+                onClick={handleSubmit3}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 4,
+                  mr: 0,
+                  background: theme.palette.secondary.main,
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                ACTUALIZAR
+              </Button>
+            </Box>
+          </Modal>
 
         <Divider
           sx={{
@@ -2604,7 +2881,7 @@ export default function Home() {
             label="Número de formato"
             placeholder="Se encuentra en el encabezado, en la parte superior derecha. "
             value={formData2.numeroFormato}
-            onChange={handleChange2}
+            onChange={handleNumeroFormato2}
             sx={{ background: "#FFFFFF", mt: 3 }}
             inputProps={{ maxLength: 64 }}
             fullWidth
