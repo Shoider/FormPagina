@@ -695,21 +695,25 @@ export default function Home() {
       const {
         message: formMessage,
         id: formId,
-        nombreEnlace: nombreEnlace,
-        telefonoEnlace: telefonoEnlace,
+        datos: Datos
       } = formResponse.data;
 
       console.log("Petición exitosa: ", formMessage);
       console.log("ID recibido: ", formId);
-      console.log("Nombre recibido: ", nombreEnlace);
-      console.log("telefono recibido: ", telefonoEnlace);
+      //console.log("Nombre recibido: ", nombreEnlace);
+      //console.log("telefono recibido: ", telefonoEnlace);
+      console.log("Datos recibidos: ", Datos);
+      console.log("Tablas recibidas 'remoto: ", Datos.registrosRemoto);
+      console.log("Tablas recibidas 'web: ", Datos.registrosWeb);
 
       setFormData((prev) => ({
         ...prev,
-        nombreEnlace: nombreEnlace,
-        telefonoEnlace: telefonoEnlace,
+        ...Datos
       }));
 
+      setWebTableData(Datos.registrosWeb || []);
+      setRemotoTableData(Datos.registrosRemoto || []);
+      
       setAlert({
         message: formMessage,
         severity: "success",
