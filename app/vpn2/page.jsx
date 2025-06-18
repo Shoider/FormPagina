@@ -43,16 +43,22 @@ import subgerencias from "../constants/SUBGERENCIAS/subgerencias.jsx";
 
 export default function Home() {
   const theme = useTheme();
+
+  // Actualizar Memorando
   const [formData2, setFormData2] = useState({
     numeroFormato: "",
     memorando: "",
+  });
+
+  // Llenar el formato
+  const [formData3, setFormData3] = useState({
+    numeroFormato: "",
   });
 
   const [formData, setFormData] = useState({
     unidadAdministrativa: "",
     areaAdscripcion: "",
     subgerencia: "",
-    //memorando: "",
 
     nombreEnlace: "",
     telefonoEnlace: "",
@@ -170,7 +176,7 @@ export default function Home() {
     let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
     value = value.slice(0, 10); // Limita la longitud a 4 caracteres
 
-    setFormData2((prevFormData) => ({
+    setFormData3((prevFormData) => ({
       ...prevFormData,
       numeroFormato: value,
     }));
@@ -585,7 +591,7 @@ export default function Home() {
   };
 
   //PARA BOTÓN DE ACTUALIZAR FORMATO
-    // Llamada API
+  // Llamada API
   const handleSubmit3 = async (event) => {
     handleCloseModal2();
     event.preventDefault();
@@ -597,11 +603,9 @@ export default function Home() {
     });
     setOpenAlert(true);
 
-    setBotonEstado("Cargando...");
-
     try {
-      // Aqui llamamos a la primera api que valida campos
-      const formResponse = await axios.post("/api2/v3/folio",  { id: formData2.numeroFormato }, {
+      // Aqui llamamos a la primera api
+      const formResponse = await axios.post("/api2/v3/folio",  { id: formData3.numeroFormato }, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -610,25 +614,23 @@ export default function Home() {
       console.log("Respuesta: ", formResponse.data);
       const {
         message: formMessage,
-        id: formId,
         datos: Datos
       } = formResponse.data;
 
-      console.log("Petición exitosa: ", formMessage);
-      console.log("ID recibido: ", formId);
-      //console.log("Nombre recibido: ", nombreEnlace);
-      //console.log("telefono recibido: ", telefonoEnlace);
+      //console.log("Petición exitosa: ", formMessage);
       console.log("Datos recibidos: ", Datos);
-      console.log("Tablas recibidas 'remoto: ", Datos.registrosRemoto);
-      console.log("Tablas recibidas 'web: ", Datos.registrosWeb);
+      
+      //console.log("Tablas recibidas 'remoto: ", Datos.registrosRemoto);
+      //console.log("Tablas recibidas 'web: ", Datos.registrosWeb);
 
+      // Metemos la informacion recibida a FormData
       setFormData((prev) => ({
         ...prev,
         ...Datos
       }));
 
-      setWebTableData(Datos.registrosWeb || []);
-      setRemotoTableData(Datos.registrosRemoto || []);
+      //setWebTableData(Datos.registrosWeb || []);
+      //setRemotoTableData(Datos.registrosRemoto || []);
       
       setAlert({
         message: formMessage,
@@ -637,7 +639,6 @@ export default function Home() {
       setOpenAlert(true);
 
     } catch (error) {
-      setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
 
       if (error.response) {
         // Si hay respuesta, podemos acceder al código de estado y a los datos.
@@ -667,14 +668,14 @@ export default function Home() {
             severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
           });
         } else {
-          // 3. Manejamos otros errores del servidor (ej. 404, 500).
+          // Manejamos otros errores del servidor (ej. 404, 500).
           setAlert({
             message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
             severity: "error",
           });
         }
       } else {
-        // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        // Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
         console.error("Error de red o de conexión:", error.message);
         setAlert({
           message:
@@ -685,6 +686,7 @@ export default function Home() {
       setOpenAlert(true);
     }
   };
+
   // CATEGORÍAS
   const saveCategorias = async (event) => {
     const { name, type, checked } = event.target;
