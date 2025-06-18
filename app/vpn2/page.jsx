@@ -43,16 +43,22 @@ import subgerencias from "../constants/SUBGERENCIAS/subgerencias.jsx";
 
 export default function Home() {
   const theme = useTheme();
+
+  // Actualizar Memorando
   const [formData2, setFormData2] = useState({
     numeroFormato: "",
     memorando: "",
+  });
+
+  // Llenar el formato
+  const [formData3, setFormData3] = useState({
+    numeroFormato: "",
   });
 
   const [formData, setFormData] = useState({
     unidadAdministrativa: "",
     areaAdscripcion: "",
     subgerencia: "",
-    //memorando: "",
 
     nombreEnlace: "",
     telefonoEnlace: "",
@@ -114,95 +120,7 @@ export default function Home() {
     }));
   }, [webTableData, remotoTableData]);
 
-  useEffect(() => {
-    if (
-      formData.solicitante === "CONAGUA" &&
-      formData.subgerencia === "Subgerencia de Sistemas"
-    ) {
-      setFormData((prev) => ({
-        ...prev,
-        nombreInterno: "",
-        puestoInterno: "",
-        correoInterno: "",
-        telefonoInterno: "",
-
-        nombreExterno: "null",
-        correoExterno: "null",
-        empresaExterno: "null",
-        equipoExterno: "null",
-
-        numeroEmpleadoResponsable: "123456",
-        puestoResponsable: "null",
-      }));
-    } else if (
-      formData.solicitante === "CONAGUA" &&
-      formData.subgerencia !== "Subgerencia de Sistemas"
-    ) {
-      setFormData((prev) => ({
-        ...prev,
-        nombreInterno: "",
-        puestoInterno: "",
-        correoInterno: "",
-        telefonoInterno: "",
-
-        nombreExterno: "null",
-        correoExterno: "null",
-        empresaExterno: "null",
-        equipoExterno: "null",
-
-        numeroEmpleadoResponsable: "123456",
-        nombreResponsable: "null",
-        puestoResponsable: "null",
-        unidadAdministrativaResponsable: "null",
-        telefonoResponsable: "null",
-      }));
-    } else if (
-      formData.solicitante === "EXTERNO" &&
-      formData.subgerencia === "Subgerencia de Sistemas"
-    ) {
-      setFormData((prev) => ({
-        ...prev,
-        nombreInterno: "null",
-        puestoInterno: "null",
-        correoInterno: "null",
-        telefonoInterno: "null",
-
-        nombreExterno: "",
-        correoExterno: "",
-        empresaExterno: "",
-        equipoExterno: "",
-
-        numeroEmpleadoResponsable: "",
-        puestoResponsable: "",
-      }));
-    } else if (
-      formData.solicitante === "EXTERNO" &&
-      formData.subgerencia !== "Subgerencia de Sistemas"
-    ) {
-      setFormData((prev) => ({
-        ...prev,
-        nombreInterno: "null",
-        puestoInterno: "null",
-        correoInterno: "null",
-        telefonoInterno: "null",
-
-        nombreExterno: "",
-        correoExterno: "",
-        empresaExterno: "",
-        equipoExterno: "",
-
-        numeroEmpleadoResponsable: "",
-        nombreResponsable: "",
-        puestoResponsable: "",
-        unidadAdministrativaResponsable: "",
-        telefonoResponsable: "",
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-      }));
-    }
-  }, [formData.solicitante, formData.subgerencia]);
+  
   useEffect(() => {
     if (formData.subgerencia === "Subgerencia de Sistemas") {
       setFormData((prev) => ({
@@ -253,6 +171,16 @@ export default function Home() {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
+  //NUMERO DE FORMATO
+  const handleNumeroFormato2 = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+
+    setFormData3((prevFormData) => ({
+      ...prevFormData,
+      numeroFormato: value,
+    }));
+  };
 
   // Boton
   const [botonEstado, setBotonEstado] = useState("Enviar");
@@ -273,14 +201,26 @@ export default function Home() {
 
   // Modal
   const [openModal, setOpenModal] = useState(false);
+  const [openModal2, setOpenModal2] = useState(false);
+
+  const handleOpenModal2 = () => {    
+      setOpenModal2(true);
+      return;
+  };
+
+  const handleCloseModal2 = () => {
+    setOpenModal2(false);
+  };
+  
+
   const handleOpenModal = () => {
     //No abrir el modal si ya está en modo descarga
     if (botonEstado === "Descargar PDF") return;
     const [isValid, isValidTabla, getErrors] =
-      validarCamposRequeridos(formData);
+    validarCamposRequeridos(formData);
     setErrors(getErrors);
 
-    console.log("Lista getErrors en submit: ", getErrors);
+    console.log("Lista errores en submit: ", getErrors);
 
     if (!isValid) {
       setAlert({
@@ -314,109 +254,114 @@ export default function Home() {
     severity: "",
   });
 
-  const validarCamposRequeridos = (Data) => {
-    const errores = {};
-    let isValid = true;
-    let isValidTabla = true;
-    let isValidTelefono = true;
-    let isValidJustificacion = true;
+ const validarCamposRequeridos = (Data) => {
+  const errores = {};
+  let isValid = true;
+  let isValidTabla = true;
+  //let isValidTelefono = true;
+  //let isValidJustificacion = true;
+  let camposRequeridos = [];
 
-    const usua = Data.cuentaUsuario;
-    const web = Data.accesoWeb;
-    const remoto = Data.accesoRemoto;
+  // Determina los campos requeridos según el tipo de solicitante
+  if (Data.solicitante === "CONAGUA") {
+    camposRequeridos = [
+      "nombreInterno",
+      "puestoInterno",
+      "correoInterno",
+      "telefonoInterno"
+    ];
+  } else if (Data.solicitante === "EXTERNO") {
+    camposRequeridos = [
+      "nombreExterno",
+      "correoExterno",
+      "empresaExterno",
+      "numeroEmpleadoResponsable",
+      "nombreResponsable",
+      "puestoResponsable",
+      "unidadAdministrativaResponsable",
+      "telefonoResponsable"
+    ];
+  }
 
-    // Verifica si al menos uno de los campos este lleno
-    if (!usua && !web && !remoto) {
-      // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
-      errores.seleccion =
-        "Al menos uno de los campos de justificación es requerido";
+  // Valida solo los campos requeridos
+  for (const key of camposRequeridos) {
+    if (!Data[key] || Data[key].trim() === "") {
+      errores[key] = "Este campo es requerido";
       isValid = false;
     }
+  }
 
-    if (Data.telefonoEnlace.length < 7) {
-      isValidTelefono = false;
-    }
+  // Valida que al menos uno de los accesos esté seleccionado
+  if (!Data.cuentaUsuario && !Data.accesoWeb && !Data.accesoRemoto) {
+    errores.seleccion = "Al menos uno de los campos de justificación es requerido";
+    isValid = false;
+  }
 
-    if (Data.justificacion.length < 49) {
-      isValidJustificacion = false;
-    }
+  // Valor por defecto para subgerencia
+  if (Data.subgerencia === "") {
+    Data.subgerencia = "~";
+  }
 
-    if (Data.subgerencia == "") {
-      Data.subgerencia = "~";
-    }
+  // Validación especial para cuentaUsuario y movimiento
+  if (Data.cuentaUsuario && (!Data.movimiento || Data.movimiento.trim() === "")) {
+    errores.movimiento = "Este campo es requerido";
+    isValid = false;
+  }
 
-    for (const key in Data) {
-      if (Data.hasOwnProperty(key) && !Data[key]) {
-        // Excluir movimiento si cuentaUsuario es false
-        if (key === "movimiento" && !formData.cuentaUsuario) {
-          continue;
-        }
+  // Validación de registros Web
+  if (Data.accesoWeb) {
+    if (!Array.isArray(Data.registrosWeb) || Data.registrosWeb.length === 0) {
+      errores.registrosWeb = "Debe agregar al menos un registro web";
+      isValidTabla = false;
+      isValid = false;
+    } else {
+      Data.registrosWeb.forEach((row, idx) => {
         if (
-          key !== "cuentaUsuario" &&
-          key !== "accesoWeb" &&
-          key !== "accesoRemoto" &&
-          key !== "equipoExterno"
+          !row.movimiento ||
+          !row.nombreSistema ||
+          !row.url ||
+          !row.puertosServicios
         ) {
-          errores[key] = "Este campo es requerido";
+          errores[`registrosWeb_${idx}`] = "Todos los campos del registro web son requeridos";
+          isValidTabla = false;
           isValid = false;
-        } else if (key === "cuentaUsuario") {
-          if (formData.cuentaUsuario === true && formData.movimiento === "") {
-            errores[key] = "Este campo es requerido";
-            isValid = false;
-          }
         }
-      }
+      });
     }
+  }
 
-    ///VALIDADOR DE QUE GUARDA RESGITROS EN WEB
-    if (Data.accesoWeb) {
-      if (!Array.isArray(Data.registrosWeb) || Data.registrosWeb.length === 0) {
-        isValidTabla = false;
-      } else {
-        // Validar campos requeridos de cada registro
-        Data.registrosWeb.forEach((row) => {
-          if (
-            !row.movimiento ||
-            !row.nombreSistema ||
-            !row.url ||
-            !row.puertosServicios
-          ) {
-            isValidTabla = false;
-          }
-        });
-      }
+  // Validación de registros Remoto
+  if (Data.accesoRemoto) {
+    if (!Array.isArray(Data.registrosRemoto) || Data.registrosRemoto.length === 0) {
+      errores.registrosRemoto = "Debe agregar al menos un registro remoto";
+      isValidTabla = false;
+      isValid = false;
+    } else {
+      Data.registrosRemoto.forEach((row, idx) => {
+        if (
+          !row.movimiento ||
+          !row.nomenclatura ||
+          !row.nombreSistema ||
+          !row.direccion ||
+          !row.sistemaOperativo
+        ) {
+          errores[`registrosRemoto_${idx}`] = "Todos los campos del registro remoto son requeridos";
+          isValidTabla = false;
+          isValid = false;
+        }
+      });
     }
+  }
 
-    ///VALIDADOR DE QUE GUARDA RESGITROS EN  REMOTO
-    if (Data.accesoRemoto) {
-      if (
-        !Array.isArray(Data.registrosRemoto) ||
-        Data.registrosRemoto.length === 0
-      ) {
-        isValidTabla = false;
-      } else {
-        // Validar campos requeridos de cada registro
-        Data.registrosRemoto.forEach((row) => {
-          if (
-            !row.movimiento ||
-            !row.nomenclatura ||
-            !row.nombreSistema ||
-            !row.direccion ||
-            !row.sistemaOperativo
-          ) {
-            isValidTabla = false;
-          }
-        });
-      }
-    }
-    console.log(errores);
-    return [isValid, isValidTabla, errores];
-  };
-
+  // Devuelve los resultados de la validación
+  console.log(errores);
+  return [isValid, isValidTabla, errores];
+};
   // Llamada API
   const handleSubmit = async (event) => {
     handleCloseModal();
     event.preventDefault();
+
     console.log("Lista formData en submit: ", formData);
 
     setAlert({
@@ -514,14 +459,14 @@ export default function Home() {
             severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
           });
         } else {
-          // 3. Manejamos otros errores del servidor (ej. 404, 500).
+          // Manejamos otros errores del servidor (ej. 404, 500).
           setAlert({
             message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
             severity: "error",
           });
         }
       } else {
-        // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        // Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
         console.error("Error de red o de conexión:", error.message);
         setAlert({
           message:
@@ -646,6 +591,103 @@ export default function Home() {
     }
   };
 
+  //PARA BOTÓN DE ACTUALIZAR FORMATO
+  // Llamada API
+  const handleSubmit3 = async (event) => {
+    handleCloseModal2();
+    event.preventDefault();
+    console.log("Lista formData en submit: ", formData2.numeroFormato);
+
+    setAlert({
+      message: "Información Enviada",
+      severity: "success",
+    });
+    setOpenAlert(true);
+
+    try {
+      // Aqui llamamos a la primera api
+      const formResponse = await axios.post("/api2/v3/folio",  { id: formData3.numeroFormato }, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("Respuesta: ", formResponse.data);
+      const {
+        message: formMessage,
+        datos: Datos
+      } = formResponse.data;
+
+      //console.log("Petición exitosa: ", formMessage);
+      console.log("Datos recibidos: ", Datos);
+      
+      //console.log("Tablas recibidas 'remoto: ", Datos.registrosRemoto);
+      //console.log("Tablas recibidas 'web: ", Datos.registrosWeb);
+
+      // Metemos la informacion recibida a FormData
+      setFormData((prev) => ({
+        ...prev,
+        ...Datos
+      }));
+
+      //setWebTableData(Datos.registrosWeb || []);
+      //setRemotoTableData(Datos.registrosRemoto || []);
+      
+      setAlert({
+        message: formMessage,
+        severity: "success",
+      });
+      setOpenAlert(true);
+
+    } catch (error) {
+
+      if (error.response) {
+        // Si hay respuesta, podemos acceder al código de estado y a los datos.
+        const statusCode = error.response.status;
+        const errorData = error.response.data;
+
+        console.error(
+          `Error con código ${statusCode}:`,
+          errorData.message,
+          errorData.campo,
+        );
+
+        // Construct an object to update the errors state
+        const newErrors = {
+          [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
+        };
+        setErrors(newErrors);
+        console.log("Errores API: ", newErrors); // Log the newErrors object
+
+        console.log("Objeto Errors: ", errors);
+
+        // Manejamos el caso específico del error 422.
+        if (statusCode === 422) {
+          setAlert({
+            // Usamos el mensaje de error que viene de la API.
+            message: errorData.message || "Hay errores en los datos enviados.",
+            severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
+          });
+        } else {
+          // Manejamos otros errores del servidor (ej. 404, 500).
+          setAlert({
+            message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
+            severity: "error",
+          });
+        }
+      } else {
+        // Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        console.error("Error de red o de conexión:", error.message);
+        setAlert({
+          message:
+            "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          severity: "error",
+        });
+      }
+      setOpenAlert(true);
+    }
+  };
+
   // CATEGORÍAS
   const saveCategorias = async (event) => {
     const { name, type, checked } = event.target;
@@ -755,6 +797,16 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       numeroEmpleadoResponsable: value,
+    }));
+  };
+  //NUMERO DE FORMATO
+  const handleNumeroFormato = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+
+    setFormData2((prevFormData) => ({
+      ...prevFormData,
+      numeroFormato: value,
     }));
   };
 
@@ -973,6 +1025,135 @@ export default function Home() {
           />
         </Box>
 
+        <Button
+            //type="submit"
+            onClick={handleOpenModal2}
+            variant="contained"
+            sx={{
+              mt: 3,
+              mb: 3,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              background: theme.palette.secondary.main,
+              color: "#FFFFFF",
+              border: "1px solid gray",
+              display:formData.subgerencia === "Subgerencia de Sistemas" ? "block" : "none"
+            }}                       
+          >
+            ¿Desea actualizar el formato?
+          </Button>
+
+        <Modal
+            open={openModal2}
+            onClose={handleCloseModal2}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 400,
+                background: "#F4F4F5",
+                border: "2px solid grey",
+                borderRadius: 2,
+                boxShadow: 24,
+                pt: 2,
+                px: 4,
+                pb: 3,
+              }}
+            >
+              <Typography
+                id="modal-modal-title"
+                align="center"
+                variant="h6"
+                component="h2"
+              >
+                Actualizar Formato
+              </Typography>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 1,
+                }}
+              />
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Ingresa el número de formato <b>base</b> para que puedas actualizar tu formato, este se encuentra en la parte superior derecha.
+              </Typography>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 2,
+                }}
+              />
+              <TextField
+              required
+              id="numeroFormato"
+              name="numeroFormato"
+              label="Número de formato"
+              placeholder="AAMMDDXXXX"
+              value={formData2.numeroFormato}
+              onChange={handleNumeroFormato}
+              sx={{ background: "#FFFFFF" }}
+              fullWidth
+              inputProps={{ maxLength: 10 }}
+            />
+            <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 0,
+                }}
+              />
+              <Button
+                onClick={handleCloseModal2}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 0,
+                  mr: 0,
+                  background: "#98989A",
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Regresar
+              </Button>
+              <Button
+                onClick={handleSubmit3}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 0,
+                  width: "calc(50% - 16px)",
+                  ml: 4,
+                  mr: 0,
+                  background: theme.palette.secondary.main,
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                ACTUALIZAR
+              </Button>
+            </Box>
+          </Modal>
+
         <Divider
           sx={{
             borderBottomWidth: "1px",
@@ -1178,7 +1359,7 @@ export default function Home() {
           </Typography>
 
           <TextField
-            required
+            required={formData.solicitante === "CONAGUA"} 
             error={!!errors?.nombreInterno}
             id="nombreInterno"
             name="nombreInterno"
@@ -1190,7 +1371,7 @@ export default function Home() {
             inputProps={{ maxLength: 256, mt: 2 }}
           />
           <TextField
-            required
+            required={formData.solicitante === "CONAGUA"} 
             error={!!errors?.puestoInterno}
             id="puestoInterno"
             name="puestoInterno"
@@ -1202,7 +1383,7 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required
+            required={formData.solicitante === "CONAGUA"} 
             error={!!errors?.correoInterno}
             id="correoInterno"
             name="correoInterno"
@@ -1214,7 +1395,7 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required
+            required={formData.solicitante === "CONAGUA"} 
             error={!!errors?.telefonoInterno}
             id="telefonoInterno"
             name="telefonoInterno"
@@ -1254,7 +1435,7 @@ export default function Home() {
           </Typography>
 
           <TextField
-            required
+            required={formData.solicitante === "EXTERNO"} 
             error={!!errors?.nombreExterno}
             id="nombreExterno"
             name="nombreExterno"
@@ -1266,7 +1447,7 @@ export default function Home() {
             inputProps={{ maxLength: 256, mt: 2 }}
           />
           <TextField
-            required
+            required={formData.solicitante === "EXTERNO"} 
             error={!!errors?.correoExterno}
             id="correoExterno"
             name="correoExterno"
@@ -1278,7 +1459,7 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required
+            required={formData.solicitante === "EXTERNO"} 
             error={!!errors?.empresaExterno}
             id="empresaExterno"
             name="empresaExterno"
@@ -2604,7 +2785,7 @@ export default function Home() {
             label="Número de formato"
             placeholder="Se encuentra en el encabezado, en la parte superior derecha. "
             value={formData2.numeroFormato}
-            onChange={handleChange2}
+            onChange={handleNumeroFormato2}
             sx={{ background: "#FFFFFF", mt: 3 }}
             inputProps={{ maxLength: 64 }}
             fullWidth
