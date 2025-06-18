@@ -114,95 +114,7 @@ export default function Home() {
     }));
   }, [webTableData, remotoTableData]);
 
-  useEffect(() => {
-    if (
-      formData.solicitante === "CONAGUA" &&
-      formData.subgerencia === "Subgerencia de Sistemas"
-    ) {
-      setFormData((prev) => ({
-        ...prev,
-        nombreInterno: "",
-        puestoInterno: "",
-        correoInterno: "",
-        telefonoInterno: "",
-
-        nombreExterno: "null",
-        correoExterno: "null",
-        empresaExterno: "null",
-        equipoExterno: "null",
-
-        numeroEmpleadoResponsable: "123456",
-        puestoResponsable: "null",
-      }));
-    } else if (
-      formData.solicitante === "CONAGUA" &&
-      formData.subgerencia !== "Subgerencia de Sistemas"
-    ) {
-      setFormData((prev) => ({
-        ...prev,
-        nombreInterno: "",
-        puestoInterno: "",
-        correoInterno: "",
-        telefonoInterno: "",
-
-        nombreExterno: "null",
-        correoExterno: "null",
-        empresaExterno: "null",
-        equipoExterno: "null",
-
-        numeroEmpleadoResponsable: "123456",
-        nombreResponsable: "null",
-        puestoResponsable: "null",
-        unidadAdministrativaResponsable: "null",
-        telefonoResponsable: "null",
-      }));
-    } else if (
-      formData.solicitante === "EXTERNO" &&
-      formData.subgerencia === "Subgerencia de Sistemas"
-    ) {
-      setFormData((prev) => ({
-        ...prev,
-        nombreInterno: "null",
-        puestoInterno: "null",
-        correoInterno: "null",
-        telefonoInterno: "null",
-
-        nombreExterno: "",
-        correoExterno: "",
-        empresaExterno: "",
-        equipoExterno: "",
-
-        numeroEmpleadoResponsable: "",
-        puestoResponsable: "",
-      }));
-    } else if (
-      formData.solicitante === "EXTERNO" &&
-      formData.subgerencia !== "Subgerencia de Sistemas"
-    ) {
-      setFormData((prev) => ({
-        ...prev,
-        nombreInterno: "null",
-        puestoInterno: "null",
-        correoInterno: "null",
-        telefonoInterno: "null",
-
-        nombreExterno: "",
-        correoExterno: "",
-        empresaExterno: "",
-        equipoExterno: "",
-
-        numeroEmpleadoResponsable: "",
-        nombreResponsable: "",
-        puestoResponsable: "",
-        unidadAdministrativaResponsable: "",
-        telefonoResponsable: "",
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-      }));
-    }
-  }, [formData.solicitante, formData.subgerencia]);
+  
   useEffect(() => {
     if (formData.subgerencia === "Subgerencia de Sistemas") {
       setFormData((prev) => ({
@@ -336,105 +248,109 @@ export default function Home() {
     severity: "",
   });
 
-  const validarCamposRequeridos = (Data) => {
-    const errores = {};
-    let isValid = true;
-    let isValidTabla = true;
-    let isValidTelefono = true;
-    let isValidJustificacion = true;
+ const validarCamposRequeridos = (Data) => {
+  const errores = {};
+  let isValid = true;
+  let isValidTabla = true;
+  //let isValidTelefono = true;
+  //let isValidJustificacion = true;
+  let camposRequeridos = [];
 
-    const usua = Data.cuentaUsuario;
-    const web = Data.accesoWeb;
-    const remoto = Data.accesoRemoto;
+  // Determina los campos requeridos según el tipo de solicitante
+  if (Data.solicitante === "CONAGUA") {
+    camposRequeridos = [
+      "nombreInterno",
+      "puestoInterno",
+      "correoInterno",
+      "telefonoInterno"
+    ];
+  } else if (Data.solicitante === "EXTERNO") {
+    camposRequeridos = [
+      "nombreExterno",
+      "correoExterno",
+      "empresaExterno",
+      "numeroEmpleadoResponsable",
+      "nombreResponsable",
+      "puestoResponsable",
+      "unidadAdministrativaResponsable",
+      "telefonoResponsable"
+    ];
+  }
 
-    // Verifica si al menos uno de los campos este lleno
-    if (!usua && !web && !remoto) {
-      // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
-      errores.seleccion =
-        "Al menos uno de los campos de justificación es requerido";
+  // Valida solo los campos requeridos
+  for (const key of camposRequeridos) {
+    if (!Data[key] || Data[key].trim() === "") {
+      errores[key] = "Este campo es requerido";
       isValid = false;
     }
+  }
 
-    if (Data.telefonoEnlace.length < 7) {
-      isValidTelefono = false;
-    }
+  // Valida que al menos uno de los accesos esté seleccionado
+  if (!Data.cuentaUsuario && !Data.accesoWeb && !Data.accesoRemoto) {
+    errores.seleccion = "Al menos uno de los campos de justificación es requerido";
+    isValid = false;
+  }
 
-    if (Data.justificacion.length < 49) {
-      isValidJustificacion = false;
-    }
+  // Valor por defecto para subgerencia
+  if (Data.subgerencia === "") {
+    Data.subgerencia = "~";
+  }
 
-    if (Data.subgerencia == "") {
-      Data.subgerencia = "~";
-    }
+  // Validación especial para cuentaUsuario y movimiento
+  if (Data.cuentaUsuario && (!Data.movimiento || Data.movimiento.trim() === "")) {
+    errores.movimiento = "Este campo es requerido";
+    isValid = false;
+  }
 
-    for (const key in Data) {
-      if (Data.hasOwnProperty(key) && !Data[key]) {
-        // Excluir movimiento si cuentaUsuario es false
-        if (key === "movimiento" && !formData.cuentaUsuario) {
-          continue;
-        }
+  // Validación de registros Web
+  if (Data.accesoWeb) {
+    if (!Array.isArray(Data.registrosWeb) || Data.registrosWeb.length === 0) {
+      errores.registrosWeb = "Debe agregar al menos un registro web";
+      isValidTabla = false;
+      isValid = false;
+    } else {
+      Data.registrosWeb.forEach((row, idx) => {
         if (
-          key !== "cuentaUsuario" &&
-          key !== "accesoWeb" &&
-          key !== "accesoRemoto" &&
-          key !== "equipoExterno"
+          !row.movimiento ||
+          !row.nombreSistema ||
+          !row.url ||
+          !row.puertosServicios
         ) {
-          errores[key] = "Este campo es requerido";
+          errores[`registrosWeb_${idx}`] = "Todos los campos del registro web son requeridos";
+          isValidTabla = false;
           isValid = false;
-        } else if (key === "cuentaUsuario") {
-          if (formData.cuentaUsuario === true && formData.movimiento === "") {
-            errores[key] = "Este campo es requerido";
-            isValid = false;
-          }
         }
-      }
+      });
     }
+  }
 
-    ///VALIDADOR DE QUE GUARDA RESGITROS EN WEB
-    if (Data.accesoWeb) {
-      if (!Array.isArray(Data.registrosWeb) || Data.registrosWeb.length === 0) {
-        isValidTabla = false;
-      } else {
-        // Validar campos requeridos de cada registro
-        Data.registrosWeb.forEach((row) => {
-          if (
-            !row.movimiento ||
-            !row.nombreSistema ||
-            !row.url ||
-            !row.puertosServicios
-          ) {
-            isValidTabla = false;
-          }
-        });
-      }
+  // Validación de registros Remoto
+  if (Data.accesoRemoto) {
+    if (!Array.isArray(Data.registrosRemoto) || Data.registrosRemoto.length === 0) {
+      errores.registrosRemoto = "Debe agregar al menos un registro remoto";
+      isValidTabla = false;
+      isValid = false;
+    } else {
+      Data.registrosRemoto.forEach((row, idx) => {
+        if (
+          !row.movimiento ||
+          !row.nomenclatura ||
+          !row.nombreSistema ||
+          !row.direccion ||
+          !row.sistemaOperativo
+        ) {
+          errores[`registrosRemoto_${idx}`] = "Todos los campos del registro remoto son requeridos";
+          isValidTabla = false;
+          isValid = false;
+        }
+      });
     }
+  }
 
-    ///VALIDADOR DE QUE GUARDA RESGITROS EN  REMOTO
-    if (Data.accesoRemoto) {
-      if (
-        !Array.isArray(Data.registrosRemoto) ||
-        Data.registrosRemoto.length === 0
-      ) {
-        isValidTabla = false;
-      } else {
-        // Validar campos requeridos de cada registro
-        Data.registrosRemoto.forEach((row) => {
-          if (
-            !row.movimiento ||
-            !row.nomenclatura ||
-            !row.nombreSistema ||
-            !row.direccion ||
-            !row.sistemaOperativo
-          ) {
-            isValidTabla = false;
-          }
-        });
-      }
-    }
-    console.log(errores);
-    return [isValid, isValidTabla, errores];
-  };
-
+  // Devuelve los resultados de la validación
+  console.log(errores);
+  return [isValid, isValidTabla, errores];
+};
   // Llamada API
   const handleSubmit = async (event) => {
     handleCloseModal();
@@ -1440,7 +1356,7 @@ export default function Home() {
           </Typography>
 
           <TextField
-            required
+            required={formData.solicitante === "CONAGUA"} 
             error={!!errors?.nombreInterno}
             id="nombreInterno"
             name="nombreInterno"
@@ -1452,7 +1368,7 @@ export default function Home() {
             inputProps={{ maxLength: 256, mt: 2 }}
           />
           <TextField
-            required
+            required={formData.solicitante === "CONAGUA"} 
             error={!!errors?.puestoInterno}
             id="puestoInterno"
             name="puestoInterno"
@@ -1464,7 +1380,7 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required
+            required={formData.solicitante === "CONAGUA"} 
             error={!!errors?.correoInterno}
             id="correoInterno"
             name="correoInterno"
@@ -1476,7 +1392,7 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required
+            required={formData.solicitante === "CONAGUA"} 
             error={!!errors?.telefonoInterno}
             id="telefonoInterno"
             name="telefonoInterno"
@@ -1516,7 +1432,7 @@ export default function Home() {
           </Typography>
 
           <TextField
-            required
+            required={formData.solicitante === "CONAGUA"} 
             error={!!errors?.nombreExterno}
             id="nombreExterno"
             name="nombreExterno"
@@ -1528,7 +1444,7 @@ export default function Home() {
             inputProps={{ maxLength: 256, mt: 2 }}
           />
           <TextField
-            required
+            required={formData.solicitante === "CONAGUA"} 
             error={!!errors?.correoExterno}
             id="correoExterno"
             name="correoExterno"
@@ -1540,7 +1456,7 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required
+            required={formData.solicitante === "CONAGUA"} 
             error={!!errors?.empresaExterno}
             id="empresaExterno"
             name="empresaExterno"
@@ -1560,6 +1476,7 @@ export default function Home() {
           >
             <TextField
               //error={!!errors?.equipoExterno}
+              required={formData.solicitante === "CONAGUA"} 
               id="equipoExterno"
               name="equipoExterno"
               label="Equipo de desarrollo"
