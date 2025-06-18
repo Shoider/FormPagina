@@ -242,8 +242,9 @@ export default function Home() {
       "subgerencia",
       "nombreEnlace",
       "telefonoEnlace",
-      "versionSO",
       "sistemaOperativo",
+      "versionSO",
+      "solicitante",      
       "tipoEquipo",
       "marca",
       "modelo",
@@ -257,7 +258,22 @@ export default function Home() {
   {
     camposRequeridos = [
       "nombreAutoriza",
-      "puestoAutoriza"
+      "puestoAutoriza",
+      "unidadAdministrativa",
+      "areaAdscripcion",
+      "subgerencia",
+      "nombreEnlace",
+      "telefonoEnlace",
+      "versionSO",
+      "solicitante",
+      "sistemaOperativo",
+      "tipoEquipo",
+      "marca",
+      "modelo",
+      "serie",
+      "movimiento",
+      "justificacion"
+      
     ]
   }
   if (Data.solicitante === "CONAGUA") {
@@ -1822,6 +1838,18 @@ export default function Home() {
                 label="Windows"
               />
             </RadioGroup>
+            <FormHelperText
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 2,
+                justifyContent: "center",
+                color: "red",
+                display: errors?.sistemaOperativo ? "block" : "none",
+              }}
+            >
+              {errors?.sistemaOperativo}
+            </FormHelperText>
           </Box>
           <TextField
             required
