@@ -1432,7 +1432,7 @@ export default function Home() {
           </Typography>
 
           <TextField
-            required={formData.solicitante === "CONAGUA"} 
+            required={formData.solicitante === "EXTERNO"} 
             error={!!errors?.nombreExterno}
             id="nombreExterno"
             name="nombreExterno"
@@ -1444,7 +1444,7 @@ export default function Home() {
             inputProps={{ maxLength: 256, mt: 2 }}
           />
           <TextField
-            required={formData.solicitante === "CONAGUA"} 
+            required={formData.solicitante === "EXTERNO"} 
             error={!!errors?.correoExterno}
             id="correoExterno"
             name="correoExterno"
@@ -1456,7 +1456,7 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required={formData.solicitante === "CONAGUA"} 
+            required={formData.solicitante === "EXTERNO"} 
             error={!!errors?.empresaExterno}
             id="empresaExterno"
             name="empresaExterno"
@@ -1476,7 +1476,6 @@ export default function Home() {
           >
             <TextField
               //error={!!errors?.equipoExterno}
-              required={formData.solicitante === "CONAGUA"} 
               id="equipoExterno"
               name="equipoExterno"
               label="Equipo de desarrollo"
