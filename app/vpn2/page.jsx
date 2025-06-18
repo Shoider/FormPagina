@@ -379,15 +379,15 @@ export default function Home() {
         },
       });
 
-      console.log("Respuesta: ", formResponse.data);
+      //console.log("Respuesta: ", formResponse.data);
       const {
         message: formMessage,
         id: formId,
         epoch: epoch,
       } = formResponse.data;
-      console.log("Petición exitosa: ", formMessage);
-      console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch);
+      //console.log("Petición exitosa: ", formMessage);
+      //console.log("ID recibido: ", formId);
+      //console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`VPN_${epoch}.pdf`);
 
       setAlert({
@@ -446,9 +446,9 @@ export default function Home() {
           [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
         };
         setErrors(newErrors);
-        console.log("Errores API: ", newErrors); // Log the newErrors object
+        //console.log("Errores API: ", newErrors); // Log the newErrors object
 
-        console.log("Objeto Errors: ", errors);
+        //console.log("Objeto Errors: ", errors);
 
         // Manejamos el caso específico del error 422.
         if (statusCode === 422) {
