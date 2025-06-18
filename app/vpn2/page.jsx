@@ -284,13 +284,17 @@ export default function Home() {
   // Modal
   const [openModal, setOpenModal] = useState(false);
   const [openModal2, setOpenModal2] = useState(false);
+
   const handleOpenModal2 = () => {    
       setOpenModal2(true);
       return;
   };
+
   const handleCloseModal2 = () => {
     setOpenModal2(false);
   };
+  
+
   const handleOpenModal = () => {
     //No abrir el modal si ya está en modo descarga
     if (botonEstado === "Descargar PDF") return;
@@ -667,7 +671,7 @@ export default function Home() {
   //PARA BOTÓN DE ACTUALIZAR FORMATO
     // Llamada API
   const handleSubmit3 = async (event) => {
-    handleCloseModal();
+    handleCloseModal2();
     event.preventDefault();
     console.log("Lista formData en submit: ", formData2.numeroFormato);
 
@@ -691,12 +695,20 @@ export default function Home() {
       const {
         message: formMessage,
         id: formId,
-        epoch: epoch,
+        nombreEnlace: nombreEnlace,
+        telefonoEnlace: telefonoEnlace,
       } = formResponse.data;
+
       console.log("Petición exitosa: ", formMessage);
       console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch);
-      setNombreArchivo(`VPN_${epoch}.pdf`);
+      console.log("Nombre recibido: ", nombreEnlace);
+      console.log("telefono recibido: ", telefonoEnlace);
+
+      setFormData((prev) => ({
+        ...prev,
+        nombreEnlace: nombreEnlace,
+        telefonoEnlace: telefonoEnlace,
+      }));
 
       setAlert({
         message: formMessage,
@@ -704,37 +716,6 @@ export default function Home() {
       });
       setOpenAlert(true);
 
-      try {
-        // Aqui llamamos a la otra api para el pdf
-        const pdfResponse = await axios.post(
-          "/api/v3/vpn",
-          { id: formId },
-          {
-            responseType: "blob",
-          },
-        );
-
-        if (pdfResponse.status === 200) {
-          setPdfUrl(URL.createObjectURL(pdfResponse.data));
-          setBotonEstado("Descargar PDF");
-          setAlert({
-            message: "PDF listo para descargar",
-            severity: "success",
-          });
-          setOpenAlert(true);
-        } else {
-          console.error("Ocurrio un error al generar el PDF");
-          console.error(pdfResponse.status);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
-        setAlert({
-          message: "Ocurrio un error al generar el PDF",
-          severity: "error",
-        });
-        setOpenAlert(true);
-      }
     } catch (error) {
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
 
