@@ -119,32 +119,8 @@ export default function Home() {
       registrosRemoto: remotoTableData,
     }));
   }, [webTableData, remotoTableData]);
-
+ 
   
-  useEffect(() => {
-    if (formData.subgerencia === "Subgerencia de Sistemas") {
-      setFormData((prev) => ({
-        ...prev,
-        nombreAutoriza: "null",
-        puestoAutoriza: "null",
-        nombreResponsable: formData.nombreEnlace,
-        telefonoResponsable: formData.telefonoEnlace,
-        unidadAdministrativaResponsable: formData.areaAdscripcion,
-      }));
-    }
-    if (formData.subgerencia !== "Subgerencia de Sistemas") {
-      setFormData((prev) => ({
-        ...prev,
-        nombreAutoriza: "",
-        puestoAutoriza: "",
-      }));
-    }
-  }, [
-    formData.subgerencia,
-    formData.nombreEnlace,
-    formData.telefonoEnlace,
-    formData.areaAdscripcion,
-  ]);
 
   // Manejadores de cambios
   const handleWebTableDataChange = (data) => {
@@ -260,15 +236,36 @@ export default function Home() {
   let isValidTabla = true;
   //let isValidTelefono = true;
   //let isValidJustificacion = true;
-  let camposRequeridos = [];
+  let camposRequeridos = [
+    "unidadAdministrativa",
+      "areaAdscripcion",
+      "subgerencia",
+      "nombreEnlace",
+      "telefonoEnlace",
+      "versionSO",
+      "sistemaOperativo",
+      "tipoEquipo",
+      "marca",
+      "modelo",
+      "serie",
+      "movimiento",
+      "justificacion"
+  ];
 
   // Determina los campos requeridos según el tipo de solicitante
+  if (Data.subgerencia !== "Subgerencia de Sistemas")
+  {
+    camposRequeridos = [
+      "nombreAutoriza",
+      "puestoAutoriza"
+    ]
+  }
   if (Data.solicitante === "CONAGUA") {
     camposRequeridos = [
       "nombreInterno",
       "puestoInterno",
       "correoInterno",
-      "telefonoInterno"
+      "telefonoInterno"    
     ];
   } else if (Data.solicitante === "EXTERNO") {
     camposRequeridos = [
