@@ -968,7 +968,7 @@ export default function Home() {
             renderInput={(params) => (
               <TextField
                 required
-                //error={!!errors?.unidadAdministrativa}
+                error={!!errors?.areaAdscripcion}
                 placeholder="Seleccione la Área de Adscripción"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
