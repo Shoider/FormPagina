@@ -178,7 +178,7 @@ export default function Home() {
   const handleSubmit = async (event) => {
     handleCloseModal();
     event.preventDefault();
-    console.log("Lista formData en submit: ", formData);
+    //console.log("Lista formData en submit: ", formData);
 
     setAlert({
       message: "Información Enviada",
@@ -196,15 +196,15 @@ export default function Home() {
         },
       });
 
-      console.log("Respuesta: ", formResponse.data);
+      //console.log("Respuesta: ", formResponse.data);
       const {
         message: formMessage,
         id: formId,
         epoch: epoch,
       } = formResponse.data;
-      console.log("Petición exitosa: ", formMessage);
-      console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch);
+      //console.log("Petición exitosa: ", formMessage);
+      //console.log("ID recibido: ", formId);
+      //console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`TELEFONIA_${epoch}.pdf`);
 
       setAlert({
@@ -271,14 +271,14 @@ export default function Home() {
             severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
           });
         } else {
-          // 3. Manejamos otros errores del servidor (ej. 404, 500).
+          // Manejamos otros errores del servidor (ej. 404, 500).
           setAlert({
             message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
             severity: "error",
           });
         }
       } else {
-        // 4. Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        // Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
         console.error("Error de red o de conexión:", error.message);
         setAlert({
           message:
