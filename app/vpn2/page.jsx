@@ -229,75 +229,39 @@ export default function Home() {
     message: "",
     severity: "",
   });
+//este useEffect es necesario para el llenado del formulario, no borrar
+  useEffect(()=>  {
+    if (formData.subgerencia === "Subgerencia de Sistemas"){
+      setFormData((prev) =>({
+        ...prev,
+        nombreResponsable:formData.nombreEnlace,
+        telefonoResponsable:formData.telefonoEnlace,
+        unidadAdministrativaResponsable:formData.areaAdscripcion
+      }));
+    }       
+  }, [formData.subgerencia, formData.nombreEnlace, formData.telefonoEnlace, formData.areaAdscripcion]);
 
  const validarCamposRequeridos = (Data) => {
   const errores = {};
   let isValid = true;
   let isValidTabla = true;
-  //let isValidTelefono = true;
-  //let isValidJustificacion = true;
-  let camposRequeridos = [
-    "unidadAdministrativa",
-      "areaAdscripcion",
-      "subgerencia",
-      "nombreEnlace",
-      "telefonoEnlace",
-      "sistemaOperativo",
-      "versionSO",
-      "solicitante",      
-      "tipoEquipo",
-      "marca",
-      "modelo",
-      "serie",
-      "movimiento",
-      "justificacion"
-  ];
 
   // Determina los campos requeridos según el tipo de solicitante
-  if (Data.subgerencia !== "Subgerencia de Sistemas")
-  {
-    camposRequeridos = [
-      "nombreAutoriza",
-      "puestoAutoriza",
-      "unidadAdministrativa",
-      "areaAdscripcion",
-      "subgerencia",
-      "nombreEnlace",
-      "telefonoEnlace",
-      "versionSO",
-      "solicitante",
-      "sistemaOperativo",
-      "tipoEquipo",
-      "marca",
-      "modelo",
-      "serie",
-      "movimiento",
-      "justificacion"
-    ]
-  }
+  let camposRequeridos = [];
   if (Data.solicitante === "CONAGUA") {
-    const nuevosCampos = [
+    camposRequeridos = [
       "nombreInterno",
       "puestoInterno",
       "correoInterno",
-      "telefonoInterno"    
+      "telefonoInterno"
     ];
-
-    camposRequeridos = [...camposRequeridos, ...nuevosCampos];
   } else if (Data.solicitante === "EXTERNO") {
-    const nuevosCampos = [
+    camposRequeridos = [
       "nombreExterno",
       "correoExterno",
       "empresaExterno",
-      "numeroEmpleadoResponsable",
-      "nombreResponsable",
-      "puestoResponsable",
-      "unidadAdministrativaResponsable",
-      "telefonoResponsable"
     ];
-
-    camposRequeridos = [...camposRequeridos, ...nuevosCampos];
-  }
+  }  
 
   // Valida solo los campos requeridos
   for (const key of camposRequeridos) {
@@ -308,20 +272,23 @@ export default function Home() {
   }
 
   // Valida que al menos uno de los accesos esté seleccionado
-  if (!Data.cuentaUsuario && !Data.accesoWeb && !Data.accesoRemoto) {
+  if (![Data.cuentaUsuario, Data.accesoWeb, Data.accesoRemoto].some(Boolean)) {
     errores.seleccion = "Al menos uno de los campos de justificación es requerido";
     isValid = false;
   }
 
+  // Valida movimiento solo si cuentaUsuario es true
+  if (Data.cuentaUsuario) {
+    if (!Data.movimiento || Data.movimiento.trim() === "") {
+      errores.movimiento = "Este campo es requerido";
+      isValid = false;
+    }
+  }
+
+  
   // Valor por defecto para subgerencia
   if (Data.subgerencia === "") {
     Data.subgerencia = "~";
-  }
-
-  // Validación especial para cuentaUsuario y movimiento
-  if (Data.cuentaUsuario && (!Data.movimiento || Data.movimiento.trim() === "")) {
-    errores.movimiento = "Este campo es requerido";
-    isValid = false;
   }
 
   // Validación de registros Web
@@ -369,8 +336,6 @@ export default function Home() {
     }
   }
 
-  // Devuelve los resultados de la validación
-  console.log(errores);
   return [isValid, isValidTabla, errores];
 };
   // Llamada API
