@@ -48,9 +48,9 @@ export default function Home() {
   const theme = useTheme();
   const [formData2, setFormData2] = useState({
     numeroFormato: "",
-    funcionrol: "",
-    movimientoID: "ALTAS",
-    numeroRegistro: "",
+    noticket: "",
+    //movimientoID: "ALTAS",
+    //numeroRegistro: "",
   });
 
   // Checkbox
