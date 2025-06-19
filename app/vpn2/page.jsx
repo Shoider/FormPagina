@@ -152,7 +152,7 @@ export default function Home() {
     let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
     value = value.slice(0, 10); // Limita la longitud a 4 caracteres
 
-    setFormData3((prevFormData) => ({
+    setFormData2((prevFormData) => ({
       ...prevFormData,
       numeroFormato: value,
     }));
@@ -790,6 +790,18 @@ export default function Home() {
       numeroFormato: value,
     }));
   };
+  //NUMERO DE FORMATO
+  const handleNumeroFormato3 = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+
+    setFormData3((prevFormData) => ({
+      ...prevFormData,
+      numeroFormato: value,
+    }));
+  };
+
+  
 
   //FILTRADO DE ÁREA DE ADSCRIPCIÓN
   const filteredAreas = areas[formData.unidadAdministrativa] || [];
@@ -1084,8 +1096,8 @@ export default function Home() {
               name="numeroFormato"
               label="Número de formato"
               placeholder="AAMMDDXXXX"
-              value={formData2.numeroFormato}
-              onChange={handleNumeroFormato}
+              value={formData3.numeroFormato}
+              onChange={handleNumeroFormato3}
               sx={{ background: "#FFFFFF" }}
               fullWidth
               inputProps={{ maxLength: 10 }}
