@@ -260,7 +260,6 @@ export default function Home() {
       "marca",
       "modelo",
       "serie",
-      "seleccion",
       "justificacion"
   ];
   // Determina los campos requeridos según el tipo de solicitante
@@ -281,7 +280,6 @@ export default function Home() {
       "marca",
       "modelo",
       "serie",
-      "seleccion",
       "justificacion"
     ]
   }
@@ -343,7 +341,6 @@ export default function Home() {
     if (!Array.isArray(Data.registrosWeb) || Data.registrosWeb.length === 0) {
       errores.registrosWeb = "Debe agregar al menos un registro web";
       isValidTabla = false;
-      isValid = false;
     } else {
       Data.registrosWeb.forEach((row, idx) => {
         if (
@@ -354,7 +351,6 @@ export default function Home() {
         ) {
           errores[`registrosWeb_${idx}`] = "Todos los campos del registro web son requeridos";
           isValidTabla = false;
-          isValid = false;
         }
       });
     }
@@ -365,7 +361,6 @@ export default function Home() {
     if (!Array.isArray(Data.registrosRemoto) || Data.registrosRemoto.length === 0) {
       errores.registrosRemoto = "Debe agregar al menos un registro remoto";
       isValidTabla = false;
-      isValid = false;
     } else {
       Data.registrosRemoto.forEach((row, idx) => {
         if (
@@ -377,7 +372,6 @@ export default function Home() {
         ) {
           errores[`registrosRemoto_${idx}`] = "Todos los campos del registro remoto son requeridos";
           isValidTabla = false;
-          isValid = false;
         }
       });
     }
