@@ -247,22 +247,69 @@ export default function Home() {
   let isValidTabla = true;
 
   // Determina los campos requeridos según el tipo de solicitante
-  let camposRequeridos = [];
-  if (Data.solicitante === "CONAGUA") {
+  let camposRequeridos = [
+    "unidadAdministrativa",
+      "areaAdscripcion",
+      "subgerencia",
+      "nombreEnlace",
+      "telefonoEnlace",
+      "sistemaOperativo",
+      "versionSO",
+      "solicitante",
+      "tipoEquipo",
+      "marca",
+      "modelo",
+      "serie",
+      "movimiento",
+      "justificacion"
+  ];
+  // Determina los campos requeridos según el tipo de solicitante
+  if (Data.subgerencia !== "Subgerencia de Sistemas")
+  {
     camposRequeridos = [
+      "nombreAutoriza",
+      "puestoAutoriza",
+      "unidadAdministrativa",
+      "areaAdscripcion",
+      "subgerencia",
+      "nombreEnlace",
+      "telefonoEnlace",
+      "versionSO",
+      "solicitante",
+      "sistemaOperativo",
+      "tipoEquipo",
+      "marca",
+      "modelo",
+      "serie",
+      "movimiento",
+      "justificacion"
+    ]
+  }
+
+  if (Data.solicitante === "CONAGUA") {
+    const nuevosCampos = [
       "nombreInterno",
       "puestoInterno",
       "correoInterno",
       "telefonoInterno"
     ];
+
+    camposRequeridos = [...camposRequeridos, ...nuevosCampos];
   } else if (Data.solicitante === "EXTERNO") {
-    camposRequeridos = [
+    const nuevosCampos = [
       "nombreExterno",
       "correoExterno",
       "empresaExterno",
+      "numeroEmpleadoResponsable",
+      "nombreResponsable",
+      "puestoResponsable",
+      "unidadAdministrativaResponsable",
+      "telefonoResponsable"
     ];
-  }  
 
+    camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+  }
+ 
   // Valida solo los campos requeridos
   for (const key of camposRequeridos) {
     if (!Data[key] || Data[key].trim() === "") {
