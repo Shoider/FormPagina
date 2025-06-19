@@ -690,6 +690,16 @@ export default function Home() {
             message: errorData.message || "Hay errores en los datos enviados.",
             severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
           });
+        } else if (statusCode === 402) {
+          setAlert({
+            message: errorData.message || "Ocurrió un error inesperado.",
+            severity: "warning",
+          });
+        } else if (statusCode === 405) {
+          setAlert({
+            message: errorData.message || "Ocurrió un error inesperado.",
+            severity: "warning",
+          });
         } else {
           // Manejamos otros errores del servidor (ej. 404, 500).
           setAlert({
