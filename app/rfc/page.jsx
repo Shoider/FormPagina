@@ -383,6 +383,20 @@ export default function Home() {
   };
   const handleClose = () => {
     setOpen(false);
+    setFormData2({
+      numeroFormato: "",
+      noticket: "",
+    });
+  };
+   //NUMERO DE FORMATO
+  const handleNumeroFormato2 = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+
+    setFormData2((prevFormData) => ({
+      ...prevFormData,
+      numeroFormato: value,
+    }));
   };
 
   // Modal
@@ -4392,7 +4406,7 @@ export default function Home() {
       {/* BOTON FLOTANTE */}
       <Box
         sx={{
-          display: "none",
+          //display: "none",
           position: "fixed",
           bottom: 24,
           right: 24,
@@ -4401,7 +4415,7 @@ export default function Home() {
       >
         <Fab variant="extended" color="success" onClick={handleClickOpen}>
           <SyncIcon sx={{ mr: 1 }} />
-          Actualizar función o rol
+          Actualizar Número de Ticket
         </Fab>
       </Box>
       {/* DIALOG */}
@@ -4426,18 +4440,13 @@ export default function Home() {
           },
         }}
       >
-        <DialogTitle>Actualizar función o rol de origen</DialogTitle>
+        <DialogTitle>Actualizar número de ticket</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Aquí puede actualizar la función o rol de origen de su
-            Regla/Comunicación para completar el llenado de su formato.
+            Aquí puede actualizar el número de ticket
+             para completar el llenado de su formato.
           </DialogContentText>
-          <DialogContentText sx={{ mt: 2 }}>
-            * Únicamente es para tipo de Movimiento Intersistemas.
-          </DialogContentText>
-          <DialogContentText sx={{ mt: 2 }}>
-            * Es su responsabilidad llenarlo adecuadamente.
-          </DialogContentText>
+          
           <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -4459,7 +4468,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Datos de búsqueda (estos los podrá encontrar en su formato).
+            Datos de búsqueda (se encuentra en la parte superior derecha de su formato).
           </FormLabel>
 
           <TextField
@@ -4468,47 +4477,14 @@ export default function Home() {
             id="numeroFormato"
             name="numeroFormato"
             label="Número de Formato"
-            placeholder="Se encuentra en el encabezado, en la parte superior derecha. "
+            placeholder="AAMMDDXXXX "
             value={formData2.numeroFormato}
-            onChange={handleChange2}
-            sx={{ background: "#FFFFFF", mt: 3 }}
-            inputProps={{ maxLength: 64 }}
+            onChange={handleNumeroFormato2}
+            sx={{ background: "#FFFFFF", mt: 2 }}
+            inputProps={{ maxLength: 10 }}
             fullWidth
-          />
-          <TextField
-            required
-            //error={!!errors?.nombreAutoriza}
-            select
-            id="movimientoID"
-            name="movimientoID"
-            label="Nombre de la Tabla"
-            placeholder="Ingrese el"
-            defaultValue="ALTAS"
-            onChange={handleChangeMovimiento}
-            sx={{ background: "#FFFFFF", mt: 3 }}
-            inputProps={{ maxLength: 64 }}
-            fullWidth
-          >
-            {Movimientoid.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-
-          <TextField
-            required
-            //error={!!errors?.nombreAutoriza}
-            id="numeroRegistro"
-            name="numeroRegistro"
-            label="N° de Registro"
-            placeholder="Ingrese número de fila (no tome en cuenta encabezado)"
-            value={formData2.numeroRegistro}
-            onChange={handleChange2}
-            sx={{ background: "#FFFFFF", mt: 3 }}
-            inputProps={{ maxLength: 64 }}
-            fullWidth
-          />
+          />        
+          
           <FormLabel
             component="legend"
             sx={{
@@ -4525,13 +4501,13 @@ export default function Home() {
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
-            id="funcionrol"
-            name="funcionrol"
-            label="Función o Rol"
-            placeholder="Ingrese la función o rol de origen"
-            value={formData2.funcionrol}
+            id="noticket"
+            name="noticket"
+            label="Número de ticket"
+            placeholder="Ingrese el número de ticket asignado"
+            value={formData2.noticket}
             onChange={handleChange2}
-            sx={{ background: "#FFFFFF", mt: 3 }}
+            sx={{ background: "#FFFFFF", mt: 2 }}
             inputProps={{ maxLength: 64 }}
             fullWidth
           />
