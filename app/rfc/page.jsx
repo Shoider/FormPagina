@@ -990,6 +990,7 @@ export default function Home() {
         key !== "CambioOtro" &&
         key !== "extei" &&
         key !== "nomei" &&
+        key !== "noticket" &&
         Data.hasOwnProperty(key) // Asegúrate de que la propiedad pertenece al objeto
       ) {
         // Si el campo es requerido y está vacío
@@ -1746,8 +1747,8 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required
-            error={!!errors?.descbreve}
+            //required
+            //error={!!errors?.descbreve}
             id="noticket"
             name="noticket"
             label="No. Ticket"
