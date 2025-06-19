@@ -260,7 +260,7 @@ export default function Home() {
       "marca",
       "modelo",
       "serie",
-      "movimiento",
+      "seleccion",
       "justificacion"
   ];
   // Determina los campos requeridos según el tipo de solicitante
@@ -281,7 +281,7 @@ export default function Home() {
       "marca",
       "modelo",
       "serie",
-      "movimiento",
+      "seleccion",
       "justificacion"
     ]
   }
