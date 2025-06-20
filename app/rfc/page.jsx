@@ -387,6 +387,7 @@ export default function Home() {
       numeroFormato: "",
       noticket: "",
     });
+    setBotonEstado2("Enviar");
   };
    //NUMERO DE FORMATO
   const handleNumeroFormato2 = (event) => {
@@ -1130,7 +1131,7 @@ export default function Home() {
     event.preventDefault();
 
     setAlert({
-      message: "Informacion enviada",
+      message: "Información enviada",
       severity: "success",
     });
     setOpenAlert(true);

@@ -173,6 +173,7 @@ export default function Home() {
       numeroFormato: "",
       memorando: "",
     });
+    setBotonEstado2("Enviar");
   };
 
   // Modal
@@ -505,7 +506,7 @@ export default function Home() {
     event.preventDefault();
 
     setAlert({
-      message: "Informacion enviada",
+      message: "Información enviada",
       severity: "success",
     });
     setOpenAlert(true);
@@ -2785,7 +2786,7 @@ export default function Home() {
           paper: {
             component: "form",
             onSubmit: (event) => {
-              console.log("Informacion Enviada");
+              console.log("Información Enviada");
             },
           },
         }}
