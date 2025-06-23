@@ -63,37 +63,37 @@ export default function Home() {
     otra4: false,
 
     // OPCIONALES
-    urlDescarga: "null",
+    //urlDescarga: "null",
     justificaDescarga: "null",
 
-    urlForos: "null",
+    //urlForos: "null",
     justificaForos: "null",
 
-    urlComercio: "null",
+    //urlComercio: "null",
     justificaComercio: "null",
 
-    urlRedes: "null",
+    //urlRedes: "null",
     justificaRedes: "null",
 
-    urlVideos: "null",
+    //urlVideos: "null",
     justificaVideos: "null",
 
-    urlWhats: "null",
+    //urlWhats: "null",
     justificaWhats: "null",
 
-    urlDropbox: "null",
+    //urlDropbox: "null",
     justificaDropbox: "null",
 
-    urlOnedrive: "null",
+    //urlOnedrive: "null",
     justificaOnedrive: "null",
 
-    urlSkype: "null",
+    //urlSkype: "null",
     justificaSkype: "null",
 
-    urlWetransfer: "null",
+    //urlWetransfer: "null",
     justificaWetransfer: "null",
 
-    urlTeam: "null",
+    //urlTeam: "null",
     justificaTeam: "null",
 
     // OTRAS
@@ -137,91 +137,91 @@ export default function Home() {
       if (name === "descarga") {
         if (isChecked) {
           console.log("Checkbox 'descarga' marcado");
-          updatedData.urlDescarga = "";
+          //updatedData.urlDescarga = "";
           updatedData.justificaDescarga = "";
         } else {
           console.log("Checkbox 'descarga' desmarcado");
-          updatedData.urlDescarga = "null";
+          //updatedData.urlDescarga = "null";
           updatedData.justificaDescarga = "null";
         }
       } else if (name === "comercio") {
         if (isChecked) {
-          updatedData.urlComercio = "";
+          //updatedData.urlComercio = "";
           updatedData.justificaComercio = "";
         } else {
-          updatedData.urlComercio = "null";
+          ///updatedData.urlComercio = "null";
           updatedData.justificaComercio = "null";
         }
       } else if (name === "redes") {
         if (isChecked) {
-          updatedData.urlRedes = "";
+          //updatedData.urlRedes = "";
           updatedData.justificaRedes = "";
         } else {
-          updatedData.urlRedes = "null";
+          //updatedData.urlRedes = "null";
           updatedData.justificaRedes = "null";
         }
       } else if (name === "foros") {
         if (isChecked) {
-          updatedData.urlForos = "";
+          //updatedData.urlForos = "";
           updatedData.justificaForos = "";
         } else {
-          updatedData.urlForos = "null";
+          //updatedData.urlForos = "null";
           updatedData.justificaForos = "null";
         }
       } else if (name === "whats") {
         if (isChecked) {
-          updatedData.urlWhats = "";
+          //updatedData.urlWhats = "";
           updatedData.justificaWhats = "";
         } else {
-          updatedData.urlWhats = "null";
+          //updatedData.urlWhats = "null";
           updatedData.justificaWhats = "null";
         }
       } else if (name === "videos") {
         if (isChecked) {
-          updatedData.urlVideos = "";
+          //updatedData.urlVideos = "";
           updatedData.justificaVideos = "";
         } else {
-          updatedData.urlVideos = "null";
+          //updatedData.urlVideos = "null";
           updatedData.justificaVideos = "null";
         }
       } else if (name === "dropbox") {
         if (isChecked) {
-          updatedData.urlDropbox = "";
+          //updatedData.urlDropbox = "";
           updatedData.justificaDropbox = "";
         } else {
-          updatedData.urlDropbox = "null";
+          //updatedData.urlDropbox = "null";
           updatedData.justificaDropbox = "null";
         }
       } else if (name === "onedrive") {
         if (isChecked) {
-          updatedData.urlOnedrive = "";
+          //updatedData.urlOnedrive = "";
           updatedData.justificaOnedrive = "";
         } else {
-          updatedData.urlOnedrive = "null";
+          //updatedData.urlOnedrive = "null";
           updatedData.justificaOnedrive = "null";
         }
       } else if (name === "skype") {
         if (isChecked) {
-          updatedData.urlSkype = "";
+          //updatedData.urlSkype = "";
           updatedData.justificaSkype = "";
         } else {
-          updatedData.urlSkype = "null";
+          ///updatedData.urlSkype = "null";
           updatedData.justificaSkype = "null";
         }
       } else if (name === "wetransfer") {
         if (isChecked) {
-          updatedData.urlWetransfer = "";
+          //updatedData.urlWetransfer = "";
           updatedData.justificaWetransfer = "";
         } else {
-          updatedData.urlWetransfer = "null";
+          //updatedData.urlWetransfer = "null";
           updatedData.justificaWetransfer = "null";
         }
       } else if (name === "team") {
         if (isChecked) {
-          updatedData.urlTeam = "";
+          //updatedData.urlTeam = "";
           updatedData.justificaTeam = "";
         } else {
-          updatedData.urlTeam = "null";
+          //updatedData.urlTeam = "null";
           updatedData.justificaTeam = "null";
         }
       } else if (name === "otra") {
@@ -340,17 +340,17 @@ export default function Home() {
           key !== "otra3" &&
           key !== "otra4" &&
           key !== "piso" &&
-          key !== "ala" &&
-          key !== "urlDescarga" &&
-          key !== "urlComercio" &&
-          key !== "urlRedes" &&
-          key !== "urlForos" &&
-          key !== "urlWhats" &&
-          key !== "urlVideos" &&
-          key !== "urlDropbox" &&
-          key !== "urlOnedrive" &&
-          key !== "urlSkype" &&
-          key !== "urlWetransfer"
+          key !== "ala" 
+          //key !== "urlDescarga" &&
+          //key !== "urlComercio" &&
+          //key !== "urlRedes" &&
+          //key !== "urlForos" &&
+          //key !== "urlWhats" &&
+          //key !== "urlVideos" &&
+          //key !== "urlDropbox" &&
+          //key !== "urlOnedrive" &&
+          //key !== "urlSkype" &&
+          //key !== "urlWetransfer"
         ) {
           console.log("Campo requerido: ", key);
           errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
@@ -782,7 +782,7 @@ export default function Home() {
           <Autocomplete
             disablePortal
             options={filteredAreas}
-            //freeSolo
+            freeSolo
             renderInput={(params) => (
               <TextField
                 required
@@ -797,6 +797,13 @@ export default function Home() {
             name="areaUsuario"
             onChange={(event, newValue) => {
               handleArea(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                
+                  handleArea(newInputValue); // Maneja texto escrito directamente
+                
+              }
             }}
             inputValue={formData.areaUsuario || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
@@ -1315,7 +1322,7 @@ export default function Home() {
             </FormLabel>
           </Box>
 
-          <TextField
+          {/*<TextField
             //required
             error={!!errors?.urlDescarga}
             id="urlDescarga"
@@ -1326,7 +1333,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+          />*/}
           <TextField
             required
             error={!!errors?.justificaDescarga}
@@ -1398,7 +1405,7 @@ export default function Home() {
               Foros y Blogs.
             </FormLabel>
           </Box>
-          <TextField
+          {/*<TextField
             //required
             error={!!errors?.urlForos}
             id="urlForos"
@@ -1409,7 +1416,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+          />*/}
           <TextField
             required
             error={!!errors?.justificaForos}
@@ -1480,7 +1487,7 @@ export default function Home() {
               Comercio Electrónico.
             </FormLabel>
           </Box>
-          <TextField
+          {/*<TextField
             //required
             error={!!errors?.urlComercio}
             id="urlComercio"
@@ -1491,7 +1498,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+          />*/}
           <TextField
             required
             error={!!errors?.justificaComercio}
@@ -1562,7 +1569,7 @@ export default function Home() {
               Redes Sociales.
             </FormLabel>
           </Box>
-          <TextField
+          {/*<TextField
             //required
             error={!!errors?.urlRedes}
             id="urlRedes"
@@ -1573,7 +1580,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+          />*/}
           <TextField
             required
             error={!!errors?.justificaRedes}
@@ -1644,7 +1651,7 @@ export default function Home() {
               Videos-YouTube(Streaming).
             </FormLabel>
           </Box>
-          <TextField
+          {/*<TextField
             //required
             error={!!errors?.urlVideos}
             id="urlVideos"
@@ -1655,7 +1662,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+          />*/}
           <TextField
             required
             error={!!errors?.justificaVideos}
@@ -1726,7 +1733,7 @@ export default function Home() {
               WhatsApp Web.
             </FormLabel>
           </Box>
-          <TextField
+          {/*<TextField
             // required
             error={!!errors?.urlWhats}
             id="urlWhats"
@@ -1737,7 +1744,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+          />*/}
           <TextField
             required
             error={!!errors?.justificaWhats}
@@ -1808,7 +1815,7 @@ export default function Home() {
               DropBox.
             </FormLabel>
           </Box>
-          <TextField
+          {/*<TextField
             //required
             error={!!errors?.urlDropbox}
             id="urlDropbpx"
@@ -1819,7 +1826,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+          />*/}
           <TextField
             required
             error={!!errors?.justificaDropbox}
@@ -1890,7 +1897,7 @@ export default function Home() {
               OneDrive.
             </FormLabel>
           </Box>
-          <TextField
+          {/*<TextField
             //required
             error={!!errors?.urlOnedrive}
             id="urlOnedrive"
@@ -1901,7 +1908,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+          />*/}
           <TextField
             required
             error={!!errors?.justificaOnedrive}
@@ -1972,7 +1979,7 @@ export default function Home() {
               Skype.
             </FormLabel>
           </Box>
-          <TextField
+          {/*<TextField
             //required
             error={!!errors?.urlSkype}
             id="urlSkype"
@@ -1983,7 +1990,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+          />*/}
           <TextField
             required
             error={!!errors?.justificaSkype}
@@ -2054,7 +2061,7 @@ export default function Home() {
               Wetransfer.
             </FormLabel>
           </Box>
-          <TextField
+          {/*<TextField
             //required
             error={!!errors?.urlWetransfer}
             id="urlWetransfer"
@@ -2065,7 +2072,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+          />*/}
           <TextField
             required
             error={!!errors?.justificaWetransfer}
@@ -2136,7 +2143,7 @@ export default function Home() {
               Teamviewer.
             </FormLabel>
           </Box>
-          <TextField
+          {/*<TextField
             //required
             error={!!errors?.urlTeam}
             id="urlTeam"
@@ -2147,7 +2154,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+          />*/}
           <TextField
             required
             error={!!errors?.justificaTeam}
@@ -2839,8 +2846,9 @@ export default function Home() {
               <Typography
                 id="modal-modal-title"
                 align="center"
-                variant="h6"
+                variant="h3"
                 component="h2"
+                color="#FF0000"
               >
                 ¡ADVERTENCIA!
               </Typography>
@@ -2857,6 +2865,9 @@ export default function Home() {
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 Asegurate de que la información registrada es correcta, ya que
                 no se puede corregir una vez enviada.
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Revisa ortografía, ascentos, mayúsculas...
               </Typography>
               <Divider
                 sx={{
