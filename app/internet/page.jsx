@@ -2846,8 +2846,9 @@ export default function Home() {
               <Typography
                 id="modal-modal-title"
                 align="center"
-                variant="h6"
+                variant="h3"
                 component="h2"
+                color="#FF0000"
               >
                 ¡ADVERTENCIA!
               </Typography>
@@ -2864,6 +2865,9 @@ export default function Home() {
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 Asegurate de que la información registrada es correcta, ya que
                 no se puede corregir una vez enviada.
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Revisa ortografía, ascentos, mayúsculas...
               </Typography>
               <Divider
                 sx={{
