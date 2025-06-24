@@ -4500,12 +4500,12 @@ export default function Home() {
         sx={{
           //display: "none",
           position: "fixed",
-          bottom: 24,
-          right: 24,
+          bottom: 10,
+          right: 10,
           "& > :not(style)": { m: 1 },
         }}
       >
-        <Fab variant="extended" color="success" onClick={handleClickOpen}>
+        <Fab size="small" variant="extended" color="success" onClick={handleClickOpen}>
           <SyncIcon sx={{ mr: 1 }} />
           Actualizar Número de Ticket
         </Fab>

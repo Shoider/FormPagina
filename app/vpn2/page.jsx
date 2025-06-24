@@ -34,7 +34,8 @@ import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 import areas from "../constants/AREAS/areas.jsx";
 
 // ICONOS
-import SyncIcon from "@mui/icons-material/Sync";
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 
 // TABLAS
 import EditableTableWeb from "../components/EditableTableWeb.jsx";
@@ -2807,13 +2808,13 @@ export default function Home() {
       <Box
         sx={{
           position: "fixed",
-          bottom: 100,
-          right: 22,
+          bottom: 10,
+          right: 10,
           "& > :not(style)": { m: 1 },
         }}
       >
-        <Fab variant="extended" color="success" onClick={handleClickOpen2}>
-          <SyncIcon sx={{ mr: 1 }} />
+        <Fab size="small" variant="extended" color="success" onClick={handleClickOpen2}>
+          <EditIcon sx={{ mr: 1 }} />
           Modificar Formato
 
         </Fab>
@@ -2928,13 +2929,13 @@ export default function Home() {
       <Box
         sx={{
           position: "fixed",
-          bottom: 24,
-          right: 24,
+          bottom: 60,
+          right: 10,
           "& > :not(style)": { m: 1 },
         }}
       >
-        <Fab variant="extended" color="success" onClick={handleClickOpen}>
-          <SyncIcon sx={{ mr: 1 }} />
+        <Fab size="small" variant="extended" color="success" onClick={handleClickOpen}>
+          <AddIcon sx={{ mr: 1 }} />
           Añadir memorando
         </Fab>
       </Box>
