@@ -24,6 +24,7 @@ import {
   DialogContentText,
   DialogTitle,
   Modal,
+  LinearProgress
 } from "@mui/material";
 
 import Image from "next/image";
@@ -210,6 +211,31 @@ export default function Home() {
       setOpenModal2(true);
       return;
   };
+
+  //PARA LINEA DE PROGRESO
+    const [progress, setProgress] = React.useState(0);
+    const [progresoCompleto, setProgresoCompleto] = React.useState(false);
+    React.useEffect(() => {
+      let timer;
+    if (openModal) {
+      setProgress(0); // Reinicia progreso al abrir modal
+      setProgresoCompleto(false); // Reinicia bandera
+      timer = setInterval(() => {
+        setProgress((oldProgress) => {
+          if (oldProgress >= 100) {
+            setProgresoCompleto(true); // Marca como completo
+            clearInterval(timer); // Detiene el timer
+            return 100;
+          }
+          const diff = Math.random() * 10;
+          return Math.min(oldProgress + diff, 100);
+        });
+      }, 500);
+    }
+    return () => {
+      clearInterval(timer);
+    };
+  }, [openModal]);
 
   const handleCloseModal2 = () => {
     setOpenModal2(false);
@@ -2702,29 +2728,26 @@ export default function Home() {
                 ¡ADVERTENCIA!
               </Typography>
               <Divider
-                sx={{
-                  borderBottomWidth: "1px",
-                  borderColor: "grey",
-                  ml: 0,
-                  mr: 0,
-                  mt: 2,
-                  mb: 1,
-                }}
-              />
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Asegurate de que la información registrada es correcta, ya que
-                no se puede corregir una vez enviada.
-              </Typography>
-              <Divider
-                sx={{
-                  borderBottomWidth: "1px",
-                  borderColor: "grey",
-                  ml: 0,
-                  mr: 0,
-                  mt: 2,
-                  mb: 0,
-                }}
-              />
+                              sx={{
+                                borderBottomWidth: "1px",
+                                borderColor: "grey",
+                                ml: 0,
+                                mr: 0,
+                                mt: 2,
+                                mb: 1,
+                              }}
+                            />
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                              Asegurate de que la información registrada es correcta, ya que
+                              no se puede corregir una vez enviada.
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2, mb:2 }}>
+                              Revisa ortografía, ascentos, mayúsculas...
+                            </Typography>
+                            
+                            <Box sx={{ width: '100%' ,color:"#FF0000"}}>
+                              <LinearProgress color="secondary"variant="determinate" value={progress} />
+                              </Box>
               <Button
                 onClick={handleCloseModal}
                 variant="contained"
@@ -2754,6 +2777,9 @@ export default function Home() {
                   color: "#FFFFFF",
                   border: "1px solid gray",
                 }}
+                disabled={
+                  !progresoCompleto                    
+                }
               >
                 Enviar
               </Button>
