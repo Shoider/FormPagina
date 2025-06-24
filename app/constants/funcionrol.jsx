@@ -1,4 +1,4 @@
 //FUNCION O ROL TANTO ORIGEN Y DESTINO
-const funcionrol = ["BASE DE DATOS", "SERVIDOR", "PORTAL"];
+const funcionrol = ["Base de datos", "Servidor", "Portal"];
 
 export default funcionrol;
