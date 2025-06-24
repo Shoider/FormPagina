@@ -15,7 +15,7 @@ import {
   Checkbox,
   Autocomplete,
   Modal,
-  LinearProgress
+  LinearProgress,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -341,7 +341,7 @@ export default function Home() {
           key !== "otra3" &&
           key !== "otra4" &&
           key !== "piso" &&
-          key !== "ala" 
+          key !== "ala"
           //key !== "urlDescarga" &&
           //key !== "urlComercio" &&
           //key !== "urlRedes" &&
@@ -590,25 +590,25 @@ export default function Home() {
   const [progresoCompleto, setProgresoCompleto] = React.useState(false);
   React.useEffect(() => {
     let timer;
-  if (openModal) {
-    setProgress(0); // Reinicia progreso al abrir modal
-    setProgresoCompleto(false); // Reinicia bandera
-    timer = setInterval(() => {
-      setProgress((oldProgress) => {
-        if (oldProgress >= 100) {
-          setProgresoCompleto(true); // Marca como completo
-          clearInterval(timer); // Detiene el timer
-          return 100;
-        }
-        const diff = Math.random() * 10;
-        return Math.min(oldProgress + diff, 100);
-      });
-    }, 500);
-  }
-  return () => {
-    clearInterval(timer);
-  };
-}, [openModal]);
+    if (openModal) {
+      setProgress(0); // Reinicia progreso al abrir modal
+      setProgresoCompleto(false); // Reinicia bandera
+      timer = setInterval(() => {
+        setProgress((oldProgress) => {
+          if (oldProgress >= 100) {
+            setProgresoCompleto(true); // Marca como completo
+            clearInterval(timer); // Detiene el timer
+            return 100;
+          }
+          const diff = Math.random() * 10;
+          return Math.min(oldProgress + diff, 100);
+        });
+      }, 500);
+    }
+    return () => {
+      clearInterval(timer);
+    };
+  }, [openModal]);
   //FILTRADO DE ÁREA DE ADSCRIPCIÓN
   const filteredAreas = areas[formData.uaUsuario] || [];
   const handleDireccion = (newValue) => {
@@ -826,9 +826,7 @@ export default function Home() {
             }}
             onInputChange={(event, newInputValue) => {
               if (event?.type === "change") {
-                
-                  handleArea(newInputValue); // Maneja texto escrito directamente
-                
+                handleArea(newInputValue); // Maneja texto escrito directamente
               }
             }}
             inputValue={formData.areaUsuario || ""} // Controla el valor mostrado
@@ -2655,49 +2653,59 @@ export default function Home() {
               color="#9F2241"
               sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 0 }}
             >
-              1.	El formato deberá estar debidamente llenado y contener toda la información 
-              requerida facilitando la aplicación expedita de las configuraciones solicitadas.
+              1. El formato deberá estar debidamente llenado y contener toda la
+              información requerida facilitando la aplicación expedita de las
+              configuraciones solicitadas.
               <br />
-              2.	El solicitante deberá presentar este formato adjuntando el memorando y número 
-              de caso (ticket) de Mesa de ayuda asociado, sin los cuales no se podrá atender su 
-              solicitud.  
-              <br/>
-              3.	El solicitante deberá proporcionar la dirección IP de su equipo de cómputo para
-                poder aplicar las configuraciones requeridas. Esta información la podrá obtener 
-                utilizando el comando “ipconfig /all” en una ventana de línea de comando. 
-                En caso de requerir ayuda para ejecutar el comando indicado, favor de contactar al 
-                área de Soporte Técnico de la CONAGUA.
-              <br/>
-              4.	El solicitante deberá agregar en la <b>Justificación</b> si la solicitud se deriva de 
-              un cambio de lugar (oficina, mampara o piso) del usuario que a su vez haya derivado 
-              en un cambio de dirección IP de su equipo de cómputo. 
-              <br/>
-              5.	En caso de un cambio de dirección IP, el usuario deberá especificar la dirección
-                IP anterior para eliminar los privilegios en dicha dirección IP. Si el solicitante 
-                NO indica que se trata de un cambio de dirección IP, éste será responsable de cualquier 
-                acceso no autorizado que se derive de los permisos de la dirección IP anterior al no 
-                tramitar la baja correspondiente.
-              <br/>
-              6.	El usuario es responsable del uso que se otorga con el acceso ampliado otorgado a su 
-              equipo de cómputo, por lo que deberá vigilar que el uso sea acorde a las políticas de la
-                Seguridad de la Información definidas por la Gerencia de Tecnología de la Información
-                y Comunicaciones. 
-                <br/>
-              7.	El solicitante deberá conservar el Acuse o copia del formato firmado y sellado, así 
-              como el memorando asociado, para posteriores aclaraciones. 
-              <br/>
-              8.	Es responsabilidad de los gerentes y subgerentes llevar un control de los usuarios y 
-              sus direcciones IP’s con accesos de Internet ampliados. 
-              <br/>
-              9.	Al firmar el usuario se da por enterado de las políticas del servicio y acepta la 
-              responsabilidad de cualquier uso inadecuado que se le dé a los privilegios de acceso ampliados 
-              los cuales haya solicitado.
-              <br/>
-              10.	Al firmar el Gerente o Director que autoriza se da por enterado de las políticas del servicio 
-              y acepta la corresponsabilidad del uso que le dé el usuario al acceso ampliado otorgado.
-          </Typography>
+              2. El solicitante deberá presentar este formato adjuntando el
+              memorando y número de caso (ticket) de Mesa de ayuda asociado, sin
+              los cuales no se podrá atender su solicitud.
+              <br />
+              3. El solicitante deberá proporcionar la dirección IP de su equipo
+              de cómputo para poder aplicar las configuraciones requeridas. Esta
+              información la podrá obtener utilizando el comando “ipconfig /all”
+              en una ventana de línea de comando. En caso de requerir ayuda para
+              ejecutar el comando indicado, favor de contactar al área de
+              Soporte Técnico de la CONAGUA.
+              <br />
+              4. El solicitante deberá agregar en la <b>Justificación</b> si la
+              solicitud se deriva de un cambio de lugar (oficina, mampara o
+              piso) del usuario que a su vez haya derivado en un cambio de
+              dirección IP de su equipo de cómputo.
+              <br />
+              5. En caso de un cambio de dirección IP, el usuario deberá
+              especificar la dirección IP anterior para eliminar los privilegios
+              en dicha dirección IP. Si el solicitante NO indica que se trata de
+              un cambio de dirección IP, éste será responsable de cualquier
+              acceso no autorizado que se derive de los permisos de la dirección
+              IP anterior al no tramitar la baja correspondiente.
+              <br />
+              6. El usuario es responsable del uso que se otorga con el acceso
+              ampliado otorgado a su equipo de cómputo, por lo que deberá
+              vigilar que el uso sea acorde a las políticas de la Seguridad de
+              la Información definidas por la Gerencia de Tecnología de la
+              Información y Comunicaciones.
+              <br />
+              7. El solicitante deberá conservar el Acuse o copia del formato
+              firmado y sellado, así como el memorando asociado, para
+              posteriores aclaraciones.
+              <br />
+              8. Es responsabilidad de los gerentes y subgerentes llevar un
+              control de los usuarios y sus direcciones IP’s con accesos de
+              Internet ampliados.
+              <br />
+              9. Al firmar el usuario se da por enterado de las políticas del
+              servicio y acepta la responsabilidad de cualquier uso inadecuado
+              que se le dé a los privilegios de acceso ampliados los cuales haya
+              solicitado.
+              <br />
+              10. Al firmar el Gerente o Director que autoriza se da por
+              enterado de las políticas del servicio y acepta la
+              corresponsabilidad del uso que le dé el usuario al acceso ampliado
+              otorgado.
+            </Typography>
           </Box>
-          
+
           <Box
             sx={{
               display: "flex",
@@ -2848,7 +2856,7 @@ export default function Home() {
           >
             {botonEstado}
           </Button>
-          
+
           <Modal
             open={openModal}
             onClose={handleCloseModal}
@@ -2894,12 +2902,17 @@ export default function Home() {
                 Asegurate de que la información registrada es correcta, ya que
                 no se puede corregir una vez enviada.
               </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2, mb:2 }}>
-                Revisa ortografía, acentos, mayúsculas...
+
+              <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
+                Revisa ortografía, ascentos, mayúsculas...
               </Typography>
-              
-              <Box sx={{ width: '100%' ,color:"#FF0000"}}>
-                <LinearProgress color="secondary"variant="determinate" value={progress} />
+
+              <Box sx={{ width: "100%", color: "#FF0000" }}>
+                <LinearProgress
+                  color="secondary"
+                  variant="determinate"
+                  value={progress}
+                />
               </Box>
               <Button
                 onClick={handleCloseModal}
@@ -2930,9 +2943,7 @@ export default function Home() {
                   color: "#FFFFFF",
                   border: "1px solid gray",
                 }}
-                disabled={
-                  !progresoCompleto                    
-                }
+                disabled={!progresoCompleto}
               >
                 Enviar
               </Button>
