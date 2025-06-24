@@ -2789,7 +2789,7 @@ export default function Home() {
       >
         <Fab variant="extended" color="success" onClick={handleClickOpen2}>
           <SyncIcon sx={{ mr: 1 }} />
-          Actualizar Formato
+          Modificar Formato
 
         </Fab>
       </Box>
@@ -2816,11 +2816,14 @@ export default function Home() {
           },
         }}
       >
-        <DialogTitle>Actualizar Formato</DialogTitle>
+        <DialogTitle>Modificar Formato</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Si conoce un número de formato en le cual se pueda guiar, escribalo.
+            Si conoce un número de formato en el cual se pueda guiar, ingréselo.<br/>
+            *Es responsabilidad del usuario el uso adecuado de esta función.
+
           </DialogContentText>
+          
           
           <Divider
             sx={{
@@ -2843,7 +2846,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Dato de búsqueda (lo podrá encontrar en su formato).
+            Dato de búsqueda (se encuentra en la parte superior derecha de su formato).
           </FormLabel>
           <TextField
             required
@@ -2851,7 +2854,7 @@ export default function Home() {
             id="numeroFormato"
             name="numeroFormato"
             label="Número de formato"
-            placeholder="Se encuentra en el encabezado, en la parte superior derecha. "
+            placeholder="AAMMDDXXXX. "
             value={formData3.numeroFormato}
             onChange={handleNumeroFormatoActualizar}
             sx={{ background: "#FFFFFF", mt: 2 }}
@@ -2875,7 +2878,7 @@ export default function Home() {
               border: "1px solid gray",              
             }}
           >
-            ACTUALIZAR
+            MODIFICAR
           </Button>
           <Button
             variant="contained"
