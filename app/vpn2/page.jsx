@@ -24,7 +24,7 @@ import {
   DialogContentText,
   DialogTitle,
   Modal,
-  LinearProgress
+  LinearProgress,
 } from "@mui/material";
 
 import Image from "next/image";
@@ -35,8 +35,8 @@ import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 import areas from "../constants/AREAS/areas.jsx";
 
 // ICONOS
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
 
 // TABLAS
 import EditableTableWeb from "../components/EditableTableWeb.jsx";
@@ -123,8 +123,6 @@ export default function Home() {
       registrosRemoto: remotoTableData,
     }));
   }, [webTableData, remotoTableData]);
- 
-  
 
   // Manejadores de cambios
   const handleWebTableDataChange = (data) => {
@@ -202,21 +200,20 @@ export default function Home() {
     });
   };
 
-
   // Modal
   const [openModal, setOpenModal] = useState(false);
   const [openModal2, setOpenModal2] = useState(false);
 
-  const handleOpenModal2 = () => {    
-      setOpenModal2(true);
-      return;
+  const handleOpenModal2 = () => {
+    setOpenModal2(true);
+    return;
   };
 
   //PARA LINEA DE PROGRESO
-    const [progress, setProgress] = React.useState(0);
-    const [progresoCompleto, setProgresoCompleto] = React.useState(false);
-    React.useEffect(() => {
-      let timer;
+  const [progress, setProgress] = React.useState(0);
+  const [progresoCompleto, setProgresoCompleto] = React.useState(false);
+  React.useEffect(() => {
+    let timer;
     if (openModal) {
       setProgress(0); // Reinicia progreso al abrir modal
       setProgresoCompleto(false); // Reinicia bandera
@@ -240,13 +237,12 @@ export default function Home() {
   const handleCloseModal2 = () => {
     setOpenModal2(false);
   };
-  
 
   const handleOpenModal = () => {
     //No abrir el modal si ya está en modo descarga
     if (botonEstado === "Descargar PDF") return;
     const [isValid, isValidTabla, getErrors] =
-    validarCamposRequeridos(formData);
+      validarCamposRequeridos(formData);
     setErrors(getErrors);
 
     console.log("Lista errores en submit: ", getErrors);
@@ -282,156 +278,167 @@ export default function Home() {
     message: "",
     severity: "",
   });
-//este useEffect es necesario para el llenado del formulario, no borrar
-  useEffect(()=>  {
-    if (formData.subgerencia === "Subgerencia de Sistemas"){
-      setFormData((prev) =>({
+  //este useEffect es necesario para el llenado del formulario, no borrar
+  useEffect(() => {
+    if (formData.subgerencia === "Subgerencia de Sistemas") {
+      setFormData((prev) => ({
         ...prev,
-        nombreResponsable:formData.nombreEnlace,
-        telefonoResponsable:formData.telefonoEnlace,
-        unidadAdministrativaResponsable:formData.areaAdscripcion
+        nombreResponsable: formData.nombreEnlace,
+        telefonoResponsable: formData.telefonoEnlace,
+        unidadAdministrativaResponsable: formData.areaAdscripcion,
       }));
-    }       
-  }, [formData.subgerencia, formData.nombreEnlace, formData.telefonoEnlace, formData.areaAdscripcion]);
+    }
+  }, [
+    formData.subgerencia,
+    formData.nombreEnlace,
+    formData.telefonoEnlace,
+    formData.areaAdscripcion,
+  ]);
 
- const validarCamposRequeridos = (Data) => {
-  const errores = {};
-  let isValid = true;
-  let isValidTabla = true;
+  const validarCamposRequeridos = (Data) => {
+    const errores = {};
+    let isValid = true;
+    let isValidTabla = true;
 
-  // Determina los campos requeridos según el tipo de solicitante
-  let camposRequeridos = [
-    "unidadAdministrativa",
-      "areaAdscripcion",
-      "subgerencia",
-      "nombreEnlace",
-      "telefonoEnlace",
-      "sistemaOperativo",
-      "versionSO",
-      "solicitante",
-      "tipoEquipo",
-      "marca",
-      "modelo",
-      "serie",
-      "justificacion"
-  ];
-  // Determina los campos requeridos según el tipo de solicitante
-  if (Data.subgerencia !== "Subgerencia de Sistemas")
-  {
-    camposRequeridos = [
-      "nombreAutoriza",
-      "puestoAutoriza",
+    // Determina los campos requeridos según el tipo de solicitante
+    let camposRequeridos = [
       "unidadAdministrativa",
       "areaAdscripcion",
       "subgerencia",
       "nombreEnlace",
       "telefonoEnlace",
+      "sistemaOperativo",
       "versionSO",
       "solicitante",
-      "sistemaOperativo",
       "tipoEquipo",
       "marca",
       "modelo",
       "serie",
-      "justificacion"
-    ]
-  }
-
-  if (Data.solicitante === "CONAGUA") {
-    const nuevosCampos = [
-      "nombreInterno",
-      "puestoInterno",
-      "correoInterno",
-      "telefonoInterno"
+      "justificacion",
     ];
+    // Determina los campos requeridos según el tipo de solicitante
+    if (Data.subgerencia !== "Subgerencia de Sistemas") {
+      camposRequeridos = [
+        "nombreAutoriza",
+        "puestoAutoriza",
+        "unidadAdministrativa",
+        "areaAdscripcion",
+        "subgerencia",
+        "nombreEnlace",
+        "telefonoEnlace",
+        "versionSO",
+        "solicitante",
+        "sistemaOperativo",
+        "tipoEquipo",
+        "marca",
+        "modelo",
+        "serie",
+        "justificacion",
+      ];
+    }
 
-    camposRequeridos = [...camposRequeridos, ...nuevosCampos];
-  } else if (Data.solicitante === "EXTERNO") {
-    const nuevosCampos = [
-      "nombreExterno",
-      "correoExterno",
-      "empresaExterno",
-      "numeroEmpleadoResponsable",
-      "nombreResponsable",
-      "puestoResponsable",
-      "unidadAdministrativaResponsable",
-      "telefonoResponsable"
-    ];
+    if (Data.solicitante === "CONAGUA") {
+      const nuevosCampos = [
+        "nombreInterno",
+        "puestoInterno",
+        "correoInterno",
+        "telefonoInterno",
+      ];
 
-    camposRequeridos = [...camposRequeridos, ...nuevosCampos];
-  }
- 
-  // Valida solo los campos requeridos
-  for (const key of camposRequeridos) {
-    if (!Data[key] || Data[key].trim() === "") {
-      errores[key] = "Este campo es requerido";
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+    } else if (Data.solicitante === "EXTERNO") {
+      const nuevosCampos = [
+        "nombreExterno",
+        "correoExterno",
+        "empresaExterno",
+        "numeroEmpleadoResponsable",
+        "nombreResponsable",
+        "puestoResponsable",
+        "unidadAdministrativaResponsable",
+        "telefonoResponsable",
+      ];
+
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+    }
+
+    // Valida solo los campos requeridos
+    for (const key of camposRequeridos) {
+      if (!Data[key] || Data[key].trim() === "") {
+        errores[key] = "Este campo es requerido";
+        isValid = false;
+      }
+    }
+
+    // Valida que al menos uno de los accesos esté seleccionado
+    if (
+      ![Data.cuentaUsuario, Data.accesoWeb, Data.accesoRemoto].some(Boolean)
+    ) {
+      errores.seleccion =
+        "Al menos uno de los campos de justificación es requerido";
       isValid = false;
     }
-  }
 
-  // Valida que al menos uno de los accesos esté seleccionado
-  if (![Data.cuentaUsuario, Data.accesoWeb, Data.accesoRemoto].some(Boolean)) {
-    errores.seleccion = "Al menos uno de los campos de justificación es requerido";
-    isValid = false;
-  }
-
-  // Valida movimiento solo si cuentaUsuario es true
-  if (Data.cuentaUsuario) {
-    if (!Data.movimiento || Data.movimiento.trim() === "") {
-      errores.movimiento = "Este campo es requerido";
-      isValid = false;
+    // Valida movimiento solo si cuentaUsuario es true
+    if (Data.cuentaUsuario) {
+      if (!Data.movimiento || Data.movimiento.trim() === "") {
+        errores.movimiento = "Este campo es requerido";
+        isValid = false;
+      }
     }
-  }
 
-  
-  // Valor por defecto para subgerencia
-  if (Data.subgerencia === "") {
-    Data.subgerencia = "~";
-  }
-
-  // Validación de registros Web
-  if (Data.accesoWeb) {
-    if (!Array.isArray(Data.registrosWeb) || Data.registrosWeb.length === 0) {
-      errores.registrosWeb = "Debe agregar al menos un registro web";
-      isValidTabla = false;
-    } else {
-      Data.registrosWeb.forEach((row, idx) => {
-        if (
-          !row.movimiento ||
-          !row.nombreSistema ||
-          !row.url ||
-          !row.puertosServicios
-        ) {
-          errores[`registrosWeb_${idx}`] = "Todos los campos del registro web son requeridos";
-          isValidTabla = false;
-        }
-      });
+    // Valor por defecto para subgerencia
+    if (Data.subgerencia === "") {
+      Data.subgerencia = "~";
     }
-  }
 
-  // Validación de registros Remoto
-  if (Data.accesoRemoto) {
-    if (!Array.isArray(Data.registrosRemoto) || Data.registrosRemoto.length === 0) {
-      errores.registrosRemoto = "Debe agregar al menos un registro remoto";
-      isValidTabla = false;
-    } else {
-      Data.registrosRemoto.forEach((row, idx) => {
-        if (
-          !row.movimiento ||
-          !row.nomenclatura ||
-          !row.nombreSistema ||
-          !row.direccion ||
-          !row.sistemaOperativo
-        ) {
-          errores[`registrosRemoto_${idx}`] = "Todos los campos del registro remoto son requeridos";
-          isValidTabla = false;
-        }
-      });
+    // Validación de registros Web
+    if (Data.accesoWeb) {
+      if (!Array.isArray(Data.registrosWeb) || Data.registrosWeb.length === 0) {
+        errores.registrosWeb = "Debe agregar al menos un registro web";
+        isValidTabla = false;
+      } else {
+        Data.registrosWeb.forEach((row, idx) => {
+          if (
+            !row.movimiento ||
+            !row.nombreSistema ||
+            !row.url ||
+            !row.puertosServicios
+          ) {
+            errores[`registrosWeb_${idx}`] =
+              "Todos los campos del registro web son requeridos";
+            isValidTabla = false;
+          }
+        });
+      }
     }
-  }
 
-  return [isValid, isValidTabla, errores];
-};
+    // Validación de registros Remoto
+    if (Data.accesoRemoto) {
+      if (
+        !Array.isArray(Data.registrosRemoto) ||
+        Data.registrosRemoto.length === 0
+      ) {
+        errores.registrosRemoto = "Debe agregar al menos un registro remoto";
+        isValidTabla = false;
+      } else {
+        Data.registrosRemoto.forEach((row, idx) => {
+          if (
+            !row.movimiento ||
+            !row.nomenclatura ||
+            !row.nombreSistema ||
+            !row.direccion ||
+            !row.sistemaOperativo
+          ) {
+            errores[`registrosRemoto_${idx}`] =
+              "Todos los campos del registro remoto son requeridos";
+            isValidTabla = false;
+          }
+        });
+      }
+    }
+
+    return [isValid, isValidTabla, errores];
+  };
   // Llamada API
   const handleSubmit = async (event) => {
     handleCloseModal();
@@ -445,7 +452,7 @@ export default function Home() {
     });
     setOpenAlert(true);
 
-    setBotonEstado("Cargando...");       
+    setBotonEstado("Cargando...");
 
     try {
       // Aqui llamamos a la primera api que valida campos
@@ -675,11 +682,11 @@ export default function Home() {
     event.preventDefault();
 
     // Arma el objeto a enviar con los datos más recientes
-      const dataToSend = {
-        ...formData3,
-        registrosWeb: webTableData,
-        registrosRemoto: remotoTableData,
-      };
+    const dataToSend = {
+      ...formData3,
+      registrosWeb: webTableData,
+      registrosRemoto: remotoTableData,
+    };
     console.log("Lista formData en submit: ", formData2.numeroFormato);
 
     setAlert({
@@ -690,28 +697,29 @@ export default function Home() {
 
     try {
       // Aqui llamamos a la primera api
-      const formResponse = await axios.post("/api2/v3/folio",  { id: dataToSend.numeroFormato }, {
-        headers: {
-          "Content-Type": "application/json",
+      const formResponse = await axios.post(
+        "/api2/v3/folio",
+        { id: dataToSend.numeroFormato },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
 
       console.log("Respuesta: ", formResponse.data);
-      const {
-        message: formMessage,
-        datos: Datos
-      } = formResponse.data;
+      const { message: formMessage, datos: Datos } = formResponse.data;
 
       //console.log("Petición exitosa: ", formMessage);
       console.log("Datos recibidos: ", Datos);
-      
+
       console.log("Tablas recibidas 'remoto: ", Datos.registrosRemoto);
       console.log("Tablas recibidas 'web: ", Datos.registrosWeb);
 
       // Metemos la informacion recibida a FormData
       setFormData((prev) => ({
         ...prev,
-        ...Datos
+        ...Datos,
       }));
 
       // Meter los datos en las tablas
@@ -719,16 +727,14 @@ export default function Home() {
       setRemotoTableData(Datos.registrosRemoto || []);
 
       // Desmontar y montar las tablas con los nuevos datos
-      setTableResetKey(prev => prev + 1);
-      
+      setTableResetKey((prev) => prev + 1);
+
       setAlert({
         message: formMessage,
         severity: "success",
       });
       setOpenAlert(true);
-
     } catch (error) {
-
       if (error.response) {
         // Si hay respuesta, podemos acceder al código de estado y a los datos.
         const statusCode = error.response.status;
@@ -917,8 +923,6 @@ export default function Home() {
       numeroFormato: value,
     }));
   };
-
-  
 
   //FILTRADO DE ÁREA DE ADSCRIPCIÓN
   const filteredAreas = areas[formData.unidadAdministrativa] || [];
@@ -1469,7 +1473,7 @@ export default function Home() {
           </Typography>
 
           <TextField
-            required={formData.solicitante === "CONAGUA"} 
+            required={formData.solicitante === "CONAGUA"}
             error={!!errors?.nombreInterno}
             id="nombreInterno"
             name="nombreInterno"
@@ -1481,7 +1485,7 @@ export default function Home() {
             inputProps={{ maxLength: 256, mt: 2 }}
           />
           <TextField
-            required={formData.solicitante === "CONAGUA"} 
+            required={formData.solicitante === "CONAGUA"}
             error={!!errors?.puestoInterno}
             id="puestoInterno"
             name="puestoInterno"
@@ -1493,7 +1497,7 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required={formData.solicitante === "CONAGUA"} 
+            required={formData.solicitante === "CONAGUA"}
             error={!!errors?.correoInterno}
             id="correoInterno"
             name="correoInterno"
@@ -1505,7 +1509,7 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required={formData.solicitante === "CONAGUA"} 
+            required={formData.solicitante === "CONAGUA"}
             error={!!errors?.telefonoInterno}
             id="telefonoInterno"
             name="telefonoInterno"
@@ -1545,7 +1549,7 @@ export default function Home() {
           </Typography>
 
           <TextField
-            required={formData.solicitante === "EXTERNO"} 
+            required={formData.solicitante === "EXTERNO"}
             error={!!errors?.nombreExterno}
             id="nombreExterno"
             name="nombreExterno"
@@ -1557,7 +1561,7 @@ export default function Home() {
             inputProps={{ maxLength: 256, mt: 2 }}
           />
           <TextField
-            required={formData.solicitante === "EXTERNO"} 
+            required={formData.solicitante === "EXTERNO"}
             error={!!errors?.correoExterno}
             id="correoExterno"
             name="correoExterno"
@@ -1569,7 +1573,7 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required={formData.solicitante === "EXTERNO"} 
+            required={formData.solicitante === "EXTERNO"}
             error={!!errors?.empresaExterno}
             id="empresaExterno"
             name="empresaExterno"
@@ -1959,8 +1963,8 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />       
-                      
+          />
+
           <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -2261,7 +2265,7 @@ export default function Home() {
             c) Acceso a escritorio remoto
           </Typography>
 
-          <EditableTableRemoto 
+          <EditableTableRemoto
             //key={JSON.stringify(remotoTableData)} // Fuerza el remount cuando cambian los datos
             key={TableResetKey}
             initialData={remotoTableData}
@@ -2742,12 +2746,16 @@ export default function Home() {
                 Asegurate de que la información registrada es correcta, ya que
                 no se puede corregir una vez enviada.
               </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2, mb:2 }}>
+              <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
                 Revisa ortografía, ascentos, mayúsculas...
               </Typography>
-              
-              <Box sx={{ width: '100%' ,color:"#FF0000"}}>
-                <LinearProgress color="secondary"variant="determinate" value={progress} />
+
+              <Box sx={{ width: "100%", color: "#FF0000" }}>
+                <LinearProgress
+                  color="secondary"
+                  variant="determinate"
+                  value={progress}
+                />
               </Box>
               <Button
                 onClick={handleCloseModal}
@@ -2778,9 +2786,7 @@ export default function Home() {
                   color: "#FFFFFF",
                   border: "1px solid gray",
                 }}
-                disabled={
-                  !progresoCompleto                    
-                }
+                disabled={!progresoCompleto}
               >
                 Enviar
               </Button>
@@ -2830,7 +2836,6 @@ export default function Home() {
 
       {/* ALERT */}
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />
-      
 
       {/* BOTON FLOTANTE DE ACTUALIZAR FORMATO*/}
       <Box
@@ -2841,10 +2846,14 @@ export default function Home() {
           "& > :not(style)": { m: 1 },
         }}
       >
-        <Fab size="small" variant="extended" color="success" onClick={handleClickOpen2}>
+        <Fab
+          size="small"
+          variant="extended"
+          color="success"
+          onClick={handleClickOpen2}
+        >
           <EditIcon sx={{ mr: 1 }} />
           Modificar Formato
-
         </Fab>
       </Box>
 
@@ -2873,12 +2882,11 @@ export default function Home() {
         <DialogTitle>Modificar Formato</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Si conoce un número de formato en el cual se pueda guiar, ingréselo.<br/>
+            Si conoce un número de formato en el cual se pueda guiar, ingréselo.
+            <br />
             *Es responsabilidad del usuario el uso adecuado de esta función.
-
           </DialogContentText>
-          
-          
+
           <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -2900,7 +2908,8 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Dato de búsqueda (se encuentra en la parte superior derecha de su formato).
+            Dato de búsqueda (se encuentra en la parte superior derecha de su
+            formato).
           </FormLabel>
           <TextField
             required
@@ -2915,7 +2924,6 @@ export default function Home() {
             inputProps={{ maxLength: 64 }}
             fullWidth
           />
-          
         </DialogContent>
         <DialogActions>
           <Button
@@ -2929,7 +2937,7 @@ export default function Home() {
               mr: 4,
               background: theme.palette.secondary.main,
               color: "#FFFFFF",
-              border: "1px solid gray",              
+              border: "1px solid gray",
             }}
           >
             MODIFICAR
@@ -2962,12 +2970,16 @@ export default function Home() {
           "& > :not(style)": { m: 1 },
         }}
       >
-        <Fab size="small" variant="extended" color="success" onClick={handleClickOpen}>
+        <Fab
+          size="small"
+          variant="extended"
+          color="success"
+          onClick={handleClickOpen}
+        >
           <AddIcon sx={{ mr: 1 }} />
           Añadir memorando
         </Fab>
       </Box>
-      
 
       {/* DIALOG */}
       <Dialog

@@ -26,7 +26,7 @@ import {
   MenuItem,
   Tooltip,
   Modal,
-  LinearProgress
+  LinearProgress,
 } from "@mui/material";
 import Image from "next/image";
 import EditableTableInter from "../components/EditableTableInter.jsx";
@@ -390,7 +390,7 @@ export default function Home() {
     });
     setBotonEstado2("Enviar");
   };
-   //NUMERO DE FORMATO
+  //NUMERO DE FORMATO
   const handleNumeroFormato2 = (event) => {
     let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
     value = value.slice(0, 10); // Limita la longitud a 4 caracteres
@@ -1127,7 +1127,7 @@ export default function Home() {
     }
   };
 
-// Llamada API Actualizar Memorando
+  // Llamada API Actualizar Memorando
   const handleSubmit2 = async (event) => {
     event.preventDefault();
 
@@ -1284,12 +1284,12 @@ export default function Home() {
       extei: value,
     }));
   };
-  
+
   //Para la línea de progreso
   const [progress, setProgress] = React.useState(0);
-    const [progresoCompleto, setProgresoCompleto] = React.useState(false);
-    React.useEffect(() => {
-      let timer;
+  const [progresoCompleto, setProgresoCompleto] = React.useState(false);
+  React.useEffect(() => {
+    let timer;
     if (openModal) {
       setProgress(0); // Reinicia progreso al abrir modal
       setProgresoCompleto(false); // Reinicia bandera
@@ -1309,7 +1309,6 @@ export default function Home() {
       clearInterval(timer);
     };
   }, [openModal]);
-
 
   // Inicio de la pagina
 
@@ -4179,37 +4178,42 @@ export default function Home() {
               color="#9F2241"
               sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 0 }}
             >
-              
-              1.	El formato deberá estar debidamente llenado y contener toda la información requerida 
-              facilitando la aplicación expedita de las configuraciones solicitadas. Es responsabilidad del 
-              solicitante recabar la información con los Administradores de los sistemas o Áreas involucradas.<br />
-              
-              2.	El solicitante deberá presentar este formato adjuntando el Memorando o Atenta nota y número de
-               ticket de Mesa de ayuda asociado, sin los cuales no se podrá atender su solicitud. <br />
-              
-              3.	El solicitante deberá proporcionar la dirección IP física y si utiliza, la dirección IP NAT, 
-              por cada servidor involucrado. De no proporcionarse la dirección IP NAT correcta, las reglas de 
-              cortafuegos se configurarán por defecto con la dirección IP del adaptador de red de los servidores 
-              y corresponderá al Administrador del sistema aplicar los cambios en el sistema o servidores para lograr 
-              establecer la comunicación.<br />
-              
-              4.	Para el traslado de permisos de una dirección IP a otra, se deberá llenar la sección BAJAS 
-              con los permisos de la dirección IP anterior además de llenar la sección de ALTAS con los permisos que
-               se requieren trasladar. Si el solicitante NO indica que se trata de un traslado de permisos, éste será 
-               responsable de cualquier acceso no autorizado que se derive de los permisos de la dirección IP anterior 
-               al no tramitar la baja correspondiente. <br />
-
-              5.	La solicitud para cambios en la infraestructura de seguridad (RFCs) será solicitada únicamente 
-              por los Administradores de cada sistema una vez que se apliquen los permisos de acceso en el propio 
-              sistema y se aperturen los accesos en los cortafuegos locales de los servidores involucrados. <br />
-              
-              6.	Es responsabilidad de los administradores de cada servidor y/o Sistema llevar un control de las 
-              direcciones IP’s con acceso al servidor y/o sistema que administra. <br />
-             
-              7.	Al firmar el solicitante se da por enterado de las políticas del servicio y acepta la responsabilidad
-               de cualquier materialización de los riesgos derivados de las aperturas de comunicaciones asociadas 
-               al presente control de cambios. <br />
-               
+              1. El formato deberá estar debidamente llenado y contener toda la
+              información requerida facilitando la aplicación expedita de las
+              configuraciones solicitadas. Es responsabilidad del solicitante
+              recabar la información con los Administradores de los sistemas o
+              Áreas involucradas.
+              <br />
+              2. El solicitante deberá presentar este formato adjuntando el
+              Memorando o Atenta nota y número de ticket de Mesa de ayuda
+              asociado, sin los cuales no se podrá atender su solicitud. <br />
+              3. El solicitante deberá proporcionar la dirección IP física y si
+              utiliza, la dirección IP NAT, por cada servidor involucrado. De no
+              proporcionarse la dirección IP NAT correcta, las reglas de
+              cortafuegos se configurarán por defecto con la dirección IP del
+              adaptador de red de los servidores y corresponderá al
+              Administrador del sistema aplicar los cambios en el sistema o
+              servidores para lograr establecer la comunicación.
+              <br />
+              4. Para el traslado de permisos de una dirección IP a otra, se
+              deberá llenar la sección BAJAS con los permisos de la dirección IP
+              anterior además de llenar la sección de ALTAS con los permisos que
+              se requieren trasladar. Si el solicitante NO indica que se trata
+              de un traslado de permisos, éste será responsable de cualquier
+              acceso no autorizado que se derive de los permisos de la dirección
+              IP anterior al no tramitar la baja correspondiente. <br />
+              5. La solicitud para cambios en la infraestructura de seguridad
+              (RFCs) será solicitada únicamente por los Administradores de cada
+              sistema una vez que se apliquen los permisos de acceso en el
+              propio sistema y se aperturen los accesos en los cortafuegos
+              locales de los servidores involucrados. <br />
+              6. Es responsabilidad de los administradores de cada servidor y/o
+              Sistema llevar un control de las direcciones IP’s con acceso al
+              servidor y/o sistema que administra. <br />
+              7. Al firmar el solicitante se da por enterado de las políticas
+              del servicio y acepta la responsabilidad de cualquier
+              materialización de los riesgos derivados de las aperturas de
+              comunicaciones asociadas al presente control de cambios. <br />
             </Typography>
           </Box>
           <Box
@@ -4409,11 +4413,15 @@ export default function Home() {
                 Asegurate de que la información registrada es correcta, ya que
                 no se puede corregir una vez enviada.
               </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2, mb:2 }}>
+              <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
                 Revisa ortografía, ascentos, mayúsculas...
               </Typography>
-              <Box sx={{ width: '100%' ,color:"#FF0000"}}>
-                <LinearProgress color="secondary"variant="determinate" value={progress} />
+              <Box sx={{ width: "100%", color: "#FF0000" }}>
+                <LinearProgress
+                  color="secondary"
+                  variant="determinate"
+                  value={progress}
+                />
               </Box>
               <Button
                 onClick={handleCloseModal}
@@ -4444,9 +4452,7 @@ export default function Home() {
                   color: "#FFFFFF",
                   border: "1px solid gray",
                 }}
-                disabled={
-                  !progresoCompleto                    
-                }
+                disabled={!progresoCompleto}
               >
                 Enviar
               </Button>
@@ -4505,7 +4511,12 @@ export default function Home() {
           "& > :not(style)": { m: 1 },
         }}
       >
-        <Fab size="small" variant="extended" color="success" onClick={handleClickOpen}>
+        <Fab
+          size="small"
+          variant="extended"
+          color="success"
+          onClick={handleClickOpen}
+        >
           <SyncIcon sx={{ mr: 1 }} />
           Actualizar Número de Ticket
         </Fab>
@@ -4535,10 +4546,10 @@ export default function Home() {
         <DialogTitle>Actualizar número de ticket</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Aquí puede actualizar el número de ticket
-             para completar el llenado de su formato.
+            Aquí puede actualizar el número de ticket para completar el llenado
+            de su formato.
           </DialogContentText>
-          
+
           <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -4560,7 +4571,8 @@ export default function Home() {
               width: "calc(100% - 32px)",
             }}
           >
-            Datos de búsqueda (se encuentra en la parte superior derecha de su formato).
+            Datos de búsqueda (se encuentra en la parte superior derecha de su
+            formato).
           </FormLabel>
 
           <TextField
@@ -4575,8 +4587,8 @@ export default function Home() {
             sx={{ background: "#FFFFFF", mt: 2 }}
             inputProps={{ maxLength: 10 }}
             fullWidth
-          />        
-          
+          />
+
           <FormLabel
             component="legend"
             sx={{

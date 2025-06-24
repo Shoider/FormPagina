@@ -18,7 +18,7 @@ import {
   FormHelperText,
   Autocomplete,
   Modal,
-  LinearProgress
+  LinearProgress,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -423,9 +423,9 @@ export default function Home() {
 
   //Para linea de progreso
   const [progress, setProgress] = React.useState(0);
-    const [progresoCompleto, setProgresoCompleto] = React.useState(false);
-    React.useEffect(() => {
-      let timer;
+  const [progresoCompleto, setProgresoCompleto] = React.useState(false);
+  React.useEffect(() => {
+    let timer;
     if (openModal) {
       setProgress(0); // Reinicia progreso al abrir modal
       setProgresoCompleto(false); // Reinicia bandera
@@ -1841,12 +1841,16 @@ export default function Home() {
                 Asegurate de que la información registrada es correcta, ya que
                 no se puede corregir una vez enviada.
               </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2, mb:2 }}>
+              <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
                 Revisa ortografía, ascentos, mayúsculas...
               </Typography>
-              
-              <Box sx={{ width: '100%' ,color:"#FF0000"}}>
-                <LinearProgress color="secondary"variant="determinate" value={progress} />
+
+              <Box sx={{ width: "100%", color: "#FF0000" }}>
+                <LinearProgress
+                  color="secondary"
+                  variant="determinate"
+                  value={progress}
+                />
               </Box>
               <Button
                 onClick={handleCloseModal}
@@ -1877,9 +1881,7 @@ export default function Home() {
                   color: "#FFFFFF",
                   border: "1px solid gray",
                 }}
-                disabled={
-                  !progresoCompleto                    
-                }
+                disabled={!progresoCompleto}
               >
                 Enviar
               </Button>
