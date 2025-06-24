@@ -193,10 +193,9 @@ export default function Home() {
   };
   const handleClose2 = () => {
     setOpen2(false);
-    setFormData2({
+    setFormData3({
       numeroFormato: "",
     });
-    setBotonEstado2("Enviar");
   };
 
 
@@ -641,7 +640,7 @@ export default function Home() {
   //PARA BOTÓN DE ACTUALIZAR FORMATO
   // Llamada API
   const handleSubmit3 = async (event) => {
-    handleCloseModal2();
+    handleClose2();
     event.preventDefault();
     console.log("Lista formData en submit: ", formData2.numeroFormato);
 
@@ -1094,21 +1093,21 @@ export default function Home() {
           />
         </Box>
 
-        <Button
+        {/*<Button
             //type="submit"
-            onClick={handleOpenModal2}
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 3,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-              background: theme.palette.secondary.main,
-              color: "#FFFFFF",
-              border: "1px solid gray",
-              display:formData.subgerencia === "Subgerencia de Sistemas" ? "block" : "none"
-            }}                       
+            // onClick={handleOpenModal2}
+            // variant="contained"
+            // sx={{
+            //   mt: 3,
+            //   mb: 3,
+            //   width: "calc(100% - 32px)",
+            //   ml: 2,
+            //   mr: 4,
+            //   background: theme.palette.secondary.main,
+            //   color: "#FFFFFF",
+            //   border: "1px solid gray",
+            //   display:formData.subgerencia === "Subgerencia de Sistemas" ? "block" : "none"
+            // }}                       
           >
             ¿Desea actualizar el formato?
           </Button>
@@ -1221,7 +1220,7 @@ export default function Home() {
                 ACTUALIZAR
               </Button>
             </Box>
-          </Modal>
+          </Modal>*/}
 
         <Divider
           sx={{
