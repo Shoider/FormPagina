@@ -34,7 +34,8 @@ import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 import areas from "../constants/AREAS/areas.jsx";
 
 // ICONOS
-import SyncIcon from "@mui/icons-material/Sync";
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 
 // TABLAS
 import EditableTableWeb from "../components/EditableTableWeb.jsx";
@@ -105,6 +106,8 @@ export default function Home() {
   // TABLAS INFORMACION
   const [webTableData, setWebTableData] = useState([]);
   const [remotoTableData, setRemotoTableData] = useState([]);
+
+  const [TableResetKey, setTableResetKey] = useState(0);
 
   // Nombre PDF
   const [nombreArchivo, setNombreArchivo] = useState("");
@@ -416,7 +419,7 @@ export default function Home() {
     });
     setOpenAlert(true);
 
-    setBotonEstado("Cargando...");
+    setBotonEstado("Cargando...");       
 
     try {
       // Aqui llamamos a la primera api que valida campos
@@ -536,6 +539,8 @@ export default function Home() {
 
     setBotonEstado2("Cargando...");
 
+    console.log("Lista formData2 en submit: ", formData2);
+
     try {
       // Aqui llamamos a la primera api que valida campos
       const formResponse = await axios.post(
@@ -642,6 +647,13 @@ export default function Home() {
   const handleSubmit3 = async (event) => {
     handleClose2();
     event.preventDefault();
+
+    // Arma el objeto a enviar con los datos más recientes
+      const dataToSend = {
+        ...formData3,
+        registrosWeb: webTableData,
+        registrosRemoto: remotoTableData,
+      };
     console.log("Lista formData en submit: ", formData2.numeroFormato);
 
     setAlert({
@@ -652,7 +664,7 @@ export default function Home() {
 
     try {
       // Aqui llamamos a la primera api
-      const formResponse = await axios.post("/api2/v3/folio",  { id: formData3.numeroFormato }, {
+      const formResponse = await axios.post("/api2/v3/folio",  { id: dataToSend.numeroFormato }, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -667,8 +679,8 @@ export default function Home() {
       //console.log("Petición exitosa: ", formMessage);
       console.log("Datos recibidos: ", Datos);
       
-      //console.log("Tablas recibidas 'remoto: ", Datos.registrosRemoto);
-      //console.log("Tablas recibidas 'web: ", Datos.registrosWeb);
+      console.log("Tablas recibidas 'remoto: ", Datos.registrosRemoto);
+      console.log("Tablas recibidas 'web: ", Datos.registrosWeb);
 
       // Metemos la informacion recibida a FormData
       setFormData((prev) => ({
@@ -676,8 +688,12 @@ export default function Home() {
         ...Datos
       }));
 
-      //setWebTableData(Datos.registrosWeb || []);
-      //setRemotoTableData(Datos.registrosRemoto || []);
+      // Meter los datos en las tablas
+      setWebTableData(Datos.registrosWeb || []);
+      setRemotoTableData(Datos.registrosRemoto || []);
+
+      // Desmontar y montar las tablas con los nuevos datos
+      setTableResetKey(prev => prev + 1);
       
       setAlert({
         message: formMessage,
@@ -2155,7 +2171,12 @@ export default function Home() {
             b) Acceso a sitios web o equipo
           </Typography>
 
-          <EditableTableWeb onDataChange={handleWebTableDataChange} />
+          <EditableTableWeb
+            //key={JSON.stringify(webTableData)} // Fuerza el remount cuando cambian los datos
+            key={TableResetKey}
+            initialData={webTableData}
+            onDataChange={handleWebTableDataChange}
+          />
         </Box>
       </Box>
 
@@ -2214,7 +2235,12 @@ export default function Home() {
             c) Acceso a escritorio remoto
           </Typography>
 
-          <EditableTableRemoto onDataChange={handleRemotoTableDataChange} />
+          <EditableTableRemoto 
+            //key={JSON.stringify(remotoTableData)} // Fuerza el remount cuando cambian los datos
+            key={TableResetKey}
+            initialData={remotoTableData}
+            onDataChange={handleRemotoTableDataChange}
+          />
 
           <FormLabel
             component="legend"
@@ -2782,13 +2808,13 @@ export default function Home() {
       <Box
         sx={{
           position: "fixed",
-          bottom: 100,
-          right: 22,
+          bottom: 10,
+          right: 10,
           "& > :not(style)": { m: 1 },
         }}
       >
-        <Fab variant="extended" color="success" onClick={handleClickOpen2}>
-          <SyncIcon sx={{ mr: 1 }} />
+        <Fab size="small" variant="extended" color="success" onClick={handleClickOpen2}>
+          <EditIcon sx={{ mr: 1 }} />
           Modificar Formato
 
         </Fab>
@@ -2903,13 +2929,13 @@ export default function Home() {
       <Box
         sx={{
           position: "fixed",
-          bottom: 24,
-          right: 24,
+          bottom: 60,
+          right: 10,
           "& > :not(style)": { m: 1 },
         }}
       >
-        <Fab variant="extended" color="success" onClick={handleClickOpen}>
-          <SyncIcon sx={{ mr: 1 }} />
+        <Fab size="small" variant="extended" color="success" onClick={handleClickOpen}>
+          <AddIcon sx={{ mr: 1 }} />
           Añadir memorando
         </Fab>
       </Box>
