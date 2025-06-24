@@ -157,6 +157,16 @@ export default function Home() {
       numeroFormato: value,
     }));
   };
+  //NUMERO DE FORMATO
+  const handleNumeroFormatoActualizar = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+
+    setFormData3((prevFormData) => ({
+      ...prevFormData,
+      numeroFormato: value,
+    }));
+  };
 
   // Boton
   const [botonEstado, setBotonEstado] = useState("Enviar");
@@ -175,6 +185,19 @@ export default function Home() {
     });
     setBotonEstado2("Enviar");
   };
+
+  //MODAL 2
+  const [open2, setOpen2] = useState(false);
+  const handleClickOpen2 = () => {
+    setOpen2(true);
+  };
+  const handleClose2 = () => {
+    setOpen2(false);
+    setFormData3({
+      numeroFormato: "",
+    });
+  };
+
 
   // Modal
   const [openModal, setOpenModal] = useState(false);
@@ -617,7 +640,7 @@ export default function Home() {
   //PARA BOTÓN DE ACTUALIZAR FORMATO
   // Llamada API
   const handleSubmit3 = async (event) => {
-    handleCloseModal2();
+    handleClose2();
     event.preventDefault();
     console.log("Lista formData en submit: ", formData2.numeroFormato);
 
@@ -1070,21 +1093,21 @@ export default function Home() {
           />
         </Box>
 
-        <Button
+        {/*<Button
             //type="submit"
-            onClick={handleOpenModal2}
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 3,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-              background: theme.palette.secondary.main,
-              color: "#FFFFFF",
-              border: "1px solid gray",
-              display:formData.subgerencia === "Subgerencia de Sistemas" ? "block" : "none"
-            }}                       
+            // onClick={handleOpenModal2}
+            // variant="contained"
+            // sx={{
+            //   mt: 3,
+            //   mb: 3,
+            //   width: "calc(100% - 32px)",
+            //   ml: 2,
+            //   mr: 4,
+            //   background: theme.palette.secondary.main,
+            //   color: "#FFFFFF",
+            //   border: "1px solid gray",
+            //   display:formData.subgerencia === "Subgerencia de Sistemas" ? "block" : "none"
+            // }}                       
           >
             ¿Desea actualizar el formato?
           </Button>
@@ -1197,7 +1220,7 @@ export default function Home() {
                 ACTUALIZAR
               </Button>
             </Box>
-          </Modal>
+          </Modal>*/}
 
         <Divider
           sx={{
@@ -2753,8 +2776,127 @@ export default function Home() {
 
       {/* ALERT */}
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />
+      
 
-      {/* BOTON FLOTANTE */}
+      {/* BOTON FLOTANTE DE ACTUALIZAR FORMATO*/}
+      <Box
+        sx={{
+          position: "fixed",
+          bottom: 100,
+          right: 22,
+          "& > :not(style)": { m: 1 },
+        }}
+      >
+        <Fab variant="extended" color="success" onClick={handleClickOpen2}>
+          <SyncIcon sx={{ mr: 1 }} />
+          Actualizar Formato
+
+        </Fab>
+      </Box>
+
+      {/* DIALOG */}
+      <Dialog
+        open={open2}
+        onClose={handleClose2}
+        onSubmit={handleSubmit2}
+        sx={{
+          "& .MuiDialog-container": {
+            backgroundColor: "f5f5f5", // Or any other color
+          },
+          "& .MuiDialog-paper": {
+            backgroundColor: "#f4f4f5", // Customize dialog content background
+          },
+        }}
+        slotProps={{
+          paper: {
+            component: "form",
+            onSubmit: (event) => {
+              console.log("Información Enviada");
+            },
+          },
+        }}
+      >
+        <DialogTitle>Actualizar Formato</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Si conoce un número de formato en le cual se pueda guiar, escribalo.
+          </DialogContentText>
+          
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 1,
+              mt: 2,
+            }}
+          />
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Dato de búsqueda (lo podrá encontrar en su formato).
+          </FormLabel>
+          <TextField
+            required
+            //error={!!errors?.nombreAutoriza}
+            id="numeroFormato"
+            name="numeroFormato"
+            label="Número de formato"
+            placeholder="Se encuentra en el encabezado, en la parte superior derecha. "
+            value={formData3.numeroFormato}
+            onChange={handleNumeroFormatoActualizar}
+            sx={{ background: "#FFFFFF", mt: 2 }}
+            inputProps={{ maxLength: 64 }}
+            fullWidth
+          />
+          
+        </DialogContent>
+        <DialogActions>
+          <Button
+            type="submit"
+            onClick={handleSubmit3}
+            sx={{
+              mt: 0,
+              mb: 3,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              background: theme.palette.secondary.main,
+              color: "#FFFFFF",
+              border: "1px solid gray",              
+            }}
+          >
+            ACTUALIZAR
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleClose2}
+            sx={{
+              mt: 0,
+              mb: 3,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              background: "#98989A",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+          >
+            Cancelar
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* BOTON FLOTANTE DE AÑADIR MEMORANDO*/}
       <Box
         sx={{
           position: "fixed",
@@ -2768,6 +2910,7 @@ export default function Home() {
           Añadir memorando
         </Fab>
       </Box>
+      
 
       {/* DIALOG */}
       <Dialog
