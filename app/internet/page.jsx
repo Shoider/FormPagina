@@ -2848,6 +2848,7 @@ export default function Home() {
           >
             {botonEstado}
           </Button>
+          
           <Modal
             open={openModal}
             onClose={handleCloseModal}
@@ -2875,7 +2876,7 @@ export default function Home() {
                 align="center"
                 variant="h5"
                 component="h2"
-                color="#9F2241"                
+                color="#9F2241"
               >
                 ¡ADVERTENCIA!
               </Typography>
@@ -2927,7 +2928,7 @@ export default function Home() {
                   mr: 0,
                   background: theme.palette.secondary.main,
                   color: "#FFFFFF",
-                  border: "1px solid gray",                  
+                  border: "1px solid gray",
                 }}
                 disabled={
                   !progresoCompleto                    
@@ -2937,6 +2938,7 @@ export default function Home() {
               </Button>
             </Box>
           </Modal>
+
           <Button
             component={Link}
             href="/"

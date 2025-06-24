@@ -2722,32 +2722,33 @@ export default function Home() {
               <Typography
                 id="modal-modal-title"
                 align="center"
-                variant="h6"
+                variant="h5"
                 component="h2"
+                color="#9F2241"
               >
                 ¡ADVERTENCIA!
               </Typography>
               <Divider
-                              sx={{
-                                borderBottomWidth: "1px",
-                                borderColor: "grey",
-                                ml: 0,
-                                mr: 0,
-                                mt: 2,
-                                mb: 1,
-                              }}
-                            />
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                              Asegurate de que la información registrada es correcta, ya que
-                              no se puede corregir una vez enviada.
-                            </Typography>
-                            <Typography id="modal-modal-description" sx={{ mt: 2, mb:2 }}>
-                              Revisa ortografía, ascentos, mayúsculas...
-                            </Typography>
-                            
-                            <Box sx={{ width: '100%' ,color:"#FF0000"}}>
-                              <LinearProgress color="secondary"variant="determinate" value={progress} />
-                              </Box>
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 1,
+                }}
+              />
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Asegurate de que la información registrada es correcta, ya que
+                no se puede corregir una vez enviada.
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2, mb:2 }}>
+                Revisa ortografía, ascentos, mayúsculas...
+              </Typography>
+              
+              <Box sx={{ width: '100%' ,color:"#FF0000"}}>
+                <LinearProgress color="secondary"variant="determinate" value={progress} />
+              </Box>
               <Button
                 onClick={handleCloseModal}
                 variant="contained"
@@ -2785,6 +2786,7 @@ export default function Home() {
               </Button>
             </Box>
           </Modal>
+
           <Button
             component={Link}
             href="/"
