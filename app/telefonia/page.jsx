@@ -1821,8 +1821,9 @@ export default function Home() {
               <Typography
                 id="modal-modal-title"
                 align="center"
-                variant="h6"
+                variant="h5"
                 component="h2"
+                color="#9F2241"
               >
                 ¡ADVERTENCIA!
               </Typography>
