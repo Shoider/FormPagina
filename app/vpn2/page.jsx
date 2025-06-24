@@ -106,6 +106,8 @@ export default function Home() {
   const [webTableData, setWebTableData] = useState([]);
   const [remotoTableData, setRemotoTableData] = useState([]);
 
+  const [TableResetKey, setTableResetKey] = useState(0);
+
   // Nombre PDF
   const [nombreArchivo, setNombreArchivo] = useState("");
 
@@ -408,13 +410,6 @@ export default function Home() {
     handleCloseModal();
     event.preventDefault();
 
-     // Arma el objeto a enviar con los datos más recientes
-      const dataToSend = {
-        ...formData,
-        registrosWeb: webTableData,
-        registrosRemoto: remotoTableData,
-      };
-
     console.log("Lista formData en submit: ", formData);
 
     setAlert({
@@ -427,7 +422,7 @@ export default function Home() {
 
     try {
       // Aqui llamamos a la primera api que valida campos
-      const formResponse = await axios.post("/api2/v3/vpn", dataToSend, {
+      const formResponse = await axios.post("/api2/v3/vpn", formData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -535,13 +530,6 @@ export default function Home() {
   const handleSubmit2 = async (event) => {
     event.preventDefault();
 
-     // Arma el objeto a enviar con los datos más recientes
-      const dataToSend = {
-        ...formData2,
-        registrosWeb: webTableData,
-        registrosRemoto: remotoTableData,
-      };
-
     setAlert({
       message: "Información enviada",
       severity: "success",
@@ -550,11 +538,13 @@ export default function Home() {
 
     setBotonEstado2("Cargando...");
 
+    console.log("Lista formData2 en submit: ", formData2);
+
     try {
       // Aqui llamamos a la primera api que valida campos
       const formResponse = await axios.post(
         "/api2/v3/vpnActualizar",
-        dataToSend,
+        formData2,
         {
           headers: {
             "Content-Type": "application/json",
@@ -697,8 +687,12 @@ export default function Home() {
         ...Datos
       }));
 
+      // Meter los datos en las tablas
       setWebTableData(Datos.registrosWeb || []);
       setRemotoTableData(Datos.registrosRemoto || []);
+
+      // Desmontar y montar las tablas con los nuevos datos
+      setTableResetKey(prev => prev + 1);
       
       setAlert({
         message: formMessage,
@@ -2177,7 +2171,8 @@ export default function Home() {
           </Typography>
 
           <EditableTableWeb
-            key={JSON.stringify(webTableData)} // Fuerza el remount cuando cambian los datos
+            //key={JSON.stringify(webTableData)} // Fuerza el remount cuando cambian los datos
+            key={TableResetKey}
             initialData={webTableData}
             onDataChange={handleWebTableDataChange}
           />
@@ -2240,8 +2235,9 @@ export default function Home() {
           </Typography>
 
           <EditableTableRemoto 
-          key={JSON.stringify(remotoTableData)} // Fuerza el remount cuando cambian los datos
-           initialData={remotoTableData}
+            //key={JSON.stringify(remotoTableData)} // Fuerza el remount cuando cambian los datos
+            key={TableResetKey}
+            initialData={remotoTableData}
             onDataChange={handleRemotoTableDataChange}
           />
 
