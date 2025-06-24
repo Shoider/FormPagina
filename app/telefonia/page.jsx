@@ -1841,6 +1841,7 @@ export default function Home() {
                 Asegurate de que la información registrada es correcta, ya que
                 no se puede corregir una vez enviada.
               </Typography>
+
               <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
                 Revisa ortografía, ascentos, mayúsculas...
               </Typography>
