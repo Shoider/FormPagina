@@ -15,6 +15,7 @@ import {
   Checkbox,
   Autocomplete,
   Modal,
+  LinearProgress
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -583,6 +584,31 @@ export default function Home() {
       areaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
+
+  //PARA LINEA DE PROGRESO
+  const [progress, setProgress] = React.useState(0);
+  const [progresoCompleto, setProgresoCompleto] = React.useState(false);
+  React.useEffect(() => {
+    let timer;
+  if (openModal) {
+    setProgress(0); // Reinicia progreso al abrir modal
+    setProgresoCompleto(false); // Reinicia bandera
+    timer = setInterval(() => {
+      setProgress((oldProgress) => {
+        if (oldProgress >= 100) {
+          setProgresoCompleto(true); // Marca como completo
+          clearInterval(timer); // Detiene el timer
+          return 100;
+        }
+        const diff = Math.random() * 10;
+        return Math.min(oldProgress + diff, 100);
+      });
+    }, 500);
+  }
+  return () => {
+    clearInterval(timer);
+  };
+}, [openModal]);
   //FILTRADO DE ÁREA DE ADSCRIPCIÓN
   const filteredAreas = areas[formData.uaUsuario] || [];
   const handleDireccion = (newValue) => {
@@ -2671,6 +2697,7 @@ export default function Home() {
               y acepta la corresponsabilidad del uso que le dé el usuario al acceso ampliado otorgado.
           </Typography>
           </Box>
+          
           <Box
             sx={{
               display: "flex",
@@ -2846,9 +2873,9 @@ export default function Home() {
               <Typography
                 id="modal-modal-title"
                 align="center"
-                variant="h3"
+                variant="h5"
                 component="h2"
-                color="#FF0000"
+                color="#9F2241"                
               >
                 ¡ADVERTENCIA!
               </Typography>
@@ -2866,19 +2893,13 @@ export default function Home() {
                 Asegurate de que la información registrada es correcta, ya que
                 no se puede corregir una vez enviada.
               </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <Typography id="modal-modal-description" sx={{ mt: 2, mb:2 }}>
                 Revisa ortografía, ascentos, mayúsculas...
               </Typography>
-              <Divider
-                sx={{
-                  borderBottomWidth: "1px",
-                  borderColor: "grey",
-                  ml: 0,
-                  mr: 0,
-                  mt: 2,
-                  mb: 0,
-                }}
-              />
+              
+              <Box sx={{ width: '100%' ,color:"#FF0000"}}>
+                <LinearProgress color="secondary"variant="determinate" value={progress} />
+              </Box>
               <Button
                 onClick={handleCloseModal}
                 variant="contained"
@@ -2906,8 +2927,11 @@ export default function Home() {
                   mr: 0,
                   background: theme.palette.secondary.main,
                   color: "#FFFFFF",
-                  border: "1px solid gray",
+                  border: "1px solid gray",                  
                 }}
+                disabled={
+                  !progresoCompleto                    
+                }
               >
                 Enviar
               </Button>
