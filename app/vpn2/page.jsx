@@ -408,6 +408,13 @@ export default function Home() {
     handleCloseModal();
     event.preventDefault();
 
+     // Arma el objeto a enviar con los datos más recientes
+      const dataToSend = {
+        ...formData,
+        registrosWeb: webTableData,
+        registrosRemoto: remotoTableData,
+      };
+
     console.log("Lista formData en submit: ", formData);
 
     setAlert({
@@ -416,11 +423,11 @@ export default function Home() {
     });
     setOpenAlert(true);
 
-    setBotonEstado("Cargando...");
+    setBotonEstado("Cargando...");       
 
     try {
       // Aqui llamamos a la primera api que valida campos
-      const formResponse = await axios.post("/api2/v3/vpn", formData, {
+      const formResponse = await axios.post("/api2/v3/vpn", dataToSend, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -528,6 +535,13 @@ export default function Home() {
   const handleSubmit2 = async (event) => {
     event.preventDefault();
 
+     // Arma el objeto a enviar con los datos más recientes
+      const dataToSend = {
+        ...formData2,
+        registrosWeb: webTableData,
+        registrosRemoto: remotoTableData,
+      };
+
     setAlert({
       message: "Información enviada",
       severity: "success",
@@ -540,7 +554,7 @@ export default function Home() {
       // Aqui llamamos a la primera api que valida campos
       const formResponse = await axios.post(
         "/api2/v3/vpnActualizar",
-        formData2,
+        dataToSend,
         {
           headers: {
             "Content-Type": "application/json",
@@ -642,6 +656,13 @@ export default function Home() {
   const handleSubmit3 = async (event) => {
     handleClose2();
     event.preventDefault();
+
+    // Arma el objeto a enviar con los datos más recientes
+      const dataToSend = {
+        ...formData3,
+        registrosWeb: webTableData,
+        registrosRemoto: remotoTableData,
+      };
     console.log("Lista formData en submit: ", formData2.numeroFormato);
 
     setAlert({
@@ -652,7 +673,7 @@ export default function Home() {
 
     try {
       // Aqui llamamos a la primera api
-      const formResponse = await axios.post("/api2/v3/folio",  { id: formData3.numeroFormato }, {
+      const formResponse = await axios.post("/api2/v3/folio",  { id: dataToSend.numeroFormato }, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -667,8 +688,8 @@ export default function Home() {
       //console.log("Petición exitosa: ", formMessage);
       console.log("Datos recibidos: ", Datos);
       
-      //console.log("Tablas recibidas 'remoto: ", Datos.registrosRemoto);
-      //console.log("Tablas recibidas 'web: ", Datos.registrosWeb);
+      console.log("Tablas recibidas 'remoto: ", Datos.registrosRemoto);
+      console.log("Tablas recibidas 'web: ", Datos.registrosWeb);
 
       // Metemos la informacion recibida a FormData
       setFormData((prev) => ({
@@ -676,8 +697,8 @@ export default function Home() {
         ...Datos
       }));
 
-      //setWebTableData(Datos.registrosWeb || []);
-      //setRemotoTableData(Datos.registrosRemoto || []);
+      setWebTableData(Datos.registrosWeb || []);
+      setRemotoTableData(Datos.registrosRemoto || []);
       
       setAlert({
         message: formMessage,
@@ -2155,7 +2176,11 @@ export default function Home() {
             b) Acceso a sitios web o equipo
           </Typography>
 
-          <EditableTableWeb onDataChange={handleWebTableDataChange} />
+          <EditableTableWeb
+            key={JSON.stringify(webTableData)} // Fuerza el remount cuando cambian los datos
+            initialData={webTableData}
+            onDataChange={handleWebTableDataChange}
+          />
         </Box>
       </Box>
 
@@ -2214,7 +2239,11 @@ export default function Home() {
             c) Acceso a escritorio remoto
           </Typography>
 
-          <EditableTableRemoto onDataChange={handleRemotoTableDataChange} />
+          <EditableTableRemoto 
+          key={JSON.stringify(remotoTableData)} // Fuerza el remount cuando cambian los datos
+           initialData={remotoTableData}
+            onDataChange={handleRemotoTableDataChange}
+          />
 
           <FormLabel
             component="legend"
