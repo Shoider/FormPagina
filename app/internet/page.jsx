@@ -47,17 +47,11 @@ export default function Home() {
     piso: "",
     ala: "",
 
-    descarga: false,
-    comercio: false,
-    redes: false,
-    foros: false,
-    whats: false,
-    videos: false,
-    dropbox: false,
-    skype: false,
-    wetransfer: false,
-    team: false,
-    onedrive: false,
+    almacenamiento:false,
+    blogs:false,
+    shareware:false,
+    redes:false,
+    transmision:false,
     otra: false,
     otra2: false,
     otra3: false,
@@ -65,37 +59,19 @@ export default function Home() {
 
     // OPCIONALES
     //urlDescarga: "null",
-    justificaDescarga: "null",
+    justificaAlmacenamiento: "null",
 
     //urlForos: "null",
-    justificaForos: "null",
+    justificaBlogs: "null",
 
     //urlComercio: "null",
-    justificaComercio: "null",
+    justificaShareware: "null",
 
     //urlRedes: "null",
     justificaRedes: "null",
 
     //urlVideos: "null",
-    justificaVideos: "null",
-
-    //urlWhats: "null",
-    justificaWhats: "null",
-
-    //urlDropbox: "null",
-    justificaDropbox: "null",
-
-    //urlOnedrive: "null",
-    justificaOnedrive: "null",
-
-    //urlSkype: "null",
-    justificaSkype: "null",
-
-    //urlWetransfer: "null",
-    justificaWetransfer: "null",
-
-    //urlTeam: "null",
-    justificaTeam: "null",
+    justificaTransmision: "null",    
 
     // OTRAS
     urlOtra: "null",
@@ -135,97 +111,49 @@ export default function Home() {
         [name]: isChecked, // Actualiza el valor del checkbox
       };
 
-      if (name === "descarga") {
+      if (name === "almacenamiento") {
         if (isChecked) {
-          console.log("Checkbox 'descarga' marcado");
+          console.log("Checkbox 'almacenamiento' marcado");
           //updatedData.urlDescarga = "";
-          updatedData.justificaDescarga = "";
+          updatedData.justificaAlmacenamiento = "";
         } else {
-          console.log("Checkbox 'descarga' desmarcado");
+          console.log("Checkbox 'almacenamiento' desmarcado");
           //updatedData.urlDescarga = "null";
-          updatedData.justificaDescarga = "null";
+          updatedData.justificaAlmacenamiento = "null";
         }
-      } else if (name === "comercio") {
+      } else if (name === "blogs") {
         if (isChecked) {
           //updatedData.urlComercio = "";
-          updatedData.justificaComercio = "";
+          updatedData.justificaBlogs = "";
         } else {
           ///updatedData.urlComercio = "null";
-          updatedData.justificaComercio = "null";
+          updatedData.justificaBlogs = "null";
+        }
+      } else if (name === "shareware") {
+        if (isChecked) {
+          //updatedData.urlRedes = "";
+          updatedData.justificaShareware = "";
+        } else {
+          //updatedData.urlRedes = "null";
+          updatedData.justificaShareware = "null";
         }
       } else if (name === "redes") {
         if (isChecked) {
-          //updatedData.urlRedes = "";
+          //updatedData.urlForos = "";
           updatedData.justificaRedes = "";
         } else {
-          //updatedData.urlRedes = "null";
+          //updatedData.urlForos = "null";
           updatedData.justificaRedes = "null";
         }
-      } else if (name === "foros") {
+      } else if (name === "transmision") {
         if (isChecked) {
           //updatedData.urlForos = "";
-          updatedData.justificaForos = "";
+          updatedData.justificaTransmision = "";
         } else {
           //updatedData.urlForos = "null";
-          updatedData.justificaForos = "null";
+          updatedData.justificaTransmision = "null";
         }
-      } else if (name === "whats") {
-        if (isChecked) {
-          //updatedData.urlWhats = "";
-          updatedData.justificaWhats = "";
-        } else {
-          //updatedData.urlWhats = "null";
-          updatedData.justificaWhats = "null";
-        }
-      } else if (name === "videos") {
-        if (isChecked) {
-          //updatedData.urlVideos = "";
-          updatedData.justificaVideos = "";
-        } else {
-          //updatedData.urlVideos = "null";
-          updatedData.justificaVideos = "null";
-        }
-      } else if (name === "dropbox") {
-        if (isChecked) {
-          //updatedData.urlDropbox = "";
-          updatedData.justificaDropbox = "";
-        } else {
-          //updatedData.urlDropbox = "null";
-          updatedData.justificaDropbox = "null";
-        }
-      } else if (name === "onedrive") {
-        if (isChecked) {
-          //updatedData.urlOnedrive = "";
-          updatedData.justificaOnedrive = "";
-        } else {
-          //updatedData.urlOnedrive = "null";
-          updatedData.justificaOnedrive = "null";
-        }
-      } else if (name === "skype") {
-        if (isChecked) {
-          //updatedData.urlSkype = "";
-          updatedData.justificaSkype = "";
-        } else {
-          ///updatedData.urlSkype = "null";
-          updatedData.justificaSkype = "null";
-        }
-      } else if (name === "wetransfer") {
-        if (isChecked) {
-          //updatedData.urlWetransfer = "";
-          updatedData.justificaWetransfer = "";
-        } else {
-          //updatedData.urlWetransfer = "null";
-          updatedData.justificaWetransfer = "null";
-        }
-      } else if (name === "team") {
-        if (isChecked) {
-          //updatedData.urlTeam = "";
-          updatedData.justificaTeam = "";
-        } else {
-          //updatedData.urlTeam = "null";
-          updatedData.justificaTeam = "null";
-        }
-      } else if (name === "otra") {
+      }else if (name === "otra") {
         if (isChecked) {
           updatedData.urlOtra = "";
           updatedData.justificaOtra = "";
@@ -325,17 +253,11 @@ export default function Home() {
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
         if (
-          key !== "descarga" &&
-          key !== "comercio" &&
+          key !== "almacenamiento" &&
+          key !== "blogs" &&
+          key !== "shareware" &&
           key !== "redes" &&
-          key !== "foros" &&
-          key !== "whats" &&
-          key !== "videos" &&
-          key !== "dropbox" &&
-          key !== "onedrive" &&
-          key !== "skype" &&
-          key !== "wetransfer" &&
-          key !== "team" &&
+          key !== "transmision" &&
           key !== "otra" &&
           key !== "otra2" &&
           key !== "otra3" &&
@@ -359,17 +281,11 @@ export default function Home() {
         }
       }
     }
-    const descarga = Data.descarga;
-    const comercio = Data.comercio;
+    const almacenamiento = Data.almacenamiento;
+    const blogs = Data.blogs;
+    const shareware = Data.shareware;
     const redes = Data.redes;
-    const foros = Data.foros;
-    const whats = Data.whats;
-    const videos = Data.videos;
-    const dropbox = Data.dropbox;
-    const skype = Data.skype;
-    const wetransfer = Data.wetransfer;
-    const team = Data.team;
-    const onedrive = Data.onedrive;
+    const transmision = Data.transmision;
     const otra = Data.otra;
     const otra2 = Data.otra2;
     const otra3 = Data.otra3;
@@ -377,17 +293,11 @@ export default function Home() {
 
     // Verifica si al menos uno de los campos de categorías de navegación está lleno
     if (
-      !descarga &&
-      !comercio &&
+      !almacenamiento &&
+      !blogs &&
       !redes &&
-      !foros &&
-      !whats &&
-      !videos &&
-      !dropbox &&
-      !skype &&
-      !wetransfer &&
-      !team &&
-      !onedrive &&
+      !shareware &&
+      !transmision &&
       !otra &&
       !otra2 &&
       !otra3 &&
@@ -1182,17 +1092,11 @@ export default function Home() {
           }}
         >
           {[
-            { name: "descarga", label: "Descarga de software" },
-            { name: "foros", label: "Foros y blogs" },
-            { name: "comercio", label: "Comercio electrónico" },
+            { name: "almacenamiento", label: "Almacenamiento y copia de seguridad en línea" },
+            { name: "blogs", label: "Sitios personales y blogs" },
+            { name: "shareware", label: "Shareware y freeware" },
             { name: "redes", label: "Redes sociales" },
-            { name: "videos", label: "Videos-YouTube (Streaming)" },
-            { name: "whats", label: "WhatsApp Web" },
-            { name: "dropbox", label: "DropBox" },
-            { name: "onedrive", label: "OneDrive" },
-            { name: "skype", label: "Skype" },
-            { name: "wetransfer", label: "Wetransfer" },
-            { name: "team", label: "TeamViewer" },
+            { name: "transmision", label: "Transmisión de medios" },            
             { name: "otra", label: "Otra" },
           ].map((item, index) => (
             <Box
@@ -1305,11 +1209,11 @@ export default function Home() {
             ml: 3,
             mr: 2,
             mb: 2,
-            display: formData.descarga ? "block" : "none",
+            display: formData.almacenamiento ? "block" : "none",
           }}
         />
 
-        {/*BOX DE DESCARGA*/}
+        {/*BOX DE ALMACENAMIENTO*/}
         <Box
           sx={{
             "& .MuiTextField-root": {
@@ -1318,7 +1222,7 @@ export default function Home() {
               ml: 2,
               mr: 4,
             },
-            display: formData.descarga ? "block" : "none",
+            display: formData.almacenamiento ? "block" : "none",
           }}
           noValidate
           autoComplete="off"
@@ -1342,7 +1246,7 @@ export default function Home() {
                 fontSize: "1.2rem",
               }}
             >
-              Descarga de software.
+              Almacenamiento y copia de seguridad en línea.
             </FormLabel>
           </Box>
 
@@ -1360,18 +1264,18 @@ export default function Home() {
           />*/}
           <TextField
             required
-            error={!!errors?.justificaDescarga}
-            id="justificaDescarga"
-            name="justificaDescarga"
+            error={!!errors?.justificaAlmacenamiento}
+            id="justificaAlmacenamiento"
+            name="justificaAlmacenamiento"
             label="Justificación"
             placeholder="Escriba la justificación"
-            value={formData.justificaDescarga}
+            value={formData.justificaAlmacenamiento}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
         </Box>
-        {/*BOX DE DESCARGA*/}
+        {/*BOX DE ALMACENAMIENTO*/}
         <Divider
           sx={{
             borderBottomWidth: "1px",
@@ -1379,11 +1283,11 @@ export default function Home() {
             ml: 3,
             mr: 2,
             mb: 2,
-            display: formData.descarga ? "block" : "none",
+            display: formData.almacenamiento ? "block" : "none",
           }}
         />
 
-        {/*BOX DE FOROS*/}
+        {/*BOX DE BLOGS*/}
         <Divider
           sx={{
             borderBottomWidth: "1px",
@@ -1391,7 +1295,7 @@ export default function Home() {
             ml: 3,
             mr: 2,
             mb: 3,
-            display: formData.foros ? "block" : "none",
+            display: formData.blogs ? "block" : "none",
           }}
         />
         <Box
@@ -1402,7 +1306,7 @@ export default function Home() {
               ml: 2,
               mr: 4,
             },
-            display: formData.foros ? "block" : "none",
+            display: formData.blogs ? "block" : "none",
           }}
           noValidate
           autoComplete="off"
@@ -1426,7 +1330,7 @@ export default function Home() {
                 fontSize: "1.2rem",
               }}
             >
-              Foros y Blogs.
+              Sitios personales y blogs.
             </FormLabel>
           </Box>
           {/*<TextField
@@ -1443,12 +1347,12 @@ export default function Home() {
           />*/}
           <TextField
             required
-            error={!!errors?.justificaForos}
-            id="justificaForos"
-            name="justificaForos"
+            error={!!errors?.justificaBlogs}
+            id="justificaBlogs"
+            name="justificaBlogs"
             label="Justificación"
             placeholder="Escriba la justificación"
-            value={formData.justificaForos}
+            value={formData.justificaBlogs}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
@@ -1461,11 +1365,11 @@ export default function Home() {
             ml: 3,
             mr: 2,
             mb: 2,
-            display: formData.foros ? "block" : "none",
+            display: formData.blogs ? "block" : "none",
           }}
         />
 
-        {/*BOX DE COMERCIO*/}
+        {/*BOX DE SHAREWARE*/}
         <Divider
           sx={{
             borderBottomWidth: "1px",
@@ -1473,7 +1377,7 @@ export default function Home() {
             ml: 3,
             mr: 2,
             mb: 3,
-            display: formData.comercio ? "block" : "none",
+            display: formData.shareware ? "block" : "none",
           }}
         />
         <Box
@@ -1484,7 +1388,7 @@ export default function Home() {
               ml: 2,
               mr: 4,
             },
-            display: formData.comercio ? "block" : "none",
+            display: formData.shareware ? "block" : "none",
           }}
           noValidate
           autoComplete="off"
@@ -1508,7 +1412,7 @@ export default function Home() {
                 fontSize: "1.2rem",
               }}
             >
-              Comercio Electrónico.
+              Shareware y freeware.
             </FormLabel>
           </Box>
           {/*<TextField
@@ -1525,12 +1429,12 @@ export default function Home() {
           />*/}
           <TextField
             required
-            error={!!errors?.justificaComercio}
-            id="justificaComercio"
-            name="justificaComercio"
+            error={!!errors?.justificaShareware}
+            id="justificaShareware"
+            name="justificaShareware"
             label="Justificación"
             placeholder="Escriba la justificación"
-            value={formData.justificaComercio}
+            value={formData.justificaShareware}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
@@ -1543,7 +1447,7 @@ export default function Home() {
             ml: 3,
             mr: 2,
             mb: 2,
-            display: formData.comercio ? "block" : "none",
+            display: formData.shareware ? "block" : "none",
           }}
         />
 
@@ -1629,7 +1533,7 @@ export default function Home() {
           }}
         />
 
-        {/*BOX DE Videos*/}
+        {/*BOX DE TRANSMISION*/}
         <Divider
           sx={{
             borderBottomWidth: "1px",
@@ -1637,7 +1541,7 @@ export default function Home() {
             ml: 3,
             mr: 2,
             mb: 3,
-            display: formData.videos ? "block" : "none",
+            display: formData.transmision ? "block" : "none",
           }}
         />
         <Box
@@ -1648,7 +1552,7 @@ export default function Home() {
               ml: 2,
               mr: 4,
             },
-            display: formData.videos ? "block" : "none",
+            display: formData.transmision ? "block" : "none",
           }}
           noValidate
           autoComplete="off"
@@ -1672,7 +1576,7 @@ export default function Home() {
                 fontSize: "1.2rem",
               }}
             >
-              Videos-YouTube(Streaming).
+              Transmisión de medios.
             </FormLabel>
           </Box>
           {/*<TextField
@@ -1689,12 +1593,12 @@ export default function Home() {
           />*/}
           <TextField
             required
-            error={!!errors?.justificaVideos}
-            id="justificaVideos"
-            name="justificaVideos"
+            error={!!errors?.justificaTransmision}
+            id="justificaTransmision"
+            name="justificaTransmision"
             label="Justificación"
             placeholder="Escriba la justificación"
-            value={formData.justificaVideos}
+            value={formData.justificaTransmision}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
@@ -1707,501 +1611,9 @@ export default function Home() {
             ml: 3,
             mr: 2,
             mb: 2,
-            display: formData.videos ? "block" : "none",
+            display: formData.transmision ? "block" : "none",
           }}
-        />
-
-        {/*BOX DE WhatsApp*/}
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 3,
-            mr: 2,
-            mb: 3,
-            display: formData.whats ? "block" : "none",
-          }}
-        />
-        <Box
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-            display: formData.whats ? "block" : "none",
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              ml: 2,
-              mb: 0,
-            }}
-          >
-            <FormLabel
-              component="legend"
-              sx={{
-                mt: 0,
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "1.2rem",
-              }}
-            >
-              WhatsApp Web.
-            </FormLabel>
-          </Box>
-          {/*<TextField
-            // required
-            error={!!errors?.urlWhats}
-            id="urlWhats"
-            name="urlWhats"
-            label="Referencia del servicio requerido (URL)"
-            placeholder="Escriba la URL del servicio"
-            value={formData.urlWhats}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />*/}
-          <TextField
-            required
-            error={!!errors?.justificaWhats}
-            id="justificaWhats"
-            name="justificaWhats"
-            label="Justificación"
-            placeholder="Escriba la justificación"
-            value={formData.justificaWhats}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 3,
-            mr: 2,
-            mb: 2,
-            display: formData.whats ? "block" : "none",
-          }}
-        />
-
-        {/*BOX DE DropBox*/}
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 3,
-            mr: 2,
-            mb: 3,
-            display: formData.dropbox ? "block" : "none",
-          }}
-        />
-        <Box
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-            display: formData.dropbox ? "block" : "none",
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              ml: 2,
-              mb: 0,
-            }}
-          >
-            <FormLabel
-              component="legend"
-              sx={{
-                mt: 0,
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "1.2rem",
-              }}
-            >
-              DropBox.
-            </FormLabel>
-          </Box>
-          {/*<TextField
-            //required
-            error={!!errors?.urlDropbox}
-            id="urlDropbpx"
-            name="urlDropbox"
-            label="Referencia del servicio requerido (URL)"
-            placeholder="Escriba la URL del servicio"
-            value={formData.urlDropbox}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />*/}
-          <TextField
-            required
-            error={!!errors?.justificaDropbox}
-            id="justificaDropbox"
-            name="justificaDropbox"
-            label="Justificación"
-            placeholder="Escriba la justificación"
-            value={formData.justificaDropbox}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 3,
-            mr: 2,
-            mb: 2,
-            display: formData.dropbox ? "block" : "none",
-          }}
-        />
-
-        {/*BOX DE Onedrive*/}
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 3,
-            mr: 2,
-            mb: 3,
-            display: formData.onedrive ? "block" : "none",
-          }}
-        />
-        <Box
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-            display: formData.onedrive ? "block" : "none",
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              ml: 2,
-              mb: 0,
-            }}
-          >
-            <FormLabel
-              component="legend"
-              sx={{
-                mt: 0,
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "1.2rem",
-              }}
-            >
-              OneDrive.
-            </FormLabel>
-          </Box>
-          {/*<TextField
-            //required
-            error={!!errors?.urlOnedrive}
-            id="urlOnedrive"
-            name="urlOnedrive"
-            label="Referencia del servicio requerido (URL)"
-            placeholder="Escriba la URL del servicio"
-            value={formData.urlOnedrive}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />*/}
-          <TextField
-            required
-            error={!!errors?.justificaOnedrive}
-            id="justificaOnedrive"
-            name="justificaOnedrive"
-            label="Justificación"
-            placeholder="Escriba la justificación"
-            value={formData.justificaOnedrive}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 3,
-            mr: 2,
-            mb: 2,
-            display: formData.onedrive ? "block" : "none",
-          }}
-        />
-
-        {/*BOX DE Skype*/}
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 3,
-            mr: 2,
-            mb: 3,
-            display: formData.skype ? "block" : "none",
-          }}
-        />
-        <Box
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-            display: formData.skype ? "block" : "none",
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              ml: 2,
-              mb: 0,
-            }}
-          >
-            <FormLabel
-              component="legend"
-              sx={{
-                mt: 0,
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "1.2rem",
-              }}
-            >
-              Skype.
-            </FormLabel>
-          </Box>
-          {/*<TextField
-            //required
-            error={!!errors?.urlSkype}
-            id="urlSkype"
-            name="urlSkype"
-            label="Referencia del servicio requerido (URL)"
-            placeholder="Escriba la URL del servicio"
-            value={formData.urlSkype}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />*/}
-          <TextField
-            required
-            error={!!errors?.justificaSkype}
-            id="justificaSkype"
-            name="justificaSkype"
-            label="Justificación"
-            placeholder="Escriba la justificación"
-            value={formData.justificaSkype}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 3,
-            mr: 2,
-            mb: 2,
-            display: formData.skype ? "block" : "none",
-          }}
-        />
-
-        {/*BOX DE wetransfer*/}
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 3,
-            mr: 2,
-            mb: 3,
-            display: formData.wetransfer ? "block" : "none",
-          }}
-        />
-        <Box
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-            display: formData.wetransfer ? "block" : "none",
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              ml: 2,
-              mb: 0,
-            }}
-          >
-            <FormLabel
-              component="legend"
-              sx={{
-                mt: 0,
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "1.2rem",
-              }}
-            >
-              Wetransfer.
-            </FormLabel>
-          </Box>
-          {/*<TextField
-            //required
-            error={!!errors?.urlWetransfer}
-            id="urlWetransfer"
-            name="urlWetransfer"
-            label="Referencia del servicio requerido (URL)"
-            placeholder="Escriba la URL del servicio"
-            value={formData.urlWetransfer}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />*/}
-          <TextField
-            required
-            error={!!errors?.justificaWetransfer}
-            id="justificaWetransfer"
-            name="justificaWetransfer"
-            label="Justificación"
-            placeholder="Escriba la justificación"
-            value={formData.justificaWetransfer}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 3,
-            mr: 2,
-            mb: 2,
-            display: formData.wetransfer ? "block" : "none",
-          }}
-        />
-
-        {/*BOX DE Teamviewer*/}
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 3,
-            mr: 2,
-            mb: 3,
-            display: formData.team ? "block" : "none",
-          }}
-        />
-        <Box
-          sx={{
-            "& .MuiTextField-root": {
-              mt: 2,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-            },
-            display: formData.team ? "block" : "none",
-          }}
-          noValidate
-          autoComplete="off"
-          onSubmit={handleSubmit}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              ml: 2,
-              mb: 0,
-            }}
-          >
-            <FormLabel
-              component="legend"
-              sx={{
-                mt: 0,
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "1.2rem",
-              }}
-            >
-              Teamviewer.
-            </FormLabel>
-          </Box>
-          {/*<TextField
-            //required
-            error={!!errors?.urlTeam}
-            id="urlTeam"
-            name="urlTeam"
-            label="Referencia del servicio requerido (URL)"
-            placeholder="Escriba la URL del servicio"
-            value={formData.urlTeam}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />*/}
-          <TextField
-            required
-            error={!!errors?.justificaTeam}
-            id="justificaTeam"
-            name="justificaTeam"
-            label="Justificación"
-            placeholder="Escriba la justificación"
-            value={formData.justificaTeam}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-        </Box>
-        <Divider
-          sx={{
-            borderBottomWidth: "1px",
-            borderColor: "grey",
-            ml: 3,
-            mr: 2,
-            mb: 2,
-            display: formData.team ? "block" : "none",
-          }}
-        />
+        />      
 
         {/*BOX DE otra*/}
         <Divider
