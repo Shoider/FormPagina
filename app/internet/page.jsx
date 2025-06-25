@@ -10,6 +10,8 @@ import {
   Button,
   FormControlLabel,
   FormHelperText,
+  RadioGroup,
+  Radio,
   FormLabel,
   Divider,
   Checkbox,
@@ -37,7 +39,6 @@ export default function Home() {
     areaUsuario: "",
     nombreUsuario: "",
     puestoUsuario: "",
-    ipUsuario: "",
     correoUsuario: "",
     direccion: "",
     teleUsuario: "",
@@ -47,6 +48,14 @@ export default function Home() {
     piso: "",
     ala: "",
 
+    // Solicitud
+    memo: "",
+    noticket: "",
+    cambio: "",
+    ipUsuario: "",
+    ipAnterior: "",
+
+    // Categorias
     almacenamiento:false,
     blogs:false,
     shareware:false,
@@ -251,6 +260,16 @@ export default function Home() {
     const errores = {};
     let isValid = true;
     for (const key in Data) {
+      if (Data.cambio === "") {
+        errores["cambio"] = "Debe seleccionar una opción";
+        isValid = false;
+      }
+      if (Data.cambio === "SI") {
+        if (Data.ipAnterior === "") {
+          errores["ipAnterior"] = "Este campo es requerido";
+          isValid = false;
+        }
+      }
       if (Data.hasOwnProperty(key) && !Data[key]) {
         if (
           key !== "almacenamiento" &&
@@ -263,19 +282,11 @@ export default function Home() {
           key !== "otra3" &&
           key !== "otra4" &&
           key !== "piso" &&
-          key !== "ala"
-          //key !== "urlDescarga" &&
-          //key !== "urlComercio" &&
-          //key !== "urlRedes" &&
-          //key !== "urlForos" &&
-          //key !== "urlWhats" &&
-          //key !== "urlVideos" &&
-          //key !== "urlDropbox" &&
-          //key !== "urlOnedrive" &&
-          //key !== "urlSkype" &&
-          //key !== "urlWetransfer"
+          key !== "ala" &&
+          key !== "cambio" &&
+          key !== "ipAnterior"
         ) {
-          console.log("Campo requerido: ", key);
+          //console.log("Campo requerido: ", key);
           errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
           isValid = false; // Al menos un campo está vacío
         }
@@ -745,18 +756,6 @@ export default function Home() {
           />
           <TextField
             required
-            error={!!errors?.ipUsuario}
-            id="ipUsuario"
-            name="ipUsuario"
-            label="IP del equipo asignado"
-            placeholder="Escriba la IP del equipo"
-            value={formData.ipUsuario}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />
-          <TextField
-            required
             error={!!errors?.correoUsuario}
             id="correoUsuario"
             name="correoUsuario"
@@ -914,6 +913,219 @@ export default function Home() {
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 4 }}
+          />
+        </Box>
+      </Box>
+
+      {/* Datos del Registro */}
+      {/* Form Box Responsive */}
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Información de la solicitud
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            required
+            error={!!errors?.memo}
+            id="memo"
+            name="memo"
+            label="Memorando"
+            placeholder="Ingrese el número de memorando"
+            value={formData.memo}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.noticket}
+            id="noticket"
+            name="noticket"
+            label="No. Ticket"
+            placeholder="Ingrese el número de ticket"
+            value={formData.noticket}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb: 2 }}
+            inputProps={{ maxLength: 256 }}
+          />
+          {/* Descripcion Detallada */}
+        </Box>
+        <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mb: 2,
+          }}
+        />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <FormLabel
+            component="legend"
+            sx={{
+              mt: 0,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "1.2rem",
+            }}
+          >
+            ¿Existe un cambio de dirección IP?
+          </FormLabel>
+          <RadioGroup
+            row
+            aria-label="Tipo de movimiento"
+            name="cambio"
+            value={formData.cambio}
+            onChange={handleChange}
+            required
+            sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+          >
+            <FormControlLabel
+              value="SI"
+              control={<Radio />}
+              label="Si"
+            />
+            <FormControlLabel
+              value="NO"
+              control={<Radio />}
+              label="No"
+            />
+          </RadioGroup>
+          <FormHelperText
+            sx={{
+              ml: 2,
+              mr: 2,
+              mb: 0,
+              justifyContent: "center",
+              color: "red",
+              display: errors?.cambio ? "block" : "none",
+            }}
+          >
+            {errors?.cambio}
+          </FormHelperText>
+        </Box>
+        <Divider
+          sx={{
+            borderBottomWidth: "1px",
+            borderColor: "grey",
+            ml: 2,
+            mr: 2,
+            mt: 1,
+          }}
+        />
+
+        {/* Cambio de ip */}
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+          display={formData.cambio === "SI" ? "block" : "none"}
+        >
+          <TextField
+            required
+            error={!!errors?.ipUsuario}
+            id="ipUsuario"
+            name="ipUsuario"
+            label="Dirección IP actual"
+            placeholder="Ingrese su dirección IP actual"
+            value={formData.ipUsuario}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.ipAnterior}
+            id="ipAnterior"
+            name="ipAnterior"
+            label="Dirección IP anterior"
+            placeholder="Ingrese su dirección IP anterior"
+            value={formData.ipAnterior}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
+          />
+        </Box>
+        {/* No cambio de ip*/}
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+          display={formData.cambio === "NO" ? "block" : "none"}
+        >
+          <TextField
+            required
+            error={!!errors?.ipUsuario}
+            id="ipUsuario"
+            name="ipUsuario"
+            label="Dirección IP"
+            placeholder="Ingrese su dirección IP"
+            value={formData.ipUsuario}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
           />
         </Box>
       </Box>
