@@ -1231,7 +1231,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Categoría de navegación
+          Opciones de navegación
         </Typography>
         <Box
           component="form"
@@ -1277,18 +1277,29 @@ export default function Home() {
                 fontSize: "1.2rem",
               }}
             >
-              Perfiles avanzados de navegación
+              Perfil comunicación social: 
             </FormLabel>
             <FormLabel
               component="legend"
               sx={{
-                mt: 0,
+                mt: 1,
                 display: "flex",
                 justifyContent: "center",
                 fontSize: "0.8rem",
               }}
             >
-              Seleccione las opciones de navegación requeridas:
+              Incorpora el perfil básico y contempla opciones adicionales. 
+            </FormLabel>
+            <FormLabel
+              component="legend"
+              sx={{
+                mt: 1,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "0.8rem",
+              }}
+            >
+              Seleccione las opciones de navegación:
             </FormLabel>
           </Box>
         </Box>
@@ -2214,9 +2225,7 @@ export default function Home() {
             width: "calc(100% - 32px)",
           }}
         >
-          Deberá JUSTIFICAR cada una de las categorías seleccionadas;
-          considerando toda la información de referencia para validar los
-          servicios solicitados (URL´s de los sitios); considerando en lo
+          Deberá JUSTIFICAR cada una de las categorías seleccionadas; considerando en lo
           particular las solicitudes deben estar asociadas a requerimientos
           específicos de las funciones encomendadas e información institucional
           y NO para fines ni servicios personales.
@@ -2306,7 +2315,7 @@ export default function Home() {
               <br />
               6. El usuario es responsable del uso que se otorga con el acceso
               ampliado otorgado a su equipo de cómputo, por lo que deberá
-              vigilar que el uso sea acorde a las políticas de la Seguridad de
+              vigilar que el uso sea acorde a las Políticas de la Seguridad de
               la Información definidas por la Gerencia de Tecnología de la
               Información y Comunicaciones.
               <br />
