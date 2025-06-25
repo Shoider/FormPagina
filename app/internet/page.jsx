@@ -509,9 +509,10 @@ export default function Home() {
   //PARA LINEA DE PROGRESO
   const [progress, setProgress] = React.useState(0);
   const [progresoCompleto, setProgresoCompleto] = React.useState(false);
+  const [progresoMostrado, setProgresoMostrado] = React.useState(false);
   React.useEffect(() => {
     let timer;
-    if (openModal) {
+    if (openModal && !progresoMostrado) {
       setProgress(0); // Reinicia progreso al abrir modal
       setProgresoCompleto(false); // Reinicia bandera
       timer = setInterval(() => {
@@ -519,9 +520,10 @@ export default function Home() {
           if (oldProgress >= 100) {
             setProgresoCompleto(true); // Marca como completo
             clearInterval(timer); // Detiene el timer
+            setProgresoMostrado(true);//Para que muestre progreso completo
             return 100;
           }
-          const diff = Math.random() * 10;
+          const diff = Math.random() * 30;
           return Math.min(oldProgress + diff, 100);
         });
       }, 500);
@@ -529,7 +531,7 @@ export default function Home() {
     return () => {
       clearInterval(timer);
     };
-  }, [openModal]);
+  }, [openModal, progresoMostrado]);
   //FILTRADO DE ÁREA DE ADSCRIPCIÓN
   const filteredAreas = areas[formData.uaUsuario] || [];
   const handleDireccion = (newValue) => {
@@ -2540,13 +2542,14 @@ export default function Home() {
                 Revisa ortografía, ascentos, mayúsculas...
               </Typography>
 
-              <Box sx={{ width: "100%", color: "#FF0000" }}>
+              <Box sx={{ width: "100%" }}>
                 <LinearProgress
                   color="secondary"
                   variant="determinate"
                   value={progress}
                 />
               </Box>
+                
               <Button
                 onClick={handleCloseModal}
                 variant="contained"
