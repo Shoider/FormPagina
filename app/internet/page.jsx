@@ -2329,13 +2329,13 @@ export default function Home() {
               control de los usuarios y sus direcciones IP’s con accesos de
               Internet ampliados.
               <br />
-              9. Al firmar el usuario se da por enterado de las políticas del
+              9. Al firmar el usuario se da por enterado de las Políticas del
               servicio y acepta la responsabilidad de cualquier uso inadecuado
               que se le dé a los privilegios de acceso ampliados los cuales haya
               solicitado.
               <br />
               10. Al firmar el Gerente o Director que autoriza se da por
-              enterado de las políticas del servicio y acepta la
+              enterado de las Políticas del servicio y acepta la
               corresponsabilidad del uso que le dé el usuario al acceso ampliado
               otorgado.
             </Typography>
