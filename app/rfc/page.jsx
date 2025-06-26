@@ -1768,8 +1768,8 @@ export default function Home() {
             error={!!errors?.memo}
             id="memo"
             name="memo"
-            label="Memorando / Atenta nota"
-            placeholder="Ingrese su memorando / atenta nota"
+            label="Memorando"
+            placeholder="Ingrese su memorando"
             value={formData.memo}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
