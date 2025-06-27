@@ -284,7 +284,9 @@ export default function Home() {
           key !== "piso" &&
           key !== "ala" &&
           key !== "cambio" &&
-          key !== "ipAnterior"
+          key !== "ipAnterior" &&
+          key !== "memo" &&
+          key !== "noticket"
         ) {
           //console.log("Campo requerido: ", key);
           errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
@@ -965,8 +967,8 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
           <TextField
-            required
-            error={!!errors?.memo}
+            //required
+            //error={!!errors?.memo}
             id="memo"
             name="memo"
             label="Memorando"
@@ -977,8 +979,8 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           <TextField
-            required
-            error={!!errors?.noticket}
+            //required
+            //error={!!errors?.noticket}
             id="noticket"
             name="noticket"
             label="No. Ticket"
