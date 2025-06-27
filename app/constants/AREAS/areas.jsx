@@ -1,6 +1,8 @@
 // SEGUNDO NIVEL - ÁREA DE ADSCRIPCIÓN
 const areas = {
-  "Dirección General": ["Dirección General"],
+  "Dirección General": ["Dirección General",
+    "Dirección General del Proyecto Ecológico del Lago de Texcoco",
+  ],
   "Subdirección General de Administración": [
     "Subdirección General de Administración",
     "Gerencia de Personal",

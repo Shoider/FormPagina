@@ -1,5 +1,6 @@
 // TERCER NIVEL - SUBGERENCIAS
 const subgerencias = {
+  "Dirección General del Proyecto Ecológico del Lago de Texcoco":["Área de Vinculación y Enlace"],
   "Subdirección General de Administración": ["Enlace y Gestión Administrativa"],
   "Gerencia de Personal": [
     "Gerencia de Personal",
