@@ -1285,12 +1285,13 @@ export default function Home() {
     }));
   };
 
-  //Para la línea de progreso
+  //Para linea de progreso
   const [progress, setProgress] = React.useState(0);
   const [progresoCompleto, setProgresoCompleto] = React.useState(false);
+  const [progresoMostrado, setProgresoMostrado] = React.useState(false);
   React.useEffect(() => {
     let timer;
-    if (openModal) {
+    if (openModal && !progresoMostrado) {
       setProgress(0); // Reinicia progreso al abrir modal
       setProgresoCompleto(false); // Reinicia bandera
       timer = setInterval(() => {
@@ -1298,9 +1299,10 @@ export default function Home() {
           if (oldProgress >= 100) {
             setProgresoCompleto(true); // Marca como completo
             clearInterval(timer); // Detiene el timer
+            setProgresoMostrado(true);//Para que muestre progreso completo
             return 100;
           }
-          const diff = Math.random() * 10;
+          const diff = Math.random() * 30;
           return Math.min(oldProgress + diff, 100);
         });
       }, 500);
@@ -1308,7 +1310,7 @@ export default function Home() {
     return () => {
       clearInterval(timer);
     };
-  }, [openModal]);
+  }, [openModal, progresoMostrado]);
 
   // Inicio de la pagina
 
@@ -1766,8 +1768,8 @@ export default function Home() {
             error={!!errors?.memo}
             id="memo"
             name="memo"
-            label="Memorando / Atenta nota"
-            placeholder="Ingrese su memorando / atenta nota"
+            label="Memorando"
+            placeholder="Ingrese su memorando"
             value={formData.memo}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -4178,16 +4180,16 @@ export default function Home() {
               color="#9F2241"
               sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 0 }}
             >
-              1. El formato deberá estar debidamente llenado y contener toda la
+              1) El formato deberá estar debidamente llenado y contener toda la
               información requerida facilitando la aplicación expedita de las
               configuraciones solicitadas. Es responsabilidad del solicitante
               recabar la información con los Administradores de los sistemas o
               Áreas involucradas.
               <br />
-              2. El solicitante deberá presentar este formato adjuntando el
+              2) El solicitante deberá presentar este formato adjuntando el
               Memorando o Atenta nota y número de ticket de Mesa de ayuda
               asociado, sin los cuales no se podrá atender su solicitud. <br />
-              3. El solicitante deberá proporcionar la dirección IP física y si
+              3) El solicitante deberá proporcionar la dirección IP física y si
               utiliza, la dirección IP NAT, por cada servidor involucrado. De no
               proporcionarse la dirección IP NAT correcta, las reglas de
               cortafuegos se configurarán por defecto con la dirección IP del
@@ -4195,22 +4197,22 @@ export default function Home() {
               Administrador del sistema aplicar los cambios en el sistema o
               servidores para lograr establecer la comunicación.
               <br />
-              4. Para el traslado de permisos de una dirección IP a otra, se
+              4) Para el traslado de permisos de una dirección IP a otra, se
               deberá llenar la sección BAJAS con los permisos de la dirección IP
               anterior además de llenar la sección de ALTAS con los permisos que
               se requieren trasladar. Si el solicitante NO indica que se trata
               de un traslado de permisos, éste será responsable de cualquier
               acceso no autorizado que se derive de los permisos de la dirección
               IP anterior al no tramitar la baja correspondiente. <br />
-              5. La solicitud para cambios en la infraestructura de seguridad
+              5) La solicitud para cambios en la infraestructura de seguridad
               (RFCs) será solicitada únicamente por los Administradores de cada
               sistema una vez que se apliquen los permisos de acceso en el
               propio sistema y se aperturen los accesos en los cortafuegos
               locales de los servidores involucrados. <br />
-              6. Es responsabilidad de los administradores de cada servidor y/o
+              6) Es responsabilidad de los administradores de cada servidor y/o
               Sistema llevar un control de las direcciones IP’s con acceso al
               servidor y/o sistema que administra. <br />
-              7. Al firmar el solicitante se da por enterado de las políticas
+              7) Al firmar el solicitante se da por enterado de las políticas
               del servicio y acepta la responsabilidad de cualquier
               materialización de los riesgos derivados de las aperturas de
               comunicaciones asociadas al presente control de cambios. <br />
@@ -4415,7 +4417,7 @@ export default function Home() {
               </Typography>
 
               <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
-                Revisa ortografía, ascentos, mayúsculas...
+                Revisa ortografía, acentos, mayúsculas...
               </Typography>
               <Box sx={{ width: "100%", color: "#FF0000" }}>
                 <LinearProgress

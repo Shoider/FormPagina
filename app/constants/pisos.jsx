@@ -13,8 +13,7 @@ const pisos = [
   "Piso 10",
   "Piso 11",
   "Piso 12",
-  "Piso PH",
-  "LAN CONAGUA",
+  "PH",
 ];
 
 export default pisos;

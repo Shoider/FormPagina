@@ -175,6 +175,9 @@ function EditableTableUsua({ initialData, onDataChange }) {
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
   };
+   //FILTRADO DE SEGMENTOS
+   //const filteredSegmentos = segmentos[params.row.SO] || [];
+
   // Columnas optimizadas
   const columns = [
     {
@@ -195,7 +198,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true,
       sortable: false,
-      renderEditCell: (params) => {
+      renderEditCell: (params) => {        
         const handleBlur = async (event) => {
           if (params.api.setEditCellValue) {
             await params.api.setEditCellValue(
@@ -220,7 +223,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
         return (
           <Autocomplete
             disablePortal
-            options={pisos}
+            options={Object.keys(segmentos)}
             sx={{ width: "100%" }}
             freeSolo
             renderInput={(inputParams) => (
@@ -265,7 +268,9 @@ function EditableTableUsua({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true,
       sortable: false,
-      renderEditCell: (params) => {
+      renderEditCell: (params) => {        
+        const soValue = params.row.SO;
+        const filteredSegmentos = segmentos [soValue] || [];
         const handleBlur = async (event) => {
           if (params.api.setEditCellValue) {
             await params.api.setEditCellValue(
@@ -290,7 +295,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
         return (
           <Autocomplete
             disablePortal
-            options={segmentos}
+            options={filteredSegmentos}
             sx={{ width: "100%" }}
             freeSolo
             renderInput={(inputParams) => (
@@ -443,7 +448,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true,
       type: "singleSelect",
-      valueOptions: ["TEMPORAL", "PERMANENTE"],
+      valueOptions: ["Temporal", "Permanente"],
       sortable: false,
     },
     {

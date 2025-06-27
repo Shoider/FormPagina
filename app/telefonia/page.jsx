@@ -424,9 +424,10 @@ export default function Home() {
   //Para linea de progreso
   const [progress, setProgress] = React.useState(0);
   const [progresoCompleto, setProgresoCompleto] = React.useState(false);
+  const [progresoMostrado, setProgresoMostrado] = React.useState(false);
   React.useEffect(() => {
     let timer;
-    if (openModal) {
+    if (openModal && !progresoMostrado) {
       setProgress(0); // Reinicia progreso al abrir modal
       setProgresoCompleto(false); // Reinicia bandera
       timer = setInterval(() => {
@@ -434,9 +435,10 @@ export default function Home() {
           if (oldProgress >= 100) {
             setProgresoCompleto(true); // Marca como completo
             clearInterval(timer); // Detiene el timer
+            setProgresoMostrado(true);//Para que muestre progreso completo
             return 100;
           }
-          const diff = Math.random() * 10;
+          const diff = Math.random() * 30;
           return Math.min(oldProgress + diff, 100);
         });
       }, 500);
@@ -444,7 +446,7 @@ export default function Home() {
     return () => {
       clearInterval(timer);
     };
-  }, [openModal]);
+  }, [openModal, progresoMostrado]);
 
   // Manejo de Autocomplete
   const handleUA = (newValue) => {
@@ -1843,7 +1845,7 @@ export default function Home() {
               </Typography>
 
               <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
-                Revisa ortografía, ascentos, mayúsculas...
+                Revisa ortografía, acentos, mayúsculas...
               </Typography>
 
               <Box sx={{ width: "100%", color: "#FF0000" }}>
