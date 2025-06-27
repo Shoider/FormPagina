@@ -1845,7 +1845,7 @@ export default function Home() {
               </Typography>
 
               <Typography id="modal-modal-description" sx={{ mt: 2, mb: 2 }}>
-                Revisa ortografía, ascentos, mayúsculas...
+                Revisa ortografía, acentos, mayúsculas...
               </Typography>
 
               <Box sx={{ width: "100%", color: "#FF0000" }}>
