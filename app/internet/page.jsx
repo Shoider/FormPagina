@@ -1503,7 +1503,7 @@ export default function Home() {
             id="justificaAlmacenamiento"
             name="justificaAlmacenamiento"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Agregue si la solicitud ser deriva de un cambio de lugar"
             value={formData.justificaAlmacenamiento}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1586,7 +1586,7 @@ export default function Home() {
             id="justificaBlogs"
             name="justificaBlogs"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Agregue si la solicitud ser deriva de un cambio de lugar"
             value={formData.justificaBlogs}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1668,7 +1668,7 @@ export default function Home() {
             id="justificaShareware"
             name="justificaShareware"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Agregue si la solicitud ser deriva de un cambio de lugar"
             value={formData.justificaShareware}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1750,7 +1750,7 @@ export default function Home() {
             id="justificaRedes"
             name="justificaRedes"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Agregue si la solicitud ser deriva de un cambio de lugar"
             value={formData.justificaRedes}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1832,7 +1832,7 @@ export default function Home() {
             id="justificaTransmision"
             name="justificaTransmision"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Agregue si la solicitud ser deriva de un cambio de lugar"
             value={formData.justificaTransmision}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1926,7 +1926,7 @@ export default function Home() {
             id="justificaOtra"
             name="justificaOtra"
             label="Justificación"
-            placeholder="Escriba la justificación"
+            placeholder="Agregue si la solicitud ser deriva de un cambio de lugar"
             value={formData.justificaOtra}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -2022,7 +2022,7 @@ export default function Home() {
               id="justificaOtra2"
               name="justificaOtra2"
               label="Justificación"
-              placeholder="Escriba la justificación"
+              placeholder="Agregue si la solicitud ser deriva de un cambio de lugar"
               value={formData.justificaOtra2}
               onChange={handleChange}
               sx={{ background: "#FFFFFF" }}
@@ -2101,7 +2101,7 @@ export default function Home() {
                 id="justificaOtra3"
                 name="justificaOtra3"
                 label="Justificación"
-                placeholder="Escriba la justificación"
+                placeholder="Agregue si la solicitud ser deriva de un cambio de lugar"
                 value={formData.justificaOtra3}
                 onChange={handleChange}
                 sx={{ background: "#FFFFFF" }}
@@ -2186,7 +2186,7 @@ export default function Home() {
                   id="justificaOtra4"
                   name="justificaOtra4"
                   label="Justificación"
-                  placeholder="Escriba la justificación"
+                  placeholder="Agregue si la solicitud ser deriva de un cambio de lugar"
                   value={formData.justificaOtra4}
                   onChange={handleChange}
                   sx={{ background: "#FFFFFF" }}
