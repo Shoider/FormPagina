@@ -18,6 +18,7 @@ import {
   Autocomplete,
   Modal,
   LinearProgress,
+  Tooltip
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -1316,19 +1317,21 @@ export default function Home() {
             ml: 10,
             mb: 1,
             mr: 8,
+            alignItems: "center", // <-- alineación superior
           }}
         >
           {[
-            { name: "almacenamiento", label: "Almacenamiento y copia de seguridad en línea" },
-            { name: "blogs", label: "Sitios personales y blogs" },
-            { name: "shareware", label: "Shareware y freeware" },
-            { name: "redes", label: "Redes sociales" },
-            { name: "transmision", label: "Transmisión de medios" },            
+            
+            { name: "almacenamiento", label: "Almacenamiento y copia de seguridad en línea", tooltip: "DropBox, OneDrive"},
+            { name: "blogs", label: "Sitios personales y blogs", tooltip: "Blogger" },
+            { name: "shareware", label: "Descarga de software / drivers"},
+            { name: "redes", label: "Redes sociales" , tooltip:"Facebook, X, TikTok, LinkedIn"},
+            { name: "transmision", label: "Transmisión de medios", tooltip: "YouTube" },            
             { name: "otra", label: "Otra" },
           ].map((item, index) => (
             <Box
               key={index}
-              sx={{ width: "33.33%", minWidth: "80px", textAlign: "left" }}
+              sx={{ width: "33.33%", minWidth: "150px", textAlign: "left" }}
             >
               <FormControlLabel
                 control={
@@ -1339,7 +1342,12 @@ export default function Home() {
                     color="primary"
                   />
                 }
-                label={item.label}
+                label={
+                        <Tooltip title={item.tooltip} arrow>
+                          <span>{item.label}</span>
+                        </Tooltip>
+                      }
+                      sx={{ marginLeft: 0, marginRight: 0 }} // elimina margen extra
               />
             </Box>
           ))}
