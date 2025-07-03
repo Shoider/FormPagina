@@ -215,7 +215,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
     },
     {
       field: "PUERTOS",
-      headerName: "Puesrtos o Servicios",
+      headerName: "Puertos o Servicios",
       width: "auto",
       flex: 1,
       align: "center",

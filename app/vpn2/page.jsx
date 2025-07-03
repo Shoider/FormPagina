@@ -43,6 +43,7 @@ import EditableTableWeb from "../components/EditableTableWeb.jsx";
 import EditableTableRemoto from "../components/EditableTableRemoto.jsx";
 import subgerencias from "../constants/SUBGERENCIAS/subgerencias.jsx";
 import EditableTablePersonal from "../components/EditableTablePersonal.jsx";
+import EditableTableWebCE from "../components/EditableTableWebCE.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -1797,9 +1798,75 @@ export default function Home() {
 
       {/* SI es de sistemas */}
       <Box
+      component="section"
+        sx={{
+          
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 1000px)": {
+            maxWidth: "80.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
       display={formData.subgerencia === "Subgerencia de Sistemas" ? "block": "none"}
       >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Relación de personal externo
+        </Typography>
         <EditableTablePersonal
+            //key={JSON.stringify(webTableData)} // Fuerza el remount cuando cambian los datos
+            key={TableResetKey}
+            initialData={webTableData}
+            onDataChange={handleWebTableDataChange}
+          />
+      </Box>
+      <Box
+      component="section"
+        sx={{
+          
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 1000px)": {
+            maxWidth: "80.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      display={formData.subgerencia === "Subgerencia de Sistemas" ? "block": "none"}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Servicios Solicitados
+        </Typography>
+        <EditableTableWebCE
             //key={JSON.stringify(webTableData)} // Fuerza el remount cuando cambian los datos
             key={TableResetKey}
             initialData={webTableData}

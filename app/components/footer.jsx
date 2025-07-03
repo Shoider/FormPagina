@@ -53,7 +53,7 @@ export default function FooterGlobal() {
               textAlign={{ xs: "center", sm: "left" }}
               sx={{ mt: 20 }}
             >
-              v0.7.0.4
+              v0.7.0.5
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6} textAlign={{ xs: "center", sm: "right" }}>
