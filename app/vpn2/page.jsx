@@ -63,6 +63,7 @@ export default function Home() {
     unidadAdministrativa: "",
     areaAdscripcion: "",
     subgerencia: "",
+    casoespecial:"",
 
     nombreEnlace: "",
     telefonoEnlace: "",
@@ -325,7 +326,7 @@ export default function Home() {
       "telefonoEnlace",      
       "justificacion",
     ];
-    if (Data.subgerencia === "Subgerencia de Sistemas") {
+    if (Data.casoespecial === "Grupal") {
       camposRequeridos = [      
       "nombreEnlace",
       "telefonoEnlace",  
@@ -333,6 +334,19 @@ export default function Home() {
       "justificacion",
       ];
     }
+     if (Data.casoespecial === "Indivual" || Data.subgerencia !== "Subgerencia de Sistemas") {
+      camposRequeridos = [      
+      "nombreEnlace",
+      "telefonoEnlace",  
+      "puestoEnlace",    
+      "justificacion",
+      "modelo",
+      "serie",
+      "versioSO",
+      "SO"
+      ];
+    }
+   
     // Determina los campos requeridos según el tipo de solicitante
     if (Data.subgerencia !== "Subgerencia de Sistemas") {
       camposRequeridos = [
@@ -387,7 +401,7 @@ export default function Home() {
     }
 
     // Valida que al menos uno de los accesos esté seleccionado
-    if(Data.subgerencia !== "Subgerencia de Sistemas"){
+    if(Data.casoespecial === "Individual" || Data.subgerencia !== "Subgerencia de Sistemas"){
     if (
       ![Data.cuentaUsuario, Data.accesoWeb, Data.accesoRemoto].some(Boolean)
     ) {
@@ -457,7 +471,7 @@ export default function Home() {
     }
 
     ///CHECAR ESTAS VALIDACIONES SON PARA PERSONAL
-    if(Data.subgerencia === "Subgerencia de Sistemas"){
+    if(Data.casoespecial === "Grupal"){
       if (!Array.isArray(Data.registrosPersonal) || Data.registrosPersonal.length === 0) {
         errores.registrosPersonal = "Debe agregar al menos un registro web";
         isValidTabla = false;
@@ -1199,6 +1213,63 @@ export default function Home() {
           />
         </Box>
 
+        <Box
+              display={formData.subgerencia === "Subgerencia de Sistemas" ? "block" : "none"}        
+        >
+        <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 0,
+                  mr: 0,
+                  mt: 2,
+                  mb: 2,
+                }}
+        />
+        <FormLabel
+              component="legend"
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
+            >
+              ¿Qué caso es? *
+            </FormLabel>
+            <RadioGroup
+              row
+              aria-label="Que caso es"
+              name="casoespecial"
+              value={formData.casoespecial}
+              onChange={handleChange}
+              required
+              sx={{ ml: 2, mr: 2, justifyContent: "center" }}
+            >
+              <FormControlLabel
+                value="Individual"
+                control={<Radio />}
+                label="Individual"
+              />
+              <FormControlLabel
+                value="Grupal"
+                control={<Radio />}
+                label="Grupal"
+              />
+            </RadioGroup>
+            <FormHelperText
+              sx={{
+                ml: 2,
+                mr: 2,
+                mb: 2,
+                justifyContent: "center",
+                color: "red",
+                display: errors?.casoespecial ? "block" : "none",
+              }}
+            >
+              {errors?.casoespecial}
+            </FormHelperText>
+        </Box>
         {/*<Button
             //type="submit"
             // onClick={handleOpenModal2}
@@ -1340,7 +1411,7 @@ export default function Home() {
         />
         {/*Para quien es de sistemas*/}
         <Box
-          display={formData.subgerencia === "Subgerencia de Sistemas" ? "block" : "none"}
+          display={formData.casoespecial === "Grupal"  ? "block" : "none"}
         >
           {/* PARTE 2 */}
         <Typography
@@ -1405,7 +1476,7 @@ export default function Home() {
         </Box>
         {/*Para quien no es de sistemas*/}
         <Box
-        display={formData.subgerencia !== "Subgerencia de Sistemas" ? "block" : "none"}
+        display={formData.casoespecial === "Individual" || formData.subgerencia !== "Subgerencia de Sistemas" ? "block" : "none"}
         >
           {/* PARTE 2 */}
         <Typography
@@ -1461,7 +1532,7 @@ export default function Home() {
       {/* Datos de SOLICITANTE */}
       {/* Form Box Responsive */}
       <Box
-      display={formData.subgerencia !== "Subgerencia de Sistemas" ? "block" : "none"}
+      display={formData.casoespecial === "Individual" || formData.subgerencia !== "Subgerencia de Sistemas" ? "block" : "none"}
         component="section"
         sx={{
           mx: "auto",
@@ -1872,7 +1943,7 @@ export default function Home() {
             padding: "2",
           },
         }}
-      display={formData.subgerencia === "Subgerencia de Sistemas" ? "block": "none"}
+      display={formData.casoespecial === "Grupal" ? "block": "none"}
       >
         {/* SubTitle */}
         <Typography
@@ -1910,7 +1981,7 @@ export default function Home() {
             padding: "2",
           },
         }}
-      display={formData.subgerencia === "Subgerencia de Sistemas" ? "block": "none"}
+      display={formData.casoespecial === "Grupal" ? "block": "none"}
       >
         {/* SubTitle */}
         <Typography
@@ -1932,7 +2003,7 @@ export default function Home() {
       {/* Datos del Equipo si NO es de sistemas */}
       {/* Form Box Responsive */}
       <Box
-      display={formData.subgerencia !== "Subgerencia de Sistemas" ? "block" : "none"}
+      display={formData.casoespecial === "Individual" || formData.subgerencia !== "Subgerencia de Sistemas" ? "block" : "none"}
         component="section"
         sx={{
           mx: "auto",
