@@ -76,6 +76,7 @@ function EditToolbar(props) {
       ...oldRows,
       {
         id,
+        IDU: "",
         NOMBRE: "",
         SIGLAS: "",
         URL: "",
@@ -169,15 +170,15 @@ function EditableTableWeb({ initialData, onDataChange }) {
   // Columnas optimizadas
   const columns = [
     {
-      field: "id",
+      field: "iIDUd",
       headerName: "IDU",
       type: "number",
       flex: 0.3,
       width: "auto",
       align: "center",
       headerAlign: "center",
-      editable: false,
-      sortable: false,
+      editable: true,
+      sortable: true,
     },
     {
       field: "NOMBRE",
@@ -301,8 +302,11 @@ function EditableTableWeb({ initialData, onDataChange }) {
       <DataGrid
         rows={rows}
         columns={columns}
-        disableColumnMenu
+        //disableColumnMenu
         editMode="row"
+        //rowSpanning
+        //density="compact"
+        hideFooter
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}
         onRowEditStop={handleRowEditStop}
@@ -312,6 +316,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
           toolbar: { setRows, setRowModesModel, nextId, setNextId },
         }}
         sx={{
+          height: 200,
           "--DataGrid-overlayHeight": "200px",
           "& .MuiDataGrid-virtualScroller": {
             marginBottom: "16px", // Espaciado adicional para evitar superposición

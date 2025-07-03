@@ -314,6 +314,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
         columns={columns}
         disableColumnMenu
         editMode="row"
+        hideFooter
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}
         onRowEditStop={handleRowEditStop}
@@ -323,6 +324,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
           toolbar: { setRows, setRowModesModel, nextId, setNextId },
         }}
         sx={{
+          height: 200,
           "--DataGrid-overlayHeight": "200px",
           "& .MuiDataGrid-virtualScroller": {
             marginBottom: "16px", // Espaciado adicional para evitar superposición
