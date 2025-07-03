@@ -42,6 +42,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import EditableTableWeb from "../components/EditableTableWeb.jsx";
 import EditableTableRemoto from "../components/EditableTableRemoto.jsx";
 import subgerencias from "../constants/SUBGERENCIAS/subgerencias.jsx";
+import EditableTablePersonal from "../components/EditableTablePersonal.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -64,6 +65,7 @@ export default function Home() {
 
     nombreEnlace: "",
     telefonoEnlace: "",
+    puestoEnlace:"",
 
     solicitante: "",
 
@@ -1321,12 +1323,12 @@ export default function Home() {
           />
           <TextField
             required
-            error={!!errors?.nombreEnlace}
-            id="nombreEnlace"
-            name="nombreEnlace"
+            error={!!errors?.puestoEnlace}
+            id="puestoEnlace"
+            name="puestoEnlace"
             label="Puesto o cargo"
             placeholder="Escriba el puesto o cargo de la persona responsable en la CONAGUA"
-            value={formData.nombreEnlace}
+            value={formData.puestoEnlace}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
@@ -1403,6 +1405,7 @@ export default function Home() {
       {/* Datos de SOLICITANTE */}
       {/* Form Box Responsive */}
       <Box
+      display={formData.subgerencia !== "Subgerencia de Sistemas" ? "block" : "none"}
         component="section"
         sx={{
           mx: "auto",
@@ -1792,9 +1795,22 @@ export default function Home() {
         </Box>
       </Box>
 
-      {/* Datos del Equipo */}
+      {/* SI es de sistemas */}
+      <Box
+      display={formData.subgerencia === "Subgerencia de Sistemas" ? "block": "none"}
+      >
+        <EditableTablePersonal
+            //key={JSON.stringify(webTableData)} // Fuerza el remount cuando cambian los datos
+            key={TableResetKey}
+            initialData={webTableData}
+            onDataChange={handleWebTableDataChange}
+          />
+      </Box>
+
+      {/* Datos del Equipo si NO es de sistemas */}
       {/* Form Box Responsive */}
       <Box
+      display={formData.subgerencia !== "Subgerencia de Sistemas" ? "block" : "none"}
         component="section"
         sx={{
           mx: "auto",
