@@ -187,12 +187,12 @@ function EditableTableWeb({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      type: "singleSelect",
+      //type: "singleSelect",
       //valueOptions: NOMBRE,
       sortable: false,
     },
     {
-      field: "Siglas",
+      field: "SIGLAS",
       headerName: "Siglas",
       type: "string",
       width: "auto",
@@ -203,7 +203,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       sortable: false,
     },
     {
-      field: "ULR",
+      field: "URL",
       headerName: "URL / IP Equipo",
       type: "string",
       width: "auto",

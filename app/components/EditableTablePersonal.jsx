@@ -188,7 +188,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      type: "singleSelect",
+      //type: "singleSelect",
       //valueOptions: NOMBRE,
       sortable: false,
     },

@@ -100,6 +100,7 @@ export default function Home() {
     cuentaUsuario: false,
     accesoWeb: false,
     accesoRemoto: false,
+
     politicasaceptadas: false,
 
     // Servicios solicitados
@@ -110,6 +111,8 @@ export default function Home() {
   // TABLAS INFORMACION
   const [webTableData, setWebTableData] = useState([]);
   const [remotoTableData, setRemotoTableData] = useState([]);
+  const [personalTableData, setPersonalTableData] = useState([]);
+  const [webCETableData, setwebCETableData] = useState([]);
 
   const [TableResetKey, setTableResetKey] = useState(0);
 
@@ -124,8 +127,10 @@ export default function Home() {
       ...prevFormData,
       registrosWeb: webTableData,
       registrosRemoto: remotoTableData,
+      registrosPersonal : personalTableData,
+      registrosWebCE : webCETableData,
     }));
-  }, [webTableData, remotoTableData]);
+  }, [webTableData, remotoTableData, webCETableData, personalTableData]);
 
   // Manejadores de cambios
   const handleWebTableDataChange = (data) => {
@@ -133,6 +138,12 @@ export default function Home() {
   };
   const handleRemotoTableDataChange = (data) => {
     setRemotoTableData(data);
+  };
+  const handlePersonalTableDataChange = (data) => {
+    setPersonalTableData(data);
+  };
+  const handleWebCETableDataChange = (data) => {
+    setwebCETableData(data);
   };
 
   // HandleChange FormData
@@ -311,16 +322,17 @@ export default function Home() {
       "areaAdscripcion",
       "subgerencia",
       "nombreEnlace",
-      "telefonoEnlace",
-      "sistemaOperativo",
-      "versionSO",
-      "solicitante",
-      "tipoEquipo",
-      "marca",
-      "modelo",
-      "serie",
+      "telefonoEnlace",      
       "justificacion",
     ];
+    if (Data.subgerencia === "Subgerencia de Sistemas") {
+      camposRequeridos = [      
+      "nombreEnlace",
+      "telefonoEnlace",  
+      "puestoEnlace",    
+      "justificacion",
+      ];
+    }
     // Determina los campos requeridos según el tipo de solicitante
     if (Data.subgerencia !== "Subgerencia de Sistemas") {
       camposRequeridos = [
@@ -375,13 +387,15 @@ export default function Home() {
     }
 
     // Valida que al menos uno de los accesos esté seleccionado
+    if(Data.subgerencia !== "Subgerencia de Sistemas"){
     if (
       ![Data.cuentaUsuario, Data.accesoWeb, Data.accesoRemoto].some(Boolean)
     ) {
       errores.seleccion =
-        "Al menos uno de los campos de justificación es requerido";
+        "Al menos una selección debe de tener";
       isValid = false;
     }
+  }
 
     // Valida movimiento solo si cuentaUsuario es true
     if (Data.cuentaUsuario) {
@@ -441,6 +455,47 @@ export default function Home() {
         });
       }
     }
+
+    ///CHECAR ESTAS VALIDACIONES SON PARA PERSONAL
+    if(Data.subgerencia === "Subgerencia de Sistemas"){
+      if (!Array.isArray(Data.registrosPersonal) || Data.registrosPersonal.length === 0) {
+        errores.registrosPersonal = "Debe agregar al menos un registro web";
+        isValidTabla = false;
+      } else {
+        Data.registrosPersonal.forEach((row, idx) => {
+          if (
+            !row.NOMBRE ||
+            !row.CORREO ||
+            !row.EMPRESA ||
+            !row.EQUIPO ||
+            !row.SERVICIOS
+          ) {
+            errores[`registrosPersonal_${idx}`] =
+              "Todos los campos del registro PERSONAL son requeridos";
+            isValidTabla = false;
+          }
+        });
+      }
+
+      if (!Array.isArray(Data.registrosWebCE) || Data.registrosWebCE.length === 0) {
+        errores.registrosWebCE = "Debe agregar al menos un registro web";
+        isValidTabla = false;
+      } else {
+        Data.registrosWebCE.forEach((row, idx) => {
+          if (
+            !row.NOMBRE ||
+            !row.SIGLAS ||
+            !row.URL ||
+            !row.PUERTOS 
+          ) {
+            errores[`registrosWebCE_${idx}`] =
+              "Todos los campos del registro web CE son requeridos";
+            isValidTabla = false;
+          }
+        });
+      }
+    }
+    
 
     return [isValid, isValidTabla, errores];
   };
@@ -1831,8 +1886,8 @@ export default function Home() {
         <EditableTablePersonal
             //key={JSON.stringify(webTableData)} // Fuerza el remount cuando cambian los datos
             key={TableResetKey}
-            initialData={webTableData}
-            onDataChange={handleWebTableDataChange}
+            initialData={personalTableData}
+            onDataChange={handlePersonalTableDataChange}
           />
       </Box>
       <Box
@@ -1869,8 +1924,8 @@ export default function Home() {
         <EditableTableWebCE
             //key={JSON.stringify(webTableData)} // Fuerza el remount cuando cambian los datos
             key={TableResetKey}
-            initialData={webTableData}
-            onDataChange={handleWebTableDataChange}
+            initialData={webCETableData}
+            onDataChange={handleWebCETableDataChange}
           />
       </Box>
 
