@@ -1280,8 +1280,76 @@ export default function Home() {
             mb: 1,
           }}
         />
-
-        {/* PARTE 2 */}
+        {/*Para quien es de sistemas*/}
+        <Box
+          display={formData.subgerencia === "Subgerencia de Sistemas" ? "block" : "none"}
+        >
+          {/* PARTE 2 */}
+        <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Datos de la persona responsable en la CONAGUA de la relación de personal externo
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            required
+            error={!!errors?.nombreEnlace}
+            id="nombreEnlace"
+            name="nombreEnlace"
+            label="Nombre completo"
+            placeholder="Escriba el nombre completo de la persona responsable en la CONAGUA"
+            value={formData.nombreEnlace}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.nombreEnlace}
+            id="nombreEnlace"
+            name="nombreEnlace"
+            label="Puesto o cargo"
+            placeholder="Escriba el puesto o cargo de la persona responsable en la CONAGUA"
+            value={formData.nombreEnlace}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
+          <TextField
+            required
+            error={!!errors?.telefonoEnlace}
+            id="telefonoEnlace"
+            name="telefonoEnlace"
+            label="Número de teléfono y/o extensión"
+            placeholder="XXXX-YYYY"
+            value={formData.telefonoEnlace}
+            onChange={handleTelefonoEnlaceChange}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
+          />
+        </Box>          
+        </Box>
+        {/*Para quien no es de sistemas*/}
+        <Box
+        display={formData.subgerencia !== "Subgerencia de Sistemas" ? "block" : "none"}
+        >
+          {/* PARTE 2 */}
         <Typography
           variant="h5"
           align="center"
@@ -1329,6 +1397,7 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
         </Box>
+        </Box>    
       </Box>
 
       {/* Datos de SOLICITANTE */}
@@ -2478,12 +2547,9 @@ export default function Home() {
               gutterBottom
               sx={{ mt: 0, width: "calc(100% - 32px)", ml: 0, mr: 0 }}
             >
-              1) El usuario solicitante puede tramitar este formato las veces
-              que sea necesario, según sus necesidades. Los servicios
-              solicitados son acumulados a los existentes. Es responsabilidad
-              del solicitante, indicar correctamente el movimiento (A, B, C) de
-              los servicios especificados tomando en cuenta su historial de
-              solicitudes.
+              1)	La persona responsable en la CONAGUA es responsable de hacer del 
+              conocimiento al personal externo los términos y condiciones de uso del 
+              servicio que se detallan a continuación:
               <br />
               2) El Enlace Informático de la unidad administrativa solicitante,
               será quien gestione y de seguimiento a la solicitud de servicios
