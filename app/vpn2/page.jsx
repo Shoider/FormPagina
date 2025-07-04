@@ -1960,6 +1960,22 @@ export default function Home() {
             initialData={personalTableData}
             onDataChange={handlePersonalTableDataChange}
           />
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Nota: Para cada persona especificar el equipo de desarrollo al que pertenece 
+            o en su defecto el rol dentro del proyecto <br/>
+            Para cada persona especificar el número de servicios que se detallarán en la 
+            tabla de Accesos a sitios Web o Equipo
+          </FormLabel>
       </Box>
       <Box
       component="section"
@@ -1998,6 +2014,21 @@ export default function Home() {
             initialData={webCETableData}
             onDataChange={handleWebCETableDataChange}
           />
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Nota: Detallar todos los accesos que requiere cada persona externa usando el 
+            IDU que le corresponda de la tabla de relación de personal externo. <br/>
+            No puede haber más de un URL/IP Equipo detallado por renglón.
+          </FormLabel>
       </Box>
 
       {/* Datos del Equipo si NO es de sistemas */}
@@ -2760,70 +2791,58 @@ export default function Home() {
               conocimiento al personal externo los términos y condiciones de uso del 
               servicio que se detallan a continuación:
               <br />
-              2) El Enlace Informático de la unidad administrativa solicitante,
-              será quien gestione y de seguimiento a la solicitud de servicios
-              de Red Privada Virtual (VPN) del personal de su unidad. <br />
-              3) La Subgerencia de Soporte Técnico, Telecomunicaciones y
-              Seguridad única y exclusivamente proveerá el servicio de acceso
-              remoto por VPN al usuario solicitante autorizado por el titular de
-              su unidad administrativa previa presentación del formato
+              2)	El usuario solicitante puede tramitar este formato las veces que sea 
+              necesario, según sus necesidades. Los servicios solicitados son <b>acumulados 
+              a los existentes</b>. Es responsabilidad del solicitante, indicar correctamente 
+              el movimiento (A, B, C) de los servicios especificados tomando en cuenta su 
+              historial de solicitudes.
+              <br />
+              3)	El Enlace Informático de la unidad administrativa solicitante, será quien 
+              gestione y de seguimiento a la solicitud de servicios de Red Privada Virtual 
+              (VPN) del personal de su unidad. 
+              <br />
+              4)	La Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad única y 
+              exclusivamente proveerá el servicio de acceso remoto por VPN al usuario solicitante 
+              autorizado por el titular de su unidad administrativa previa presentación del formato 
               debidamente llenado.
               <br />
-              4) La Subgerencia de Soporte Técnico, Telecomunicaciones y
-              Seguridad, le proveerá al usuario autorizado la credencial de
-              acceso, manual de instalación y configuración del software de
-              cliente de VPN de usuario mediante correo electrónico
-              personalizado.
+              5)	La Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad, le proveerá al 
+              usuario autorizado la credencial de acceso, manual de instalación y configuración del 
+              software de cliente de VPN de usuario mediante correo electrónico personalizado.
               <br />
-              5) El acceso a los servicios de red interna mediante el servicio
-              de VPN, será con el uso de una contraseña que cumpla con la
-              política correspondiente y el envío por correo electrónico al
-              usuario de una clave de 6 dígitos como doble factor de
-              autenticación. Es responsabilidad única y exclusiva del usuario
-              autorizado a conservar en secreto, no proporcionar a terceros su
-              contraseña y no permitir el acceso a su cuenta de correo
-              electrónico para la obtención de la clave de 6 dígitos a terceros.
+              6)	El acceso a los servicios de red interna mediante el servicio de VPN, será con el 
+              uso de una contraseña que cumpla con la política correspondiente y el envío por correo 
+              electrónico al usuario de una clave de 6 dígitos como doble factor de autenticación. 
+              Es responsabilidad única y exclusiva del usuario autorizado a conservar en secreto, no 
+              proporcionar a terceros su contraseña y no permitir el acceso a su cuenta de correo electrónico 
+              para la obtención de la clave de 6 dígitos a terceros.
               <br />
-              6) Posterior al proceso de autorización de acceso al usuario y ya
-              establecido el túnel de VPN, solo el tráfico que se identifique
-              que tiene como destino la red interna de la CONAGUA cursará por el
-              túnel de VPN, el resto del tráfico del equipo origen del usuario
-              seguirá las rutas que tenga definidas en su configuración para
-              acceder a otros recursos de red.
+              7)	Posterior al proceso de autorización de acceso al usuario y ya establecido el túnel de VPN, 
+              solo el tráfico que se identifique que tiene como destino la red interna de la CONAGUA cursará 
+              por el túnel de VPN, el resto del tráfico del equipo origen del usuario seguirá las rutas que tenga 
+              definidas en su configuración para acceder a otros recursos de red.
               <br />
-              7) El servicio de VPN, solo permitirá por cada usuario, una
-              conexión desde un dispositivo remoto, por lo que no será posible
-              tener 2 o más conexiones simultáneas para una misma cuenta.
+              8)	El servicio de VPN, solo permitirá por cada usuario, una conexión desde un dispositivo remoto,
+               por lo que no será posible tener 2 o más conexiones simultáneas para una misma cuenta.
               <br />
-              8) La sesión establecida será automáticamente cerrada
-              transcurridos 10 minutos de inactividad. El usuario deberá repetir
-              el proceso de inicio de sesión para conectarse a la red de la
-              CONAGUA. Está prohibido usar cualquier proceso o software para
-              mantener la sesión activa.
+              9)	La sesión establecida será automáticamente cerrada transcurridos 10 minutos de inactividad. 
+              El usuario deberá repetir el proceso de inicio de sesión para conectarse a la red de la CONAGUA. 
+              Está prohibido usar cualquier proceso o software para mantener la sesión activa.
               <br />
-              9) El usuario autorizado de VPN acepta que al hacer uso del
-              servicio de VPN mediante cualquier tipo de conexión, es de su
-              exclusiva responsabilidad el costo que ello genere.
+              10)	El usuario autorizado de VPN acepta que al hacer uso del servicio de VPN mediante cualquier 
+              tipo de conexión, es de su exclusiva responsabilidad el costo que ello genere.
               <br />
-              10) El equipo proporcionado por la CONAGUA ya cuenta con los
-              elementos de seguridad necesarios para operar dentro de la red
-              interna (actualizaciones del sistema operativo, actualizaciones de
-              aplicaciones, software antimalware), pero es obligación del
-              usuario autorizado verificar que estos elementos se encuentren
-              actualizados. En el caso de equipo personal, es responsabilidad
-              del usuario autorizado ejecutar y mantener actualizado el sistema
-              operativo, las aplicaciones instaladas y tener activos los
-              elementos de seguridad como: Antivirus/Antimalware, corta fuego o
-              firewall, protección de cuentas, seguridad del dispositivo,
-              control de aplicaciones y exploradores entre otros que ofrezca el
-              sistema operativo o sean instalados de manera independiente.
+              11)	El equipo proporcionado por la CONAGUA ya cuenta con los elementos de seguridad necesarios para 
+              operar dentro de la red interna (actualizaciones del sistema operativo, actualizaciones de aplicaciones, 
+              software antimalware), pero es obligación del usuario autorizado verificar que estos elementos se encuentren 
+              actualizados. En el caso de equipo personal, es responsabilidad del usuario autorizado ejecutar y mantener 
+              actualizado el sistema operativo, las aplicaciones instaladas y tener activos los elementos de seguridad como: 
+              Antivirus/Antimalware, corta fuego o firewall, protección de cuentas, seguridad del dispositivo, control de 
+              aplicaciones y exploradores entre otros que ofrezca el sistema ope-rativo o sean instalados de manera independiente.
               <br />
-              11) Si el usuario autorizado hace uso de su equipo personal para
-              acceder a los servicios de la red interna de la CONAGUA mediante
-              el uso de los servicios de VPN, acepta conocer y cumplir con las
-              políticas, normas y disposiciones en materia de seguridad de la
-              información que aplican para los equipos que proporciona la
-              CONAGUA.
+              12)	Si el usuario autorizado hace uso de su equipo personal para acceder a los servicios de la red interna de 
+              la CONAGUA mediante el uso de los servicios de VPN, acepta conocer y cumplir con las políticas, normas y disposiciones 
+              en materia de seguridad de la información que aplican para los equipos que proporciona la CONAGUA.
             </Typography>
           </Box>
 
@@ -2843,7 +2862,7 @@ export default function Home() {
               {
                 name: "politicasaceptadas",
                 label:
-                  "He leído y acepto los términos y condiciones del servicio *",
+                  "He leído y acepto los términos y condiciones del servicio*",
               },
             ].map((item, index) => (
               <Box
