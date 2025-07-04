@@ -76,7 +76,7 @@ function EditToolbar(props) {
       ...oldRows,
       {
         id,
-        IDU: "",
+        IDU:"1",
         NOMBRE: "",
         SIGLAS: "",
         URL: "",
@@ -170,7 +170,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
   // Columnas optimizadas
   const columns = [
     {
-      field: "iIDUd",
+      field: "IDU",
       headerName: "IDU",
       type: "number",
       flex: 0.3,
@@ -178,7 +178,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
       align: "center",
       headerAlign: "center",
       editable: true,
-      sortable: true,
+      sortable: true,      
     },
     {
       field: "NOMBRE",
