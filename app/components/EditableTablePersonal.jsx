@@ -80,7 +80,7 @@ function EditToolbar(props) {
         CORREO: "",
         EMPRESA: "",
         EQUIPO: "",
-        SERVICIOS:"",
+        SERVICIOS:"1",
         isNew: true,
       },
     ]);
@@ -227,7 +227,7 @@ function EditableTableWeb({ initialData, onDataChange }) {
     {
       field: "SERVICIOS",
       headerName: "# Servicios",
-      type: "string",
+      type: "number",
       width: "auto",
       flex: 1.5,
       align: "center",

@@ -760,6 +760,8 @@ export default function Home() {
       ...formData3,
       registrosWeb: webTableData,
       registrosRemoto: remotoTableData,
+      registrosPersonal :personalTableData,
+      registrosWebCE: webCETableData
     };
     console.log("Lista formData en submit: ", formData2.numeroFormato);
 
@@ -799,6 +801,8 @@ export default function Home() {
       // Meter los datos en las tablas
       setWebTableData(Datos.registrosWeb || []);
       setRemotoTableData(Datos.registrosRemoto || []);
+      setPersonalTableData(Datos.registrosPersonal||[]);
+      setwebCETableData (Datos.registrosWebCE||[]);
 
       // Desmontar y montar las tablas con los nuevos datos
       setTableResetKey((prev) => prev + 1);
