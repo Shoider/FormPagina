@@ -1224,8 +1224,8 @@ export default function Home() {
                 sx={{
                   borderBottomWidth: "1px",
                   borderColor: "grey",
-                  ml: 0,
-                  mr: 0,
+                  ml: 2,
+                  mr: 2,
                   mt: 2,
                   mb: 2,
                 }}
@@ -1234,6 +1234,7 @@ export default function Home() {
               component="legend"
               sx={{
                 mt: 0,
+                mx: "auto",
                 display: "flex",
                 justifyContent: "center",
                 fontSize: "1.2rem",
@@ -1410,7 +1411,7 @@ export default function Home() {
             ml: 2,
             mr: 2,
             mt: 2,
-            mb: 1,
+            mb: 3,
           }}
         />
         {/*Para quien es de sistemas*/}
