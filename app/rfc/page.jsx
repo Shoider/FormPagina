@@ -4592,7 +4592,7 @@ export default function Home() {
           },
         }}
       >
-        <DialogTitle>Actualizar número de ticket</DialogTitle>
+        <DialogTitle align="center">Actualizar número de ticket</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Aquí puede actualizar el número de ticket para completar el llenado
@@ -4603,13 +4603,13 @@ export default function Home() {
             sx={{
               borderBottomWidth: "1px",
               borderColor: "grey",
-              ml: 2,
-              mr: 2,
+              ml: 0,
+              mr: 0,
               mb: 1,
               mt: 2,
             }}
           />
-          <FormLabel
+{/*           <FormLabel
             component="legend"
             sx={{
               mx: "auto",
@@ -4622,7 +4622,7 @@ export default function Home() {
           >
             Datos de búsqueda (se encuentra en la parte superior derecha de su
             formato).
-          </FormLabel>
+          </FormLabel> */}
 
           <TextField
             required
@@ -4630,7 +4630,7 @@ export default function Home() {
             id="numeroFormato"
             name="numeroFormato"
             label="Número de Formato"
-            placeholder="AAMMDDXXXX "
+            placeholder="Se encuentra en el encabezado, en la parte superior derecha."
             value={formData2.numeroFormato}
             onChange={handleNumeroFormato2}
             sx={{ background: "#FFFFFF", mt: 2 }}
@@ -4638,7 +4638,7 @@ export default function Home() {
             fullWidth
           />
 
-          <FormLabel
+{/*           <FormLabel
             component="legend"
             sx={{
               mx: "auto",
@@ -4650,13 +4650,13 @@ export default function Home() {
             }}
           >
             Dato a actualizar.
-          </FormLabel>
+          </FormLabel> */}
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
             id="noticket"
             name="noticket"
-            label="Número de ticket"
+            label="Nuevo número de ticket"
             placeholder="Ingrese el número de ticket asignado"
             value={formData2.noticket}
             onChange={handleChange2}
@@ -4670,7 +4670,7 @@ export default function Home() {
             type="submit"
             variant="contained"
             sx={{
-              mt: 3,
+              mt: 0,
               mb: 3,
               width: "calc(100% - 32px)",
               ml: 2,
@@ -4694,11 +4694,11 @@ export default function Home() {
             variant="contained"
             onClick={handleClose}
             sx={{
-              mt: 3,
+              mt: 0,
               mb: 3,
               width: "calc(100% - 32px)",
               ml: 2,
-              mr: 4,
+              mr: 2,
               background: "#98989A",
               color: "#FFFFFF",
               border: "1px solid gray",

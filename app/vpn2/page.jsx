@@ -802,7 +802,7 @@ export default function Home() {
         } else if (statusCode === 402) {
           setAlert({
             message: errorData.message || "Ocurrió un error inesperado.",
-            severity: "error",
+            severity: "warning",
           });
         } else {
           // Manejamos otros errores del servidor (ej. 404, 500).
@@ -2003,6 +2003,7 @@ export default function Home() {
           mx: "auto",
           width: "calc(100% - 32px)",
           border: "2px solid grey",
+          borderColor: !!errors?.registrosPersonal ? theme.palette.secondary.secondary : "grey",
           mt: 2,
           mb: 3,
           p: 2,
@@ -2057,6 +2058,7 @@ export default function Home() {
           mx: "auto",
           width: "calc(100% - 32px)",
           border: "2px solid grey",
+          borderColor: !!errors?.registrosWebCE ? theme.palette.secondary.secondary : "grey",
           mt: 2,
           mb: 3,
           p: 2,
