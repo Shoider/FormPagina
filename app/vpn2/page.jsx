@@ -802,7 +802,7 @@ export default function Home() {
         } else if (statusCode === 402) {
           setAlert({
             message: errorData.message || "Ocurrió un error inesperado.",
-            severity: "error",
+            severity: "warning",
           });
         } else {
           // Manejamos otros errores del servidor (ej. 404, 500).
