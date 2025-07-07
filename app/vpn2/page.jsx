@@ -109,6 +109,43 @@ export default function Home() {
     justificacion: "",
   });
 
+   //Capitalizar
+  function capitalizeWords(str) {
+  const exceptions = ["de", "para", "por", "y", "en", "a", "la", "el", "del", "al", "con", "sin", "o", "u"];
+  return str
+    .split(" ")
+    .map((word, idx) => {
+      // Si la palabra es solo números, no la modifica
+      if (/^[0-9]+$/.test(word)) return word;
+      // Si la palabra tiene letras, capitaliza solo la primera letra que sea letra
+      const match = word.match(/^([0-9]*)([a-zA-ZÁÉÍÓÚÑáéíóúñ])(.*)$/);
+      if (match) {
+        const [, nums, firstLetter, rest] = match;
+        const lower = (firstLetter + rest).toLowerCase();
+        const capitalized = lower.charAt(0).toUpperCase() + lower.slice(1);
+        return idx === 0 || !exceptions.includes(lower)
+          ? (nums || "") + capitalized
+          : (nums || "") + lower;
+      }
+      // Si no tiene letras, solo minúsculas (ej: símbolos)
+      return word;
+    })
+    .join(" ");
+}
+// Lista de campos a capitalizar
+const fieldsToCapitalize = [
+  "nombreInterno",
+  "puestoInterno",
+  "nombreExterno",
+  "empresaExterno",
+  "nombreResponsable",
+  "puestoResponsable",
+  "nombreAutoriza",
+  "puestoAutoriza",
+  "nombreEnlace",
+  "puestoEnlace",
+];
+
   // TABLAS INFORMACION
   const [webTableData, setWebTableData] = useState([]);
   const [remotoTableData, setRemotoTableData] = useState([]);
@@ -150,10 +187,15 @@ export default function Home() {
   // HandleChange FormData
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+  setFormData((prevFormData) => ({
+    ...prevFormData,
+    [name]:
+      type === "checkbox"
+        ? checked
+        : fieldsToCapitalize.includes(name)
+        ? capitalizeWords(value)
+        : value,
+  }));
   };
 
   // HandleChange FormData2
@@ -417,12 +459,7 @@ export default function Home() {
         errores.movimiento = "Este campo es requerido";
         isValid = false;
       }
-    }
-
-    // Valor por defecto para subgerencia
-    if (Data.subgerencia === "") {
-      Data.subgerencia = "~";
-    }
+    }   
 
     // Validación de registros Web
     if (Data.accesoWeb) {
@@ -914,10 +951,11 @@ export default function Home() {
 
   // Manejo de Autocomplete de Área de Adscripción
   const handleArea = (newValue) => {
+    const subgerenciasDisponibles = subgerencias[newValue] || [];
     setFormData((prevFormData) => ({
       ...prevFormData,
-      areaAdscripcion: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
-      subgerencia: "",
+      areaAdscripcion: newValue || "",
+      subgerencia: subgerenciasDisponibles.length === 0 ? "~" : "",
     }));
   };
 
@@ -1202,15 +1240,7 @@ export default function Home() {
                   handleSubgerencia(newInputValue); // Maneja texto escrito directamente
                 }
               }
-            }}
-            onBlur={() => {
-              if (
-                filteredSubgerencia.length === 0 &&
-                (!formData.subgerencia || formData.subgerencia.trim() === "")
-              ) {
-                handleSubgerencia("~");
-              }
-            }}
+            }}            
             inputValue={formData.subgerencia || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
