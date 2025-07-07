@@ -33,6 +33,8 @@ import axios from "axios";
 import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 import areas from "../constants/AREAS/areas.jsx";
+import DownloadIcon from "@mui/icons-material/Download";
+
 
 // ICONOS
 import AddIcon from "@mui/icons-material/Add";
@@ -265,6 +267,15 @@ export default function Home() {
     });
   };
 
+  //Descarga de formatos
+  const [open3, setOpen3] = useState(false);
+  const handleClickOpen3 = () => {
+    setOpen3(true);
+  };
+  const handleClose3 = () => {
+    setOpen3(false);
+  }
+
   // Modal
   const [openModal, setOpenModal] = useState(false);
   const [openModal2, setOpenModal2] = useState(false);
@@ -304,6 +315,24 @@ export default function Home() {
   const handleCloseModal2 = () => {
     setOpenModal2(false);
   };
+
+  const handleDownloadDocx = () => {
+  const link = document.createElement("a");
+  link.href = "/archivos/Formato_VPN.docx"; // Ruta de archivo "General"
+  link.download = "Formato_VPN.docx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+ const handleDownloadDocx2 = () => {
+  const link = document.createElement("a");
+  link.href = "/archivos/Formato_VPN_SS.docx"; // Ruta de archivo caso especial 
+  link.download = "Formato_VPN_SS.docx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
   const handleOpenModal = () => {
     //No abrir el modal si ya está en modo descarga
@@ -3299,6 +3328,108 @@ export default function Home() {
             Cancelar
           </Button>
         </DialogActions>
+      </Dialog>
+
+      <Box
+        sx={{
+          position: "fixed",
+          bottom: 110, // Ajusta para que no se encime con otros botones
+          right: 10,
+          "& > :not(style)": { m: 1 },
+        }}
+      >
+        <Fab
+          size="small"
+          variant="extended"
+          color="success"
+          onClick={handleClickOpen3}          
+        >
+          <DownloadIcon sx={{ mr: 1 }} />
+          Descargar . docx
+        </Fab>
+      </Box>
+      {/* DIALOG */}
+      <Dialog
+        open={open3}
+        onClose={handleClose3}
+        sx={{
+          "& .MuiDialog-container": {
+            backgroundColor: "f5f5f5", // Or any other color
+          },
+          "& .MuiDialog-paper": {
+            backgroundColor: "#f4f4f5", // Customize dialog content background
+          },
+        }}
+        
+      >
+        <DialogContent>
+          <DialogTitle
+          align="center"
+
+          >
+            ¿Qué documento base desea descargar?</DialogTitle>
+          <DialogContentText>
+            
+          </DialogContentText>
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 1,
+              mt: 1,
+            }}
+          />
+          <Button
+            variant="contained"
+            onClick={handleDownloadDocx}
+            sx={{
+              mt: 3,
+              mb: 3,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              //color: theme.palette.third.main,
+              background:
+                 theme.palette.secondary.main                 
+            }}
+          >
+            Formato de acceso remoto a través de una Red Privada Virtual (VPN)
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleDownloadDocx2}
+            sx={{
+              mt: 3,
+              mb: 3,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              //color: theme.palette.third.main,
+              background:
+                 theme.palette.secondary.main                 
+            }}
+          >
+            Formato de acceso remoto a través de una Red Privada Virtual (VPN) Caso especial
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleClose3}
+            sx={{
+              mt: 3,
+              mb: 3,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              background: "#98989A",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+          >
+            Cancelar
+          </Button>
+        </DialogContent>
       </Dialog>
 
       {/* BOTON FLOTANTE DE AÑADIR MEMORANDO*/}
