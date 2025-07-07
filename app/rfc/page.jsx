@@ -177,38 +177,38 @@ export default function Home() {
     politicasaceptadas: false,
   });
 
-    //Capitalizar
-  function capitalizeWords(str) {
-  const exceptions = ["de", "para", "por", "y", "en", "a", "la", "el", "del", "al", "con", "sin", "o", "u"];
-  return str
-    .split(" ")
-    .map((word, idx) => {
-      // Si la palabra es solo números, no la modifica
-      if (/^[0-9]+$/.test(word)) return word;
-      // Si la palabra tiene letras, capitaliza solo la primera letra que sea letra
-      const match = word.match(/^([0-9]*)([a-zA-ZÁÉÍÓÚÑáéíóúñ])(.*)$/);
-      if (match) {
-        const [, nums, firstLetter, rest] = match;
-        const lower = (firstLetter + rest).toLowerCase();
-        const capitalized = lower.charAt(0).toUpperCase() + lower.slice(1);
-        return idx === 0 || !exceptions.includes(lower)
-          ? (nums || "") + capitalized
-          : (nums || "") + lower;
-      }
-      // Si no tiene letras, solo minúsculas (ej: símbolos)
-      return word;
-    })
-    .join(" ");
-}
-// Lista de campos a capitalizar
-const fieldsToCapitalize = [
-  "nomei",
-  "puestos",
-  "noms",
-  "nombreJefe",
-  "puestoJefe",
-  "areas"
-];
+//     //Capitalizar
+//   function capitalizeWords(str) {
+//   const exceptions = ["de", "para", "por", "y", "en", "a", "la", "el", "del", "al", "con", "sin", "o", "u"];
+//   return str
+//     .split(" ")
+//     .map((word, idx) => {
+//       // Si la palabra es solo números, no la modifica
+//       if (/^[0-9]+$/.test(word)) return word;
+//       // Si la palabra tiene letras, capitaliza solo la primera letra que sea letra
+//       const match = word.match(/^([0-9]*)([a-zA-ZÁÉÍÓÚÑáéíóúñ])(.*)$/);
+//       if (match) {
+//         const [, nums, firstLetter, rest] = match;
+//         const lower = (firstLetter + rest).toLowerCase();
+//         const capitalized = lower.charAt(0).toUpperCase() + lower.slice(1);
+//         return idx === 0 || !exceptions.includes(lower)
+//           ? (nums || "") + capitalized
+//           : (nums || "") + lower;
+//       }
+//       // Si no tiene letras, solo minúsculas (ej: símbolos)
+//       return word;
+//     })
+//     .join(" ");
+// }
+// // Lista de campos a capitalizar
+// const fieldsToCapitalize = [
+//   "nomei",
+//   "puestos",
+//   "noms",
+//   "nombreJefe",
+//   "puestoJefe",
+//   "areas"
+// ];
 
   const Movimientoid = [
     {
@@ -223,17 +223,25 @@ const fieldsToCapitalize = [
 
   // Gaurdar cambios
   const handleChange = (event) => {
-     const { name, value, type, checked } = event.target;
-  setFormData((prevFormData) => ({
-    ...prevFormData,
-    [name]:
-      type === "checkbox"
-        ? checked
-        : fieldsToCapitalize.includes(name)
-        ? capitalizeWords(value)
-        : value,
-  }));
+    const { name, value, type, checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
+  //Prueba de capitalizar
+  // const handleChange = (event) => {
+  //    const { name, value, type, checked } = event.target;
+  // setFormData((prevFormData) => ({
+  //   ...prevFormData,
+  //   [name]:
+  //     type === "checkbox"
+  //       ? checked
+  //       : fieldsToCapitalize.includes(name)
+  //       ? capitalizeWords(value)
+  //       : value,
+  // }));
+  // };
 
   // HandleChange FormData2
   const handleChange2 = (event) => {
