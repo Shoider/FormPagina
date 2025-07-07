@@ -3248,7 +3248,9 @@ export default function Home() {
           },
         }}
       >
-        <DialogTitle>Modificar Formato</DialogTitle>
+        <DialogTitle align="center">
+          Modificar Formato
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Si conoce un número de formato en el cual se pueda guiar, ingréselo.
@@ -3260,13 +3262,13 @@ export default function Home() {
             sx={{
               borderBottomWidth: "1px",
               borderColor: "grey",
-              ml: 2,
-              mr: 2,
+              ml: 0,
+              mr: 0,
               mb: 1,
               mt: 2,
             }}
           />
-          <FormLabel
+{/*           <FormLabel
             component="legend"
             sx={{
               mx: "auto",
@@ -3279,7 +3281,7 @@ export default function Home() {
           >
             Dato de búsqueda (se encuentra en la parte superior derecha de su
             formato).
-          </FormLabel>
+          </FormLabel> */}
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
@@ -3319,7 +3321,7 @@ export default function Home() {
               mb: 3,
               width: "calc(100% - 32px)",
               ml: 2,
-              mr: 4,
+              mr: 2,
               background: "#98989A",
               color: "#FFFFFF",
               border: "1px solid gray",
@@ -3365,7 +3367,9 @@ export default function Home() {
         <DialogContent>
           <DialogTitle
           align="center"
-
+          sx={{
+            mt: -2
+          }}
           >
             ¿Qué documento base desea descargar?</DialogTitle>
           <DialogContentText>
@@ -3377,16 +3381,16 @@ export default function Home() {
               borderColor: "grey",
               ml: 2,
               mr: 2,
-              mb: 1,
-              mt: 1,
+              mb: 0,
+              mt: 0,
             }}
           />
           <Button
             variant="contained"
             onClick={handleDownloadDocx}
             sx={{
-              mt: 3,
-              mb: 3,
+              mt: 2,
+              mb: 0,
               width: "calc(100% - 32px)",
               ml: 2,
               mr: 4,
@@ -3401,8 +3405,8 @@ export default function Home() {
             variant="contained"
             onClick={handleDownloadDocx2}
             sx={{
-              mt: 3,
-              mb: 3,
+              mt: 2,
+              mb: 0,
               width: "calc(100% - 32px)",
               ml: 2,
               mr: 4,
@@ -3413,12 +3417,22 @@ export default function Home() {
           >
             Formato de acceso remoto a través de una Red Privada Virtual (VPN) Caso especial
           </Button>
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 0,
+              mt: 2,
+            }}
+          />
           <Button
             variant="contained"
             onClick={handleClose3}
             sx={{
-              mt: 3,
-              mb: 3,
+              mt: 2,
+              mb: 2,
               width: "calc(100% - 32px)",
               ml: 2,
               mr: 4,
@@ -3474,7 +3488,9 @@ export default function Home() {
           },
         }}
       >
-        <DialogTitle>Añadir memorando</DialogTitle>
+        <DialogTitle align="center">
+          Añadir memorando
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Aquí puede añadir el número de memorando que se le proporciono para
@@ -3487,13 +3503,13 @@ export default function Home() {
             sx={{
               borderBottomWidth: "1px",
               borderColor: "grey",
-              ml: 2,
-              mr: 2,
-              mb: 1,
+              ml: 0,
+              mr: 0,
+              mb: 0,
               mt: 2,
             }}
           />
-          <FormLabel
+{/*           <FormLabel
             component="legend"
             sx={{
               mx: "auto",
@@ -3505,7 +3521,7 @@ export default function Home() {
             }}
           >
             Dato de búsqueda (lo podrá encontrar en su formato).
-          </FormLabel>
+          </FormLabel> */}
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
@@ -3519,7 +3535,7 @@ export default function Home() {
             inputProps={{ maxLength: 64 }}
             fullWidth
           />
-          <FormLabel
+{/*           <FormLabel
             component="legend"
             sx={{
               mx: "auto",
@@ -3531,13 +3547,13 @@ export default function Home() {
             }}
           >
             Dato a actualizar.
-          </FormLabel>
+          </FormLabel> */}
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
             id="memorando"
             name="memorando"
-            label="Número de memorando"
+            label="Nuevo número de memorando"
             placeholder="Ingrese el número de memorando"
             value={formData2.memorando}
             onChange={handleChange2}
@@ -3551,7 +3567,7 @@ export default function Home() {
             type="submit"
             variant="contained"
             sx={{
-              mt: 3,
+              mt: 0,
               mb: 3,
               width: "calc(100% - 32px)",
               ml: 2,
@@ -3575,11 +3591,11 @@ export default function Home() {
             variant="contained"
             onClick={handleClose}
             sx={{
-              mt: 3,
+              mt: 0,
               mb: 3,
               width: "calc(100% - 32px)",
               ml: 2,
-              mr: 4,
+              mr: 2,
               background: "#98989A",
               color: "#FFFFFF",
               border: "1px solid gray",
