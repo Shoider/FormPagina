@@ -8,6 +8,7 @@ export const theme = createTheme({
     },
     secondary: {
       main: "#611232", //Magenta
+      secondary: "#D20103" //Rojo oscuro de error
     },
     third: {
       main: "#a57f2c", //Dorado
