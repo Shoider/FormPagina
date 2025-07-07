@@ -1000,6 +1000,7 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       subgerencia: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      casoespecial : ""
     }));
   };
 
