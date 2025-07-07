@@ -413,16 +413,19 @@ export default function Home() {
       "justificacion",
       ];
     }
-     if (Data.casoespecial === "Indivual" || Data.subgerencia !== "Subgerencia de Sistemas") {
+     if (Data.casoespecial !== "Grupal" || Data.subgerencia !== "Subgerencia de Sistemas") {
       camposRequeridos = [      
       "nombreEnlace",
       "telefonoEnlace",  
       "puestoEnlace",    
       "justificacion",
+      "marca",
       "modelo",
       "serie",
-      "versioSO",
-      "SO"
+      "tipoEquipo",
+      "versionSO",
+      "sistemaOperativo",
+      "solicitante"
       ];
     }
    
