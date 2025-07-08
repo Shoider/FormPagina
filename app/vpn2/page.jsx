@@ -3407,7 +3407,7 @@ export default function Home() {
           onClick={handleClickOpen3}          
         >
           <DownloadIcon sx={{ mr: 1 }} />
-          Descargar . docx
+          Descargar formatos
         </Fab>
       </Box>
       {/* DIALOG */}
@@ -3475,7 +3475,7 @@ export default function Home() {
                  theme.palette.secondary.main                 
             }}
           >
-            Formato de acceso remoto a través de una Red Privada Virtual (VPN) Caso especial
+            Formato de acceso remoto a través de una Red Privada Virtual (VPN) Subgerencia de Sistemas
           </Button>
           <Divider
             sx={{
