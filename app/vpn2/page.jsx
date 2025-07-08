@@ -25,6 +25,7 @@ import {
   DialogTitle,
   Modal,
   LinearProgress,
+  Tooltip
 } from "@mui/material";
 
 import Image from "next/image";
@@ -2405,8 +2406,9 @@ export default function Home() {
             flexWrap: "wrap",
             mt: 2,
             ml: 10,
-            mb: 3,
-            mr: 8,
+            mb: 1,
+            mr: 10,
+            alignItems: "center", 
           }}
         >
           {[
@@ -3048,9 +3050,35 @@ export default function Home() {
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
-        >
+        >          
+      {
+        !formData.politicasaceptadas ? (
+          <Tooltip title="Debes aceptar los términos y condiciones">
+            <span>
+              <Button
+                onClick={handleOpenModal}
+                variant="contained"
+                sx={{
+                  mt: 3,
+                  mb: 3,
+                  width: "calc(100% - 32px)",
+                  ml: 2,
+                  mr: 4,
+                  background:
+                    botonEstado === "Descargar PDF"
+                      ? theme.palette.third.main
+                      : theme.palette.secondary.main,
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+                disabled
+              >
+                {botonEstado}
+              </Button>
+            </span>
+          </Tooltip>
+        ) : (
           <Button
-            //type="submit"
             onClick={handleOpenModal}
             variant="contained"
             sx={{
@@ -3066,9 +3094,7 @@ export default function Home() {
               color: "#FFFFFF",
               border: "1px solid gray",
             }}
-            disabled={
-              botonEstado === "Cargando..." || !formData.politicasaceptadas
-            }
+            disabled={botonEstado === "Cargando..."}
             {...(botonEstado === "Descargar PDF" && {
               href: pdfUrl,
               download: nombreArchivo,
@@ -3076,6 +3102,8 @@ export default function Home() {
           >
             {botonEstado}
           </Button>
+        )
+      }
 
           <Modal
             open={openModal}
