@@ -3051,59 +3051,59 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >          
-      {
-        !formData.politicasaceptadas ? (
-          <Tooltip title="Debes aceptar los términos y condiciones">
-            <span>
-              <Button
-                onClick={handleOpenModal}
-                variant="contained"
-                sx={{
-                  mt: 3,
-                  mb: 3,
-                  width: "calc(100% - 32px)",
-                  ml: 2,
-                  mr: 4,
-                  background:
-                    botonEstado === "Descargar PDF"
-                      ? theme.palette.third.main
-                      : theme.palette.secondary.main,
-                  color: "#FFFFFF",
-                  border: "1px solid gray",
-                }}
-                disabled
-              >
-                {botonEstado}
-              </Button>
-            </span>
-          </Tooltip>
-        ) : (
-          <Button
-            onClick={handleOpenModal}
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 3,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-              background:
-                botonEstado === "Descargar PDF"
-                  ? theme.palette.third.main
-                  : theme.palette.secondary.main,
-              color: "#FFFFFF",
-              border: "1px solid gray",
-            }}
-            disabled={botonEstado === "Cargando..."}
-            {...(botonEstado === "Descargar PDF" && {
-              href: pdfUrl,
-              download: nombreArchivo,
-            })}
-          >
-            {botonEstado}
-          </Button>
-        )
-      }
+        {
+          !formData.politicasaceptadas ? (
+            <Tooltip title="Debes aceptar los términos y condiciones">
+              <span>
+                <Button
+                  onClick={handleOpenModal}
+                  variant="contained"
+                  sx={{
+                    mt: 3,
+                    mb: 3,
+                    width: "calc(100% - 32px)",
+                    ml: 2,
+                    mr: 4,
+                    background:
+                      botonEstado === "Descargar PDF"
+                        ? theme.palette.third.main
+                        : theme.palette.secondary.main,
+                    color: "#FFFFFF",
+                    border: "1px solid gray",
+                  }}
+                  disabled
+                >
+                  {botonEstado}
+                </Button>
+              </span>
+            </Tooltip>
+          ) : (
+            <Button
+              onClick={handleOpenModal}
+              variant="contained"
+              sx={{
+                mt: 3,
+                mb: 3,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+                background:
+                  botonEstado === "Descargar PDF"
+                    ? theme.palette.third.main
+                    : theme.palette.secondary.main,
+                color: "#FFFFFF",
+                border: "1px solid gray",
+              }}
+              disabled={botonEstado === "Cargando..."}
+              {...(botonEstado === "Descargar PDF" && {
+                href: pdfUrl,
+                download: nombreArchivo,
+              })}
+            >
+              {botonEstado}
+            </Button>
+          )
+        }
 
           <Modal
             open={openModal}
