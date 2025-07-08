@@ -4549,29 +4549,54 @@ export default function Home() {
               border: "1px solid gray",
             }}
           >
-            Regresar al Inicio
+            Volver al Menú
           </Button>
-          <Button
-            type="reset"
-            variant="contained"
-            sx={{
-              mt: 0,
-              mb: 3,
-              width: "calc(50% - 32px)",
-              ml: 4,
-              mr: 0,
-              background: theme.palette.secondary.main,
-              color: "#FFFFFF",
-              border: "1px solid gray",
-            }}
-            disabled={botonEstado !== "Descargar PDF"}
-            onClick={() => {
-              window.location.reload();
-              window.scrollTo(0, 0);
-            }}
-          >
-            Nueva solicitud
-          </Button>
+          {
+            botonEstado !== "Descargar PDF" ?(
+              <Tooltip title = "Debes de generar una previamente">
+                <span>
+                <Button
+                  type="reset"
+                  variant="contained"
+                  sx={{
+                    mt: 0,
+                    mb: 3,
+                    width: "calc(50% - 32px)",
+                    ml: 4,
+                    mr: 0,
+                    background: theme.palette.secondary.main,
+                    color: "#FFFFFF",
+                    border: "1px solid gray",
+                  }}
+                  disabled
+                >
+                  Nueva solicitud
+                </Button>
+                </span>
+              </Tooltip>
+            ) :(
+              <Button
+                  type="reset"
+                  variant="contained"
+                  sx={{
+                    mt: 0,
+                    mb: 3,
+                    width: "calc(50% - 32px)",
+                    ml: 4,
+                    mr: 0,
+                    background: theme.palette.secondary.main,
+                    color: "#FFFFFF",
+                    border: "1px solid gray",
+                  }}
+                  onClick={() => {
+                    window.location.reload();
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  Nueva solicitud
+                </Button>
+            )
+          }
         </Box>
       </Box>
       {/* ALERT */}
