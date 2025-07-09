@@ -25,7 +25,11 @@ import {
   DialogTitle,
   Modal,
   LinearProgress,
-  Tooltip
+  Tooltip,
+  Backdrop,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon
 } from "@mui/material";
 
 import Image from "next/image";
@@ -284,7 +288,7 @@ export default function Home() {
   const handleOpenModal2 = () => {
     setOpenModal2(true);
     return;
-  };
+  }; 
 
   //PARA LINEA DE PROGRESO
   const [progress, setProgress] = React.useState(0);
@@ -590,7 +594,8 @@ export default function Home() {
     
 
     return [isValid, isValidTabla, errores];
-  };
+  }; 
+
   // Llamada API
   const handleSubmit = async (event) => {
     handleCloseModal();
@@ -1091,6 +1096,16 @@ export default function Home() {
   //const filteredSubgerencia = subgerencias
   //.filter(subgerencia => subgerencia.area === formData.areaAdscripcion)
   //.map(subgerencia => subgerencia.nombre);
+  //Para botón que aparece y desaparece
+  const botones =[
+    { icon: <DownloadIcon/>, name: 'Descarga de Formatos',onClick: handleClickOpen3, background:"#fff90"},
+    { icon: <AddIcon/>, name: 'Añadir Memorando',onClick: handleClickOpen },
+    { icon: <EditIcon/>, name: 'Modificar Formato',onClick: handleClickOpen2 },
+  ];
+  
+  const [openBotton, setOpenBotton] = React.useState(false);
+  const handleOpenBotton = () => setOpenBotton(true);
+  const handleCloseBotton = () => setOpenBotton(false);
 
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
@@ -3267,7 +3282,7 @@ export default function Home() {
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />
 
       {/* BOTON FLOTANTE DE ACTUALIZAR FORMATO*/}
-      <Box
+      {/* <Box
         sx={{
           position: "fixed",
           bottom: 10,
@@ -3284,7 +3299,7 @@ export default function Home() {
           <EditIcon sx={{ mr: 1 }} />
           Modificar Formato
         </Fab>
-      </Box>
+      </Box> */}
 
       {/* DIALOG */}
       <Dialog
@@ -3392,7 +3407,40 @@ export default function Home() {
         </DialogActions>
       </Dialog>
 
-      <Box
+      {/**Botón que muestra los varios botones */}
+      <Box 
+      sx={{ 
+          position: "fixed",
+          bottom: 10,
+          right: 10,
+          "& > :not(style)": { m: 1 },
+          flexGrow:1
+       }}>
+      <Backdrop openBotton={open} />
+      <SpeedDial
+        ariaLabel="SpeedDial tooltip example"
+        sx={{ position: 'flex', bottom: 20, right: 20 }}
+        icon={<SpeedDialIcon />}
+        color="secondary"
+        onClose={handleCloseBotton}
+        onOpen={handleOpenBotton}
+        open={openBotton}
+      >        
+        {botones.map((action) => (
+          <SpeedDialAction
+            sx={{position:"center"}}
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+            tooltipOpen
+            onClick={action.onClick}
+            color={action.background}
+          />
+        ))}
+      </SpeedDial>
+    </Box>
+
+      {/* <Box
         sx={{
           position: "fixed",
           bottom: 110, // Ajusta para que no se encime con otros botones
@@ -3409,7 +3457,7 @@ export default function Home() {
           <DownloadIcon sx={{ mr: 1 }} />
           Descargar formatos
         </Fab>
-      </Box>
+      </Box> */}
       {/* DIALOG */}
       <Dialog
         open={open3}
@@ -3506,7 +3554,7 @@ export default function Home() {
         </DialogContent>
       </Dialog>
 
-      {/* BOTON FLOTANTE DE AÑADIR MEMORANDO*/}
+      {/* BOTON FLOTANTE DE AÑADIR MEMORANDO
       <Box
         sx={{
           position: "fixed",
@@ -3524,7 +3572,7 @@ export default function Home() {
           <AddIcon sx={{ mr: 1 }} />
           Añadir memorando
         </Fab>
-      </Box>
+      </Box> */}
 
       {/* DIALOG */}
       <Dialog
