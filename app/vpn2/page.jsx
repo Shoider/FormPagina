@@ -1098,9 +1098,9 @@ export default function Home() {
   //.map(subgerencia => subgerencia.nombre);
   //Para botón que aparece y desaparece
   const botones =[
-    { icon: <DownloadIcon/>, name: 'Descarga de Formatos',onClick: handleClickOpen3, color: "secondary" },
-    { icon: <AddIcon/>, name: 'Añadir Memorando',onClick: handleClickOpen },
-    { icon: <EditIcon/>, name: 'Modificar Formato',onClick: handleClickOpen2 },
+    { icon: <DownloadIcon htmlColor="#FFFFFF" />, name: 'Descarga de Formatos',onClick: handleClickOpen3, color: "secondary" },
+    { icon: <AddIcon htmlColor="#FFFFFF" />, name: 'Añadir Memorando',onClick: handleClickOpen },
+    { icon: <EditIcon htmlColor="#FFFFFF"/>, name: 'Modificar Formato',onClick: handleClickOpen2 },
   ];
   
   const [openBotton, setOpenBotton] = React.useState(false);
@@ -3420,7 +3420,7 @@ export default function Home() {
       <SpeedDial
         ariaLabel="SpeedDial Menu"
         sx={{ 
-          position: 'flex', 
+          position: 'fixed', 
           bottom: 20, 
           right: 20,
           '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
@@ -3430,7 +3430,7 @@ export default function Home() {
             }
           }
         }}
-        icon={<SpeedDialIcon />}
+        icon={<SpeedDialIcon fontSize='large'/>}
         onClose={handleCloseBotton}
         onOpen={handleOpenBotton}
         open={openBotton}
@@ -3439,7 +3439,7 @@ export default function Home() {
           <SpeedDialAction
             sx={{ 
               position:"center",
-              '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
+              '& .MuiFab-root': {
                 backgroundColor: 'dial.third',
                 '&:hover': {
                   backgroundColor: 'dial.forty',
