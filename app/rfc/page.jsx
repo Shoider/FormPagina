@@ -27,6 +27,10 @@ import {
   Tooltip,
   Modal,
   LinearProgress,
+  Backdrop,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon
 } from "@mui/material";
 import Image from "next/image";
 import EditableTableInter from "../components/EditableTableInter.jsx";
@@ -34,6 +38,9 @@ import EditableTableAdmin from "../components/EditableTableAdmin.jsx";
 import EditableTableDes from "../components/EditableTableDes.jsx";
 import EditableTableUsua from "../components/EditableTableUsua.jsx";
 import EditableTableOtro from "../components/EditableTableOtro.jsx";
+import DownloadIcon from "@mui/icons-material/Download";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
 import Alerts from "../components/alerts.jsx";
 import Link from "next/link";
 import axios from "axios";
@@ -1335,6 +1342,15 @@ export default function Home() {
   const [progress, setProgress] = React.useState(0);
   const [progresoCompleto, setProgresoCompleto] = React.useState(false);
   const [progresoMostrado, setProgresoMostrado] = React.useState(false);
+
+  //Para botón que aparece y desaparece
+    const botones =[
+      { icon: <SyncIcon htmlColor="#FFFFFF" />, name: 'Actualizar número de ticket',onClick: handleClickOpen, color: "secondary" },
+    ];
+    
+    const [openBotton, setOpenBotton] = React.useState(false);
+    const handleOpenBotton = () => setOpenBotton(true);
+    const handleCloseBotton = () => setOpenBotton(false);
   React.useEffect(() => {
     let timer;
     if (openModal && !progresoMostrado) {
@@ -2019,7 +2035,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
+            maxWidth: "80.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -2416,7 +2432,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
+            maxWidth: "80.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -2813,7 +2829,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
+            maxWidth: "80.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -3209,7 +3225,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
+            maxWidth: "80.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -3604,7 +3620,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
+            maxWidth: "80.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -4601,7 +4617,7 @@ export default function Home() {
       </Box>
       {/* ALERT */}
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />{" "}
-      {/* BOTON FLOTANTE */}
+      {/* BOTON FLOTANTE
       <Box
         sx={{
           //display: "none",
@@ -4620,7 +4636,7 @@ export default function Home() {
           <SyncIcon sx={{ mr: 1 }} />
           Actualizar Número de Ticket
         </Fab>
-      </Box>
+      </Box> */}
       {/* DIALOG */}
       <Dialog
         open={open}
@@ -4759,6 +4775,56 @@ export default function Home() {
           </Button>
         </DialogActions>
       </Dialog>
+      {/**Botón que muestra los varios botones */}
+          <Box 
+            sx={{ 
+                position: "fixed",
+                bottom: 10,
+                right: 10,
+                "& > :not(style)": { m: 1 },
+                flexGrow:1
+             }}>
+            <Backdrop openBotton={open} />
+            <SpeedDial
+              ariaLabel="SpeedDial Menu"
+              sx={{ 
+                position: 'fixed', 
+                bottom: 20, 
+                right: 20,
+                '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
+                  backgroundColor: 'dial.secondary',
+                  '&:hover': {
+                    backgroundColor: 'dial.main',
+                  }
+                }
+              }}
+              icon={<SpeedDialIcon fontSize='large'/>}
+              onClose={handleCloseBotton}
+              onOpen={handleOpenBotton}
+              open={openBotton}
+            >        
+              {botones.map((action) => (
+                <SpeedDialAction
+                  sx={{ 
+                    position:"center",
+                    '& .MuiFab-root': {
+                      backgroundColor: 'dial.third',
+                      '&:hover': {
+                        backgroundColor: 'dial.forty',
+                      }
+                    },
+                    mt:1,
+                    mb:1,
+                  }}
+                  key={action.name}
+                  icon={action.icon}
+                  slotProps={{tooltip:{title:action.name}}}
+                  tooltipOpen
+                  onClick={action.onClick}
+                />
+              ))}
+            </SpeedDial>
+          </Box>
     </Container>
   );
 }
