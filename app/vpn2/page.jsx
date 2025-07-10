@@ -1098,9 +1098,9 @@ export default function Home() {
   //.map(subgerencia => subgerencia.nombre);
   //Para botón que aparece y desaparece
   const botones =[
-    { icon: <DownloadIcon htmlColor="#FFFFFF" />, name: 'Descarga de Formatos',onClick: handleClickOpen3, color: "secondary" },
-    { icon: <AddIcon htmlColor="#FFFFFF" />, name: 'Añadir Memorando',onClick: handleClickOpen },
-    { icon: <EditIcon htmlColor="#FFFFFF"/>, name: 'Modificar Formato',onClick: handleClickOpen2 },
+    { icon: <DownloadIcon htmlColor="#FFFFFF" />, name: 'Descargar formatos',onClick: handleClickOpen3, color: "secondary" },
+    { icon: <AddIcon htmlColor="#FFFFFF" />, name: 'Añadir memorando',onClick: handleClickOpen },
+    { icon: <EditIcon htmlColor="#FFFFFF"/>, name: 'Modificar formato',onClick: handleClickOpen2 },
   ];
   
   const [openBotton, setOpenBotton] = React.useState(false);
@@ -3444,11 +3444,14 @@ export default function Home() {
                 '&:hover': {
                   backgroundColor: 'dial.forty',
                 }
-              }
+              },
+              mt:1,
+              mb:1,
             }}
             key={action.name}
             icon={action.icon}
-            tooltipTitle={action.name}
+            slotProps={{tooltip:{title:action.name}}}
+            //tooltipTitle={action.name}
             tooltipOpen
             onClick={action.onClick}
           />
