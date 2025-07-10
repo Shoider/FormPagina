@@ -1098,7 +1098,7 @@ export default function Home() {
   //.map(subgerencia => subgerencia.nombre);
   //Para botón que aparece y desaparece
   const botones =[
-    { icon: <DownloadIcon/>, name: 'Descarga de Formatos',onClick: handleClickOpen3, background:"#fff90"},
+    { icon: <DownloadIcon/>, name: 'Descarga de Formatos',onClick: handleClickOpen3, color: "secondary" },
     { icon: <AddIcon/>, name: 'Añadir Memorando',onClick: handleClickOpen },
     { icon: <EditIcon/>, name: 'Modificar Formato',onClick: handleClickOpen2 },
   ];
@@ -3407,8 +3407,8 @@ export default function Home() {
         </DialogActions>
       </Dialog>
 
-      {/**Botón que muestra los varios botones */}
-      <Box 
+    {/**Botón que muestra los varios botones */}
+    <Box 
       sx={{ 
           position: "fixed",
           bottom: 10,
@@ -3419,22 +3419,38 @@ export default function Home() {
       <Backdrop openBotton={open} />
       <SpeedDial
         ariaLabel="SpeedDial tooltip example"
-        sx={{ position: 'flex', bottom: 20, right: 20 }}
+        sx={{ 
+          position: 'flex', 
+          bottom: 20, 
+          right: 20,
+          '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
+            backgroundColor: 'secondary.main',
+            '&:hover': {
+              backgroundColor: 'forty.main',
+            }
+          }
+        }}
         icon={<SpeedDialIcon />}
-        color="secondary"
         onClose={handleCloseBotton}
         onOpen={handleOpenBotton}
         open={openBotton}
       >        
         {botones.map((action) => (
           <SpeedDialAction
-            sx={{position:"center"}}
+            sx={{ 
+              position:"center",
+              '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
+                backgroundColor: 'secondary.main',
+                '&:hover': {
+                  backgroundColor: 'red',
+                }
+              }
+            }}
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
             tooltipOpen
             onClick={action.onClick}
-            color={action.background}
           />
         ))}
       </SpeedDial>
