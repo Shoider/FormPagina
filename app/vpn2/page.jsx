@@ -3418,15 +3418,15 @@ export default function Home() {
        }}>
       <Backdrop openBotton={open} />
       <SpeedDial
-        ariaLabel="SpeedDial tooltip example"
+        ariaLabel="SpeedDial Menu"
         sx={{ 
           position: 'flex', 
           bottom: 20, 
           right: 20,
           '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
-            backgroundColor: 'secondary.main',
+            backgroundColor: 'dial.secondary',
             '&:hover': {
-              backgroundColor: 'forty.main',
+              backgroundColor: 'dial.main',
             }
           }
         }}
@@ -3440,9 +3440,9 @@ export default function Home() {
             sx={{ 
               position:"center",
               '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
-                backgroundColor: 'secondary.main',
+                backgroundColor: 'dial.third',
                 '&:hover': {
-                  backgroundColor: 'red',
+                  backgroundColor: 'dial.forty',
                 }
               }
             }}
