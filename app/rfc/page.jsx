@@ -2035,7 +2035,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "80.00%",
+            maxWidth: "86.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -2432,7 +2432,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "80.00%",
+            maxWidth: "86.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -2829,7 +2829,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "80.00%",
+            maxWidth: "86.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -3225,7 +3225,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "80.00%",
+            maxWidth: "86.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -3620,7 +3620,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "80.00%",
+            maxWidth: "86.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
