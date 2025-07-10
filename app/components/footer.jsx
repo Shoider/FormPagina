@@ -87,10 +87,20 @@ export default function FooterGlobal() {
               >
                 <FacebookIcon />
               </IconButton>
+
             </Box>
           </Grid>
         </Grid>
       </Container>
+      <Typography
+        variant="subtitle2"
+        fontWeight={500}
+        color="white"
+        textAlign={{ xs: "center", sm: "center" }}
+        sx={{ mt:-5, mb: 3}}
+      >
+        © 2025 Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad (SSTTyS)
+      </Typography>
       <Box
         sx={{
           width: "100%",
