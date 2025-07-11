@@ -1338,6 +1338,14 @@ export default function Home() {
     }));
   };
 
+  //Descarga de formatos
+    const [open3, setOpen3] = useState(false);
+    const handleClickOpen3 = () => {
+      setOpen3(true);
+    };
+    const handleClose3 = () => {
+      setOpen3(false);
+    }
   //Para linea de progreso
   const [progress, setProgress] = React.useState(0);
   const [progresoCompleto, setProgresoCompleto] = React.useState(false);
@@ -1345,8 +1353,18 @@ export default function Home() {
 
   //Para botón que aparece y desaparece
     const botones =[
+      { icon: <DownloadIcon htmlColor="#FFFFFF" />, name: 'Descargar formato',onClick: handleClickOpen3, color: "secondary" },
       { icon: <SyncIcon htmlColor="#FFFFFF" />, name: 'Actualizar número de ticket',onClick: handleClickOpen, color: "secondary" },
     ];
+    //Descarga de PDF
+    const handleDownloadDocx = () => {
+    const link = document.createElement("a");
+    link.href = "/archivos/Formato_RFC.pdf"; // Ruta de archivo "General"
+    link.download = "Formato_RFC.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+};
     
     const [openBotton, setOpenBotton] = React.useState(false);
     const handleOpenBotton = () => setOpenBotton(true);
@@ -4775,6 +4793,86 @@ export default function Home() {
           </Button>
         </DialogActions>
       </Dialog>
+      {/* DIALOG */}
+          <Dialog
+            open={open3}
+            onClose={handleClose3}
+            sx={{
+              "& .MuiDialog-container": {
+                backgroundColor: "f5f5f5", // Or any other color
+              },
+              "& .MuiDialog-paper": {
+                backgroundColor: "#f4f4f5", // Customize dialog content background
+              },
+            }}
+            
+          >
+            <DialogContent>
+              <DialogTitle
+              align="center"
+              sx={{
+                mt: -2
+              }}
+              >
+                Descarga de documento .pdf del formato</DialogTitle>
+              <DialogContentText>
+                
+              </DialogContentText>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 2,
+                  mr: 2,
+                  mb: 0,
+                  mt: 0,
+                }}
+              />
+              <Button
+                variant="contained"
+                onClick={handleDownloadDocx}
+                sx={{
+                  mt: 2,
+                  mb: 0,
+                  width: "calc(100% - 32px)",
+                  ml: 2,
+                  mr: 4,
+                  //color: theme.palette.third.main,
+                  background:
+                      theme.palette.secondary.main                 
+                }}
+              >
+                Formato de solicitud de alta, baja o cambio en la infraestructura de seguridad de la CONAGUA
+              </Button>
+              
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 2,
+                  mr: 2,
+                  mb: 0,
+                  mt: 2,
+                }}
+              />
+              <Button
+                variant="contained"
+                onClick={handleClose3}
+                sx={{
+                  mt: 2,
+                  mb: 2,
+                  width: "calc(100% - 32px)",
+                  ml: 2,
+                  mr: 4,
+                  background: "#98989A",
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Cancelar
+              </Button>
+            </DialogContent>
+          </Dialog>
       {/**Botón que muestra los varios botones */}
           <Box 
             sx={{ 
