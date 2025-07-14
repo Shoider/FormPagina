@@ -19,7 +19,16 @@ import {
   Autocomplete,
   Modal,
   LinearProgress,
-  Tooltip
+  Tooltip, 
+  Backdrop,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,6 +42,8 @@ import direccionAutocomplete from "../constants/direccion.jsx";
 import ala from "../constants/ala.jsx";
 import pisos from "../constants/pisos.jsx";
 import modelos from "../constants/MODELOSTELEFONOS/modelos.jsx";
+import DownloadIcon from "@mui/icons-material/Download";
+
 
 export default function Home() {
   const theme = useTheme();
@@ -137,6 +148,14 @@ export default function Home() {
       label: "Huawei",
     },
   ];
+  //Descarga de formatos
+    const [open3, setOpen3] = useState(false);
+    const handleClickOpen3 = () => {
+      setOpen3(true);
+    };
+    const handleClose3 = () => {
+      setOpen3(false);
+    }
 
   // Nombre PDF
   const [nombreArchivo, setNombreArchivo] = useState("");
@@ -502,6 +521,23 @@ export default function Home() {
       uaUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
+
+   const botones =[
+      { icon: <DownloadIcon htmlColor="#FFFFFF" />, name: 'Descargar formatos',onClick: handleClickOpen3, color: "secondary" },
+    ];
+    
+    const [openBotton, setOpenBotton] = React.useState(false);
+    const handleOpenBotton = () => setOpenBotton(true);
+    const handleCloseBotton = () => setOpenBotton(false);
+
+    const handleDownloadDocx = () => {
+    const link = document.createElement("a");
+      link.href = "/archivos/Formato_TELEFONIA.docx"; // Ruta de archivo "General"
+      link.download = "Formato_TELEFONIA.docx";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
 
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
@@ -2032,6 +2068,139 @@ export default function Home() {
 
       {/* ALERT */}
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />
+
+      {/**Botón que muestra los varios botones */}
+        <Box 
+          sx={{ 
+              position: "fixed",
+              bottom: 10,
+              right: 10,
+              "& > :not(style)": { m: 1 },
+              flexGrow:1
+            }}>
+          <Backdrop open={openBotton} />
+          <SpeedDial
+            ariaLabel="SpeedDial Menu"
+            sx={{ 
+              position: 'fixed', 
+              bottom: 20, 
+              right: 20,
+              '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
+                backgroundColor: 'dial.secondary',
+                '&:hover': {
+                  backgroundColor: 'dial.main',
+                }
+              }
+            }}
+            icon={<SpeedDialIcon fontSize='large'/>}
+            onClose={handleCloseBotton}
+            onOpen={handleOpenBotton}
+            open={openBotton}
+          >        
+            {botones.map((action) => (
+              <SpeedDialAction
+                sx={{ 
+                  position:"center",
+                  '& .MuiFab-root': {
+                    backgroundColor: 'dial.third',
+                    '&:hover': {
+                      backgroundColor: 'dial.forty',
+                    }
+                  },
+                  mt:1,
+                  mb:1,
+                }}
+                key={action.name}
+                icon={action.icon}
+                slotProps={{tooltip:{title:action.name}}}
+                //tooltipTitle={action.name}
+                tooltipOpen
+                onClick={action.onClick}
+              />
+            ))}
+          </SpeedDial>
+        </Box>
+        {/* DIALOG */}
+          <Dialog
+            open={open3}
+            onClose={handleClose3}
+            sx={{
+              "& .MuiDialog-container": {
+                backgroundColor: "f5f5f5", // Or any other color
+              },
+              "& .MuiDialog-paper": {
+                backgroundColor: "#f4f4f5", // Customize dialog content background
+              },
+            }}
+            
+          >
+            <DialogContent>
+              <DialogTitle
+              align="center"
+              sx={{
+                mt: -2
+              }}
+              >
+                Descarga de formato de solictud de servicios de telefonía .docx
+                </DialogTitle>
+              <DialogContentText>
+                
+              </DialogContentText>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 2,
+                  mr: 2,
+                  mb: 0,
+                  mt: 0,
+                }}
+              />
+              <Button
+                variant="contained"
+                onClick={handleDownloadDocx}
+                sx={{
+                  mt: 2,
+                  mb: 0,
+                  width: "calc(100% - 32px)",
+                  ml: 2,
+                  mr: 4,
+                  //color: theme.palette.third.main,
+                  background:
+                      theme.palette.secondary.main                 
+                }}
+              >
+                Formato de solicitud de servicios de telefonía
+              </Button>
+              
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 2,
+                  mr: 2,
+                  mb: 0,
+                  mt: 2,
+                }}
+              />
+              <Button
+                variant="contained"
+                onClick={handleClose3}
+                sx={{
+                  mt: 2,
+                  mb: 2,
+                  width: "calc(100% - 32px)",
+                  ml: 2,
+                  mr: 4,
+                  background: "#98989A",
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Cancelar
+              </Button>
+            </DialogContent>
+          </Dialog>
     </Container>
   );
 }

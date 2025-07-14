@@ -326,7 +326,7 @@ export default function Home() {
   link.href = "/archivos/Formato_VPN.docx"; // Ruta de archivo "General"
   link.download = "Formato_VPN.docx";
   document.body.appendChild(link);
-  link.click();
+  link.click()
   document.body.removeChild(link);
 };
 
