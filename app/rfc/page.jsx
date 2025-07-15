@@ -1365,6 +1365,15 @@ export default function Home() {
     link.click();
     document.body.removeChild(link);
 };
+const handleDownloadDocx2 = () => {
+  const link = document.createElement("a");
+  link.href = "/archivos/Formato_RFC.docx"; // Ruta de archivo caso especial 
+  link.download = "Formato_RFC.docx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
     
     const [openBotton, setOpenBotton] = React.useState(false);
     const handleOpenBotton = () => setOpenBotton(true);
@@ -4814,7 +4823,7 @@ export default function Home() {
                 mt: -2
               }}
               >
-                Descarga de documento .pdf del formato</DialogTitle>
+                Descarga de documento .pdf o .docx del formato</DialogTitle>
               <DialogContentText>
                 
               </DialogContentText>
@@ -4842,7 +4851,23 @@ export default function Home() {
                       theme.palette.secondary.main                 
                 }}
               >
-                Formato de solicitud de alta, baja o cambio en la infraestructura de seguridad de la CONAGUA
+                Formato de solicitud de alta, baja o cambio en la infraestructura de seguridad de la CONAGUA archivo .PDF
+              </Button>
+              <Button
+                    variant="contained"
+                    onClick={handleDownloadDocx2}
+                    sx={{
+                      mt: 2,
+                      mb: 0,
+                      width: "calc(100% - 32px)",
+                      ml: 2,
+                      mr: 4,
+                      //color: theme.palette.third.main,
+                      background:
+                          theme.palette.secondary.main                 
+                    }}
+                  >
+                    Formato de solicitud de alta, baja o cambio en la infraestructura de seguridad de la CONAGUA archivo .docx
               </Button>
               
               <Divider
