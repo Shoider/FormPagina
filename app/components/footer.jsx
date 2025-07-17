@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Container, IconButton, Typography, Grid } from "@mui/material";
+import { Box, Container, IconButton, Typography, Grid, Link } from "@mui/material";
 import XIcon from "@mui/icons-material/X";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -19,75 +19,85 @@ export default function FooterGlobal() {
       }}
     >
       <Container maxWidth="lg" sx={{ mb: 6 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <Typography
-              variant="h6"
-              fontWeight={700}
-              color="white"
-              textAlign={{ xs: "center", sm: "left" }}
-            >
-              En Desarrollo.
+        <Grid container spacing={4}>
+          <Grid item xs={12} sm={6} md={3}>
+            <Typography variant="h6" fontWeight={600} color="white">
+              En Desarrollo. <br/>
             </Typography>
-            <Typography
-              variant="h6"
-              fontWeight={700}
-              color="white"
-              textAlign={{ xs: "center", sm: "left" }}
-            >
+            <Typography variant="h6" fontWeight={600} color="white">
               Reportar errores o sugerencias.
             </Typography>
-            <Typography
-              variant="h6"
-              fontWeight={700}
-              color="white"
-              textAlign={{ xs: "center", sm: "left" }}
-              sx={{ mt: 2 }}
-            >
-              Contacto: req.seguridad17@conagua.gob.mx
+            <Typography variant="body2"  color="white" sx={{ mt: 1 }}>
+              Contacto: req.seguridad17@conagua.gob.mx 
             </Typography>
-            <Typography
-              variant="button"
-              fontWeight={700}
-              color="white"
-              textAlign={{ xs: "center", sm: "left" }}
-              sx={{ mt: 20 }}
-            >
+            <Typography variant="body2"  color="white" sx={{ mt: 3 }}>
               v0.7.0.12.4 (Beta)
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={6} textAlign={{ xs: "center", sm: "right" }}>
+
+          <Grid item xs={12} sm={6} md={3}>
+            <Typography variant="h6" fontWeight={700} color="white">
+              Enlaces
+            </Typography>
+            <Link href="https://red.conagua.gob.mx//" passHref>
+              <Typography
+                variant="body2"
+                color="white"
+                sx={{ cursor: "pointer", textDecoration: "none" }}
+              >
+                Red Conagua
+              </Typography>
+            </Link>
+            <Link href="https://red.conagua.gob.mx/GTIC/Manuales/" passHref>
+              <Typography
+                variant="body2"
+                color="white"
+                sx={{ cursor: "pointer", textDecoration: "none" }}
+              >
+                Manuales y Formatos
+              </Typography>
+            </Link>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3}>
+            <Typography variant="h6" fontWeight={700} mr={-6}color="white">
+              ¿Qué es gob.mx?
+            </Typography>            
+            <Typography variant="body2" color="white">Es el portal único de trámites, información y particicipación ciudadana.</Typography>
+            <Link href="https://www.gob.mx/que-es-gobmx/" passHref>
+              <Typography
+                variant="body2"
+                color="white"
+                sx={{ cursor: "pointer", textDecoration: "none" }}
+              >
+                Leer más.
+              </Typography>
+            </Link>
+            <Link href="https://www.gob.mx/terminos/" passHref>
+              <Typography
+                variant="body2"
+                color="white"
+                sx={{ cursor: "pointer", textDecoration: "none" }}
+              >
+                Términos y Condiciones
+              </Typography>
+            </Link>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3} textAlign={{ xs: "center", md: "right" }}>
             <Typography variant="h5" fontWeight={600} color="white">
               Síguenos en
             </Typography>
-            <Box
-              mt={2}
-              display="flex"
-              justifyContent="right"
-              alignItems="center"
-              gap={1}
-            >
-              <IconButton
-                sx={{ color: "white", "&:hover": { color: "#000000" } }}
-                href="https://twitter.com/GobiernoMX"
-              >
+            <Box mt={2} display="flex" justifyContent={{ xs: "center", md: "flex-end" }} gap={1}>
+              <IconButton sx={{ color: "white", "&:hover": { color: "#000000" } }} href="https://twitter.com/GobiernoMX">
                 <XIcon />
               </IconButton>
-
-              <IconButton
-                sx={{ color: "white", "&:hover": { color: "#E1306C" } }}
-                href="https://www.instagram.com/gobmexico/"
-              >
+              <IconButton sx={{ color: "white", "&:hover": { color: "#E1306C" } }} href="https://www.instagram.com/gobmexico/">
                 <InstagramIcon />
               </IconButton>
-
-              <IconButton
-                sx={{ color: "white", "&:hover": { color: "#4267B2" } }}
-                href="https://www.facebook.com/gobmexico"
-              >
+              <IconButton sx={{ color: "white", "&:hover": { color: "#4267B2" } }} href="https://www.facebook.com/gobmexico">
                 <FacebookIcon />
               </IconButton>
-
             </Box>
           </Grid>
         </Grid>
