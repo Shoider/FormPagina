@@ -1701,7 +1701,7 @@ export default function Home() {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Términos y condiciones del servicio
+          Políticas y lineamientos 
         </Typography>
         <Box
           component="form"
@@ -1745,7 +1745,7 @@ export default function Home() {
               {
                 name: "politicasaceptadas",
                 label:
-                  "He leído y acepto los términos y condiciones del servicio *",
+                  "He leído y acepto los Políticas y lineamientos  *",
               },
             ].map((item, index) => (
               <Box
