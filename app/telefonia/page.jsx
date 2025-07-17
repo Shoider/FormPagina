@@ -1701,7 +1701,7 @@ export default function Home() {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Políticas y lineamientos 
+          Políticas y Lineamientos 
         </Typography>
         <Box
           component="form"
@@ -1745,7 +1745,7 @@ export default function Home() {
               {
                 name: "politicasaceptadas",
                 label:
-                  "He leído y acepto los Políticas y lineamientos  *",
+                  "He leído y acepto los políticas y lineamientos  *",
               },
             ].map((item, index) => (
               <Box
