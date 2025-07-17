@@ -27,6 +27,10 @@ import {
   Tooltip,
   Modal,
   LinearProgress,
+  Backdrop,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon
 } from "@mui/material";
 import Image from "next/image";
 import EditableTableInter from "../components/EditableTableInter.jsx";
@@ -34,6 +38,9 @@ import EditableTableAdmin from "../components/EditableTableAdmin.jsx";
 import EditableTableDes from "../components/EditableTableDes.jsx";
 import EditableTableUsua from "../components/EditableTableUsua.jsx";
 import EditableTableOtro from "../components/EditableTableOtro.jsx";
+import DownloadIcon from "@mui/icons-material/Download";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
 import Alerts from "../components/alerts.jsx";
 import Link from "next/link";
 import axios from "axios";
@@ -177,6 +184,39 @@ export default function Home() {
     politicasaceptadas: false,
   });
 
+//     //Capitalizar
+//   function capitalizeWords(str) {
+//   const exceptions = ["de", "para", "por", "y", "en", "a", "la", "el", "del", "al", "con", "sin", "o", "u"];
+//   return str
+//     .split(" ")
+//     .map((word, idx) => {
+//       // Si la palabra es solo números, no la modifica
+//       if (/^[0-9]+$/.test(word)) return word;
+//       // Si la palabra tiene letras, capitaliza solo la primera letra que sea letra
+//       const match = word.match(/^([0-9]*)([a-zA-ZÁÉÍÓÚÑáéíóúñ])(.*)$/);
+//       if (match) {
+//         const [, nums, firstLetter, rest] = match;
+//         const lower = (firstLetter + rest).toLowerCase();
+//         const capitalized = lower.charAt(0).toUpperCase() + lower.slice(1);
+//         return idx === 0 || !exceptions.includes(lower)
+//           ? (nums || "") + capitalized
+//           : (nums || "") + lower;
+//       }
+//       // Si no tiene letras, solo minúsculas (ej: símbolos)
+//       return word;
+//     })
+//     .join(" ");
+// }
+// // Lista de campos a capitalizar
+// const fieldsToCapitalize = [
+//   "nomei",
+//   "puestos",
+//   "noms",
+//   "nombreJefe",
+//   "puestoJefe",
+//   "areas"
+// ];
+
   const Movimientoid = [
     {
       value: "ALTAS",
@@ -196,6 +236,19 @@ export default function Home() {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
+  //Prueba de capitalizar
+  // const handleChange = (event) => {
+  //    const { name, value, type, checked } = event.target;
+  // setFormData((prevFormData) => ({
+  //   ...prevFormData,
+  //   [name]:
+  //     type === "checkbox"
+  //       ? checked
+  //       : fieldsToCapitalize.includes(name)
+  //       ? capitalizeWords(value)
+  //       : value,
+  // }));
+  // };
 
   // HandleChange FormData2
   const handleChange2 = (event) => {
@@ -1285,10 +1338,46 @@ export default function Home() {
     }));
   };
 
+  //Descarga de formatos
+    const [open3, setOpen3] = useState(false);
+    const handleClickOpen3 = () => {
+      setOpen3(true);
+    };
+    const handleClose3 = () => {
+      setOpen3(false);
+    }
   //Para linea de progreso
   const [progress, setProgress] = React.useState(0);
   const [progresoCompleto, setProgresoCompleto] = React.useState(false);
   const [progresoMostrado, setProgresoMostrado] = React.useState(false);
+
+  //Para botón que aparece y desaparece
+    const botones =[
+      { icon: <DownloadIcon htmlColor="#FFFFFF" />, name: 'Descargar formato',onClick: handleClickOpen3, color: "secondary" },
+      { icon: <SyncIcon htmlColor="#FFFFFF" />, name: 'Actualizar número de ticket',onClick: handleClickOpen, color: "secondary" },
+    ];
+    //Descarga de PDF
+    const handleDownloadDocx = () => {
+    const link = document.createElement("a");
+    link.href = "/archivos/Formato_RFC.pdf"; // Ruta de archivo "General"
+    link.download = "Formato_RFC.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+};
+const handleDownloadDocx2 = () => {
+  const link = document.createElement("a");
+  link.href = "/archivos/Formato_RFC.docx"; // Ruta de archivo caso especial 
+  link.download = "Formato_RFC.docx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+    
+    const [openBotton, setOpenBotton] = React.useState(false);
+    const handleOpenBotton = () => setOpenBotton(true);
+    const handleCloseBotton = () => setOpenBotton(false);
   React.useEffect(() => {
     let timer;
     if (openModal && !progresoMostrado) {
@@ -1973,7 +2062,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
+            maxWidth: "86.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -2370,7 +2459,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
+            maxWidth: "86.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -2767,7 +2856,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
+            maxWidth: "86.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -3163,7 +3252,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
+            maxWidth: "86.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -3558,7 +3647,7 @@ export default function Home() {
           background: "#F4F4F5",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
+            maxWidth: "86.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -4156,7 +4245,7 @@ export default function Home() {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 0 }}
         >
-          Términos y condiciones del servicio
+          Políticas y Lineamientos 
         </Typography>
         <Box
           component="form"
@@ -4235,7 +4324,7 @@ export default function Home() {
               {
                 name: "politicasaceptadas",
                 label:
-                  "He leído y acepto los términos y condiciones del servicio *",
+                  "He leído y acepto los políticas y lineamientos  *",
               },
             ].map((item, index) => (
               <Box
@@ -4342,33 +4431,59 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <Button
-            //type="submit"
-            onClick={handleOpenModal}
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 3,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-              background:
-                botonEstado === "Descargar PDF"
-                  ? theme.palette.third.main
-                  : theme.palette.secondary.main,
-              color: "#FFFFFF",
-              border: "1px solid gray",
-            }}
-            disabled={
-              botonEstado === "Cargando..." || !formData.politicasaceptadas
-            }
-            {...(botonEstado === "Descargar PDF" && {
-              href: pdfUrl,
-              download: nombreArchivo,
-            })}
-          >
-            {botonEstado}
-          </Button>
+        {
+          !formData.politicasaceptadas ? (
+            <Tooltip title="Debes aceptar los términos y condiciones">
+              <span>
+                <Button
+                  onClick={handleOpenModal}
+                  variant="contained"
+                  sx={{
+                    mt: 3,
+                    mb: 3,
+                    width: "calc(100% - 32px)",
+                    ml: 2,
+                    mr: 4,
+                    background:
+                      botonEstado === "Descargar PDF"
+                        ? theme.palette.third.main
+                        : theme.palette.secondary.main,
+                    color: "#FFFFFF",
+                    border: "1px solid gray",
+                  }}
+                  disabled
+                >
+                  {botonEstado}
+                </Button>
+              </span>
+            </Tooltip>
+          ) : (
+            <Button
+              onClick={handleOpenModal}
+              variant="contained"
+              sx={{
+                mt: 3,
+                mb: 3,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+                background:
+                  botonEstado === "Descargar PDF"
+                    ? theme.palette.third.main
+                    : theme.palette.secondary.main,
+                color: "#FFFFFF",
+                border: "1px solid gray",
+              }}
+              disabled={botonEstado === "Cargando..."}
+              {...(botonEstado === "Descargar PDF" && {
+                href: pdfUrl,
+                download: nombreArchivo,
+              })}
+            >
+              {botonEstado}
+            </Button>
+          )
+        }
 
           <Modal
             open={openModal}
@@ -4477,34 +4592,59 @@ export default function Home() {
               border: "1px solid gray",
             }}
           >
-            Regresar al Inicio
+            Volver al Menú
           </Button>
-          <Button
-            type="reset"
-            variant="contained"
-            sx={{
-              mt: 0,
-              mb: 3,
-              width: "calc(50% - 32px)",
-              ml: 4,
-              mr: 0,
-              background: theme.palette.secondary.main,
-              color: "#FFFFFF",
-              border: "1px solid gray",
-            }}
-            disabled={botonEstado !== "Descargar PDF"}
-            onClick={() => {
-              window.location.reload();
-              window.scrollTo(0, 0);
-            }}
-          >
-            Nueva solicitud
-          </Button>
+          {
+            botonEstado !== "Descargar PDF" ?(
+              <Tooltip title = "Debes de generar una previamente">
+                <span>
+                <Button
+                  type="reset"
+                  variant="contained"
+                  sx={{
+                    mt: 0,
+                    mb: 3,
+                    width: "calc(50% - 32px)",
+                    ml: 4,
+                    mr: 0,
+                    background: theme.palette.secondary.main,
+                    color: "#FFFFFF",
+                    border: "1px solid gray",
+                  }}
+                  disabled
+                >
+                  Nueva solicitud
+                </Button>
+                </span>
+              </Tooltip>
+            ) :(
+              <Button
+                  type="reset"
+                  variant="contained"
+                  sx={{
+                    mt: 0,
+                    mb: 3,
+                    width: "calc(50% - 32px)",
+                    ml: 4,
+                    mr: 0,
+                    background: theme.palette.secondary.main,
+                    color: "#FFFFFF",
+                    border: "1px solid gray",
+                  }}
+                  onClick={() => {
+                    window.location.reload();
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  Nueva solicitud
+                </Button>
+            )
+          }
         </Box>
       </Box>
       {/* ALERT */}
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />{" "}
-      {/* BOTON FLOTANTE */}
+      {/* BOTON FLOTANTE
       <Box
         sx={{
           //display: "none",
@@ -4523,7 +4663,7 @@ export default function Home() {
           <SyncIcon sx={{ mr: 1 }} />
           Actualizar Número de Ticket
         </Fab>
-      </Box>
+      </Box> */}
       {/* DIALOG */}
       <Dialog
         open={open}
@@ -4546,7 +4686,7 @@ export default function Home() {
           },
         }}
       >
-        <DialogTitle>Actualizar número de ticket</DialogTitle>
+        <DialogTitle align="center">Actualizar número de ticket</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Aquí puede actualizar el número de ticket para completar el llenado
@@ -4557,13 +4697,13 @@ export default function Home() {
             sx={{
               borderBottomWidth: "1px",
               borderColor: "grey",
-              ml: 2,
-              mr: 2,
+              ml: 0,
+              mr: 0,
               mb: 1,
               mt: 2,
             }}
           />
-          <FormLabel
+{/*           <FormLabel
             component="legend"
             sx={{
               mx: "auto",
@@ -4576,7 +4716,7 @@ export default function Home() {
           >
             Datos de búsqueda (se encuentra en la parte superior derecha de su
             formato).
-          </FormLabel>
+          </FormLabel> */}
 
           <TextField
             required
@@ -4584,7 +4724,7 @@ export default function Home() {
             id="numeroFormato"
             name="numeroFormato"
             label="Número de Formato"
-            placeholder="AAMMDDXXXX "
+            placeholder="Se encuentra en el encabezado, en la parte superior derecha."
             value={formData2.numeroFormato}
             onChange={handleNumeroFormato2}
             sx={{ background: "#FFFFFF", mt: 2 }}
@@ -4592,7 +4732,7 @@ export default function Home() {
             fullWidth
           />
 
-          <FormLabel
+{/*           <FormLabel
             component="legend"
             sx={{
               mx: "auto",
@@ -4604,13 +4744,13 @@ export default function Home() {
             }}
           >
             Dato a actualizar.
-          </FormLabel>
+          </FormLabel> */}
           <TextField
             required
             //error={!!errors?.nombreAutoriza}
             id="noticket"
             name="noticket"
-            label="Número de ticket"
+            label="Nuevo número de ticket"
             placeholder="Ingrese el número de ticket asignado"
             value={formData2.noticket}
             onChange={handleChange2}
@@ -4624,7 +4764,7 @@ export default function Home() {
             type="submit"
             variant="contained"
             sx={{
-              mt: 3,
+              mt: 0,
               mb: 3,
               width: "calc(100% - 32px)",
               ml: 2,
@@ -4648,11 +4788,11 @@ export default function Home() {
             variant="contained"
             onClick={handleClose}
             sx={{
-              mt: 3,
+              mt: 0,
               mb: 3,
               width: "calc(100% - 32px)",
               ml: 2,
-              mr: 4,
+              mr: 2,
               background: "#98989A",
               color: "#FFFFFF",
               border: "1px solid gray",
@@ -4662,6 +4802,152 @@ export default function Home() {
           </Button>
         </DialogActions>
       </Dialog>
+      {/* DIALOG */}
+          <Dialog
+            open={open3}
+            onClose={handleClose3}
+            sx={{
+              "& .MuiDialog-container": {
+                backgroundColor: "f5f5f5", // Or any other color
+              },
+              "& .MuiDialog-paper": {
+                backgroundColor: "#f4f4f5", // Customize dialog content background
+              },
+            }}
+            
+          >
+            <DialogContent>
+              <DialogTitle
+              align="center"
+              sx={{
+                mt: -2
+              }}
+              >
+                Descarga de documento .pdf o .docx del formato</DialogTitle>
+              <DialogContentText>
+                
+              </DialogContentText>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 2,
+                  mr: 2,
+                  mb: 0,
+                  mt: 0,
+                }}
+              />
+              <Button
+                variant="contained"
+                onClick={handleDownloadDocx}
+                sx={{
+                  mt: 2,
+                  mb: 0,
+                  width: "calc(100% - 32px)",
+                  ml: 2,
+                  mr: 4,
+                  //color: theme.palette.third.main,
+                  background:
+                      theme.palette.secondary.main                 
+                }}
+              >
+                Formato de solicitud de alta, baja o cambio en la infraestructura de seguridad de la CONAGUA archivo .PDF
+              </Button>
+              <Button
+                    variant="contained"
+                    onClick={handleDownloadDocx2}
+                    sx={{
+                      mt: 2,
+                      mb: 0,
+                      width: "calc(100% - 32px)",
+                      ml: 2,
+                      mr: 4,
+                      //color: theme.palette.third.main,
+                      background:
+                          theme.palette.secondary.main                 
+                    }}
+                  >
+                    Formato de solicitud de alta, baja o cambio en la infraestructura de seguridad de la CONAGUA archivo .docx
+              </Button>
+              
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 2,
+                  mr: 2,
+                  mb: 0,
+                  mt: 2,
+                }}
+              />
+              <Button
+                variant="contained"
+                onClick={handleClose3}
+                sx={{
+                  mt: 2,
+                  mb: 2,
+                  width: "calc(100% - 32px)",
+                  ml: 2,
+                  mr: 4,
+                  background: "#98989A",
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Cancelar
+              </Button>
+            </DialogContent>
+          </Dialog>
+      {/**Botón que muestra los varios botones */}
+          <Box 
+            sx={{ 
+                position: "fixed",
+                bottom: 10,
+                right: 10,
+                "& > :not(style)": { m: 1 },
+                flexGrow:1
+             }}>
+            <Backdrop open={openBotton} />
+            <SpeedDial
+              ariaLabel="SpeedDial Menu"
+              sx={{ 
+                position: 'fixed', 
+                bottom: 20, 
+                right: 20,
+                '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
+                  backgroundColor: 'dial.secondary',
+                  '&:hover': {
+                    backgroundColor: 'dial.main',
+                  }
+                }
+              }}
+              icon={<SpeedDialIcon fontSize='large'/>}
+              onClose={handleCloseBotton}
+              onOpen={handleOpenBotton}
+              open={openBotton}
+            >        
+              {botones.map((action) => (
+                <SpeedDialAction
+                  sx={{ 
+                    position:"center",
+                    '& .MuiFab-root': {
+                      backgroundColor: 'dial.third',
+                      '&:hover': {
+                        backgroundColor: 'dial.forty',
+                      }
+                    },
+                    mt:1,
+                    mb:1,
+                  }}
+                  key={action.name}
+                  icon={action.icon}
+                  slotProps={{tooltip:{title:action.name}}}
+                  tooltipOpen
+                  onClick={action.onClick}
+                />
+              ))}
+            </SpeedDial>
+          </Box>
     </Container>
   );
 }

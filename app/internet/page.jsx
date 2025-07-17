@@ -18,8 +18,18 @@ import {
   Autocomplete,
   Modal,
   LinearProgress,
-  Tooltip
+  Tooltip,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Backdrop
 } from "@mui/material";
+
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
@@ -30,6 +40,8 @@ import ala from "../constants/ala.jsx";
 import pisos from "../constants/pisos.jsx";
 import telefonoAutocomplete from "../constants/telefono.jsx";
 import areas from "../constants/AREAS/areas.jsx";
+
+import DownloadIcon from "@mui/icons-material/Download";
 
 export default function Home() {
   const theme = useTheme();
@@ -103,6 +115,37 @@ export default function Home() {
     //POLITICAS
     politicasaceptadas: false,
   });
+
+   //Capitalizar
+  function capitalizeWords(str) {
+  const exceptions = ["de", "para", "por", "y", "en", "a", "la", "el", "del", "al", "con", "sin", "o", "u"];
+  return str
+    .split(" ")
+    .map((word, idx) => {
+      // Si la palabra es solo números, no la modifica
+      if (/^[0-9]+$/.test(word)) return word;
+      // Si la palabra tiene letras, capitaliza solo la primera letra que sea letra
+      const match = word.match(/^([0-9]*)([a-zA-ZÁÉÍÓÚÑáéíóúñ])(.*)$/);
+      if (match) {
+        const [, nums, firstLetter, rest] = match;
+        const lower = (firstLetter + rest).toLowerCase();
+        const capitalized = lower.charAt(0).toUpperCase() + lower.slice(1);
+        return idx === 0 || !exceptions.includes(lower)
+          ? (nums || "") + capitalized
+          : (nums || "") + lower;
+      }
+      // Si no tiene letras, solo minúsculas (ej: símbolos)
+      return word;
+    })
+    .join(" ");
+}
+// Lista de campos a capitalizar
+const fieldsToCapitalize = [
+  "nombreUsuario",
+  "puestoUsuario",  
+  "nombreJefe",
+  "puestoJefe",
+];
 
   // Nombre PDF
   const [nombreArchivo, setNombreArchivo] = useState("");
@@ -210,11 +253,16 @@ export default function Home() {
 
   // handleChange
   const handleChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+     const { name, value, type, checked } = event.target;
+  setFormData((prevFormData) => ({
+    ...prevFormData,
+    [name]:
+      type === "checkbox"
+        ? checked
+        : fieldsToCapitalize.includes(name)
+        ? capitalizeWords(value)
+        : value,
+  }));
   };
 
   // Boton
@@ -513,6 +561,36 @@ export default function Home() {
   const [progress, setProgress] = React.useState(0);
   const [progresoCompleto, setProgresoCompleto] = React.useState(false);
   const [progresoMostrado, setProgresoMostrado] = React.useState(false);
+
+  //Descarga de formatos
+      const [open3, setOpen3] = useState(false);
+      const handleClickOpen3 = () => {
+        setOpen3(true);
+      };
+      const handleClose3 = () => {
+        setOpen3(false);
+      }
+
+      const handleDownloadDocx = () => {
+        const link = document.createElement("a");
+        link.href = "/archivos/Formato_INTERNET.docx"; // Ruta de archivo "General"
+        link.download = "Formato_INTERNET.docx";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+
+  //Para botón que aparece y desaparece
+    const botones =[
+      { icon: <DownloadIcon htmlColor="#FFFFFF" />, name: 'Descargar formato',onClick: handleClickOpen3, color: "secondary" },
+    ];
+    
+    const [openBotton, setOpenBotton] = React.useState(false);
+    const handleOpenBotton = () => setOpenBotton(true);
+    const handleCloseBotton = () => setOpenBotton(false);
+    
+    
+
   React.useEffect(() => {
     let timer;
     if (openModal && !progresoMostrado) {
@@ -2274,7 +2352,7 @@ export default function Home() {
           color="#9F2241"
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Términos y condiciones del servicio
+          Políticas y Lineamientos 
         </Typography>
         <Box
           component="form"
@@ -2368,7 +2446,7 @@ export default function Home() {
               {
                 name: "politicasaceptadas",
                 label:
-                  "He leído y acepto los términos y condiciones del servicio *",
+                  "He leído y acepto los políticas y lineamientos  *",
               },
             ].map((item, index) => (
               <Box
@@ -2474,33 +2552,59 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <Button
-            //type="submit"
-            onClick={handleOpenModal}
-            variant="contained"
-            sx={{
-              mt: 3,
-              mb: 3,
-              width: "calc(100% - 32px)",
-              ml: 2,
-              mr: 4,
-              background:
-                botonEstado === "Descargar PDF"
-                  ? theme.palette.third.main
-                  : theme.palette.secondary.main,
-              color: "#FFFFFF",
-              border: "1px solid gray",
-            }}
-            disabled={
-              botonEstado === "Cargando..." || !formData.politicasaceptadas
-            }
-            {...(botonEstado === "Descargar PDF" && {
-              href: pdfUrl,
-              download: nombreArchivo,
-            })}
-          >
-            {botonEstado}
-          </Button>
+        {
+                !formData.politicasaceptadas ? (
+                  <Tooltip title="Debes aceptar los términos y condiciones">
+                    <span>
+                      <Button
+                        onClick={handleOpenModal}
+                        variant="contained"
+                        sx={{
+                          mt: 3,
+                          mb: 3,
+                          width: "calc(100% - 32px)",
+                          ml: 2,
+                          mr: 4,
+                          background:
+                            botonEstado === "Descargar PDF"
+                              ? theme.palette.third.main
+                              : theme.palette.secondary.main,
+                          color: "#FFFFFF",
+                          border: "1px solid gray",
+                        }}
+                        disabled
+                      >
+                        {botonEstado}
+                      </Button>
+                    </span>
+                  </Tooltip>
+                ) : (
+                  <Button
+                    onClick={handleOpenModal}
+                    variant="contained"
+                    sx={{
+                      mt: 3,
+                      mb: 3,
+                      width: "calc(100% - 32px)",
+                      ml: 2,
+                      mr: 4,
+                      background:
+                        botonEstado === "Descargar PDF"
+                          ? theme.palette.third.main
+                          : theme.palette.secondary.main,
+                      color: "#FFFFFF",
+                      border: "1px solid gray",
+                    }}
+                    disabled={botonEstado === "Cargando..."}
+                    {...(botonEstado === "Descargar PDF" && {
+                      href: pdfUrl,
+                      download: nombreArchivo,
+                    })}
+                  >
+                    {botonEstado}
+                  </Button>
+                )
+              }
 
           <Modal
             open={openModal}
@@ -2611,34 +2715,193 @@ export default function Home() {
               border: "1px solid gray",
             }}
           >
-            Regresar al Inicio
+            Volver al Menú
           </Button>
-          <Button
-            type="reset"
-            variant="contained"
-            sx={{
-              mt: 0,
-              mb: 3,
-              width: "calc(50% - 32px)",
-              ml: 4,
-              mr: 0,
-              background: theme.palette.secondary.main,
-              color: "#FFFFFF",
-              border: "1px solid gray",
-            }}
-            disabled={botonEstado !== "Descargar PDF"}
-            onClick={() => {
-              window.location.reload();
-              window.scrollTo(0, 0);
-            }}
-          >
-            Nueva solicitud
-          </Button>
+          {
+            botonEstado !== "Descargar PDF" ?(
+              <Tooltip title = "Debes de generar una previamente">
+                <span>
+                <Button
+                  type="reset"
+                  variant="contained"
+                  sx={{
+                    mt: 0,
+                    mb: 3,
+                    width: "calc(50% - 32px)",
+                    ml: 4,
+                    mr: 0,
+                    background: theme.palette.secondary.main,
+                    color: "#FFFFFF",
+                    border: "1px solid gray",
+                  }}
+                  disabled
+                >
+                  Nueva solicitud
+                </Button>
+                </span>
+              </Tooltip>
+            ) :(
+              <Button
+                  type="reset"
+                  variant="contained"
+                  sx={{
+                    mt: 0,
+                    mb: 3,
+                    width: "calc(50% - 32px)",
+                    ml: 4,
+                    mr: 0,
+                    background: theme.palette.secondary.main,
+                    color: "#FFFFFF",
+                    border: "1px solid gray",
+                  }}
+                  onClick={() => {
+                    window.location.reload();
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  Nueva solicitud
+                </Button>
+            )
+          }
         </Box>
       </Box>
 
       {/* ALERT */}
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />
+
+
+      {/**Botón que muestra los varios botones */}
+          <Box 
+            sx={{ 
+                position: "fixed",
+                bottom: 10,
+                right: 10,
+                "& > :not(style)": { m: 1 },
+                flexGrow:1
+             }}>
+            <Backdrop open={openBotton} />
+            <SpeedDial
+              ariaLabel="SpeedDial Menu"
+              sx={{ 
+                position: 'fixed', 
+                bottom: 20, 
+                right: 20,
+                '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
+                  backgroundColor: 'dial.secondary',
+                  '&:hover': {
+                    backgroundColor: 'dial.main',
+                  }
+                }
+              }}
+              icon={<SpeedDialIcon fontSize='large'/>}
+              onClose={handleCloseBotton}
+              onOpen={handleOpenBotton}
+              open={openBotton}
+            >        
+              {botones.map((action) => (
+                <SpeedDialAction
+                  sx={{ 
+                    position:"center",
+                    '& .MuiFab-root': {
+                      backgroundColor: 'dial.third',
+                      '&:hover': {
+                        backgroundColor: 'dial.forty',
+                      }
+                    },
+                    mt:1,
+                    mb:1,
+                  }}
+                  key={action.name}
+                  icon={action.icon}
+                  slotProps={{tooltip:{title:action.name}}}
+                  //tooltipTitle={action.name}
+                  tooltipOpen
+                  onClick={action.onClick}
+                />
+              ))}
+            </SpeedDial>
+          </Box>
+
+      {/* DIALOG */}
+            <Dialog
+              open={open3}
+              onClose={handleClose3}
+              sx={{
+                "& .MuiDialog-container": {
+                  backgroundColor: "f5f5f5", // Or any other color
+                },
+                "& .MuiDialog-paper": {
+                  backgroundColor: "#f4f4f5", // Customize dialog content background
+                },
+              }}
+              
+            >
+              <DialogContent>
+                <DialogTitle
+                align="center"
+                sx={{
+                  mt: -2
+                }}
+                >
+                  Descarga de formato de solictud de ampliación del servicio de internet .docx</DialogTitle>
+                <DialogContentText>
+                  
+                </DialogContentText>
+                <Divider
+                  sx={{
+                    borderBottomWidth: "1px",
+                    borderColor: "grey",
+                    ml: 2,
+                    mr: 2,
+                    mb: 0,
+                    mt: 0,
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  onClick={handleDownloadDocx}
+                  sx={{
+                    mt: 2,
+                    mb: 0,
+                    width: "calc(100% - 32px)",
+                    ml: 2,
+                    mr: 4,
+                    //color: theme.palette.third.main,
+                    background:
+                       theme.palette.secondary.main                 
+                  }}
+                >
+                  Formato de ampliación del servicio de internet 
+                </Button>
+                
+                <Divider
+                  sx={{
+                    borderBottomWidth: "1px",
+                    borderColor: "grey",
+                    ml: 2,
+                    mr: 2,
+                    mb: 0,
+                    mt: 2,
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  onClick={handleClose3}
+                  sx={{
+                    mt: 2,
+                    mb: 2,
+                    width: "calc(100% - 32px)",
+                    ml: 2,
+                    mr: 4,
+                    background: "#98989A",
+                    color: "#FFFFFF",
+                    border: "1px solid gray",
+                  }}
+                >
+                  Cancelar
+                </Button>
+              </DialogContent>
+            </Dialog>
     </Container>
   );
 }
