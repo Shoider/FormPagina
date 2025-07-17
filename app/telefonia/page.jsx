@@ -57,6 +57,9 @@ export default function Home() {
     uaUsuario: "",
     puestoUsuario: "",
 
+    nombreEnlace: "",
+    
+
     tipoUsuario: "Interno", // Default
     piso: "",
     ala: "",
@@ -78,7 +81,7 @@ export default function Home() {
     marca: "Huawei", //Default
     modelo: "",
     serie: "",
-    version: "",
+    //version: "",
 
     // Radios
     movimiento: "", //ALTA, BAJA, CAMBIO
@@ -687,7 +690,7 @@ export default function Home() {
             error={!!errors?.nombreUsuario}
             id="nombreUsuario"
             name="nombreUsuario"
-            label="Nombre completo"
+            label="Nombre del usuario"
             placeholder="Escriba el nombre y apellidos"
             value={formData.nombreUsuario}
             onChange={handleChange}
@@ -845,6 +848,26 @@ export default function Home() {
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
+          <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Datos del enlace administrativo
+        </Typography>
+          <TextField
+            required
+            error={!!errors?.nombreEnlace}
+            id="nombreEnlace"
+            name="nombreEnlace"
+            label="Nombre del enlace administrativo"
+            placeholder="Escriba el nombre del enlace administrativo"
+            value={formData.nombreEnlace}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          />
         </Box>
         <Divider
           sx={{
@@ -974,7 +997,7 @@ export default function Home() {
             }}
           />
         </Box>
-      </Box>
+      </Box>     
 
       {/* Datos del la Solicitud */}
       {/* Form Box Responsive */}
@@ -1310,9 +1333,9 @@ export default function Home() {
             value={formData.serie}
             onChange={handleChange}
             inputProps={{ maxLength: 16 }}
-            sx={{ background: "#FFFFFF" }}
+            sx={{ background: "#FFFFFF", mb:3 }}
           />
-          <TextField
+          {/* <TextField
             required
             error={!!errors?.version}
             id="version"
@@ -1323,7 +1346,7 @@ export default function Home() {
             onChange={handleChange}
             inputProps={{ maxLength: 16 }}
             sx={{ background: "#FFFFFF", mb: 3 }}
-          />
+          /> */}
         </Box>
       </Box>
 
@@ -1725,7 +1748,19 @@ export default function Home() {
               color="#9F2241"
               sx={{ mt: 2, width: "calc(100% - 32px)", ml: 0, mr: 2 }}
             >
-              PENDIENTES
+              1)	El formato deberá estar debidamente llenado y contener toda la información requerida facilitando 
+              la aplicación expedida de las configuraciones solicitadas <br/>
+              2)	El solicitante deberá presentar este formato adjuntando el memorando, sin los cuales no se podrá atender su solicitud<br/>
+              3)	El solicitante deberá agregar en la Justificación si la solicitud ser deriva de un cambio de lugar (oficina, mampara o piso) 
+              del usuario que a su vez haya derivado en un cambio de equipo o de servicios de telefonía<br/>
+              4)	A todo solicitante que llene la solicitud se le otorga el acceso a “Servicio Interno” sin necesidad de marcar la casilla <br/>
+              5)	El solicitante deberá conservar el acuse o copia del formato firmado y sellado, así como el memorando asociado, para posteriores 
+              aclaraciones <br/>
+              6)	Al firmar el usuario se da por enterado de las políticas y lineamientos y acepta la responsabilidad de cualquier uso inadecuado que 
+              se le dé a los privilegios de acceso los cuales se haya solicitado<br/>
+              7)	Al firmar el Gerente, Subgerente o Director Local que autoriza se da por enterado de las políticas y lineamientos y acepta la 
+              corresponsabilidad del uso que el usuario que le dé el usuario al acceso otorgado.
+
             </Typography>
           </Box>
           <Box
