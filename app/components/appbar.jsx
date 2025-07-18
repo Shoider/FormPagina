@@ -33,7 +33,7 @@ const actions = [
     color: "secondary", color: "secondary" },
   { icon: <AccountBalanceIcon htmlColor="#FFFFFF" />,
     name: 'Gobierno',
-    onClick: () => window.open("https://www.gob.mx/", "_blank"), 
+    onClick: () => window.open("https://www.gob.mx/gobierno", "_blank"), 
     color: "secondary" },
   { icon: <SearchSharpIcon htmlColor="#FFFFFF" />, 
     name: 'Búsqueda',
