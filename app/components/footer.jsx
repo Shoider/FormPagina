@@ -31,7 +31,7 @@ export default function FooterGlobal() {
               Contacto: req.seguridad17@conagua.gob.mx 
             </Typography>
             <Typography variant="body2"  color="white" sx={{ mt: 3 }}>
-              v0.7.0.12.4 (Beta)
+              v0.7.0.13.4 (Beta)
             </Typography>
           </Grid>
 
@@ -39,7 +39,7 @@ export default function FooterGlobal() {
             <Typography variant="h6" fontWeight={700} color="white">
               Enlaces
             </Typography>
-            <Link href="https://red.conagua.gob.mx//" passHref>
+            <Link href="https://red.conagua.gob.mx//" underline= "none">
               <Typography
                 variant="body2"
                 color="white"
@@ -48,7 +48,7 @@ export default function FooterGlobal() {
                 Red Conagua
               </Typography>
             </Link>
-            <Link href="https://red.conagua.gob.mx/GTIC/Manuales/" passHref>
+            <Link href="https://red.conagua.gob.mx/GTIC/Manuales/" underline= "none">
               <Typography
                 variant="body2"
                 color="white"
@@ -64,7 +64,7 @@ export default function FooterGlobal() {
               ¿Qué es gob.mx?
             </Typography>            
             <Typography variant="body2" color="white">Es el portal único de trámites, información y particicipación ciudadana.</Typography>
-            <Link href="https://www.gob.mx/que-es-gobmx/" passHref>
+            <Link href="https://www.gob.mx/que-es-gobmx/" underline= "none">
               <Typography
                 variant="body2"
                 color="white"
@@ -73,7 +73,7 @@ export default function FooterGlobal() {
                 Leer más.
               </Typography>
             </Link>
-            <Link href="https://www.gob.mx/terminos/" passHref>
+            <Link href="https://www.gob.mx/terminos/" underline= "none">
               <Typography
                 variant="body2"
                 color="white"

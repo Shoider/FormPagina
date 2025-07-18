@@ -10,7 +10,7 @@ import "@fontsource/noto-sans";
 
 export const metadata = {
   description: "Formularios de solicitudes de acceso",
-  version: "0.7.0 (beta)",
+  version: "0.7.0.13.4 (beta)",
   author: "CONAGUA (Brandon y Nidia)",
 };
 
@@ -40,6 +40,8 @@ export default function RootLayout({ children }) {
               display: "flex",
               flexDirection: "column",
               minHeight: "100vh",
+              width: "100vw",           // <-- Añade esto
+              overflowX: "hidden",      // <-- Y esto
             }}
           >
             <AppbarGlobal />
