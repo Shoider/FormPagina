@@ -65,8 +65,8 @@ export default function AppbarGlobal() {
               <Image
                 src="/Mexico Oficial.png"
                 alt="Logo Gobierno de México"
-                width={270 * 0.75}
-                height={90 * 0.75}
+                width={270 * 0.70}
+                height={90 * 0.70}
                 priority
               />
             </Box>
@@ -75,29 +75,29 @@ export default function AppbarGlobal() {
           {/**Texto para pantallas grandes */}
           <Grid2 
           offset={{  md: "auto"}}>
-            <Box sx={{ justifyContent: "right",mt:4, display:{md: "flex",xs:"none"} }}>
+            <Box sx={{ justifyContent: "right",mt:2, display:{md: "flex",xs:"none"} }}>
               <Link href="https://www.gob.mx/" underline= "none">
                 <Typography
                   variant="h6" fontWeight={500}
                   color="white"
-                  mr={2}
+                  mr={3}
                   sx={{ cursor: "pointer", textDecoration: "none" }}
                 >
-                  Trámites.
+                  Trámites
                 </Typography>
               </Link>
               <Link href="https://www.gob.mx/" underline= "none">
                 <Typography
                   variant="h6" fontWeight={500}
                   color="white"  
-                  mr={2} 
+                  mr={3} 
                   sx={{ cursor: "pointer", textDecoration: "none" }}
                 >
-                  Gobierno.
+                  Gobierno
                 </Typography>
               </Link>
               <IconButton 
-              sx={{ mt:-1 ,color: "white", "&:hover": { color: "#000000" } }} href="https://www.gob.mx/">
+              sx={{ mt:-0.5 ,color: "white", "&:hover": { color: "#000000" } }} href="https://www.gob.mx/">
                   <SearchSharpIcon />
               </IconButton>
             </Box>
