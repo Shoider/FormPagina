@@ -2885,7 +2885,7 @@ export default function Home() {
               sx={{ mt: 0, width: "calc(100% - 32px)", ml: 0, mr: 0 }}
             >
               1)	La persona responsable en la CONAGUA es responsable de hacer del 
-              conocimiento al personal externo los términos y condiciones de uso del 
+              conocimiento al personal externo las políticas y lineamientos de uso del 
               servicio que se detallan a continuación:
               <br />
               2)	El usuario solicitante puede tramitar este formato las veces que sea 
@@ -3068,7 +3068,7 @@ export default function Home() {
         >          
         {
           !formData.politicasaceptadas ? (
-            <Tooltip title="Debes aceptar los términos y condiciones">
+            <Tooltip title="Debes aceptar las políticas y lineamientos">
               <span>
                 <Button
                   //onClick={handleOpenModal}

@@ -2554,7 +2554,7 @@ const fieldsToCapitalize = [
         >
         {
                 !formData.politicasaceptadas ? (
-                  <Tooltip title="Debes aceptar los términos y condiciones">
+                  <Tooltip title="Debes aceptar las políticas y lineamientos">
                     <span>
                       <Button
                         onClick={handleOpenModal}
