@@ -11,6 +11,7 @@ import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import ReorderIcon from '@mui/icons-material/Reorder';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import SpeedDialMenu from "./speedDial";
 
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   position: 'absolute',
@@ -43,14 +44,19 @@ const actions = [
 export default function AppbarGlobal() {
   return (
     <AppBar position="sticky" sx={{ mb: 0 }}>
-      {/* Franja Magenta */}
       <Box
         sx={{
+          position: "relative", // Necesario para el posicionamiento absoluto del SpeedDialMenu
           backgroundColor: theme.palette.secondary.main,
           padding: "8px 16px",
           textAlign: "left",
         }}
       >
+        {/* SpeedDialMenu solo en xs */}
+        <Box sx={{ display: { xs: "flex", md: "none" }, position: "absolute", top: 10, right: 10, zIndex: 2000 }}>
+          <SpeedDialMenu />
+        </Box>
+
         <Grid2 container spacing={2}>
           <Grid2           
           size={{ xs: "none", md: "flex" }}

@@ -4,7 +4,6 @@ import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "./styles/global-theme";
 import AppbarGlobal from "./components/appbar";
 import FooterGlobal from "./components/footer";
-import SpeedDialMenu from "./components/speedDial";
 import Tracker from "./components/tracker";
 import { MatomoProvider, createInstance } from "@datapunt/matomo-tracker-react";
 import "@fontsource/noto-sans";
@@ -45,9 +44,7 @@ export default function RootLayout({ children }) {
               overflowX: "hidden",      // <-- Y esto
             }}
           >
-            <SpeedDialMenu />
             <AppbarGlobal />
-            
             {children}
             <FooterGlobal />
           </Box>

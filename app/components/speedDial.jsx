@@ -38,38 +38,28 @@ const actions = [
 
 export default function SpeedDialMenu() {
   return (
-    <Box
+    <StyledSpeedDial
+      ariaLabel="Opciones de búsqueda"
+      icon={<ReorderIcon />}
+      direction={"down"}
       sx={{
-        display: { xs: "flex", md: "none" }, // Solo en pantallas pequeñas
-        position: "fixed",
-        top: 10,
-        right: 10,
-        zIndex: 1300, // Asegura que esté por encima de otros elementos
+        position: "static",
+        '& .MuiFab-root': {
+          backgroundColor: 'dial.secondary',
+          '&:hover': {
+            backgroundColor: 'dial.main',
+          }
+        }
       }}
     >
-      <StyledSpeedDial
-        ariaLabel="Opciones de búsqueda"
-        icon={<ReorderIcon />}
-        direction={"down"}
-        sx={{
-          position: "static", // El Box ya es fixed
-          '& .MuiFab-root': {
-            backgroundColor: 'dial.secondary',
-            '&:hover': {
-              backgroundColor: 'dial.main',
-            }
-          }
-        }}
-      >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-            onClick={action.onClick}
-          />
-        ))}
-      </StyledSpeedDial>
-    </Box>
+      {actions.map((action) => (
+        <SpeedDialAction
+          key={action.name}
+          icon={action.icon}
+          tooltipTitle={action.name}
+          onClick={action.onClick}
+        />
+      ))}
+    </StyledSpeedDial>
   );
 }
