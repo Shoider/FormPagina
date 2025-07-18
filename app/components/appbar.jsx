@@ -9,6 +9,8 @@ import HomeIcon from "@mui/icons-material/Home";
 import CurrentLocation from "./currentLocation";
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import ReorderIcon from '@mui/icons-material/Reorder';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   position: 'absolute',
@@ -22,11 +24,21 @@ const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   },
 }));
 
+//Constantes para el botón flotante de pantallas pequeñas
 const actions = [
-  { icon: <SearchSharpIcon htmlColor="#FFFFFF" />, name: 'Búsqueda',onClick: "https://www.gob.mx/", color: "secondary" },
+  { icon: <ContentPasteIcon htmlColor="#FFFFFF" />, 
+    name: 'Trámites',
+    onClick: () => window.open("https://www.gob.mx/", "_blank"),
+    color: "secondary", color: "secondary" },
+  { icon: <AccountBalanceIcon htmlColor="#FFFFFF" />,
+    name: 'Gobierno',
+    onClick: () => window.open("https://www.gob.mx/", "_blank"), 
+    color: "secondary" },
+  { icon: <SearchSharpIcon htmlColor="#FFFFFF" />, 
+    name: 'Búsqueda',
+    onClick: () => window.open("https://www.gob.mx/", "_blank"),
+    color: "secondary" },
 ];
-
-
 
 export default function AppbarGlobal() {
   return (
@@ -65,7 +77,7 @@ export default function AppbarGlobal() {
               sx={{ 
               position: 'fixed', 
               bottom: 50, 
-              right: -470,
+              right: 'calc(100% - 80px)',
               '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
                 backgroundColor: 'dial.secondary',
                 '&:hover': {
