@@ -66,39 +66,6 @@ export default function AppbarGlobal() {
             </Box>
           </Grid2>
 
-          {/**Botón para pantallas pequeñas */}
-          <Grid2
-          offset={{  xs: "auto"}}> 
-          <Box sx={{ justifyContent: "right", display:{md: "none",xs:"flex"} }}>    
-            <StyledSpeedDial            
-              ariaLabel="Opciones de búsqueda"
-              icon={<ReorderIcon/>}
-              direction={"down"}
-              sx={{ 
-              position: 'fixed', 
-              bottom: 50, 
-              right: 'calc(100% - 80px)',
-              '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
-                backgroundColor: 'dial.secondary',
-                '&:hover': {
-                  backgroundColor: 'dial.main',
-                }
-              }
-            }}
-            >
-              {actions.map((action) => (
-                <SpeedDialAction
-                  
-                  key={action.name}
-                  icon={action.icon}
-                  tooltipTitle={action.name}
-                  onClick={action.onClick}
-                />
-              ))}
-            </StyledSpeedDial>
-            </Box> 
-          </Grid2>  
-
           {/**Texto para pantallas grandes */}
           <Grid2 
           offset={{  md: "auto"}}>
