@@ -76,7 +76,7 @@ export default function AppbarGlobal() {
           <Grid2 
           offset={{  md: "auto"}}>
             <Box sx={{ justifyContent: "right",mt:4, display:{md: "flex",xs:"none"} }}>
-              <Link href="https://www.gob.mx/" passHref underline= "none">
+              <Link href="https://www.gob.mx/" underline= "none">
                 <Typography
                   variant="h6" fontWeight={500}
                   color="white"
@@ -86,7 +86,7 @@ export default function AppbarGlobal() {
                   Trámites.
                 </Typography>
               </Link>
-              <Link href="https://www.gob.mx/" passHref underline= "none">
+              <Link href="https://www.gob.mx/" underline= "none">
                 <Typography
                   variant="h6" fontWeight={500}
                   color="white"  
