@@ -1303,7 +1303,7 @@ export default function Home() {
               <TextField
                 required
                 //error={!!errors?.unidadAdministrativa}
-                placeholder="Seleccione el modelo"
+                placeholder="Escriba o seleccione el modelo"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
                 label="Modelo"
@@ -1751,7 +1751,7 @@ export default function Home() {
               1)	El formato deberá estar debidamente llenado y contener toda la información requerida facilitando 
               la aplicación expedida de las configuraciones solicitadas <br/>
               2)	El solicitante deberá presentar este formato adjuntando el memorando, sin los cuales no se podrá atender su solicitud<br/>
-              3)	El solicitante deberá agregar en la Justificación si la solicitud ser deriva de un cambio de lugar (oficina, mampara o piso) 
+              3)	El solicitante deberá agregar en la <b>Justificación</b> si la solicitud ser deriva de un cambio de lugar (oficina, mampara o piso) 
               del usuario que a su vez haya derivado en un cambio de equipo o de servicios de telefonía<br/>
               4)	A todo solicitante que llene la solicitud se le otorga el acceso a “Servicio Interno” sin necesidad de marcar la casilla <br/>
               5)	El solicitante deberá conservar el acuse o copia del formato firmado y sellado, así como el memorando asociado, para posteriores 
@@ -1890,7 +1890,7 @@ export default function Home() {
         >
         {
                 !formData.politicasaceptadas ? (
-                  <Tooltip title="Debes aceptar los términos y condiciones">
+                  <Tooltip title="Debes aceptar las políticas y lineamientos">
                     <span>
                       <Button
                         onClick={handleOpenModal}
