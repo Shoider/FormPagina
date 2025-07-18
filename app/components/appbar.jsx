@@ -26,6 +26,8 @@ const actions = [
   { icon: <SearchSharpIcon htmlColor="#FFFFFF" />, name: 'Búsqueda',onClick: "https://www.gob.mx/", color: "secondary" },
 ];
 
+
+
 export default function AppbarGlobal() {
   return (
     <AppBar position="sticky" sx={{ mb: 0 }}>
@@ -56,16 +58,29 @@ export default function AppbarGlobal() {
           <Grid2
           offset={{  xs: "auto"}}> 
           <Box sx={{ justifyContent: "right", display:{md: "none",xs:"flex"} }}>    
-            <StyledSpeedDial
+            <StyledSpeedDial            
               ariaLabel="Opciones de búsqueda"
               icon={<ReorderIcon/>}
               direction={"down"}
+              sx={{ 
+              position: 'fixed', 
+              bottom: 50, 
+              right: -470,
+              '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
+                backgroundColor: 'dial.secondary',
+                '&:hover': {
+                  backgroundColor: 'dial.main',
+                }
+              }
+            }}
             >
               {actions.map((action) => (
                 <SpeedDialAction
+                  
                   key={action.name}
                   icon={action.icon}
                   tooltipTitle={action.name}
+                  onClick={action.onClick}
                 />
               ))}
             </StyledSpeedDial>
