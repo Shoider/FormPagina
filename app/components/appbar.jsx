@@ -1,12 +1,30 @@
 "use client";
 
-import { AppBar, Box, Typography, Toolbar, Link } from "@mui/material";
+import { AppBar, Box, Typography, Toolbar, Link, IconButton, SpeedDial, SpeedDialAction, styled  } from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
 import Image from "next/image";
 import { theme } from "../styles/global-theme";
 import HomeIcon from "@mui/icons-material/Home";
 //import HomeFilledIcon from '@mui/icons-material/HomeFilled'; NO FUNCIONO
 import CurrentLocation from "./currentLocation";
+import SearchSharpIcon from '@mui/icons-material/SearchSharp';
+import ReorderIcon from '@mui/icons-material/Reorder';
+
+const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
+  position: 'absolute',
+  '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
+  '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
+    top: theme.spacing(2),
+    left: theme.spacing(2),
+  },
+}));
+
+const actions = [
+  { icon: <SearchSharpIcon htmlColor="#FFFFFF" />, name: 'Búsqueda',onClick: "https://www.gob.mx/", color: "secondary" },
+];
 
 export default function AppbarGlobal() {
   return (
@@ -19,8 +37,10 @@ export default function AppbarGlobal() {
           textAlign: "left",
         }}
       >
-        <Grid2 container spacing={1}>
-          <Grid2 size={{ xs: 12, sm: 6 }}>
+        <Grid2 container spacing={2}>
+          <Grid2           
+          size={{ xs: "none", md: "flex" }}
+          >            
             <Box sx={{ justifyContent: "flex-start", display: "flex" }}>
               <Image
                 src="/Mexico Oficial.png"
@@ -29,6 +49,57 @@ export default function AppbarGlobal() {
                 height={90 * 0.75}
                 priority
               />
+            </Box>
+          </Grid2>
+
+          {/**Botón para pantallas pequeñas */}
+          <Grid2
+          offset={{  xs: "auto"}}> 
+          <Box sx={{ justifyContent: "right", display:{md: "none",xs:"flex"} }}>    
+            <StyledSpeedDial
+              ariaLabel="Opciones de búsqueda"
+              icon={<ReorderIcon/>}
+              direction={"down"}
+            >
+              {actions.map((action) => (
+                <SpeedDialAction
+                  key={action.name}
+                  icon={action.icon}
+                  tooltipTitle={action.name}
+                />
+              ))}
+            </StyledSpeedDial>
+            </Box> 
+          </Grid2>  
+
+          {/**Texto para pantallas grandes */}
+          <Grid2 
+          offset={{  md: "auto"}}>
+            <Box sx={{ justifyContent: "right",mt:4, display:{md: "flex",xs:"none"} }}>
+              <Link href="https://www.gob.mx/" passHref underline= "none">
+                <Typography
+                  variant="h6" fontWeight={500}
+                  color="white"
+                  mr={2}
+                  sx={{ cursor: "pointer", textDecoration: "none" }}
+                >
+                  Trámites.
+                </Typography>
+              </Link>
+              <Link href="https://www.gob.mx/" passHref underline= "none">
+                <Typography
+                  variant="h6" fontWeight={500}
+                  color="white"  
+                  mr={2} 
+                  sx={{ cursor: "pointer", textDecoration: "none" }}
+                >
+                  Gobierno.
+                </Typography>
+              </Link>
+              <IconButton 
+              sx={{ mt:-1 ,color: "white", "&:hover": { color: "#000000" } }} href="https://www.gob.mx/">
+                  <SearchSharpIcon />
+              </IconButton>
             </Box>
           </Grid2>
         </Grid2>
@@ -66,6 +137,8 @@ export default function AppbarGlobal() {
           </Box>
           <CurrentLocation />
         </Toolbar>
+        <Grid2>
+        </Grid2>
       </Box>
     </AppBar>
   );
