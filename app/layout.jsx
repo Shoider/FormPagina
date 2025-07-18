@@ -41,6 +41,8 @@ export default function RootLayout({ children }) {
               display: "flex",
               flexDirection: "column",
               minHeight: "100vh",
+              width: "100vw",           // <-- Añade esto
+              overflowX: "hidden",      // <-- Y esto
             }}
           >
             <SpeedDialMenu />
