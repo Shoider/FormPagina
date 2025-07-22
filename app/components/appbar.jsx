@@ -12,7 +12,7 @@ import ReorderIcon from '@mui/icons-material/Reorder';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SpeedDialMenu from "./speedDial";
-
+import AssignmentIcon from '@mui/icons-material/Assignment';
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   position: 'absolute',
   '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
@@ -134,11 +134,33 @@ export default function AppbarGlobal() {
                 fontSize: 36, // O 'x-large' o 36 (pixeles)
               }}
             />
-          </Box>
+          </Box>          
           <CurrentLocation />
+          <AssignmentIcon
+          sx={{
+                mr: 1,
+                ml: 10,
+                mt: 0.3,
+                color: "white",
+                fontSize: 36, // O 'x-large' o 36 (pixeles)
+              }}
+              />
+          <Link 
+          sx={{ display:{xs: "flex", md: "flex" }, ml:0}}
+          href="https://red.conagua.gob.mx/GTIC/Manuales/" underline= "none">
+              <Typography
+                variant="h6"
+                color="white"
+                sx={{ cursor: "pointer", textDecoration: "none" }}
+              >
+                MANUALES Y FORMATOS
+              </Typography>
+            </Link>
         </Toolbar>
         <Grid2>
         </Grid2>
+        {/*Qui*/}
+        
       </Box>
     </AppBar>
   );
