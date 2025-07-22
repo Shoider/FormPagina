@@ -12,7 +12,10 @@ import ReorderIcon from '@mui/icons-material/Reorder';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SpeedDialMenu from "./speedDial";
+import SpeedDialMenu2 from "./speedDial2";
 import AssignmentIcon from '@mui/icons-material/Assignment';
+
+
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
   position: 'absolute',
   '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
@@ -52,8 +55,9 @@ export default function AppbarGlobal() {
           textAlign: "left",
         }}
       >
+        
         {/* SpeedDialMenu solo en xs */}
-        <Box sx={{ display: { xs: "flex", md: "none" }, position: "absolute", top: 10, right: 10, zIndex: 2000 }}>
+        <Box sx={{ display: { xs: "flex", md: "none" }, position: "absolute", top: 10, right: 10, zIndex: 4000 }}>
           <SpeedDialMenu />
         </Box>
 
@@ -124,7 +128,9 @@ export default function AppbarGlobal() {
         {/* Se oculta en pantallas pequeñas */}
         {/* <Toolbar sx={{display: { xs: "none", md: "flex" },}}> */}
         <Toolbar sx={{ display: "flex" }}>
-          <Box noWrap component={Link} href="/">
+          <Box 
+          sx={{display: { xs: "none", md: "flex" }}}
+          noWrap component={Link} href="/">
             <HomeIcon
               sx={{
                 mr: 2,
@@ -134,32 +140,51 @@ export default function AppbarGlobal() {
                 fontSize: 36, // O 'x-large' o 36 (pixeles)
               }}
             />
-          </Box>          
-          <CurrentLocation />
-          {/* <AssignmentIcon
+          </Box>   
+          <Box
           sx={{
-                mr: 1,
-                ml: 10,
-                mt: 0.3,
-                color: "white",
-                fontSize: 36, // O 'x-large' o 36 (pixeles)
-              }}
-              />
-          <Link 
-          sx={{ display:{xs: "flex", md: "flex" }, ml:0}}
-          href="https://red.conagua.gob.mx/GTIC/Manuales/" underline= "none">
-              <Typography
-                variant="h6"
-                color="white"
-                sx={{ cursor: "pointer", textDecoration: "none" }}
-              >
-                MANUALES Y FORMATOS
-              </Typography>
-            </Link> */}
+            display: { xs: "flex", md: "flex" },
+            ml: { xs: 5, md: 0 } // Aplica margen izquierdo solo en xs
+          }}
+          >
+            <CurrentLocation />
+          </Box>      
+          
+          {/* SpeedDialMenu solo en xs */}
+        <Box sx={{ display: { xs: "flex", md: "none" }, position: "absolute", mr:12,top: 5, right: 500, left:0, zIndex: 4000 }}>
+          <SpeedDialMenu2 />
+        </Box>
+        {/**Texto para pantallas grandes en franja dorada */}
+        <Grid2 
+          offset={{  md: "auto"}}>
+            <Box sx={{ justifyContent: "right", display:{md: "flex",xs:"none"} }}>
+              <Link href="https://red.conagua.gob.mx/" underline= "none">
+                <Typography
+                  variant="button" fontWeight={400}
+                  color="white"
+                  mr={3}
+                  sx={{ cursor: "pointer", textDecoration: "none" }}
+                >
+                  Red CONAGUA
+                </Typography>
+              </Link>
+              <Link href="https://red.conagua.gob.mx/GTIC/Manuales/" underline= "none">
+                <Typography
+                  variant="button" fontWeight={100}
+                  color="white"  
+                  mr={3} 
+                  sx={{ cursor: "pointer", textDecoration: "none" }}
+                >
+                  Manuales y Formatos
+                </Typography>
+              </Link>
+            </Box>
+          </Grid2>
+          
         </Toolbar>
         <Grid2>
         </Grid2>
-        {/*Qui*/}
+        
         
       </Box>
     </AppBar>
