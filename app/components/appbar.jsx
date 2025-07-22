@@ -136,7 +136,7 @@ export default function AppbarGlobal() {
             />
           </Box>          
           <CurrentLocation />
-          <AssignmentIcon
+          {/* <AssignmentIcon
           sx={{
                 mr: 1,
                 ml: 10,
@@ -155,7 +155,7 @@ export default function AppbarGlobal() {
               >
                 MANUALES Y FORMATOS
               </Typography>
-            </Link>
+            </Link> */}
         </Toolbar>
         <Grid2>
         </Grid2>
