@@ -1,4 +1,6 @@
-FROM node:24-alpine3.21
+FROM node:24.4-alpine3.22
+
+# RUN apk update && apk upgrade
 
 RUN apk add --no-cache curl
 
@@ -19,6 +21,6 @@ USER front
 
 EXPOSE 3000
 
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl --fail http://frontend:3000 || exit 1
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl --fail http://localhost:3000 || exit 1
 
 CMD ["node", "server.js"]

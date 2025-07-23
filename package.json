@@ -19,7 +19,7 @@
     "@mui/icons-material": "^6.4.9",
     "@mui/material": "^6.4.9",
     "@mui/x-data-grid": "^7.28.1",
-    "axios": "^1.8.2",
+    "axios": "^1.11.0",
     "cross-spawn": "7.0.5",
     "edutrack": "file:",
     "next": "^15.3.3",
