@@ -1,6 +1,6 @@
 {
   "name": "formulario",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -22,7 +22,7 @@
     "axios": "^1.11.0",
     "cross-spawn": "7.0.5",
     "edutrack": "file:",
-    "next": "^15.3.3",
+    "next": "^15.4.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.5.1"
