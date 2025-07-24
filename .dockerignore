@@ -5,4 +5,10 @@ node_modules
 Dockerfile
 venv
 *.npm
-root/.npm 
+root/.npm
+
+# Archivos de documentación
+README
+README.md
+*.md
+readme
