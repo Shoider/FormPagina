@@ -329,7 +329,10 @@ export default function Home() {
           onClose={handlePopoverClose3}
           disableRestoreFocus
         >
-          <Typography sx={{ p: 2 }}>TELEFONIA</Typography>
+          <Typography sx={{ p: 2 }}>
+            Permite llenar la solicitud para alta, baja o cambio del servicio y configuración de
+            <br />telefonía 
+          </Typography>
         </Popover>
       </Button>
 
@@ -396,7 +399,10 @@ export default function Home() {
           onClose={handlePopoverClose4}
           disableRestoreFocus
         >
-          <Typography sx={{ p: 2 }}>INTERNET</Typography>
+          <Typography sx={{ p: 2 }}>
+            Permite llenar la solicitud para cambio de perfil de internet, es decir,
+            solicitar una <br /> ampliación del servicio de internet
+          </Typography>
         </Popover>
       </Button>
     </Container>

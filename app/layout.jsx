@@ -9,9 +9,9 @@ import { MatomoProvider, createInstance } from "@datapunt/matomo-tracker-react";
 import "@fontsource/noto-sans";
 
 export const metadata = {
-  description: "Formularios de solicitudes de acceso",
-  version: "0.7.0.13.4 (beta)",
-  author: "CONAGUA (Brandon y Nidia)",
+  description: "Formularios de solicitudes GTIC",
+  version: "1.0.0",
+  author: "SSTTS (Brandon y Nidia)",
 };
 
 {
