@@ -346,7 +346,7 @@ export default function Home() {
       validarCamposRequeridos(formData);
     setErrors(getErrors);
 
-    console.log("Lista errores en submit: ", getErrors);
+    //console.log("Lista errores en submit: ", getErrors);
 
     if (!isValid) {
       setAlert({
@@ -601,7 +601,7 @@ export default function Home() {
     handleCloseModal();
     event.preventDefault();
 
-    console.log("Lista formData en submit: ", formData);
+    //console.log("Lista formData en submit: ", formData);
 
     setAlert({
       message: "Información Enviada",
@@ -619,15 +619,15 @@ export default function Home() {
         },
       });
 
-      console.log("Respuesta: ", formResponse.data);
+      //console.log("Respuesta: ", formResponse.data);
       const {
         message: formMessage,
         id: formId,
         epoch: epoch,
       } = formResponse.data;
-      console.log("Petición exitosa: ", formMessage);
-      console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch);
+      //console.log("Petición exitosa: ", formMessage);
+      //console.log("ID recibido: ", formId);
+      //console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`VPN_${epoch}.pdf`);
 
       setAlert({
@@ -686,9 +686,9 @@ export default function Home() {
           [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
         };
         setErrors(newErrors);
-        console.log("Errores API: ", newErrors); // Log the newErrors object
+        //console.log("Errores API: ", newErrors); // Log the newErrors object
 
-        console.log("Objeto Errors: ", errors);
+        //console.log("Objeto Errors: ", errors);
 
         // Manejamos el caso específico del error 422.
         if (statusCode === 422) {
@@ -729,7 +729,7 @@ export default function Home() {
 
     setBotonEstado2("Cargando...");
 
-    console.log("Lista formData2 en submit: ", formData2);
+    //console.log("Lista formData2 en submit: ", formData2);
 
     try {
       // Aqui llamamos a la primera api que valida campos
@@ -743,15 +743,15 @@ export default function Home() {
         },
       );
 
-      console.log("Respuesta: ", formResponse.data);
+      //console.log("Respuesta: ", formResponse.data);
       const {
         message: formMessage,
         id: formId,
         epoch: epoch,
       } = formResponse.data;
-      console.log("Petición exitosa: ", formMessage);
-      console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch);
+      //console.log("Petición exitosa: ", formMessage);
+      //console.log("ID recibido: ", formId);
+      //console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`VPN_${epoch}.pdf`);
 
       setAlert({
@@ -846,7 +846,7 @@ export default function Home() {
       registrosPersonal :personalTableData,
       registrosWebCE: webCETableData
     };
-    console.log("Lista formData en submit: ", formData2.numeroFormato);
+    //console.log("Lista formData en submit: ", formData2.numeroFormato);
 
     setAlert({
       message: "Información Enviada",
@@ -866,14 +866,14 @@ export default function Home() {
         },
       );
 
-      console.log("Respuesta: ", formResponse.data);
+      //console.log("Respuesta: ", formResponse.data);
       const { message: formMessage, datos: Datos } = formResponse.data;
 
-      //console.log("Petición exitosa: ", formMessage);
-      console.log("Datos recibidos: ", Datos);
+      ////console.log("Petición exitosa: ", formMessage);
+      //console.log("Datos recibidos: ", Datos);
 
-      console.log("Tablas recibidas 'remoto: ", Datos.registrosRemoto);
-      console.log("Tablas recibidas 'web: ", Datos.registrosWeb);
+      //console.log("Tablas recibidas 'remoto: ", Datos.registrosRemoto);
+      //console.log("Tablas recibidas 'web: ", Datos.registrosWeb);
 
       // Metemos la informacion recibida a FormData
       setFormData((prev) => ({
@@ -912,9 +912,9 @@ export default function Home() {
           [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
         };
         setErrors(newErrors);
-        console.log("Errores API: ", newErrors); // Log the newErrors object
+        //console.log("Errores API: ", newErrors); // Log the newErrors object
 
-        console.log("Objeto Errors: ", errors);
+        //console.log("Objeto Errors: ", errors);
 
         // Manejamos el caso específico del error 422.
         if (statusCode === 422) {
@@ -3318,7 +3318,7 @@ export default function Home() {
           paper: {
             component: "form",
             onSubmit: (event) => {
-              console.log("Información Enviada");
+              //console.log("Información Enviada");
             },
           },
         }}
@@ -3610,7 +3610,7 @@ export default function Home() {
           paper: {
             component: "form",
             onSubmit: (event) => {
-              console.log("Información Enviada");
+              //console.log("Información Enviada");
             },
           },
         }}

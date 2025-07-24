@@ -463,7 +463,7 @@ export default function Home() {
       validarCamposRequeridos(formData);
     setErrors(getErrors);
 
-    //console.log("Lista getErrors en submit: ", getErrors);
+    ////console.log("Lista getErrors en submit: ", getErrors);
 
     if (!isValid) {
       setAlert({
@@ -1063,7 +1063,7 @@ export default function Home() {
   const handleSubmit = async (event) => {
     handleCloseModal();
     event.preventDefault();
-    console.log("Lista formData en submit: ", formData);
+    //console.log("Lista formData en submit: ", formData);
 
     setAlert({
       message: "Información Enviada",
@@ -1081,16 +1081,16 @@ export default function Home() {
         },
       });
 
-      //console.log("Respuesta: ", formResponse.data);
+      ////console.log("Respuesta: ", formResponse.data);
       const {
         message: formMessage,
         id: formId,
         epoch: epoch,
       } = formResponse.data;
 
-      //console.log("Petición exitosa: ", formMessage);
-      //console.log("ID recibido: ", formId);
-      //console.log("Epoch recibido: ", epoch);
+      ////console.log("Petición exitosa: ", formMessage);
+      ////console.log("ID recibido: ", formId);
+      ////console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`RFC_${epoch}.pdf`);
 
       setAlert({
@@ -1149,9 +1149,9 @@ export default function Home() {
           [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
         };
         setErrors(newErrors);
-        //console.log("Errores API: ", newErrors); // Log the newErrors object
+        ////console.log("Errores API: ", newErrors); // Log the newErrors object
 
-        //console.log("Objeto Errors: ", errors);
+        ////console.log("Objeto Errors: ", errors);
 
         // Manejamos el caso específico del error 422.
         if (statusCode === 422) {
@@ -1204,15 +1204,15 @@ export default function Home() {
         },
       );
 
-      console.log("Respuesta: ", formResponse.data);
+      //console.log("Respuesta: ", formResponse.data);
       const {
         message: formMessage,
         id: formId,
         epoch: epoch,
       } = formResponse.data;
-      console.log("Petición exitosa: ", formMessage);
-      console.log("ID recibido: ", formId);
-      console.log("Epoch recibido: ", epoch);
+      //console.log("Petición exitosa: ", formMessage);
+      //console.log("ID recibido: ", formId);
+      //console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`RFC_${epoch}.pdf`);
 
       setAlert({
@@ -4681,7 +4681,7 @@ const handleDownloadDocx2 = () => {
           paper: {
             component: "form",
             onSubmit: (event) => {
-              //console.log("Informacion Enviada")
+              ////console.log("Informacion Enviada")
             },
           },
         }}

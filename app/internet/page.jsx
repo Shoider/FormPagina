@@ -166,11 +166,11 @@ const fieldsToCapitalize = [
 
       if (name === "almacenamiento") {
         if (isChecked) {
-          console.log("Checkbox 'almacenamiento' marcado");
+          //console.log("Checkbox 'almacenamiento' marcado");
           //updatedData.urlDescarga = "";
           updatedData.justificaAlmacenamiento = "";
         } else {
-          console.log("Checkbox 'almacenamiento' desmarcado");
+          //console.log("Checkbox 'almacenamiento' desmarcado");
           //updatedData.urlDescarga = "null";
           updatedData.justificaAlmacenamiento = "null";
         }
@@ -275,8 +275,8 @@ const fieldsToCapitalize = [
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
 
-    //console.log("Lista getErrors en submit: ", getErrors);
-    //console.log(formData)
+    ////console.log("Lista getErrors en submit: ", getErrors);
+    ////console.log(formData)
 
     if (!isValid) {
       setAlert({
@@ -337,7 +337,7 @@ const fieldsToCapitalize = [
           key !== "memo" &&
           key !== "noticket"
         ) {
-          //console.log("Campo requerido: ", key);
+          ////console.log("Campo requerido: ", key);
           errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
           isValid = false; // Al menos un campo está vacío
         }
@@ -377,7 +377,7 @@ const fieldsToCapitalize = [
   const handleSubmit = async (event) => {
     handleCloseModal();
     event.preventDefault();
-    //console.log("datos de formdata internet:", formData);
+    ////console.log("datos de formdata internet:", formData);
 
     setAlert({
       message: "Información Enviada",
@@ -395,15 +395,15 @@ const fieldsToCapitalize = [
         },
       });
 
-      //console.log("Respuesta: ", formResponse.data);
+      ////console.log("Respuesta: ", formResponse.data);
       const {
         message: formMessage,
         id: formId,
         epoch: epoch,
       } = formResponse.data;
-      //console.log("Petición exitosa: ", formMessage);
-      //console.log("ID recibido: ", formId);
-      //console.log("Epoch recibido: ", epoch);
+      ////console.log("Petición exitosa: ", formMessage);
+      ////console.log("ID recibido: ", formId);
+      ////console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`INTERNET_${epoch}.pdf`);
 
       setAlert({
@@ -458,9 +458,9 @@ const fieldsToCapitalize = [
           [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
         };
         setErrors(newErrors);
-        //console.log("Errores API: ", newErrors); // Log the newErrors object
+        ////console.log("Errores API: ", newErrors); // Log the newErrors object
 
-        //console.log("Objeto Errors: ", errors)
+        ////console.log("Objeto Errors: ", errors)
 
         // Manejamos el caso específico del error 422.
         if (statusCode === 422) {
@@ -527,7 +527,7 @@ const fieldsToCapitalize = [
 
   const handleDateChange = (event) => {
     const rawDate = new Date(event.target.value + "T00:00:00");
-    console.log("Fecha de Solicitud: ", rawDate);
+    //console.log("Fecha de Solicitud: ", rawDate);
 
     const formattedDate = [
       rawDate.getDate().toString().padStart(2, "0"),

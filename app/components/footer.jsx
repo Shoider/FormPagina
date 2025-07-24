@@ -31,7 +31,7 @@ export default function FooterGlobal() {
               Contacto: req.seguridad17@conagua.gob.mx 
             </Typography>
             <Typography variant="body2"  color="white" sx={{ mt: 3 }}>
-              v0.7.0.13.4 (Beta)
+              v0.7.0.14.0 (Beta)
             </Typography>
           </Grid>
 

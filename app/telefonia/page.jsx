@@ -202,7 +202,7 @@ export default function Home() {
     const [isValid, getErrors] = validarCamposRequeridos(formData);
     setErrors(getErrors);
 
-    console.log("Lista getErrors en submit: ", getErrors);
+    //console.log("Lista getErrors en submit: ", getErrors);
 
     if (!isValid) {
       setAlert({
@@ -234,7 +234,7 @@ export default function Home() {
     for (const key in Data) {
       if (Data.hasOwnProperty(key) && !Data[key]) {
         if (key !== "usuaExterno" && key !== "ala" && key !== "piso") {
-          console.log("Campo requerido: ", key);
+          //console.log("Campo requerido: ", key);
           errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
           isValid = false; // Al menos un campo está vacío
         }
@@ -248,7 +248,7 @@ export default function Home() {
   const handleSubmit = async (event) => {
     handleCloseModal();
     event.preventDefault();
-    //console.log("Lista formData en submit: ", formData);
+    ////console.log("Lista formData en submit: ", formData);
 
     setAlert({
       message: "Información Enviada",
@@ -266,15 +266,15 @@ export default function Home() {
         },
       });
 
-      //console.log("Respuesta: ", formResponse.data);
+      ////console.log("Respuesta: ", formResponse.data);
       const {
         message: formMessage,
         id: formId,
         epoch: epoch,
       } = formResponse.data;
-      //console.log("Petición exitosa: ", formMessage);
-      //console.log("ID recibido: ", formId);
-      //console.log("Epoch recibido: ", epoch);
+      ////console.log("Petición exitosa: ", formMessage);
+      ////console.log("ID recibido: ", formId);
+      ////console.log("Epoch recibido: ", epoch);
       setNombreArchivo(`TELEFONIA_${epoch}.pdf`);
 
       setAlert({
@@ -329,9 +329,9 @@ export default function Home() {
           [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
         };
         setErrors(newErrors);
-        //console.log("Errores API: ", newErrors); // Log the newErrors object
+        ////console.log("Errores API: ", newErrors); // Log the newErrors object
 
-        //console.log("Objeto Errors: ", errors)
+        ////console.log("Objeto Errors: ", errors)
 
         // Manejamos el caso específico del error 422.
         if (statusCode === 422) {
@@ -415,7 +415,7 @@ export default function Home() {
 
   const handleDateChangeActiva = (event) => {
     const rawDate = new Date(event.target.value + "T00:00:00");
-    console.log("Fecha de activación: ", rawDate);
+    //console.log("Fecha de activación: ", rawDate);
 
     const formattedDate = [
       rawDate.getDate().toString().padStart(2, "0"),
@@ -433,14 +433,14 @@ export default function Home() {
   const handleDateChangeExpira = (event) => {
     //const rawDate = event.target.value;
     const rawDate = new Date(event.target.value + "T00:00:00");
-    console.log("Fecha de expiración: ", rawDate);
+    //console.log("Fecha de expiración: ", rawDate);
 
     const formattedDate = [
       rawDate.getDate().toString().padStart(2, "0"),
       (rawDate.getMonth() + 1).toString().padStart(2, "0"),
       rawDate.getFullYear(),
     ].join("-");
-    // console.log("Fecha de expiracion: ", rawDate);
+    // //console.log("Fecha de expiracion: ", rawDate);
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -462,14 +462,14 @@ export default function Home() {
       };
 
       if (isExterno) {
-        //console.log("Campo Externo desactivado");
+        ////console.log("Campo Externo desactivado");
         updatedData.extEmpleado = "";
         updatedData.correoEmpleado = "";
         updatedData.puestoEmpleado = "";
         updatedData.nombreEmpleado = "";
         updatedData.idEmpleado = "";
       } else {
-        //console.log("Campo Externo activado");
+        ////console.log("Campo Externo activado");
         updatedData.extEmpleado = "0000";
         updatedData.correoEmpleado = "null@null.null";
         updatedData.puestoEmpleado = "null";
@@ -482,7 +482,7 @@ export default function Home() {
 
   const handleChangeMarca = (event) => {
     const selectedValue = event.target.value;
-    console.log(selectedValue);
+    //console.log(selectedValue);
     setFormData((prevData) => ({
       ...prevData,
       marca: selectedValue, // Guarda la marca seleccionado
