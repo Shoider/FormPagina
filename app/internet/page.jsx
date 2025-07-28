@@ -1069,7 +1069,7 @@ const fieldsToCapitalize = [
             sx={{ background: "#FFFFFF", mb: 2 }}
             inputProps={{ maxLength: 256 }}
           />
-          {/* Descripcion Detallada */}
+          {/* Descripción Detallada */}
         </Box>
         <Divider
           sx={{
