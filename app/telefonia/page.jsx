@@ -1115,7 +1115,7 @@ export default function Home() {
             error={!!errors?.justificacion}
             id="justificacion"
             name="justificacion"
-            label="Justificación"
+            label="Justificación de la solicitud"
             placeholder="Escriba la justificación del servicio"
             value={formData.justificacion}
             onChange={handleChange}

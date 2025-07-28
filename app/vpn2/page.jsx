@@ -2745,7 +2745,7 @@ export default function Home() {
             error={!!errors?.justificacion}
             id="justificacion"
             name="justificacion"
-            label="Justificación"
+            label="Justificación de la solicitud"
             placeholder="Justifique la necesidad del servicio (Min.50 caracteres)"
             value={formData.justificacion}
             onChange={handleChange}
@@ -2787,7 +2787,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Autoriza el servicio
+          Autorización de la solicitud
         </Typography>
         <Box
           component="form"

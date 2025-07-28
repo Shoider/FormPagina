@@ -4045,7 +4045,7 @@ const handleDownloadDocx2 = () => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Justificación
+          Justificación de la solicitud
         </Typography>
         <Divider
           sx={{
@@ -4173,7 +4173,7 @@ const handleDownloadDocx2 = () => {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Autoriza el servicio
+          Autorización de la solicitud
         </Typography>
         <Box
           component="form"
