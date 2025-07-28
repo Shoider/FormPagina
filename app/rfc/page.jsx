@@ -1881,14 +1881,14 @@ const handleDownloadDocx2 = () => {
             error={!!errors?.descbreve}
             id="descbreve"
             name="descbreve"
-            label="Descripcion breve"
+            label="Descripción breve"
             placeholder="Descripción breve de la solicitud"
             value={formData.descbreve}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
             inputProps={{ maxLength: 256 }}
           />
-          {/* Descripcion Detallada */}
+          {/* Descripción Detallada */}
         </Box>
         <Divider
           sx={{
