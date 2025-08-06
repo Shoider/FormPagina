@@ -42,6 +42,7 @@ import telefonoAutocomplete from "../constants/telefono.jsx";
 import areas from "../constants/AREAS/areas.jsx";
 
 import DownloadIcon from "@mui/icons-material/Download";
+import puestos from "../constants/PUESTOS/puestos.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -263,6 +264,13 @@ const fieldsToCapitalize = [
         ? capitalizeWords(value)
         : value,
   }));
+  };
+  const handlePuestos = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      puestoUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      
+    }));
   };
 
   // Boton
@@ -768,18 +776,38 @@ const fieldsToCapitalize = [
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-          <TextField
-            required
-            error={!!errors?.puestoUsuario}
+          {/**Puesto de Usuario */}
+          <Autocomplete
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestoUsuario}
+                placeholder="Escriba o seleccione el puesto del usuario"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Puesto de usuario"
+              />
+            )}
             id="puestoUsuario"
             name="puestoUsuario"
-            label="Puesto o Cargo"
-            placeholder="Escriba el puesto del usuario"
-            value={formData.puestoUsuario}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
+            onChange={(event, newValue) => {
+              handlePuestos(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                
+                  handlePuestos(newInputValue); // Maneja texto escrito directamente
+                
+              }
+            }} 
+            inputValue={formData.puestoUsuario || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
           />
+          
           <Autocomplete
             disablePortal
             options={unidadesAdmin}

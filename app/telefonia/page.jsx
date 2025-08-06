@@ -37,6 +37,7 @@ import axios from "axios";
 import Alerts from "../components/alerts.jsx";
 
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
+import puestos from "../constants/PUESTOS/puestos.jsx";
 
 import direccionAutocomplete from "../constants/direccion.jsx";
 import ala from "../constants/ala.jsx";
@@ -172,6 +173,19 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handlePuestosUsuario = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      puestoUsuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+  const hanldePuestosEmpleado = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      puestoEmpleado: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
   //prueba de capitalizar
@@ -710,19 +724,34 @@ export default function Home() {
             inputProps={{ maxLength: 256 }}
           />
           {/**PUESTO DE USUARIO, FALTABA */}
-          <TextField
-            required
-            error={!!errors?.puestoUsuario}
+          <Autocomplete
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestoUsuario}
+                placeholder="Escriba o seleccione el puesto del usuario"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Puesto de usuario"
+              />
+            )}
             id="puestoUsuario"
             name="puestoUsuario"
-            label="Puesto"
-            placeholder="Escriba el puesto del usuario"
-            value={formData.puestoUsuario}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
+            onChange={(event, newValue) => {
+              handlePuestosUsuario(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handlePuestosUsuario(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.puestoUsuario || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
           />
-
           <Autocomplete
             disablePortal
             options={direccionAutocomplete}
@@ -975,17 +1004,34 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 32 }}
           />
-          <TextField
-            required
-            error={!!errors?.puestoEmpleado}
+          {/**Puesto de usuario */}
+          <Autocomplete
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestoEmpleado}
+                placeholder="Escriba o seleccione el puesto del empleado"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Puesto de empleado responsable"
+              />
+            )}
             id="puestoEmpleado"
             name="puestoEmpleado"
-            label="Puesto"
-            placeholder="Escriba el puesto del empleado"
-            value={formData.puestoEmpleado}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
+            onChange={(event, newValue) => {
+              hanldePuestosEmpleado(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                hanldePuestosEmpleado(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.puestoEmpleado || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
           />
           <Divider
             sx={{
