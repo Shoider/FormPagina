@@ -1,5 +1,5 @@
 const puestos = [
-        "Jefe De Oficina",
+        "Jefe de Oficina",
         "Secretaria Ejecutiva A",
         "Técnico Especializado",
         "Coordinador de Unidad de Serv. Esp.",
