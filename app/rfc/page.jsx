@@ -41,6 +41,7 @@ import EditableTableOtro from "../components/EditableTableOtro.jsx";
 import DownloadIcon from "@mui/icons-material/Download";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
+import puestos from "../constants/PUESTOS/puestos.jsx";
 import Alerts from "../components/alerts.jsx";
 import Link from "next/link";
 import axios from "axios";
@@ -256,6 +257,12 @@ export default function Home() {
     setFormData2((prevFormData) => ({
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+  const handlePuestos = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      puestos: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
 
@@ -1660,17 +1667,34 @@ const handleDownloadDocx2 = () => {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 20 }}
           />
-          <TextField
-            required
-            error={!!errors?.puestos}
+          {/**Puesto del solicitante */}
+          <Autocomplete
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestos}
+                placeholder="Escriba o seleccione el puesto del solicitante"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Puesto del solicitante"
+              />
+            )}
             id="puestos"
             name="puestos"
-            label="Puesto"
-            placeholder="Puesto del solicitante"
-            value={formData.puestos}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
+            onChange={(event, newValue) => {
+              handlePuestos(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handlePuestos(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.puestos || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
           />
           <TextField
             required

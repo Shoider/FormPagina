@@ -39,6 +39,7 @@ import Alerts from "../components/alerts.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 import areas from "../constants/AREAS/areas.jsx";
 import DownloadIcon from "@mui/icons-material/Download";
+import puestos from "../constants/PUESTOS/puestos.jsx";
 
 
 // ICONOS
@@ -212,7 +213,18 @@ export default function Home() {
   //       : value,
   // }));
   // };
-
+  const handlePuestosInterno = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      puestoInterno: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+  const handlePuestosCONAGUA = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      puestoResponsable: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
   // HandleChange FormData2
   const handleChange2 = (event) => {
     const { name, value, type, checked } = event.target;
@@ -1540,6 +1552,7 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
+          {/**Puesto o cargo de la persona responsable en la CONAGUA */}
           <TextField
             required
             error={!!errors?.puestoEnlace}
@@ -1777,7 +1790,37 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256, mt: 2 }}
           />
-          <TextField
+          {/**Puesto interno, aquí poner autocomplete */}
+          <Autocomplete
+            required={formData.solicitante === "CONAGUA"}
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestoInterno}
+                placeholder="Escriba o seleccione el puesto del usuario"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Puesto de usuario"
+              />
+            )}
+            id="puestoInterno"
+            name="puestoInterno"
+            onChange={(event, newValue) => {
+              handlePuestosInterno(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handlePuestosInterno(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.puestoInterno || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+          {/* <TextField
             required={formData.solicitante === "CONAGUA"}
             error={!!errors?.puestoInterno}
             id="puestoInterno"
@@ -1788,7 +1831,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+          /> */}
           <TextField
             required={formData.solicitante === "CONAGUA"}
             error={!!errors?.correoInterno}
@@ -1959,7 +2002,36 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
           />
-          <TextField
+          {/**Puesto o cargo del empleado responsable, aquí poner autocomplete */}
+          <Autocomplete
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestoResponsable}
+                placeholder="Escriba o seleccione el puesto del empleado responsable"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Puesto del empleado responsable"
+              />
+            )}
+            id="puestoResponsable"
+            name="puestoResponsable"
+            onChange={(event, newValue) => {
+              handlePuestosCONAGUA(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handlePuestosCONAGUA(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.puestoResponsable || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+          {/* <TextField
             required
             error={!!errors?.puestoResponsable}
             id="puestoResponsable"
@@ -1970,7 +2042,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
             inputProps={{ maxLength: 256 }}
-          />
+          /> */}
           <Autocomplete
             disablePortal
             options={filteredAreas}
