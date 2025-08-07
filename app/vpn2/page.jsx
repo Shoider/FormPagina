@@ -849,6 +849,7 @@ export default function Home() {
   const handleSubmit3 = async (event) => {
     handleClose2();
     event.preventDefault();
+    setBotonEstado("Enviar");
 
     // Arma el objeto a enviar con los datos más recientes
     const dataToSend = {
