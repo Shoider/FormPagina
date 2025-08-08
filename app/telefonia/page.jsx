@@ -417,9 +417,12 @@ export default function Home() {
     }));
   };
   const handleExtensionChange = (event) => {
-    // let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
-    let value = event.target.value.replace(/[^0-9-\s /]/g, "");
-    value = value.slice(0, 20); // Limita la longitud a 20
+  // Elimina todo lo que no sea dígito
+    let value = event.target.value.replace(/\D/g, "");
+    value = value.slice(0, 20); // Limita la longitud
+
+    // Agrupa en bloques de 4 dígitos separados por guion
+    value = value.match(/.{1,4}/g)?.join("-") || "";
 
     setFormData((prevFormData) => ({
       ...prevFormData,
