@@ -21,15 +21,15 @@ export default function FooterGlobal() {
       <Container maxWidth="lg" sx={{ mb: 6 }}>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="h6" fontWeight={600} color="white">
-              Página de desarrollo. <br/>
-            </Typography>
-            <Typography variant="h6" fontWeight={600} color="white">
-              Reportar errores o sugerencias.
-            </Typography>
-            <Typography variant="body2"  color="white" sx={{ mt: 1 }}>
-              Contacto: req.seguridad17@conagua.gob.mx 
-            </Typography>
+            <Box sx={{ justifyContent: "flex-start", display: "flex" }}>
+                          <Image
+                            src="/Mexico Oficial.png"
+                            alt="Logo Gobierno de México"
+                            width={270 * 0.70}
+                            height={90 * 0.70}
+                            priority
+                          />
+                        </Box>
             
           </Grid>
 
@@ -107,7 +107,7 @@ export default function FooterGlobal() {
         textAlign={{ xs: "center", sm: "center" }}
         sx={{ mt:-5, mb: 3}}
       >
-        © 2025 Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad (SSTTS) v1.0.1 
+        © 2025 Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad (SSTTS) v1.0.0 
       </Typography>
       <Box
         sx={{
