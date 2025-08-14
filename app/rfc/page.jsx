@@ -2263,7 +2263,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
@@ -2335,7 +2335,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -2464,7 +2464,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
       </Box>
@@ -2661,7 +2661,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
@@ -2733,7 +2733,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -2861,7 +2861,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
       </Box>
@@ -3057,7 +3057,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
@@ -3129,7 +3129,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -3257,7 +3257,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
       </Box>
@@ -3452,7 +3452,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
@@ -3524,7 +3524,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -3652,7 +3652,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
       </Box>
@@ -3836,7 +3836,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
@@ -3908,7 +3908,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -4036,7 +4036,7 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            Separar las IP con una coma (,). Ej: 192.168.1.1, 192.168.2.2, ...
+            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
           </FormLabel>
         </Box>
       </Box>
