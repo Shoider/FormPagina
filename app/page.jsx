@@ -51,6 +51,39 @@ export default function Home() {
   };
   const open4 = Boolean(anchorEl4);
 
+  const handleDownloadDocx = () => {
+    const link = document.createElement("a");
+    link.href = "/manuales/Formato_RFC.docx"; // Ruta de archivo "General"
+    link.download = "Manual_RFC.docx";
+    document.body.appendChild(link);
+    link.click()
+    document.body.removeChild(link);
+  };
+const handleDownloadDocx2 = () => {
+  const link = document.createElement("a");
+  link.href = "/manuales/Formato_VPN.docx"; // Ruta de archivo "General"
+  link.download = "Manual_VPN.docx";
+  document.body.appendChild(link);
+  link.click()
+  document.body.removeChild(link);
+};
+const handleDownloadDocx3 = () => {
+  const link = document.createElement("a");
+  link.href = "/manuales/Formato_Internet.docx"; // Ruta de archivo "General"
+  link.download = "Manual_Internet.docx";
+  document.body.appendChild(link);
+  link.click()
+  document.body.removeChild(link);
+};
+const handleDownloadDocx4 = () => {
+  const link = document.createElement("a");
+  link.href = "/manuales/Formato_Telefonia.docx"; // Ruta de archivo "General"
+  link.download = "Manual_Telefonia.docx";
+  document.body.appendChild(link);
+  link.click()
+  document.body.removeChild(link);
+};
+
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
       {/* Banner Responsive */}
@@ -193,6 +226,42 @@ export default function Home() {
         </Popover>
       </Button>
 
+      {/**Manual de RFC */}
+          <Button
+            variant="contained"
+            onClick={handleDownloadDocx}
+            sx={{
+                width: "auto%",
+                height: "calc(50% - 32px)",
+                border: "2px solid grey", //
+                mt: 2,
+                mb: 3,
+                ml: 2,
+                mr: 2,
+                p: 2,
+                color: theme.palette.text.dark,
+                borderRadius: 2,
+                display: "flex",
+                background: "#F4F4F5",
+                boxSizing: "border-box",
+                padding: "0 8px",
+                "@media (min-width: 960px)": {
+                  maxWidth: "50.00%",
+                  width: "auto",
+                  margin: "2rem auto",
+                  padding: "2",
+                },
+                fontSize: theme.typography.h6.fontSize,
+                "&:hover": {
+                  transform: "scale(1.02)",
+                  transition: "transform 0.3s ease-in-out",
+                  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                },
+              }}
+          >
+            Manual de llenado de formato de solicitud de cambios en cortafuegos (RFC)
+          </Button>
+
       {/* VPN MAYO */}
       <Button
         variant="outlined"
@@ -266,6 +335,42 @@ export default function Home() {
         </Popover>
       </Button>
 
+      {/**Manual de VPN */}
+          <Button
+            variant="contained"
+            onClick={handleDownloadDocx2}
+            sx={{
+                width: "auto%",
+                height: "calc(50% - 32px)",
+                border: "2px solid grey", //
+                mt: 2,
+                mb: 3,
+                ml: 2,
+                mr: 2,
+                p: 2,
+                color: theme.palette.text.dark,
+                borderRadius: 2,
+                display: "flex",
+                background: "#F4F4F5",
+                boxSizing: "border-box",
+                padding: "0 8px",
+                "@media (min-width: 960px)": {
+                  maxWidth: "50.00%",
+                  width: "auto",
+                  margin: "2rem auto",
+                  padding: "2",
+                },
+                fontSize: theme.typography.h6.fontSize,
+                "&:hover": {
+                  transform: "scale(1.02)",
+                  transition: "transform 0.3s ease-in-out",
+                  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                },
+              }}
+          >
+            Manual de llenado de formato de solicitud de acceso remoto a través de una red virtual (VPN)
+          </Button>
+
       {/* TELEFONIA */}
       <Button
         variant="outlined"
@@ -336,6 +441,44 @@ export default function Home() {
         </Popover>
       </Button>
 
+      {/**Manual de Telefonía */}
+          <Button
+            variant="contained"
+            onClick={handleDownloadDocx2}
+            sx={{
+                  width: "auto%",
+                  height: "calc(100% - 32px)",
+                  border: "2px solid grey",
+                  mt: 2,
+                  mb: 3,
+                  ml: 2,
+                  mr: 2,
+                  p: 2,
+                  color: theme.palette.text.dark,
+                  borderRadius: 2,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "#F4F4F5",
+                  boxSizing: "border-box",
+                  padding: "0 8px",
+                  "@media (min-width: 960px)": {
+                    maxWidth: "50.00%",
+                    width: "auto",
+                    margin: "2rem auto",
+                    padding: "2",
+                  },
+                  fontSize: theme.typography.h6.fontSize,
+                  "&:hover": {
+                    transform: "scale(1.02)",
+                    transition: "transform 0.3s ease-in-out",
+                    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                  },
+                }}
+          >
+            Manual de llenado de formato de solicitud de servicios de telefonía
+          </Button>
+
       {/* INTERNET */}
       <Button
         variant="outlined"
@@ -405,6 +548,44 @@ export default function Home() {
           </Typography>
         </Popover>
       </Button>
+
+      {/**Manual de Internet */}
+          <Button
+            variant="contained"
+            onClick={handleDownloadDocx4}
+            sx={{
+                  width: "auto%",
+                  height: "calc(100% - 32px)",
+                  border: "2px solid grey",
+                  mt: 2,
+                  mb: 3,
+                  ml: 2,
+                  mr: 2,
+                  p: 2,
+                  color: theme.palette.text.dark,
+                  borderRadius: 2,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "#F4F4F5",
+                  boxSizing: "border-box",
+                  padding: "0 8px",
+                  "@media (min-width: 960px)": {
+                    maxWidth: "50.00%",
+                    width: "auto",
+                    margin: "2rem auto",
+                    padding: "2",
+                  },
+                  fontSize: theme.typography.h6.fontSize,
+                  "&:hover": {
+                    transform: "scale(1.02)",
+                    transition: "transform 0.3s ease-in-out",
+                    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                  },
+                }}
+          >
+            Manual de llenado de formato de solicitud de Ampliación del Servicio de Internet
+          </Button>
     </Container>
   );
 }
