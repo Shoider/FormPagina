@@ -68,11 +68,11 @@ export default function Home() {
     usuaExterno: false, // Estado inicial como false
 
     // USUARIO EXTERNO
-    extEmpleado: "0000",
-    correoEmpleado: "null@null.null",
-    puestoEmpleado: "null",
-    nombreEmpleado: "null",
-    idEmpleado: "null",
+    extEmpleado: "",
+    correoEmpleado: "",
+    puestoEmpleado: "",
+    nombreEmpleado: "",
+    idEmpleado: "",
 
     // AREA QUE AUTORIZA
     nombreJefe: "",
@@ -245,15 +245,66 @@ export default function Home() {
   const validarCamposRequeridos = (Data) => {
     const errores = {};
     let isValid = true;
-    for (const key in Data) {
-      if (Data.hasOwnProperty(key) && !Data[key]) {
-        if (key !== "usuaExterno" && key !== "ala" && key !== "piso") {
-          //console.log("Campo requerido: ", key);
-          errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
-          isValid = false; // Al menos un campo está vacío
-        }
+
+    let camposRequeridos =[
+      "activacion",
+      "expiracion",
+      "justificacion",
+      "nombreUsuario",
+      "correoUsuario",
+      "uaUsuario",
+      "puestoUsuario",
+      "direccion",
+      "nombreEnlace",
+      "tipoUsuario",
+      "nombreJefe",
+      "puestoJefe",
+      "movimiento",
+    ];
+    if (Data.direccion ===   "Av. Insurgentes Sur 2416 Col.Copilco el Bajo. CP.04340, Coyoacán, CDMX"){
+      const nuevosCampos =[
+        "ala",
+        "piso"
+      ];
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+
+    }
+    if (Data.tipoUsuario === "Externo"){
+      const nuevosCampos = [
+        "extEmpleado",
+        "correoEmpleado",
+        "nombreEmpleado",
+        "nombreEmpleado",
+        "idEmpleado",
+        "puestoEmpleado"
+      ];
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+      
+    }
+    if (Data.movimiento !== "ALTA" ){
+      const nuevosCampos=[
+        "marca",
+        "modelo",
+        "serie"
+      ];
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+
+    } else if(Data.movimiento === "ALTA"){
+      const nuevosCampos=["celular",
+      "nacional",
+      "mundo"];
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+
+    }
+
+    // Valida solo los campos requeridos
+    for (const key of camposRequeridos) {
+      if (!Data[key] || Data[key].trim() === "") {
+        errores[key] = "Este campo es requerido";
+        isValid = false;
       }
     }
+    
     return [isValid, errores]; // Todos los campos están llenos
   };
 
@@ -692,7 +743,7 @@ export default function Home() {
             label="Tipo de usuario"
             defaultValue="Interno"
             sx={{ background: "#FFFFFF" }}
-            onChange={handleChangeExterno}
+            onChange={handleChange}
             //helperText="Porfavor selecciona el tipo de usuario"
           >
             {Tipos.map((option) => (
@@ -932,7 +983,7 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2",
           },
-          display: formData.usuaExterno ? "block" : "none",
+          display: formData.tipoUsuario === "Externo" ? "block" : "none",
         }}
       >
         {/* SubTitle */}
@@ -1299,6 +1350,7 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2",
           },
+          display: (formData.movimiento && formData.movimiento !== "ALTA" )? "block" : "none",
         }}
       >
         {/* SubTitle */}
@@ -1345,6 +1397,7 @@ export default function Home() {
           </TextField>
           {/**MODELO */}
           <Autocomplete
+            error={!!errors?.modelo}
             disablePortal
             options={filteredModelo}
             freeSolo
@@ -1419,6 +1472,8 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2",
           },
+          display: formData.movimiento === "ALTA" ? "block" : "none",
+
         }}
       >
         {/* SubTitle */}
