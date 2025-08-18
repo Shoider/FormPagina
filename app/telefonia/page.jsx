@@ -281,11 +281,22 @@ export default function Home() {
       camposRequeridos = [...camposRequeridos, ...nuevosCampos];
       
     }
-    if (Data.movimiento !== "ALTA" ){
+    if (Data.movimiento === "BAJA"){
       const nuevosCampos=[
         "marca",
         "modelo",
         "serie"
+      ];
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+
+    }if (Data.movimiento === "CAMBIO"){
+      const nuevosCampos=[
+        "marca",
+        "modelo",
+        "serie",
+        "celular",
+        "nacional",
+        "mundo",
       ];
       camposRequeridos = [...camposRequeridos, ...nuevosCampos];
 
@@ -1350,7 +1361,7 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2",
           },
-          display: (formData.movimiento && formData.movimiento !== "ALTA" )? "block" : "none",
+          display: (formData.movimiento && formData.movimiento === "BAJA" || formData.movimiento === "CAMBIO" )? "block" : "none",
         }}
       >
         {/* SubTitle */}
@@ -1472,7 +1483,7 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2",
           },
-          display: formData.movimiento === "ALTA" ? "block" : "none",
+          display: (formData.movimiento && formData.movimiento === "ALTA" || formData.movimiento === "CAMBIO" )? "block" : "none",
 
         }}
       >
