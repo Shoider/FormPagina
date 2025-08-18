@@ -65,8 +65,7 @@ export default function Home() {
     piso: "",
     ala: "",
 
-    usuaExterno: false, // Estado inicial como false
-
+    
     // USUARIO EXTERNO
     extEmpleado: "",
     correoEmpleado: "",
@@ -528,36 +527,6 @@ export default function Home() {
     }));
   };
   const fechaExpiracion = new Date(formData.expiracion); //cambiar de objeto a fecha
-
-  const handleChangeExterno = (event) => {
-    const selectedValue = event.target.value;
-    const isExterno = selectedValue === "Externo";
-
-    setFormData((prevData) => {
-      const updatedData = {
-        ...prevData,
-        tipoUsuario: selectedValue,
-        usuaExterno: isExterno,
-      };
-
-      if (isExterno) {
-        ////console.log("Campo Externo desactivado");
-        updatedData.extEmpleado = "";
-        updatedData.correoEmpleado = "";
-        updatedData.puestoEmpleado = "";
-        updatedData.nombreEmpleado = "";
-        updatedData.idEmpleado = "";
-      } else {
-        ////console.log("Campo Externo activado");
-        updatedData.extEmpleado = "0000";
-        updatedData.correoEmpleado = "null@null.null";
-        updatedData.puestoEmpleado = "null";
-        updatedData.nombreEmpleado = "null";
-        updatedData.idEmpleado = "null";
-      }
-      return updatedData;
-    });
-  };
 
   const handleChangeMarca = (event) => {
     const selectedValue = event.target.value;
