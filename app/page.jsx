@@ -43,8 +43,8 @@ export default function Home() {
   }
   const handleDownloadDocxInternet = () => {
     const link = document.createElement("a");
-      link.href = "/guíaes/Formato_INTERNET.docx"; // Ruta de archivo "General"
-      link.download = "Formato_INTERNET.docx";
+      link.href = "/manuales/Formato_INTERNET.docx"; // Ruta de archivo "General"
+      link.download = "Guia_Ampliacion_de_Internet_v1.docx";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -60,8 +60,8 @@ export default function Home() {
   }
   const handleDownloadDocxTelefonia = () => {
     const link = document.createElement("a");
-      link.href = "/guíaes/Formato_TELEFONIA.docx"; // Ruta de archivo "General"
-      link.download = "Formato_TELEFONIA.docx";
+      link.href = "/manuales/Formato_TELEFONIA.docx"; // Ruta de archivo "General"
+      link.download = "Formato_Servicios_de_Telefonia_v1.docx";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -76,13 +76,13 @@ export default function Home() {
   }
   const handleDownloadDocxVPN = () => {
     const link = document.createElement("a");
-      link.href = "/guíaes/Formato_VPN.docx"; // Ruta de archivo "General"
-      link.download = "Formato_VPN.docx";
+      link.href = "/manuales/Formato_VPN.docx"; // Ruta de archivo "General"
+      link.download = "Guía_Servicios_VPN_v1.docx";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     };
-    //Constantes para el dialog de descarga de Guía para servicios vpn
+    //Constantes para el dialog de descarga de Guía para servicios rfc
   const [open10, setOpen10] = useState(false);
   const handleClickOpen10 = () => {
     setOpen10(true);
@@ -92,8 +92,8 @@ export default function Home() {
   }
   const handleDownloadDocxRFC = () => {
     const link = document.createElement("a");
-      link.href = "/guíaes/Formato_RFC.docx"; // Ruta de archivo "General"
-      link.download = "Formato_RFC.docx";
+      link.href = "/manuales/Formato_RFC.docx"; // Ruta de archivo "General"
+      link.download = "Guía_Cambios_ABC_v1.docx";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -519,7 +519,7 @@ export default function Home() {
         </Popover>
       </Button>
 
-      {/**guíaes */}
+      {/**Botón emergente de Guías */}
       <Button
             variant="contained"
             //onClick={handleDownloadDocx}
@@ -886,7 +886,7 @@ export default function Home() {
             />
             <Button
               variant="contained"
-              onClick={handleDownloadDocxVPN}
+              onClick={handleDownloadDocxRFC}
               sx={{
                 mt: 2,
                 mb: 0,
