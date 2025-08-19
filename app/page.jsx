@@ -8,11 +8,46 @@ import {
   Button,
   useTheme,
   Popover,
+  Divider,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Backdrop,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon,
 } from "@mui/material";
 import Image from "next/image";
+import WifiIcon from '@mui/icons-material/Wifi';
+import CallIcon from '@mui/icons-material/Call';
+import VpnLockIcon from '@mui/icons-material/VpnLock';
+import SyncLockIcon from '@mui/icons-material/SyncLock';
 
 export default function Home() {
   const theme = useTheme();
+
+  //Constantes para seedDial
+  const [open6, setOpen6] = React.useState(false);
+  const handleOpen6 = () => setOpen6(true);
+  const handleClose6 = () => setOpen6(false);
+
+  //Constantes para el dialog de descarga de manual para ampliación de internet
+  const [open7, setOpen7] = useState(false);
+  const handleClickOpen7 = () => {
+    setOpen7(true);
+  };
+  const handleClose7 = () => {
+    setOpen7(false);
+  }
+//Iconos y acciones del speedDial
+  const actions = [
+    { icon: <WifiIcon htmlColor="#FFFFFF" />, name: 'Manual Internet', onClick: handleClickOpen7, color: "secondary"  },
+    { icon: <CallIcon htmlColor="#FFFFFF" />, name: 'Manual Telefonía' },
+    { icon: <VpnLockIcon htmlColor="#FFFFFF" />, name: 'Manual VPN' },
+    { icon: <SyncLockIcon htmlColor="#FFFFFF" />, name: 'Manual RFC' },
+  ];
 
   // Popover
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -116,28 +151,29 @@ export default function Home() {
             gutterBottom
             sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
           >
-            CATÁLOGO DE SOLICITUDES DE SERVICIO
+            Catálogo de solicitudes de servicios
           </Typography>
         </Box>
       </Box>
 
       {/* RFC */}
       <Button
-        variant="outlined"
+        variant="text"
         href="/rfc"
         sx={{
           width: "auto%",
           height: "calc(100% - 32px)",
-          border: "2px solid grey", //
-          mt: 2,
-          mb: 3,
+          border: theme.palette.secondary.main, //          
+          textTransform: 'none',
+          mt: 1,
+          mb: 1,
           ml: 2,
           mr: 2,
-          p: 2,
-          color: theme.palette.text.dark,
+          p: 1,
+          color: "white",
           borderRadius: 2,
           display: "flex",
-          background: "#F4F4F5",
+          background: theme.palette.secondary.main,
           boxSizing: "border-box",
           padding: "0 8px",
           "@media (min-width: 960px)": {
@@ -146,7 +182,7 @@ export default function Home() {
             margin: "2rem auto",
             padding: "2",
           },
-          fontSize: theme.typography.h4.fontSize,
+          fontSize: "h4",
           "&:hover": {
             transform: "scale(1.02)",
             transition: "transform 0.3s ease-in-out",
@@ -158,7 +194,7 @@ export default function Home() {
           variant="h4"
           align="center"
           gutterBottom
-          sx={{ mt: 2, ml: 2, mr: 2 }}
+          sx={{ mt: 1, ml: 1, mr: 1 }}
           aria-owns={open ? "mouse-over-popover" : undefined}
           aria-haspopup="true"
           onMouseEnter={handlePopoverOpen}
@@ -191,8 +227,25 @@ export default function Home() {
             <br /> distintos a TCP 80 y 443.
           </Typography>
         </Popover>
-      </Button>
-
+      </ Button>   
+     
+      {/* <Divider
+          sx={{
+            //borderBottomWidth: "1px",
+            height: "calc(50% - 32px)",
+            borderColor: "black",
+            ml: 2,
+            mr: 2,
+            mb: 3,
+            padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+          }}
+        /> */}
       {/* VPN MAYO */}
       <Button
         variant="outlined"
@@ -206,12 +259,13 @@ export default function Home() {
           ml: 2,
           mr: 2,
           p: 2,
-          color: theme.palette.text.dark,
+          textTransform: 'none',
+          color: "white",
           borderRadius: 2,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#F4F4F5",
+          background: theme.palette.secondary.main,
           boxSizing: "border-box",
           padding: "0 8px",
           "@media (min-width: 960px)": {
@@ -232,7 +286,7 @@ export default function Home() {
           variant="h4"
           align="center"
           gutterBottom
-          sx={{ mt: 2, ml: 2, mr: 2 }}
+          sx={{ mt: 1, ml: 1, mr: 1 }}
           aria-owns={open ? "mouse-over-popover" : undefined}
           aria-haspopup="true"
           onMouseEnter={handlePopoverOpen2}
@@ -273,18 +327,19 @@ export default function Home() {
         sx={{
           width: "auto%",
           height: "calc(100% - 32px)",
-          border: "2px solid grey",
+          border: theme.palette.secondary.main,
           mt: 2,
           mb: 3,
           ml: 2,
           mr: 2,
           p: 2,
-          color: theme.palette.text.dark,
+          textTransform: 'none',
+          color: "white",
           borderRadius: 2,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#F4F4F5",
+          background: theme.palette.secondary.main,
           boxSizing: "border-box",
           padding: "0 8px",
           "@media (min-width: 960px)": {
@@ -343,18 +398,19 @@ export default function Home() {
         sx={{
           width: "auto%",
           height: "calc(100% - 32px)",
-          border: "2px solid grey",
+          border: theme.palette.secondary.main,
           mt: 2,
           mb: 3,
           ml: 2,
           mr: 2,
           p: 2,
-          color: theme.palette.text.dark,
+          textTransform: 'none',
+          color: "white",
           borderRadius: 2,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#F4F4F5",
+          background: theme.palette.secondary.main,
           boxSizing: "border-box",
           padding: "0 8px",
           "@media (min-width: 960px)": {
@@ -375,13 +431,13 @@ export default function Home() {
           variant="h4"
           align="center"
           gutterBottom
-          sx={{ mt: 2, ml: 2, mr: 2 }}
+          sx={{ mt: 1, ml: 1, mr: 1 }}
           aria-owns={open ? "mouse-over-popover" : undefined}
           aria-haspopup="true"
           onMouseEnter={handlePopoverOpen4}
           onMouseLeave={handlePopoverClose4}
         >
-          Solicitud de Ampliación del Servicio de Internet
+          Solicitud de ampliación del servicio de internet
         </Typography>
         <Popover
           id="mouse-over-popover"
@@ -405,6 +461,171 @@ export default function Home() {
           </Typography>
         </Popover>
       </Button>
+
+      {/**Manuales */}
+      <Button
+            variant="contained"
+            //onClick={handleDownloadDocx}
+            sx={{
+                width: "auto%",
+                height: "calc(50% - 32px)",
+                border: theme.palette.third.main, //
+                mt: 2,
+                mb: 3,
+                ml: 2,
+                mr: 2,
+                p: 2,
+                textTransform: 'none',
+                color: "white",
+                borderRadius: 2,
+                display: "flex",
+                background: theme.palette.third.main,
+                boxSizing: "border-box",
+                padding: "0 8px",
+                "@media (min-width: 960px)": {
+                  maxWidth: "50.00%",
+                  width: "auto",
+                  margin: "2rem auto",
+                  padding: "2",
+                },
+                fontSize: theme.typography.h4.fontSize,
+                "&:hover": {
+                  transform: "scale(1.02)",
+                  transition: "transform 0.3s ease-in-out",
+                  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                },
+              }}
+          >
+            Consulta de guías de llenado de solicitudes
+
+            <SpeedDial
+              ariaLabel="SpeedDial tooltip example"
+              variant="contained"
+              sx={{ position: 'absolute', bottom: 16, right: 16,   
+                '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
+                backgroundColor: 'dial.third',
+                '&:hover': {
+                  backgroundColor: 'dial.forty',
+                }
+              },             
+               }}
+              icon={<SpeedDialIcon />}
+              onClose={handleClose6}
+              onOpen={handleOpen6}
+              open={open6}
+            >
+              {actions.map((action) => (
+                <SpeedDialAction
+                sx={{ 
+                  position:"center",
+                  '& .MuiFab-root': {
+                    backgroundColor: 'dial.third',
+                    '&:hover': {
+                      backgroundColor: 'dial.forty',
+                    }
+                  },
+                  mt:7,
+                  mb:5,
+                }}
+                  key={action.name}
+                  icon={action.icon}
+                  slotProps={{
+                    tooltip: {
+                      open: true,
+                      //title: action.name,
+                    },                    
+                  }}                  
+                
+                tooltipTitle={action.name}
+                tooltipOpen
+                onClick={action.onClick}
+                />
+              ))}
+            </SpeedDial>
+      </Button>
+
+      {/* DIALOG */}
+                <Dialog
+                  open={open7}
+                  onClose={handleClose7}
+                  sx={{
+                    "& .MuiDialog-container": {
+                      backgroundColor: "f5f5f5", // Or any other color
+                    },
+                    "& .MuiDialog-paper": {
+                      backgroundColor: "#f4f4f5", // Customize dialog content background
+                    },
+                  }}
+                  
+                >
+                  <DialogContent>
+                    <DialogTitle
+                    align="center"
+                    sx={{
+                      mt: -2
+                    }}
+                    >
+                      Descarga de guía de llenado de solicictud de ampliación del servicio de internet
+                      </DialogTitle>
+                    <DialogContentText>
+                      
+                    </DialogContentText>
+                    <Divider
+                      sx={{
+                        borderBottomWidth: "1px",
+                        borderColor: "grey",
+                        ml: 2,
+                        mr: 2,
+                        mb: 0,
+                        mt: 0,
+                      }}
+                    />
+                    <Button
+                      variant="contained"
+                      //onClick={handleDownloadDocx}
+                      sx={{
+                        mt: 2,
+                        mb: 0,
+                        width: "calc(100% - 32px)",
+                        ml: 2,
+                        mr: 4,
+                        //color: theme.palette.third.main,
+                        background:
+                            theme.palette.secondary.main                 
+                      }}
+                    >
+                      Guía de llenando de solicitud de ampliación del servicio de internet
+                    </Button>
+                    
+                    <Divider
+                      sx={{
+                        borderBottomWidth: "1px",
+                        borderColor: "grey",
+                        ml: 2,
+                        mr: 2,
+                        mb: 0,
+                        mt: 2,
+                      }}
+                    />
+                    <Button
+                      variant="contained"
+                      onClick={handleClose7}
+                      sx={{
+                        mt: 2,
+                        mb: 2,
+                        width: "calc(100% - 32px)",
+                        ml: 2,
+                        mr: 4,
+                        background: "#98989A",
+                        color: "#FFFFFF",
+                        border: "1px solid gray",
+                      }}
+                    >
+                      Cancelar
+                    </Button>
+                  </DialogContent>
+                </Dialog>     
+          
     </Container>
   );
 }
