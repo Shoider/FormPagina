@@ -33,7 +33,7 @@ export default function Home() {
   const handleOpen6 = () => setOpen6(true);
   const handleClose6 = () => setOpen6(false);
 
-  //Constantes para el dialog de descarga de manual para ampliación de internet
+  //Constantes para el dialog de descarga de Guía para ampliación de internet
   const [open7, setOpen7] = useState(false);
   const handleClickOpen7 = () => {
     setOpen7(true);
@@ -41,12 +41,69 @@ export default function Home() {
   const handleClose7 = () => {
     setOpen7(false);
   }
+  const handleDownloadDocxInternet = () => {
+    const link = document.createElement("a");
+      link.href = "/guíaes/Formato_INTERNET.docx"; // Ruta de archivo "General"
+      link.download = "Formato_INTERNET.docx";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+  
+    //Constantes para el dialog de descarga de Guía para servicios telefonia
+  const [open8, setOpen8] = useState(false);
+  const handleClickOpen8 = () => {
+    setOpen8(true);
+  };
+  const handleClose8 = () => {
+    setOpen8(false);
+  }
+  const handleDownloadDocxTelefonia = () => {
+    const link = document.createElement("a");
+      link.href = "/guíaes/Formato_TELEFONIA.docx"; // Ruta de archivo "General"
+      link.download = "Formato_TELEFONIA.docx";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+    //Constantes para el dialog de descarga de Guía para servicios vpn
+  const [open9, setOpen9] = useState(false);
+  const handleClickOpen9 = () => {
+    setOpen9(true);
+  };
+  const handleClose9 = () => {
+    setOpen9(false);
+  }
+  const handleDownloadDocxVPN = () => {
+    const link = document.createElement("a");
+      link.href = "/guíaes/Formato_VPN.docx"; // Ruta de archivo "General"
+      link.download = "Formato_VPN.docx";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+    //Constantes para el dialog de descarga de Guía para servicios vpn
+  const [open10, setOpen10] = useState(false);
+  const handleClickOpen10 = () => {
+    setOpen10(true);
+  };
+  const handleClose10 = () => {
+    setOpen10(false);
+  }
+  const handleDownloadDocxRFC = () => {
+    const link = document.createElement("a");
+      link.href = "/guíaes/Formato_RFC.docx"; // Ruta de archivo "General"
+      link.download = "Formato_RFC.docx";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
 //Iconos y acciones del speedDial
   const actions = [
-    { icon: <WifiIcon htmlColor="#FFFFFF" />, name: 'Manual Internet', onClick: handleClickOpen7, color: "secondary"  },
-    { icon: <CallIcon htmlColor="#FFFFFF" />, name: 'Manual Telefonía' },
-    { icon: <VpnLockIcon htmlColor="#FFFFFF" />, name: 'Manual VPN' },
-    { icon: <SyncLockIcon htmlColor="#FFFFFF" />, name: 'Manual RFC' },
+    { icon: <WifiIcon htmlColor="#FFFFFF" />, name: 'Guía Internet', onClick: handleClickOpen7, color: "secondary"  },
+    { icon: <CallIcon htmlColor="#FFFFFF" />, name: 'Guía Telefonía' , onClick: handleClickOpen8, color: "secondary" },
+    { icon: <VpnLockIcon htmlColor="#FFFFFF" />, name: 'Guía VPN', onClick: handleClickOpen9, color: "secondary" },
+    { icon: <SyncLockIcon htmlColor="#FFFFFF" />, name: 'Guía RFC', onClick: handleClickOpen10, color: "secondary"  },
   ];
 
   // Popover
@@ -462,7 +519,7 @@ export default function Home() {
         </Popover>
       </Button>
 
-      {/**Manuales */}
+      {/**guíaes */}
       <Button
             variant="contained"
             //onClick={handleDownloadDocx}
@@ -544,87 +601,334 @@ export default function Home() {
             </SpeedDial>
       </Button>
 
-      {/* DIALOG */}
-                <Dialog
-                  open={open7}
-                  onClose={handleClose7}
-                  sx={{
-                    "& .MuiDialog-container": {
-                      backgroundColor: "f5f5f5", // Or any other color
-                    },
-                    "& .MuiDialog-paper": {
-                      backgroundColor: "#f4f4f5", // Customize dialog content background
-                    },
-                  }}
-                  
-                >
-                  <DialogContent>
-                    <DialogTitle
-                    align="center"
-                    sx={{
-                      mt: -2
-                    }}
-                    >
-                      Descarga de guía de llenado de solicictud de ampliación del servicio de internet
-                      </DialogTitle>
-                    <DialogContentText>
-                      
-                    </DialogContentText>
-                    <Divider
-                      sx={{
-                        borderBottomWidth: "1px",
-                        borderColor: "grey",
-                        ml: 2,
-                        mr: 2,
-                        mb: 0,
-                        mt: 0,
-                      }}
-                    />
-                    <Button
-                      variant="contained"
-                      //onClick={handleDownloadDocx}
-                      sx={{
-                        mt: 2,
-                        mb: 0,
-                        width: "calc(100% - 32px)",
-                        ml: 2,
-                        mr: 4,
-                        //color: theme.palette.third.main,
-                        background:
-                            theme.palette.secondary.main                 
-                      }}
-                    >
-                      Guía de llenando de solicitud de ampliación del servicio de internet
-                    </Button>
-                    
-                    <Divider
-                      sx={{
-                        borderBottomWidth: "1px",
-                        borderColor: "grey",
-                        ml: 2,
-                        mr: 2,
-                        mb: 0,
-                        mt: 2,
-                      }}
-                    />
-                    <Button
-                      variant="contained"
-                      onClick={handleClose7}
-                      sx={{
-                        mt: 2,
-                        mb: 2,
-                        width: "calc(100% - 32px)",
-                        ml: 2,
-                        mr: 4,
-                        background: "#98989A",
-                        color: "#FFFFFF",
-                        border: "1px solid gray",
-                      }}
-                    >
-                      Cancelar
-                    </Button>
-                  </DialogContent>
-                </Dialog>     
+      {/**Dialogs de guías */}
+      {/* Dialog para Guía de internet*/}
+        <Dialog
+          open={open7}
+          onClose={handleClose7}
+          sx={{
+            "& .MuiDialog-container": {
+              backgroundColor: "f5f5f5", // Or any other color
+            },
+            "& .MuiDialog-paper": {
+              backgroundColor: "#f4f4f5", // Customize dialog content background
+            },
+          }}
+          
+        >
+          <DialogContent>
+            <DialogTitle
+            align="center"
+            sx={{
+              mt: -2
+            }}
+            >
+              Descarga de Guía de llenado de solicictud de ampliación del servicio de internet
+              </DialogTitle>
+            <DialogContentText>
+              
+            </DialogContentText>
+            <Divider
+              sx={{
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 2,
+                mr: 2,
+                mb: 0,
+                mt: 0,
+              }}
+            />
+            <Button
+              variant="contained"
+              onClick={handleDownloadDocxInternet}
+              sx={{
+                mt: 2,
+                mb: 0,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+                //color: theme.palette.third.main,
+                background:
+                    theme.palette.secondary.main                 
+              }}
+            >
+              Guía de llenado de solicitud de ampliación del servicio de internet
+            </Button>
+            
+            <Divider
+              sx={{
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 2,
+                mr: 2,
+                mb: 0,
+                mt: 2,
+              }}
+            />
+            <Button
+              variant="contained"
+              onClick={handleClose7}
+              sx={{
+                mt: 2,
+                mb: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+                background: "#98989A",
+                color: "#FFFFFF",
+                border: "1px solid gray",
+              }}
+            >
+              Cancelar
+            </Button>
+          </DialogContent>
+        </Dialog>
+
+        {/* Dialog para Guía de telefonía*/}
+        <Dialog
+          open={open8}
+          onClose={handleClose8}
+          sx={{
+            "& .MuiDialog-container": {
+              backgroundColor: "f5f5f5", // Or any other color
+            },
+            "& .MuiDialog-paper": {
+              backgroundColor: "#f4f4f5", // Customize dialog content background
+            },
+          }}
+          
+        >
+          <DialogContent>
+            <DialogTitle
+            align="center"
+            sx={{
+              mt: -2
+            }}
+            >
+              Descarga de Guía de llenado de solicictud de servicios de telefonía
+              </DialogTitle>
+            <DialogContentText>
+              
+            </DialogContentText>
+            <Divider
+              sx={{
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 2,
+                mr: 2,
+                mb: 0,
+                mt: 0,
+              }}
+            />
+            <Button
+              variant="contained"
+              onClick={handleDownloadDocxTelefonia}
+              sx={{
+                mt: 2,
+                mb: 0,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+                //color: theme.palette.third.main,
+                background:
+                    theme.palette.secondary.main                 
+              }}
+            >
+              Guía de llenado de solicitud de servicios de telefonía
+            </Button>
+            
+            <Divider
+              sx={{
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 2,
+                mr: 2,
+                mb: 0,
+                mt: 2,
+              }}
+            />
+            <Button
+              variant="contained"
+              onClick={handleClose8}
+              sx={{
+                mt: 2,
+                mb: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+                background: "#98989A",
+                color: "#FFFFFF",
+                border: "1px solid gray",
+              }}
+            >
+              Cancelar
+            </Button>
+          </DialogContent>
+        </Dialog>     
+
+        {/* Dialog para Guía de vpn*/}
+        <Dialog
+          open={open9}
+          onClose={handleClose9}
+          sx={{
+            "& .MuiDialog-container": {
+              backgroundColor: "f5f5f5", // Or any other color
+            },
+            "& .MuiDialog-paper": {
+              backgroundColor: "#f4f4f5", // Customize dialog content background
+            },
+          }}
+          
+        >
+          <DialogContent>
+            <DialogTitle
+            align="center"
+            sx={{
+              mt: -2
+            }}
+            >
+              Descarga de Guía de llenado de solicictud de acceso remoto a tráves de una red virtual (VPN)
+              </DialogTitle>
+            <DialogContentText>
+              
+            </DialogContentText>
+            <Divider
+              sx={{
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 2,
+                mr: 2,
+                mb: 0,
+                mt: 0,
+              }}
+            />
+            <Button
+              variant="contained"
+              onClick={handleDownloadDocxVPN}
+              sx={{
+                mt: 2,
+                mb: 0,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+                //color: theme.palette.third.main,
+                background:
+                    theme.palette.secondary.main                 
+              }}
+            >
+              Guía de llenado de solicitud de acceso remotor a tráves de una red virtual (VPN)
+            </Button>
+            
+            <Divider
+              sx={{
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 2,
+                mr: 2,
+                mb: 0,
+                mt: 2,
+              }}
+            />
+            <Button
+              variant="contained"
+              onClick={handleClose9}
+              sx={{
+                mt: 2,
+                mb: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+                background: "#98989A",
+                color: "#FFFFFF",
+                border: "1px solid gray",
+              }}
+            >
+              Cancelar
+            </Button>
+          </DialogContent>
+        </Dialog> 
+
+        {/* Dialog para Guía de RFC*/}
+        <Dialog
+          open={open10}
+          onClose={handleClose10}
+          sx={{
+            "& .MuiDialog-container": {
+              backgroundColor: "f5f5f5", // Or any other color
+            },
+            "& .MuiDialog-paper": {
+              backgroundColor: "#f4f4f5", // Customize dialog content background
+            },
+          }}
+          
+        >
+          <DialogContent>
+            <DialogTitle
+            align="center"
+            sx={{
+              mt: -2
+            }}
+            >
+              Descarga de Guía de llenado de solicictud de cambios en cortafuegos (RFC)
+              </DialogTitle>
+            <DialogContentText>
+              
+            </DialogContentText>
+            <Divider
+              sx={{
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 2,
+                mr: 2,
+                mb: 0,
+                mt: 0,
+              }}
+            />
+            <Button
+              variant="contained"
+              onClick={handleDownloadDocxVPN}
+              sx={{
+                mt: 2,
+                mb: 0,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+                //color: theme.palette.third.main,
+                background:
+                    theme.palette.secondary.main                 
+              }}
+            >
+              Guía de llenado de solicitud de cambios en cortafuegos (RFC)
+            </Button>
+            
+            <Divider
+              sx={{
+                borderBottomWidth: "1px",
+                borderColor: "grey",
+                ml: 2,
+                mr: 2,
+                mb: 0,
+                mt: 2,
+              }}
+            />
+            <Button
+              variant="contained"
+              onClick={handleClose10}
+              sx={{
+                mt: 2,
+                mb: 2,
+                width: "calc(100% - 32px)",
+                ml: 2,
+                mr: 4,
+                background: "#98989A",
+                color: "#FFFFFF",
+                border: "1px solid gray",
+              }}
+            >
+              Cancelar
+            </Button>
+          </DialogContent>
+        </Dialog>
           
     </Container>
   );
