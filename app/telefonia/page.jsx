@@ -584,7 +584,7 @@ export default function Home() {
     const handleDownloadDocx = () => {
     const link = document.createElement("a");
       link.href = "/archivos/Formato_TELEFONIA.docx"; // Ruta de archivo "General"
-      link.download = "Formato_TELEFONIA.docx";
+      link.download = "Solicitud_de_servicios_de_telefonia_v1.0.0.docx";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

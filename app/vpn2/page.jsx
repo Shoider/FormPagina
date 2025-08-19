@@ -336,7 +336,7 @@ export default function Home() {
   const handleDownloadDocx = () => {
   const link = document.createElement("a");
   link.href = "/archivos/Formato_VPN.docx"; // Ruta de archivo "General"
-  link.download = "Formato_VPN.docx";
+  link.download = "Formato_de_servicio_de_VPN_v1.1.docx";
   document.body.appendChild(link);
   link.click()
   document.body.removeChild(link);
@@ -345,7 +345,7 @@ export default function Home() {
  const handleDownloadDocx2 = () => {
   const link = document.createElement("a");
   link.href = "/archivos/Formato_VPN_SS.docx"; // Ruta de archivo caso especial 
-  link.download = "Formato_VPN_SS.docx";
+  link.download = "Formato_de__servicio_de_VPN_SS_v1.1.docx";
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

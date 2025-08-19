@@ -215,7 +215,7 @@ export default function Home() {
 
       {/* RFC */}
       <Button
-        variant="text"
+        variant="outlined"
         href="/rfc"
         sx={{
           width: "auto%",
@@ -234,7 +234,7 @@ export default function Home() {
           boxSizing: "border-box",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
+            maxWidth: "70.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -275,7 +275,7 @@ export default function Home() {
           onClose={handlePopoverClose}
           disableRestoreFocus
         >
-          <Typography sx={{ p: 1 }}>
+          <Typography sx={{ p: 2 }}>
             Se utiliza para solicitar la apertura de comunicaciones de red entre
             servidores, <br />
             entre sistemas de cómputo de usuarios y los sistemas (servidores)
@@ -326,7 +326,7 @@ export default function Home() {
           boxSizing: "border-box",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
+            maxWidth: "70.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -400,7 +400,7 @@ export default function Home() {
           boxSizing: "border-box",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
+            maxWidth: "70.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -471,7 +471,7 @@ export default function Home() {
           boxSizing: "border-box",
           padding: "0 8px",
           "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
+            maxWidth: "70.00%",
             width: "auto",
             margin: "2rem auto",
             padding: "2",
@@ -521,44 +521,53 @@ export default function Home() {
 
       {/**Botón emergente de Guías */}
       <Button
-            variant="contained"
-            //onClick={handleDownloadDocx}
+            variant="outlined"
+            href="none"
             sx={{
-                width: "auto%",
-                height: "calc(50% - 32px)",
-                border: theme.palette.third.main, //
-                mt: 2,
-                mb: 3,
-                ml: 2,
-                mr: 2,
-                p: 2,
-                textTransform: 'none',
-                color: "white",
-                borderRadius: 2,
-                display: "flex",
-                background: theme.palette.third.main,
-                boxSizing: "border-box",
-                padding: "0 8px",
-                "@media (min-width: 960px)": {
-                  maxWidth: "50.00%",
-                  width: "auto",
-                  margin: "2rem auto",
-                  padding: "2",
-                },
-                fontSize: theme.typography.h4.fontSize,
-                "&:hover": {
-                  transform: "scale(1.02)",
-                  transition: "transform 0.3s ease-in-out",
-                  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-                },
-              }}
+              width: "auto%",
+              height: "calc(100% - 32px)",
+              border: theme.palette.third.main, //          
+              textTransform: 'none',
+              mt: 1,
+              mb: 1,
+              ml: 2,
+              mr: 2,
+              p: 1,
+              color: "white",
+              borderRadius: 2,
+              display: "flex",
+              background: theme.palette.third.main,
+              boxSizing: "border-box",
+              padding: "0 8px",
+              "@media (min-width: 960px)": {
+                maxWidth: "70.00%",
+                width: "auto",
+                margin: "2rem auto",
+                padding: "2",
+              },
+              fontSize: "h4",
+              "&:hover": {
+                transform: "scale(1.02)",
+                transition: "transform 0.3s ease-in-out",
+                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+              },
+            }}
           >
+              <Typography
+                variant="h4"
+                align="center"
+                gutterBottom
+                sx={{ mt: 1, ml: 1, mr: 1 }}
+                aria-owns={open ? "mouse-over-popover" : undefined}
+                aria-haspopup="true"                
+              >
             Consulta de guías de llenado de solicitudes
+            </Typography>          
 
             <SpeedDial
               ariaLabel="SpeedDial tooltip example"
               variant="contained"
-              sx={{ position: 'absolute', bottom: 16, right: 16,   
+              sx={{ position: 'absolute', bottom: 5, right: 15,   
                 '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
                 backgroundColor: 'dial.third',
                 '&:hover': {
@@ -581,8 +590,8 @@ export default function Home() {
                       backgroundColor: 'dial.forty',
                     }
                   },
-                  mt:7,
-                  mb:5,
+                  mt:2,
+                  mb:2,
                 }}
                   key={action.name}
                   icon={action.icon}

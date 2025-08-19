@@ -582,7 +582,7 @@ const fieldsToCapitalize = [
       const handleDownloadDocx = () => {
         const link = document.createElement("a");
         link.href = "/archivos/Formato_INTERNET.docx"; // Ruta de archivo "General"
-        link.download = "Formato_INTERNET.docx";
+        link.download = "Solicitud_de_ampliación_del_servicio_de_internet_v1.0.0.docx";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

@@ -1375,7 +1375,7 @@ export default function Home() {
 const handleDownloadDocx2 = () => {
   const link = document.createElement("a");
   link.href = "/archivos/Formato_RFC.docx"; // Ruta de archivo caso especial 
-  link.download = "Formato_RFC.docx";
+  link.download = "Solicitud_ABC_de_Cortafuegos_v1.0.0.docx";
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
