@@ -318,7 +318,8 @@ export default function Home() {
       {/* VPN MAYO */}
       <Button
         variant="outlined"
-        href="/vpn2"
+        //modificar para que sea vpn
+        href="/vpn"
         sx={{
           width: "auto%",
           height: "calc(100% - 32px)",
