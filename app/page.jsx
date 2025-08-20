@@ -144,6 +144,7 @@ export default function Home() {
   const open4 = Boolean(anchorEl4);
 
   return (
+    
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
       {/* Banner Responsive */}
       <Box
@@ -170,8 +171,7 @@ export default function Home() {
           }}
           sizes="(max-width: 900px) 100vw, 1920px"
         />
-      </Box>
-
+      </Box>            
       {/* Imagen fija para pantallas pequeñas */}
       <Box
         sx={{
@@ -190,13 +190,25 @@ export default function Home() {
           sizes="100vw"
         />
       </Box>
-
+      {/**Imagen fondo */}
+      <Box
+        sx={{
+          position:"relative",
+          width: "100%",
+          height:"100%",
+          backgroundImage: "url('/fondo.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+         //backgroundRepeat: "no-repeat"
+          //display: { xs: "none", md: "block" }, // Mostrar solo en pantallas pequeñas
+        }}
+      >
       {/* Banner Responsive Title*/}
       <Box
         sx={{
           justifyContent: "center",
           mt: 0,
-          background: "#FFFFFF",
+          //background: "#FFFFFF",
           width: "100%",
         }}
       >
@@ -517,10 +529,10 @@ export default function Home() {
             solicitar una <br /> ampliación del servicio de internet
           </Typography>
         </Popover>
-      </Button>
+      </Button>      
 
-      {/**Botón emergente de Guías */}
-      <Button
+      {/* *Botón emergente de Guías */}
+      {/* <Button
             variant="outlined"
             href="none"
             sx={{
@@ -562,12 +574,13 @@ export default function Home() {
                 aria-haspopup="true"                
               >
             Consulta de guías de llenado de solicitudes
-            </Typography>          
+            </Typography>           */}
 
             <SpeedDial
               ariaLabel="SpeedDial tooltip example"
               variant="contained"
-              sx={{ position: 'absolute', bottom: 5, right: 15,   
+              sx={{ position: 'absolute', top: 30,bottom: 5, right: 90, 
+                display: { xs: "none", md: "block" },  
                 '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
                 backgroundColor: 'dial.third',
                 '&:hover': {
@@ -590,8 +603,8 @@ export default function Home() {
                       backgroundColor: 'dial.forty',
                     }
                   },
-                  mt:2,
-                  mb:2,
+                  mt:4,
+                  mb:3,
                 }}
                   key={action.name}
                   icon={action.icon}
@@ -608,7 +621,7 @@ export default function Home() {
                 />
               ))}
             </SpeedDial>
-      </Button>
+      {/* </Button>       */}
 
       {/**Dialogs de guías */}
       {/* Dialog para Guía de internet*/}
@@ -938,7 +951,8 @@ export default function Home() {
             </Button>
           </DialogContent>
         </Dialog>
-          
+      </Box>
     </Container>
+    
   );
 }
