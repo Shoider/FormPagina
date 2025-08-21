@@ -242,6 +242,8 @@ export default function Home() {
           color: "white",
           borderRadius: 2,
           display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           background: theme.palette.secondary.main,
           boxSizing: "border-box",
           padding: "0 8px",
@@ -273,7 +275,22 @@ export default function Home() {
         </Typography>
         <Popover
           id="mouse-over-popover"
-          sx={{ pointerEvents: "none" }}
+          sx={{ pointerEvents: "none",
+                boxSizing: "border-box",
+                padding: "0 8px",
+                "@media (min-width: 960px)": {
+                  maxWidth: "70.00%",
+                  width: "auto",
+                  margin: "2rem auto",
+                  padding: "2",
+                },
+                fontSize: theme.typography.h4.fontSize,
+                "&:hover": {
+                  transform: "scale(1.02)",
+                  transition: "transform 0.3s ease-in-out",
+                  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                },
+          }}
           open={open}
           anchorEl={anchorEl}
           anchorOrigin={{
@@ -282,18 +299,20 @@ export default function Home() {
           }}
           transformOrigin={{
             vertical: "top",
-            horizontal: "left",
+            horizontal: "center",
           }}
           onClose={handlePopoverClose}
           disableRestoreFocus
         >
-          <Typography sx={{ p: 2 }}>
+          <Typography sx={{textAlign:"center",p:2}}>
             Se utiliza para solicitar la apertura de comunicaciones de red entre
-            servidores, <br />
-            entre sistemas de cómputo de usuarios y los sistemas (servidores)
-            que utilizan <br />o para acceder algún servicio de Internet que
-            requiera conexión por puertos
-            <br /> distintos a TCP 80 y 443.
+            servidores, entre 
+            sistemas de cómputo de usuarios y los sistemas (servidores)
+            que utilizan o para 
+            acceder algún servicio de Internet que
+            requiera conexión por puertos 
+            distintos 
+            a TCP 80 y 443.
           </Typography>
         </Popover>
       </ Button>   
@@ -323,12 +342,12 @@ export default function Home() {
         sx={{
           width: "auto%",
           height: "calc(100% - 32px)",
-          border: "2px solid grey",
-          mt: 2,
-          mb: 3,
+          border: theme.palette.secondary.main, //    
+          mt: 1,
+          mb: 1,
           ml: 2,
           mr: 2,
-          p: 2,
+          p: 1,
           textTransform: 'none',
           color: "white",
           borderRadius: 2,
@@ -366,7 +385,22 @@ export default function Home() {
         </Typography>
         <Popover
           id="mouse-over-popover"
-          sx={{ pointerEvents: "none" }}
+          sx={{ pointerEvents: "none",
+                boxSizing: "border-box",
+                padding: "0 8px",
+                "@media (min-width: 960px)": {
+                  maxWidth: "70.00%",
+                  width: "auto",
+                  margin: "2rem auto",
+                  padding: "2",
+                },
+                fontSize: theme.typography.h4.fontSize,
+                "&:hover": {
+                  transform: "scale(1.02)",
+                  transition: "transform 0.3s ease-in-out",
+                  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                },
+              }}
           open={open2}
           anchorEl={anchorEl2}
           anchorOrigin={{
@@ -375,16 +409,16 @@ export default function Home() {
           }}
           transformOrigin={{
             vertical: "top",
-            horizontal: "left",
+            horizontal: "center",
           }}
           onClose={handlePopoverClose2}
           disableRestoreFocus
         >
-          <Typography sx={{ p: 2 }}>
+          <Typography sx={{ textAlign:"center",p:2 }}>
             Permite llenar la solicitud para alta, baja o cambio de los tipos de
-            servicio de <br />
+            servicio de 
             conexión remota permitidos para una conexión de red privada virtual
-            mejor <br />
+            mejor 
             conocida como VPN.
           </Typography>
         </Popover>
@@ -440,7 +474,22 @@ export default function Home() {
         </Typography>
         <Popover
           id="mouse-over-popover"
-          sx={{ pointerEvents: "none" }}
+          sx={{ pointerEvents: "none",
+                boxSizing: "border-box",
+                padding: "0 8px",
+                "@media (min-width: 960px)": {
+                  maxWidth: "70.00%",
+                  width: "auto",
+                  margin: "2rem auto",
+                  padding: "2",
+                },
+                fontSize: theme.typography.h4.fontSize,
+                "&:hover": {
+                  transform: "scale(1.02)",
+                  transition: "transform 0.3s ease-in-out",
+                  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                },
+               }}
           open={open3}
           anchorEl={anchorEl3}
           anchorOrigin={{
@@ -449,14 +498,14 @@ export default function Home() {
           }}
           transformOrigin={{
             vertical: "top",
-            horizontal: "left",
+            horizontal: "center",
           }}
           onClose={handlePopoverClose3}
           disableRestoreFocus
         >
-          <Typography sx={{ p: 2 }}>
+          <Typography sx={{ textAlign:"center",p:2 }}>
             Permite llenar la solicitud para alta, baja o cambio del servicio y configuración de
-            <br />telefonía 
+            telefonía 
           </Typography>
         </Popover>
       </Button>
@@ -511,7 +560,22 @@ export default function Home() {
         </Typography>
         <Popover
           id="mouse-over-popover"
-          sx={{ pointerEvents: "none" }}
+          sx={{ pointerEvents: "none",
+                boxSizing: "border-box",
+                padding: "0 8px",
+                "@media (min-width: 960px)": {
+                  maxWidth: "70.00%",
+                  width: "auto",
+                  margin: "2rem auto",
+                  padding: "2",
+                },
+                fontSize: theme.typography.h4.fontSize,
+                "&:hover": {
+                  transform: "scale(1.02)",
+                  transition: "transform 0.3s ease-in-out",
+                  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+                },
+              }}
           open={open4}
           anchorEl={anchorEl4}
           anchorOrigin={{
@@ -520,14 +584,14 @@ export default function Home() {
           }}
           transformOrigin={{
             vertical: "top",
-            horizontal: "left",
+            horizontal: "center",
           }}
           onClose={handlePopoverClose4}
           disableRestoreFocus
         >
-          <Typography sx={{ p: 2 }}>
+          <Typography sx={{ textAlign:"center", p:2}}>
             Permite llenar la solicitud para cambio de perfil de internet, es decir,
-            solicitar una <br /> ampliación del servicio de internet
+            solicitar una ampliación del servicio de internet
           </Typography>
         </Popover>
       </Button>      
