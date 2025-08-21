@@ -738,8 +738,8 @@ export default function Home() {
             error={!!errors?.nombreUsuario}
             id="nombreUsuario"
             name="nombreUsuario"
-            label="Nombre del usuario"
-            placeholder="Escriba el nombre y apellidos"
+            label="Nombre del solicitante"
+            placeholder="Escriba el nombre completo del solicitante"
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -925,7 +925,7 @@ export default function Home() {
             id="nombreEnlace"
             name="nombreEnlace"
             label="Nombre del enlace administrativo"
-            placeholder="Escriba el nombre del enlace administrativo"
+            placeholder="Escriba el nombre completo del enlace administrativo"
             value={formData.nombreEnlace}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -994,8 +994,8 @@ export default function Home() {
             error={!!errors?.nombreEmpleado}
             id="nombreEmpleado"
             name="nombreEmpleado"
-            label="Nombre Completo"
-            placeholder="Escriba el nombre completo del empleado"
+            label="Nombre del empleado responsable"
+            placeholder="Escriba el nombre completo del empleado responsable"
             value={formData.nombreEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1020,7 +1020,7 @@ export default function Home() {
             id="extEmpleado"
             name="extEmpleado"
             label="Teléfono / Extensión"
-            placeholder="Escriba el número de teléfono o extensión"
+            placeholder="Escriba el número de teléfono y extensión del empleado responsable"
             value={formData.extEmpleado}
             onChange={handleExtensionChange}
             sx={{ background: "#FFFFFF" }}
@@ -1031,8 +1031,8 @@ export default function Home() {
             error={!!errors?.correoEmpleado}
             id="correoEmpleado"
             name="correoEmpleado"
-            label="Correo"
-            placeholder="correo@correo.com"
+            label="Correo institucional"
+            placeholder="correo@conagua.gob.mx"
             value={formData.correoEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1288,7 +1288,7 @@ export default function Home() {
             error={!!errors?.nombreJefe}
             id="nombreJefe"
             name="nombreJefe"
-            label="Funcionario con cargo de Subgerente, Homólogo o Superior"
+            label="Funcionario con cargo de Gerente, Subgerente, Homólogo o Superior"
             placeholder="Escriba el nombre completo del funcionario"
             value={formData.nombreJefe}
             onChange={handleChange}
