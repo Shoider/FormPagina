@@ -766,10 +766,10 @@ export default function Home() {
               <TextField
                 required
                 error={!!errors?.puestoUsuario}
-                placeholder="Escriba o seleccione el puesto del usuario"
+                placeholder="Escriba o seleccione el puesto del solicitante"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
-                label="Puesto de usuario"
+                label="Puesto del solicitante"
               />
             )}
             id="puestoUsuario"
