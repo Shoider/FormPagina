@@ -2156,9 +2156,10 @@ const handleDownloadDocx2 = () => {
               },
             }}
           >
-            {/* <Tooltip 
-            display={formData.otro}
-            title="Descripción breve de otro tipo de cambio"> */}
+            {!formData.otro ?(
+              <Tooltip 
+              display={formData.otro}
+              title="Se habilitá cuando su tipo de cambio es otro"> 
               <TextField
                 error={!!errors?.desotro}
                 disabled={!formData.otro}
@@ -2172,7 +2173,22 @@ const handleDownloadDocx2 = () => {
                 sx={{ background: "#FFFFFF", mb: 3 }}
                 inputProps={{ maxLength: 32 }}
               />
-            {/* </Tooltip> */}
+             </Tooltip> 
+            ):(
+              <TextField
+                error={!!errors?.desotro}
+                disabled={!formData.otro}
+                required={formData.otro}
+                id="desotro"
+                name="desotro"
+                label="Descripción de otro tipo de cambio"
+                placeholder="Describa brevemente el tipo de cambio"
+                value={formData.desotro}
+                onChange={handleChange}
+                sx={{ background: "#FFFFFF", mb: 3 }}
+                inputProps={{ maxLength: 32 }}
+              />             
+            )}            
             <Divider
               sx={{
                 borderBottomWidth: "1px",
