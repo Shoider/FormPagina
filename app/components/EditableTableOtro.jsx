@@ -80,7 +80,7 @@ function EditToolbar(props) {
       {
         id,
         SO: "",
-        FRO: "",
+        //FRO: "",
         IPO: "",
         SD: "",
         FRD: "",
@@ -189,7 +189,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
     },
     {
       field: "SO",
-      headerName: "Sistema\nOrigen",
+      headerName: "Identificador(es) de dipositivo(s) o zona(s) origen",
       type: "string",
       width: 150,
       align: "center",
@@ -197,19 +197,19 @@ function EditableTableOtro({ initialData, onDataChange }) {
       editable: true,
       sortable: false,
     },
-    {
-      field: "FRO",
-      headerName: "Funcion o Rol de Anfitrión(es) Origen",
-      type: "string",
-      width: 200,
-      align: "center",
-      headerAlign: "center",
-      editable: true,
-      sortable: false,
-    },
+    // {
+    //   field: "FRO",
+    //   headerName: "Funcion o Rol de Anfitrión(es) Origen",
+    //   type: "string",
+    //   width: 200,
+    //   align: "center",
+    //   headerAlign: "center",
+    //   editable: true,
+    //   sortable: false,
+    // },
     {
       field: "IPO",
-      headerName: "IP/NAT Anfitrión(es) Origen",
+      headerName: "Segmento(s)/dirección(es) IP(s) origen",
       type: "string",
       width: 200,
       align: "center",
@@ -219,7 +219,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
     },
     {
       field: "SD",
-      headerName: "Sistema Destino",
+      headerName: "Sistema/servicio asociado a dispositivo(s) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -229,7 +229,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
     },
     {
       field: "FRD",
-      headerName: "Funcion o Rol de Anfitrión(es) Destino",
+      headerName: "Rol de dispositivo(S) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -239,7 +239,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
     },
     {
       field: "IPD",
-      headerName: "IP/NAT Anfitrión(es) Destino",
+      headerName: "Dirección(es) IP/NAT dispositivo(s) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -276,7 +276,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true,
       type: "singleSelect",
-      valueOptions: ["TEMPORAL", "PERMANENTE"],
+      valueOptions: ["Temporal", "Permanente"],
       sortable: false,
     },
     {
@@ -289,7 +289,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
       editable: true,
       sortable: false,
     },
-    /* {
+     {
       field: "actions",
       type: "actions",
       headerName: "Acciones",
@@ -338,7 +338,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
           />,
         ];
       },
-    }, */
+    }, 
   ];
 
   React.useEffect(() => {
@@ -351,6 +351,7 @@ function EditableTableOtro({ initialData, onDataChange }) {
         display: "flex",
         flexDirection: "column",
         width: "calc(100% - 32px)",
+        height: "500px",
         ml: 2,
         mr: 4,
         mt: 3,

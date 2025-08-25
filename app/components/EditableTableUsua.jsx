@@ -261,7 +261,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
     //{ field: 'FRO', headerName: 'Funcion o Rol de Dispositivo(s) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: false },
     {
       field: "IPO",
-      headerName: "Segmento(s)/IP(s) origen",
+      headerName: "Segmento(s)/direcón(es) IP(s) origen",
       type: "string",
       width: 300,
       align: "center",
@@ -332,7 +332,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
     },
     {
       field: "SD",
-      headerName: "Sistema asociado a anfitrion(es) destino",
+      headerName: "Sistema asociado a servidor(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -342,7 +342,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
     },
     {
       field: "FRD",
-      headerName: "Rol de anfitrión(es) destino",
+      headerName: "Rol de servidor(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -411,7 +411,7 @@ function EditableTableUsua({ initialData, onDataChange }) {
     },
     {
       field: "IPD",
-      headerName: "IP/NAT anfitrión(es) destino",
+      headerName: "Dirección(es) IP/NAT servidor(es) destino",
       type: "string",
       width: 200,
       align: "center",

@@ -539,6 +539,9 @@ export default function Home() {
     const admin = Data.administrador;
     const desa = Data.desarrollador;
     const usua = Data.usuario;
+    const otro =Data.otro;
+
+    const desotro = Data.desotro;
 
     // Tipo de Cambio para cada moviminento
     const altaInter = Data.AltaInter;
@@ -553,6 +556,9 @@ export default function Home() {
     const altaUsua = Data.AltaUsua;
     const bajaUsua = Data.BajaUsua;
     const cambioUsua = Data.CambioUsua;
+    const altaOtro = Data.AltaOtro;
+    const bajaOtro = Data.BajaOtro;
+    const cambioOtro = Data.CambioOtro;
 
     // Verifica si al menos uno de los campos de justificación está lleno
     if (!justifica && !justifica2 && !justifica3) {
@@ -565,6 +571,7 @@ export default function Home() {
         "Al menos uno de los campos de justificación es requerido";
       isValid = false;
     }
+    
     // Verifica si al menos uno de los campos de justificación está lleno
     if (region === "regional") {
       // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
@@ -577,7 +584,7 @@ export default function Home() {
         isValid = false;
       }
     }
-    if (!inter && !admin && !desa && !usua) {
+    if (!inter && !admin && !desa && !usua && !otro) {
       // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
       errores.validaCambio = "Al menos uno de los campos es requerido";
       isValid = false;
@@ -609,6 +616,20 @@ export default function Home() {
         // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
         errores.movimientoUsua = "Al menos uno de los campos es requerido";
         isValid = false;
+      }
+    }
+    if (otro) {
+      if (!altaOtro && !bajaOtro && !cambioOtro) {
+        // Si ninguno está lleno, marca los tres como errores y el formulario como inválido
+        errores.movimientoOtro = "Al menos uno de los campos es requerido";
+        isValid = false;
+      }
+    }
+
+    if (otro){
+      if (!desotro){
+        errores.desotro ="Es requerido";
+        isValid=false;
       }
     }
 
@@ -1006,6 +1027,108 @@ export default function Home() {
       } else {
         // Validar campos requeridos de cada registro
         Data.registrosUsuaCambiosBajas.forEach((row, idx) => {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
+            //errores[`registrosInterCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+            isValidTabla = false;
+          }
+        });
+      }
+    }
+
+    //validadores de otro
+    //ALTA OTRO
+    if (Data.otro && Data.AltaOtro) {
+      if (
+        !Array.isArray(Data.registrosOtroAltas) ||
+        Data.registrosOtroAltas.length === 0
+      ) {
+        //errores.registrosUsuaAltas = "Debe agregar al menos un registro en Altas Intersistemas";
+        isValidTabla = false;
+      } else {
+        // Validar campos requeridos de cada registro
+        Data.registrosOtroAltas.forEach((row, idx) => {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
+            //errores[`registrosUsuaAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+            isValidTabla = false;
+          }
+        });
+      }
+    }
+    ///BAJA otro
+    if (Data.otro && Data.BajaOtro) {
+      if (
+        !Array.isArray(Data.registrosOtroBajas) ||
+        Data.registrosOtroBajas.length === 0
+      ) {
+        //errores.registrosInterBajas = "Debe agregar al menos un registro en Altas Intersistemas";
+        isValidTabla = false;
+      } else {
+        // Validar campos requeridos de cada registro
+        Data.registrosOtroBajas.forEach((row, idx) => {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
+            //errores[`registrosInterBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Bajas Intersistemas`;
+            isValidTabla = false;
+          }
+        });
+      }
+    }
+    //CAMBIOALTA otro
+    if (Data.otro && Data.CambioOtro) {
+      if (
+        !Array.isArray(Data.registrosOtroCambiosAltas) ||
+        Data.registrosOtroCambiosAltas.length === 0
+      ) {
+        //errores.registrosInterAltas = "Debe agregar al menos un registro en Altas Intersistemas";
+        isValidTabla = false;
+      } else {
+        // Validar campos requeridos de cada registro
+        Data.registrosOtroCambiosAltas.forEach((row, idx) => {
+          if (
+            !row.id ||
+            !row.IPO ||
+            !row.IPD ||
+            !row.PUER ||
+            !row.TEMPO ||
+            !row.PRO /* agrega aquí los campos requeridos */
+          ) {
+            //errores[`registrosDesCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
+            isValidTabla = false;
+          }
+        });
+      }
+    }
+    //CAMBIObaja otro
+    if (Data.otro && Data.CambioOtro) {
+      if (
+        !Array.isArray(Data.registrosOtroCambiosBajas) ||
+        Data.registrosOtroCambiosBajas.length === 0
+      ) {
+        //errores.registrosInterCambiosBajas = "Debe agregar al menos un registro en Altas Intersistemas";
+        isValidTabla = false;
+      } else {
+        // Validar campos requeridos de cada registro
+        Data.registrosOtroCambiosBajas.forEach((row, idx) => {
           if (
             !row.id ||
             !row.IPO ||
@@ -1995,11 +2118,11 @@ const handleDownloadDocx2 = () => {
                 }
                 label="Usuario"
               />
-              <Tooltip title="No está disponible">
+              {/* <Tooltip title="No está disponible"> */}
                 <FormControlLabel
                   control={
                     <Checkbox
-                      disabled
+                     //disabled
                       checked={formData.otro}
                       onChange={saveComboBox}
                       name="otro"
@@ -2008,7 +2131,7 @@ const handleDownloadDocx2 = () => {
                   }
                   label="Otro"
                 />
-              </Tooltip>
+              {/* </Tooltip> */}
             </FormGroup>
             <FormHelperText
               sx={{
@@ -2033,20 +2156,23 @@ const handleDownloadDocx2 = () => {
               },
             }}
           >
-            <Tooltip title="No está disponible">
+            {/* <Tooltip 
+            display={formData.otro}
+            title="Descripción breve de otro tipo de cambio"> */}
               <TextField
+                error={!!errors?.desotro}
                 disabled={!formData.otro}
                 required={formData.otro}
                 id="desotro"
                 name="desotro"
-                label="Otro"
-                placeholder="Describa brevemente"
+                label="Descripción de otro tipo de cambio"
+                placeholder="Describa brevemente el tipo de cambio"
                 value={formData.desotro}
                 onChange={handleChange}
                 sx={{ background: "#FFFFFF", mb: 3 }}
                 inputProps={{ maxLength: 32 }}
               />
-            </Tooltip>
+            {/* </Tooltip> */}
             <Divider
               sx={{
                 borderBottomWidth: "1px",
@@ -3741,6 +3867,17 @@ const handleDownloadDocx2 = () => {
                 />
               }
               label="Alta"
+            />            
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formData.BajaOtro}
+                  onChange={saveComboBox}
+                  name="BajaOtro"
+                  color="primary"
+                />
+              }
+              label="Baja"
             />
             <FormControlLabel
               control={
@@ -3753,18 +3890,19 @@ const handleDownloadDocx2 = () => {
               }
               label="Cambio"
             />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formData.BajaOtro}
-                  onChange={saveComboBox}
-                  name="BajaOtro"
-                  color="primary"
-                />
-              }
-              label="Baja"
-            />
           </FormGroup>
+
+          <FormHelperText
+            sx={{
+              mx: "auto",
+              mb: 1,
+              justifyContent: "center",
+              color: "red",
+              display: errors?.movimientoOtro ? "block" : "none",
+            }}
+          >
+            {errors?.movimientoOtro}
+          </FormHelperText>
         </Box>
 
         {/* Altas Tabla */}

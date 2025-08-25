@@ -201,7 +201,7 @@ function EditableTableDes({ initialData, onDataChange }) {
     //{ field: 'FRO', headerName: 'Funcion o Rol de Dispositivo(s) Origen', type: 'string', width: 200, align: 'center', headerAlign: 'center', editable: false },
     {
       field: "IPO",
-      headerName: "IP anfitrión(es) origen",
+      headerName: "Dirección(es) IP dispositivo(s) origen",
       type: "string",
       width: 200,
       align: "center",
@@ -211,7 +211,7 @@ function EditableTableDes({ initialData, onDataChange }) {
     },
     {
       field: "SD",
-      headerName: "Sistema asociado a anfitrion(es) destino",
+      headerName: "Sistema asociado a servidor(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -221,7 +221,7 @@ function EditableTableDes({ initialData, onDataChange }) {
     },
     {
       field: "FRD",
-      headerName: "Funcion o rol de anfitrión(es) destino",
+      headerName: "Funcion o rol de servidor(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -290,7 +290,7 @@ function EditableTableDes({ initialData, onDataChange }) {
     },
     {
       field: "IPD",
-      headerName: "IP/NAT anfitrión(es) destino",
+      headerName: "Dirección IP/NAT servidor(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -327,7 +327,7 @@ function EditableTableDes({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true,
       type: "singleSelect",
-      valueOptions: ["TEMPORAL", "PERMANENTE"],
+      valueOptions: ["Temporal", "Permanente"],
       sortable: false,
     },
     {

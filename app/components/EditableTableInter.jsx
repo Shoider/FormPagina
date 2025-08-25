@@ -201,7 +201,7 @@ function EditableTableInter({ initialData, onDataChange }) {
     },
     {
       field: "FRO",
-      headerName: "Funcion o rol de dispositivo(s) origen",
+      headerName: "Funcion o rol de servidor(es) origen",
       type: "string",
       width: 200,
       align: "center",
@@ -270,7 +270,7 @@ function EditableTableInter({ initialData, onDataChange }) {
     },
     {
       field: "IPO",
-      headerName: "IP/NAT dispositivo(s) origen",
+      headerName: "Dirección(es) IP/NAT servidor(es) origen",
       type: "string",
       width: 200,
       align: "center",
@@ -290,7 +290,7 @@ function EditableTableInter({ initialData, onDataChange }) {
     },
     {
       field: "FRD",
-      headerName: "Funcion o rol de dispositivo(s) destino",
+      headerName: "Funcion o rol de servidor(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -359,7 +359,7 @@ function EditableTableInter({ initialData, onDataChange }) {
     },
     {
       field: "IPD",
-      headerName: "IP/NAT dispositivo(s) destino",
+      headerName: "Dirección(es) IP/NAT servidor(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -396,7 +396,7 @@ function EditableTableInter({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true,
       type: "singleSelect",
-      valueOptions: ["TEMPORAL", "PERMANENTE"],
+      valueOptions: ["Temporal", "Permanente"],
       sortable: false,
     },
     {

@@ -200,7 +200,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
     },
     {
       field: "IPO",
-      headerName: "IP anfitrión(es) origen",
+      headerName: "Dirección(es) IP dispositivo(s) origen",
       type: "string",
       width: 200,
       align: "center",
@@ -210,7 +210,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
     },
     {
       field: "SD",
-      headerName: "Sistema asociado a anfitrion(es) destino",
+      headerName: "Sistema asociado a servidor(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -220,7 +220,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
     },
     {
       field: "FRD",
-      headerName: "Funcion o rol de anfitrión(es) destino",
+      headerName: "Funcion o rol de servidor(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -289,7 +289,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
     },
     {
       field: "IPD",
-      headerName: "IP/NAT anfitrión(es) destino",
+      headerName: "Dirección(es) IP/NAT servidor(es) destino",
       type: "string",
       width: 200,
       align: "center",
@@ -326,7 +326,7 @@ function EditableTableAdmin({ initialData, onDataChange }) {
       headerAlign: "center",
       editable: true,
       type: "singleSelect",
-      valueOptions: ["TEMPORAL", "PERMANENTE"],
+      valueOptions: ["Temporal", "Permanente"],
       sortable: false,
     },
     {
