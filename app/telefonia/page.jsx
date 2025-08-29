@@ -58,6 +58,8 @@ export default function Home() {
     uaUsuario: "",
     puestoUsuario: "",
 
+    extinterno:"",
+
     nombreEnlace: "",
     
 
@@ -284,7 +286,8 @@ export default function Home() {
       const nuevosCampos=[
         "marca",
         "modelo",
-        "serie"
+        "serie",
+        "extinterno"
       ];
       camposRequeridos = [...camposRequeridos, ...nuevosCampos];
 
@@ -296,6 +299,7 @@ export default function Home() {
         "celular",
         "nacional",
         "mundo",
+        "extinterno"
       ];
       camposRequeridos = [...camposRequeridos, ...nuevosCampos];
 
@@ -488,6 +492,16 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       extEmpleado: value,
+    }));
+  };
+
+  const handleExtensionInternoChange = (event) => {
+    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 4); // Limita la longitud a 4 caracteres
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      extinterno: value,
     }));
   };
 
@@ -738,8 +752,8 @@ export default function Home() {
             error={!!errors?.nombreUsuario}
             id="nombreUsuario"
             name="nombreUsuario"
-            label="Nombre del solicitante"
-            placeholder="Escriba el nombre completo del solicitante"
+            label="Nombre del usuario"
+            placeholder="Escriba el nombre completo del usuario"
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -766,10 +780,10 @@ export default function Home() {
               <TextField
                 required
                 error={!!errors?.puestoUsuario}
-                placeholder="Escriba o seleccione el puesto del solicitante"
+                placeholder="Escriba o seleccione el puesto del usuario"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
-                label="Puesto del solicitante"
+                label="Puesto del usuario"
               />
             )}
             id="puestoUsuario"
@@ -1226,6 +1240,43 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             InputLabelProps={{ shrink: true }}
           />
+          <Box
+          sx={{
+          display: (formData.movimiento && formData.movimiento === "BAJA" || formData.movimiento === "CAMBIO" )? "block" : "none",
+            }}>         
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 3,
+              mb: 1,
+            }}
+          />
+          <FormLabel
+              component="legend"
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
+            >
+              Información del usuario requerida para el movimiento*
+            </FormLabel>
+          <TextField
+            required
+            error={!!errors?.extinterno}
+            id="extinterno"
+            name="extinterno"
+            label="Extensión del usuario"
+            placeholder="Escriba la extensión del usuario"
+            value={formData.extinterno}
+            onChange={handleExtensionInternoChange}
+            sx={{ background: "#FFFFFF" }}
+          />
+          </Box> 
           <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -1235,6 +1286,7 @@ export default function Home() {
               mb: 3,
             }}
           />
+
         </Box>
       </Box>
 
