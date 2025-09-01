@@ -177,6 +177,17 @@ export default function Home() {
     }));
   };
 
+  ///NÚMERO DE EMPLEADO
+  const handleNumeroEmpleado = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 5); // Limita la longitud a 5 caracteres
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      idEmpleado: value,
+    }));
+  };
+
   const handlePuestosUsuario = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -920,7 +931,7 @@ export default function Home() {
             name="uaUsuario"
             onChange={(event, newValue) => {
               handleUA(newValue); // Maneja selección de opciones
-            }}
+            }}            
             inputValue={formData.uaUsuario || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
@@ -1023,9 +1034,10 @@ export default function Home() {
             label="Número de empleado"
             placeholder="Escriba el número de empleado"
             value={formData.idEmpleado}
-            onChange={handleChange}
+            //HandleChange
+            onChange={handleNumeroEmpleado}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 32 }}
+            inputProps={{ maxLength: 5 }}
           />
 
           <TextField
@@ -1050,7 +1062,7 @@ export default function Home() {
             value={formData.correoEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 32 }}
+            inputProps={{ maxLength: 256 }}
           />
           {/**Puesto de usuario */}
           <Autocomplete
@@ -1429,14 +1441,14 @@ export default function Home() {
           </TextField>
           {/**MODELO */}
           <Autocomplete
-            error={!!errors?.modelo}
+            //error={!!errors?.modelo}
             disablePortal
             options={filteredModelo}
             freeSolo
             renderInput={(params) => (
               <TextField
                 required
-                //error={!!errors?.unidadAdministrativa}
+                error={!!errors?.modelo}
                 placeholder="Escriba o seleccione el modelo"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
