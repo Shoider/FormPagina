@@ -271,7 +271,7 @@ export default function Home() {
           onMouseEnter={handlePopoverOpen}
           onMouseLeave={handlePopoverClose}
         >
-          Solicitud de cambios en cortafuegos (RFC)
+          Solicitud de cambios en cortafuegos (SdC)
         </Typography>
         <Popover
           id="mouse-over-popover"
@@ -596,56 +596,13 @@ export default function Home() {
         </Popover>
       </Button>      
 
-      {/* *Botón emergente de Guías */}
-      {/* <Button
-            variant="outlined"
-            href="none"
-            sx={{
-              width: "auto%",
-              height: "calc(100% - 32px)",
-              border: theme.palette.third.main, //          
-              textTransform: 'none',
-              mt: 1,
-              mb: 1,
-              ml: 2,
-              mr: 2,
-              p: 1,
-              color: "white",
-              borderRadius: 2,
-              display: "flex",
-              background: theme.palette.third.main,
-              boxSizing: "border-box",
-              padding: "0 8px",
-              "@media (min-width: 960px)": {
-                maxWidth: "70.00%",
-                width: "auto",
-                margin: "2rem auto",
-                padding: "2",
-              },
-              fontSize: "h4",
-              "&:hover": {
-                transform: "scale(1.02)",
-                transition: "transform 0.3s ease-in-out",
-                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-              },
-            }}
-          >
-              <Typography
-                variant="h4"
-                align="center"
-                gutterBottom
-                sx={{ mt: 1, ml: 1, mr: 1 }}
-                aria-owns={open ? "mouse-over-popover" : undefined}
-                aria-haspopup="true"                
-              >
-            Consulta de guías de llenado de solicitudes
-            </Typography>           */}
-
+      {/* *Botón emergente de Guías */}    
             <SpeedDial
               ariaLabel="SpeedDial tooltip example"
               variant="contained"
+              //Descomenatar para mostrar el speeddial del manual de llenado de los 4 formatos
               sx={{ position: 'absolute', top: 30,bottom: 5, right: 90, 
-                display: { xs: "none", md: "block" },  
+                display: { xs: "none", md: "none" },  
                 '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
                 backgroundColor: 'dial.third',
                 '&:hover': {
@@ -686,7 +643,6 @@ export default function Home() {
                 />
               ))}
             </SpeedDial>
-      {/* </Button>       */}
 
       {/**Dialogs de guías */}
       {/* Dialog para Guía de internet*/}
