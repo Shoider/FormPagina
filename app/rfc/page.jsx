@@ -1221,7 +1221,7 @@ export default function Home() {
       ////console.log("Petición exitosa: ", formMessage);
       ////console.log("ID recibido: ", formId);
       ////console.log("Epoch recibido: ", epoch);
-      setNombreArchivo(`RFC_${epoch}.pdf`);
+      setNombreArchivo(`SdC_${epoch}.pdf`);
 
       setAlert({
         message: formMessage,
