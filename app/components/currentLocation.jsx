@@ -8,12 +8,12 @@ function CurrentLocation() {
   const pathname = usePathname(); // Usa usePathname
 
   const routeTexts = {
-    "/": "MENÚ",
+    "/": "Menú",
     "/vpn": "VPN",
-    "/rfc": "RFC",
-    "/telefonia": "TELEFONÍA",
-    "/internet": "INTERNET",
-    "/vpnprueba": "VPN",
+    "/rfc": "SdC",
+    "/telefonia": "Telefonía",
+    "/internet": "Internet",
+    "/vpnprueba": "VPN de Prueba",
   };
 
   const currentText = routeTexts[pathname] || "Página Desconocida";

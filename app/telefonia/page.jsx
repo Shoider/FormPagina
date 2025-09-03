@@ -58,6 +58,8 @@ export default function Home() {
     uaUsuario: "",
     puestoUsuario: "",
 
+    extinterno:"",
+
     nombreEnlace: "",
     
 
@@ -175,6 +177,17 @@ export default function Home() {
     }));
   };
 
+  ///NÚMERO DE EMPLEADO
+  const handleNumeroEmpleado = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 5); // Limita la longitud a 5 caracteres
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      idEmpleado: value,
+    }));
+  };
+
   const handlePuestosUsuario = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -284,7 +297,8 @@ export default function Home() {
       const nuevosCampos=[
         "marca",
         "modelo",
-        "serie"
+        "serie",
+        "extinterno"
       ];
       camposRequeridos = [...camposRequeridos, ...nuevosCampos];
 
@@ -296,6 +310,7 @@ export default function Home() {
         "celular",
         "nacional",
         "mundo",
+        "extinterno"
       ];
       camposRequeridos = [...camposRequeridos, ...nuevosCampos];
 
@@ -488,6 +503,16 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       extEmpleado: value,
+    }));
+  };
+
+  const handleExtensionInternoChange = (event) => {
+    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 4); // Limita la longitud a 4 caracteres
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      extinterno: value,
     }));
   };
 
@@ -738,8 +763,8 @@ export default function Home() {
             error={!!errors?.nombreUsuario}
             id="nombreUsuario"
             name="nombreUsuario"
-            label="Nombre del solicitante"
-            placeholder="Escriba el nombre completo del solicitante"
+            label="Nombre del usuario"
+            placeholder="Escriba el nombre completo del usuario"
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -766,10 +791,10 @@ export default function Home() {
               <TextField
                 required
                 error={!!errors?.puestoUsuario}
-                placeholder="Escriba o seleccione el puesto del solicitante"
+                placeholder="Escriba o seleccione el puesto del usuario"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
-                label="Puesto del solicitante"
+                label="Puesto del usuario"
               />
             )}
             id="puestoUsuario"
@@ -906,7 +931,7 @@ export default function Home() {
             name="uaUsuario"
             onChange={(event, newValue) => {
               handleUA(newValue); // Maneja selección de opciones
-            }}
+            }}            
             inputValue={formData.uaUsuario || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
@@ -1009,9 +1034,10 @@ export default function Home() {
             label="Número de empleado"
             placeholder="Escriba el número de empleado"
             value={formData.idEmpleado}
-            onChange={handleChange}
+            //HandleChange
+            onChange={handleNumeroEmpleado}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 32 }}
+            inputProps={{ maxLength: 5 }}
           />
 
           <TextField
@@ -1036,7 +1062,7 @@ export default function Home() {
             value={formData.correoEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 32 }}
+            inputProps={{ maxLength: 256 }}
           />
           {/**Puesto de usuario */}
           <Autocomplete
@@ -1226,6 +1252,43 @@ export default function Home() {
             sx={{ background: "#FFFFFF" }}
             InputLabelProps={{ shrink: true }}
           />
+          <Box
+          sx={{
+          display: (formData.movimiento && formData.movimiento === "BAJA" || formData.movimiento === "CAMBIO" )? "block" : "none",
+            }}>         
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mt: 3,
+              mb: 1,
+            }}
+          />
+          <FormLabel
+              component="legend"
+              sx={{
+                mt: 0,
+                display: "flex",
+                justifyContent: "center",
+                fontSize: "1.2rem",
+              }}
+            >
+              Información del usuario requerida para el movimiento*
+            </FormLabel>
+          <TextField
+            required
+            error={!!errors?.extinterno}
+            id="extinterno"
+            name="extinterno"
+            label="Extensión del usuario"
+            placeholder="Escriba la extensión del usuario"
+            value={formData.extinterno}
+            onChange={handleExtensionInternoChange}
+            sx={{ background: "#FFFFFF" }}
+          />
+          </Box> 
           <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -1235,6 +1298,7 @@ export default function Home() {
               mb: 3,
             }}
           />
+
         </Box>
       </Box>
 
@@ -1377,14 +1441,14 @@ export default function Home() {
           </TextField>
           {/**MODELO */}
           <Autocomplete
-            error={!!errors?.modelo}
+            //error={!!errors?.modelo}
             disablePortal
             options={filteredModelo}
             freeSolo
             renderInput={(params) => (
               <TextField
                 required
-                //error={!!errors?.unidadAdministrativa}
+                error={!!errors?.modelo}
                 placeholder="Escriba o seleccione el modelo"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
