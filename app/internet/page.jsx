@@ -439,14 +439,14 @@ const fieldsToCapitalize = [
           });
           setOpenAlert(true);
         } else {
-          console.error("Ocurrio un error al generar el PDF");
+          console.error("Ocurrió un error al generar el PDF");
           console.error(pdfResponse.status);
         }
       } catch (error) {
         console.error("Error:", error);
         setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
         setAlert({
-          message: "Ocurrio un error al generar el PDF",
+          message: "Ocurrió un error al generar el PDF",
           severity: "error",
         });
         setOpenAlert(true);

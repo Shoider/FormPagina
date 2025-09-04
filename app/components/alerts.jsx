@@ -1,4 +1,4 @@
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, Snackbar,Slide } from "@mui/material";
 
 export default function Alerts({ open, setOpen, alert, pos }) {
   const handleClose = () => {
@@ -12,6 +12,7 @@ export default function Alerts({ open, setOpen, alert, pos }) {
       open={open}
       autoHideDuration={5000}
       onClose={handleClose}
+      slots={{transition: Slide}}
       anchorOrigin={{ vertical: vertical, horizontal: "center" }}
     >
       <Alert
