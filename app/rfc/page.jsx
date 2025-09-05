@@ -39,6 +39,7 @@ import EditableTableDes from "../components/EditableTableDes.jsx";
 import EditableTableUsua from "../components/EditableTableUsua.jsx";
 import EditableTableOtro from "../components/EditableTableOtro.jsx";
 import DownloadIcon from "@mui/icons-material/Download";
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import puestos from "../constants/PUESTOS/puestos.jsx";
@@ -1476,6 +1477,14 @@ export default function Home() {
     const handleClose3 = () => {
       setOpen3(false);
     }
+  //Descarga de guías
+    const [open4, setOpen4] = useState(false);
+    const handleClickOpen4 = () => {
+      setOpen4(true);
+    };
+    const handleClose4 = () => {
+      setOpen4(false);
+    }
   //Para linea de progreso
   const [progress, setProgress] = React.useState(0);
   const [progresoCompleto, setProgresoCompleto] = React.useState(false);
@@ -1484,6 +1493,7 @@ export default function Home() {
   //Para botón que aparece y desaparece
     const botones =[
       { icon: <DownloadIcon htmlColor="#FFFFFF" />, name: 'Descargar formato',onClick: handleClickOpen3, color: "secondary" },
+      { icon: <NoteAltIcon htmlColor="#FFFFFF" />, name: 'Descargar guía',onClick: handleClickOpen4, color: "secondary" },
       { icon: <SyncIcon htmlColor="#FFFFFF" />, name: 'Actualizar número de ticket',onClick: handleClickOpen, color: "secondary" },
     ];
     //Descarga de PDF
@@ -4981,7 +4991,7 @@ const handleDownloadDocx2 = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      {/* DIALOG */}
+      {/* DIALOG  de descarga de formato*/}
           <Dialog
             open={open3}
             onClose={handleClose3}
@@ -5025,6 +5035,7 @@ const handleDownloadDocx2 = () => {
                   width: "calc(100% - 32px)",
                   ml: 2,
                   mr: 4,
+                  textTransform: 'none',
                   //color: theme.palette.third.main,
                   background:
                       theme.palette.secondary.main                 
@@ -5041,6 +5052,7 @@ const handleDownloadDocx2 = () => {
                       width: "calc(100% - 32px)",
                       ml: 2,
                       mr: 4,
+                      textTransform: 'none',
                       //color: theme.palette.third.main,
                       background:
                           theme.palette.secondary.main                 
@@ -5062,6 +5074,87 @@ const handleDownloadDocx2 = () => {
               <Button
                 variant="contained"
                 onClick={handleClose3}
+                sx={{
+                  mt: 2,
+                  mb: 2,
+                  width: "calc(100% - 32px)",
+                  ml: 2,
+                  mr: 4,
+                  background: "#98989A",
+                  color: "#FFFFFF",
+                  border: "1px solid gray",
+                }}
+              >
+                Cancelar
+              </Button>
+            </DialogContent>
+          </Dialog>
+      {/* DIALOG de guía*/}
+          <Dialog
+            open={open4}
+            onClose={handleClose4}
+            sx={{
+              "& .MuiDialog-container": {
+                backgroundColor: "f5f5f5", // Or any other color
+              },
+              "& .MuiDialog-paper": {
+                backgroundColor: "#f4f4f5", // Customize dialog content background
+              },
+            }}
+            
+          >
+            <DialogContent>
+              <DialogTitle
+              align="center"
+              sx={{
+                mt: -2
+              }}
+              >
+                Descarga de guía de llenado de SdC de Cortafuegos</DialogTitle>
+              <DialogContentText>
+                
+              </DialogContentText>
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 2,
+                  mr: 2,
+                  mb: 0,
+                  mt: 0,
+                }}
+              />
+              <Button
+                variant="contained"
+                //onClick={handleDownloadDocx}
+                sx={{
+                  mt: 2,
+                  mb: 0,
+                  width: "calc(100% - 32px)",
+                  ml: 2,
+                  mr: 4,
+                  textTransform: 'none',
+                  //color: theme.palette.third.main,
+                  background:
+                      theme.palette.secondary.main                 
+                }}
+              >
+                Guía de llenado de solicitud de alta, baja o cambio en la infraestructura de seguridad de la CONAGUA
+              </Button>             
+              
+              <Divider
+                sx={{
+                  borderBottomWidth: "1px",
+                  borderColor: "grey",
+                  ml: 2,
+                  mr: 2,
+                  mb: 0,
+                  mt: 2,
+                }}
+              />
+              <Button
+                variant="contained"
+                onClick={handleClose4}
                 sx={{
                   mt: 2,
                   mb: 2,
