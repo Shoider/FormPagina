@@ -42,6 +42,7 @@ import telefonoAutocomplete from "../constants/telefono.jsx";
 import areas from "../constants/AREAS/areas.jsx";
 
 import DownloadIcon from "@mui/icons-material/Download";
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import puestos from "../constants/PUESTOS/puestos.jsx";
 
 export default function Home() {
@@ -578,6 +579,14 @@ const fieldsToCapitalize = [
       const handleClose3 = () => {
         setOpen3(false);
       }
+  //Descarga de guía
+      const [open4, setOpen4] = useState(false);
+      const handleClickOpen4 = () => {
+        setOpen4(true);
+      };
+      const handleClose4 = () => {
+        setOpen4(false);
+      }
 
       const handleDownloadDocx = () => {
         const link = document.createElement("a");
@@ -591,6 +600,7 @@ const fieldsToCapitalize = [
   //Para botón que aparece y desaparece
     const botones =[
       { icon: <DownloadIcon htmlColor="#FFFFFF" />, name: 'Descargar formato',onClick: handleClickOpen3, color: "secondary" },
+      { icon: <NoteAltIcon htmlColor="#FFFFFF" />, name: 'Descargar guía',onClick: handleClickOpen4, color: "secondary" },
     ];
     
     const [openBotton, setOpenBotton] = React.useState(false);
@@ -2850,7 +2860,7 @@ const fieldsToCapitalize = [
             </SpeedDial>
           </Box>
 
-      {/* DIALOG */}
+      {/* DIALOG de descarga de formatos*/}
             <Dialog
               open={open3}
               onClose={handleClose3}
@@ -2894,6 +2904,7 @@ const fieldsToCapitalize = [
                     width: "calc(100% - 32px)",
                     ml: 2,
                     mr: 4,
+                    textTransform: 'none',
                     //color: theme.palette.third.main,
                     background:
                        theme.palette.secondary.main                 
@@ -2915,6 +2926,87 @@ const fieldsToCapitalize = [
                 <Button
                   variant="contained"
                   onClick={handleClose3}
+                  sx={{
+                    mt: 2,
+                    mb: 2,
+                    width: "calc(100% - 32px)",
+                    ml: 2,
+                    mr: 4,
+                    background: "#98989A",
+                    color: "#FFFFFF",
+                    border: "1px solid gray",
+                  }}
+                >
+                  Cancelar
+                </Button>
+              </DialogContent>
+            </Dialog>
+          {/* DIALOG de descarga de guía*/}
+            <Dialog
+              open={open4}
+              onClose={handleClose4}
+              sx={{
+                "& .MuiDialog-container": {
+                  backgroundColor: "f5f5f5", // Or any other color
+                },
+                "& .MuiDialog-paper": {
+                  backgroundColor: "#f4f4f5", // Customize dialog content background
+                },
+              }}
+              
+            >
+              <DialogContent>
+                <DialogTitle
+                align="center"
+                sx={{
+                  mt: -2
+                }}
+                >
+                  Descarga de guía de llenado de solictud de ampliación del servicio de internet</DialogTitle>
+                <DialogContentText>
+                  
+                </DialogContentText>
+                <Divider
+                  sx={{
+                    borderBottomWidth: "1px",
+                    borderColor: "grey",
+                    ml: 2,
+                    mr: 2,
+                    mb: 0,
+                    mt: 0,
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  //onClick={handleDownloadDocx}
+                  sx={{
+                    mt: 2,
+                    mb: 0,
+                    width: "calc(100% - 32px)",
+                    ml: 2,
+                    mr: 4,
+                    textTransform: 'none',
+                    //color: theme.palette.third.main,
+                    background:
+                       theme.palette.secondary.main                 
+                  }}
+                >
+                  Guía de llenado de solicitud de ampliación del servicio de internet 
+                </Button>
+                
+                <Divider
+                  sx={{
+                    borderBottomWidth: "1px",
+                    borderColor: "grey",
+                    ml: 2,
+                    mr: 2,
+                    mb: 0,
+                    mt: 2,
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  onClick={handleClose4}
                   sx={{
                     mt: 2,
                     mb: 2,

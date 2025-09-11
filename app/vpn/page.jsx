@@ -45,6 +45,7 @@ import puestos from "../constants/PUESTOS/puestos.jsx";
 // ICONOS
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
 
 // TABLAS
 import EditableTableWeb from "../components/EditableTableWeb.jsx";
@@ -291,6 +292,15 @@ export default function Home() {
   };
   const handleClose3 = () => {
     setOpen3(false);
+  }
+
+  //Descarga de guía
+  const [open4, setOpen4] = useState(false);
+  const handleClickOpen4 = () => {
+    setOpen4(true);
+  };
+  const handleClose4 = () => {
+    setOpen4(false);
   }
 
   // Modal
@@ -1112,6 +1122,7 @@ export default function Home() {
   //Para botón que aparece y desaparece
   const botones =[
     { icon: <DownloadIcon htmlColor="#FFFFFF" />, name: 'Descargar formatos',onClick: handleClickOpen3, color: "secondary" },
+    { icon: <NoteAltIcon htmlColor="#FFFFFF"/>, name: 'Descargar guía',onClick: handleClickOpen4 },
     { icon: <AddIcon htmlColor="#FFFFFF" />, name: 'Añadir memorando',onClick: handleClickOpen },
     { icon: <EditIcon htmlColor="#FFFFFF"/>, name: 'Modificar formato',onClick: handleClickOpen2 },
   ];
@@ -3550,7 +3561,7 @@ export default function Home() {
           Descargar formatos
         </Fab>
       </Box> */}
-      {/* DIALOG */}
+      {/* DIALOG DESCARGAR FORMATOS*/}
       <Dialog
         open={open3}
         onClose={handleClose3}
@@ -3594,6 +3605,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
               ml: 2,
               mr: 4,
+              textTransform: 'none',
               //color: theme.palette.third.main,
               background:
                  theme.palette.secondary.main                 
@@ -3610,6 +3622,7 @@ export default function Home() {
               width: "calc(100% - 32px)",
               ml: 2,
               mr: 4,
+              textTransform: 'none',
               //color: theme.palette.third.main,
               background:
                  theme.palette.secondary.main                 
@@ -3630,6 +3643,88 @@ export default function Home() {
           <Button
             variant="contained"
             onClick={handleClose3}
+            sx={{
+              mt: 2,
+              mb: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              background: "#98989A",
+              color: "#FFFFFF",
+              border: "1px solid gray",
+            }}
+          >
+            Cancelar
+          </Button>
+        </DialogContent>
+      </Dialog>
+
+      {/* DIALOG GUÍA DE LLENADO*/}
+      <Dialog
+        open={open4}
+        onClose={handleClose4}
+        sx={{
+          "& .MuiDialog-container": {
+            backgroundColor: "f5f5f5", // Or any other color
+          },
+          "& .MuiDialog-paper": {
+            backgroundColor: "#f4f4f5", // Customize dialog content background
+          },
+        }}
+        
+      >
+        <DialogContent>
+          <DialogTitle
+          align="center"
+          sx={{
+            mt: -2
+          }}
+          >
+            Descarga de guía de llenado</DialogTitle>
+          <DialogContentText>
+            
+          </DialogContentText>
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 0,
+              mt: 0,
+            }}
+          />
+          <Button
+            variant="contained"
+            //onClick={handleDownloadDocx}
+            sx={{
+              mt: 2,
+              mb: 0,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+              textTransform: 'none',
+              //color: theme.palette.third.main,
+              background:
+                 theme.palette.secondary.main                 
+            }}
+          >
+            Guía de llenado de solicitudes de acceso remoto a través de una Red Privada Virtual (VPN)
+          </Button>
+          
+          <Divider
+            sx={{
+              borderBottomWidth: "1px",
+              borderColor: "grey",
+              ml: 2,
+              mr: 2,
+              mb: 0,
+              mt: 2,
+            }}
+          />
+          <Button
+            variant="contained"
+            onClick={handleClose4}
             sx={{
               mt: 2,
               mb: 2,
