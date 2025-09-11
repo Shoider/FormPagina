@@ -2415,7 +2415,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
@@ -2487,7 +2501,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -2616,7 +2644,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
       </Box>
@@ -2813,7 +2855,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
@@ -2885,7 +2941,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -3013,7 +3083,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
       </Box>
@@ -3209,7 +3293,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
@@ -3281,7 +3379,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -3409,7 +3521,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
       </Box>
@@ -3604,7 +3730,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
@@ -3676,7 +3816,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -3804,7 +3958,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
       </Box>
@@ -4000,7 +4168,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
@@ -4072,7 +4254,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -4200,7 +4396,21 @@ const handleDownloadDocx2 = () => {
               width: "calc(100% - 32px)",
             }}
           >
-            En caso de ingresar más de una IP separar cada una con una coma (,), Ej: 172.29.152.150, 179.29.154.18, ...
+            En caso de ingresar más de una IP separar cada una con una coma y espacio (, ), Ej: 172.29.152.150, 179.29.154.18, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
         </Box>
       </Box>
