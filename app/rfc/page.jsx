@@ -53,6 +53,7 @@ import { useEffect } from "react";
 // ICONOS
 import SyncIcon from "@mui/icons-material/Sync";
 import { NodeNextRequest } from "next/dist/server/base-http/node.js";
+import { data } from "react-router-dom";
 
 export default function Home() {
   const theme = useTheme();
@@ -428,10 +429,47 @@ export default function Home() {
   // Tipo de cambio
   const saveComboBox = async (event) => {
     const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
+  setFormData((prevFormData) => {
+    const updatedFormData = {
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
-    }));
+    };
+    console.log(name, value)
+
+    // Limpiar datos de tabla si el checkbox se desactiva    
+    if (name === "AltaInter" && !checked) setAltaInterTableData([]);
+    if (name === "BajaInter" && !checked) setBajaInterTableData([]);
+    if (name === "CambioInter" && !checked) {
+      setCambioAltaInterTableData([]);
+      setCambiBajaInterTableData([]);
+    }
+    if (name === "AltaAdmin" && !checked) setAltaAdminTableData([]);
+    if (name === "BajaAdmin" && !checked) setBajaAdminTableData([]);
+    if (name === "CambioAdmin" && !checked) {
+      setCambioAltaAdminTableData([]);
+      setCambioBajaAdminTableData([]);
+    }
+    if (name === "AltaDes" && !checked) setAltaDesTableData([]);
+    if (name === "BajaDes" && !checked) setBajaDesTableData([]);
+    if (name === "CambioDes" && !checked) {
+      setCambioAltaDesTableData([]);
+      setCambioBajaDesTableData([]);
+    }
+    if (name === "AltaUsua" && !checked) setAltaUsuaTableData([]);
+    if (name === "BajaUsua" && !checked) setBajaUsuaTableData([]);
+    if (name === "CambioUsua" && !checked) {
+      setCambioAltaUsuaTableData([]);
+      setCambioBajaUsuaTableData([]);
+    }
+    if (name === "AltaOtro" && !checked) setAltaOtroTableData([]);
+    if (name === "BajaOtro" && !checked) setBajaOtroTableData([]);
+    if (name === "CambioOtro" && !checked) {
+      setCambioAltaOtroTableData([]);
+      setCambioBajaOtroTableData([]);
+    }
+
+    return updatedFormData;
+  });
   };
 
   // Boton
@@ -470,6 +508,7 @@ export default function Home() {
     const [isValid, isValidTabla, getErrors] =
       validarCamposRequeridos(formData);
     setErrors(getErrors);
+    console.log("Lista formData en submit: ", formData);
 
     ////console.log("Lista getErrors en submit: ", getErrors);
 
@@ -2385,7 +2424,7 @@ const handleDownloadDocx2 = () => {
             }}
             noValidate
             autoComplete="off"
-            onSubmit={handleSubmit}
+            //onSubmit={handleSubmit}
           >
             <EditableTableInter onDataChange={handleInterAltaTableDataChange} />
           </Box>
@@ -2430,6 +2469,20 @@ const handleDownloadDocx2 = () => {
             }}
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
           </FormLabel>
         </Box>
         {/* Bajas Tabla */}
@@ -2516,6 +2569,20 @@ const handleDownloadDocx2 = () => {
             }}
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -2659,6 +2726,20 @@ const handleDownloadDocx2 = () => {
             }}
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
           </FormLabel>
         </Box>
       </Box>
@@ -2871,6 +2952,20 @@ const handleDownloadDocx2 = () => {
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
+          </FormLabel>
         </Box>
         {/* Bajas Tabla */}
         <Box
@@ -2956,6 +3051,20 @@ const handleDownloadDocx2 = () => {
             }}
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -3098,6 +3207,20 @@ const handleDownloadDocx2 = () => {
             }}
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
           </FormLabel>
         </Box>
       </Box>
@@ -3309,6 +3432,20 @@ const handleDownloadDocx2 = () => {
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
+          </FormLabel>
         </Box>
         {/* Bajas Tabla */}
         <Box
@@ -3394,6 +3531,20 @@ const handleDownloadDocx2 = () => {
             }}
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -3536,6 +3687,20 @@ const handleDownloadDocx2 = () => {
             }}
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
           </FormLabel>
         </Box>
       </Box>
@@ -3746,6 +3911,20 @@ const handleDownloadDocx2 = () => {
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
+          </FormLabel>
         </Box>
         {/* Bajas Tabla */}
         <Box
@@ -3831,6 +4010,20 @@ const handleDownloadDocx2 = () => {
             }}
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -3973,6 +4166,20 @@ const handleDownloadDocx2 = () => {
             }}
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
           </FormLabel>
         </Box>
       </Box>
@@ -4184,6 +4391,20 @@ const handleDownloadDocx2 = () => {
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
           </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
+          </FormLabel>
         </Box>
         {/* Bajas Tabla */}
         <Box
@@ -4269,6 +4490,20 @@ const handleDownloadDocx2 = () => {
             }}
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
           </FormLabel>
         </Box>
         {/* Cambios Tabla */}
@@ -4411,6 +4646,20 @@ const handleDownloadDocx2 = () => {
             }}
           >
             En caso de ingresar más de un puerto separar cada uno con una coma y espacio (, ), Ej: 1002,10010/1020, ...
+          </FormLabel>
+          <FormLabel
+            component="legend"
+            sx={{
+              mx: "auto",
+              mb: 3,
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "0.8rem",
+              width: "calc(100% - 32px)",
+            }}
+          >
+            Para incluir un rango de puertos escribir el puerto inicial, un guión medio y el puerto final. Ejemplo: 1050-2032
           </FormLabel>
         </Box>
       </Box>
