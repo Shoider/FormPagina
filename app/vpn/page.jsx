@@ -1122,7 +1122,7 @@ export default function Home() {
   //Para botón que aparece y desaparece
   const botones =[
     { icon: <DownloadIcon htmlColor="#FFFFFF" />, name: 'Descargar formatos',onClick: handleClickOpen3, color: "secondary" },
-    { icon: <NoteAltIcon htmlColor="#FFFFFF"/>, name: 'Descargar guía',onClick: handleClickOpen4 },
+    //{ icon: <NoteAltIcon htmlColor="#FFFFFF"/>, name: 'Descargar guía',onClick: handleClickOpen4 },
     { icon: <AddIcon htmlColor="#FFFFFF" />, name: 'Añadir memorando',onClick: handleClickOpen },
     { icon: <EditIcon htmlColor="#FFFFFF"/>, name: 'Modificar formato',onClick: handleClickOpen2 },
   ];

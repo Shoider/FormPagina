@@ -1493,8 +1493,8 @@ export default function Home() {
   //Para botón que aparece y desaparece
     const botones =[
       { icon: <DownloadIcon htmlColor="#FFFFFF" />, name: 'Descargar formato',onClick: handleClickOpen3, color: "secondary" },
-      { icon: <NoteAltIcon htmlColor="#FFFFFF" />, name: 'Descargar guía',onClick: handleClickOpen4, color: "secondary" },
-      { icon: <SyncIcon htmlColor="#FFFFFF" />, name: 'Actualizar número de ticket',onClick: handleClickOpen, color: "secondary" },
+      //{ icon: <NoteAltIcon htmlColor="#FFFFFF" />, name: 'Descargar guía',onClick: handleClickOpen4, color: "secondary" },
+      { icon: <SyncIcon htmlColor="#FFFFFF" />, name: 'Actualizar número de reporte',onClick: handleClickOpen, color: "secondary" },
     ];
     //Descarga de PDF
     const handleDownloadDocx = () => {
@@ -2026,8 +2026,8 @@ const handleDownloadDocx2 = () => {
             //error={!!errors?.descbreve}
             id="noticket"
             name="noticket"
-            label="No. Ticket"
-            placeholder="Ingrese el número de ticket"
+            label="No. Reporte"
+            placeholder="Ingrese el número de reporte"
             value={formData.noticket}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 0 }}
@@ -5085,10 +5085,10 @@ const handleDownloadDocx2 = () => {
           },
         }}
       >
-        <DialogTitle align="center">Actualizar número de ticket</DialogTitle>
+        <DialogTitle align="center">Actualizar número de reporte</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Aquí puede actualizar el número de ticket para completar el llenado
+            Aquí puede actualizar el número de reporte para completar el llenado
             de su formato.
           </DialogContentText>
 
@@ -5149,8 +5149,8 @@ const handleDownloadDocx2 = () => {
             //error={!!errors?.nombreAutoriza}
             id="noticket"
             name="noticket"
-            label="Nuevo número de ticket"
-            placeholder="Ingrese el número de ticket asignado"
+            label="Nuevo número de reporte"
+            placeholder="Ingrese el número de reporte asignado"
             value={formData2.noticket}
             onChange={handleChange2}
             sx={{ background: "#FFFFFF", mt: 2 }}
@@ -5222,7 +5222,7 @@ const handleDownloadDocx2 = () => {
                 mt: -2
               }}
               >
-                Descarga de documento .pdf o .docx del formato</DialogTitle>
+                Descarga de documento .docx del formato de solicitud de cambio (SdC) en el Cortafuegos</DialogTitle>
               <DialogContentText>
                 
               </DialogContentText>
@@ -5236,7 +5236,7 @@ const handleDownloadDocx2 = () => {
                   mt: 0,
                 }}
               />
-              <Button
+              {/* <Button
                 variant="contained"
                 onClick={handleDownloadDocx}
                 sx={{
@@ -5252,7 +5252,7 @@ const handleDownloadDocx2 = () => {
                 }}
               >
                 Formato de solicitud de alta, baja o cambio en la infraestructura de seguridad de la CONAGUA archivo .PDF
-              </Button>
+              </Button> */}
               <Button
                     variant="contained"
                     onClick={handleDownloadDocx2}
@@ -5418,8 +5418,8 @@ const handleDownloadDocx2 = () => {
                         backgroundColor: 'dial.forty',
                       }
                     },
-                    mt:1,
-                    mb:1,
+                    mt:2,
+                    mb:2,
                   }}
                   key={action.name}
                   icon={action.icon}

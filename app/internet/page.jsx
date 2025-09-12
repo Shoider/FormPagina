@@ -600,7 +600,7 @@ const fieldsToCapitalize = [
   //Para botón que aparece y desaparece
     const botones =[
       { icon: <DownloadIcon htmlColor="#FFFFFF" />, name: 'Descargar formato',onClick: handleClickOpen3, color: "secondary" },
-      { icon: <NoteAltIcon htmlColor="#FFFFFF" />, name: 'Descargar guía',onClick: handleClickOpen4, color: "secondary" },
+      //{ icon: <NoteAltIcon htmlColor="#FFFFFF" />, name: 'Descargar guía',onClick: handleClickOpen4, color: "secondary" },
     ];
     
     const [openBotton, setOpenBotton] = React.useState(false);
