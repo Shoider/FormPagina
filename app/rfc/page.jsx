@@ -470,7 +470,7 @@ export default function Home() {
     const [isValid, isValidTabla, getErrors] =
       validarCamposRequeridos(formData);
     setErrors(getErrors);
-    console.log("Lista formData en submit: ", formData);
+    //console.log("Lista formData en submit: ", formData);
 
     ////console.log("Lista getErrors en submit: ", getErrors);
 
