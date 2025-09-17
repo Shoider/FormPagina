@@ -310,7 +310,7 @@ export default function Home() {
   useEffect(() => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      // Intersistemas       
+      // Intersistemas
       registrosInterAltas: altaInterTableData,
       registrosInterBajas: bajaInterTableData,
       registrosInterCambiosAltas: cambioAltaInterTableData,
@@ -335,7 +335,7 @@ export default function Home() {
       registrosOtroBajas: bajaOtroTableData,
       registrosOtroCambiosAltas: cambioAltaOtroTableData,
       registrosOtroCambiosBajas: cambioBajaOtroTableData,
-    }));
+    }));    
   }, [
     altaInterTableData,
     bajaInterTableData,
@@ -358,147 +358,71 @@ export default function Home() {
     cambioAltaOtroTableData,
     cambioBajaOtroTableData,
   ]);
-
+  
   // Intersistemas
   const handleInterAltaTableDataChange = (data) => {
-    if(formData.AltaInter === true){setAltaInterTableData(data);}   
-    else{setAltaInterTableData([]);}     
+    setAltaInterTableData(data);   
   };
   const handleInterBajaTableDataChange = (data) => {
-    if(formData.BajaInter === true){
-    setBajaInterTableData(data);}
-    else{setBajaInterTableData([]);}
+    setBajaInterTableData(data);
   };
   const handleInterCambioAltaTableDataChange = (data) => {
-  if(formData.CambioInter === true){
-    setCambioAltaInterTableData(data);}
-  else{
-    setCambioAltaInterTableData([]);
-  }
+    setCambioAltaInterTableData(data);
   };
   const handleInterCambioBajaTableDataChange = (data) => {
-    if (formData.CambioInter === true){
-    setCambiBajaInterTableData(data);}
-    else{
-      setCambiBajaInterTableData([]);
-    }
+    setCambiBajaInterTableData(data);
   };
   // Administrador
   const handleAdminAltaTableDataChange = (data) => {
-    if (formData.AltaAdmin === true){
       setAltaAdminTableData(data);
-    }
-    else{
-      setAltaAdminTableData([]);
-    }    
   };
   const handleAdminBajaTableDataChange = (data) => {
-    if(formData.BajaAdmin === true){
-      setBajaAdminTableData(data);
-    }
-    else{
-      setBajaAdminTableData([]);
-    }
-    
+      setBajaAdminTableData(data);    
   };
   const handleAdminCambioAltaTableDataChange = (data) => {
-    if(formData.CambioAdmin === true)
-    {setCambioAltaAdminTableData(data);}
-    else{
-      setCambioAltaAdminTableData([]);
-    }
+    setCambioAltaAdminTableData(data);
   };
   const handleAdminCambioBajaTableDataChange = (data) => {
-    if(formData.CambioAdmin === true)
-    {setCambioBajaAdminTableData(data);}
-    else{
-      setCambioBajaAdminTableData([]);
-    }
+    setCambioBajaAdminTableData(data);
   };
   // Desarrollador
   const handleDesAltaTableDataChange = (data) => {
-    if (formData.AltaDes===true)
-    {setAltaDesTableData(data);}
-    else{
-      setAltaDesTableData([]);
-    }
+    setAltaDesTableData(data);
   };
   const handleDesBajaTableDataChange = (data) => {
-    if(formData.BajaDes===true)
-    {setBajaDesTableData(data);}
-    else{
-      setBajaDesTableData([]);
-    }
+    setBajaDesTableData(data);
   };
   const handleDesCambioAltaTableDataChange = (data) => {
-    if (formData.CambioDes===true)
-    {setCambioAltaDesTableData(data);}
-    else{
-      setCambioAltaDesTableData([]);
-    }
+    setCambioAltaDesTableData(data);
   };
   const handleDesCambioBajaTableDataChange = (data) => {
-    if(formData.CambioDes===true)
-    {setCambioBajaDesTableData(data);}
-    else{setCambioBajaDesTableData(data);}
+    setCambioBajaDesTableData(data);
   };
   // Usuario
   const handleUsuaAltaTableDataChange = (data) => {
-    if(formData.AltaUsua===true)
-    {setAltaUsuaTableData(data);}
-    else{
-      setAltaUsuaTableData([]);
-    }
+    setAltaUsuaTableData(data);
   };
-  const handleUsuaBajaTableDataChange = (data) => {
-    if(formData.BajaUsua===true)
-    {setBajaUsuaTableData(data);}
-    else{
-      setBajaUsuaTableData([]);
-    }
+  const handleUsuaBajaTableDataChange = (data) => {    
+    setBajaUsuaTableData(data);
   };
   const handleUsuaCambioAltaTableDataChange = (data) => {
-    if (formData.CambioUsua===true)
-    {setCambioAltaUsuaTableData(data);}
-    else{
-      setCambioAltaUsuaTableData([]);
-    }
+    setCambioAltaUsuaTableData(data);
   };
   const handleUsuaCambioBajaTableDataChange = (data) => {
-    if (formData.CambioUsua===true)
-    {setCambioBajaUsuaTableData(data);}
-    else{
-      setCambioBajaUsuaTableData([]);
-    }
+    setCambioBajaUsuaTableData(data);
   };
   // Otro
   const handleOtroAltaTableDataChange = (data) => {
-    if(formData.AltaOtro===true)
-    {setAltaOtroTableData(data);}
-    else{
-      setAltaOtroTableData([]);
-    }
+    setAltaOtroTableData(data);
   };
   const handleOtroBajaTableDataChange = (data) => {
-    if(formData.BajaOtro===true)
-    {setBajaOtroTableData(data);}
-    else{
-      setBajaOtroTableData([]);
-    }
+    setBajaOtroTableData(data);
   };
   const handleOtroCambioAltaTableDataChange = (data) => {
-    if(formData.CambioUsua)
-    {setCambioAltaOtroTableData(data);}
-    else{
-      setCambioAltaOtroTableData([]);
-    }
+    setCambioAltaOtroTableData(data);
   };
   const handleOtroCambioBajaTableDataChange = (data) => {
-    if (formData.CambioUsua===true)
-    {setCambioBajaOtroTableData(data);}
-    else{
-      setCambioBajaOtroTableData([]);
-    }
+    setCambioBajaOtroTableData(data);
   };
 
   // Checkbox Funcionalidad
@@ -508,9 +432,8 @@ export default function Home() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
-    }));
+    }));  
   };
-
   // Boton
   const [botonEstado, setBotonEstado] = useState("Enviar");
   const [botonEstado2, setBotonEstado2] = useState("Enviar");
