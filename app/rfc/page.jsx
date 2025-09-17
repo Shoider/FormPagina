@@ -359,166 +359,137 @@ export default function Home() {
     cambioBajaOtroTableData,
   ]);
   
-  // Intersistemas
+ // Intersistemas
   const handleInterAltaTableDataChange = (data) => {
-    if(formData.AltaInter === true){
-      setAltaInterTableData(data); 
-    }
-    else{
-      setAltaInterTableData([]); 
-    }      
+    setAltaInterTableData(data);   
   };
   const handleInterBajaTableDataChange = (data) => {
-    if(formData.BajaInter === true){
-      setBajaInterTableData(data);
-    }
-    else{
-      setBajaInterTableData([]);
-    }
-    
+    setBajaInterTableData(data);
   };
   const handleInterCambioAltaTableDataChange = (data) => {
-    if (formData.CambioInter===true)
-    {setCambioAltaInterTableData(data);}
-    else
-    {setCambioAltaInterTableData([]);}
+    setCambioAltaInterTableData(data);
   };
   const handleInterCambioBajaTableDataChange = (data) => {
-    if(formData.CambioInter===true)
-    {setCambiBajaInterTableData(data);}
-    else{
-      setCambiBajaInterTableData([]);
-    }
+    setCambiBajaInterTableData(data);
   };
   // Administrador
   const handleAdminAltaTableDataChange = (data) => {
-    if(formData.AltaAdmin===true)
-      {setAltaAdminTableData(data);}
-    else{
-        setAltaAdminTableData([]);
-    }
+      setAltaAdminTableData(data);
   };
   const handleAdminBajaTableDataChange = (data) => {
-    if(formData.BajaAdmin===true)
-      {setBajaAdminTableData(data);}
-    else{
-      setBajaAdminTableData([]);
-    }    
+      setBajaAdminTableData(data);    
   };
   const handleAdminCambioAltaTableDataChange = (data) => {
-    if(formData.CambioAdmin===true){
-      setCambioAltaAdminTableData(data);
-    }
-    else{
-      setCambioAltaAdminTableData([]);
-    }    
+    setCambioAltaAdminTableData(data);
   };
   const handleAdminCambioBajaTableDataChange = (data) => {
-    if(formData.CambioAdmin===true){
-      setCambioBajaAdminTableData(data);
-    }
-    else{
-      setCambioBajaAdminTableData([]);
-    }
-    
+    setCambioBajaAdminTableData(data);
   };
   // Desarrollador
   const handleDesAltaTableDataChange = (data) => {
-    if(formData.AltaDes===true){
-      setAltaDesTableData(data);
-    }
-    else{
-      setAltaDesTableData([]);
-    }    
+    setAltaDesTableData(data);
   };
   const handleDesBajaTableDataChange = (data) => {
-    if(formData.BajaDes===true){
-      setBajaDesTableData(data);
-    }
-    else{
-      setBajaDesTableData([]);
-    }    
+    setBajaDesTableData(data);
   };
   const handleDesCambioAltaTableDataChange = (data) => {
-    if(formData.CambioDes===true){
-      setCambioAltaDesTableData(data);
-    }
-    else{
-      setCambioAltaDesTableData([]);
-    }
-    
+    setCambioAltaDesTableData(data);
   };
   const handleDesCambioBajaTableDataChange = (data) => {
-    if(formData.CambioDes===true){
-      setCambioBajaDesTableData(data);
-    }
-    else{
-      setCambioBajaDesTableData([]);
-    }
+    setCambioBajaDesTableData(data);
   };
   // Usuario
   const handleUsuaAltaTableDataChange = (data) => {
-    if(formData.AltaUsua===true){
-      setAltaUsuaTableData(data);
-    }
-    else{
-      setAltaUsuaTableData([]);
-    }
+    setAltaUsuaTableData(data);
   };
-  const handleUsuaBajaTableDataChange = (data) => {   
-    if(formData.BajaUsua===true)
-      {
-        setBajaUsuaTableData(data);
-      } 
-    else{
-      setBajaUsuaTableData([]);
-    }
+  const handleUsuaBajaTableDataChange = (data) => {    
+    setBajaUsuaTableData(data);
   };
   const handleUsuaCambioAltaTableDataChange = (data) => {
-    if(formData.CambioUsua===true){
-      setCambioAltaUsuaTableData(data);
-    }
-    else{
-      setCambioAltaUsuaTableData([]);
-    }
+    setCambioAltaUsuaTableData(data);
   };
   const handleUsuaCambioBajaTableDataChange = (data) => {
-    if(formData.CambioUsua===true)
-    {setCambioBajaUsuaTableData(data);}
-    else{
-      setCambioBajaUsuaTableData([]);
-    }
+    setCambioBajaUsuaTableData(data);
   };
   // Otro
   const handleOtroAltaTableDataChange = (data) => {
-    if(formData.AltaOtro===true)
-    {setAltaOtroTableData(data);}
-    else{
-      setAltaOtroTableData([]);
-    }
+    setAltaOtroTableData(data);
   };
   const handleOtroBajaTableDataChange = (data) => {
-    if(formData.BajaOtro===true){
-      setBajaOtroTableData(data);
-    }
-    else{
-      setBajaOtroTableData(data);
-    }
-    
+    setBajaOtroTableData(data);
   };
   const handleOtroCambioAltaTableDataChange = (data) => {
-    if(formData.CambioOtro===true)
-    {setCambioAltaOtroTableData(data);}
-    else{
-      setCambioAltaOtroTableData([]);
-    }
+    setCambioAltaOtroTableData(data);
   };
   const handleOtroCambioBajaTableDataChange = (data) => {
-    if(formData.CambioOtro===true)
-    {setCambioBajaOtroTableData(data);}
-    else{
-      setCambioBajaOtroTableData([]);
-    }
+    setCambioBajaOtroTableData(data);
+  };
+
+  ///Casos vacios 
+  // Intersistemas
+  const handleInterAltaTableDataChangeNone = () => {
+    setAltaInterTableData([]);   
+  };
+  const handleInterBajaTableDataChangeNone = () => {
+    setBajaInterTableData([]);
+  };
+  const handleInterCambioAltaTableDataChangeNone = () => {
+    setCambioAltaInterTableData([]);
+  };
+  const handleInterCambioBajaTableDataChangeNone = () => {
+    setCambiBajaInterTableData([]);
+  };
+  // Administrador
+  const handleAdminAltaTableDataChangeNone = () => {
+      setAltaAdminTableData([]);
+  };
+  const handleAdminBajaTableDataChangeNone = () => {
+      setBajaAdminTableData([]);    
+  };
+  const handleAdminCambioAltaTableDataChangeNone = () => {
+    setCambioAltaAdminTableData([]);
+  };
+  const handleAdminCambioBajaTableDataChangeNone = () => {
+    setCambioBajaAdminTableData([]);
+  };
+  // Desarrollador
+  const handleDesAltaTableDataChangeNone = () => {
+    setAltaDesTableData([]);
+  };
+  const handleDesBajaTableDataChangeNone = () => {
+    setBajaDesTableData([]);
+  };
+  const handleDesCambioAltaTableDataChangeNone = () => {
+    setCambioAltaDesTableData([]);
+  };
+  const handleDesCambioBajaTableDataChangeNone = () => {
+    setCambioBajaDesTableData([]);
+  };
+  // Usuario
+  const handleUsuaAltaTableDataChangeNone = () => {
+    setAltaUsuaTableData([]);
+  };
+  const handleUsuaBajaTableDataChangeNone = () => {    
+    setBajaUsuaTableData([]);
+  };
+  const handleUsuaCambioAltaTableDataChangeNone = () => {
+    setCambioAltaUsuaTableData([]);
+  };
+  const handleUsuaCambioBajaTableDataChangeNone = () => {
+    setCambioBajaUsuaTableData([]);
+  };
+  // Otro
+  const handleOtroAltaTableDataChangeNone = () => {
+    setAltaOtroTableData([]);
+  };
+  const handleOtroBajaTableDataChangeNone = () => {
+    setBajaOtroTableData([]);
+  };
+  const handleOtroCambioAltaTableDataChangeNone = () => {
+    setCambioAltaOtroTableData([]);
+  };
+  const handleOtroCambioBajaTableDataChangeNone = () => {
+    setCambioBajaOtroTableData([]);
   };
 
   // Checkbox Funcionalidad
@@ -566,7 +537,7 @@ export default function Home() {
     const [isValid, isValidTabla, getErrors] =
       validarCamposRequeridos(formData);
     setErrors(getErrors);
-    //console.log("Lista formData en submit: ", formData);
+    console.log("Lista formData en submit: ", formData);
 
     ////console.log("Lista getErrors en submit: ", getErrors);
 
@@ -1292,7 +1263,7 @@ export default function Home() {
   const handleSubmit = async (event) => {
     handleCloseModal();
     event.preventDefault();
-    //console.log("Lista formData en submit: ", formData);
+    console.log("Lista formData en submit: ", formData);
 
     setAlert({
       message: "Información Enviada",
@@ -2485,7 +2456,12 @@ const handleDownloadDocx2 = () => {
             autoComplete="off"
             onSubmit={handleSubmit}
           >
-            <EditableTableInter onDataChange={handleInterAltaTableDataChange} />
+            {
+              formData.AltaInter == true ?
+              (<EditableTableInter onDataChange={handleInterAltaTableDataChange} />):
+              (<EditableTableInter onDataChange={handleInterAltaTableDataChangeNone} />)
+            }          
+            {/* <EditableTableInter onDataChange={handleInterAltaTableDataChange} /> */}
           </Box>
 
           <FormLabel
@@ -2585,7 +2561,12 @@ const handleDownloadDocx2 = () => {
             autoComplete="off"
             onSubmit={handleSubmit}
           >
-            <EditableTableInter onDataChange={handleInterBajaTableDataChange} />
+            {
+              formData.BajaInter == true ?
+              (<EditableTableInter onDataChange={handleInterBajaTableDataChange} />):
+              (<EditableTableInter onDataChange={handleInterCambioBajaTableDataChangeNone} />)
+            }
+            // <EditableTableInter onDataChange={handleInterBajaTableDataChange} />
           </Box>
 
           <FormLabel
@@ -2718,9 +2699,19 @@ const handleDownloadDocx2 = () => {
             >
               Altas
             </Typography>
-            <EditableTableInter
+
+            {
+              formData.CambioInter == true ?
+              (<EditableTableInter
               onDataChange={handleInterCambioAltaTableDataChange}
-            />
+            />):
+              (<EditableTableInter
+              onDataChange={handleInterCambioAltaTableDataChangeNone}
+            />)
+            }
+            {/* <EditableTableInter
+              onDataChange={handleInterCambioAltaTableDataChange}
+            /> */}
             <Divider
               sx={{
                 display: "flex",
@@ -2740,9 +2731,19 @@ const handleDownloadDocx2 = () => {
             >
               Bajas
             </Typography>
-            <EditableTableInter
+
+              {
+                formData.CambioInter == true ?
+                (<EditableTableInter
               onDataChange={handleInterCambioBajaTableDataChange}
-            />
+            />):
+                (<EditableTableInter
+              onDataChange={handleInterCambioBajaTableDataChangeNone}
+            />)
+              }
+            {/* <EditableTableInter
+              onDataChange={handleInterCambioBajaTableDataChange}
+            /> */}
           </Box>
 
           <FormLabel
