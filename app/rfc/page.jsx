@@ -2461,7 +2461,6 @@ const handleDownloadDocx2 = () => {
               (<EditableTableInter onDataChange={handleInterAltaTableDataChange} />):
               (<EditableTableInter onDataChange={handleInterAltaTableDataChangeNone} />)
             }          
-            {/* <EditableTableInter onDataChange={handleInterAltaTableDataChange} /> */}
           </Box>
 
           <FormLabel
@@ -2566,7 +2565,6 @@ const handleDownloadDocx2 = () => {
               (<EditableTableInter onDataChange={handleInterBajaTableDataChange} />):
               (<EditableTableInter onDataChange={handleInterCambioBajaTableDataChangeNone} />)
             }
-            // <EditableTableInter onDataChange={handleInterBajaTableDataChange} />
           </Box>
 
           <FormLabel
@@ -2708,10 +2706,7 @@ const handleDownloadDocx2 = () => {
               (<EditableTableInter
               onDataChange={handleInterCambioAltaTableDataChangeNone}
             />)
-            }
-            {/* <EditableTableInter
-              onDataChange={handleInterCambioAltaTableDataChange}
-            /> */}
+            }            
             <Divider
               sx={{
                 display: "flex",
@@ -2740,10 +2735,7 @@ const handleDownloadDocx2 = () => {
                 (<EditableTableInter
               onDataChange={handleInterCambioBajaTableDataChangeNone}
             />)
-              }
-            {/* <EditableTableInter
-              onDataChange={handleInterCambioBajaTableDataChange}
-            /> */}
+              }           
           </Box>
 
           <FormLabel
