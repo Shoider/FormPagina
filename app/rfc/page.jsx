@@ -361,68 +361,164 @@ export default function Home() {
   
   // Intersistemas
   const handleInterAltaTableDataChange = (data) => {
-    setAltaInterTableData(data);   
+    if(formData.AltaInter === true){
+      setAltaInterTableData(data); 
+    }
+    else{
+      setAltaInterTableData([]); 
+    }      
   };
   const handleInterBajaTableDataChange = (data) => {
-    setBajaInterTableData(data);
+    if(formData.BajaInter === true){
+      setBajaInterTableData(data);
+    }
+    else{
+      setBajaInterTableData([]);
+    }
+    
   };
   const handleInterCambioAltaTableDataChange = (data) => {
-    setCambioAltaInterTableData(data);
+    if (formData.CambioInter===true)
+    {setCambioAltaInterTableData(data);}
+    else
+    {setCambioAltaInterTableData([]);}
   };
   const handleInterCambioBajaTableDataChange = (data) => {
-    setCambiBajaInterTableData(data);
+    if(formData.CambioInter===true)
+    {setCambiBajaInterTableData(data);}
+    else{
+      setCambiBajaInterTableData([]);
+    }
   };
   // Administrador
   const handleAdminAltaTableDataChange = (data) => {
-      setAltaAdminTableData(data);
+    if(formData.AltaAdmin===true)
+      {setAltaAdminTableData(data);}
+    else{
+        setAltaAdminTableData([]);
+    }
   };
   const handleAdminBajaTableDataChange = (data) => {
-      setBajaAdminTableData(data);    
+    if(formData.BajaAdmin===true)
+      {setBajaAdminTableData(data);}
+    else{
+      setBajaAdminTableData([]);
+    }    
   };
   const handleAdminCambioAltaTableDataChange = (data) => {
-    setCambioAltaAdminTableData(data);
+    if(formData.CambioAdmin===true){
+      setCambioAltaAdminTableData(data);
+    }
+    else{
+      setCambioAltaAdminTableData([]);
+    }    
   };
   const handleAdminCambioBajaTableDataChange = (data) => {
-    setCambioBajaAdminTableData(data);
+    if(formData.CambioAdmin===true){
+      setCambioBajaAdminTableData(data);
+    }
+    else{
+      setCambioBajaAdminTableData([]);
+    }
+    
   };
   // Desarrollador
   const handleDesAltaTableDataChange = (data) => {
-    setAltaDesTableData(data);
+    if(formData.AltaDes===true){
+      setAltaDesTableData(data);
+    }
+    else{
+      setAltaDesTableData([]);
+    }    
   };
   const handleDesBajaTableDataChange = (data) => {
-    setBajaDesTableData(data);
+    if(formData.BajaDes===true){
+      setBajaDesTableData(data);
+    }
+    else{
+      setBajaDesTableData([]);
+    }    
   };
   const handleDesCambioAltaTableDataChange = (data) => {
-    setCambioAltaDesTableData(data);
+    if(formData.CambioDes===true){
+      setCambioAltaDesTableData(data);
+    }
+    else{
+      setCambioAltaDesTableData([]);
+    }
+    
   };
   const handleDesCambioBajaTableDataChange = (data) => {
-    setCambioBajaDesTableData(data);
+    if(formData.CambioDes===true){
+      setCambioBajaDesTableData(data);
+    }
+    else{
+      setCambioBajaDesTableData([]);
+    }
   };
   // Usuario
   const handleUsuaAltaTableDataChange = (data) => {
-    setAltaUsuaTableData(data);
+    if(formData.AltaUsua===true){
+      setAltaUsuaTableData(data);
+    }
+    else{
+      setAltaUsuaTableData([]);
+    }
   };
-  const handleUsuaBajaTableDataChange = (data) => {    
-    setBajaUsuaTableData(data);
+  const handleUsuaBajaTableDataChange = (data) => {   
+    if(formData.BajaUsua===true)
+      {
+        setBajaUsuaTableData(data);
+      } 
+    else{
+      setBajaUsuaTableData([]);
+    }
   };
   const handleUsuaCambioAltaTableDataChange = (data) => {
-    setCambioAltaUsuaTableData(data);
+    if(formData.CambioUsua===true){
+      setCambioAltaUsuaTableData(data);
+    }
+    else{
+      setCambioAltaUsuaTableData([]);
+    }
   };
   const handleUsuaCambioBajaTableDataChange = (data) => {
-    setCambioBajaUsuaTableData(data);
+    if(formData.CambioUsua===true)
+    {setCambioBajaUsuaTableData(data);}
+    else{
+      setCambioBajaUsuaTableData([]);
+    }
   };
   // Otro
   const handleOtroAltaTableDataChange = (data) => {
-    setAltaOtroTableData(data);
+    if(formData.AltaOtro===true)
+    {setAltaOtroTableData(data);}
+    else{
+      setAltaOtroTableData([]);
+    }
   };
   const handleOtroBajaTableDataChange = (data) => {
-    setBajaOtroTableData(data);
+    if(formData.BajaOtro===true){
+      setBajaOtroTableData(data);
+    }
+    else{
+      setBajaOtroTableData(data);
+    }
+    
   };
   const handleOtroCambioAltaTableDataChange = (data) => {
-    setCambioAltaOtroTableData(data);
+    if(formData.CambioOtro===true)
+    {setCambioAltaOtroTableData(data);}
+    else{
+      setCambioAltaOtroTableData([]);
+    }
   };
   const handleOtroCambioBajaTableDataChange = (data) => {
-    setCambioBajaOtroTableData(data);
+    if(formData.CambioOtro===true)
+    {setCambioBajaOtroTableData(data);}
+    else{
+      setCambioBajaOtroTableData([]);
+    }
   };
 
   // Checkbox Funcionalidad
