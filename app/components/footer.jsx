@@ -107,7 +107,7 @@ export default function FooterGlobal() {
         textAlign={{ xs: "center", sm: "center" }}
         sx={{ mt:-5, mb: 3}}
       >
-        © 2025 Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad (SSTTS) v1.0.7
+        © 2025 Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad (SSTTS) v1.0.8
       </Typography>
       <Box
         sx={{
