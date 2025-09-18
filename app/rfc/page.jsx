@@ -307,59 +307,295 @@ export default function Home() {
   };
 
   // Tablas
-  useEffect(() => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
+  // useEffect(() => {
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+      
       // Intersistemas
-      registrosInterAltas: altaInterTableData,
-      registrosInterBajas: bajaInterTableData,
-      registrosInterCambiosAltas: cambioAltaInterTableData,
-      registrosInterCambiosBajas: cambioBajaInterTableData,
+      // registrosInterAltas: altaInterTableData,
+      // registrosInterBajas: bajaInterTableData,
+      // registrosInterCambiosAltas: cambioAltaInterTableData,
+      // registrosInterCambiosBajas: cambioBajaInterTableData,
       // Administrador
-      registrosAdminAltas: altaAdminTableData,
-      registrosAdminBajas: bajaAdminTableData,
-      registrosAdminCambiosAltas: cambioAltaAdminTableData,
-      registrosAdminCambiosBajas: cambioBajaAdminTableData,
+      // registrosAdminAltas: altaAdminTableData,
+      // registrosAdminBajas: bajaAdminTableData,
+      // registrosAdminCambiosAltas: cambioAltaAdminTableData,
+      // registrosAdminCambiosBajas: cambioBajaAdminTableData,
       // Desarrollador
-      registrosDesAltas: altaDesTableData,
-      registrosDesBajas: bajaDesTableData,
-      registrosDesCambiosAltas: cambioAltaDesTableData,
-      registrosDesCambiosBajas: cambioBajaDesTableData,
+      // registrosDesAltas: altaDesTableData,
+      // registrosDesBajas: bajaDesTableData,
+      // registrosDesCambiosAltas: cambioAltaDesTableData,
+      // registrosDesCambiosBajas: cambioBajaDesTableData,
       // Usuario
-      registrosUsuaAltas: altaUsuaTableData,
-      registrosUsuaBajas: bajaUsuaTableData,
-      registrosUsuaCambiosAltas: cambioAltaUsuaTableData,
-      registrosUsuaCambiosBajas: cambioBajaUsuaTableData,
+      // registrosUsuaAltas: altaUsuaTableData,
+      // registrosUsuaBajas: bajaUsuaTableData,
+      // registrosUsuaCambiosAltas: cambioAltaUsuaTableData,
+      // registrosUsuaCambiosBajas: cambioBajaUsuaTableData,
       // Otro
-      registrosOtroAltas: altaOtroTableData,
-      registrosOtroBajas: bajaOtroTableData,
-      registrosOtroCambiosAltas: cambioAltaOtroTableData,
-      registrosOtroCambiosBajas: cambioBajaOtroTableData,
-    }));    
-  }, [
+      // registrosOtroAltas: altaOtroTableData,
+      // registrosOtroBajas: bajaOtroTableData,
+      // registrosOtroCambiosAltas: cambioAltaOtroTableData,
+      // registrosOtroCambiosBajas: cambioBajaOtroTableData,
+  //   }));    
+  // }, [    
+    //altaInterTableData,
+    //bajaInterTableData,
+    //cambioAltaInterTableData,
+    //cambioBajaInterTableData,
+    // altaAdminTableData,
+    // bajaAdminTableData,
+    // cambioAltaAdminTableData,
+    // cambioBajaAdminTableData,
+    // altaDesTableData,
+    // bajaDesTableData,
+    // cambioAltaDesTableData,
+    // cambioBajaDesTableData,
+    // altaUsuaTableData,
+    // bajaUsuaTableData,
+    // cambioAltaUsuaTableData,
+    // cambioBajaUsuaTableData,
+    // altaOtroTableData,
+    // bajaOtroTableData,
+    // cambioAltaOtroTableData,
+    // cambioBajaOtroTableData,
+  // ]);
+
+  useEffect(() => {
+    //Intersistemas 
+    if (formData.AltaInter === true) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+      registrosInterAltas: altaInterTableData,      
+      }));      
+    }
+    if (formData.AltaInter === false) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+      registrosInterAltas: [],      
+      }));      
+    }
+    if(formData.BajaInter === true){
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+      registrosInterBajas:bajaInterTableData,      
+      }));  
+    }
+    if(formData.BajaInter === false){
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+      registrosInterBajas: [],      
+      }));  
+    }
+    if(formData.CambioInter === true){
+      setFormData((prevFormData) => ({
+        ...prevFormData,        
+      registrosInterCambiosAltas: cambioAltaInterTableData,
+      registrosInterCambiosBajas: cambioBajaInterTableData,     
+      }));  
+    }
+    if(formData.CambioInter === false){
+      setFormData((prevFormData) => ({
+        ...prevFormData,        
+      registrosInterCambiosAltas: [],
+      registrosInterCambiosBajas: [],     
+      }));  
+    }
+    //Administrador
+    if(formData.AltaAdmin === true){
+      setFormData((prevFormData) => ({
+        ...prevFormData,  
+        registrosAdminAltas: altaAdminTableData,   
+      })); 
+    }
+    if(formData.AltaAdmin === false){
+      setFormData((prevFormData) => ({
+        ...prevFormData,  
+        registrosAdminAltas: [],   
+      })); 
+    }
+    if(formData.BajaAdmin === true){
+      setFormData((prevFormData) => ({
+        ...prevFormData,  
+        registrosAdminBajas: bajaAdminTableData,   
+      })); 
+    }
+    if(formData.BajaAdmin === false){
+      setFormData((prevFormData) => ({
+        ...prevFormData,  
+        registrosAdminBajas: [],   
+      })); 
+    }
+    if(formData.CambioAdmin === true){
+      setFormData((prevFormData) => ({
+        ...prevFormData,  
+        registrosAdminCambiosAltas: cambioAltaAdminTableData,
+        registrosAdminCambiosBajas: cambioBajaAdminTableData,   
+      })); 
+    }
+    if(formData.CambioAdmin === false){
+      setFormData((prevFormData) => ({
+        ...prevFormData,  
+        registrosAdminCambiosAltas: [],
+        registrosAdminCambiosBajas: [],   
+      })); 
+    }
+    //Desarrollador
+    if(formData.AltaDes === true){
+      setFormData((prevFormData) => ({
+        ...prevFormData,  
+        registrosDesAltas: altaDesTableData,
+      })); 
+    }
+    if(formData.AltaDes === false){
+      setFormData((prevFormData) => ({
+        ...prevFormData,  
+        registrosDesAltas: [],
+      })); 
+    }
+    if(formData.BajaDes === true){
+      setFormData((prevFormData) => ({
+        ...prevFormData, 
+        registrosDesBajas: bajaDesTableData,
+      })); 
+    }
+    if(formData.BajaDes === false){
+      setFormData((prevFormData) => ({
+        ...prevFormData, 
+        registrosDesBajas: bajaDesTableData,
+      })); 
+    }
+    if(formData.CambioDes === true){
+      setFormData((prevFormData) => ({
+        ...prevFormData, 
+        registrosDesCambiosAltas: cambioAltaDesTableData,
+        registrosDesCambiosBajas: cambioBajaDesTableData,
+      })); 
+    }
+    if(formData.CambioDes === false){
+      setFormData((prevFormData) => ({
+        ...prevFormData, 
+        registrosDesCambiosAltas: [],
+        registrosDesCambiosBajas: [],
+      })); 
+    }
+    //Usuario 
+    if(formData.AltaUsua ===true){
+     setFormData((prevFormData) => ({
+        ...prevFormData, 
+         registrosUsuaAltas: altaUsuaTableData,
+      }));  
+    }
+    if(formData.AltaUsua ===false){
+     setFormData((prevFormData) => ({
+        ...prevFormData, 
+         registrosUsuaAltas: [],
+      }));  
+    }
+    if(formData.BajaUsua ===true){
+     setFormData((prevFormData) => ({
+        ...prevFormData, 
+         registrosUsuaBajas: bajaUsuaTableData,
+      }));  
+    }
+    if(formData.BajaUsua ===false){
+     setFormData((prevFormData) => ({
+        ...prevFormData, 
+         registrosUsuaBajas: [],
+      }));  
+    }
+    if(formData.CambioUsua ===true){
+     setFormData((prevFormData) => ({
+        ...prevFormData, 
+         registrosUsuaCambiosAltas: cambioAltaUsuaTableData,
+         registrosUsuaCambiosBajas: cambioBajaUsuaTableData,
+      }));  
+    }
+    if(formData.CambioUsua ===false){
+     setFormData((prevFormData) => ({
+        ...prevFormData, 
+         registrosUsuaCambiosAltas: [],
+         registrosUsuaCambiosBajas: [],
+      }));  
+    }
+    //Otro
+    if(formData.AltaOtro === true){
+      setFormData((prevFormData) => ({
+        ...prevFormData,        
+      registrosOtroAltas: altaOtroTableData,    
+      }));  
+    }
+    if(formData.AltaOtro === false){
+      setFormData((prevFormData) => ({
+        ...prevFormData,        
+      registrosOtroAltas: [],    
+      }));  
+    }
+    if(formData.BajaOtro === true){
+      setFormData((prevFormData) => ({
+        ...prevFormData,        
+      registrosOtroBajas: bajaOtroTableData,    
+      })); 
+    }
+    if(formData.BajaOtro === false){
+      setFormData((prevFormData) => ({
+        ...prevFormData,        
+      registrosOtroBajas: [],    
+      })); 
+    }
+    if(formData.CambioOtro === true){
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        registrosOtroCambiosAltas: cambioAltaOtroTableData,
+        registrosOtroCambiosBajas: cambioBajaOtroTableData,  
+      }));
+    }
+    if(formData.CambioOtro === false){
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        registrosOtroCambiosAltas: [],
+        registrosOtroCambiosBajas: [],  
+      }));
+    }
+  },[
+    formData.AltaInter,
+    formData.BajaInter,
+    formData.CambioInter,
     altaInterTableData,
     bajaInterTableData,
     cambioAltaInterTableData,
     cambioBajaInterTableData,
     altaAdminTableData,
-    bajaAdminTableData,
-    cambioAltaAdminTableData,
-    cambioBajaAdminTableData,
-    altaDesTableData,
-    bajaDesTableData,
-    cambioAltaDesTableData,
-    cambioBajaDesTableData,
-    altaUsuaTableData,
-    bajaUsuaTableData,
-    cambioAltaUsuaTableData,
-    cambioBajaUsuaTableData,
+    formData.AltaOtro,
+    formData.BajaOtro,
+    formData.CambioOtro,
     altaOtroTableData,
     bajaOtroTableData,
     cambioAltaOtroTableData,
     cambioBajaOtroTableData,
+    formData.AltaAdmin,
+    formData.BajaAdmin,
+    formData.CambioAdmin,
+    altaAdminTableData,
+    bajaAdminTableData,
+    cambioAltaAdminTableData,
+    cambioBajaAdminTableData,
+    formData.AltaDes,
+    formData.BajaDes,
+    formData.CambioDes,
+    altaDesTableData,
+    bajaDesTableData,
+    cambioAltaDesTableData,
+    cambioBajaDesTableData,
+    formData.AltaUsua,
+    formData.BajaUsua,
+    formData.CambioUsua,
+    altaUsuaTableData,
+    bajaUsuaTableData,
+    cambioAltaUsuaTableData,
+    cambioBajaUsuaTableData,
   ]);
   
-  // Intersistemas
+ // Intersistemas
   const handleInterAltaTableDataChange = (data) => {
     setAltaInterTableData(data);   
   };
@@ -472,7 +708,7 @@ export default function Home() {
     setErrors(getErrors);
     //console.log("Lista formData en submit: ", formData);
 
-    ////console.log("Lista getErrors en submit: ", getErrors);
+    //console.log("Lista getErrors en submit: ", getErrors);
 
     if (!isValid) {
       setAlert({
@@ -919,14 +1155,14 @@ export default function Home() {
     //CAMBIObaja
     if (Data.desarrollador && Data.CambioDes) {
       if (
-        !Array.isArray(Data.registrosInterCambiosBajas) ||
-        Data.registrosInterCambiosBajas.length === 0
+        !Array.isArray(Data.registrosDesCambiosBajas) ||
+        Data.registrosDesCambiosBajas.length === 0
       ) {
         //errores.registrosInterCambiosBajas = "Debe agregar al menos un registro en Altas Intersistemas";
         isValidTabla = false;
       } else {
         // Validar campos requeridos de cada registro
-        Data.registrosInterCambiosBajas.forEach((row, idx) => {
+        Data.registrosDesCambiosBajas.forEach((row, idx) => {
           if (
             !row.id ||
             !row.IPO ||
@@ -2389,7 +2625,9 @@ const handleDownloadDocx2 = () => {
             autoComplete="off"
             onSubmit={handleSubmit}
           >
-            <EditableTableInter onDataChange={handleInterAltaTableDataChange} />
+            
+          <EditableTableInter onDataChange={handleInterAltaTableDataChange} />
+          
           </Box>
 
           <FormLabel
@@ -2622,6 +2860,7 @@ const handleDownloadDocx2 = () => {
             >
               Altas
             </Typography>
+
             <EditableTableInter
               onDataChange={handleInterCambioAltaTableDataChange}
             />
@@ -2646,7 +2885,7 @@ const handleDownloadDocx2 = () => {
             </Typography>
             <EditableTableInter
               onDataChange={handleInterCambioBajaTableDataChange}
-            />
+            />          
           </Box>
 
           <FormLabel
