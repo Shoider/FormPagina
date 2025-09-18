@@ -10,7 +10,7 @@ import "@fontsource/noto-sans";
 
 export const metadata = {
   description: "Formularios de solicitudes GTIC",
-  version: "1.0.0",
+  version: "1.0.8",
   author: "SSTTS (Brandon y Nidia)",
 };
 
