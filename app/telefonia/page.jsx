@@ -2028,7 +2028,7 @@ export default function Home() {
             width: "calc(100% - 32px)",
           }}
         >
-          Asegurate de que la información registrada es correcta, ya que no se
+          Asegúrate de que la información registrada es correcta, ya que no se
           puede corregir una vez enviada.
         </FormLabel>
 
@@ -2142,7 +2142,7 @@ export default function Home() {
                 }}
               />
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Asegurate de que la información registrada es correcta, ya que
+                Asegúrate de que la información registrada es correcta, ya que
                 no se puede corregir una vez enviada.
               </Typography>
 

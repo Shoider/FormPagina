@@ -985,7 +985,7 @@ export default function Home() {
             width: "calc(100% - 32px)",
           }}
         >
-          Asegurate de que la información registrada es correcta, ya que no se
+          Asegúrate de que la información registrada es correcta, ya que no se
           puede corregir una vez enviada.
         </FormLabel>
 
