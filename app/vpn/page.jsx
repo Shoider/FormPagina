@@ -2833,8 +2833,7 @@ export default function Home() {
             placeholder="Justifique la necesidad del servicio (Min.50 caracteres)"
             value={formData.justificacion}
             onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
+            sx={{ background: "#FFFFFF", mb: 3 }}            
           />
         </Box>
       </Box>
