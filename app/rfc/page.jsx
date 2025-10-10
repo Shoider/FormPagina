@@ -46,6 +46,8 @@ import puestos from "../constants/PUESTOS/puestos.jsx";
 import Alerts from "../components/alerts.jsx";
 import Link from "next/link";
 import axios from "axios";
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 import { useEffect } from "react";
 //import areas from "../constants/AREAS/areas.jsx";
 //import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
@@ -5517,7 +5519,7 @@ const handleDownloadDocx2 = () => {
       {/* DIALOG */}
       <Dialog
         open={open}
-        onClose={handleClose}
+        //onClose={handleClose}
         onSubmit={handleSubmit2}
         sx={{
           "& .MuiDialog-container": {
@@ -5542,7 +5544,18 @@ const handleDownloadDocx2 = () => {
             Aquí puede actualizar el número de reporte para completar el llenado
             de su formato.
           </DialogContentText>
-
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={(theme) => ({
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: theme.palette.grey[500],
+            })}
+          >
+            <CloseIcon />
+          </IconButton>
           <Divider
             sx={{
               borderBottomWidth: "1px",
@@ -5655,7 +5668,7 @@ const handleDownloadDocx2 = () => {
       {/* DIALOG  de descarga de formato*/}
           <Dialog
             open={open3}
-            onClose={handleClose3}
+            //onClose={handleClose3}
             sx={{
               "& .MuiDialog-container": {
                 backgroundColor: "f5f5f5", // Or any other color
@@ -5675,7 +5688,18 @@ const handleDownloadDocx2 = () => {
               >
                 Descarga de documento .docx del formato de solicitud de cambio (SdC) en el Cortafuegos</DialogTitle>
               <DialogContentText>
-                
+              <IconButton
+                aria-label="close"
+                onClick={handleClose3}
+                sx={(theme) => ({
+                  position: 'absolute',
+                  right: 8,
+                  top: 8,
+                  color: theme.palette.grey[500],
+                })}
+              >
+                <CloseIcon />
+              </IconButton>
               </DialogContentText>
               <Divider
                 sx={{

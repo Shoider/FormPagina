@@ -44,6 +44,8 @@ import areas from "../constants/AREAS/areas.jsx";
 import DownloadIcon from "@mui/icons-material/Download";
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
 import puestos from "../constants/PUESTOS/puestos.jsx";
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
 export default function Home() {
   const theme = useTheme();
@@ -2863,7 +2865,7 @@ const fieldsToCapitalize = [
       {/* DIALOG de descarga de formatos*/}
             <Dialog
               open={open3}
-              onClose={handleClose3}
+              //onClose={handleClose3}
               sx={{
                 "& .MuiDialog-container": {
                   backgroundColor: "f5f5f5", // Or any other color
@@ -2883,7 +2885,18 @@ const fieldsToCapitalize = [
                 >
                   Descarga de formato de solictud de ampliación del servicio de internet .docx</DialogTitle>
                 <DialogContentText>
-                  
+                <IconButton
+                  aria-label="close"
+                  onClick={handleClose3}
+                  sx={(theme) => ({
+                    position: 'absolute',
+                    right: 8,
+                    top: 8,
+                    color: theme.palette.grey[500],
+                  })}
+                >
+                  <CloseIcon />
+                </IconButton>
                 </DialogContentText>
                 <Divider
                   sx={{

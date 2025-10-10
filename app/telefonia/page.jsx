@@ -45,6 +45,8 @@ import pisos from "../constants/pisos.jsx";
 import modelos from "../constants/MODELOSTELEFONOS/modelos.jsx";
 import DownloadIcon from "@mui/icons-material/Download";
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
 
 export default function Home() {
@@ -2316,7 +2318,7 @@ export default function Home() {
         {/* DIALOG  DE DESCARGAR FORMATO*/}
           <Dialog
             open={open3}
-            onClose={handleClose3}
+            //onClose={handleClose3}
             sx={{
               "& .MuiDialog-container": {
                 backgroundColor: "f5f5f5", // Or any other color
@@ -2337,7 +2339,18 @@ export default function Home() {
                 Descarga de formato de solictud de servicios de telefonía .docx
                 </DialogTitle>
               <DialogContentText>
-                
+              <IconButton
+                aria-label="close"
+                onClick={handleClose3}
+                sx={(theme) => ({
+                  position: 'absolute',
+                  right: 8,
+                  top: 8,
+                  color: theme.palette.grey[500],
+                })}
+              >
+                <CloseIcon />
+              </IconButton>
               </DialogContentText>
               <Divider
                 sx={{
