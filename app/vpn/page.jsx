@@ -46,6 +46,8 @@ import puestos from "../constants/PUESTOS/puestos.jsx";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import NoteAltIcon from '@mui/icons-material/NoteAlt';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
 // TABLAS
 import EditableTableWeb from "../components/EditableTableWeb.jsx";
@@ -3387,7 +3389,7 @@ export default function Home() {
       {/* DIALOG */}
       <Dialog
         open={open2}
-        onClose={handleClose2}
+        //onClose={handleClose2}
         onSubmit={handleSubmit3}
         sx={{
           "& .MuiDialog-container": {
@@ -3409,6 +3411,18 @@ export default function Home() {
         <DialogTitle align="center">
           Modificar Formato
         </DialogTitle>
+        <IconButton
+          aria-label="close"
+          onClick={handleClose2}
+          sx={(theme) => ({
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: theme.palette.grey[500],
+          })}
+        >
+          <CloseIcon />
+        </IconButton>
         <DialogContent>
           <DialogContentText>
             Si conoce un número de formato en el cual se pueda guiar, ingréselo.
@@ -3563,7 +3577,7 @@ export default function Home() {
       {/* DIALOG DESCARGAR FORMATOS*/}
       <Dialog
         open={open3}
-        onClose={handleClose3}
+        //onClose={handleClose3}
         sx={{
           "& .MuiDialog-container": {
             backgroundColor: "f5f5f5", // Or any other color
@@ -3583,7 +3597,18 @@ export default function Home() {
           >
             ¿Qué documento base desea descargar?</DialogTitle>
           <DialogContentText>
-            
+          <IconButton
+            aria-label="close"
+            onClick={handleClose3}
+            sx={(theme) => ({
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: theme.palette.grey[500],
+            })}
+          >
+            <CloseIcon />
+        </IconButton>
           </DialogContentText>
           <Divider
             sx={{
@@ -3763,7 +3788,7 @@ export default function Home() {
       {/* DIALOG */}
       <Dialog
         open={open}
-        onClose={handleClose}
+        //onClose={handleClose}
         onSubmit={handleSubmit2}
         sx={{
           "& .MuiDialog-container": {
@@ -3785,6 +3810,18 @@ export default function Home() {
         <DialogTitle align="center">
           Añadir memorando
         </DialogTitle>
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={(theme) => ({
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: theme.palette.grey[500],
+          })}
+        >
+          <CloseIcon />
+        </IconButton>
         <DialogContent>
           <DialogContentText>
             Aquí puede añadir el número de memorando que se le proporciono para
