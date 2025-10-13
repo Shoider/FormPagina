@@ -267,6 +267,8 @@ export default function Home() {
     setOpen(true);
   };
   const handleClose = () => {
+    window.location.reload();
+    window.scrollTo(0, 0);
     setOpen(false);
     setFormData2({
       numeroFormato: "",
@@ -742,7 +744,7 @@ export default function Home() {
   };
 
   // Llamada API Actualizar Memorando
-  const handleSubmit2 = async (event) => {
+  const handleSubmit2 = async (event) => {    
     event.preventDefault();
 
     setAlert({
