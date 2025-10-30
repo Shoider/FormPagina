@@ -10,8 +10,8 @@ import "@fontsource/noto-sans";
 
 export const metadata = {
   description: "Formularios de solicitudes GTIC",
-  version: "1.0.10",
-  author: "SSTTS (Brandon y Nidia)",
+  version: "1.0.11",
+  author: "SSTTS (Brandon Hernández Solis y Nidia Verónica Beltrán García)",
 };
 
 {
