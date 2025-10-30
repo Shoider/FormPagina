@@ -776,7 +776,7 @@ export default function Home() {
             id="nombreUsuario"
             name="nombreUsuario"
             label="Nombre del usuario"
-            placeholder="Escriba el nombre completo del usuario"
+            placeholder="Escriba únicamente el nombre completo del usuario"
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -962,7 +962,7 @@ export default function Home() {
             id="nombreEnlace"
             name="nombreEnlace"
             label="Nombre del enlace administrativo"
-            placeholder="Escriba el nombre completo del enlace administrativo"
+            placeholder="Escriba únicamente el nombre completo del enlace administrativo"
             value={formData.nombreEnlace}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1032,7 +1032,7 @@ export default function Home() {
             id="nombreEmpleado"
             name="nombreEmpleado"
             label="Nombre del empleado responsable"
-            placeholder="Escriba el nombre completo del empleado responsable"
+            placeholder="Escriba únicamente el nombre completo del empleado responsable"
             value={formData.nombreEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1365,7 +1365,7 @@ export default function Home() {
             id="nombreJefe"
             name="nombreJefe"
             label="Funcionario con cargo de Gerente, Subgerente, Homólogo o Superior"
-            placeholder="Escriba el nombre completo del funcionario"
+            placeholder="Escriba únicamente el nombre completo del funcionario"
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
