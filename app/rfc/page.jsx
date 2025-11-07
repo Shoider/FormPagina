@@ -62,8 +62,6 @@ export default function Home() {
   const [formData2, setFormData2] = useState({
     numeroFormato: "",
     noticket: "",
-    //movimientoID: "ALTAS",
-    //numeroRegistro: "",
   });
 
   // Checkbox
@@ -1173,7 +1171,6 @@ export default function Home() {
             !row.TEMPO ||
             !row.PRO /* agrega aquí los campos requeridos */
           ) {
-            //errores[`registrosInterCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
         });
@@ -1188,7 +1185,6 @@ export default function Home() {
         !Array.isArray(Data.registrosUsuaAltas) ||
         Data.registrosUsuaAltas.length === 0
       ) {
-        //errores.registrosUsuaAltas = "Debe agregar al menos un registro en Altas Intersistemas";
         isValidTabla = false;
       } else {
         // Validar campos requeridos de cada registro
@@ -1201,7 +1197,6 @@ export default function Home() {
             !row.TEMPO ||
             !row.PRO /* agrega aquí los campos requeridos */
           ) {
-            //errores[`registrosUsuaAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
         });
@@ -1213,7 +1208,6 @@ export default function Home() {
         !Array.isArray(Data.registrosUsuaBajas) ||
         Data.registrosUsuaBajas.length === 0
       ) {
-        //errores.registrosInterBajas = "Debe agregar al menos un registro en Altas Intersistemas";
         isValidTabla = false;
       } else {
         // Validar campos requeridos de cada registro
@@ -1226,7 +1220,6 @@ export default function Home() {
             !row.TEMPO ||
             !row.PRO /* agrega aquí los campos requeridos */
           ) {
-            //errores[`registrosInterBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Bajas Intersistemas`;
             isValidTabla = false;
           }
         });
@@ -1238,7 +1231,6 @@ export default function Home() {
         !Array.isArray(Data.registrosUsuaCambiosAltas) ||
         Data.registrosUsuaCambiosAltas.length === 0
       ) {
-        //errores.registrosInterAltas = "Debe agregar al menos un registro en Altas Intersistemas";
         isValidTabla = false;
       } else {
         // Validar campos requeridos de cada registro
@@ -1251,7 +1243,6 @@ export default function Home() {
             !row.TEMPO ||
             !row.PRO /* agrega aquí los campos requeridos */
           ) {
-            //errores[`registrosDesCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
         });
@@ -1263,7 +1254,6 @@ export default function Home() {
         !Array.isArray(Data.registrosUsuaCambiosBajas) ||
         Data.registrosUsuaCambiosBajas.length === 0
       ) {
-        //errores.registrosInterCambiosBajas = "Debe agregar al menos un registro en Altas Intersistemas";
         isValidTabla = false;
       } else {
         // Validar campos requeridos de cada registro
@@ -1276,7 +1266,6 @@ export default function Home() {
             !row.TEMPO ||
             !row.PRO /* agrega aquí los campos requeridos */
           ) {
-            //errores[`registrosInterCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
         });
@@ -1290,7 +1279,6 @@ export default function Home() {
         !Array.isArray(Data.registrosOtroAltas) ||
         Data.registrosOtroAltas.length === 0
       ) {
-        //errores.registrosUsuaAltas = "Debe agregar al menos un registro en Altas Intersistemas";
         isValidTabla = false;
       } else {
         // Validar campos requeridos de cada registro
@@ -1303,7 +1291,6 @@ export default function Home() {
             !row.TEMPO ||
             !row.PRO /* agrega aquí los campos requeridos */
           ) {
-            //errores[`registrosUsuaAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
         });
@@ -1315,7 +1302,6 @@ export default function Home() {
         !Array.isArray(Data.registrosOtroBajas) ||
         Data.registrosOtroBajas.length === 0
       ) {
-        //errores.registrosInterBajas = "Debe agregar al menos un registro en Altas Intersistemas";
         isValidTabla = false;
       } else {
         // Validar campos requeridos de cada registro
@@ -1328,7 +1314,6 @@ export default function Home() {
             !row.TEMPO ||
             !row.PRO /* agrega aquí los campos requeridos */
           ) {
-            //errores[`registrosInterBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Bajas Intersistemas`;
             isValidTabla = false;
           }
         });
@@ -1340,7 +1325,6 @@ export default function Home() {
         !Array.isArray(Data.registrosOtroCambiosAltas) ||
         Data.registrosOtroCambiosAltas.length === 0
       ) {
-        //errores.registrosInterAltas = "Debe agregar al menos un registro en Altas Intersistemas";
         isValidTabla = false;
       } else {
         // Validar campos requeridos de cada registro
@@ -1353,7 +1337,6 @@ export default function Home() {
             !row.TEMPO ||
             !row.PRO /* agrega aquí los campos requeridos */
           ) {
-            //errores[`registrosDesCambiosAltas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
         });
@@ -1365,7 +1348,6 @@ export default function Home() {
         !Array.isArray(Data.registrosOtroCambiosBajas) ||
         Data.registrosOtroCambiosBajas.length === 0
       ) {
-        //errores.registrosInterCambiosBajas = "Debe agregar al menos un registro en Altas Intersistemas";
         isValidTabla = false;
       } else {
         // Validar campos requeridos de cada registro
@@ -1378,7 +1360,6 @@ export default function Home() {
             !row.TEMPO ||
             !row.PRO /* agrega aquí los campos requeridos */
           ) {
-            //errores[`registrosInterCambiosBajas_${idx}`] = `Faltan campos requeridos en el registro #${idx + 1} de Altas Intersistemas`;
             isValidTabla = false;
           }
         });
@@ -2026,7 +2007,6 @@ const handleDownloadDocx2 = () => {
             value={formData.noms}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -2079,7 +2059,6 @@ const handleDownloadDocx2 = () => {
             value={formData.areas}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
           />
           {/**SOLO EN CASO DE QUE DIGA QUE SI QUIERE UN LISTADO DE ÁREAS */}
           {/**UNIDAD ADMINISTRARTIVA */}
@@ -2188,7 +2167,6 @@ const handleDownloadDocx2 = () => {
             value={formData.nomei}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -2259,7 +2237,6 @@ const handleDownloadDocx2 = () => {
             value={formData.memo}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             //required
@@ -2271,7 +2248,6 @@ const handleDownloadDocx2 = () => {
             value={formData.noticket}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 0 }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -2283,7 +2259,6 @@ const handleDownloadDocx2 = () => {
             value={formData.descbreve}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
           />
           {/* Descripción Detallada */}
         </Box>
@@ -2458,7 +2433,6 @@ const handleDownloadDocx2 = () => {
               value={formData.desdet}
               onChange={handleChange}
               sx={{ background: "#FFFFFF", mb: 3 }}
-              inputProps={{ maxLength: 256 }}
             />
           </Box>
         </Box>
@@ -4945,7 +4919,6 @@ const handleDownloadDocx2 = () => {
             value={formData.justifica}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             //required
@@ -4957,7 +4930,6 @@ const handleDownloadDocx2 = () => {
             value={formData.justifica3}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             //required
@@ -4969,7 +4941,6 @@ const handleDownloadDocx2 = () => {
             value={formData.justifica2}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
         <Box
@@ -5050,7 +5021,6 @@ const handleDownloadDocx2 = () => {
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -5062,7 +5032,6 @@ const handleDownloadDocx2 = () => {
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
       </Box>

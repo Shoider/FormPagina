@@ -786,7 +786,6 @@ const fieldsToCapitalize = [
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           {/**Puesto de Usuario */}
           <Autocomplete
@@ -888,7 +887,6 @@ const fieldsToCapitalize = [
             value={formData.correoUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <Autocomplete
             disablePortal
@@ -1095,7 +1093,6 @@ const fieldsToCapitalize = [
             value={formData.memo}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             //required
@@ -1107,7 +1104,6 @@ const fieldsToCapitalize = [
             value={formData.noticket}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 2 }}
-            inputProps={{ maxLength: 256 }}
           />
           {/* Descripción Detallada */}
         </Box>
@@ -1207,7 +1203,6 @@ const fieldsToCapitalize = [
             value={formData.ipUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -1219,7 +1214,6 @@ const fieldsToCapitalize = [
             value={formData.ipAnterior}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
         {/* No cambio de ip*/}
@@ -1248,7 +1242,6 @@ const fieldsToCapitalize = [
             value={formData.ipUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
       </Box>
@@ -1308,7 +1301,6 @@ const fieldsToCapitalize = [
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -1320,7 +1312,6 @@ const fieldsToCapitalize = [
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
       </Box>
@@ -1602,19 +1593,6 @@ const fieldsToCapitalize = [
               Almacenamiento y copia de seguridad en línea.
             </FormLabel>
           </Box>
-
-          {/*<TextField
-            //required
-            error={!!errors?.urlDescarga}
-            id="urlDescarga"
-            name="urlDescarga"
-            label="Referencia del servicio requerido (URL)"
-            placeholder="Escriba la URL del servicio"
-            value={formData.urlDescarga}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />*/}
           <TextField
             required
             error={!!errors?.justificaAlmacenamiento}
@@ -1625,7 +1603,6 @@ const fieldsToCapitalize = [
             value={formData.justificaAlmacenamiento}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
         {/*BOX DE ALMACENAMIENTO*/}
@@ -1686,18 +1663,6 @@ const fieldsToCapitalize = [
               Sitios personales y blogs.
             </FormLabel>
           </Box>
-          {/*<TextField
-            //required
-            error={!!errors?.urlForos}
-            id="urlForos"
-            name="urlForos"
-            label="Referencia del servicio requerido (URL)"
-            placeholder="Escriba la URL del servicio"
-            value={formData.urlForos}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />*/}
           <TextField
             required
             error={!!errors?.justificaBlogs}
@@ -1708,7 +1673,6 @@ const fieldsToCapitalize = [
             value={formData.justificaBlogs}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
         <Divider
@@ -1768,18 +1732,6 @@ const fieldsToCapitalize = [
               Shareware y freeware.
             </FormLabel>
           </Box>
-          {/*<TextField
-            //required
-            error={!!errors?.urlComercio}
-            id="urlComercio"
-            name="urlComercio"
-            label="Referencia del servicio requerido (URL)"
-            placeholder="Escriba la URL del servicio"
-            value={formData.urlComercio}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />*/}
           <TextField
             required
             error={!!errors?.justificaShareware}
@@ -1790,7 +1742,6 @@ const fieldsToCapitalize = [
             value={formData.justificaShareware}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
         <Divider
@@ -1849,19 +1800,7 @@ const fieldsToCapitalize = [
             >
               Redes Sociales.
             </FormLabel>
-          </Box>
-          {/*<TextField
-            //required
-            error={!!errors?.urlRedes}
-            id="urlRedes"
-            name="urlRedes"
-            label="Referencia del servicio requerido (URL)"
-            placeholder="Escriba la URL del servicio"
-            value={formData.urlRedes}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />*/}
+          </Box>          
           <TextField
             required
             error={!!errors?.justificaRedes}
@@ -1872,7 +1811,6 @@ const fieldsToCapitalize = [
             value={formData.justificaRedes}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
         <Divider
@@ -1932,18 +1870,6 @@ const fieldsToCapitalize = [
               Transmisión de medios.
             </FormLabel>
           </Box>
-          {/*<TextField
-            //required
-            error={!!errors?.urlVideos}
-            id="urlVideos"
-            name="urlVideos"
-            label="Referencia del servicio requerido (URL)"
-            placeholder="Escriba la URL del servicio"
-            value={formData.urlVideos}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          />*/}
           <TextField
             required
             error={!!errors?.justificaTransmision}
@@ -1954,7 +1880,6 @@ const fieldsToCapitalize = [
             value={formData.justificaTransmision}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
         <Divider
@@ -2024,7 +1949,6 @@ const fieldsToCapitalize = [
             value={formData.otraC}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -2036,7 +1960,6 @@ const fieldsToCapitalize = [
             value={formData.urlOtra}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -2048,7 +1971,6 @@ const fieldsToCapitalize = [
             value={formData.justificaOtra}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <Divider
             sx={{
@@ -2120,7 +2042,6 @@ const fieldsToCapitalize = [
               value={formData.otraC2}
               onChange={handleChange}
               sx={{ background: "#FFFFFF" }}
-              inputProps={{ maxLength: 256 }}
             />
             <TextField
               required
@@ -2132,7 +2053,6 @@ const fieldsToCapitalize = [
               value={formData.urlOtra2}
               onChange={handleChange}
               sx={{ background: "#FFFFFF" }}
-              inputProps={{ maxLength: 256 }}
             />
             <TextField
               required
@@ -2144,7 +2064,6 @@ const fieldsToCapitalize = [
               value={formData.justificaOtra2}
               onChange={handleChange}
               sx={{ background: "#FFFFFF" }}
-              inputProps={{ maxLength: 256 }}
             />
             {/*selectBOX DE otra 3*/}
             <Box
@@ -2199,7 +2118,6 @@ const fieldsToCapitalize = [
                 value={formData.otraC3}
                 onChange={handleChange}
                 sx={{ background: "#FFFFFF" }}
-                inputProps={{ maxLength: 256 }}
               />
               <TextField
                 required
@@ -2211,7 +2129,6 @@ const fieldsToCapitalize = [
                 value={formData.urlOtra3}
                 onChange={handleChange}
                 sx={{ background: "#FFFFFF" }}
-                inputProps={{ maxLength: 256 }}
               />
               <TextField
                 required
@@ -2223,7 +2140,6 @@ const fieldsToCapitalize = [
                 value={formData.justificaOtra3}
                 onChange={handleChange}
                 sx={{ background: "#FFFFFF" }}
-                inputProps={{ maxLength: 256 }}
               />
               {/*selectBOX DE otrap4*/}
               <Box
@@ -2284,7 +2200,6 @@ const fieldsToCapitalize = [
                   value={formData.otraC4}
                   onChange={handleChange}
                   sx={{ background: "#FFFFFF" }}
-                  inputProps={{ maxLength: 256 }}
                 />
                 <TextField
                   required
@@ -2296,7 +2211,6 @@ const fieldsToCapitalize = [
                   value={formData.urlOtra4}
                   onChange={handleChange}
                   sx={{ background: "#FFFFFF" }}
-                  inputProps={{ maxLength: 256 }}
                 />
                 <TextField
                   required
@@ -2308,7 +2222,6 @@ const fieldsToCapitalize = [
                   value={formData.justificaOtra4}
                   onChange={handleChange}
                   sx={{ background: "#FFFFFF" }}
-                  inputProps={{ maxLength: 256 }}
                 />
                 <FormLabel
                   component="legend"

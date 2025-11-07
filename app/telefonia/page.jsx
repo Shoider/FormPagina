@@ -780,7 +780,6 @@ export default function Home() {
             value={formData.nombreUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -792,7 +791,6 @@ export default function Home() {
             value={formData.correoUsuario}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           {/**PUESTO DE USUARIO, FALTABA */}
           <Autocomplete
@@ -966,7 +964,6 @@ export default function Home() {
             value={formData.nombreEnlace}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
         <Divider
@@ -1074,7 +1071,6 @@ export default function Home() {
             value={formData.correoEmpleado}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           {/**Puesto de usuario */}
           <Autocomplete
@@ -1238,7 +1234,6 @@ export default function Home() {
             value={formData.justificacion}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -1369,7 +1364,6 @@ export default function Home() {
             value={formData.nombreJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -1381,7 +1375,6 @@ export default function Home() {
             value={formData.puestoJefe}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
       </Box>
@@ -1492,19 +1485,7 @@ export default function Home() {
             onChange={handleChange}
             inputProps={{ maxLength: 16 }}
             sx={{ background: "#FFFFFF", mb:3 }}
-          />
-          {/* <TextField
-            required
-            error={!!errors?.version}
-            id="version"
-            name="version"
-            label="Versión de sistema operativo"
-            placeholder="Escriba la versión del sistema operativo"
-            value={formData.version}
-            onChange={handleChange}
-            inputProps={{ maxLength: 16 }}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-          /> */}
+          />          
         </Box>
       </Box>
 

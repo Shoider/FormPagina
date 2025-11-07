@@ -121,41 +121,41 @@ export default function Home() {
   });
 
    //Capitalizar
-//   function capitalizeWords(str) {
-//   const exceptions = ["de", "para", "por", "y", "en", "a", "la", "el", "del", "al", "con", "sin", "o", "u"];
-//   return str
-//     .split(" ")
-//     .map((word, idx) => {
-//       // Si la palabra es solo números, no la modifica
-//       if (/^[0-9]+$/.test(word)) return word;
-//       // Si la palabra tiene letras, capitaliza solo la primera letra que sea letra
-//       const match = word.match(/^([0-9]*)([a-zA-ZÁÉÍÓÚÑáéíóúñ])(.*)$/);
-//       if (match) {
-//         const [, nums, firstLetter, rest] = match;
-//         const lower = (firstLetter + rest).toLowerCase();
-//         const capitalized = lower.charAt(0).toUpperCase() + lower.slice(1);
-//         return idx === 0 || !exceptions.includes(lower)
-//           ? (nums || "") + capitalized
-//           : (nums || "") + lower;
-//       }
-//       // Si no tiene letras, solo minúsculas (ej: símbolos)
-//       return word;
-//     })
-//     .join(" ");
-// }
-// // Lista de campos a capitalizar
-// const fieldsToCapitalize = [
-//   "nombreInterno",
-//   "puestoInterno",
-//   "nombreExterno",
-//   "empresaExterno",
-//   "nombreResponsable",
-//   "puestoResponsable",
-//   "nombreAutoriza",
-//   "puestoAutoriza",
-//   "nombreEnlace",
-//   "puestoEnlace",
-//];
+  function capitalizeWords(str) {
+  const exceptions = ["de", "para", "por", "y", "en", "a", "la", "el", "del", "al", "con", "sin", "o", "u"];
+  return str
+    .split(" ")
+    .map((word, idx) => {
+      // Si la palabra es solo números, no la modifica
+      if (/^[0-9]+$/.test(word)) return word;
+      // Si la palabra tiene letras, capitaliza solo la primera letra que sea letra
+      const match = word.match(/^([0-9]*)([a-zA-ZÁÉÍÓÚÑáéíóúñ])(.*)$/);
+      if (match) {
+        const [, nums, firstLetter, rest] = match;
+        const lower = (firstLetter + rest).toLowerCase();
+        const capitalized = lower.charAt(0).toUpperCase() + lower.slice(1);
+        return idx === 0 || !exceptions.includes(lower)
+          ? (nums || "") + capitalized
+          : (nums || "") + lower;
+      }
+      // Si no tiene letras, solo minúsculas (ej: símbolos)
+      return word;
+    })
+    .join(" ");
+}
+// Lista de campos a capitalizar
+const fieldsToCapitalize = [
+  "nombreInterno",
+  "puestoInterno",
+  "nombreExterno",
+  "empresaExterno",
+  "nombreResponsable",
+  "puestoResponsable",
+  "nombreAutoriza",
+  "puestoAutoriza",
+  "nombreEnlace",
+  "puestoEnlace",
+];
 
   // TABLAS INFORMACION
   const [webTableData, setWebTableData] = useState([]);
@@ -196,26 +196,26 @@ export default function Home() {
   };
 
   // HandleChange FormData
-  const handleChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-  //Prueba de capitalizar
   // const handleChange = (event) => {
   //   const { name, value, type, checked } = event.target;
-  // setFormData((prevFormData) => ({
-  //   ...prevFormData,
-  //   [name]:
-  //     type === "checkbox"
-  //       ? checked
-  //       : fieldsToCapitalize.includes(name)
-  //       ? capitalizeWords(value)
-  //       : value,
-  // }));
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     [name]: type === "checkbox" ? checked : value,
+  //   }));
   // };
+  //Prueba de capitalizar
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+  setFormData((prevFormData) => ({
+    ...prevFormData,
+    [name]:
+      type === "checkbox"
+        ? checked
+        : fieldsToCapitalize.includes(name)
+        ? capitalizeWords(value)
+        : value,
+  }));
+  };
   const handlePuestosInterno = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -1566,7 +1566,6 @@ export default function Home() {
             value={formData.nombreEnlace}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           {/**Puesto o cargo de la persona responsable en la CONAGUA */}
           <TextField
@@ -1579,7 +1578,6 @@ export default function Home() {
             value={formData.puestoEnlace}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -1591,7 +1589,6 @@ export default function Home() {
             value={formData.telefonoEnlace}
             onChange={handleTelefonoEnlaceChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>          
         </Box>
@@ -1632,7 +1629,6 @@ export default function Home() {
             value={formData.nombreEnlace}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -1644,7 +1640,6 @@ export default function Home() {
             value={formData.telefonoEnlace}
             onChange={handleTelefonoEnlaceChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
         </Box>    
@@ -1804,7 +1799,7 @@ export default function Home() {
             value={formData.nombreInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256, mt: 2 }}
+            inputProps={{  mt: 2 }}
           />
           {/**Puesto interno, aquí poner autocomplete */}
           <Autocomplete
@@ -1835,19 +1830,7 @@ export default function Home() {
             inputValue={formData.puestoInterno || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
-          />
-          {/* <TextField
-            required={formData.solicitante === "CONAGUA"}
-            error={!!errors?.puestoInterno}
-            id="puestoInterno"
-            name="puestoInterno"
-            label="Puesto o Cargo"
-            placeholder="Escriba el puesto o cargo del usuario"
-            value={formData.puestoInterno}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          /> */}
+          />          
           <TextField
             required={formData.solicitante === "CONAGUA"}
             error={!!errors?.correoInterno}
@@ -1858,7 +1841,6 @@ export default function Home() {
             value={formData.correoInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required={formData.solicitante === "CONAGUA"}
@@ -1870,7 +1852,6 @@ export default function Home() {
             value={formData.telefonoInterno}
             onChange={handleTelefonoInternoChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
 
@@ -1910,7 +1891,7 @@ export default function Home() {
             value={formData.nombreExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256, mt: 2 }}
+            inputProps={{ mt: 2 }}
           />
           <TextField
             required={formData.solicitante === "EXTERNO"}
@@ -1922,7 +1903,6 @@ export default function Home() {
             value={formData.correoExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required={formData.solicitante === "EXTERNO"}
@@ -1934,7 +1914,6 @@ export default function Home() {
             value={formData.empresaExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <Box
             display={
@@ -1952,7 +1931,6 @@ export default function Home() {
               value={formData.equipoExterno}
               onChange={handleChange}
               sx={{ background: "#FFFFFF", mb: 3 }}
-              inputProps={{ maxLength: 256 }}
             />
           </Box>
         </Box>
@@ -2004,7 +1982,6 @@ export default function Home() {
             value={formData.numeroEmpleadoResponsable}
             onChange={handleNumeroEmpleado}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -2016,7 +1993,6 @@ export default function Home() {
             value={formData.nombreResponsable}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           {/**Puesto o cargo del empleado responsable, aquí poner autocomplete */}
           <Autocomplete
@@ -2046,19 +2022,7 @@ export default function Home() {
             inputValue={formData.puestoResponsable || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
-          />
-          {/* <TextField
-            required
-            error={!!errors?.puestoResponsable}
-            id="puestoResponsable"
-            name="puestoResponsable"
-            label="Puesto o cargo"
-            placeholder="Escriba el puesto o cargo del empleado responsable"
-            value={formData.puestoResponsable}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
-          /> */}
+          />          
           <Autocomplete
             disablePortal
             options={filteredAreas}
@@ -2097,7 +2061,6 @@ export default function Home() {
             value={formData.telefonoResponsable}
             onChange={handleTelefonoResponsableChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
       </Box>
@@ -2289,7 +2252,6 @@ export default function Home() {
             value={formData.marca}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -2301,7 +2263,6 @@ export default function Home() {
             value={formData.modelo}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -2313,7 +2274,6 @@ export default function Home() {
             value={formData.serie}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
 
           <Divider
@@ -2455,7 +2415,6 @@ export default function Home() {
             value={formData.versionSO}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
 
           <Divider
@@ -2900,7 +2859,6 @@ export default function Home() {
             value={formData.nombreAutoriza}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -2912,7 +2870,6 @@ export default function Home() {
             value={formData.puestoAutoriza}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
-            inputProps={{ maxLength: 256 }}
           />
         </Box>
       </Box>
