@@ -49,14 +49,18 @@ export default function Home() {
     //Teléfono de usuario solicitante 
     telefonoUsuario:"",
     extUsuario: "",
-    //Datos del registro    
+    //Tipo de registro     
     registro: "",
+    //Datos del registro  
     nombreRegistro:"",
     IP: "",
     nombreAplicacion:"",
     //Justificación 
-    justificacion:""
-    
+    justificacion:"",
+    //Quien aprueba la solicitud
+    nombreAproba:"",
+    puestoAproba:"",
+       
   });
 
 
@@ -87,18 +91,48 @@ export default function Home() {
     severity: "",
   });
 
+  //Validador de Campos 
   const validarCamposRequeridos = (Data) => {
     const errores = {};
     let isValid = true;
 
-    for (const key in Data) {
-      if (Data.hasOwnProperty(key) && !Data[key]) {
-        errores[key] = "Este campo es requerido"; // Texto a mostrar en cada campo faltante
-        isValid = false; // Al menos un campo está vacío
+    let camposRequeridos =[
+      "movimiento",
+      "nombreResponsable",
+      "puestoResponsable",
+      "nombreUsuario",
+      "areaUsuario",
+      "puestousuario",
+      "direccionUsuario",
+      "telefonoUsuario",
+      "extUsuario",
+      "registro",
+      "nombreRegistro",
+      "IP",
+      "nombreAplicacion",
+      "justificacion",
+      "nombreAproba",
+      "puestoAproba"
+    ];
+    if (Data.direccionUsuario ===   "Av. Insurgentes Sur 2416 Col.Copilco el Bajo. CP.04340, Coyoacán, CDMX"){
+      const nuevosCampos =[
+        "ala",
+        "piso"
+      ];
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+    }  
+    
+    // Valida solo los campos requeridos
+    for (const key of camposRequeridos) {
+      if (!Data[key] || Data[key].trim() === "") {
+        errores[key] = "Este campo es requerido";
+        isValid = false;
       }
     }
+    
     return [isValid, errores]; // Todos los campos están llenos
   };
+
    // Modal
     const [openModal, setOpenModal] = useState(false);
     const handleOpenModal = () => {
@@ -107,7 +141,7 @@ export default function Home() {
       const [isValid, getErrors] = validarCamposRequeridos(formData);
       setErrors(getErrors);
   
-      //console.log("Lista getErrors en submit: ", getErrors);
+      console.log("Lista getErrors en submit: ", getErrors);
   
       if (!isValid) {
         setAlert({
@@ -152,52 +186,118 @@ export default function Home() {
       };
     }, [openModal, progresoMostrado]);
   // Llamada API
+
   const handleSubmit = async (event) => {
+    handleCloseModal();
     event.preventDefault();
-    //console.log("Lista formData en submit: ", formData);
+    console.log("Lista formData en submit: ", formData);
 
-    const [isValid, getErrors] = validarCamposRequeridos(formData);
-    setErrors(getErrors);
-
-    //console.log("Lista getErrors en submit: ", getErrors)
-
-    if (!isValid) {
-      setAlert({
-        //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
-        message: "Por favor, complete todos los campos requeridos.",
-        severity: "error",
-      });
-      setOpenAlert(true);
-      return;
-    } else {
-      setAlert({
-        message: "Información Registrada",
-        severity: "success",
-      });
-      setOpenAlert(true);
-    }
+    setAlert({
+      message: "Información Enviada",
+      severity: "success",
+    });
+    setOpenAlert(true);
 
     setBotonEstado("Cargando...");
 
     try {
       // PDF api
-      const pdfResponse = await axios.post("/api/v1/vpn", formData, {
-        responseType: "blob",
+      const formResponse = await axios.post("/api2/v3/dns", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
 
-      if (pdfResponse.status === 200) {
-        setPdfUrl(URL.createObjectURL(pdfResponse.data));
-        setBotonEstado("Descargar PDF");
-      } else {
-        console.error("Error generating PDF");
+      console.log("Respuesta: ", formResponse.data);
+      const {
+        message: formMessage,
+        id: formId,
+        epoch: epoch,
+      } = formResponse.data;
+      console.log("Petición exitosa: ", formMessage);
+      console.log("ID recibido: ", formId);
+      console.log("Epoch recibido: ", epoch);
+      setNombreArchivo(`TELEFONIA_${epoch}.pdf`);
+
+      setAlert({
+        message: formMessage,
+        severity: "success",
+      });
+      setOpenAlert(true);
+
+      try {
+        // Aqui llamamos a la otra api para el pdf
+        const pdfResponse = await axios.post(
+          "/api/v3/dns",
+          { id: formId },
+          {
+            responseType: "blob",
+          },
+        );
+
+        if (pdfResponse.status === 200) {
+          setPdfUrl(URL.createObjectURL(pdfResponse.data));
+          setBotonEstado("Descargar PDF");
+          setAlert({
+            message: "PDF listo para descargar",
+            severity: "success",
+          });
+          setOpenAlert(true);
+        } else {
+          console.error("Ocurrió un error al generar el PDF");
+          console.error(pdfResponse.status);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+        setAlert({
+          message: "Ocurrió un error al generar el PDF",
+          severity: "error",
+        });
+        setOpenAlert(true);
       }
     } catch (error) {
-      console.error("Error:", error);
       setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
-      setAlert({
-        message: "Ocurrio un error interno",
-        severity: "error",
-      });
+
+      if (error.response) {
+        // Si hay respuesta, podemos acceder al código de estado y a los datos.
+        const statusCode = error.response.status;
+        const errorData = error.response.data;
+
+        console.error(`Error con código ${statusCode}:`, errorData.message, errorData.campo);
+
+        // Construct an object to update the errors state
+        const newErrors = {
+          [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
+        };
+        setErrors(newErrors);
+        ////console.log("Errores API: ", newErrors); // Log the newErrors object
+
+        ////console.log("Objeto Errors: ", errors)
+
+        // Manejamos el caso específico del error 422.
+        if (statusCode === 422) {
+          setAlert({
+            // Usamos el mensaje de error que viene de la API.
+            message: errorData.message || "Hay errores en los datos enviados.",
+            severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
+          });
+        } else {
+          // Manejamos otros errores del servidor (ej. 404, 500).
+          setAlert({
+            message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
+            severity: "error",
+          });
+        }
+      } else {
+        // Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+        console.error("Error de red o de conexión:", error.message);
+        setAlert({
+          message:
+            "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+          severity: "error",
+        });
+      }
       setOpenAlert(true);
     }
   };
@@ -253,51 +353,51 @@ export default function Home() {
 
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
-      {/* Banner Responsive */}
-      <Box
-        sx={{
-          width: "100", // Ocupa todo el ancho de la ventana gráfica
-          overflow: "hidden",
-          height: "280px", // Ajusta la altura según sea necesario
-          [theme.breakpoints.down("md")]: {
-            height: "auto", // Ajusta la altura automáticamente en pantallas pequeñas
-          },
-          display: { xs: "none", md: "block" },
-        }}
-      >
-        <Image
-          src="/background_Conagua_header_150.jpg" // Ruta de la imagen recortable
-          alt="Imagen recortable"
-          width={6000}
-          height={1200}
-          style={{
-            maxWidth: "100vw",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center",
-          }}
-          sizes="(max-width: 900px) 100vw, 1920px"
-        />
-      </Box>
-
-      {/* Imagen fija para pantallas pequeñas */}
-      <Box
-        sx={{
-          display: { xs: "block", md: "none" }, // Mostrar solo en pantallas pequeñas
-        }}
-      >
-        <Image
-          src="/mobile_background_Icono_150.jpg" // Ruta de la imagen fija
-          alt="Imagen fija"
-          width={1690}
-          height={1312}
-          style={{
-            width: "100%",
-            height: "auto",
-          }}
-          sizes="100vw"
-        />
-      </Box>
+          {/* Banner Responsive */}
+          <Box
+            sx={{
+              width: "100", // Ocupa todo el ancho de la ventana gráfica
+              overflow: "hidden",
+              height: "200px", // Ajusta la altura según sea necesario
+              [theme.breakpoints.down("md")]: {
+                height: "auto", // Ajusta la altura automáticamente en pantallas pequeñas
+              },
+              display: { xs: "none", md: "block" },
+            }}
+          >
+            <Image
+              src="/background_Conagua_header_150.jpg" // Ruta de la imagen recortable
+              alt="Imagen recortable"
+              width={6000}
+              height={1200}
+              style={{
+                maxWidth: "100vw",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+              sizes="(max-width: 900px) 100vw, 1920px"
+            />
+          </Box>
+    
+          {/* Imagen fija para pantallas pequeñas */}
+          <Box
+            sx={{
+              display: { xs: "block", md: "none" }, // Mostrar solo en pantallas pequeñas
+            }}
+          >
+            <Image
+              src="/mobile_background_Icono_150.jpg" // Ruta de la imagen fija
+              alt="Imagen fija"
+              width={1690}
+              height={1312}
+              style={{
+                width: "100%",
+                height: "auto",
+              }}
+              sizes="100vw"
+            />
+          </Box>
 
       {/* Banner Responsive Title*/}
       <Box
@@ -664,6 +764,52 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
+          {/**Tipo de registro */}
+          <FormLabel
+            component="legend"
+            sx={{
+              mt: 0,
+              mb: 1,
+              mx: "auto",
+              display: "flex",
+              justifyContent: "center",
+              fontSize: "1.2rem",
+            }}
+          >
+            En donde se realizará el registro
+          </FormLabel>
+          <RadioGroup
+            row
+            aria-label="Registro"
+            name="registro"
+            value={formData.registro}
+            onChange={handleChange}
+            required
+            sx={{ ml: 2, mr: 2, mb: 0, justifyContent: "center" }}
+          >
+            <FormControlLabel
+              value="CNA"
+              control={<Radio />}
+              label="cna.gob.mx"
+            />
+            <FormControlLabel
+              value="CONAGUA"
+              control={<Radio />}
+              label="conagua.gob.mx"
+            />
+            
+          </RadioGroup>
+          <FormHelperText
+            sx={{
+              ml: 2,
+              mr: 2,
+              mb: 0,
+              justifyContent: "center",
+              color: "red",
+            }}
+          >
+            {errors?.movimiento}
+          </FormHelperText>
           <TextField
             required
             error={!!errors?.nombreRegistro}
@@ -708,6 +854,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb:3 }}
           />
+          {/**Tipo de movimiento */}
           <FormLabel
             component="legend"
             sx={{
@@ -757,6 +904,77 @@ export default function Home() {
           >
             {errors?.movimiento}
           </FormHelperText>
+        </Box>
+      </Box>
+
+      {/**Quien autoriza la solicitud */}
+      {/* Datos del responsable de la solicitud */}    
+      <Box
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Datos de quien autoriza la soliictud
+        </Typography>
+
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <TextField
+            required
+            error={!!errors?.nombreAproba}
+            id="nombreAproba"
+            name="nombreAproba"
+            label="Nombre Completo"
+            placeholder="Escriba únicamente el nombre completo de la persona quien autoriza la solicitud"
+            value={formData.nombreAproba}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+          />
+          <TextField
+            required
+            error={!!errors?.puestoAproba}
+            id="puestoAproba"
+            name="puestoAproba"
+            label="Puesto o Cargo"
+            placeholder="Escriba el puesto o cargo de la persona quien autoriza la solicitud "
+            value={formData.puestoAproba}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            />    
         </Box>
       </Box>
 
@@ -832,32 +1050,6 @@ export default function Home() {
           onSubmit={handleSubmit}
         >
         {
-                !formData.politicasaceptadas ? (
-                  <Tooltip title="Debes aceptar las políticas y lineamientos">
-                    <span>
-                      <Button
-                        onClick={handleOpenModal}
-                        variant="contained"
-                        sx={{
-                          mt: 3,
-                          mb: 3,
-                          width: "calc(100% - 32px)",
-                          ml: 2,
-                          mr: 4,
-                          background:
-                            botonEstado === "Descargar PDF"
-                              ? theme.palette.third.main
-                              : theme.palette.secondary.main,
-                          color: "#FFFFFF",
-                          border: "1px solid gray",
-                        }}
-                        disabled
-                      >
-                        {botonEstado}
-                      </Button>
-                    </span>
-                  </Tooltip>
-                ) : (
                   <Button
                     onClick={handleOpenModal}
                     variant="contained"
@@ -882,7 +1074,7 @@ export default function Home() {
                   >
                     {botonEstado}
                   </Button>
-                )
+                
               }
 
           <Modal
