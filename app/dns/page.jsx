@@ -63,7 +63,8 @@ export default function Home() {
        
   });
 
-
+  // Nombre PDF
+  const [nombreArchivo, setNombreArchivo] = useState("");
 
   // Generar PDF
   const [pdfUrl, setPdfUrl] = useState(null);
@@ -217,7 +218,7 @@ export default function Home() {
       console.log("Petición exitosa: ", formMessage);
       console.log("ID recibido: ", formId);
       console.log("Epoch recibido: ", epoch);
-      setNombreArchivo(`TELEFONIA_${epoch}.pdf`);
+      setNombreArchivo(`DNS_${epoch}.pdf`);
 
       setAlert({
         message: formMessage,
