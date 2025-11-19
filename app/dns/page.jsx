@@ -311,8 +311,8 @@ export default function Home() {
     }));
   };
   const handleIPChange = (event) => {
-  // Elimina todo lo que no sea dígito
-    let value = event.target.value.replace(/\D/g, "",".");
+  // Permite solo dígitos y puntos
+    let value = event.target.value.replace(/[^\d.]/g, "");
     value = value.slice(0, 20); // Limita la longitud
     setFormData((prevFormData) => ({
       ...prevFormData,
