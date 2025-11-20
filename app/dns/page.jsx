@@ -800,17 +800,24 @@ export default function Home() {
             />
             
           </RadioGroup>
+          <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
           <FormHelperText
             sx={{
-              ml: 2,
-              mr: 2,
-              mb: 0,
+              mx: "auto",
+              mb: 1,
               justifyContent: "center",
               color: "red",
             }}
           >
             {errors?.movimiento}
           </FormHelperText>
+          </Box>
           <TextField
             required
             error={!!errors?.nombreRegistro}
@@ -894,6 +901,13 @@ export default function Home() {
               label="Cambio"
             />
           </RadioGroup>
+          <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <FormHelperText
             sx={{
               ml: 2,
@@ -905,6 +919,7 @@ export default function Home() {
           >
             {errors?.movimiento}
           </FormHelperText>
+          </Box>
         </Box>
       </Box>
 
