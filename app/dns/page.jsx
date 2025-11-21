@@ -185,9 +185,29 @@ export default function Home() {
       return () => {
         clearInterval(timer);
       };
+      
     }, [openModal, progresoMostrado]);
-  // Llamada API
+    
+    //Descarga automática del formato en cuanto el botón esta en "Descargar PDF"
+    React.useEffect(() => {
+        if (!pdfUrl) return;
 
+        if (botonEstado === "Descargar PDF") {
+          const link = document.createElement("a");
+          link.href = pdfUrl;
+          link.download = nombreArchivo || "document.pdf";
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          // Liberar URL blob después de un corto retraso
+          setTimeout(() => {
+            try { URL.revokeObjectURL(pdfUrl); } catch (e) {}
+          }, 1000);
+        }
+      }, [pdfUrl, botonEstado, nombreArchivo]);
+
+
+  // Llamada API
   const handleSubmit = async (event) => {
     handleCloseModal();
     event.preventDefault();
