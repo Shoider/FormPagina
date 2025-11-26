@@ -154,9 +154,7 @@ export default function Home() {
     if (Data.solicitud ===   "Alta de cuenta de servicio"){
       const nuevosCampos =[
         "inicioActividades",
-
-        
-      ];
+       ];
       camposRequeridos = [...camposRequeridos, ...nuevosCampos];
     }  
     
@@ -260,7 +258,7 @@ export default function Home() {
 
     try {
       // PDF api
-      const formResponse = await axios.post("/api2/v3/dns", formData, {
+      const formResponse = await axios.post("/api2/v3/abcred", formData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -361,13 +359,24 @@ export default function Home() {
   };
 
   //  VALIDADORES 
-  const handleExtensionChange = (event) => {
+  //extensionRequisitante
+  const handleExtensionRequisitanteChange = (event) => {
     let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
     value = value.slice(0, 4); // Limita la longitud a 4 caracteres
 
     setFormData((prevFormData) => ({
       ...prevFormData,
-      extUsuario: value,
+      extensionRequisitante: value,
+    }));
+  };
+//extensionInterno
+const handleExtensionInternoChange = (event) => {
+    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 4); // Limita la longitud a 4 caracteres
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      extensionRequisitante: value,
     }));
   };
   const handleSoli = (newValue) => {
@@ -583,7 +592,7 @@ export default function Home() {
             label="Extensión del requisitante"
             placeholder="Escriba la extensión del requisitante"
             value={formData.extensionRequisitante}
-            onChange={handleExtensionChange}
+            onChange={handleExtensionRequisitanteChange}
             sx={{ background: "#FFFFFF"}}
             /> 
             <TextField
@@ -1019,7 +1028,7 @@ export default function Home() {
             label="Extensión"
             placeholder="Escriba la extensión"
             value={formData.extensionInterno}
-            onChange={handleExtensionChange}
+            onChange={handleExtensionInternoChange}
             sx={{ background: "#FFFFFF"}}
             /> 
             <TextField
