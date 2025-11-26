@@ -33,6 +33,7 @@ import areas from "../constants/AREAS/areas.jsx";
 export default function Home() {
   const theme = useTheme();
   const [formData, setFormData] = useState({
+    //DATOS DE LA SOLICITUD
     //Tipo de solicitud
     solicitud: "",
     //Reported de mesa de servicios
@@ -59,12 +60,19 @@ export default function Home() {
     estadoInterno:"",
     cpInterno:"",
     direccionInterno:"",
-    //Datos adicionales
+    //Datos adicionales 
     inicioActividades:"",
     nombreCuenta:"",
     //Justificación
-    justificacion:""
-       
+    justificacion:"",
+
+    ///CASO DE BAJA EN DATOS DE CUENTA
+    nombreResponsable:"",
+    puestoResponsable:"",
+    ciudadResponsable:"",
+    estadoResponsable:"",
+    cpResponsable:"",
+    direccionResponsable:""
   });
 
   // Nombre PDF
@@ -110,12 +118,44 @@ export default function Home() {
       //"puestoSolicitante",
       "nombreAutoriza",
       "puestoAutoriza",
+      "justificacion",
       
     ];
-    if (Data.direccionUsuario ===   "Av. Insurgentes Sur 2416 Col.Copilco el Bajo. CP.04340, Coyoacán, CDMX"){
+    if (Data.solicitud ===   "Cambio de cuenta de servicio" || Data.solicitud ===   "Alta de cuenta de servicio" ){
       const nuevosCampos =[
-        "ala",
-        "piso"
+        "nombreInterno",
+        "apellidoInterno",
+        "puestoInterno",
+        "unidadInterno",
+        "areaInterno",
+        "CURPInterno",
+        "RFCInterno",
+        "extensionInterno",
+        "ciudadInterno",
+        "estadoInterno",
+        "cpInterno",
+        "direccionInterno",
+        "nombreCuenta"
+      ];
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+    }  
+    if (Data.solicitud ===   "Baja de cuenta de servicio"){
+      const nuevosCampos =[
+        "nombreResponsable",
+        "puestoResponsable",
+        "ciudadResponsable",
+        "estadoresponsable",
+        "cpResponsable",
+        "direccionResponsable"
+        
+      ];
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+    }  
+    if (Data.solicitud ===   "Alta de cuenta de servicio"){
+      const nuevosCampos =[
+        "inicioActividades",
+
+        
       ];
       camposRequeridos = [...camposRequeridos, ...nuevosCampos];
     }  
@@ -701,8 +741,138 @@ export default function Home() {
          
         </Box>
       </Box>
+
+      {/* Datos de la cuenta de servicio*/}    
+      <Box
+      display={formData.solicitud === "Baja de cuenta de servicio"  ? "block" : "none"}
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Datos de la cuenta de servicio
+        </Typography>
+
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >         
+          
+          <TextField
+            required
+            error={!!errors?.nombreCuenta}
+            id="nombreCuenta"
+            name="nombreCuenta"
+            label="Nombre de la cuenta de servicio"
+            placeholder="Escriba el nombre de la cuenta de servicio"
+            value={formData.nombreCuenta}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+          />
+          <TextField
+            required
+            error={!!errors?.nombreResponsable}
+            id="nombreResponsable"
+            name="nombreResponsable"
+            label="Nombre del responsable de la CONAGUA"
+            placeholder="Escriba el nombre del responsable de la CONAGUA"
+            value={formData.nombreResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            />   
+            <TextField
+            required
+            error={!!errors?.puestoResponsable}
+            id="puestoResponsable"
+            name="puestoResponsable"
+            label="Puesto del responsable de la CONAGUA"
+            placeholder="Escriba del responsable de la CONAGUA"
+            value={formData.puestoResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            />  
+            <TextField
+            required
+            error={!!errors?.ciudadResponsable}
+            id="ciudadResponsable"
+            name="ciudadResponsable"
+            label="Ciudad"
+            placeholder="Escriba la ciudad"
+            value={formData.ciudadResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            /> 
+            <TextField
+            required
+            error={!!errors?.estadoResponsable}
+            id="estadoResponsable"
+            name="estadoResponsable"
+            label="Estado"
+            placeholder="Escriba el estado"
+            value={formData.estadoResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            /> 
+            <TextField
+            required
+            error={!!errors?.cpResponsable}
+            id="cpResponsable"
+            name="cpResponsable"
+            label="Código Postal"
+            placeholder="Escriba el código postal"
+            value={formData.cpResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            /> 
+            <TextField
+            required
+            error={!!errors?.direccionResponsable}
+            id="direccionResponsable"
+            name="direccionResponsable"
+            label="Dirección"
+            placeholder="Escriba la dirección"
+            value={formData.direccionResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb:3}}
+            /> 
+         
+        </Box>
+      </Box>
+
       {/* Datos del usuario interno*/}    
       <Box
+      display={formData.solicitud === "Alta de cuenta de servicio" || formData.solicitud == "Cambio de cuenta de servicio" ? "block" : "none"}
         component="section"
         sx={{
           mx: "auto",
@@ -902,6 +1072,7 @@ export default function Home() {
       
       {/* Datos del adicionales */}
       <Box
+      display={formData.solicitud !== "Baja de cuenta de servicio" ? "block" : "none"}
         component="section"
         sx={{
           mx: "auto",
@@ -945,7 +1116,14 @@ export default function Home() {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <TextField
+          <Box
+            display={
+              formData.solicitud !== "Cambio de cuenta de servicio"
+                ? "block"
+                : "none"
+            }
+          >
+            <TextField
             required
             error={!!errors?.inicioActividades}
             id="inicioActividades"
@@ -956,6 +1134,7 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
           />
+          </Box>          
           <TextField
             required
             error={!!errors?.nombreCuenta}
