@@ -144,7 +144,7 @@ export default function Home() {
         "nombreResponsable",
         "puestoResponsable",
         "ciudadResponsable",
-        "estadoresponsable",
+        "estadoResponsable",
         "cpResponsable",
         "direccionResponsable"
         
@@ -258,7 +258,7 @@ export default function Home() {
 
     try {
       // PDF api
-      const formResponse = await axios.post("/api2/v3/abcred", formData, {
+      const formResponse = await axios.post("/api2/v3/abc", formData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -284,7 +284,7 @@ export default function Home() {
       try {
         // Aqui llamamos a la otra api para el pdf
         const pdfResponse = await axios.post(
-          "/api/v3/dns",
+          "/api/v3/abc",
           { id: formId },
           {
             responseType: "blob",
@@ -376,7 +376,7 @@ const handleExtensionInternoChange = (event) => {
 
     setFormData((prevFormData) => ({
       ...prevFormData,
-      extensionRequisitante: value,
+      extensionInterno: value,
     }));
   };
   const handleSoli = (newValue) => {
@@ -948,6 +948,17 @@ const handleExtensionInternoChange = (event) => {
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
             />  
+            <TextField
+            required
+            error={!!errors?.puestoInterno}
+            id="puestoInterno"
+            name="puestoInterno"
+            label="Puesto"
+            placeholder="Escriba el puesto"
+            value={formData.puestoInterno}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            />
             
             {/**UNIDAD ADMINISTRATIVA */}  
             <Autocomplete
