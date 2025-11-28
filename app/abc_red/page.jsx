@@ -72,7 +72,24 @@ export default function Home() {
     ciudadResponsable:"",
     estadoResponsable:"",
     cpResponsable:"",
-    direccionResponsable:""
+    direccionResponsable:"",
+
+    //DATOS DE USUARIO EXTERNO
+    nombreExterno:"",
+    apellidoExterno:"",
+    puestoExterno:"",
+    unidadExterno:"",
+    areaExterno:"",
+    CURPExterno:"",
+    RFCExterno:"",
+    extensionExterno:"",
+    ciudadExterno:"",
+    estadoExterno:"",
+    cpExterno:"",
+    direccionExterno:"",
+
+    //Datos adicionales de usuario externo
+    finActividades:"",
   });
 
   // Nombre PDF
@@ -139,8 +156,29 @@ export default function Home() {
       ];
       camposRequeridos = [...camposRequeridos, ...nuevosCampos];
     }  
+    if (Data.solicitud ===   "Cambio de cuenta de usuario externo" || Data.solicitud ===   "Alta de cuenta de usuario externo" ){
+      const nuevosCampos =[
+        "nombreExterno",
+        "apellidoExterno",
+        "puestoExterno",
+        "unidadExterno",
+        "areaExterno",
+        "CURPExterno",
+        "RFCExterno",
+        "extensionExterno",
+        "ciudadExterno",
+        "estadoExterno",
+        "cpExterno",
+        "direccionExterno",
+        "nombreCuenta",
+        "nombreResponsable",
+        "puestoResponsable",
+      ];
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+    }  
     if (Data.solicitud ===   "Baja de cuenta de servicio"){
       const nuevosCampos =[
+        "nombreCuenta",
         "nombreResponsable",
         "puestoResponsable",
         "ciudadResponsable",
@@ -151,7 +189,28 @@ export default function Home() {
       ];
       camposRequeridos = [...camposRequeridos, ...nuevosCampos];
     }  
-    if (Data.solicitud ===   "Alta de cuenta de servicio"){
+    if (Data.solicitud ===   "Baja de cuenta de usuario externo"){
+      const nuevosCampos =[
+        "nombreCuenta",
+        "nombreExterno",
+        //"puestoExterno",
+        "nombreResponsable",
+        "puestoResponsable",
+        "ciudadResponsable",
+        "estadoResponsable",
+        "cpResponsable",
+        "direccionResponsable"
+        
+      ];
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+    }  
+    if (Data.solicitud === "Alta de cuenta de usuario externo" || Data.solicitud === "Cambio de cuenta de usuario externo"){
+      const nuevosCampos =[
+        "finActividades",
+       ];
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+    }  
+    if (Data.solicitud ===   "Alta de cuenta de servicio" || Data.solicitud === "Alta de cuenta de usuario externo"){
       const nuevosCampos =[
         "inicioActividades",
        ];
@@ -273,7 +332,7 @@ export default function Home() {
       console.log("Petición exitosa: ", formMessage);
       console.log("ID recibido: ", formId);
       console.log("Epoch recibido: ", epoch);
-      setNombreArchivo(`DNS_${epoch}.pdf`);
+      setNombreArchivo(`Cuentas_de_servicio_${epoch}.pdf`);
 
       setAlert({
         message: formMessage,
@@ -379,6 +438,15 @@ const handleExtensionInternoChange = (event) => {
       extensionInterno: value,
     }));
   };
+  const handleExtensionExternoChange = (event) => {
+    let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 4); // Limita la longitud a 4 caracteres
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      extensionExterno: value,
+    }));
+  };
   const handleSoli = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -420,7 +488,33 @@ const handleExtensionInternoChange = (event) => {
     };
       //FILTRADO DE ÁREA DE ADSCRIPCIÓN
       const filteredAreas = areas[formData.unidadInterno] || [];    
-      
+  
+      const handleUAExter = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      unidadExterno: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      areaExterno: "",
+    }));
+  };
+  const handleCURPExt = (event) => {
+      let value = event.target.value.toUpperCase(); // Convierte a mayúsculas
+      value = value.replace(/[^A-Z0-9]/g, ""); // Solo letras y números
+      value = value.slice(0, 18); // Limita a 18 caracteres
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        CURPExterno: value, // Asume que tienes un campo "curp" en formData
+      }));
+      };
+  // Manejo de Autocomplete de Área de Adscripción
+    const handleAreaExt = (newValue) => {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        areaExterno: newValue || "",
+      }));
+    };
+      //FILTRADO DE ÁREA DE ADSCRIPCIÓN
+      const filteredAreasExt = areas[formData.unidadExterno] || [];    
 
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
@@ -879,6 +973,156 @@ const handleExtensionInternoChange = (event) => {
         </Box>
       </Box>
 
+      {/* Datos de la cuenta genérica*/}    
+      <Box
+      display={formData.solicitud === "Baja de cuenta de usuario externo"  ? "block" : "none"}
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Datos de la cuenta genérica
+        </Typography>
+
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >         
+          
+          <TextField
+            required
+            error={!!errors?.nombreCuenta}
+            id="nombreCuenta"
+            name="nombreCuenta"
+            label="Nombre de la cuenta de servicio"
+            placeholder="Escriba el nombre de la cuenta de servicio"
+            value={formData.nombreCuenta}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+          />
+          <TextField
+            required
+            error={!!errors?.nombreExterno}
+            id="nombreExterno"
+            name="nombreExterno"
+            label="Nombre"
+            placeholder="Escriba el nombre del usuario externo"
+            value={formData.nombreExterno}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+          />          
+            <TextField
+            required
+            error={!!errors?.puestoExterno}
+            id="puestoExterno"
+            name="puestoExterno"
+            label="Puesto"
+            placeholder="Escriba el puesto"
+            value={formData.puestoExterno}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            />
+          <TextField
+            required
+            error={!!errors?.nombreResponsable}
+            id="nombreResponsable"
+            name="nombreResponsable"
+            label="Nombre del responsable de la CONAGUA"
+            placeholder="Escriba el nombre del responsable de la CONAGUA"
+            value={formData.nombreResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            />   
+            <TextField
+            required
+            error={!!errors?.puestoResponsable}
+            id="puestoResponsable"
+            name="puestoResponsable"
+            label="Puesto del responsable de la CONAGUA"
+            placeholder="Escriba del responsable de la CONAGUA"
+            value={formData.puestoResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            />  
+            <TextField
+            required
+            error={!!errors?.ciudadResponsable}
+            id="ciudadResponsable"
+            name="ciudadResponsable"
+            label="Ciudad"
+            placeholder="Escriba la ciudad"
+            value={formData.ciudadResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            /> 
+            <TextField
+            required
+            error={!!errors?.estadoResponsable}
+            id="estadoResponsable"
+            name="estadoResponsable"
+            label="Estado"
+            placeholder="Escriba el estado"
+            value={formData.estadoResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            /> 
+            <TextField
+            required
+            error={!!errors?.cpResponsable}
+            id="cpResponsable"
+            name="cpResponsable"
+            label="Código Postal"
+            placeholder="Escriba el código postal"
+            value={formData.cpResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            /> 
+            <TextField
+            required
+            error={!!errors?.direccionResponsable}
+            id="direccionResponsable"
+            name="direccionResponsable"
+            label="Dirección"
+            placeholder="Escriba la dirección"
+            value={formData.direccionResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb:3}}
+            /> 
+         
+        </Box>
+      </Box>
+
       {/* Datos del usuario interno*/}    
       <Box
       display={formData.solicitud === "Alta de cuenta de servicio" || formData.solicitud == "Cambio de cuenta de servicio" ? "block" : "none"}
@@ -1088,11 +1332,221 @@ const handleExtensionInternoChange = (event) => {
             />          
         </Box>
       </Box>
+
+      {/* Datos del usuario externo*/}    
+      <Box
+      display={formData.solicitud === "Alta de cuenta de usuario externo" || formData.solicitud == "Cambio de cuenta de usuario externo" ? "block" : "none"}
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Datos del usuario(a) externo
+        </Typography>
+
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >         
+          
+          <TextField
+            required
+            error={!!errors?.nombreExterno}
+            id="nombreExterno"
+            name="nombreExterno"
+            label="Nombre"
+            placeholder="Escriba el nombre del usuario externo"
+            value={formData.nombreExterno}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+          />
+          <TextField
+            required
+            error={!!errors?.apellidoExterno}
+            id="apellidoExterno"
+            name="apellidoExterno"
+            label="Apellidos"
+            placeholder="Escriba los apellidos del usuario externo"
+            value={formData.apellidoExterno}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            />  
+            <TextField
+            required
+            error={!!errors?.puestoExterno}
+            id="puestoExterno"
+            name="puestoExterno"
+            label="Puesto"
+            placeholder="Escriba el puesto"
+            value={formData.puestoExterno}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            />
+            
+            {/**UNIDAD ADMINISTRATIVA */}  
+            <Autocomplete
+                disablePortal
+                options={unidadesAdmin}
+                //freeSolo
+                renderInput={(params) => (
+                  <TextField
+                    required
+                    error={!!errors?.unidadExterno}
+                    placeholder="Seleccione la Unidad Administrativa"
+                    sx={{ background: "#FFFFFF" }}
+                    {...params}
+                    label="Unidad Administrativa"
+                  />
+                )}
+                id="unidadExterno"
+                name="unidadExterno"
+                onChange={(event, newValue) => {
+                  handleUAExter(newValue); // Maneja selección de opciones
+                }}
+                inputValue={formData.unidadExterno || ""} // Controla el valor mostrado
+                getOptionLabel={(option) => option || ""}
+                isOptionEqualToValue={(option, value) => option === value}
+              />
+              {/**ÁREA DE ADSCRIPCIÓN */}
+                  <Autocomplete
+                    disablePortal
+                    options={filteredAreasExt}
+                    //freeSolo
+                    renderInput={(params) => (
+                      <TextField
+                        required
+                        error={!!errors?.areaExterno}
+                        placeholder="Seleccione la Área de Adscripción"
+                        sx={{ background: "#FFFFFF" }}
+                        {...params}
+                        label="Área de Adscripción"
+                      />
+                    )}
+                    id="areaExterno"
+                    name="areaExterno"
+                    onChange={(event, newValue) => {
+                      handleAreaExt(newValue); // Maneja selección de opciones
+                    }}
+                    inputValue={formData.areaExterno || ""} // Controla el valor mostrado
+                    getOptionLabel={(option) => option || ""}
+                    isOptionEqualToValue={(option, value) => option === value}
+                  />
+
+            <TextField
+            required
+            error={!!errors?.CURPExterno}
+            id="CURPExterno"
+            name="CURPExterno"
+            label="CURP"
+            placeholder="Escriba la CURP"
+            value={formData.CURPExterno}
+            onChange={handleCURPExt}
+            sx={{ background: "#FFFFFF"}}
+            /> 
+            <TextField
+            required
+            error={!!errors?.RFCExterno}
+            id="RFCExterno"
+            name="RFCExterno"
+            label="RFC"
+            placeholder="Escriba RFC"
+            value={formData.RFCExterno}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            /> 
+            <TextField
+            required
+            error={!!errors?.extensionExterno}
+            id="extensionExterno"
+            name="extensionExterno"
+            label="Extensión"
+            placeholder="Escriba la extensión"
+            value={formData.extensionExterno}
+            onChange={handleExtensionExternoChange}
+            sx={{ background: "#FFFFFF"}}
+            /> 
+            <TextField
+            required
+            error={!!errors?.ciudadExterno}
+            id="ciudadExterno"
+            name="ciudadExterno"
+            label="Ciudad"
+            placeholder="Escriba la ciudad"
+            value={formData.ciudadExterno}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            /> 
+            <TextField
+            required
+            error={!!errors?.estadoExterno}
+            id="estadoExterno"
+            name="estadoExterno"
+            label="Estado"
+            placeholder="Escriba el estado"
+            value={formData.estadoExterno}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            /> 
+            <TextField
+            required
+            error={!!errors?.cpExterno}
+            id="cpExterno"
+            name="cpExterno"
+            label="Código Postal"
+            placeholder="Escriba el código postal"
+            value={formData.cpExterno}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+            /> 
+            <TextField
+            required
+            error={!!errors?.direccionExterno}
+            id="direccionExterno"
+            name="direccionExterno"
+            label="Dirección"
+            placeholder="Escriba la direccción"
+            value={formData.direccionExterno}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb:3}}
+            />          
+        </Box>
+      </Box>
       
       
       {/* Datos del adicionales */}
       <Box
-      display={formData.solicitud !== "Baja de cuenta de servicio" ? "block" : "none"}
+      display={formData.solicitud !== "Baja de cuenta de servicio" && formData.solicitud !== "Baja de cuenta de usuario externo"? "block" : "none"}
         component="section"
         sx={{
           mx: "auto",
@@ -1138,7 +1592,7 @@ const handleExtensionInternoChange = (event) => {
         >
           <Box
             display={
-              formData.solicitud !== "Cambio de cuenta de servicio"
+              formData.solicitud !== "Cambio de cuenta de servicio" && formData.solicitud !== "Cambio de cuenta de usuario externo"
                 ? "block"
                 : "none"
             }
@@ -1154,8 +1608,69 @@ const handleExtensionInternoChange = (event) => {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
           />
-          </Box>          
+          </Box>     
+          <Box
+            display={
+              formData.solicitud === "Cambio de cuenta de usuario externo" || formData.solicitud === "Alta de cuenta de usuario externo"
+                ? "block"
+                : "none"
+            }
+          >
+            <TextField
+            required
+            error={!!errors?.finActividades}
+            id="finActividades"
+            name="finActividades"
+            label="Fecha de fin de actividades"
+            placeholder="Escriba la fecha de fin"
+            value={formData.finActividades}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+          />
           <TextField
+            required
+            error={!!errors?.nombreCuenta}
+            id="nombreCuenta"
+            name="nombreCuenta"
+            label="Nombre de la cuenta genérica"
+            placeholder="Escriba el nombre de la cuenta genérica"
+            value={formData.nombreCuenta}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF"}}
+          /> 
+          <TextField
+            required
+            error={!!errors?.nombreResponsable}
+            id="nombreResponsable"
+            name="nombreResponsable"
+            label="Nombre del responsable de la CONAGUA"
+            placeholder="Escriba el nombre del responsable de la CONAGUA"
+            value={formData.nombreResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+          /> 
+          <TextField
+            required
+            error={!!errors?.puestoResponsable}
+            id="puestoResponsable"
+            name="puestoResponsable"
+            label="Puesto del responsable de la CONAGUA"
+            placeholder="Escriba el puesto del responsable de la CONAGUA"
+            value={formData.puestoResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" , mb:3}}
+          />
+          </Box> 
+          
+          <Box
+            display={
+              formData.solicitud === "Cambio de cuenta de servicio" || formData.solicitud === "Alta de cuenta de servicio"
+                ? "block"
+                : "none"
+            }
+          >
+
+            <TextField
             required
             error={!!errors?.nombreCuenta}
             id="nombreCuenta"
@@ -1165,7 +1680,9 @@ const handleExtensionInternoChange = (event) => {
             value={formData.nombreCuenta}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" , mb:3}}
-          />         
+          />   
+          </Box>
+                
         </Box>
       </Box>  
       
