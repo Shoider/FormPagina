@@ -1125,7 +1125,12 @@ const handleExtensionInternoChange = (event) => {
 
       {/* Datos del usuario interno*/}    
       <Box
-      display={formData.solicitud === "Alta de cuenta de servicio" || formData.solicitud == "Cambio de cuenta de servicio" ? "block" : "none"}
+      display={formData.solicitud === "Alta de cuenta de servicio" 
+        || formData.solicitud == "Cambio de cuenta de servicio" 
+        || formData.solicitud == "Alta de cuenta de usuario interno"
+        || formData.solicitud == "Baja de cuenta de usuario interno"
+        || formData.solicitud == "Cambio de cuenta de usuario interno"
+        ? "block" : "none"}
         component="section"
         sx={{
           mx: "auto",
@@ -1546,7 +1551,12 @@ const handleExtensionInternoChange = (event) => {
       
       {/* Datos del adicionales */}
       <Box
-      display={formData.solicitud !== "Baja de cuenta de servicio" && formData.solicitud !== "Baja de cuenta de usuario externo"? "block" : "none"}
+      display={formData.solicitud !== "Baja de cuenta de servicio" 
+        && formData.solicitud !== "Baja de cuenta de usuario externo"
+        && formData.solicitud !== "Baja de cuenta de usuario interno"
+        && formData.solicitud !== "Cambio de cuenta de usuario interno"
+        && formData.solicitud
+        ? "block" : "none"}
         component="section"
         sx={{
           mx: "auto",
@@ -1574,6 +1584,7 @@ const handleExtensionInternoChange = (event) => {
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
           Datos adicionales
+          
         </Typography>
 
         <Box
@@ -1590,9 +1601,10 @@ const handleExtensionInternoChange = (event) => {
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <Box
+          <Box          
             display={
-              formData.solicitud !== "Cambio de cuenta de servicio" && formData.solicitud !== "Cambio de cuenta de usuario externo"
+              formData.solicitud === "Alta de cuenta de servicio" 
+              || formData.solicitud === "Alta de cuenta de usuario externo"
                 ? "block"
                 : "none"
             }
@@ -1608,7 +1620,26 @@ const handleExtensionInternoChange = (event) => {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
           />
-          </Box>     
+          </Box>   
+          <Box          
+            display={
+             formData.solicitud === "Alta de cuenta de usuario interno"
+                ? "block"
+                : "none"
+            }
+          >
+            <TextField
+            required
+            error={!!errors?.inicioActividades}
+            id="inicioActividades"
+            name="inicioActividades"
+            label="Fecha de inicio de actividades"
+            placeholder="Escriba la fecha de inicio"
+            value={formData.inicioActividades}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF", mb:3}}
+          />
+          </Box>    
           <Box
             display={
               formData.solicitud === "Cambio de cuenta de usuario externo" || formData.solicitud === "Alta de cuenta de usuario externo"
