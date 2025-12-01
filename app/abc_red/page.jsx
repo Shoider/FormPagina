@@ -25,10 +25,8 @@ import Link from "next/link";
 import Alerts from "../components/alerts.jsx";
 import tipoSolicitud from "../constants/tipoABC.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
-import areas from "../constants/AREAS/areas.jsx";
-
-
-
+import areas from "../constants/AREAS/areas.jsx"; 
+import justificaciones from "../constants/justificaciones.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -138,7 +136,7 @@ export default function Home() {
       "justificacion",
       
     ];
-    if (Data.solicitud ===   "Cambio de cuenta de servicio" || Data.solicitud ===   "Alta de cuenta de servicio" ){
+    if (Data.solicitud ===   "Cambio de cuenta de servicio" || Data.solicitud ===   "Alta de cuenta de servicio"  || Data.solicitud ===   "Alta de cuenta de usuario interno"|| Data.solicitud ===   "Baja de cuenta de usuario interno"|| Data.solicitud ===   "Cambio de cuenta de usuario interno"){
       const nuevosCampos =[
         "nombreInterno",
         "apellidoInterno",
@@ -210,7 +208,7 @@ export default function Home() {
        ];
       camposRequeridos = [...camposRequeridos, ...nuevosCampos];
     }  
-    if (Data.solicitud ===   "Alta de cuenta de servicio" || Data.solicitud === "Alta de cuenta de usuario externo"){
+    if (Data.solicitud ===   "Alta de cuenta de servicio" || Data.solicitud === "Alta de cuenta de usuario externo" || Data.solicitud ===   "Alta de cuenta de usuario interno"){
       const nuevosCampos =[
         "inicioActividades",
        ];
@@ -565,6 +563,13 @@ const handleExtensionInternoChange = (event) => {
       //fecha: formattedDate, // Guarda la fecha formateada en el estado
     }));
   };
+
+   const handleJustificacion = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      justificacion: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
   //const fechaFin = new Date(formData.finActividades); //cambiar de objeto a fecha
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
@@ -739,7 +744,7 @@ const handleExtensionInternoChange = (event) => {
             onChange={handleExtensionRequisitanteChange}
             sx={{ background: "#FFFFFF"}}
             /> 
-            <TextField
+            {/* <TextField
             required
             error={!!errors?.justificacion}
             id="justificacion"
@@ -749,7 +754,37 @@ const handleExtensionInternoChange = (event) => {
             value={formData.justificacion}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
-            /> 
+            />  */}
+            <Autocomplete
+              disablePortal
+              options={justificaciones}
+              freeSolo
+              sx={{ mb: 3 }}
+              //sx={{ width: "50%" }}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.justificacion}
+                  placeholder="Escriba o seleccione la justificación de la solicitud"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Justificación"
+                />
+              )}
+              id="justificacion"
+              name="justificacion"
+              onChange={(event, newValue) => {
+                handleJustificacion(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  handleJustificacion(newInputValue); // Maneja texto escrito directamente
+                }
+              }}
+              inputValue={formData.justificacion || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />
         </Box>
       </Box>
 
