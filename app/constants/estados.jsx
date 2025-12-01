@@ -1,49 +1,58 @@
 // Catalógo de ciudad
 const estados = {
   "Aguascalientes" : [ 
-  "",
-  "",
-  "",],
+  "Aguascalientes",
+  "Pabellón de Arteaga",
+  "San José de Gracia",],
   "Baja California" : [
-  "", 
-  "",
-  "",], 
+  "Ensenada", 
+  "Mexicali",
+  "San Felipe Mexicali",
+  "Nuevo León", 
+  "San Luis Rio Colorado",
+  "Tijuana",], 
   "Baja California Sur" : [ 
-  "",
-  "",
-  "",],
+  "Cabo San Lucas",
+  "Cd Loreto",
+  "La Paz",
+  "Municipio Mulege", 
+  "Mulege",
+  "Cd Constitución",
+  "Municipio Comondú, Cd Constitución",],
   "Campeche" : [
-  "", 
-  "",
-  "",],
+  "San Francisco de Campeche", 
+  "Sabancuy Ciudad del Carmen",],
   "CDMX" : [ 
-  "",
-  "",
-  "",],
+  "CDMX",],
   "Chiapas" : [
+  "Acapetahua", 
+  "Arriaga",
+  "Chiapas",
+  "Ciudad de Comitán de Domínguez",
+  "Comitán de Domínguez",
+  "Cuidad Hidalgo",
+  "La Concordia",
+  "Los Laguitos",
+  "San Cristóbal de las Casas",
+  "Tapachula",
+  "Tuxtla Gutiérrez",
+  "Venustiano Carranza",], 
+  "Chihuahua" : [ 
+  "",
+  "",
+  "",],
+  "Coahuila" : [
   "", 
   "",
-  "",], 
-  "Aguascalientes" : [ 
+  "",],
+  "Colima" : [ 
   "",
   "",
   "",],
-  "Chihuahua" : [
+  "Durango" : [
   "", 
   "",
-  "",],
-  "Coahuila" : [ 
-  "",
-  "",
-  "",],
-  "Colima" : [
-  "", 
-  "",
-  "",], 
-  "Durango" : [ 
-  "",
-  "",
-  "",],
+  "",],   
   "Estado de México" : [
   "", 
   "",
@@ -60,11 +69,27 @@ const estados = {
   "",
   "",
   "",],
-  "Michoacán" : [
+  "Jalisco" : [
   "", 
   "",
   "",],
+  "Michoacán" : [ 
+  "",
+  "",
+  "",],
+  "Morelos" : [
+  "", 
+  "",
+  "",], 
   "Nayarit" : [ 
+  "",
+  "",
+  "",],
+  "Nuevo León" : [
+  "", 
+  "",
+  "",],
+  "Oaxaca" : [ 
   "",
   "",
   "",],
@@ -84,47 +109,31 @@ const estados = {
   "",
   "",
   "",],
-  "Tlaxcala" : [
+  "Sinaloa" : [
   "", 
   "",
   "",], 
-  "Aguascalientes" : [ 
+  "Sonora" : [ 
+  "",
+  "",
+  "",],
+  "Tamaulipas" : [
+  "", 
+  "",
+  "",],
+  "Tlaxcala" : [ 
+  "",
+  "",
+  "",],
+  "Veracruz" : [
+  "", 
+  "",
+  "",], 
+  "Yucatán" : [ 
   "",
   "",
   "",],
   "Zacatecas" : [
-  "", 
-  "",
-  "",],
-  "Aguascalientes" : [ 
-  "",
-  "",
-  "",],
-  "Baja California" : [
-  "", 
-  "",
-  "",], 
-  "Aguascalientes" : [ 
-  "",
-  "",
-  "",],
-  "Baja California" : [
-  "", 
-  "",
-  "",],
-  "Aguascalientes" : [ 
-  "",
-  "",
-  "",],
-  "Baja California" : [
-  "", 
-  "",
-  "",], 
-  "Aguascalientes" : [ 
-  "",
-  "",
-  "",],
-  "Baja California" : [
   "", 
   "",
   "",],

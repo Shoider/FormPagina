@@ -479,6 +479,26 @@ const handleExtensionInternoChange = (event) => {
         CURPInterno: value, // Asume que tienes un campo "curp" en formData
       }));
       };
+  const handleRFC = (event) => {
+      let value = event.target.value.toUpperCase(); // Convierte a mayúsculas
+      value = value.replace(/[^A-Z0-9]/g, ""); // Solo letras y números
+      value = value.slice(0, 13); // Limita a 18 caracteres
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        RFCInterno: value, // Asume que tienes un campo "curp" en formData
+      }));
+      };
+  const handleRFCExt = (event) => {
+      let value = event.target.value.toUpperCase(); // Convierte a mayúsculas
+      value = value.replace(/[^A-Z0-9]/g, ""); // Solo letras y números
+      value = value.slice(0, 13); // Limita a 18 caracteres
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        RFCExterno: value, // Asume que tienes un campo "curp" en formData
+      }));
+      };
   // Manejo de Autocomplete de Área de Adscripción
     const handleArea = (newValue) => {
       setFormData((prevFormData) => ({
@@ -514,8 +534,38 @@ const handleExtensionInternoChange = (event) => {
       }));
     };
       //FILTRADO DE ÁREA DE ADSCRIPCIÓN
-      const filteredAreasExt = areas[formData.unidadExterno] || [];    
+      const filteredAreasExt = areas[formData.unidadExterno] || [];  
+      
+  const handleDateChangeInicio = (event) => {
+    const rawDate = new Date(event.target.value + "T00:00:00");
+    const formattedDate = [
+      rawDate.getDate().toString().padStart(2, "0"),
+      (rawDate.getMonth() + 1).toString().padStart(2, "0"),
+      rawDate.getFullYear(),
+    ].join("-");
 
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      inicioActividades: formattedDate, ///ya da bien formato DD-MM-YYYY
+      //fecha: formattedDate, // Guarda la fecha formateada en el estado
+    }));
+  };
+  //const fechaInicio = new Date(formData.inicioActividades); //cambiar de objeto a fecha
+  const handleDateChangeFin = (event) => {
+    const rawDate = new Date(event.target.value + "T00:00:00");
+    const formattedDate = [
+      rawDate.getDate().toString().padStart(2, "0"),
+      (rawDate.getMonth() + 1).toString().padStart(2, "0"),
+      rawDate.getFullYear(),
+    ].join("-");
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      finActividades: formattedDate, ///ya da bien formato DD-MM-YYYY
+      //fecha: formattedDate, // Guarda la fecha formateada en el estado
+    }));
+  };
+  //const fechaFin = new Date(formData.finActividades); //cambiar de objeto a fecha
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
           {/* Banner Responsive */}
@@ -1277,7 +1327,7 @@ const handleExtensionInternoChange = (event) => {
             label="RFC"
             placeholder="Escriba RFC"
             value={formData.RFCInterno}
-            onChange={handleChange}
+            onChange={handleRFC}
             sx={{ background: "#FFFFFF"}}
             /> 
             <TextField
@@ -1487,7 +1537,7 @@ const handleExtensionInternoChange = (event) => {
             label="RFC"
             placeholder="Escriba RFC"
             value={formData.RFCExterno}
-            onChange={handleChange}
+            onChange={handleRFCExt}
             sx={{ background: "#FFFFFF"}}
             /> 
             <TextField
@@ -1609,7 +1659,7 @@ const handleExtensionInternoChange = (event) => {
                 : "none"
             }
           >
-            <TextField
+            {/* <TextField
             required
             error={!!errors?.inicioActividades}
             id="inicioActividades"
@@ -1619,6 +1669,18 @@ const handleExtensionInternoChange = (event) => {
             value={formData.inicioActividades}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
+          /> */}
+          <TextField
+            required
+            error={!!errors?.inicioActividades}
+            id="inicioActividades"
+            name="inicioActividades"
+            label="Fecha de inicio de actividades"
+            type="date"
+            //value={formData.activacion}
+            onChange={handleDateChangeInicio}
+            sx={{ background: "#FFFFFF" }}
+            InputLabelProps={{ shrink: true }}
           />
           </Box>   
           <Box          
@@ -1628,7 +1690,7 @@ const handleExtensionInternoChange = (event) => {
                 : "none"
             }
           >
-            <TextField
+            {/* <TextField
             required
             error={!!errors?.inicioActividades}
             id="inicioActividades"
@@ -1638,6 +1700,17 @@ const handleExtensionInternoChange = (event) => {
             value={formData.inicioActividades}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb:3}}
+          /> */}
+          <TextField
+            required
+            error={!!errors?.inicioActividades}
+            id="inicioActividades"
+            name="inicioActividades"
+            label="Fecha de inicio de actividades"
+            type="date"
+            onChange={handleDateChangeInicio}
+            sx={{ background: "#FFFFFF" , mb:3}}
+            InputLabelProps={{ shrink: true }}
           />
           </Box>    
           <Box
@@ -1647,7 +1720,7 @@ const handleExtensionInternoChange = (event) => {
                 : "none"
             }
           >
-            <TextField
+            {/* <TextField
             required
             error={!!errors?.finActividades}
             id="finActividades"
@@ -1657,6 +1730,17 @@ const handleExtensionInternoChange = (event) => {
             value={formData.finActividades}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
+          /> */}
+          <TextField
+            required
+            error={!!errors?.finActividades}
+            id="finActividades"
+            name="finActividades"
+            label="Fecha de fin de actividades"
+            type="date"
+            onChange={handleDateChangeFin}
+            sx={{ background: "#FFFFFF" }}
+            InputLabelProps={{ shrink: true }}
           />
           <TextField
             required
