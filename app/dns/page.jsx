@@ -972,7 +972,7 @@ export default function Home() {
           gutterBottom
           sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
         >
-          Datos de quien autoriza la soliictud
+          Datos de quien autoriza la solicitud
         </Typography>
 
         <Box
