@@ -150,7 +150,7 @@ export default function Home() {
         "estadoInterno",
         "cpInterno",
         "direccionInterno",
-        "nombreCuenta"
+        //"nombreCuenta"
       ];
       camposRequeridos = [...camposRequeridos, ...nuevosCampos];
     }  
@@ -211,6 +211,12 @@ export default function Home() {
     if (Data.solicitud ===   "Alta de cuenta de servicio" || Data.solicitud === "Alta de cuenta de usuario externo" || Data.solicitud ===   "Alta de cuenta de usuario interno"){
       const nuevosCampos =[
         "inicioActividades",
+       ];
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
+    }  
+     if (Data.solicitud ===   "Cambio de cuenta de servicio" || Data.solicitud ===   "Alta de cuenta de servicio" ){
+      const nuevosCampos =[
+        "nombreCuenta",
        ];
       camposRequeridos = [...camposRequeridos, ...nuevosCampos];
     }  
