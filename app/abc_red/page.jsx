@@ -27,6 +27,7 @@ import tipoSolicitud from "../constants/tipoABC.jsx";
 import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 import areas from "../constants/AREAS/areas.jsx"; 
 import justificaciones from "../constants/justificaciones.jsx";
+import puestos from "../constants/PUESTOS/puestos.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -576,6 +577,42 @@ const handleExtensionInternoChange = (event) => {
       justificacion: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
+  //Manejo de autocomplete de puestos
+  const handlePuestos = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      puestoSolicitante: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      
+    }));
+  };
+  const handlePuestoAutoriza = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      puestoAutoriza: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      
+    }));
+  };
+  const handlePuestoInterno = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      puestoInterno: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      
+    }));
+  };
+   const handlePuestoExterno = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      puestoExterno: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      
+    }));
+  };
+  const handlePuestoResponsable = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      puestoResponsable: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      
+    }));
+  };
   //const fechaFin = new Date(formData.finActividades); //cambiar de objeto a fecha
   return (
     <Container disableGutters maxWidth="xxl" sx={{ background: "#FFFFFF" }}>
@@ -850,7 +887,7 @@ const handleExtensionInternoChange = (event) => {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
           />
-          <TextField
+          {/* <TextField
             required
             error={!!errors?.puestoSolicitante}
             id="puestoSolicitante"
@@ -860,7 +897,38 @@ const handleExtensionInternoChange = (event) => {
             value={formData.puestoSolicitante}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" , mb:3}}
-          />         
+          /> */}
+          {/**Puesto de Solicitante */}
+            <Autocomplete
+              disablePortal
+              options={puestos}
+              freeSolo
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.puestoSolicitante}
+                  placeholder="Escriba o seleccione el puesto del solicitante"
+                  sx={{ background: "#FFFFFF", mb:3 }}
+                  {...params}
+                  label="Puesto o cargo"
+                />
+              )}
+              id="puestoSolicitante"
+              name="puestoSolicitante"
+              onChange={(event, newValue) => {
+                handlePuestos(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  
+                    handlePuestos(newInputValue); // Maneja texto escrito directamente
+                  
+                }
+              }} 
+              inputValue={formData.puestoSolicitante || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />         
         </Box>
       </Box>     
 
@@ -921,7 +989,7 @@ const handleExtensionInternoChange = (event) => {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
           />
-          <TextField
+          {/* <TextField
             required
             error={!!errors?.puestoAutoriza}
             id="puestoAutoriza"
@@ -931,7 +999,38 @@ const handleExtensionInternoChange = (event) => {
             value={formData.IP}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb:3}}
-            />    
+            />  */}
+          {/**Puesto de Autoriza */}
+          <Autocomplete
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestoAutoriza}
+                placeholder="Escriba o seleccione el puesto de quien autoriza"
+                sx={{ background: "#FFFFFF", mb:3 }}
+                {...params}
+                label="Puesto o cargo"
+              />
+            )}
+            id="puestoAutoriza"
+            name="puestoAutoriza"
+            onChange={(event, newValue) => {
+              handlePuestoAutoriza(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                
+                  handlePuestoAutoriza(newInputValue); // Maneja texto escrito directamente
+                
+              }
+            }} 
+            inputValue={formData.puestoAutoriza || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />   
          
         </Box>
       </Box>
@@ -1005,7 +1104,38 @@ const handleExtensionInternoChange = (event) => {
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
             />   
-            <TextField
+            {/**Puesto de responsable */}
+          <Autocomplete
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestoResponsable}
+                placeholder="Escriba o seleccione el puesto del responsable en la CONAGUA"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Puesto o Cargo"
+              />
+            )}
+            id="puestoResponsable"
+            name="puestoResponsable"
+            onChange={(event, newValue) => {
+              handlePuestoResponsable(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                
+                  handlePuestoResponsable(newInputValue); // Maneja texto escrito directamente
+                
+              }
+            }} 
+            inputValue={formData.puestoResponsable || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+            {/* <TextField
             required
             error={!!errors?.puestoResponsable}
             id="puestoResponsable"
@@ -1015,7 +1145,7 @@ const handleExtensionInternoChange = (event) => {
             value={formData.puestoResponsable}
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
-            />  
+            />   */}
             <TextField
             required
             error={!!errors?.ciudadResponsable}
@@ -1132,8 +1262,39 @@ const handleExtensionInternoChange = (event) => {
             value={formData.nombreExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-          />          
-            <TextField
+          />     
+          {/**Puesto de Usuario externo */}
+          <Autocomplete
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestoExterno}
+                placeholder="Escriba o seleccione el puesto del usuario"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Puesto o Cargo"
+              />
+            )}
+            id="puestoExterno"
+            name="puestoExterno"
+            onChange={(event, newValue) => {
+              handlePuestoExterno(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                
+                  handlePuestoExterno(newInputValue); // Maneja texto escrito directamente
+                
+              }
+            }} 
+            inputValue={formData.puestoExterno || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />     
+            {/* <TextField
             required
             error={!!errors?.puestoExterno}
             id="puestoExterno"
@@ -1143,7 +1304,7 @@ const handleExtensionInternoChange = (event) => {
             value={formData.puestoExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
-            />
+            /> */}
           <TextField
             required
             error={!!errors?.nombreResponsable}
@@ -1288,7 +1449,7 @@ const handleExtensionInternoChange = (event) => {
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
             />  
-            <TextField
+            {/* <TextField
             required
             error={!!errors?.puestoInterno}
             id="puestoInterno"
@@ -1298,7 +1459,38 @@ const handleExtensionInternoChange = (event) => {
             value={formData.puestoInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
-            />
+            /> */}
+            {/**Puesto de Interno */}
+          <Autocomplete
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestoInterno}
+                placeholder="Escriba o seleccione el puesto del usuario"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Puesto o Cargo"
+              />
+            )}
+            id="puestoInterno"
+            name="puestoInterno"
+            onChange={(event, newValue) => {
+              handlePuestoInterno(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                
+                  handlePuestoInterno(newInputValue); // Maneja texto escrito directamente
+                
+              }
+            }} 
+            inputValue={formData.puestoInterno || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
             
             {/**UNIDAD ADMINISTRATIVA */}  
             <Autocomplete
@@ -1498,7 +1690,7 @@ const handleExtensionInternoChange = (event) => {
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
             />  
-            <TextField
+            {/* <TextField
             required
             error={!!errors?.puestoExterno}
             id="puestoExterno"
@@ -1508,7 +1700,38 @@ const handleExtensionInternoChange = (event) => {
             value={formData.puestoExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
-            />
+            /> */}
+            {/**Puesto de Usuario externo */}
+          <Autocomplete
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestoExterno}
+                placeholder="Escriba o seleccione el puesto del usuario"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Puesto o Cargo"
+              />
+            )}
+            id="puestoExterno"
+            name="puestoExterno"
+            onChange={(event, newValue) => {
+              handlePuestoExterno(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                
+                  handlePuestoExterno(newInputValue); // Maneja texto escrito directamente
+                
+              }
+            }} 
+            inputValue={formData.puestoExterno || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
             
             {/**UNIDAD ADMINISTRATIVA */}  
             <Autocomplete
@@ -1805,7 +2028,7 @@ const handleExtensionInternoChange = (event) => {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
           /> 
-          <TextField
+          {/* <TextField
             required
             error={!!errors?.puestoResponsable}
             id="puestoResponsable"
@@ -1815,6 +2038,37 @@ const handleExtensionInternoChange = (event) => {
             value={formData.puestoResponsable}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" , mb:3}}
+          /> */}
+           {/**Puesto de responsable */}
+          <Autocomplete
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestoResponsable}
+                placeholder="Escriba o seleccione el puesto del responsable en la CONAGUA"
+                sx={{ background: "#FFFFFF" , mb:3}}
+                {...params}
+                label="Puesto o Cargo"
+              />
+            )}
+            id="puestoResponsable"
+            name="puestoResponsable"
+            onChange={(event, newValue) => {
+              handlePuestoResponsable(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                
+                  handlePuestoResponsable(newInputValue); // Maneja texto escrito directamente
+                
+              }
+            }} 
+            inputValue={formData.puestoResponsable || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
           />
           </Box> 
           
