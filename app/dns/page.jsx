@@ -18,6 +18,15 @@ import {
   Divider,
   FormHelperText,
   Autocomplete,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Backdrop,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon
 } from "@mui/material";
 import Image from "next/image";
 import axios from "axios";
@@ -27,6 +36,12 @@ import direccionAutocomplete from "../constants/direccion.jsx";
 import ala from "../constants/ala.jsx";
 import pisos from "../constants/pisos.jsx";
 import telefonoAutocomplete from "../constants/telefono.jsx";
+import puestos from "../constants/PUESTOS/puestos.jsx";
+
+//ICONO
+import EditIcon from "@mui/icons-material/Edit";
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 
@@ -351,7 +366,160 @@ export default function Home() {
         ala: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
       }));
     };
+  //Manejo de autocomplete de puestos
+    const handlePuestoUsuario = (newValue) => {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        puestousuario: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+        
+      }));
+    };
+    const handlePuestoAproba = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      puestoAproba: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      
+    }));
+  };
+   const handlePuestoResponsable = (newValue) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      puestoResponsable: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      
+    }));
+  };
+  // Llenar el formato
+    const [formData2, setFormData2] = useState({
+      numeroFormato: "",
+    });
+  //MODAL 
+    const [open, setOpen] = useState(false);
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+      setFormData2({
+        numeroFormato: "",
+      });
+    };
 
+  const botones =[
+      { icon: <EditIcon htmlColor="#FFFFFF"/>, name: 'Modificar formato',onClick: handleClickOpen }    
+    ];
+    const [openBotton, setOpenBotton] = React.useState(false);
+      const handleOpenBotton = () => setOpenBotton(true);
+      const handleCloseBotton = () => setOpenBotton(false);
+    //PARA BOTÓN DE ACTUALIZAR FORMATO
+      // Llamada API
+      const handleSubmit2 = async (event) => {
+        handleClose();
+        event.preventDefault();
+        setBotonEstado("Enviar");
+    
+        // Arma el objeto a enviar con los datos más recientes
+        const dataToSend = {
+          ...formData2,          
+        };
+        //console.log("Lista formData en submit: ", formData2.numeroFormato);
+    
+        setAlert({
+          message: "Información Enviada",
+          severity: "success",
+        });
+        setOpenAlert(true);
+    
+        try {
+          // Aqui llamamos a la primera api
+          const formResponse = await axios.post(
+            "/api2/v3/modificardns",
+            { id: dataToSend.numeroFormato },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            },
+          );
+          const { message: formMessage, datos: Datos } = formResponse.data;   
+          console.log("Datos recibidos: ", Datos);
+
+          setFormData((prev) => ({
+            ...prev,
+            ...Datos,
+          }));
+    
+          setAlert({
+            message: formMessage,
+            severity: "success",
+          });
+          setOpenAlert(true);
+        } catch (error) {
+          if (error.response) {
+            // Si hay respuesta, podemos acceder al código de estado y a los datos.
+            const statusCode = error.response.status;
+            const errorData = error.response.data;
+    
+            console.error(
+              `Error con código ${statusCode}:`,
+              errorData.message,
+              errorData.campo,
+            );
+    
+            // Construct an object to update the errors state
+            const newErrors = {
+              [errorData.campo]: errorData.message, // Use the field name as the key and the message as the value
+            };
+            setErrors(newErrors);
+            //console.log("Errores API: ", newErrors); // Log the newErrors object
+    
+            //console.log("Objeto Errors: ", errors);
+    
+            // Manejamos el caso específico del error 422.
+            if (statusCode === 422) {
+              setAlert({
+                // Usamos el mensaje de error que viene de la API.
+                message: errorData.message || "Hay errores en los datos enviados.",
+                severity: "warning", // 'warning' o 'error' son buenas opciones aquí.
+              });
+            } else if (statusCode === 402) {
+              setAlert({
+                message: errorData.message || "Ocurrió un error inesperado.",
+                severity: "warning",
+              });
+            } else if (statusCode === 405) {
+              setAlert({
+                message: errorData.message || "Ocurrió un error inesperado.",
+                severity: "warning",
+              });
+            } else {
+              // Manejamos otros errores del servidor (ej. 404, 500).
+              setAlert({
+                message: `Error ${statusCode}: ${errorData.message || "Ocurrió un error inesperado."}`,
+                severity: "error",
+              });
+            }
+          } else {
+            // Este bloque se ejecuta si no hubo respuesta del servidor (ej. error de red).
+            console.error("Error de red o de conexión:", error.message);
+            setAlert({
+              message:
+                "No se pudo conectar con el servidor. Por favor, revisa tu conexión.",
+              severity: "error",
+            });
+          }
+          setOpenAlert(true);
+        }
+      };
+       //NUMERO DE FORMATO
+  const handleNumeroFormatoActualizar = (event) => {
+    let value = event.target.value.replace(/[^0-9]/g, ""); // Elimina caracteres no numéricos
+    value = value.slice(0, 10); // Limita la longitud a 4 caracteres
+
+    setFormData2((prevFormData) => ({
+      ...prevFormData,
+      numeroFormato: value,
+    }));
+  };
   //   const handleTelefonoChange = (event) => {
   // // Elimina todo lo que no sea dígito
   //   let value = event.target.value.replace(/[^0-9-\s /]/g, ""); // Elimina caracteres no numéricos
@@ -498,17 +666,36 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
           />
-          <TextField
-            required
-            error={!!errors?.puestoResponsable}
+          <Autocomplete
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestoResponsable}
+                placeholder="Escriba o seleccione el puesto del responsable de la aplicación"
+                sx={{ background: "#FFFFFF", mb:3 }}
+                {...params}
+                label="Puesto o Cargo"
+              />
+            )}
             id="puestoResponsable"
             name="puestoResponsable"
-            label="Puesto o Cargo"
-            placeholder="Escriba el puesto o cargo del responsable de la aplicación "
-            value={formData.puestoResponsable}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            />    
+            onChange={(event, newValue) => {
+              handlePuestoResponsable(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                
+                  handlePuestoResponsable(newInputValue); // Maneja texto escrito directamente
+                
+              }
+            }} 
+            inputValue={formData.puestoResponsable || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
         </Box>
       </Box>
 
@@ -568,17 +755,37 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
           />
-          <TextField
-            required
-            error={!!errors?.puestousuario}
-            id="puestousuario"
-            name="puestousuario"
-            label="Puesto o Cargo"
-            placeholder="Escriba el puesto o cargo del usuario(a) solicitante "
-            value={formData.puestousuario}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF" }}
-          />
+          <Autocomplete
+              disablePortal
+              options={puestos}
+              freeSolo
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.puestousuario}
+                  placeholder="Escriba o seleccione el puesto del usuario"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Puesto o Cargo"
+                />
+              )}
+              id="puestousuario"
+              name="puestousuario"
+              onChange={(event, newValue) => {
+                handlePuestoUsuario(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  
+                    handlePuestoUsuario(newInputValue); // Maneja texto escrito directamente
+                  
+                }
+              }} 
+              inputValue={formData.puestousuario || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />
+
           
           <TextField
             required
@@ -1000,17 +1207,36 @@ export default function Home() {
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
           />
-          <TextField
-            required
-            error={!!errors?.puestoAproba}
+          <Autocomplete
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestoAproba}
+                placeholder="Escriba o seleccione el puesto de quien autoriza"
+                sx={{ background: "#FFFFFF", mb:3 }}
+                {...params}
+                label="Puesto o Cargo"
+              />
+            )}
             id="puestoAproba"
             name="puestoAproba"
-            label="Puesto o Cargo"
-            placeholder="Escriba el puesto o cargo de la persona quien autoriza la solicitud "
-            value={formData.puestoAproba}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}
-            />    
+            onChange={(event, newValue) => {
+              handlePuestoAproba(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                
+                  handlePuestoAproba(newInputValue); // Maneja texto escrito directamente
+                
+              }
+            }} 
+            inputValue={formData.puestoAproba || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
         </Box>
       </Box>
 
@@ -1271,6 +1497,163 @@ export default function Home() {
           }
         </Box>
       </Box>
+
+
+      {/* DIALOG */}
+            <Dialog
+              open={open}
+              //onClose={handleClose2}
+              onSubmit={handleSubmit2}
+              sx={{
+                "& .MuiDialog-container": {
+                  backgroundColor: "f5f5f5", // Or any other color
+                },
+                "& .MuiDialog-paper": {
+                  backgroundColor: "#f4f4f5", // Customize dialog content background
+                },
+              }}
+              slotProps={{
+                paper: {
+                  component: "form",
+                  onSubmit: (event) => {
+                    //console.log("Información Enviada");
+                  },
+                },
+              }}
+            >
+              <DialogTitle align="center">
+                Modificar Formato
+              </DialogTitle>
+              <IconButton
+                aria-label="close"
+                onClick={handleClose}
+                sx={(theme) => ({
+                  position: 'absolute',
+                  right: 8,
+                  top: 8,
+                  color: theme.palette.grey[500],
+                })}
+              >
+                <CloseIcon />
+              </IconButton>
+              <DialogContent>
+                <DialogContentText>
+                  Si conoce un número de formato en el cual se pueda guiar, ingréselo.
+                  <br />
+                  *Es responsabilidad del usuario el uso adecuado de esta función.
+                </DialogContentText>
+      
+                <Divider
+                  sx={{
+                    borderBottomWidth: "1px",
+                    borderColor: "grey",
+                    ml: 0,
+                    mr: 0,
+                    mb: 1,
+                    mt: 2,
+                  }}
+                />
+      
+                <TextField
+                  required
+                  //error={!!errors?.nombreAutoriza}
+                  id="numeroFormato"
+                  name="numeroFormato"
+                  label="Número de formato"
+                  placeholder="AAMMDDXXXX. "
+                  value={formData2.numeroFormato}
+                  onChange={handleNumeroFormatoActualizar}
+                  sx={{ background: "#FFFFFF", mt: 2 }}
+                  inputProps={{ maxLength: 64 }}
+                  fullWidth
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  type="submit"
+                  onClick={handleSubmit2}
+                  sx={{
+                    mt: 0,
+                    mb: 3,
+                    width: "calc(100% - 32px)",
+                    ml: 2,
+                    mr: 4,
+                    background: theme.palette.secondary.main,
+                    color: "#FFFFFF",
+                    border: "1px solid gray",
+                  }}
+                >
+                  MODIFICAR
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={handleClose}
+                  sx={{
+                    mt: 0,
+                    mb: 3,
+                    width: "calc(100% - 32px)",
+                    ml: 2,
+                    mr: 2,
+                    background: "#98989A",
+                    color: "#FFFFFF",
+                    border: "1px solid gray",
+                  }}
+                >
+                  Cancelar
+                </Button>
+              </DialogActions>
+            </Dialog>
+      {/**Botón que muestra los varios botones */}
+          <Box 
+            sx={{ 
+                position: "fixed",
+                bottom: 10,
+                right: 10,
+                "& > :not(style)": { m: 1 },
+                flexGrow:1
+             }}>
+            <Backdrop open={openBotton} />
+            <SpeedDial
+              ariaLabel="SpeedDial Menu"
+              sx={{ 
+                position: 'fixed', 
+                bottom: 20, 
+                right: 20,
+                '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
+                  backgroundColor: 'dial.secondary',
+                  '&:hover': {
+                    backgroundColor: 'dial.main',
+                  }
+                }
+              }}
+              icon={<SpeedDialIcon fontSize='large'/>}
+              onClose={handleCloseBotton}
+              onOpen={handleOpenBotton}
+              open={openBotton}
+            >        
+              {botones.map((action) => (
+                <SpeedDialAction
+                  sx={{ 
+                    position:"center",
+                    '& .MuiFab-root': {
+                      backgroundColor: 'dial.third',
+                      '&:hover': {
+                        backgroundColor: 'dial.forty',
+                      }
+                    },
+                    mt:1,
+                    mb:1,
+                  }}
+                  key={action.name}
+                  icon={action.icon}
+                  slotProps={{tooltip:{title:action.name}}}
+                  //tooltipTitle={action.name}
+                  tooltipOpen
+                  onClick={action.onClick}
+                />
+              ))}
+            </SpeedDial>
+          </Box>
 
       {/* ALERT */}
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} />
