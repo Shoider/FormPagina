@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Container,
@@ -286,6 +286,35 @@ export default function Home() {
       };
       
     }, [openModal, progresoMostrado]);
+    //Llamada a APIs para obtener catálogos
+
+    
+    // Estado para las opciones del autocomplete de dirección
+    const [direccionOptions, setDireccionOptions] = useState([]);
+    
+    // Fetch opciones desde la API
+    useEffect(() => {
+      const fetchCatalogo = async () => {
+        try {
+          const response = await axios.post('/api2/v3/catalogodir', {});
+          setDireccionOptions(response.data);
+        } catch (error) {
+          console.error('Error fetching catalogo:', error);
+        }
+      };
+      fetchCatalogo();
+    }, []);
+
+    // Estados para las selecciones en cascada
+    const [selectedEstado, setSelectedEstado] = useState('');
+    const [selectedCiudad, setSelectedCiudad] = useState('');
+    const [selectedCP, setSelectedCP] = useState('');
+
+    // Calcular opciones filtradas
+    const estadoOptions = [...new Set(direccionOptions.map(item => item.Estado))].filter(Boolean);
+    const ciudadOptions = selectedEstado ? [...new Set(direccionOptions.filter(item => item.Estado === selectedEstado).map(item => item.Ciudad))].filter(Boolean) : [];
+    const cpOptions = selectedCiudad ? [...new Set(direccionOptions.filter(item => item.Estado === selectedEstado && item.Ciudad === selectedCiudad).map(item => item.CP))].filter(Boolean) : [];
+    const direccionFilteredOptions = selectedCP ? direccionOptions.filter(item => item.Estado === selectedEstado && item.Ciudad === selectedCiudad && item.CP === selectedCP) : [];
     
     //Descarga automática del formato en cuanto el botón esta en "Descargar PDF"
     React.useEffect(() => {
@@ -304,9 +333,9 @@ export default function Home() {
           }, 1000);
         }
       }, [pdfUrl, botonEstado, nombreArchivo]);
-
-
-  // Llamada API
+      
+      
+    // Llamada API
   const handleSubmit = async (event) => {
     handleCloseModal();
     event.preventDefault();
@@ -456,6 +485,47 @@ const handleExtensionInternoChange = (event) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       solicitud: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+    }));
+  };
+  //MANEJO DE AUTOCOMPLETE DE DIRECCIONES, ESTADO, CIUDAD Y CODIGO POSTAL
+  const handleDireccionResponsable = (newValue) => {
+    const value = (newValue && typeof newValue === 'object') ? newValue.Dirección : newValue;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      direccionResponsable: value || "",
+    }));
+  };
+  const handleEstadoResponsable = (newValue) => {
+    const value = (newValue && typeof newValue === 'object') ? newValue.Estado : newValue;
+    setSelectedEstado(value || '');
+    setSelectedCiudad('');
+    setSelectedCP('');
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      estadoResponsable: value || "",
+      ciudadResponsable: "",
+      cpResponsable: "",
+      direccionResponsable: "",
+    }));
+  };
+  const handleCiudadResponsable = (newValue) => {
+    const value = (newValue && typeof newValue === 'object') ? newValue.Ciudad : newValue;
+    setSelectedCiudad(value || '');
+    setSelectedCP('');
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      ciudadResponsable: value || "",
+      cpResponsable: "",
+      direccionResponsable: "",
+    }));
+  };
+  const handleCPResponsable = (newValue) => {
+    const value = (newValue && typeof newValue === 'object') ? newValue.CP : newValue;
+    setSelectedCP(value || '');
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      cpResponsable: value || "",
+      direccionResponsable: "",
     }));
   };
   const handleReporteChange = (event) => {
@@ -1134,62 +1204,121 @@ const handleExtensionInternoChange = (event) => {
             inputValue={formData.puestoResponsable || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
-          />
-            {/* <TextField
-            required
-            error={!!errors?.puestoResponsable}
-            id="puestoResponsable"
-            name="puestoResponsable"
-            label="Puesto del responsable de la CONAGUA"
-            placeholder="Escriba del responsable de la CONAGUA"
-            value={formData.puestoResponsable}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF"}}
-            />   */}
-            <TextField
-            required
-            error={!!errors?.ciudadResponsable}
-            id="ciudadResponsable"
-            name="ciudadResponsable"
-            label="Ciudad"
-            placeholder="Escriba la ciudad"
-            value={formData.ciudadResponsable}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF"}}
-            /> 
-            <TextField
-            required
-            error={!!errors?.estadoResponsable}
+          />           
+          {/**Autocomplete para estdo, ciudad, cp y dirección */}            
+            <Autocomplete
+            disablePortal
+            options={estadoOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.estadoResponsable}
+                placeholder="Escriba o seleccione el estado"
+                sx={{ background: "#FFFFFF"}}
+                {...params}
+                label="Estado"
+              />
+            )}
             id="estadoResponsable"
             name="estadoResponsable"
-            label="Estado"
-            placeholder="Escriba el estado"
-            value={formData.estadoResponsable}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF"}}
-            /> 
-            <TextField
-            required
-            error={!!errors?.cpResponsable}
+            onChange={(event, newValue) => {
+              handleEstadoResponsable(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleEstadoResponsable(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.estadoResponsable || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          /> 
+           <Autocomplete
+            disablePortal
+            options={ciudadOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.ciudadResponsable}
+                placeholder="Escriba o seleccione la ciudad"
+                sx={{ background: "#FFFFFF"}}
+                {...params}
+                label="Ciudad"
+              />
+            )}
+            id="ciudadResponsable"
+            name="ciudadResponsable"
+            onChange={(event, newValue) => {
+              handleCiudadResponsable(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleCiudadResponsable(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.ciudadResponsable || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+            
+          <Autocomplete
+            disablePortal
+            options={cpOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.cpResponsable}
+                placeholder="Escriba o seleccione el cp"
+                sx={{ background: "#FFFFFF"}}
+                {...params}
+                label="Códido Postal"
+              />
+            )}
             id="cpResponsable"
             name="cpResponsable"
-            label="Código Postal"
-            placeholder="Escriba el código postal"
-            value={formData.cpResponsable}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF"}}
-            /> 
-            <TextField
-            required
-            error={!!errors?.direccionResponsable}
+            onChange={(event, newValue) => {
+              handleCPResponsable(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleCPResponsable(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.cpResponsable || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          /> 
+          <Autocomplete
+            disablePortal
+            options={direccionFilteredOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.direccionResponsable}
+                placeholder="Escriba o seleccione la dirección"
+                sx={{ background: "#FFFFFF", mb: 3 }}
+                {...params}
+                label="Dirección"
+              />
+            )}
             id="direccionResponsable"
             name="direccionResponsable"
-            label="Dirección"
-            placeholder="Escriba la dirección"
-            value={formData.direccionResponsable}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb:3}}
-            /> 
+            onChange={(event, newValue) => {
+              handleDireccionResponsable(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleDireccionResponsable(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.direccionResponsable || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option.Dirección || ""}
+            isOptionEqualToValue={(option, value) => option.Dirección === value}
+          />          
          
         </Box>
       </Box>
@@ -1617,7 +1746,7 @@ const handleExtensionInternoChange = (event) => {
             value={formData.direccionInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb:3}}
-            />          
+            />                   
         </Box>
       </Box>
 
