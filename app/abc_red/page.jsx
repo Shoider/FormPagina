@@ -89,6 +89,9 @@ export default function Home() {
 
     //Datos adicionales de usuario externo
     finActividades:"",
+
+    //Datos adicionales para bajas 
+    datosAdicionales: ""
   });
 
   // Nombre PDF
@@ -1990,7 +1993,72 @@ const handleExtensionInternoChange = (event) => {
             />          
         </Box>
       </Box>
-      
+      {/* Datos del adicionales */}
+      <Box
+      display={formData.solicitud === "Baja de cuenta de servicio" 
+        || formData.solicitud === "Baja de cuenta de usuario externo"
+        || formData.solicitud === "Baja de cuenta de usuario interno"
+        || formData.solicitud === "Cambio de cuenta de usuario interno"
+        
+        ? "block" : "none"}
+        component="section"
+        sx={{
+          mx: "auto",
+          width: "calc(100% - 32px)",
+          border: "2px solid grey",
+          mt: 2,
+          mb: 3,
+          p: 2,
+          borderRadius: 2,
+          background: "#F4F4F5",
+          padding: "0 8px",
+          "@media (min-width: 960px)": {
+            maxWidth: "50.00%",
+            width: "auto",
+            margin: "2rem auto",
+            padding: "2",
+          },
+        }}
+      >
+        {/* SubTitle */}
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mt: 3, width: "calc(100% - 32px)", ml: 2, mr: 4 }}
+        >
+          Datos adicionales
+          
+        </Typography>
+
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": {
+              mt: 2,
+              width: "calc(100% - 32px)",
+              ml: 2,
+              mr: 4,
+            },
+          }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >                    
+          <TextField
+            required
+            //error={!!errors?.datosAdicionales}
+            id="datosAdicionales"
+            name="datosAdicionales"
+            label="Datos adicionales"
+            placeholder="Escriba los datos adicionales"
+            value={formData.datosAdicionales}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF",mb:3 }}
+          />
+          </Box>           
+         
+      </Box>
       
       {/* Datos del adicionales */}
       <Box
