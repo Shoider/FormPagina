@@ -14,6 +14,7 @@ const pisos = [
   "Piso 11",
   "Piso 12",
   "PH",
+  "E1",
 ];
 
 export default pisos;

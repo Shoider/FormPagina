@@ -28,6 +28,8 @@ import unidadesAdmin from "../constants/unidadesAdministrativas.jsx";
 import areas from "../constants/AREAS/areas.jsx"; 
 import justificaciones from "../constants/justificaciones.jsx";
 import puestos from "../constants/PUESTOS/puestos.jsx";
+import ala from "../constants/ala.jsx";
+import pisos from "../constants/pisos.jsx";
 
 export default function Home() {
   const theme = useTheme();
@@ -490,6 +492,19 @@ const handleExtensionInternoChange = (event) => {
       solicitud: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
+  //Handle de piso y ala
+  const handlePisos = (newValue) => {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        piso: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      }));
+    };
+    const handleAla = (newValue) => {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        ala: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
+      }));
+    };
   //MANEJO DE AUTOCOMPLETE DE DIRECCIONES, ESTADO, CIUDAD Y CODIGO POSTAL DE RESPONSABLES
   const handleDireccionResponsable = (newValue) => {
     const value = (newValue && typeof newValue === 'object') ? newValue.Dirección : newValue;
@@ -1404,7 +1419,81 @@ const handleExtensionInternoChange = (event) => {
             getOptionLabel={(option) => option.Dirección || ""}
             isOptionEqualToValue={(option, value) => option.Dirección === value}
           />          
-         
+         <Box
+            sx={{
+              display:
+                formData.direccionResponsable ===
+                "Insurgentes Sur No. 2416, Col. Copilco El Bajo, Alc. Coyoacán, C.P. 04340, CDMX."
+                || formData.direccionResponsable ===
+                "Av. Insurgentes Sur 2416 Col.Copilco el Bajo. CP.04340, Coyoacán, CDMX"
+                  ? "flex"
+                  : "none",
+              align: "center",
+              headerAlign: "center",
+              textAlign: "center",
+
+              //display:"flex"
+            }}
+          >
+            <Autocomplete
+              disablePortal
+              options={pisos}
+              freeSolo
+              sx={{ width: "50%" }}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.piso}
+                  placeholder="Escriba o seleccione el piso"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Piso"
+                />
+              )}
+              id="piso"
+              name="piso"
+              onChange={(event, newValue) => {
+                handlePisos(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  handlePisos(newInputValue); // Maneja texto escrito directamente
+                }
+              }}
+              inputValue={formData.piso || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />
+            <Autocomplete
+              disablePortal
+              options={ala}
+              freeSolo
+              sx={{ width: "50%" }}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.ala}
+                  placeholder="Escriba o seleccione el ala"
+                  sx={{ background: "#FFFFFF" , mb:3}}
+                  {...params}
+                  label="Ala"
+                />
+              )}
+              id="ala"
+              name="ala"
+              onChange={(event, newValue) => {
+                handleAla(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  handleAla(newInputValue); // Maneja texto escrito directamente
+                }
+              }}
+              inputValue={formData.ala || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />
+          </Box>
         </Box>
       </Box>
 
@@ -1460,7 +1549,7 @@ const handleExtensionInternoChange = (event) => {
             error={!!errors?.nombreCuenta}
             id="nombreCuenta"
             name="nombreCuenta"
-            label="Nombre de la cuenta de servicio"
+            label="Nombre de la Cuenta de Servicio"
             placeholder="Escriba el nombre de la cuenta de servicio"
             value={formData.nombreCuenta}
             onChange={handleChange}
@@ -1471,8 +1560,8 @@ const handleExtensionInternoChange = (event) => {
             error={!!errors?.nombreExterno}
             id="nombreExterno"
             name="nombreExterno"
-            label="Nombre"
-            placeholder="Escriba el nombre del usuario externo"
+            label="Nombre del usuario externo"
+            placeholder="Escriba el nombre completo del usuario externo"
             value={formData.nombreExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
@@ -1489,7 +1578,7 @@ const handleExtensionInternoChange = (event) => {
                 placeholder="Escriba o seleccione el puesto del usuario"
                 sx={{ background: "#FFFFFF" }}
                 {...params}
-                label="Puesto o Cargo"
+                label="Puesto o Cargo del Usuario Externo"
               />
             )}
             id="puestoExterno"
@@ -1507,31 +1596,19 @@ const handleExtensionInternoChange = (event) => {
             inputValue={formData.puestoExterno || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
-          />     
-            {/* <TextField
-            required
-            error={!!errors?.puestoExterno}
-            id="puestoExterno"
-            name="puestoExterno"
-            label="Puesto"
-            placeholder="Escriba el puesto"
-            value={formData.puestoExterno}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF"}}
-            /> */}
-
+          />   
             {/**Agregar autocomplete de puestoresponsable */}
-          {/* <TextField
+          <TextField
             required
             error={!!errors?.nombreResponsable}
             id="nombreResponsable"
             name="nombreResponsable"
             label="Nombre del responsable de la CONAGUA"
-            placeholder="Escriba el nombre del responsable de la CONAGUA"
+            placeholder="Escriba el nombre completo del responsable de la CONAGUA"
             value={formData.nombreResponsable}
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
-            />    */}
+            />   
           {/**Puesto de responsable */}
           <Autocomplete
             disablePortal
@@ -1562,31 +1639,9 @@ const handleExtensionInternoChange = (event) => {
             inputValue={formData.puestoResponsable || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
-          />   
-            
+          />               
             {/*Agregar autocomplete de estado, ciudad, cp y direciión de reponsable */}
-            {/* <TextField
-            required
-            error={!!errors?.ciudadResponsable}
-            id="ciudadResponsable"
-            name="ciudadResponsable"
-            label="Ciudad"
-            placeholder="Escriba la ciudad"
-            value={formData.ciudadResponsable}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF"}}
-            /> 
-            <TextField
-            required
-            error={!!errors?.estadoResponsable}
-            id="estadoResponsable"
-            name="estadoResponsable"
-            label="Estado"
-            placeholder="Escriba el estado"
-            value={formData.estadoResponsable}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF"}}
-            />  */}
+            
             <Autocomplete
             disablePortal
             options={estadoOptions}
@@ -1643,28 +1698,7 @@ const handleExtensionInternoChange = (event) => {
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
-            {/* <TextField
-            required
-            error={!!errors?.cpResponsable}
-            id="cpResponsable"
-            name="cpResponsable"
-            label="Código Postal"
-            placeholder="Escriba el código postal"
-            value={formData.cpResponsable}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF"}}
-            /> 
-            <TextField
-            required
-            error={!!errors?.direccionResponsable}
-            id="direccionResponsable"
-            name="direccionResponsable"
-            label="Dirección"
-            placeholder="Escriba la dirección"
-            value={formData.direccionResponsable}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb:3}}
-            />  */}
+            
          <Autocomplete
             disablePortal
             options={cpOptions}
@@ -1721,6 +1755,81 @@ const handleExtensionInternoChange = (event) => {
             getOptionLabel={(option) => option.Dirección || ""}
             isOptionEqualToValue={(option, value) => option.Dirección === value}
           />  
+          <Box
+            sx={{
+              display:
+                formData.direccionResponsable ===
+                "Insurgentes Sur No. 2416, Col. Copilco El Bajo, Alc. Coyoacán, C.P. 04340, CDMX."
+                || formData.direccionResponsable ===
+                "Av. Insurgentes Sur 2416 Col.Copilco el Bajo. CP.04340, Coyoacán, CDMX"
+                  ? "flex"
+                  : "none",
+              align: "center",
+              headerAlign: "center",
+              textAlign: "center",
+
+              //display:"flex"
+            }}
+          >
+            <Autocomplete
+              disablePortal
+              options={pisos}
+              freeSolo
+              sx={{ width: "50%" }}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.piso}
+                  placeholder="Escriba o seleccione el piso"
+                  sx={{ background: "#FFFFFF" , mb:3}}
+                  {...params}
+                  label="Piso"
+                />
+              )}
+              id="piso"
+              name="piso"
+              onChange={(event, newValue) => {
+                handlePisos(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  handlePisos(newInputValue); // Maneja texto escrito directamente
+                }
+              }}
+              inputValue={formData.piso || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />
+            <Autocomplete
+              disablePortal
+              options={ala}
+              freeSolo
+              sx={{ width: "50%" }}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.ala}
+                  placeholder="Escriba o seleccione el ala"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Ala"
+                />
+              )}
+              id="ala"
+              name="ala"
+              onChange={(event, newValue) => {
+                handleAla(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  handleAla(newInputValue); // Maneja texto escrito directamente
+                }
+              }}
+              inputValue={formData.ala || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />
+          </Box>
         </Box>
       </Box>
 
@@ -1924,17 +2033,7 @@ const handleExtensionInternoChange = (event) => {
             sx={{ background: "#FFFFFF"}}
             /> 
             {/**Agregar autocomplete de estado, ciudad, cp y dirección de interno  */}
-            {/* <TextField
-            required
-            error={!!errors?.ciudadInterno}
-            id="ciudadInterno"
-            name="ciudadInterno"
-            label="Ciudad"
-            placeholder="Escriba la ciudad"
-            value={formData.ciudadInterno}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF"}}
-            />  */}
+            
             <Autocomplete
             disablePortal
             options={estadoOptions}
@@ -1991,17 +2090,7 @@ const handleExtensionInternoChange = (event) => {
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />
-            {/* <TextField
-            required
-            error={!!errors?.estadoInterno}
-            id="estadoInterno"
-            name="estadoInterno"
-            label="Estado"
-            placeholder="Escriba el estado"
-            value={formData.estadoInterno}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF"}}
-            />  */}
+            
 
             <Autocomplete
             disablePortal
@@ -2031,17 +2120,7 @@ const handleExtensionInternoChange = (event) => {
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           /> 
-            {/* <TextField
-            required
-            error={!!errors?.cpInterno}
-            id="cpInterno"
-            name="cpInterno"
-            label="Código Postal"
-            placeholder="Escriba el código postal"
-            value={formData.cpInterno}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF"}}
-            />  */}
+            
             <Autocomplete
             disablePortal
             options={direccionFilteredOptions}
@@ -2070,17 +2149,82 @@ const handleExtensionInternoChange = (event) => {
             getOptionLabel={(option) => option.Dirección || ""}
             isOptionEqualToValue={(option, value) => option.Dirección === value}
           /> 
-            {/* <TextField
-            required
-            error={!!errors?.direccionInterno}
-            id="direccionInterno"
-            name="direccionInterno"
-            label="Dirección"
-            placeholder="Escriba la direccción"
-            value={formData.direccionInterno}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb:3}}
-            />                    */}
+          
+          <Box
+            sx={{
+              display:
+                formData.direccionInterno ===
+                "Insurgentes Sur No. 2416, Col. Copilco El Bajo, Alc. Coyoacán, C.P. 04340, CDMX." 
+                || formData.direccionInterno === 
+                "Av. Insurgentes Sur 2416 Col.Copilco el Bajo. CP.04340, Coyoacán, CDMX"
+                  ? "flex"
+                  : "none",
+              align: "center",
+              headerAlign: "center",
+              textAlign: "center",
+
+              //display:"flex"
+            }}
+          >
+            <Autocomplete
+              disablePortal
+              options={pisos}
+              freeSolo
+              sx={{ width: "50%" }}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.piso}
+                  placeholder="Escriba o seleccione el piso"
+                  sx={{ background: "#FFFFFF" , mb:3}}
+                  {...params}
+                  label="Piso"
+                />
+              )}
+              id="piso"
+              name="piso"
+              onChange={(event, newValue) => {
+                handlePisos(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  handlePisos(newInputValue); // Maneja texto escrito directamente
+                }
+              }}
+              inputValue={formData.piso || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />
+            <Autocomplete
+              disablePortal
+              options={ala}
+              freeSolo
+              sx={{ width: "50%" }}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.ala}
+                  placeholder="Escriba o seleccione el ala"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Ala"
+                />
+              )}
+              id="ala"
+              name="ala"
+              onChange={(event, newValue) => {
+                handleAla(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  handleAla(newInputValue); // Maneja texto escrito directamente
+                }
+              }}
+              inputValue={formData.ala || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />
+          </Box>
         </Box>
       </Box>
 
@@ -2433,7 +2577,82 @@ const handleExtensionInternoChange = (event) => {
             inputValue={formData.direccionExterno || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option.Dirección || ""}
             isOptionEqualToValue={(option, value) => option.Dirección === value}
-          />  
+          /> 
+          <Box
+            sx={{
+              display:
+                formData.direccionExterno ===
+                "Insurgentes Sur No. 2416, Col. Copilco El Bajo, Alc. Coyoacán, C.P. 04340, CDMX."
+                || formData.direccionExterno ===
+                "Av. Insurgentes Sur 2416 Col.Copilco el Bajo. CP.04340, Coyoacán, CDMX"
+                  ? "flex"
+                  : "none",
+              align: "center",
+              headerAlign: "center",
+              textAlign: "center",
+
+              //display:"flex"
+            }}
+          >
+            <Autocomplete
+              disablePortal
+              options={pisos}
+              freeSolo
+              sx={{ width: "50%" }}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.piso}
+                  placeholder="Escriba o seleccione el piso"
+                  sx={{ background: "#FFFFFF" , mb:3}}
+                  {...params}
+                  label="Piso"
+                />
+              )}
+              id="piso"
+              name="piso"
+              onChange={(event, newValue) => {
+                handlePisos(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  handlePisos(newInputValue); // Maneja texto escrito directamente
+                }
+              }}
+              inputValue={formData.piso || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />
+            <Autocomplete
+              disablePortal
+              options={ala}
+              freeSolo
+              sx={{ width: "50%" }}
+              renderInput={(params) => (
+                <TextField
+                  required
+                  error={!!errors?.ala}
+                  placeholder="Escriba o seleccione el ala"
+                  sx={{ background: "#FFFFFF" }}
+                  {...params}
+                  label="Ala"
+                />
+              )}
+              id="ala"
+              name="ala"
+              onChange={(event, newValue) => {
+                handleAla(newValue); // Maneja selección de opciones
+              }}
+              onInputChange={(event, newInputValue) => {
+                if (event?.type === "change") {
+                  handleAla(newInputValue); // Maneja texto escrito directamente
+                }
+              }}
+              inputValue={formData.ala || ""} // Controla el valor mostrado
+              getOptionLabel={(option) => option || ""}
+              isOptionEqualToValue={(option, value) => option === value}
+            />
+          </Box> 
         </Box>
       </Box>
       {/* Datos del adicionales */}
