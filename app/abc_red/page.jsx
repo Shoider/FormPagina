@@ -490,7 +490,7 @@ const handleExtensionInternoChange = (event) => {
       solicitud: newValue || "", // Asegura que siempre haya un valor (incluso si es string vacío)
     }));
   };
-  //MANEJO DE AUTOCOMPLETE DE DIRECCIONES, ESTADO, CIUDAD Y CODIGO POSTAL
+  //MANEJO DE AUTOCOMPLETE DE DIRECCIONES, ESTADO, CIUDAD Y CODIGO POSTAL DE RESPONSABLES
   const handleDireccionResponsable = (newValue) => {
     const value = (newValue && typeof newValue === 'object') ? newValue.Dirección : newValue;
     setFormData((prevFormData) => ({
@@ -529,6 +529,88 @@ const handleExtensionInternoChange = (event) => {
       ...prevFormData,
       cpResponsable: value || "",
       direccionResponsable: "",
+    }));
+  };
+  //MANEJO DE AUTOCOMPLETE DE DIRECCIONES, ESTADO, CIUDAD Y CODIGO POSTAL DE EXTERNOS
+  const handleDireccionExternos = (newValue) => {
+    const value = (newValue && typeof newValue === 'object') ? newValue.Dirección : newValue;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      direccionExterno: value || "",
+    }));
+  };
+  const handleEstadoExternos= (newValue) => {
+    const value = (newValue && typeof newValue === 'object') ? newValue.Estado : newValue;
+    setSelectedEstado(value || '');
+    setSelectedCiudad('');
+    setSelectedCP('');
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      estadoExterno: value || "",
+      ciudadExterno: "",
+      cpExterno: "",
+      direccionExterno: "",
+    }));
+  };
+  const handleCiudadExternos = (newValue) => {
+    const value = (newValue && typeof newValue === 'object') ? newValue.Ciudad : newValue;
+    setSelectedCiudad(value || '');
+    setSelectedCP('');
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      ciudadExterno: value || "",
+      cpExterno: "",
+      direccionExterno: "",
+    }));
+  };
+  const handleCPExternos= (newValue) => {
+    const value = (newValue && typeof newValue === 'object') ? newValue.CP : newValue;
+    setSelectedCP(value || '');
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      cpExterno: value || "",
+      direccionExterno: "",
+    }));
+  };
+  //MANEJO DE AUTOCOMPLETE DE DIRECCIONES, ESTADO, CIUDAD Y CODIGO POSTAL DE INTERNOS
+  const handleDireccionInternos = (newValue) => {
+    const value = (newValue && typeof newValue === 'object') ? newValue.Dirección : newValue;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      direccionInterno: value || "",
+    }));
+  };
+  const handleEstadoInternos= (newValue) => {
+    const value = (newValue && typeof newValue === 'object') ? newValue.Estado : newValue;
+    setSelectedEstado(value || '');
+    setSelectedCiudad('');
+    setSelectedCP('');
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      estadoInterno: value || "",
+      ciudadInterno: "",
+      cpInterno: "",
+      direccionInterno: "",
+    }));
+  };
+  const handleCiudadInternos = (newValue) => {
+    const value = (newValue && typeof newValue === 'object') ? newValue.Ciudad : newValue;
+    setSelectedCiudad(value || '');
+    setSelectedCP('');
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      ciudadInterno: value || "",
+      cpInterno: "",
+      direccionInterno: "",
+    }));
+  };
+  const handleCPInternos= (newValue) => {
+    const value = (newValue && typeof newValue === 'object') ? newValue.CP : newValue;
+    setSelectedCP(value || '');
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      cpInterno: value || "",
+      direccionInterno: "",
     }));
   };
   const handleReporteChange = (event) => {
@@ -1208,7 +1290,7 @@ const handleExtensionInternoChange = (event) => {
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
           />           
-          {/**Autocomplete para estdo, ciudad, cp y dirección */}            
+          {/**Autocomplete para estado, ciudad, cp y dirección */}            
             <Autocomplete
             disablePortal
             options={estadoOptions}
@@ -1437,7 +1519,9 @@ const handleExtensionInternoChange = (event) => {
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
             /> */}
-          <TextField
+
+            {/**Agregar autocomplete de puestoresponsable */}
+          {/* <TextField
             required
             error={!!errors?.nombreResponsable}
             id="nombreResponsable"
@@ -1447,19 +1531,41 @@ const handleExtensionInternoChange = (event) => {
             value={formData.nombreResponsable}
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
-            />   
-            <TextField
-            required
-            error={!!errors?.puestoResponsable}
+            />    */}
+          {/**Puesto de responsable */}
+          <Autocomplete
+            disablePortal
+            options={puestos}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.puestoResponsable}
+                placeholder="Escriba o seleccione el puesto del responsable en la CONAGUA"
+                sx={{ background: "#FFFFFF" }}
+                {...params}
+                label="Puesto del responsable de la CONAGUA"
+              />
+            )}
             id="puestoResponsable"
             name="puestoResponsable"
-            label="Puesto del responsable de la CONAGUA"
-            placeholder="Escriba del responsable de la CONAGUA"
-            value={formData.puestoResponsable}
-            onChange={handleChange}
-            sx={{ background: "#FFFFFF"}}
-            />  
-            <TextField
+            onChange={(event, newValue) => {
+              handlePuestoResponsable(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                
+                  handlePuestoResponsable(newInputValue); // Maneja texto escrito directamente
+                
+              }
+            }} 
+            inputValue={formData.puestoResponsable || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />   
+            
+            {/*Agregar autocomplete de estado, ciudad, cp y direciión de reponsable */}
+            {/* <TextField
             required
             error={!!errors?.ciudadResponsable}
             id="ciudadResponsable"
@@ -1480,8 +1586,64 @@ const handleExtensionInternoChange = (event) => {
             value={formData.estadoResponsable}
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
-            /> 
-            <TextField
+            />  */}
+            <Autocomplete
+            disablePortal
+            options={estadoOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.estadoResponsable}
+                placeholder="Escriba o seleccione el estado"
+                sx={{ background: "#FFFFFF"}}
+                {...params}
+                label="Estado"
+              />
+            )}
+            id="estadoResponsable"
+            name="estadoResponsable"
+            onChange={(event, newValue) => {
+              handleEstadoResponsable(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleEstadoResponsable(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.estadoResponsable || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          /> 
+           <Autocomplete
+            disablePortal
+            options={ciudadOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.ciudadResponsable}
+                placeholder="Escriba o seleccione la ciudad"
+                sx={{ background: "#FFFFFF"}}
+                {...params}
+                label="Ciudad"
+              />
+            )}
+            id="ciudadResponsable"
+            name="ciudadResponsable"
+            onChange={(event, newValue) => {
+              handleCiudadResponsable(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleCiudadResponsable(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.ciudadResponsable || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+            {/* <TextField
             required
             error={!!errors?.cpResponsable}
             id="cpResponsable"
@@ -1502,8 +1664,63 @@ const handleExtensionInternoChange = (event) => {
             value={formData.direccionResponsable}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb:3}}
-            /> 
-         
+            />  */}
+         <Autocomplete
+            disablePortal
+            options={cpOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.cpResponsable}
+                placeholder="Escriba o seleccione el cp"
+                sx={{ background: "#FFFFFF"}}
+                {...params}
+                label="Códido Postal"
+              />
+            )}
+            id="cpResponsable"
+            name="cpResponsable"
+            onChange={(event, newValue) => {
+              handleCPResponsable(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleCPResponsable(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.cpResponsable || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          /> 
+          <Autocomplete
+            disablePortal
+            options={direccionFilteredOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.direccionResponsable}
+                placeholder="Escriba o seleccione la dirección"
+                sx={{ background: "#FFFFFF", mb: 3 }}
+                {...params}
+                label="Dirección"
+              />
+            )}
+            id="direccionResponsable"
+            name="direccionResponsable"
+            onChange={(event, newValue) => {
+              handleDireccionResponsable(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleDireccionResponsable(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.direccionResponsable || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option.Dirección || ""}
+            isOptionEqualToValue={(option, value) => option.Dirección === value}
+          />  
         </Box>
       </Box>
 
@@ -1564,7 +1781,7 @@ const handleExtensionInternoChange = (event) => {
             error={!!errors?.nombreInterno}
             id="nombreInterno"
             name="nombreInterno"
-            label="Nombre Completo"
+            label="Nombre"
             placeholder="Escriba el nombre del usuario interno"
             value={formData.nombreInterno}
             onChange={handleChange}
@@ -1706,7 +1923,8 @@ const handleExtensionInternoChange = (event) => {
             onChange={handleExtensionInternoChange}
             sx={{ background: "#FFFFFF"}}
             /> 
-            <TextField
+            {/**Agregar autocomplete de estado, ciudad, cp y dirección de interno  */}
+            {/* <TextField
             required
             error={!!errors?.ciudadInterno}
             id="ciudadInterno"
@@ -1716,8 +1934,64 @@ const handleExtensionInternoChange = (event) => {
             value={formData.ciudadInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
-            /> 
-            <TextField
+            />  */}
+            <Autocomplete
+            disablePortal
+            options={estadoOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.estadoInterno}
+                placeholder="Escriba o seleccione el estado"
+                sx={{ background: "#FFFFFF"}}
+                {...params}
+                label="Estado"
+              />
+            )}
+            id="estadoInterno"
+            name="estadoInterno"
+            onChange={(event, newValue) => {
+              handleEstadoInternos(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleEstadoInternos(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.estadoInterno || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          /> 
+          <Autocomplete
+            disablePortal
+            options={ciudadOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.ciudadInterno}
+                placeholder="Escriba o seleccione la ciudad"
+                sx={{ background: "#FFFFFF"}}
+                {...params}
+                label="Ciudad"
+              />
+            )}
+            id="ciudadInterno"
+            name="ciudadInterno"
+            onChange={(event, newValue) => {
+              handleCiudadInternos(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleCiudadInternos(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.ciudadInterno || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+            {/* <TextField
             required
             error={!!errors?.estadoInterno}
             id="estadoInterno"
@@ -1727,8 +2001,37 @@ const handleExtensionInternoChange = (event) => {
             value={formData.estadoInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
-            /> 
-            <TextField
+            />  */}
+
+            <Autocomplete
+            disablePortal
+            options={cpOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.cpInterno}
+                placeholder="Escriba o seleccione el cp"
+                sx={{ background: "#FFFFFF"}}
+                {...params}
+                label="Códido Postal"
+              />
+            )}
+            id="cpInterno"
+            name="cpInterno"
+            onChange={(event, newValue) => {
+              handleCPInternos(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleCPInternos(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.cpInterno || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          /> 
+            {/* <TextField
             required
             error={!!errors?.cpInterno}
             id="cpInterno"
@@ -1738,8 +2041,36 @@ const handleExtensionInternoChange = (event) => {
             value={formData.cpInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF"}}
-            /> 
-            <TextField
+            />  */}
+            <Autocomplete
+            disablePortal
+            options={direccionFilteredOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.direccionInterno}
+                placeholder="Escriba o seleccione la dirección"
+                sx={{ background: "#FFFFFF", mb: 3 }}
+                {...params}
+                label="Dirección"
+              />
+            )}
+            id="direccionInterno"
+            name="direccionInterno"
+            onChange={(event, newValue) => {
+              handleDireccionInternos(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleDireccionInternos(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.direccionInterno || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option.Dirección || ""}
+            isOptionEqualToValue={(option, value) => option.Dirección === value}
+          /> 
+            {/* <TextField
             required
             error={!!errors?.direccionInterno}
             id="direccionInterno"
@@ -1749,7 +2080,7 @@ const handleExtensionInternoChange = (event) => {
             value={formData.direccionInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb:3}}
-            />                   
+            />                    */}
         </Box>
       </Box>
 
@@ -1947,7 +2278,7 @@ const handleExtensionInternoChange = (event) => {
             onChange={handleExtensionExternoChange}
             sx={{ background: "#FFFFFF"}}
             /> 
-            <TextField
+            {/* <TextField
             required
             error={!!errors?.ciudadExterno}
             id="ciudadExterno"
@@ -1990,7 +2321,119 @@ const handleExtensionInternoChange = (event) => {
             value={formData.direccionExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb:3}}
-            />          
+            />           */}
+            <Autocomplete
+            disablePortal
+            options={estadoOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.estadoExterno}
+                placeholder="Escriba o seleccione el estado"
+                sx={{ background: "#FFFFFF"}}
+                {...params}
+                label="Estado"
+              />
+            )}
+            id="estadoExterno"
+            name="estadoExterno"
+            onChange={(event, newValue) => {
+              handleEstadoExternos(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleEstadoExternos(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.estadoExterno || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          /> 
+           <Autocomplete
+            disablePortal
+            options={ciudadOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.ciudadExterno}
+                placeholder="Escriba o seleccione la ciudad"
+                sx={{ background: "#FFFFFF"}}
+                {...params}
+                label="Ciudad"
+              />
+            )}
+            id="ciudadExterno"
+            name="ciudadExterno"
+            onChange={(event, newValue) => {
+              handleCiudadExternos(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleCiudadExternos(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.ciudadExterno || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          />
+          <Autocomplete
+            disablePortal
+            options={cpOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.cpExterno}
+                placeholder="Escriba o seleccione el cp"
+                sx={{ background: "#FFFFFF"}}
+                {...params}
+                label="Códido Postal"
+              />
+            )}
+            id="cpExterno"
+            name="cpExterno"
+            onChange={(event, newValue) => {
+              handleCPExternos(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleCPExternos(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.cpExterno || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option || ""}
+            isOptionEqualToValue={(option, value) => option === value}
+          /> 
+          <Autocomplete
+            disablePortal
+            options={direccionFilteredOptions}
+            freeSolo
+            renderInput={(params) => (
+              <TextField
+                required
+                error={!!errors?.direccionExterno}
+                placeholder="Escriba o seleccione la dirección"
+                sx={{ background: "#FFFFFF", mb: 3 }}
+                {...params}
+                label="Dirección"
+              />
+            )}
+            id="direccionExterno"
+            name="direccionExterno"
+            onChange={(event, newValue) => {
+              handleDireccionExternos(newValue); // Maneja selección de opciones
+            }}
+            onInputChange={(event, newInputValue) => {
+              if (event?.type === "change") {
+                handleDireccionExternos(newInputValue); // Maneja texto escrito directamente
+              }
+            }}
+            inputValue={formData.direccionExterno || ""} // Controla el valor mostrado
+            getOptionLabel={(option) => option.Dirección || ""}
+            isOptionEqualToValue={(option, value) => option.Dirección === value}
+          />  
         </Box>
       </Box>
       {/* Datos del adicionales */}
