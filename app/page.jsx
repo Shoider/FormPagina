@@ -1,112 +1,30 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Box,
   Container,
   Typography,
   Button,
   useTheme,
-  Popover,
-  Divider,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Backdrop,
-  SpeedDial,
-  SpeedDialAction,
-  SpeedDialIcon,
+  Popover,  
+  Grow ,
+  Paper ,
+  Popper ,
+  MenuItem ,
+  MenuList ,
 } from "@mui/material";
 import Image from "next/image";
-import WifiIcon from '@mui/icons-material/Wifi';
-import CallIcon from '@mui/icons-material/Call';
-import VpnLockIcon from '@mui/icons-material/VpnLock';
-import SyncLockIcon from '@mui/icons-material/SyncLock';
+
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+
 
 export default function Home() {
+  //POPOVERS
   const theme = useTheme();
+  const router = useRouter();
 
-  //Constantes para seedDial
-  const [open6, setOpen6] = React.useState(false);
-  const handleOpen6 = () => setOpen6(true);
-  const handleClose6 = () => setOpen6(false);
-
-  //Constantes para el dialog de descarga de Guía para ampliación de internet
-  const [open7, setOpen7] = useState(false);
-  const handleClickOpen7 = () => {
-    setOpen7(true);
-  };
-  const handleClose7 = () => {
-    setOpen7(false);
-  }
-  const handleDownloadDocxInternet = () => {
-    const link = document.createElement("a");
-      link.href = "/manuales/Formato_INTERNET.docx"; // Ruta de archivo "General"
-      link.download = "Guia_Ampliacion_de_Internet_v1.docx";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    };
-  
-    //Constantes para el dialog de descarga de Guía para servicios telefonia
-  const [open8, setOpen8] = useState(false);
-  const handleClickOpen8 = () => {
-    setOpen8(true);
-  };
-  const handleClose8 = () => {
-    setOpen8(false);
-  }
-  const handleDownloadDocxTelefonia = () => {
-    const link = document.createElement("a");
-      link.href = "/manuales/Formato_TELEFONIA.docx"; // Ruta de archivo "General"
-      link.download = "Formato_Servicios_de_Telefonia_v1.docx";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    };
-    //Constantes para el dialog de descarga de Guía para servicios vpn
-  const [open9, setOpen9] = useState(false);
-  const handleClickOpen9 = () => {
-    setOpen9(true);
-  };
-  const handleClose9 = () => {
-    setOpen9(false);
-  }
-  const handleDownloadDocxVPN = () => {
-    const link = document.createElement("a");
-      link.href = "/manuales/Formato_VPN.docx"; // Ruta de archivo "General"
-      link.download = "Guía_Servicios_VPN_v1.docx";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    };
-    //Constantes para el dialog de descarga de Guía para servicios rfc
-  const [open10, setOpen10] = useState(false);
-  const handleClickOpen10 = () => {
-    setOpen10(true);
-  };
-  const handleClose10 = () => {
-    setOpen10(false);
-  }
-  const handleDownloadDocxRFC = () => {
-    const link = document.createElement("a");
-      link.href = "/manuales/Formato_RFC.docx"; // Ruta de archivo "General"
-      link.download = "Guía_Cambios_ABC_v1.docx";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    };
-//Iconos y acciones del speedDial
-  const actions = [
-    { icon: <WifiIcon htmlColor="#FFFFFF" />, name: 'Guía Internet', onClick: handleClickOpen7, color: "secondary"  },
-    { icon: <CallIcon htmlColor="#FFFFFF" />, name: 'Guía Telefonía' , onClick: handleClickOpen8, color: "secondary" },
-    { icon: <VpnLockIcon htmlColor="#FFFFFF" />, name: 'Guía VPN', onClick: handleClickOpen9, color: "secondary" },
-    { icon: <SyncLockIcon htmlColor="#FFFFFF" />, name: 'Guía RFC', onClick: handleClickOpen10, color: "secondary"  },
-  ];
-
-  // Popover
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -115,7 +33,7 @@ export default function Home() {
     setAnchorEl(null);
   };
   const open = Boolean(anchorEl);
-
+  
   const [anchorEl2, setAnchorEl2] = React.useState(null);
   const handlePopoverOpen2 = (event) => {
     setAnchorEl2(event.currentTarget);
@@ -142,6 +60,77 @@ export default function Home() {
     setAnchorEl4(null);
   };
   const open4 = Boolean(anchorEl4);
+
+  //Constantes de SSTTS
+  const options = [
+    {name: 'Solicitud de cambios en cortafuegos (SdC)',
+      href:"/rfc",
+      onMouseEnter:handlePopoverOpen,
+      onMouseLeave:handlePopoverClose},
+    {name: 'Solicitud de acceso remoto a través de una red virtual (VPN)',
+      href:"/vpn",
+      onMouseEnter:handlePopoverOpen2,
+      onMouseLeave:handlePopoverClose2},
+    {name: 'Solicitud de servicios de telefonía',
+      href:"/telefonia",
+      onMouseEnter:handlePopoverOpen3,
+      onMouseLeave:handlePopoverClose3},
+    {name: 'Solicitud de ampliación del servicio de internet',
+      href:"/internet",
+      onMouseEnter:handlePopoverOpen4,
+      onMouseLeave:handlePopoverClose4},
+  ];
+  //Constantes de SII
+  const options2 = [
+    {name: 'Solicitud de movimientos de la persona usuaria del red (Altas, bajas y cambios)',
+      href:"/abc_red",},
+    {name: 'Solicitud de registros DNS internos',
+      href:"/dns",},    
+  ];
+  
+  //Constantes para el menú desplegable de SSTTS
+  const [open11, setOpen11] = React.useState(false);
+  const anchorRef = React.useRef(null);
+
+  const handleMenuItemClick = (event, index, href) => {
+    setSelectedIndex(index);
+    setOpen11(false);
+    if (href) router.push(href);
+  };
+
+  const handleToggle = () => {
+    setOpen11((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen11(false);
+  }; 
+
+  //Constantes para el menú desplegable de SII
+  const [open12, setOpen12] = React.useState(false);
+  const anchorRef2 = React.useRef(null);
+
+  const handleMenuItemClick2 = (event, index, href) => {
+    setSelectedIndex(index);
+    setOpen12(false);
+    if (href) router.push(href);
+  };
+
+  const handleToggle2 = () => {
+    setOpen12((prevOpen) => !prevOpen);
+  };
+
+  const handleClose2 = (event) => {
+    if (anchorRef2.current && anchorRef2.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen12(false);
+  };
 
   return (
     
@@ -224,55 +213,208 @@ export default function Home() {
           </Typography>
         </Box>
       </Box>
+      
+      <Box sx={{
+        display: 'flex',
+        flexDirection: { xs: 'column', md: 'column' },
+        gap: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        px: 2,
+        mt: 2,
+        mb: 3,
+      }}>
+        <Button
+          variant="outlined"
+          sx={{
+            width: { xs: '100%', md: "75%", },
+            height: 'auto',
+            border: theme.palette.secondary.main,
+            p: 2,
+            textTransform: 'none',
+            color: 'white',
+            borderRadius: 2,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: theme.palette.secondary.main,
+            boxSizing: 'border-box',
+            padding: '0 8px',
+            fontSize: theme.typography.h4.fontSize,
+            '&:hover': {
+              transform: 'scale(1.02)',
+              transition: 'transform 0.3s ease-in-out',
+              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+            },
+          }}
+          ref={anchorRef}
+          onClick={handleToggle}
+        >
+          <Typography
+            variant="h4"
+            align="center"
+            gutterBottom
+            sx={{ mt: 1, ml: 1, mr: 1 }}
+            aria-owns={open ? 'mouse-over-popover' : undefined}
+            aria-haspopup="true"
+          >
+            Subgerencia de Soporte Técnico, Telecomunicaciones y Seguridad (SSTTS)
+          </Typography>
+        </Button>
+
+        <Button
+          variant="outlined"
+          sx={{
+            width: { xs: '100%', md: "75%", },
+            height: 'auto',
+            border: theme.palette.secondary.main,
+            p: 2,
+            textTransform: 'none',
+            color: 'white',
+            borderRadius: 2,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: theme.palette.secondary.main,
+            boxSizing: 'border-box',
+            padding: '0 8px',
+            fontSize: theme.typography.h4.fontSize,
+            '&:hover': {
+              transform: 'scale(1.02)',
+              transition: 'transform 0.3s ease-in-out',
+              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+            },
+          }}
+          ref={anchorRef2}
+          onClick={handleToggle2}
+        >
+          <Typography
+            variant="h4"
+            align="center"
+            gutterBottom
+            sx={{ mt: 1, ml: 1, mr: 1 }}
+            aria-owns={open ? 'mouse-over-popover' : undefined}
+            aria-haspopup="true"
+          >
+            Subgerencia de Internet e Intranet (SII)
+          </Typography>
+        </Button>
+      </Box>
+
+      <Popper
+        sx={{ zIndex: 1300 }}
+        open={open11}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        transition
+        placement="bottom-start"
+        modifiers={[
+          { name: 'offset', options: { offset: [0, 8] } },
+          { name: 'preventOverflow', options: { padding: 8 } },
+        ]}
+      >
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === 'bottom' ? 'center top' : 'center bottom',
+            }}
+          >
+            <Paper
+              sx={{
+                minWidth: anchorRef.current ? anchorRef.current.clientWidth : 240,
+                bgcolor: 'background.paper',
+                boxShadow: 4,
+              }}
+            >
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList sx={{ 
+                  background: theme.palette.secondary.main,
+                  py: 1 
+                  }}>
+                  {options.map((action, index) => (
+                    <MenuItem
+                      key={action.name}
+                      onClick={(event) => handleMenuItemClick(event, index, action.href)}
+                      onMouseEnter={action.onMouseEnter}
+                      onMouseLeave={action.onMouseLeave}
+                      sx={{
+                        mt: 1, ml: 1, mr: 1,
+                        color: "white",
+                        fontSize: theme.typography.h5.fontSize,
+                        px: 2,
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {action.name}
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
+
+      <Popper
+        sx={{ zIndex: 1300 }}
+        open={open12}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        transition
+        placement="bottom-start"
+        modifiers={[
+          { name: 'offset', options: { offset: [0, 10] } },
+          { name: 'preventOverflow', options: { padding: 10 } },
+        ]}
+      >
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === 'bottom' ? 'center top' : 'center bottom',
+            }}
+          >
+            <Paper
+              sx={{
+                minWidth: anchorRef2.current ? anchorRef2.current.clientWidth : 240,
+                bgcolor: 'background.paper',
+                boxShadow: 4,
+              }}
+            >
+              <ClickAwayListener onClickAway={handleClose2}>
+                <MenuList sx={{ 
+                  background: theme.palette.secondary.main,
+                  py: 1 
+                  }}>
+                  {options2.map((action, index) => (
+                    <MenuItem
+                      key={action.name}
+                      onClick={(event) => handleMenuItemClick2(event, index, action.href)}
+                      // onMouseEnter={action.onMouseEnter}
+                      // onMouseLeave={action.onMouseLeave}
+                      sx={{
+                        mt: 1, ml: 1, mr: 1,
+                        color: "white",
+                        fontSize: theme.typography.h5.fontSize,
+                        px: 2,
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {action.name}
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
 
       {/* RFC */}
-      <Button
-        variant="outlined"
-        href="/rfc"
-        sx={{
-          width: "auto%",
-          height: "calc(100% - 32px)",
-          border: theme.palette.secondary.main, //          
-          textTransform: 'none',
-          mt: 1,
-          mb: 1,
-          ml: 2,
-          mr: 2,
-          p: 1,
-          color: "white",
-          borderRadius: 2,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: theme.palette.secondary.main,
-          boxSizing: "border-box",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "70.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-          fontSize: "h4",
-          "&:hover": {
-            transform: "scale(1.02)",
-            transition: "transform 0.3s ease-in-out",
-            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-          },
-        }}
-      >
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 1, ml: 1, mr: 1 }}
-          aria-owns={open ? "mouse-over-popover" : undefined}
-          aria-haspopup="true"
-          onMouseEnter={handlePopoverOpen}
-          onMouseLeave={handlePopoverClose}
-        >
-          Solicitud de cambios en cortafuegos (SdC)
-        </Typography>
+      
         <Popover
           id="mouse-over-popover"
           sx={{ pointerEvents: "none",
@@ -315,74 +457,9 @@ export default function Home() {
             a TCP 80 y 443.
           </Typography>
         </Popover>
-      </ Button>   
-     
-      {/* <Divider
-          sx={{
-            //borderBottomWidth: "1px",
-            height: "calc(50% - 32px)",
-            borderColor: "black",
-            ml: 2,
-            mr: 2,
-            mb: 3,
-            padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "50.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-          }}
-        /> */}
-      {/* VPN MAYO */}
-      <Button
-        variant="outlined"
-        //modificar para que sea vpn
-        href="/vpn"
-        sx={{
-          width: "auto%",
-          height: "calc(100% - 32px)",
-          border: theme.palette.secondary.main, //    
-          mt: 1,
-          mb: 1,
-          ml: 2,
-          mr: 2,
-          p: 1,
-          textTransform: 'none',
-          color: "white",
-          borderRadius: 2,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: theme.palette.secondary.main,
-          boxSizing: "border-box",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "70.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-          fontSize: theme.typography.h4.fontSize,
-          "&:hover": {
-            transform: "scale(1.02)",
-            transition: "transform 0.3s ease-in-out",
-            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-          },
-        }}
-      >
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 1, ml: 1, mr: 1 }}
-          aria-owns={open ? "mouse-over-popover" : undefined}
-          aria-haspopup="true"
-          onMouseEnter={handlePopoverOpen2}
-          onMouseLeave={handlePopoverClose2}
-        >
-          Solicitud de acceso remoto a través de una red virtual (VPN)
-        </Typography>
+      
+      {/* VPN  */}
+      
         <Popover
           id="mouse-over-popover"
           sx={{ pointerEvents: "none",
@@ -422,56 +499,9 @@ export default function Home() {
             conocida como VPN.
           </Typography>
         </Popover>
-      </Button>
 
       {/* TELEFONIA */}
-      <Button
-        variant="outlined"
-        href="/telefonia"
-        sx={{
-          width: "auto%",
-          height: "calc(100% - 32px)",
-          border: theme.palette.secondary.main,
-          mt: 2,
-          mb: 3,
-          ml: 2,
-          mr: 2,
-          p: 2,
-          textTransform: 'none',
-          color: "white",
-          borderRadius: 2,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: theme.palette.secondary.main,
-          boxSizing: "border-box",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "70.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-          fontSize: theme.typography.h4.fontSize,
-          "&:hover": {
-            transform: "scale(1.02)",
-            transition: "transform 0.3s ease-in-out",
-            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-          },
-        }}
-      >
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 2, ml: 2, mr: 2 }}
-          aria-owns={open ? "mouse-over-popover" : undefined}
-          aria-haspopup="true"
-          onMouseEnter={handlePopoverOpen3}
-          onMouseLeave={handlePopoverClose3}
-        >
-          Solicitud de servicios de telefonía
-        </Typography>
+      
         <Popover
           id="mouse-over-popover"
           sx={{ pointerEvents: "none",
@@ -508,56 +538,9 @@ export default function Home() {
             telefonía 
           </Typography>
         </Popover>
-      </Button>
 
       {/* INTERNET */}
-      <Button
-        variant="outlined"
-        href="/internet"
-        sx={{
-          width: "auto%",
-          height: "calc(100% - 32px)",
-          border: theme.palette.secondary.main,
-          mt: 2,
-          mb: 3,
-          ml: 2,
-          mr: 2,
-          p: 2,
-          textTransform: 'none',
-          color: "white",
-          borderRadius: 2,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: theme.palette.secondary.main,
-          boxSizing: "border-box",
-          padding: "0 8px",
-          "@media (min-width: 960px)": {
-            maxWidth: "70.00%",
-            width: "auto",
-            margin: "2rem auto",
-            padding: "2",
-          },
-          fontSize: theme.typography.h4.fontSize,
-          "&:hover": {
-            transform: "scale(1.02)",
-            transition: "transform 0.3s ease-in-out",
-            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-          },
-        }}
-      >
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ mt: 1, ml: 1, mr: 1 }}
-          aria-owns={open ? "mouse-over-popover" : undefined}
-          aria-haspopup="true"
-          onMouseEnter={handlePopoverOpen4}
-          onMouseLeave={handlePopoverClose4}
-        >
-          Solicitud de ampliación del servicio de internet
-        </Typography>
+      
         <Popover
           id="mouse-over-popover"
           sx={{ pointerEvents: "none",
@@ -594,384 +577,8 @@ export default function Home() {
             solicitar una ampliación del servicio de internet
           </Typography>
         </Popover>
-      </Button>      
 
-      {/* *Botón emergente de Guías */}    
-            <SpeedDial
-              ariaLabel="SpeedDial tooltip example"
-              variant="contained"
-              //Descomenatar para mostrar el speeddial del manual de llenado de los 4 formatos
-              sx={{ position: 'absolute', top: 30,bottom: 5, right: 90, 
-                display: { xs: "none", md: "none" },  
-                '& .MuiFab-root': { // Esto afecta todos los FABs (principal y acciones)
-                backgroundColor: 'dial.third',
-                '&:hover': {
-                  backgroundColor: 'dial.forty',
-                }
-              },             
-               }}
-              icon={<SpeedDialIcon />}
-              onClose={handleClose6}
-              onOpen={handleOpen6}
-              open={open6}
-            >
-              {actions.map((action) => (
-                <SpeedDialAction
-                sx={{ 
-                  position:"center",
-                  '& .MuiFab-root': {
-                    backgroundColor: 'dial.third',
-                    '&:hover': {
-                      backgroundColor: 'dial.forty',
-                    }
-                  },
-                  mt:4,
-                  mb:3,
-                }}
-                  key={action.name}
-                  icon={action.icon}
-                  slotProps={{
-                    tooltip: {
-                      open: true,
-                      //title: action.name,
-                    },                    
-                  }}                  
-                
-                tooltipTitle={action.name}
-                tooltipOpen
-                onClick={action.onClick}
-                />
-              ))}
-            </SpeedDial>
-
-      {/**Dialogs de guías */}
-      {/* Dialog para Guía de internet*/}
-        <Dialog
-          open={open7}
-          onClose={handleClose7}
-          sx={{
-            "& .MuiDialog-container": {
-              backgroundColor: "f5f5f5", // Or any other color
-            },
-            "& .MuiDialog-paper": {
-              backgroundColor: "#f4f4f5", // Customize dialog content background
-            },
-          }}
-          
-        >
-          <DialogContent>
-            <DialogTitle
-            align="center"
-            sx={{
-              mt: -2
-            }}
-            >
-              Descarga de Guía de llenado de solicictud de ampliación del servicio de internet
-              </DialogTitle>
-            <DialogContentText>
-              
-            </DialogContentText>
-            <Divider
-              sx={{
-                borderBottomWidth: "1px",
-                borderColor: "grey",
-                ml: 2,
-                mr: 2,
-                mb: 0,
-                mt: 0,
-              }}
-            />
-            <Button
-              variant="contained"
-              onClick={handleDownloadDocxInternet}
-              sx={{
-                mt: 2,
-                mb: 0,
-                width: "calc(100% - 32px)",
-                ml: 2,
-                mr: 4,
-                //color: theme.palette.third.main,
-                background:
-                    theme.palette.secondary.main                 
-              }}
-            >
-              Guía de llenado de solicitud de ampliación del servicio de internet
-            </Button>
-            
-            <Divider
-              sx={{
-                borderBottomWidth: "1px",
-                borderColor: "grey",
-                ml: 2,
-                mr: 2,
-                mb: 0,
-                mt: 2,
-              }}
-            />
-            <Button
-              variant="contained"
-              onClick={handleClose7}
-              sx={{
-                mt: 2,
-                mb: 2,
-                width: "calc(100% - 32px)",
-                ml: 2,
-                mr: 4,
-                background: "#98989A",
-                color: "#FFFFFF",
-                border: "1px solid gray",
-              }}
-            >
-              Cancelar
-            </Button>
-          </DialogContent>
-        </Dialog>
-
-        {/* Dialog para Guía de telefonía*/}
-        <Dialog
-          open={open8}
-          onClose={handleClose8}
-          sx={{
-            "& .MuiDialog-container": {
-              backgroundColor: "f5f5f5", // Or any other color
-            },
-            "& .MuiDialog-paper": {
-              backgroundColor: "#f4f4f5", // Customize dialog content background
-            },
-          }}
-          
-        >
-          <DialogContent>
-            <DialogTitle
-            align="center"
-            sx={{
-              mt: -2
-            }}
-            >
-              Descarga de Guía de llenado de solicictud de servicios de telefonía
-              </DialogTitle>
-            <DialogContentText>
-              
-            </DialogContentText>
-            <Divider
-              sx={{
-                borderBottomWidth: "1px",
-                borderColor: "grey",
-                ml: 2,
-                mr: 2,
-                mb: 0,
-                mt: 0,
-              }}
-            />
-            <Button
-              variant="contained"
-              onClick={handleDownloadDocxTelefonia}
-              sx={{
-                mt: 2,
-                mb: 0,
-                width: "calc(100% - 32px)",
-                ml: 2,
-                mr: 4,
-                //color: theme.palette.third.main,
-                background:
-                    theme.palette.secondary.main                 
-              }}
-            >
-              Guía de llenado de solicitud de servicios de telefonía
-            </Button>
-            
-            <Divider
-              sx={{
-                borderBottomWidth: "1px",
-                borderColor: "grey",
-                ml: 2,
-                mr: 2,
-                mb: 0,
-                mt: 2,
-              }}
-            />
-            <Button
-              variant="contained"
-              onClick={handleClose8}
-              sx={{
-                mt: 2,
-                mb: 2,
-                width: "calc(100% - 32px)",
-                ml: 2,
-                mr: 4,
-                background: "#98989A",
-                color: "#FFFFFF",
-                border: "1px solid gray",
-              }}
-            >
-              Cancelar
-            </Button>
-          </DialogContent>
-        </Dialog>     
-
-        {/* Dialog para Guía de vpn*/}
-        <Dialog
-          open={open9}
-          onClose={handleClose9}
-          sx={{
-            "& .MuiDialog-container": {
-              backgroundColor: "f5f5f5", // Or any other color
-            },
-            "& .MuiDialog-paper": {
-              backgroundColor: "#f4f4f5", // Customize dialog content background
-            },
-          }}
-          
-        >
-          <DialogContent>
-            <DialogTitle
-            align="center"
-            sx={{
-              mt: -2
-            }}
-            >
-              Descarga de Guía de llenado de solicictud de acceso remoto a tráves de una red virtual (VPN)
-              </DialogTitle>
-            <DialogContentText>
-              
-            </DialogContentText>
-            <Divider
-              sx={{
-                borderBottomWidth: "1px",
-                borderColor: "grey",
-                ml: 2,
-                mr: 2,
-                mb: 0,
-                mt: 0,
-              }}
-            />
-            <Button
-              variant="contained"
-              onClick={handleDownloadDocxVPN}
-              sx={{
-                mt: 2,
-                mb: 0,
-                width: "calc(100% - 32px)",
-                ml: 2,
-                mr: 4,
-                //color: theme.palette.third.main,
-                background:
-                    theme.palette.secondary.main                 
-              }}
-            >
-              Guía de llenado de solicitud de acceso remotor a tráves de una red virtual (VPN)
-            </Button>
-            
-            <Divider
-              sx={{
-                borderBottomWidth: "1px",
-                borderColor: "grey",
-                ml: 2,
-                mr: 2,
-                mb: 0,
-                mt: 2,
-              }}
-            />
-            <Button
-              variant="contained"
-              onClick={handleClose9}
-              sx={{
-                mt: 2,
-                mb: 2,
-                width: "calc(100% - 32px)",
-                ml: 2,
-                mr: 4,
-                background: "#98989A",
-                color: "#FFFFFF",
-                border: "1px solid gray",
-              }}
-            >
-              Cancelar
-            </Button>
-          </DialogContent>
-        </Dialog> 
-
-        {/* Dialog para Guía de RFC*/}
-        <Dialog
-          open={open10}
-          onClose={handleClose10}
-          sx={{
-            "& .MuiDialog-container": {
-              backgroundColor: "f5f5f5", // Or any other color
-            },
-            "& .MuiDialog-paper": {
-              backgroundColor: "#f4f4f5", // Customize dialog content background
-            },
-          }}
-          
-        >
-          <DialogContent>
-            <DialogTitle
-            align="center"
-            sx={{
-              mt: -2
-            }}
-            >
-              Descarga de Guía de llenado de solicictud de cambios en cortafuegos (RFC)
-              </DialogTitle>
-            <DialogContentText>
-              
-            </DialogContentText>
-            <Divider
-              sx={{
-                borderBottomWidth: "1px",
-                borderColor: "grey",
-                ml: 2,
-                mr: 2,
-                mb: 0,
-                mt: 0,
-              }}
-            />
-            <Button
-              variant="contained"
-              onClick={handleDownloadDocxRFC}
-              sx={{
-                mt: 2,
-                mb: 0,
-                width: "calc(100% - 32px)",
-                ml: 2,
-                mr: 4,
-                //color: theme.palette.third.main,
-                background:
-                    theme.palette.secondary.main                 
-              }}
-            >
-              Guía de llenado de solicitud de cambios en cortafuegos (RFC)
-            </Button>
-            
-            <Divider
-              sx={{
-                borderBottomWidth: "1px",
-                borderColor: "grey",
-                ml: 2,
-                mr: 2,
-                mb: 0,
-                mt: 2,
-              }}
-            />
-            <Button
-              variant="contained"
-              onClick={handleClose10}
-              sx={{
-                mt: 2,
-                mb: 2,
-                width: "calc(100% - 32px)",
-                ml: 2,
-                mr: 4,
-                background: "#98989A",
-                color: "#FFFFFF",
-                border: "1px solid gray",
-              }}
-            >
-              Cancelar
-            </Button>
-          </DialogContent>
-        </Dialog>
+      
       </Box>
     </Container>
     
