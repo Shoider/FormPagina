@@ -91,6 +91,7 @@ export default function Home() {
   //Constantes para el menú desplegable de SSTTS
   const [open11, setOpen11] = React.useState(false);
   const anchorRef = React.useRef(null);
+  const [selectedIndex, setSelectedIndex] = React.useState(null);
 
   const handleMenuItemClick = (event, index, href) => {
     setSelectedIndex(index);
@@ -360,7 +361,7 @@ export default function Home() {
       <Popper
         sx={{ zIndex: 1300 }}
         open={open12}
-        anchorEl={anchorRef.current}
+        anchorEl={anchorRef2.current}
         role={undefined}
         transition
         placement="bottom-start"
