@@ -366,6 +366,7 @@ export default function Home() {
 };
 
   const handleOpenModal = () => {
+    
     //No abrir el modal si ya está en modo descarga
     if (botonEstado === "Descargar PDF") return;
     const [isValid, isValidTabla, getErrors] =
@@ -448,7 +449,7 @@ export default function Home() {
       camposRequeridos = [      
       "nombreEnlace",
       "telefonoEnlace",  
-      "puestoEnlace",    
+      //"puestoEnlace",    
       "justificacion",
       "marca",
       "modelo",
@@ -479,6 +480,13 @@ export default function Home() {
         "serie",
         "justificacion",
       ];
+    }
+
+    if (Data.subgerencia === "Subgerencia de Sistemas") {
+      const nuevosCampos = [
+        "casoespecial"
+      ];
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
     }
 
     if (Data.solicitante === "CONAGUA") {
@@ -512,6 +520,7 @@ export default function Home() {
         isValid = false;
       }
     }
+    
 
     // Valida que al menos uno de los accesos esté seleccionado
     if(Data.casoespecial === "Individual" || Data.subgerencia !== "Subgerencia de Sistemas"){
@@ -1377,6 +1386,13 @@ export default function Home() {
                 label="Grupal"
               />
             </RadioGroup>
+            <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <FormHelperText
               sx={{
                 ml: 2,
@@ -1389,6 +1405,9 @@ export default function Home() {
             >
               {errors?.casoespecial}
             </FormHelperText>
+          </Box>
+            
+
         </Box>
         {/*<Button
             //type="submit"
@@ -2837,7 +2856,14 @@ export default function Home() {
             placeholder="Justifique la necesidad del servicio (Min.50 caracteres)"
             value={formData.justificacion}
             onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}            
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+              }
+            }}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            //multiline
+            //rows={4}
           />
         </Box>
       </Box>
