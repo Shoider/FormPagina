@@ -121,41 +121,41 @@ export default function Home() {
   });
 
    //Capitalizar
-  function capitalizeWords(str) {
-  const exceptions = ["de", "para", "por", "y", "en", "a", "la", "el", "del", "al", "con", "sin", "o", "u"];
-  return str
-    .split(" ")
-    .map((word, idx) => {
-      // Si la palabra es solo números, no la modifica
-      if (/^[0-9]+$/.test(word)) return word;
-      // Si la palabra tiene letras, capitaliza solo la primera letra que sea letra
-      const match = word.match(/^([0-9]*)([a-zA-ZÁÉÍÓÚÑáéíóúñ])(.*)$/);
-      if (match) {
-        const [, nums, firstLetter, rest] = match;
-        const lower = (firstLetter + rest).toLowerCase();
-        const capitalized = lower.charAt(0).toUpperCase() + lower.slice(1);
-        return idx === 0 || !exceptions.includes(lower)
-          ? (nums || "") + capitalized
-          : (nums || "") + lower;
-      }
-      // Si no tiene letras, solo minúsculas (ej: símbolos)
-      return word;
-    })
-    .join(" ");
-}
-// Lista de campos a capitalizar
-const fieldsToCapitalize = [
-  "nombreInterno",
-  "puestoInterno",
-  "nombreExterno",
-  "empresaExterno",
-  "nombreResponsable",
-  "puestoResponsable",
-  "nombreAutoriza",
-  "puestoAutoriza",
-  "nombreEnlace",
-  "puestoEnlace",
-];
+//   function capitalizeWords(str) {
+//   const exceptions = ["de", "para", "por", "y", "en", "a", "la", "el", "del", "al", "con", "sin", "o", "u"];
+//   return str
+//     .split(" ")
+//     .map((word, idx) => {
+//       // Si la palabra es solo números, no la modifica
+//       if (/^[0-9]+$/.test(word)) return word;
+//       // Si la palabra tiene letras, capitaliza solo la primera letra que sea letra
+//       const match = word.match(/^([0-9]*)([a-zA-ZÁÉÍÓÚÑáéíóúñ])(.*)$/);
+//       if (match) {
+//         const [, nums, firstLetter, rest] = match;
+//         const lower = (firstLetter + rest).toLowerCase();
+//         const capitalized = lower.charAt(0).toUpperCase() + lower.slice(1);
+//         return idx === 0 || !exceptions.includes(lower)
+//           ? (nums || "") + capitalized
+//           : (nums || "") + lower;
+//       }
+//       // Si no tiene letras, solo minúsculas (ej: símbolos)
+//       return word;
+//     })
+//     .join(" ");
+// }
+// // Lista de campos a capitalizar
+// const fieldsToCapitalize = [
+//   "nombreInterno",
+//   "puestoInterno",
+//   "nombreExterno",
+//   "empresaExterno",
+//   "nombreResponsable",
+//   "puestoResponsable",
+//   "nombreAutoriza",
+//   "puestoAutoriza",
+//   "nombreEnlace",
+//   "puestoEnlace",
+//];
 
   // TABLAS INFORMACION
   const [webTableData, setWebTableData] = useState([]);
@@ -196,26 +196,26 @@ const fieldsToCapitalize = [
   };
 
   // HandleChange FormData
-  // const handleChange = (event) => {
-  //   const { name, value, type, checked } = event.target;
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     [name]: type === "checkbox" ? checked : value,
-  //   }));
-  // };
-  //Prueba de capitalizar
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-  setFormData((prevFormData) => ({
-    ...prevFormData,
-    [name]:
-      type === "checkbox"
-        ? checked
-        : fieldsToCapitalize.includes(name)
-        ? capitalizeWords(value)
-        : value,
-  }));
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
+  //Prueba de capitalizar
+  // const handleChange = (event) => {
+  //   const { name, value, type, checked } = event.target;
+  // setFormData((prevFormData) => ({
+  //   ...prevFormData,
+  //   [name]:
+  //     type === "checkbox"
+  //       ? checked
+  //       : fieldsToCapitalize.includes(name)
+  //       ? capitalizeWords(value)
+  //       : value,
+  // }));
+  // };
   const handlePuestosInterno = (newValue) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -366,6 +366,7 @@ const fieldsToCapitalize = [
 };
 
   const handleOpenModal = () => {
+    
     //No abrir el modal si ya está en modo descarga
     if (botonEstado === "Descargar PDF") return;
     const [isValid, isValidTabla, getErrors] =
@@ -448,7 +449,7 @@ const fieldsToCapitalize = [
       camposRequeridos = [      
       "nombreEnlace",
       "telefonoEnlace",  
-      "puestoEnlace",    
+      //"puestoEnlace",    
       "justificacion",
       "marca",
       "modelo",
@@ -479,6 +480,13 @@ const fieldsToCapitalize = [
         "serie",
         "justificacion",
       ];
+    }
+
+    if (Data.subgerencia === "Subgerencia de Sistemas") {
+      const nuevosCampos = [
+        "casoespecial"
+      ];
+      camposRequeridos = [...camposRequeridos, ...nuevosCampos];
     }
 
     if (Data.solicitante === "CONAGUA") {
@@ -512,6 +520,7 @@ const fieldsToCapitalize = [
         isValid = false;
       }
     }
+    
 
     // Valida que al menos uno de los accesos esté seleccionado
     if(Data.casoespecial === "Individual" || Data.subgerencia !== "Subgerencia de Sistemas"){
@@ -1377,6 +1386,13 @@ const fieldsToCapitalize = [
                 label="Grupal"
               />
             </RadioGroup>
+            <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <FormHelperText
               sx={{
                 ml: 2,
@@ -1389,6 +1405,9 @@ const fieldsToCapitalize = [
             >
               {errors?.casoespecial}
             </FormHelperText>
+          </Box>
+            
+
         </Box>
         {/*<Button
             //type="submit"
@@ -1566,6 +1585,7 @@ const fieldsToCapitalize = [
             value={formData.nombreEnlace}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
           />
           {/**Puesto o cargo de la persona responsable en la CONAGUA */}
           <TextField
@@ -1578,6 +1598,7 @@ const fieldsToCapitalize = [
             value={formData.puestoEnlace}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -1589,6 +1610,7 @@ const fieldsToCapitalize = [
             value={formData.telefonoEnlace}
             onChange={handleTelefonoEnlaceChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
           />
         </Box>          
         </Box>
@@ -1629,6 +1651,7 @@ const fieldsToCapitalize = [
             value={formData.nombreEnlace}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -1640,6 +1663,7 @@ const fieldsToCapitalize = [
             value={formData.telefonoEnlace}
             onChange={handleTelefonoEnlaceChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
           />
         </Box>
         </Box>    
@@ -1799,7 +1823,7 @@ const fieldsToCapitalize = [
             value={formData.nombreInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{  mt: 2 }}
+            inputProps={{ maxLength: 256, mt: 2 }}
           />
           {/**Puesto interno, aquí poner autocomplete */}
           <Autocomplete
@@ -1830,7 +1854,19 @@ const fieldsToCapitalize = [
             inputValue={formData.puestoInterno || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
-          />          
+          />
+          {/* <TextField
+            required={formData.solicitante === "CONAGUA"}
+            error={!!errors?.puestoInterno}
+            id="puestoInterno"
+            name="puestoInterno"
+            label="Puesto o Cargo"
+            placeholder="Escriba el puesto o cargo del usuario"
+            value={formData.puestoInterno}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          /> */}
           <TextField
             required={formData.solicitante === "CONAGUA"}
             error={!!errors?.correoInterno}
@@ -1841,6 +1877,7 @@ const fieldsToCapitalize = [
             value={formData.correoInterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required={formData.solicitante === "CONAGUA"}
@@ -1852,6 +1889,7 @@ const fieldsToCapitalize = [
             value={formData.telefonoInterno}
             onChange={handleTelefonoInternoChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
           />
         </Box>
 
@@ -1891,7 +1929,7 @@ const fieldsToCapitalize = [
             value={formData.nombreExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
-            inputProps={{ mt: 2 }}
+            inputProps={{ maxLength: 256, mt: 2 }}
           />
           <TextField
             required={formData.solicitante === "EXTERNO"}
@@ -1903,6 +1941,7 @@ const fieldsToCapitalize = [
             value={formData.correoExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required={formData.solicitante === "EXTERNO"}
@@ -1914,6 +1953,7 @@ const fieldsToCapitalize = [
             value={formData.empresaExterno}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
           />
           <Box
             display={
@@ -1931,6 +1971,7 @@ const fieldsToCapitalize = [
               value={formData.equipoExterno}
               onChange={handleChange}
               sx={{ background: "#FFFFFF", mb: 3 }}
+              inputProps={{ maxLength: 256 }}
             />
           </Box>
         </Box>
@@ -1982,6 +2023,7 @@ const fieldsToCapitalize = [
             value={formData.numeroEmpleadoResponsable}
             onChange={handleNumeroEmpleado}
             sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -1993,6 +2035,7 @@ const fieldsToCapitalize = [
             value={formData.nombreResponsable}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
           />
           {/**Puesto o cargo del empleado responsable, aquí poner autocomplete */}
           <Autocomplete
@@ -2022,7 +2065,19 @@ const fieldsToCapitalize = [
             inputValue={formData.puestoResponsable || ""} // Controla el valor mostrado
             getOptionLabel={(option) => option || ""}
             isOptionEqualToValue={(option, value) => option === value}
-          />          
+          />
+          {/* <TextField
+            required
+            error={!!errors?.puestoResponsable}
+            id="puestoResponsable"
+            name="puestoResponsable"
+            label="Puesto o cargo"
+            placeholder="Escriba el puesto o cargo del empleado responsable"
+            value={formData.puestoResponsable}
+            onChange={handleChange}
+            sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
+          /> */}
           <Autocomplete
             disablePortal
             options={filteredAreas}
@@ -2061,6 +2116,7 @@ const fieldsToCapitalize = [
             value={formData.telefonoResponsable}
             onChange={handleTelefonoResponsableChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
           />
         </Box>
       </Box>
@@ -2252,6 +2308,7 @@ const fieldsToCapitalize = [
             value={formData.marca}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -2263,6 +2320,7 @@ const fieldsToCapitalize = [
             value={formData.modelo}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -2274,6 +2332,7 @@ const fieldsToCapitalize = [
             value={formData.serie}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
           />
 
           <Divider
@@ -2415,6 +2474,7 @@ const fieldsToCapitalize = [
             value={formData.versionSO}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
           />
 
           <Divider
@@ -2796,7 +2856,14 @@ const fieldsToCapitalize = [
             placeholder="Justifique la necesidad del servicio (Min.50 caracteres)"
             value={formData.justificacion}
             onChange={handleChange}
-            sx={{ background: "#FFFFFF", mb: 3 }}            
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+              }
+            }}
+            sx={{ background: "#FFFFFF", mb: 3 }}
+            //multiline
+            //rows={4}
           />
         </Box>
       </Box>
@@ -2859,6 +2926,7 @@ const fieldsToCapitalize = [
             value={formData.nombreAutoriza}
             onChange={handleChange}
             sx={{ background: "#FFFFFF" }}
+            inputProps={{ maxLength: 256 }}
           />
           <TextField
             required
@@ -2870,6 +2938,7 @@ const fieldsToCapitalize = [
             value={formData.puestoAutoriza}
             onChange={handleChange}
             sx={{ background: "#FFFFFF", mb: 3 }}
+            inputProps={{ maxLength: 256 }}
           />
         </Box>
       </Box>
