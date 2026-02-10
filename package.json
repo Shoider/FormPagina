@@ -16,6 +16,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fontsource/noto-sans": "^5.2.5",
+    "@isaacs/brace-expansion": "^5.0.1",
     "@mui/icons-material": "^6.4.9",
     "@mui/material": "^6.4.9",
     "@mui/x-data-grid": "^7.28.1",
