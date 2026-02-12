@@ -138,6 +138,8 @@ export default function Home() {
     severity: "",
   });
 
+  const todayStr = new Date().toISOString().slice(0, 10); // YYYY-MM-DD para atributo min en inputs date
+
   //Validador de Campos 
   const validarCamposRequeridos = (Data) => {
     const errores = {};
@@ -726,31 +728,103 @@ const handleExtensionInternoChange = (event) => {
       
   const handleDateChangeInicio = (event) => {
     const rawDate = new Date(event.target.value + "T00:00:00");
+    const today = new Date(event.target.value + "T00:00:00");
+    //today.setHours(0, 0, 0, 0);
+
+    if (rawDate < today) {
+      setErrors((prev) => ({
+        ...prev,
+        inicioActividades: "La fecha no puede ser anterior a la fecha actual",
+      }));
+      setAlert({ message: "La fecha de inicio no puede ser anterior a la fecha actual.", severity: "error" });
+      setOpenAlert(true);
+      return;
+    }
+
+    // Si ya existe fecha de fin, validar que inicio <= fin
+    if (formData.finActividades) {
+      const finParts = formData.finActividades.split("-"); // DD-MM-YYYY
+      if (finParts.length === 3) {
+        const finDate = new Date(+finParts[2], +finParts[1] - 1, +finParts[0]);
+        finDate.setHours(0, 0, 0, 0);
+        if (rawDate > finDate) {
+          setErrors((prev) => ({
+            ...prev,
+            inicioActividades: "La fecha de inicio no puede ser posterior a la fecha de fin",
+          }));
+          setAlert({ message: "La fecha de inicio no puede ser posterior a la fecha de fin.", severity: "error" });
+          setOpenAlert(true);
+          return;
+        }
+      }
+    }
+
     const formattedDate = [
       rawDate.getDate().toString().padStart(2, "0"),
       (rawDate.getMonth() + 1).toString().padStart(2, "0"),
       rawDate.getFullYear(),
     ].join("-");
 
+    setErrors((prev) => {
+      const copy = { ...prev };
+      delete copy.inicioActividades;
+      delete copy.finActividades;
+      return copy;
+    });
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       inicioActividades: formattedDate, ///ya da bien formato DD-MM-YYYY
-      //fecha: formattedDate, // Guarda la fecha formateada en el estado
     }));
   };
   //const fechaInicio = new Date(formData.inicioActividades); //cambiar de objeto a fecha
   const handleDateChangeFin = (event) => {
     const rawDate = new Date(event.target.value + "T00:00:00");
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (rawDate < today) {
+      setErrors((prev) => ({
+        ...prev,
+        finActividades: "La fecha no puede ser anterior a la fecha actual",
+      }));
+      setAlert({ message: "La fecha de fin no puede ser anterior a la fecha actual.", severity: "error" });
+      setOpenAlert(true);
+      return;
+    }
+    // Si ya existe fecha de inicio, validar que fin >= inicio
+    if (formData.inicioActividades) {
+      const inicioParts = formData.inicioActividades.split("-"); // DD-MM-YYYY
+      if (inicioParts.length === 3) {
+        const inicioDate = new Date(+inicioParts[2], +inicioParts[1] - 1, +inicioParts[0]);
+        inicioDate.setHours(0, 0, 0, 0);
+        if (rawDate < inicioDate) {
+          setErrors((prev) => ({
+            ...prev,
+            finActividades: "La fecha de fin no puede ser anterior a la fecha de inicio",
+          }));
+          setAlert({ message: "La fecha de fin no puede ser anterior a la fecha de inicio.", severity: "error" });
+          setOpenAlert(true);
+          return;
+        }
+      }
+    }
     const formattedDate = [
       rawDate.getDate().toString().padStart(2, "0"),
       (rawDate.getMonth() + 1).toString().padStart(2, "0"),
       rawDate.getFullYear(),
     ].join("-");
 
+    setErrors((prev) => {
+      const copy = { ...prev };
+      delete copy.finActividades;
+      delete copy.inicioActividades;
+      return copy;
+    });
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       finActividades: formattedDate, ///ya da bien formato DD-MM-YYYY
-      //fecha: formattedDate, // Guarda la fecha formateada en el estado
     }));
   };
 
@@ -2946,6 +3020,7 @@ const handleExtensionInternoChange = (event) => {
             name="inicioActividades"
             label="Fecha de inicio de actividades"
             type="date"
+            inputProps={{ min: todayStr }}
             //value={formData.activacion}
             onChange={handleDateChangeInicio}
             sx={{ background: "#FFFFFF" }}
@@ -2977,6 +3052,7 @@ const handleExtensionInternoChange = (event) => {
             name="inicioActividades"
             label="Fecha de inicio de actividades"
             type="date"
+            inputProps={{ min: todayStr }}
             onChange={handleDateChangeInicio}
             sx={{ background: "#FFFFFF" , mb:3}}
             InputLabelProps={{ shrink: true }}
@@ -3007,6 +3083,7 @@ const handleExtensionInternoChange = (event) => {
             name="finActividades"
             label="Fecha de fin de actividades"
             type="date"
+            inputProps={{ min: todayStr }}
             onChange={handleDateChangeFin}
             sx={{ background: "#FFFFFF" }}
             InputLabelProps={{ shrink: true }}
