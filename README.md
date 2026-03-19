@@ -6,9 +6,8 @@ Este proyecto representa el frontend de la aplicación Formulario, diseñado par
 
 1.  [Descripción](#descripcion)
 2.  [Requisitos](#requisitos)
-3.  [Instalación](#instalacion)
-4.  [Uso](#uso)
-5.  [Desarrollo](#desarrollo)
+3.  [Uso](#uso)
+4.  [Desarrollo](#desarrollo)
 
 ---
 
@@ -19,27 +18,7 @@ Este frontend proporciona una interfaz de usuario para interactuar con la API de
 ## Requisitos
 
 - Docker instalado y en ejecución.
-- Git (opcional, para clonar el repositorio).
 
-## Instalación
-
-1.  **Clonar el Repositorio (Opcional)**
-
-    Si aún no tienes el código localmente, clona el repositorio desde GitHub:
-
-    ```bash
-    git clone [https://github.com/Shoider/FormPagina](https://github.com/Shoider/FormPagina)
-    cd first-project
-    ```
-
-2.  **Construir la Imagen Docker**
-
-    Desde el directorio del proyecto (donde se encuentra el `Dockerfile`), ejecuta el siguiente comando para construir la imagen Docker:
-
-    ```bash
-    export DOCKER_CONTENT_TRUST=1
-    docker build -t frontend:v1.0.0 .
-    ```
 
 ## Uso
 
